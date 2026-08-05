@@ -170,48 +170,51 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: AppSizes.horizontalPadding,
-          vertical: AppSizes.h(8),
-        ),
-        child: Row(
-          children: [
-            if (showBack)
-              GestureDetector(
-                onTap: onBack ?? () => Navigator.of(context).pop(),
-                child: Container(
-                  width: AppSizes.w(40),
-                  height: AppSizes.w(40),
-                  decoration: BoxDecoration(
-                    color: AppColors.bannerGradientStart,
-                    borderRadius: BorderRadius.circular(AppSizes.w(10)),
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        bottom: false,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSizes.horizontalPadding,
+            vertical: AppSizes.h(8),
+          ),
+          child: Row(
+            children: [
+              if (showBack)
+                GestureDetector(
+                  onTap: onBack ?? () => Navigator.of(context).pop(),
+                  child: Container(
+                    width: AppSizes.w(40),
+                    height: AppSizes.w(40),
+                    decoration: BoxDecoration(
+                      color: AppColors.bannerGradientStart,
+                      borderRadius: BorderRadius.circular(AppSizes.w(10)),
+                    ),
+                    child: Icon(
+                      Icons.arrow_back_ios_new,
+                      size: AppSizes.w(16),
+                      color: AppColors.textPrimary,
+                    ),
                   ),
-                  child: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: AppSizes.w(16),
-                    color: AppColors.textPrimary,
+                )
+              else
+                SizedBox(width: AppSizes.w(40)),
+              Expanded(
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    fontSize: AppSizes.sp(18),
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primaryColor,
                   ),
-                ),
-              )
-            else
-              SizedBox(width: AppSizes.w(40)),
-            Expanded(
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(18),
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.primaryColor,
                 ),
               ),
-            ),
-            SizedBox(width: AppSizes.w(40)),
-          ],
+              SizedBox(width: AppSizes.w(40)),
+            ],
+          ),
         ),
       ),
     );

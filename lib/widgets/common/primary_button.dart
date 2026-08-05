@@ -9,34 +9,41 @@ class PrimaryButton extends StatelessWidget {
     required this.onPressed,
     this.isLoading = false,
     this.loadingText,
+    this.enabled = true,
   });
 
   final String text;
   final VoidCallback? onPressed;
   final bool isLoading;
   final String? loadingText;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
+    final isActive = enabled && !isLoading;
+
     return Container(
       width: double.infinity,
       height: AppSizes.buttonHeight,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-        gradient: AppColors.primaryGradient,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryGradientStart.withValues(alpha: 0.35),
-            blurRadius: 16,
-            offset: Offset(0, AppSizes.h(8)),
-          ),
-        ],
+        gradient: isActive ? AppColors.primaryGradient : null,
+        color: isActive ? null : AppColors.primaryColor.withValues(alpha: 0.35),
+        // boxShadow: isActive
+        //     ? [
+        //         BoxShadow(
+        //           color: AppColors.primaryGradientStart.withValues(alpha: 0.35),
+        //           blurRadius: 16,
+        //           offset: Offset(0, AppSizes.h(8)),
+        //         ),
+        //       ]
+        //     : null,
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-          onTap: isLoading ? null : onPressed,
+          onTap: isActive ? onPressed : null,
           child: Center(
             child: isLoading
                 ? Row(

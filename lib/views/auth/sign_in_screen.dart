@@ -4,8 +4,10 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/create_account_view_model.dart';
+import 'package:fluentta_ai/viewmodels/forgot_password_view_model.dart';
 import 'package:fluentta_ai/viewmodels/sign_in_view_model.dart';
 import 'package:fluentta_ai/views/auth/create_account_screen.dart';
+import 'package:fluentta_ai/views/auth/forgot_password_screen.dart';
 import 'package:fluentta_ai/widgets/auth/auth_text_field.dart';
 import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
 import 'package:fluentta_ai/widgets/auth/social_login_button.dart';
@@ -59,13 +61,25 @@ class SignInScreen extends StatelessWidget {
                     SizedBox(height: AppSizes.spaceSm),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot password?',
-                        style: TextStyle(
-                          fontFamily: AppFonts.plusJakartaSans,
-                          fontSize: AppSizes.sp(13),
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.primaryColor,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => ChangeNotifierProvider(
+                                create: (_) => ForgotPasswordViewModel(),
+                                child: const ForgotPasswordScreen(),
+                              ),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Forgot password?',
+                          style: TextStyle(
+                            fontFamily: AppFonts.plusJakartaSans,
+                            fontSize: AppSizes.sp(13),
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.primaryColor,
+                          ),
                         ),
                       ),
                     ),
