@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "254450330965",
+    "project_id": "fluenttaai",
+    "storage_bucket": "fluenttaai.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254450330965:android:4d47e1ce246ce35263d3dc",
+        "android_client_info": {
+          "package_name": "com.futurewatch.fluenta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANruyv6Xf7rmIq-rTLRFRNY15uFE-1KhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
