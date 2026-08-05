@@ -8,11 +8,13 @@ class PrimaryButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.isLoading = false,
+    this.loadingText,
   });
 
   final String text;
   final VoidCallback? onPressed;
   final bool isLoading;
+  final String? loadingText;
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +39,30 @@ class PrimaryButton extends StatelessWidget {
           onTap: isLoading ? null : onPressed,
           child: Center(
             child: isLoading
-                ? SizedBox(
-                    width: AppSizes.w(24),
-                    height: AppSizes.w(24),
-                    child: const CircularProgressIndicator(
-                      color: AppColors.white,
-                      strokeWidth: 2,
-                    ),
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: AppSizes.w(20),
+                        height: AppSizes.w(20),
+                        child: const CircularProgressIndicator(
+                          color: AppColors.white,
+                          strokeWidth: 2,
+                        ),
+                      ),
+                      if (loadingText != null) ...[
+                        SizedBox(width: AppSizes.w(10)),
+                        Text(
+                          loadingText!,
+                          style: TextStyle(
+                            fontFamily: 'PlusJakartaSans',
+                            color: AppColors.white,
+                            fontSize: AppSizes.fontButton,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ],
                   )
                 : Text(
                     text,
