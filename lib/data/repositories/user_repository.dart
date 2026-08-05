@@ -146,9 +146,82 @@ class UserRepository {
       {
         'selectedLanguage': _localStorage.selectedLanguage ?? 'ur',
         'onboardingComplete': _localStorage.isOnboardingComplete,
+        if (_localStorage.englishGoal != null)
+          'englishGoal': _localStorage.englishGoal,
+        if (_localStorage.englishLevel != null)
+          'englishLevel': _localStorage.englishLevel,
+        if (_localStorage.dailyGoalMinutes != null)
+          'dailyGoalMinutes': _localStorage.dailyGoalMinutes,
+        'setupComplete': _localStorage.isSetupComplete,
         'updatedAt': FieldValue.serverTimestamp(),
       },
       SetOptions(merge: true),
     );
+  }
+
+  Future<void> saveSetupPreferences({
+    required String uid,
+    required String englishGoal,
+    required String englishLevel,
+    required int dailyGoalMinutes,
+  }) async {
+    await _localStorage.saveSetupPreferences(
+      englishGoal: englishGoal,
+      englishLevel: englishLevel,
+      dailyGoalMinutes: dailyGoalMinutes,
+    );
+
+    await _userDoc(uid).set(
+      {
+        'englishGoal': englishGoal,
+        'englishLevel': englishLevel,
+        'dailyGoalMinutes': dailyGoalMinutes,
+        'updatedAt': FieldValue.serverTimestamp(),
+      },
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<void> completeSetup({
+    required String uid,
+    required String englishGoal,
+    required String englishLevel,
+    required int dailyGoalMinutes,
+  }) async {
+    await saveSetupPreferences(
+      uid: uid,
+      englishGoal: englishGoal,
+      englishLevel: englishLevel,
+      dailyGoalMinutes: dailyGoalMinutes,
+    );
+
+    await _localStorage.setSetupComplete();
+
+    await _userDoc(uid).set(
+      {
+        'setupComplete': true,
+        'updatedAt': FieldValue.serverTimestamp(),
+      },
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<void> syncSetupFromFirestore(String uid) async {
+    final user = await getUser(uid);
+    if (user == null) return;
+
+    if (user.englishGoal != null &&
+        user.englishLevel != null &&
+        user.dailyGoalMinutes != null) {
+      await _localStorage.saveSetupPreferences(
+        englishGoal: user.englishGoal!,
+        englishLevel: user.englishLevel!,
+        dailyGoalMinutes: user.dailyGoalMinutes!,
+      );
+    }
+
+    if (user.setupComplete) {
+      await _localStorage.setSetupComplete();
+    }
   }
 }

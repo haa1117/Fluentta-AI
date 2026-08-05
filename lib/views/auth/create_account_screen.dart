@@ -4,16 +4,15 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/create_account_view_model.dart';
-import 'package:fluentta_ai/views/auth/account_created_screen.dart';
 import 'package:fluentta_ai/widgets/auth/auth_text_field.dart';
 import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
 class CreateAccountScreen extends StatelessWidget {
-  const CreateAccountScreen({super.key, required this.onSuccess});
+  const CreateAccountScreen({super.key, required this.onAccountCreated});
 
-  final VoidCallback onSuccess;
+  final VoidCallback onAccountCreated;
 
   @override
   Widget build(BuildContext context) {
@@ -71,19 +70,13 @@ class CreateAccountScreen extends StatelessWidget {
                       isLoading: viewModel.isLoading,
                       onPressed: () async {
                         try {
-                          await viewModel.createAccount(
+                          final created = await viewModel.createAccount(
                             context: context,
-                            onSuccess: () {
-                              if (!context.mounted) return;
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute<void>(
-                                  builder: (_) => AccountCreatedScreen(
-                                    onContinue: onSuccess,
-                                  ),
-                                ),
-                              );
-                            },
+                            onSuccess: () {},
                           );
+                          if (!context.mounted || !created) return;
+                          Navigator.of(context).pop();
+                          onAccountCreated();
                         } catch (e) {
                           if (context.mounted) {
                             SnackbarHelper.showError(

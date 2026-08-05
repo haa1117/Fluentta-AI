@@ -14,6 +14,10 @@ class LocalStorage {
   static const String _userDisplayNameKey = 'user_display_name';
   static const String _pendingResetEmailKey = 'pending_reset_email';
   static const String _pendingResetOobCodeKey = 'pending_reset_oob_code';
+  static const String _setupCompleteKey = 'setup_complete';
+  static const String _englishGoalKey = 'english_goal';
+  static const String _englishLevelKey = 'english_level';
+  static const String _dailyGoalMinutesKey = 'daily_goal_minutes';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -55,6 +59,11 @@ class LocalStorage {
   String? get pendingResetOobCode =>
       _prefs!.getString(_pendingResetOobCodeKey);
 
+  bool get isSetupComplete => _prefs!.getBool(_setupCompleteKey) ?? false;
+  String? get englishGoal => _prefs!.getString(_englishGoalKey);
+  String? get englishLevel => _prefs!.getString(_englishLevelKey);
+  int? get dailyGoalMinutes => _prefs!.getInt(_dailyGoalMinutesKey);
+
   Future<void> saveUserSession({
     required String uid,
     required String email,
@@ -71,6 +80,7 @@ class LocalStorage {
     await _prefs!.remove(_userUidKey);
     await _prefs!.remove(_userEmailKey);
     await _prefs!.remove(_userDisplayNameKey);
+    await clearSetupPreferences();
   }
 
   Future<void> setPendingResetEmail(String email) async {
@@ -84,6 +94,27 @@ class LocalStorage {
   Future<void> clearPendingReset() async {
     await _prefs!.remove(_pendingResetEmailKey);
     await _prefs!.remove(_pendingResetOobCodeKey);
+  }
+
+  Future<void> saveSetupPreferences({
+    required String englishGoal,
+    required String englishLevel,
+    required int dailyGoalMinutes,
+  }) async {
+    await _prefs!.setString(_englishGoalKey, englishGoal);
+    await _prefs!.setString(_englishLevelKey, englishLevel);
+    await _prefs!.setInt(_dailyGoalMinutesKey, dailyGoalMinutes);
+  }
+
+  Future<void> setSetupComplete() async {
+    await _prefs!.setBool(_setupCompleteKey, true);
+  }
+
+  Future<void> clearSetupPreferences() async {
+    await _prefs!.remove(_setupCompleteKey);
+    await _prefs!.remove(_englishGoalKey);
+    await _prefs!.remove(_englishLevelKey);
+    await _prefs!.remove(_dailyGoalMinutesKey);
   }
 
   bool get shouldShowOnboarding => !isOnboardingComplete;

@@ -10,6 +10,10 @@ class UserModel {
     required this.onboardingComplete,
     required this.authProvider,
     this.photoUrl,
+    this.englishGoal,
+    this.englishLevel,
+    this.dailyGoalMinutes,
+    this.setupComplete = false,
     this.createdAt,
     this.updatedAt,
     this.lastLoginAt,
@@ -23,6 +27,10 @@ class UserModel {
   final bool onboardingComplete;
   final String authProvider;
   final String? photoUrl;
+  final String? englishGoal;
+  final String? englishLevel;
+  final int? dailyGoalMinutes;
+  final bool setupComplete;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? lastLoginAt;
@@ -38,6 +46,10 @@ class UserModel {
       onboardingComplete: data['onboardingComplete'] as bool? ?? false,
       authProvider: data['authProvider'] as String? ?? 'email',
       photoUrl: data['photoUrl'] as String?,
+      englishGoal: data['englishGoal'] as String?,
+      englishLevel: data['englishLevel'] as String?,
+      dailyGoalMinutes: data['dailyGoalMinutes'] as int?,
+      setupComplete: data['setupComplete'] as bool? ?? false,
       createdAt: (data['createdAt'] as Timestamp?)?.toDate(),
       updatedAt: (data['updatedAt'] as Timestamp?)?.toDate(),
       lastLoginAt: (data['lastLoginAt'] as Timestamp?)?.toDate(),
@@ -55,6 +67,10 @@ class UserModel {
       'onboardingComplete': onboardingComplete,
       'authProvider': authProvider,
       if (photoUrl != null) 'photoUrl': photoUrl,
+      if (englishGoal != null) 'englishGoal': englishGoal,
+      if (englishLevel != null) 'englishLevel': englishLevel,
+      if (dailyGoalMinutes != null) 'dailyGoalMinutes': dailyGoalMinutes,
+      'setupComplete': setupComplete,
       'updatedAt': now,
       'lastLoginAt': now,
       if (isNew) 'createdAt': now,
@@ -69,6 +85,10 @@ class UserModel {
     bool? onboardingComplete,
     String? authProvider,
     String? photoUrl,
+    String? englishGoal,
+    String? englishLevel,
+    int? dailyGoalMinutes,
+    bool? setupComplete,
   }) {
     return UserModel(
       uid: uid,
@@ -79,6 +99,10 @@ class UserModel {
       onboardingComplete: onboardingComplete ?? this.onboardingComplete,
       authProvider: authProvider ?? this.authProvider,
       photoUrl: photoUrl ?? this.photoUrl,
+      englishGoal: englishGoal ?? this.englishGoal,
+      englishLevel: englishLevel ?? this.englishLevel,
+      dailyGoalMinutes: dailyGoalMinutes ?? this.dailyGoalMinutes,
+      setupComplete: setupComplete ?? this.setupComplete,
       createdAt: createdAt,
       updatedAt: updatedAt,
       lastLoginAt: lastLoginAt,

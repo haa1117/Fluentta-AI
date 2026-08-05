@@ -17,9 +17,14 @@ import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key, required this.onSuccess});
+  const SignInScreen({
+    super.key,
+    required this.onSuccess,
+    required this.onAccountCreated,
+  });
 
   final VoidCallback onSuccess;
+  final VoidCallback onAccountCreated;
 
   Future<void> _handleAuthAction(
     BuildContext context,
@@ -145,7 +150,9 @@ class SignInScreen extends StatelessWidget {
                     MaterialPageRoute<void>(
                       builder: (_) => ChangeNotifierProvider(
                         create: (_) => CreateAccountViewModel(authRepository),
-                        child: CreateAccountScreen(onSuccess: onSuccess),
+                        child: CreateAccountScreen(
+                          onAccountCreated: onAccountCreated,
+                        ),
                       ),
                     ),
                   );

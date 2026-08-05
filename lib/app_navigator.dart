@@ -7,16 +7,27 @@ import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:fluentta_ai/viewmodels/language_view_model.dart';
 import 'package:fluentta_ai/viewmodels/onboarding_view_model.dart';
+import 'package:fluentta_ai/viewmodels/setup_view_model.dart';
 import 'package:fluentta_ai/viewmodels/sign_in_view_model.dart';
 import 'package:fluentta_ai/viewmodels/splash_view_model.dart';
+import 'package:fluentta_ai/views/auth/account_created_screen.dart';
 import 'package:fluentta_ai/views/auth/sign_in_screen.dart';
 import 'package:fluentta_ai/views/home/home_screen.dart';
 import 'package:fluentta_ai/views/language/language_selection_screen.dart';
 import 'package:fluentta_ai/views/onboarding/onboarding_screen.dart';
+import 'package:fluentta_ai/views/setup/setup_flow_screen.dart';
 import 'package:fluentta_ai/views/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 
-enum AppFlow { splash, onboarding, language, signIn, home }
+enum AppFlow {
+  splash,
+  onboarding,
+  language,
+  signIn,
+  accountCreated,
+  setup,
+  home,
+}
 
 class AppNavigator extends StatefulWidget {
   const AppNavigator({
@@ -44,8 +55,13 @@ class _AppNavigatorState extends State<AppNavigator> {
     _currentFlow = _resolveInitialFlow();
     _authSubscription = widget.authRepository.authStateChanges.listen((user) {
       if (!mounted) return;
-      if (user != null && _currentFlow != AppFlow.home) {
-        setState(() => _currentFlow = AppFlow.home);
+      if (user != null &&
+          _currentFlow != AppFlow.home &&
+          _currentFlow != AppFlow.setup &&
+          _currentFlow != AppFlow.accountCreated) {
+        if (widget.localStorage.isSetupComplete) {
+          setState(() => _currentFlow = AppFlow.home);
+        }
       } else if (user == null &&
           _currentFlow == AppFlow.home &&
           widget.localStorage.hasSelectedLanguage) {
@@ -63,7 +79,10 @@ class _AppNavigatorState extends State<AppNavigator> {
   AppFlow _resolveInitialFlow() {
     if (widget.authRepository.currentUser != null ||
         widget.localStorage.isLoggedIn) {
-      return AppFlow.home;
+      if (widget.localStorage.isSetupComplete) {
+        return AppFlow.home;
+      }
+      return AppFlow.setup;
     }
     if (widget.localStorage.shouldShowOnboarding) {
       return AppFlow.splash;
@@ -86,8 +105,24 @@ class _AppNavigatorState extends State<AppNavigator> {
     setState(() => _currentFlow = AppFlow.signIn);
   }
 
+  void _goToAccountCreated() {
+    setState(() => _currentFlow = AppFlow.accountCreated);
+  }
+
+  void _goToSetup() {
+    setState(() => _currentFlow = AppFlow.setup);
+  }
+
   void _goToHome() {
     setState(() => _currentFlow = AppFlow.home);
+  }
+
+  void _handleSignInSuccess() {
+    if (widget.localStorage.isSetupComplete) {
+      _goToHome();
+    } else {
+      _goToSetup();
+    }
   }
 
   @override
@@ -114,6 +149,13 @@ class _AppNavigatorState extends State<AppNavigator> {
         ChangeNotifierProvider(
           create: (_) => SignInViewModel(widget.authRepository),
         ),
+        ChangeNotifierProvider(
+          create: (_) => SetupViewModel(
+            widget.localStorage,
+            widget.userRepository,
+            widget.authRepository,
+          ),
+        ),
       ],
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
@@ -132,7 +174,16 @@ class _AppNavigatorState extends State<AppNavigator> {
             ),
           AppFlow.signIn => SignInScreen(
               key: const ValueKey('signIn'),
-              onSuccess: _goToHome,
+              onSuccess: _handleSignInSuccess,
+              onAccountCreated: _goToAccountCreated,
+            ),
+          AppFlow.accountCreated => AccountCreatedScreen(
+              key: const ValueKey('accountCreated'),
+              onContinue: _goToSetup,
+            ),
+          AppFlow.setup => SetupFlowScreen(
+              key: const ValueKey('setup'),
+              onComplete: _goToHome,
             ),
           AppFlow.home => const HomeScreen(key: ValueKey('home')),
         },

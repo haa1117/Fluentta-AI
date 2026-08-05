@@ -228,6 +228,7 @@ class AuthRepository {
         user: user,
         authProvider: _resolveAuthProvider(user),
       );
+      await _userRepository.syncSetupFromFirestore(user.uid);
     } else {
       await _localStorage.clearUserSession();
     }
