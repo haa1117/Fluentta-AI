@@ -1,5 +1,10 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/data/repositories/auth_repository.dart';
+import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:fluentta_ai/viewmodels/language_view_model.dart';
 import 'package:fluentta_ai/viewmodels/onboarding_view_model.dart';
 import 'package:fluentta_ai/viewmodels/sign_in_view_model.dart';
@@ -14,9 +19,16 @@ import 'package:provider/provider.dart';
 enum AppFlow { splash, onboarding, language, signIn, home }
 
 class AppNavigator extends StatefulWidget {
-  const AppNavigator({super.key, required this.localStorage});
+  const AppNavigator({
+    super.key,
+    required this.localStorage,
+    required this.authRepository,
+    required this.userRepository,
+  });
 
   final LocalStorage localStorage;
+  final AuthRepository authRepository;
+  final UserRepository userRepository;
 
   @override
   State<AppNavigator> createState() => _AppNavigatorState();
@@ -24,21 +36,42 @@ class AppNavigator extends StatefulWidget {
 
 class _AppNavigatorState extends State<AppNavigator> {
   late AppFlow _currentFlow;
+  StreamSubscription<User?>? _authSubscription;
 
   @override
   void initState() {
     super.initState();
     _currentFlow = _resolveInitialFlow();
+    _authSubscription = widget.authRepository.authStateChanges.listen((user) {
+      if (!mounted) return;
+      if (user != null && _currentFlow != AppFlow.home) {
+        setState(() => _currentFlow = AppFlow.home);
+      } else if (user == null &&
+          _currentFlow == AppFlow.home &&
+          widget.localStorage.hasSelectedLanguage) {
+        setState(() => _currentFlow = AppFlow.signIn);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _authSubscription?.cancel();
+    super.dispose();
   }
 
   AppFlow _resolveInitialFlow() {
-    if (widget.localStorage.isFirstLaunch) {
-      if (widget.localStorage.isOnboardingComplete) {
-        return AppFlow.language;
-      }
+    if (widget.authRepository.currentUser != null ||
+        widget.localStorage.isLoggedIn) {
+      return AppFlow.home;
+    }
+    if (widget.localStorage.shouldShowOnboarding) {
       return AppFlow.splash;
     }
-    return AppFlow.home;
+    if (widget.localStorage.shouldShowLanguage) {
+      return AppFlow.language;
+    }
+    return AppFlow.signIn;
   }
 
   void _goToOnboarding() {
@@ -61,14 +94,26 @@ class _AppNavigatorState extends State<AppNavigator> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SplashViewModel()),
         ChangeNotifierProvider(
-          create: (_) => OnboardingViewModel(widget.localStorage),
+          create: (_) => SplashViewModel(widget.authRepository),
         ),
         ChangeNotifierProvider(
-          create: (_) => LanguageViewModel(widget.localStorage),
+          create: (_) => OnboardingViewModel(
+            widget.localStorage,
+            widget.userRepository,
+            widget.authRepository,
+          ),
         ),
-        ChangeNotifierProvider(create: (_) => SignInViewModel()),
+        ChangeNotifierProvider(
+          create: (_) => LanguageViewModel(
+            widget.localStorage,
+            widget.userRepository,
+            widget.authRepository,
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SignInViewModel(widget.authRepository),
+        ),
       ],
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),

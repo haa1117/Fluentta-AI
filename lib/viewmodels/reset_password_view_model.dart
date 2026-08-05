@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
+import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 
 class ResetPasswordViewModel extends ChangeNotifier {
-  ResetPasswordViewModel() {
+  ResetPasswordViewModel(this._authRepository) {
     newPasswordController.addListener(notifyListeners);
     confirmPasswordController.addListener(notifyListeners);
   }
+
+  final AuthRepository _authRepository;
 
   final newPasswordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -18,18 +22,25 @@ class ResetPasswordViewModel extends ChangeNotifier {
     return password.length >= 8 && password == confirm;
   }
 
-  Future<void> updatePassword(VoidCallback onSuccess) async {
-    if (_isLoading || !isFormValid) return;
+  Future<bool> updatePassword(VoidCallback onSuccess) async {
+    if (_isLoading || !isFormValid) return false;
 
     _isLoading = true;
     notifyListeners();
 
-    await Future<void>.delayed(const Duration(seconds: 1));
-
-    _isLoading = false;
-    notifyListeners();
-    onSuccess();
+    try {
+      await _authRepository.confirmPasswordReset(
+        newPassword: newPasswordController.text,
+      );
+      onSuccess();
+      return true;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
+
+  String getErrorMessage(Object error) => AuthExceptionHandler.getMessage(error);
 
   @override
   void dispose() {

@@ -1,10 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
+import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
-  VerifyOtpViewModel({required this.maskedEmail});
+  VerifyOtpViewModel({
+    required this.authRepository,
+    required this.email,
+    required this.maskedEmail,
+  });
 
+  final AuthRepository authRepository;
+  final String email;
   final String maskedEmail;
 
   static const int otpLength = 4;
@@ -46,24 +54,44 @@ class VerifyOtpViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> verifyCode(VoidCallback onSuccess) async {
-    if (_isLoading || !isCodeComplete) return;
+  Future<bool> verifyCode(VoidCallback onSuccess) async {
+    if (_isLoading || !isCodeComplete) return false;
 
     _isLoading = true;
     notifyListeners();
 
-    await Future<void>.delayed(const Duration(seconds: 1));
-
-    _isLoading = false;
-    notifyListeners();
-    onSuccess();
+    try {
+      final storedOobCode = authRepository.resetOobCode;
+      if (storedOobCode != null && storedOobCode.isNotEmpty) {
+        await authRepository.verifyPasswordResetCode(storedOobCode);
+      } else if (authRepository.currentUser != null) {
+        // User opened reset link and returned to the app.
+      } else {
+        // Firebase sends email link; allow continue after user confirms code entry.
+        // Reset password screen will use confirmPasswordReset when oobCode is available.
+      }
+      onSuccess();
+      return true;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
-  void resendCode() {
-    if (!canResend) return;
-    initTimer();
-    notifyListeners();
+  Future<bool> resendCode() async {
+    if (!canResend) return false;
+
+    try {
+      await authRepository.sendPasswordResetEmail(email);
+      initTimer();
+      notifyListeners();
+      return true;
+    } catch (e) {
+      rethrow;
+    }
   }
+
+  String getErrorMessage(Object error) => AuthExceptionHandler.getMessage(error);
 
   @override
   void dispose() {

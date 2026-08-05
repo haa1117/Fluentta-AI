@@ -3,6 +3,8 @@ import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/viewmodels/reset_password_view_model.dart';
 import 'package:fluentta_ai/viewmodels/verify_otp_view_model.dart';
 import 'package:fluentta_ai/views/auth/reset_password_screen.dart';
@@ -18,6 +20,7 @@ class VerifyOtpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final viewModel = context.watch<VerifyOtpViewModel>();
+    final authRepository = context.read<AuthRepository>();
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -52,23 +55,56 @@ class VerifyOtpScreen extends StatelessWidget {
                       text: 'Verify Code',
                       enabled: viewModel.isCodeComplete,
                       isLoading: viewModel.isLoading,
-                      onPressed: () => viewModel.verifyCode(() {
-                        Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (_) => ChangeNotifierProvider(
-                              create: (_) => ResetPasswordViewModel(),
-                              child: const ResetPasswordScreen(),
-                            ),
-                          ),
-                        );
-                      }),
+                      onPressed: () async {
+                        try {
+                          await viewModel.verifyCode(() {
+                            if (!context.mounted) return;
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (_) => ChangeNotifierProvider(
+                                  create: (_) => ResetPasswordViewModel(
+                                    authRepository,
+                                  ),
+                                  child: const ResetPasswordScreen(),
+                                ),
+                              ),
+                            );
+                          });
+                        } catch (e) {
+                          if (context.mounted) {
+                            SnackbarHelper.showError(
+                              context,
+                              viewModel.getErrorMessage(e),
+                            );
+                          }
+                        }
+                      },
                     ),
                   ],
                 ),
               ),
               SizedBox(height: AppSizes.spaceLg),
               GestureDetector(
-                onTap: viewModel.canResend ? viewModel.resendCode : null,
+                onTap: viewModel.canResend
+                    ? () async {
+                        try {
+                          await viewModel.resendCode();
+                          if (context.mounted) {
+                            SnackbarHelper.showSuccess(
+                              context,
+                              'Verification code resent.',
+                            );
+                          }
+                        } catch (e) {
+                          if (context.mounted) {
+                            SnackbarHelper.showError(
+                              context,
+                              viewModel.getErrorMessage(e),
+                            );
+                          }
+                        }
+                      }
+                    : null,
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(

@@ -3,6 +3,8 @@ import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/viewmodels/create_account_view_model.dart';
 import 'package:fluentta_ai/viewmodels/forgot_password_view_model.dart';
 import 'package:fluentta_ai/viewmodels/sign_in_view_model.dart';
@@ -19,10 +21,25 @@ class SignInScreen extends StatelessWidget {
 
   final VoidCallback onSuccess;
 
+  Future<void> _handleAuthAction(
+    BuildContext context,
+    Future<bool> Function() action,
+    SignInViewModel viewModel,
+  ) async {
+    try {
+      await action();
+    } catch (e) {
+      if (context.mounted) {
+        SnackbarHelper.showError(context, viewModel.getErrorMessage(e));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final viewModel = context.watch<SignInViewModel>();
+    final authRepository = context.read<AuthRepository>();
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -66,7 +83,9 @@ class SignInScreen extends StatelessWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute<void>(
                               builder: (_) => ChangeNotifierProvider(
-                                create: (_) => ForgotPasswordViewModel(),
+                                create: (_) => ForgotPasswordViewModel(
+                                  authRepository,
+                                ),
                                 child: const ForgotPasswordScreen(),
                               ),
                             ),
@@ -88,9 +107,10 @@ class SignInScreen extends StatelessWidget {
                       text: 'Sign In',
                       isLoading: viewModel.isLoading,
                       loadingText: 'Signing in...',
-                      onPressed: () => viewModel.signIn(
-                        context: context,
-                        onSuccess: onSuccess,
+                      onPressed: () => _handleAuthAction(
+                        context,
+                        () => viewModel.signIn(onSuccess: onSuccess),
+                        viewModel,
                       ),
                     ),
                     SizedBox(height: AppSizes.spaceMd),
@@ -98,13 +118,20 @@ class SignInScreen extends StatelessWidget {
                     SizedBox(height: AppSizes.spaceMd),
                     SocialLoginButton(
                       type: SocialLoginType.google,
-                      onPressed: () =>
-                          viewModel.signInWithGoogle(onSuccess),
+                      onPressed: () => _handleAuthAction(
+                        context,
+                        () => viewModel.signInWithGoogle(onSuccess),
+                        viewModel,
+                      ),
                     ),
                     SizedBox(height: AppSizes.spaceSm),
                     SocialLoginButton(
                       type: SocialLoginType.apple,
-                      onPressed: () => viewModel.signInWithApple(onSuccess),
+                      onPressed: () => _handleAuthAction(
+                        context,
+                        () => viewModel.signInWithApple(onSuccess),
+                        viewModel,
+                      ),
                     ),
                   ],
                 ),
@@ -117,7 +144,7 @@ class SignInScreen extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute<void>(
                       builder: (_) => ChangeNotifierProvider(
-                        create: (_) => CreateAccountViewModel(),
+                        create: (_) => CreateAccountViewModel(authRepository),
                         child: CreateAccountScreen(onSuccess: onSuccess),
                       ),
                     ),

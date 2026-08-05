@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/viewmodels/forgot_password_view_model.dart';
 import 'package:fluentta_ai/viewmodels/verify_otp_view_model.dart';
+import 'package:fluentta_ai/widgets/auth/otp_input_field.dart';
 import 'package:fluentta_ai/views/auth/verify_otp_screen.dart';
 import 'package:fluentta_ai/widgets/auth/auth_text_field.dart';
 import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
-import 'package:fluentta_ai/widgets/auth/otp_input_field.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +20,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final viewModel = context.watch<ForgotPasswordViewModel>();
+    final authRepository = context.read<AuthRepository>();
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -52,18 +55,36 @@ class ForgotPasswordScreen extends StatelessWidget {
                     PrimaryButton(
                       text: 'Send Verification Code',
                       isLoading: viewModel.isLoading,
-                      onPressed: () => viewModel.sendVerificationCode(() {
-                        Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (_) => ChangeNotifierProvider(
-                              create: (_) => VerifyOtpViewModel(
-                                maskedEmail: viewModel.maskedEmail,
-                              )..initTimer(),
-                              child: const VerifyOtpScreen(),
-                            ),
-                          ),
-                        );
-                      }),
+                      onPressed: () async {
+                        try {
+                          await viewModel.sendVerificationCode(() {
+                            if (!context.mounted) return;
+                            SnackbarHelper.showSuccess(
+                              context,
+                              'Verification email sent successfully.',
+                            );
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (_) => ChangeNotifierProvider(
+                                  create: (_) => VerifyOtpViewModel(
+                                    authRepository: authRepository,
+                                    email: viewModel.email,
+                                    maskedEmail: viewModel.maskedEmail,
+                                  )..initTimer(),
+                                  child: const VerifyOtpScreen(),
+                                ),
+                              ),
+                            );
+                          });
+                        } catch (e) {
+                          if (context.mounted) {
+                            SnackbarHelper.showError(
+                              context,
+                              viewModel.getErrorMessage(e),
+                            );
+                          }
+                        }
+                      },
                     ),
                   ],
                 ),

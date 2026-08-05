@@ -20,8 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<SplashViewModel>().navigateAfterDelay(
-            context,
+      context.read<SplashViewModel>().initializeAndNavigate(
             widget.onComplete,
           );
     });

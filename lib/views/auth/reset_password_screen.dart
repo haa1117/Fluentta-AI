@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/reset_password_view_model.dart';
 import 'package:fluentta_ai/views/auth/password_updated_screen.dart';
 import 'package:fluentta_ai/widgets/auth/auth_text_field.dart';
@@ -26,9 +27,9 @@ class ResetPasswordScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
           child: Column(
             children: [
-              SizedBox(height: AppSizes.spaceLg),
-              const AuthIllustration(imagePath: AppAssets.checkEmail),
-              SizedBox(height: AppSizes.spaceLg),
+              SizedBox(height: AppSizes.spaceSm),
+              const AuthIllustration(imagePath: AppAssets.resetPassword),
+              SizedBox(height: AppSizes.spaceMd),
               const AuthHeader(
                 title: 'Create a new password',
                 subtitle:
@@ -63,13 +64,25 @@ class ResetPasswordScreen extends StatelessWidget {
                       text: 'Update Password',
                       enabled: viewModel.isFormValid,
                       isLoading: viewModel.isLoading,
-                      onPressed: () => viewModel.updatePassword(() {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute<void>(
-                            builder: (_) => const PasswordUpdatedScreen(),
-                          ),
-                        );
-                      }),
+                      onPressed: () async {
+                        try {
+                          await viewModel.updatePassword(() {
+                            if (!context.mounted) return;
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute<void>(
+                                builder: (_) => const PasswordUpdatedScreen(),
+                              ),
+                            );
+                          });
+                        } catch (e) {
+                          if (context.mounted) {
+                            SnackbarHelper.showError(
+                              context,
+                              viewModel.getErrorMessage(e),
+                            );
+                          }
+                        }
+                      },
                     ),
                   ],
                 ),

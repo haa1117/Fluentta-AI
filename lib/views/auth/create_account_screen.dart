@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/create_account_view_model.dart';
 import 'package:fluentta_ai/views/auth/account_created_screen.dart';
 import 'package:fluentta_ai/widgets/auth/auth_text_field.dart';
@@ -68,18 +69,30 @@ class CreateAccountScreen extends StatelessWidget {
                     PrimaryButton(
                       text: 'Create Account',
                       isLoading: viewModel.isLoading,
-                      onPressed: () => viewModel.createAccount(
-                        context: context,
-                        onSuccess: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute<void>(
-                              builder: (_) => AccountCreatedScreen(
-                                onContinue: onSuccess,
-                              ),
-                            ),
+                      onPressed: () async {
+                        try {
+                          await viewModel.createAccount(
+                            context: context,
+                            onSuccess: () {
+                              if (!context.mounted) return;
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => AccountCreatedScreen(
+                                    onContinue: onSuccess,
+                                  ),
+                                ),
+                              );
+                            },
                           );
-                        },
-                      ),
+                        } catch (e) {
+                          if (context.mounted) {
+                            SnackbarHelper.showError(
+                              context,
+                              viewModel.getErrorMessage(e),
+                            );
+                          }
+                        }
+                      },
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthFooterLink(
