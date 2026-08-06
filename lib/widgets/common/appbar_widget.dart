@@ -13,13 +13,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.showBackButton = false,
     this.centerTitle = false,
     this.onBack,
+    this.showActionButton = true
   });
 
   final String title;
   final bool showBackButton;
   final bool centerTitle;
   final VoidCallback? onBack;
-
+final bool showActionButton;
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
@@ -43,7 +44,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           color: AppColors.primaryColor,
         ),
       ),
-      actions: [
+      actions:showActionButton ? [
         Container(
           margin: EdgeInsets.only(right: AppSizes.w(16)),
           padding: EdgeInsets.symmetric(
@@ -74,7 +75,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
         ),
-      ],
+      ] : [],
     );
   }
 }

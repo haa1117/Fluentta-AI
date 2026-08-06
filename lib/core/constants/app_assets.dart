@@ -21,6 +21,12 @@ class AppAssets {
   static const String doctorVisit='assets/images/doctor_vist.png';
   static const String smallTalk='assets/images/small_talk.png';
   static const String businessMeeting='assets/images/business_metting.png';
+  static const String yourLevelBird ='assets/images/your_level.png';
+  static const String vocabulary='assets/svg/vocabulary.svg';
+  static const String savedWords='assets/svg/saved_words.svg';
+
+  static const String reading='assets/svg/reading.svg';
+  static const String grammar='assets/svg/grammar.svg';
 
 
 

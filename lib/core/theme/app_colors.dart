@@ -5,6 +5,7 @@ class AppColors {
 
   static const Color primaryColor = Color(0xFF9B35F4);
   static const Color scaffoldBackgroundColor = Color(0xFFFCF7FF);
+  static const Color primaryBlueColor=Color(0xff6D28D9);
 
   static const Color primaryGradientStart = Color(0xFF8C31EF);
   static const Color primaryGradientEnd = Color(0xFFB247F3);
@@ -37,6 +38,12 @@ class AppColors {
   static const Color navInactive = Color(0xFF9CA3AF);
   static const Color progressTrack = Color(0xFFE8D9F8);
   static const Color resumeButtonBg = Color(0xFFF3EBFF);
+
+  static const Color learnVocabularyBlue = Color(0xFF4F8FF7);
+  static const Color learnGrammarPink = Color(0xFFE94E9A);
+  static const Color learnReadingOrange = Color(0xFFF5A623);
+  static const Color learnSavedTeal = Color(0xFF2EC4B6);
+  static const Color learnSuccessGreen = Color(0xFF22C55E);
 
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,
