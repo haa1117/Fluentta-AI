@@ -12,7 +12,7 @@ import 'package:fluentta_ai/viewmodels/sign_in_view_model.dart';
 import 'package:fluentta_ai/viewmodels/splash_view_model.dart';
 import 'package:fluentta_ai/views/auth/account_created_screen.dart';
 import 'package:fluentta_ai/views/auth/sign_in_screen.dart';
-import 'package:fluentta_ai/views/home/home_screen.dart';
+import 'package:fluentta_ai/views/main/main_shell_screen.dart';
 import 'package:fluentta_ai/views/language/language_selection_screen.dart';
 import 'package:fluentta_ai/views/onboarding/onboarding_screen.dart';
 import 'package:fluentta_ai/views/setup/setup_flow_screen.dart';
@@ -186,7 +186,10 @@ class _AppNavigatorState extends State<AppNavigator> {
               key: const ValueKey('setup'),
               onComplete: _goToHome,
             ),
-          AppFlow.home => const HomeScreen(key: ValueKey('home')),
+          AppFlow.home => MainShellScreen(
+              key: const ValueKey('home'),
+              localStorage: widget.localStorage,
+            ),
         },
       ),
     );
