@@ -31,6 +31,13 @@ class AppColors {
 
   static const Color radioUnselected = Color(0xFFD1D5DB);
 
+  static const Color heartRed = Color(0xFFFF4D6D);
+  static const Color homeCardLavender = Color(0xFFF3EBFF);
+  static const Color homeCardLavenderDark = Color(0xFFEDE4FF);
+  static const Color navInactive = Color(0xFF9CA3AF);
+  static const Color progressTrack = Color(0xFFE8D9F8);
+  static const Color resumeButtonBg = Color(0xFFF3EBFF);
+
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
