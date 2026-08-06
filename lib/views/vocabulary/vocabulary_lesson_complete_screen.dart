@@ -38,21 +38,22 @@ class VocabularyLessonCompleteScreen extends StatelessWidget {
                   ),
                   child: Icon(
                     Icons.close_rounded,
-                    color: AppColors.primaryColor,
+                    color: AppColors.iconColor,
                     size: AppSizes.sp(20),
                   ),
                 ),
               ),
             ),
+
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: AppSizes.horizontalPadding,
               ),
               child: Column(
                 children: [
-                  SizedBox(height: AppSizes.spaceXxl),
+                  SizedBox(height: AppSizes.spaceXl *2),
                   Image.asset(
-                    AppAssets.accountCreated,
+                    AppAssets.lessonCompletedBird,
                     height: AppSizes.h(200),
                     fit: BoxFit.contain,
                   ),
@@ -69,24 +70,25 @@ class VocabularyLessonCompleteScreen extends StatelessWidget {
                   ),
                   SizedBox(height: AppSizes.spaceSm),
                   Text(
-                    'You have completed Lesson $lessonNumber successfully',
+                    'You have completed Lesson $lessonNumber \n successfully',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(14),
                       fontWeight: FontWeight.w400,
-                      color: AppColors.textSecondary,
+                      color: AppColors.textPrimary,
                       height: 1.4,
                     ),
                   ),
                   SizedBox(height: AppSizes.spaceLg),
                   Wrap(
                     alignment: WrapAlignment.center,
-                    spacing: AppSizes.w(8),
-                    runSpacing: AppSizes.h(8),
+                    spacing: AppSizes.w(18),
+                    runSpacing: AppSizes.h(15),
                     children: learnedWords.map(_WordChip.new).toList(),
                   ),
-                  const Spacer(),
+                  SizedBox(height: AppSizes.spaceXxl),
+                  // const Spacer(),
                   PrimaryButton(
                     text: 'Start Next Lesson',
                     onPressed: () => Navigator.of(context).pop(),
@@ -115,19 +117,19 @@ class _WordChip extends StatelessWidget {
         vertical: AppSizes.h(8),
       ),
       decoration: BoxDecoration(
-        color: AppColors.homeCardLavender,
+        color: AppColors.chipBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.w(20)),
         border: Border.all(
-          color: AppColors.primaryColor.withValues(alpha: 0.3),
+          color:AppColors.chipBorderColor,
         ),
       ),
       child: Text(
         word,
         style: TextStyle(
           fontFamily: AppFonts.plusJakartaSans,
-          fontSize: AppSizes.sp(13),
+          fontSize: AppSizes.sp(15),
           fontWeight: FontWeight.w600,
-          color: AppColors.primaryColor,
+          color: AppColors.primaryBlueColor,
         ),
       ),
     );

@@ -22,6 +22,11 @@ class AppAssets {
   static const String smallTalk='assets/images/small_talk.png';
   static const String businessMeeting='assets/images/business_metting.png';
   static const String yourLevelBird ='assets/images/your_level.png';
+  static const String lessonCompletedBird='assets/images/lesson_completed_bird.png';
+
+
+  /// ---  SVG ICONS  ----///
+
   static const String vocabulary='assets/svg/vocabulary.svg';
   static const String savedWords='assets/svg/saved_words.svg';
 

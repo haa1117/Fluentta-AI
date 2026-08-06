@@ -17,16 +17,19 @@ class AppColors {
   static const Color borderLight = Color(0xFFE0D5E9);
   static const Color borderSelected = primaryColor;
   static const Color borderDarkPrimary=Color(0xffE9D8FD);
+  static const Color chipBorderColor = Color(0xffefe8f7);
 
   static const Color white = Color(0xFFFFFFFF);
+  static const Color chipBackgroundColor=Color(0xffF7F1FF);
   static const Color adBackground = Color(0xFFF9FAFB);
   static const Color adBorder = Color(0xFFE5E7EB);
   static const Color adPlaceholder = Color(0xFFD1D5DB);
   static const Color adBadgeBorder = Color(0xFFFBBF24);
-
+static const Color iconColor = Color(0xff665D72);
   static const Color splashDotCyan = Color(0xFF09EBD5);
   static const Color splashDotPurple = Color(0xFF6934FF);
   static const Color splashDotPink = Color(0xFFE65BFF);
+
 
   static const Color bannerGradientStart = Color(0xFFF3E8FF);
   static const Color bannerGradientEnd = Color(0xFFEDE9FE);
