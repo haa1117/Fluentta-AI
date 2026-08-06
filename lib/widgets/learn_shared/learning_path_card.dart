@@ -3,25 +3,25 @@ import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
-import 'package:provider/provider.dart';
+import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 
-class VocabularyPathCard extends StatelessWidget {
-  const VocabularyPathCard({super.key});
+class LearningPathCard extends StatelessWidget {
+  const LearningPathCard({
+    super.key,
+    required this.pathData,
+  });
+
+  final LearningPathData pathData;
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<VocabularyViewModel>();
-
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(16)),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(
-          color: AppColors.borderDarkPrimary
-        ),
+        border: Border.all(color: AppColors.borderDarkPrimary),
         boxShadow: [
           BoxShadow(
             color: AppColors.primaryColor.withValues(alpha: 0.06),
@@ -41,7 +41,7 @@ class VocabularyPathCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${viewModel.levelCode} Vocabulary Path',
+                      pathData.title,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(20),
@@ -51,12 +51,12 @@ class VocabularyPathCard extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.h(4)),
                     Text(
-                      'Learn 50 useful beginner words\nstep by step.',
+                      pathData.subtitle,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(13),
                         fontWeight: FontWeight.w500,
-                        color: Color(0xff4A4455),
+                        color: const Color(0xff4A4455),
                         height: 1.8,
                       ),
                     ),
@@ -76,7 +76,7 @@ class VocabularyPathCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${viewModel.completedLessonsCount} / ${viewModel.totalLessonsCount} lessons completed',
+                '${pathData.completedLessons} / ${pathData.totalLessons} lessons completed',
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),
@@ -85,7 +85,7 @@ class VocabularyPathCard extends StatelessWidget {
                 ),
               ),
               Text(
-                '${viewModel.pathProgressPercent}%',
+                '${pathData.progressPercent}%',
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),
@@ -99,7 +99,7 @@ class VocabularyPathCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(AppSizes.h(4)),
             child: LinearProgressIndicator(
-              value: viewModel.pathProgress,
+              value: pathData.progress,
               minHeight: AppSizes.h(6),
               backgroundColor: AppColors.progressTrack,
               valueColor: const AlwaysStoppedAnimation<Color>(

@@ -1,3 +1,5 @@
+import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
+
 class VocabularyWordModel {
   const VocabularyWordModel({
     required this.word,
@@ -12,14 +14,7 @@ class VocabularyWordModel {
   final String example;
 }
 
-enum VocabularyLessonStatus {
-  completed,
-  inProgress,
-  notStarted,
-  locked,
-}
-
-class VocabularyLessonModel {
+class VocabularyLessonModel implements LearningLessonItem {
   const VocabularyLessonModel({
     required this.id,
     required this.number,
@@ -34,21 +29,31 @@ class VocabularyLessonModel {
   final int id;
   final int number;
   final String title;
-  final VocabularyLessonStatus status;
+  @override
+  final LearningLessonStatus status;
   final int wordsCompleted;
   final int totalWords;
+  @override
   final String iconName;
   final List<VocabularyWordModel> words;
 
+  @override
+  String get displayTitle => 'Lesson $number: $title';
+
+  @override
   String get progressLabel {
     return switch (status) {
-      VocabularyLessonStatus.completed => '$wordsCompleted/$totalWords words • Completed',
-      VocabularyLessonStatus.inProgress => '$wordsCompleted/$totalWords words • In progress',
-      VocabularyLessonStatus.notStarted => '0/$totalWords words • Not started',
-      VocabularyLessonStatus.locked => 'Locked',
+      LearningLessonStatus.completed =>
+        '$wordsCompleted/$totalWords words • Completed',
+      LearningLessonStatus.inProgress =>
+        '$wordsCompleted/$totalWords words • In progress',
+      LearningLessonStatus.notStarted =>
+        '0/$totalWords words • Not started',
+      LearningLessonStatus.locked => 'Locked',
     };
   }
 
+  @override
   double get progressValue {
     if (totalWords == 0) return 0;
     return wordsCompleted / totalWords;

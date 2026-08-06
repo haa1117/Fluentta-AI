@@ -1,48 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
-import 'package:fluentta_ai/viewmodels/vocabulary_lesson_view_model.dart';
+import 'package:fluentta_ai/data/models/grammar_lesson_model.dart';
+import 'package:fluentta_ai/viewmodels/grammar_lesson_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
+import 'package:fluentta_ai/widgets/grammar/grammar_example_tile.dart';
+import 'package:fluentta_ai/widgets/grammar/grammar_quick_tip_box.dart';
+import 'package:fluentta_ai/widgets/grammar/grammar_rule_card.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_nav_button.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_progress_bar.dart';
-import 'package:fluentta_ai/widgets/vocabulary/vocabulary_word_card.dart';
 import 'package:provider/provider.dart';
 
-class VocabularyLessonScreen extends StatelessWidget {
-  const VocabularyLessonScreen({
+class GrammarLessonScreen extends StatelessWidget {
+  const GrammarLessonScreen({
     super.key,
     required this.lesson,
-    required this.initialWordIndex,
+    required this.initialStepIndex,
     required this.onLessonCompleted,
   });
 
-  final VocabularyLessonModel lesson;
-  final int initialWordIndex;
-  final ValueChanged<VocabularyLessonModel> onLessonCompleted;
+  final GrammarLessonModel lesson;
+  final int initialStepIndex;
+  final ValueChanged<GrammarLessonModel> onLessonCompleted;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => VocabularyLessonViewModel(
+      create: (_) => GrammarLessonViewModel(
         lesson: lesson,
-        initialWordIndex: initialWordIndex,
+        initialStepIndex: initialStepIndex,
         onLessonCompleted: onLessonCompleted,
       ),
-      child: _VocabularyLessonBody(lessonNumber: lesson.number),
+      child: _GrammarLessonBody(lessonNumber: lesson.number),
     );
   }
 }
 
-class _VocabularyLessonBody extends StatelessWidget {
-  const _VocabularyLessonBody({required this.lessonNumber});
+class _GrammarLessonBody extends StatelessWidget {
+  const _GrammarLessonBody({required this.lessonNumber});
 
   final int lessonNumber;
 
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
-    final viewModel = context.watch<VocabularyLessonViewModel>();
+    final viewModel = context.watch<GrammarLessonViewModel>();
+    final step = viewModel.currentStep;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -60,8 +63,22 @@ class _VocabularyLessonBody extends StatelessWidget {
             progress: viewModel.lessonProgress,
           ),
           SizedBox(height: AppSizes.spaceLg),
-          const Center(child: VocabularyWordCard()),
-          SizedBox(height: AppSizes.spaceXxl),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  GrammarRuleCard(step: step),
+                  SizedBox(height: AppSizes.spaceMd),
+                  ...step.examples.map(
+                    (example) => GrammarExampleTile(example: example),
+                  ),
+                  SizedBox(height: AppSizes.spaceMd),
+                  GrammarQuickTipBox(tip: step.quickTip),
+                  SizedBox(height: AppSizes.spaceLg),
+                ],
+              ),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.fromLTRB(
               AppSizes.horizontalPadding,
@@ -73,28 +90,33 @@ class _VocabularyLessonBody extends StatelessWidget {
               children: [
                 Expanded(
                   child: LessonNavButton(
-                    label: 'Previous Word',
+                    label: 'Previous',
                     icon: Icons.arrow_back_rounded,
                     isPrimary: false,
-                    enabled: !viewModel.isFirstWord,
+                    enabled: !viewModel.isFirstStep,
                     iconOnRight: false,
-                    onTap: viewModel.previousWord,
+                    outlined: true,
+                    onTap: viewModel.previousStep,
                   ),
                 ),
                 SizedBox(width: AppSizes.w(12)),
                 Expanded(
                   child: LessonNavButton(
-                    label: 'Next Word',
+                    label: viewModel.isLastStep ? 'Finish Lesson' : 'Next',
                     icon: Icons.arrow_forward_rounded,
                     isPrimary: true,
                     enabled: true,
                     iconOnRight: true,
-                    onTap: () => viewModel.nextWord(context),
+                    onTap: () => viewModel.nextStep(context),
                   ),
                 ),
               ],
             ),
           ),
+
+          SizedBox(
+            height: AppSizes.spaceXxl,
+          )
         ],
       ),
     );

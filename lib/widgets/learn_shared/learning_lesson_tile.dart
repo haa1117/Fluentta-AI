@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class VocabularyLessonTile extends StatelessWidget {
-  const VocabularyLessonTile({
+class LearningLessonTile extends StatelessWidget {
+  const LearningLessonTile({
     super.key,
     required this.lesson,
     required this.onTap,
   });
 
-  final VocabularyLessonModel lesson;
+  final LearningLessonItem lesson;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final isLocked = lesson.status == VocabularyLessonStatus.locked;
-    final isInProgress = lesson.status == VocabularyLessonStatus.inProgress;
-    final isCompleted = lesson.status == VocabularyLessonStatus.completed;
+    final isLocked = lesson.status == LearningLessonStatus.locked;
+    final isInProgress = lesson.status == LearningLessonStatus.inProgress;
+    final isCompleted = lesson.status == LearningLessonStatus.completed;
 
     final borderRadius = BorderRadius.circular(AppSizes.cardRadius);
 
@@ -34,9 +34,7 @@ class VocabularyLessonTile extends StatelessWidget {
             ? null
             : isInProgress
                 ? Border.all(color: AppColors.primaryColor, width: 1.5)
-                : Border.all(
-                    color: AppColors.borderDarkPrimary,
-                  ),
+                : Border.all(color: AppColors.borderDarkPrimary),
         boxShadow: isLocked
             ? null
             : [
@@ -65,7 +63,7 @@ class VocabularyLessonTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Lesson ${lesson.number}: ${lesson.title}',
+                  lesson.displayTitle,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
@@ -75,18 +73,20 @@ class VocabularyLessonTile extends StatelessWidget {
                         : AppColors.textPrimary,
                   ),
                 ),
-                SizedBox(height: AppSizes.h(2)),
-                Text(
-                  lesson.progressLabel,
-                  style: TextStyle(
-                    fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(11),
-                    fontWeight: FontWeight.w500,
-                    color: isCompleted
-                        ? AppColors.learnSuccessGreen
-                        : AppColors.textSecondary,
+                if (lesson.progressLabel.isNotEmpty) ...[
+                  SizedBox(height: AppSizes.h(2)),
+                  Text(
+                    lesson.progressLabel,
+                    style: TextStyle(
+                      fontFamily: AppFonts.plusJakartaSans,
+                      fontSize: AppSizes.sp(11),
+                      fontWeight: FontWeight.w500,
+                      color: isCompleted
+                          ? AppColors.learnSuccessGreen
+                          : AppColors.textSecondary,
+                    ),
                   ),
-                ),
+                ],
                 if (isInProgress) ...[
                   SizedBox(height: AppSizes.spaceSm),
                   ClipRRect(
@@ -106,7 +106,7 @@ class VocabularyLessonTile extends StatelessWidget {
           ),
           SizedBox(width: AppSizes.w(8)),
           _ActionButton(
-            lesson: lesson,
+            status: lesson.status,
             onTap: isLocked ? null : onTap,
           ),
         ],
@@ -118,16 +118,16 @@ class VocabularyLessonTile extends StatelessWidget {
 class _LessonIcon extends StatelessWidget {
   const _LessonIcon({required this.lesson});
 
-  final VocabularyLessonModel lesson;
+  final LearningLessonItem lesson;
 
   @override
   Widget build(BuildContext context) {
-    final isCompleted = lesson.status == VocabularyLessonStatus.completed;
-    final isLocked = lesson.status == VocabularyLessonStatus.locked;
+    final isCompleted = lesson.status == LearningLessonStatus.completed;
+    final isLocked = lesson.status == LearningLessonStatus.locked;
 
-    Color bgColor;
-    Color iconColor;
-    String svgIcon;
+    late final Color bgColor;
+    late final Color iconColor;
+    late final String svgIcon;
 
     if (isCompleted) {
       bgColor = AppColors.learnSuccessGreen.withValues(alpha: 0.15);
@@ -143,6 +143,7 @@ class _LessonIcon extends StatelessWidget {
       svgIcon = switch (lesson.iconName) {
         'travel' => 'assets/svg/today.svg',
         'chat' => 'assets/svg/lesson.svg',
+        'grammar' => 'assets/svg/grammar.svg',
         _ => 'assets/svg/today.svg',
       };
     }
@@ -154,25 +155,27 @@ class _LessonIcon extends StatelessWidget {
         color: bgColor,
         shape: BoxShape.circle,
       ),
-      child: Center(child: SvgPicture.asset(svgIcon, color: iconColor, width: AppSizes.iconSmall,
-
-      height: AppSizes.iconSmall,
-      )),
+      child: Center(
+        child: SvgPicture.asset(
+          svgIcon,
+          width: AppSizes.iconSmall,
+          height: AppSizes.iconSmall,
+          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+        ),
+      ),
     );
   }
 }
 
 class _ActionButton extends StatelessWidget {
-  const _ActionButton({required this.lesson, this.onTap});
+  const _ActionButton({required this.status, this.onTap});
 
-  final VocabularyLessonModel lesson;
+  final LearningLessonStatus status;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final status = lesson.status;
-
-    if (status == VocabularyLessonStatus.completed) {
+    if (status == LearningLessonStatus.completed) {
       return _pillButton(
         label: 'Open',
         filled: false,
@@ -180,7 +183,7 @@ class _ActionButton extends StatelessWidget {
         onTap: onTap,
       );
     }
-    if (status == VocabularyLessonStatus.inProgress) {
+    if (status == LearningLessonStatus.inProgress) {
       return _pillButton(
         label: 'Continue',
         filled: true,
@@ -188,7 +191,7 @@ class _ActionButton extends StatelessWidget {
         onTap: onTap,
       );
     }
-    if (status == VocabularyLessonStatus.notStarted) {
+    if (status == LearningLessonStatus.notStarted) {
       return _pillButton(
         label: 'Start',
         filled: false,
@@ -218,25 +221,13 @@ class _ActionButton extends StatelessWidget {
           vertical: AppSizes.h(8),
         ),
         decoration: BoxDecoration(
-            color: label == 'Open'
-                ? Color(0xffF7F1FF)
-                : (filled
-                ? AppColors.primaryBlueColor
-                : (enabled ? Colors.white : const Color(0xffF7F1FF))),
-          // color: filled
-          //     ? AppColors.primaryBlueColor
-          //     : (enabled ? Colors.white : Color(0xffF7F1FF)),
+          color: label == 'Open'
+              ? const Color(0xffF7F1FF)
+              : (filled
+                  ? AppColors.primaryBlueColor
+                  : (enabled ? Colors.white : const Color(0xffF7F1FF))),
           borderRadius: BorderRadius.circular(AppSizes.w(10)),
-          border: enabled ? Border.all(
-            color: Color(0xffF7F1FF)
-          ):null
-          // border: filled
-          //     ? null
-          //     : Border.all(
-          //         color: enabled
-          //             ? Colors.transparent
-          //             : AppColors.borderLight,
-          //       ),
+          border: enabled ? Border.all(color: const Color(0xffF7F1FF)) : null,
         ),
         child: Text(
           label,
@@ -244,9 +235,11 @@ class _ActionButton extends StatelessWidget {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(13),
             fontWeight: FontWeight.w600,
-            color:  filled
+            color: filled
                 ? AppColors.white
-                : (enabled ? AppColors.primaryBlueColor : AppColors.textTertiary),
+                : (enabled
+                    ? AppColors.primaryBlueColor
+                    : AppColors.textTertiary),
           ),
         ),
       ),

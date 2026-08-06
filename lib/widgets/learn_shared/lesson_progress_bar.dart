@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/viewmodels/vocabulary_lesson_view_model.dart';
-import 'package:provider/provider.dart';
 
-class LessonProgressHeader extends StatelessWidget {
-  const LessonProgressHeader({super.key, required this.lessonNumber});
+class LessonProgressBar extends StatelessWidget {
+  const LessonProgressBar({
+    super.key,
+    required this.lessonNumber,
+    required this.progress,
+  });
 
   final int lessonNumber;
+  final double progress;
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<VocabularyLessonViewModel>();
-
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
       child: Column(
@@ -33,7 +34,7 @@ class LessonProgressHeader extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(AppSizes.h(4)),
             child: LinearProgressIndicator(
-              value: viewModel.lessonProgress,
+              value: progress,
               minHeight: AppSizes.h(6),
               backgroundColor: AppColors.progressTrack,
               valueColor: const AlwaysStoppedAnimation<Color>(

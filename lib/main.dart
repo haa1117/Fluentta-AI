@@ -8,6 +8,7 @@ import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
+import 'package:fluentta_ai/viewmodels/grammar_view_model.dart';
 import 'package:fluentta_ai/viewmodels/learn_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
 import 'package:provider/provider.dart';
@@ -61,6 +62,9 @@ class FluentaApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => LearnViewModel(localStorage),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => GrammarViewModel(localStorage),
         ),
         ChangeNotifierProvider(
           create: (_) => VocabularyViewModel(localStorage),
