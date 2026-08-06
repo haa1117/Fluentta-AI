@@ -18,6 +18,10 @@ class LocalStorage {
   static const String _englishGoalKey = 'english_goal';
   static const String _englishLevelKey = 'english_level';
   static const String _dailyGoalMinutesKey = 'daily_goal_minutes';
+  static const String _dailyProgressMinutesKey = 'daily_progress_minutes';
+  static const String _streakDaysKey = 'streak_days';
+  static const String _livesKey = 'lives';
+  static const String _lessonProgressKey = 'lesson_progress';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -63,6 +67,10 @@ class LocalStorage {
   String? get englishGoal => _prefs!.getString(_englishGoalKey);
   String? get englishLevel => _prefs!.getString(_englishLevelKey);
   int? get dailyGoalMinutes => _prefs!.getInt(_dailyGoalMinutesKey);
+  int get dailyProgressMinutes => _prefs!.getInt(_dailyProgressMinutesKey) ?? 6;
+  int get streakDays => _prefs!.getInt(_streakDaysKey) ?? 1;
+  int get lives => _prefs!.getInt(_livesKey) ?? 5;
+  double get lessonProgress => _prefs!.getDouble(_lessonProgressKey) ?? 0.35;
 
   Future<void> saveUserSession({
     required String uid,
@@ -81,6 +89,7 @@ class LocalStorage {
     await _prefs!.remove(_userEmailKey);
     await _prefs!.remove(_userDisplayNameKey);
     await clearSetupPreferences();
+    await resetHomeProgress();
   }
 
   Future<void> setPendingResetEmail(String email) async {
@@ -115,6 +124,27 @@ class LocalStorage {
     await _prefs!.remove(_englishGoalKey);
     await _prefs!.remove(_englishLevelKey);
     await _prefs!.remove(_dailyGoalMinutesKey);
+  }
+
+  Future<void> saveDailyProgressMinutes(int minutes) async {
+    await _prefs!.setInt(_dailyProgressMinutesKey, minutes);
+  }
+
+  Future<void> saveLessonProgress(double progress) async {
+    await _prefs!.setDouble(_lessonProgressKey, progress.clamp(0, 1));
+  }
+
+  Future<void> incrementDailyProgress(int minutes) async {
+    final current = dailyProgressMinutes + minutes;
+    final goal = dailyGoalMinutes ?? 10;
+    await saveDailyProgressMinutes(current > goal ? goal : current);
+  }
+
+  Future<void> resetHomeProgress() async {
+    await _prefs!.remove(_dailyProgressMinutesKey);
+    await _prefs!.remove(_streakDaysKey);
+    await _prefs!.remove(_livesKey);
+    await _prefs!.remove(_lessonProgressKey);
   }
 
   bool get shouldShowOnboarding => !isOnboardingComplete;
