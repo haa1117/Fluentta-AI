@@ -14,4 +14,9 @@ class AppAssets {
   static const String resetPassword = 'assets/images/reset_password.png';
   static const String passwordUpdated = 'assets/images/account_created.png';
   static const String birdWithMessage='assets/images/bird_with_message.png';
+
+  static const String homeIcon='assets/svg/home.svg';
+  static const String learnIcon='assets/svg/learn.svg';
+  static const String speakIcon='assets/svg/speak.svg';
+  static const String profileIcon='assets/svg/profile.svg';
 }
