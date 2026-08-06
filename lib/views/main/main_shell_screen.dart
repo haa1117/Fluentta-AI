@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/viewmodels/main_shell_view_model.dart';
 import 'package:fluentta_ai/views/home/home_tab_screen.dart';
 import 'package:fluentta_ai/views/learn/learn_tab_screen.dart';
@@ -11,18 +9,13 @@ import 'package:fluentta_ai/widgets/common/app_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 class MainShellScreen extends StatelessWidget {
-  const MainShellScreen({super.key, required this.localStorage});
-
-  final LocalStorage localStorage;
+  const MainShellScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MainShellViewModel()),
-        ChangeNotifierProvider(
-          create: (_) => HomeViewModel(localStorage),
-        ),
       ],
       child: const _MainShellBody(),
     );

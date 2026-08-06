@@ -186,10 +186,7 @@ class _AppNavigatorState extends State<AppNavigator> {
               key: const ValueKey('setup'),
               onComplete: _goToHome,
             ),
-          AppFlow.home => MainShellScreen(
-              key: const ValueKey('home'),
-              localStorage: widget.localStorage,
-            ),
+          AppFlow.home => const MainShellScreen(key: ValueKey('home')),
         },
       ),
     );

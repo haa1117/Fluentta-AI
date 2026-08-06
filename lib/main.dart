@@ -7,6 +7,7 @@ import 'package:fluentta_ai/core/theme/app_theme.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
+import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -52,6 +53,9 @@ class FluentaApp extends StatelessWidget {
             userRepository,
             localStorage,
           ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => HomeViewModel(localStorage),
         ),
       ],
       child: MaterialApp(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 
-class HomeViewModel extends ChangeNotifier {  HomeViewModel(this._localStorage) {
+class HomeViewModel extends ChangeNotifier {
+  HomeViewModel(this._localStorage) {
     _loadFromStorage();
   }
 
@@ -44,11 +45,11 @@ class HomeViewModel extends ChangeNotifier {  HomeViewModel(this._localStorage) 
     _lessonProgress = _localStorage.lessonProgress;
   }
 
-  Future<void> startAiChat(VoidCallback onNavigateToSpeak) async {
+  Future<void> startAiChat(VoidCallback onComplete) async {
     await _localStorage.incrementDailyProgress(2);
     _loadFromStorage();
     notifyListeners();
-    onNavigateToSpeak();
+    onComplete();
   }
 
   Future<void> resumeLesson(VoidCallback onNavigateToLearn) async {

@@ -1,25 +1,41 @@
+import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({super.key});
+  const AppBarWidget({
+    super.key,
+    this.title = 'Fluenta AI',
+    this.showBackButton = false,
+    this.centerTitle = false,
+    this.onBack,
+  });
+
+  final String title;
+  final bool showBackButton;
+  final bool centerTitle;
+  final VoidCallback? onBack;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<HomeViewModel>();
+    AppSizes.init(context);
+    final lives = context.watch<HomeViewModel>().lives;
 
     return AppBar(
       backgroundColor: AppColors.white,
-      scrolledUnderElevation: 0.0,
+      scrolledUnderElevation: 0,
+      centerTitle: centerTitle,
+      leading: showBackButton ? _BackButton(onBack: onBack) : null,
+      automaticallyImplyLeading: false,
       title: Text(
-        'Fluenta AI',
+        title,
         style: TextStyle(
           fontFamily: AppFonts.plusJakartaSans,
           fontSize: AppSizes.sp(18),
@@ -41,7 +57,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             children: [
               Text(
-                '${viewModel.lives}',
+                '$lives',
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(14),
@@ -59,6 +75,42 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _BackButton extends StatelessWidget {
+  const _BackButton({this.onBack});
+
+  final VoidCallback? onBack;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: AppSizes.w(8)),
+      child: Center(
+        child: GestureDetector(
+          onTap: onBack ?? () => Navigator.of(context).pop(),
+          child: Container(
+            width: AppSizes.w(40),
+            height: AppSizes.w(40),
+            decoration: BoxDecoration(
+              color: AppColors.homeCardLavender,
+              borderRadius: BorderRadius.circular(AppSizes.w(12)),
+            ),
+            child: Center(
+              child: SvgPicture.asset(
+                'assets/svg/arrow_back_ios.svg',
+                color: Color(0xff1F1B2E),
+                width: AppSizes.sp(16),
+                height: AppSizes.sp(16),
+
+
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

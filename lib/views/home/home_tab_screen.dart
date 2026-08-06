@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/views/ai_tutor/ai_tutor_screen.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/viewmodels/main_shell_view_model.dart';
 import 'package:fluentta_ai/widgets/home/daily_goal_card.dart';
@@ -16,8 +17,6 @@ class HomeTabScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
-    final homeViewModel = context.read<HomeViewModel>();
-    final shellViewModel = context.read<MainShellViewModel>();
 
     return Scaffold(
       appBar: AppBarWidget(),
@@ -56,17 +55,19 @@ class HomeTabScreen extends StatelessWidget {
             const DailyGoalCard(),
             SizedBox(height: AppSizes.spaceMd),
             PracticeConversingCard(
-              onStartChat: () => homeViewModel.startAiChat(
-                () => shellViewModel.selectTab(MainTab.speak),
-              ),
+              onStartChat: () => AiTutorScreen.open(context),
             ),
             SizedBox(height: AppSizes.spaceMd),
             const HomeBannerAd(),
             SizedBox(height: AppSizes.spaceMd),
             TodaysLessonCard(
-              onResume: () => homeViewModel.resumeLesson(
-                () => shellViewModel.selectTab(MainTab.learn),
-              ),
+              onResume: () {
+                context.read<HomeViewModel>().resumeLesson(
+                  () => context.read<MainShellViewModel>().selectTab(
+                    MainTab.learn,
+                  ),
+                );
+              },
             ),
           ],
         ),
