@@ -52,13 +52,14 @@ class _AppNavigatorState extends State<AppNavigator> {
   @override
   void initState() {
     super.initState();
-    _currentFlow = _resolveInitialFlow();
+    _currentFlow = AppFlow.splash;
     _authSubscription = widget.authRepository.authStateChanges.listen((user) {
       if (!mounted) return;
       if (user != null &&
           _currentFlow != AppFlow.home &&
           _currentFlow != AppFlow.setup &&
-          _currentFlow != AppFlow.accountCreated) {
+          _currentFlow != AppFlow.accountCreated &&
+          _currentFlow != AppFlow.splash) {
         if (widget.localStorage.isSetupComplete) {
           setState(() => _currentFlow = AppFlow.home);
         }
@@ -76,7 +77,7 @@ class _AppNavigatorState extends State<AppNavigator> {
     super.dispose();
   }
 
-  AppFlow _resolveInitialFlow() {
+  AppFlow _resolvePostSplashFlow() {
     if (widget.authRepository.currentUser != null ||
         widget.localStorage.isLoggedIn) {
       if (widget.localStorage.isSetupComplete) {
@@ -85,7 +86,7 @@ class _AppNavigatorState extends State<AppNavigator> {
       return AppFlow.setup;
     }
     if (widget.localStorage.shouldShowOnboarding) {
-      return AppFlow.splash;
+      return AppFlow.onboarding;
     }
     if (widget.localStorage.shouldShowLanguage) {
       return AppFlow.language;
@@ -93,8 +94,8 @@ class _AppNavigatorState extends State<AppNavigator> {
     return AppFlow.signIn;
   }
 
-  void _goToOnboarding() {
-    setState(() => _currentFlow = AppFlow.onboarding);
+  void _completeSplash() {
+    setState(() => _currentFlow = _resolvePostSplashFlow());
   }
 
   void _goToLanguage() {
@@ -162,7 +163,7 @@ class _AppNavigatorState extends State<AppNavigator> {
         child: switch (_currentFlow) {
           AppFlow.splash => SplashScreen(
               key: const ValueKey('splash'),
-              onComplete: _goToOnboarding,
+              onComplete: _completeSplash,
             ),
           AppFlow.onboarding => OnboardingScreen(
               key: const ValueKey('onboarding'),

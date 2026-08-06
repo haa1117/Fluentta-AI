@@ -45,32 +45,45 @@ class SignInViewModel extends ChangeNotifier {
     }
   }
 
-  Future<bool> signInWithGoogle(VoidCallback onSuccess) async {
+  Future<bool> signInWithGoogle({
+    required VoidCallback onSuccess,
+    required VoidCallback onNewUser,
+  }) async {
     if (_isLoading) return false;
     _isLoading = true;
     notifyListeners();
 
     try {
       final result = await _authRepository.signInWithGoogle();
-      if (result != null) {
+      if (result == null) return false;
+
+      if (result.isNewUser) {
+        onNewUser();
+      } else {
         onSuccess();
-        return true;
       }
-      return false;
+      return true;
     } finally {
       _isLoading = false;
       notifyListeners();
     }
   }
 
-  Future<bool> signInWithApple(VoidCallback onSuccess) async {
+  Future<bool> signInWithApple({
+    required VoidCallback onSuccess,
+    required VoidCallback onNewUser,
+  }) async {
     if (_isLoading) return false;
     _isLoading = true;
     notifyListeners();
 
     try {
-      await _authRepository.signInWithApple();
-      onSuccess();
+      final result = await _authRepository.signInWithApple();
+      if (result.isNewUser) {
+        onNewUser();
+      } else {
+        onSuccess();
+      }
       return true;
     } finally {
       _isLoading = false;

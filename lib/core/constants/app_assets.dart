@@ -13,4 +13,5 @@ class AppAssets {
   static const String verifyCode = 'assets/images/verify_code.png';
   static const String resetPassword = 'assets/images/reset_password.png';
   static const String passwordUpdated = 'assets/images/account_created.png';
+  static const String birdWithMessage='assets/images/bird_with_message.png';
 }

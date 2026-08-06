@@ -4,6 +4,12 @@ import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+class SocialSignInResult {
+  const SocialSignInResult({required this.isNewUser});
+
+  final bool isNewUser;
+}
+
 class AuthRepository {
   AuthRepository(this._localStorage, this._userRepository);
 
@@ -84,12 +90,14 @@ class AuthRepository {
     return credential;
   }
 
-  Future<UserCredential?> signInWithGoogle() async {
+  Future<SocialSignInResult?> signInWithGoogle() async {
     if (kIsWeb) {
       final provider = GoogleAuthProvider();
       final credential = await _auth.signInWithPopup(provider);
       await _persistUser(credential.user, authProvider: 'google');
-      return credential;
+      return SocialSignInResult(
+        isNewUser: credential.additionalUserInfo?.isNewUser ?? false,
+      );
     }
 
     await _googleSignIn.signOut();
@@ -112,13 +120,15 @@ class AuthRepository {
 
       final userCredential = await _auth.signInWithCredential(credential);
       await _persistUser(userCredential.user, authProvider: 'google');
-      return userCredential;
+      return SocialSignInResult(
+        isNewUser: userCredential.additionalUserInfo?.isNewUser ?? false,
+      );
     } on GoogleSignInException {
       return null;
     }
   }
 
-  Future<UserCredential> signInWithApple() async {
+  Future<SocialSignInResult> signInWithApple() async {
     final provider = AppleAuthProvider();
     provider.addScope('email');
     provider.addScope('name');
@@ -128,7 +138,9 @@ class AuthRepository {
         : await _auth.signInWithProvider(provider);
 
     await _persistUser(credential.user, authProvider: 'apple');
-    return credential;
+    return SocialSignInResult(
+      isNewUser: credential.additionalUserInfo?.isNewUser ?? false,
+    );
   }
 
   Future<void> sendPasswordResetEmail(String email) async {

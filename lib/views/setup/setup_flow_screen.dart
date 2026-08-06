@@ -83,7 +83,7 @@ class _SetupStepPage extends StatelessWidget {
                   (option) => Padding(
                     padding: EdgeInsets.only(bottom: AppSizes.spaceSm),
                     child: SetupOptionTile(
-                      icon: option.icon,
+                      svgIcons: option.svgIcon,
                       title: option.title,
                       subtitle: option.subtitle,
                       isSelected: selectedId == option.id,

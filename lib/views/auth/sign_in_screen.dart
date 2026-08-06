@@ -125,7 +125,10 @@ class SignInScreen extends StatelessWidget {
                       type: SocialLoginType.google,
                       onPressed: () => _handleAuthAction(
                         context,
-                        () => viewModel.signInWithGoogle(onSuccess),
+                        () => viewModel.signInWithGoogle(
+                          onSuccess: onSuccess,
+                          onNewUser: onAccountCreated,
+                        ),
                         viewModel,
                       ),
                     ),
@@ -134,7 +137,10 @@ class SignInScreen extends StatelessWidget {
                       type: SocialLoginType.apple,
                       onPressed: () => _handleAuthAction(
                         context,
-                        () => viewModel.signInWithApple(onSuccess),
+                        () => viewModel.signInWithApple(
+                          onSuccess: onSuccess,
+                          onNewUser: onAccountCreated,
+                        ),
                         viewModel,
                       ),
                     ),

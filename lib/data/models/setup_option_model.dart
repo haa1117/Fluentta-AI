@@ -5,13 +5,13 @@ class SetupOptionModel {
     required this.id,
     required this.title,
     required this.subtitle,
-    required this.icon,
+    required this.svgIcon,
   });
 
   final String id;
   final String title;
   final String subtitle;
-  final IconData icon;
+  final String svgIcon;
 }
 
 class SetupOptions {
@@ -22,26 +22,32 @@ class SetupOptions {
       id: 'travel',
       title: 'Travel',
       subtitle: 'Easy Local Conversation',
-      icon: Icons.flight_outlined,
+      svgIcon: 'assets/svg/flight.svg',
     ),
     SetupOptionModel(
       id: 'work',
       title: 'Work',
       subtitle: 'Master Workplace English',
-      icon: Icons.work_outline,
+      svgIcon: 'assets/svg/WORK.svg',
     ),
     SetupOptionModel(
       id: 'exam',
       title: 'Exam',
       subtitle: 'IELTS, TOEFL & Interviews',
-      icon: Icons.description_outlined,
+      svgIcon: 'assets/svg/EXAM.svg',
     ),
     SetupOptionModel(
       id: 'everyday',
       title: 'Everyday English',
       subtitle: 'Practice natural conversation',
-      icon: Icons.chat_bubble_outline,
+      svgIcon: 'assets/svg/flight.svg',
     ),
+    // SetupOptionModel(
+    //   id: 'travel',
+    //   title: 'Travel',
+    //   subtitle: 'Easy Local Conversation',
+    //   svgIcon: 'assets/svg/flight.svg',
+    // ),
   ];
 
   static const List<SetupOptionModel> englishLevels = [
@@ -49,25 +55,25 @@ class SetupOptions {
       id: 'beginner',
       title: 'Beginner',
       subtitle: 'A1 · New to English Basics',
-      icon: Icons.auto_awesome_outlined,
+      svgIcon: 'assets/svg/beginner.svg',
     ),
     SetupOptionModel(
       id: 'elementary',
       title: 'Elementary',
       subtitle: 'A2 · Can use simple words',
-      icon: Icons.bar_chart_rounded,
+      svgIcon: 'assets/svg/elementary.svg',
     ),
     SetupOptionModel(
       id: 'intermediate',
       title: 'Intermediate',
       subtitle: 'B1 · Can hold simple conversation',
-      icon: Icons.forum_outlined,
+      svgIcon:'assets/svg/intermediatate.svg',
     ),
     SetupOptionModel(
       id: 'advanced',
       title: 'Advanced',
       subtitle: 'B2+ · Comfortable in most situations',
-      icon: Icons.rocket_launch_outlined,
+      svgIcon: 'assets/svg/rocket.svg',
     ),
   ];
 
@@ -76,25 +82,25 @@ class SetupOptions {
       id: '5',
       title: '5 minutes',
       subtitle: 'Perfect for busy days',
-      icon: Icons.access_time,
+      svgIcon: 'assets/svg/time.svg',
     ),
     SetupOptionModel(
       id: '10',
       title: '10 Minutes',
       subtitle: 'Best for consistent progress',
-      icon: Icons.access_time,
+      svgIcon: 'assets/svg/time.svg',
     ),
     SetupOptionModel(
       id: '15',
       title: '15 minutes',
       subtitle: 'Learn more with focused practice',
-      icon: Icons.access_time,
+      svgIcon: 'assets/svg/time.svg',
     ),
     SetupOptionModel(
       id: '20',
       title: '20 minutes',
       subtitle: 'For faster improvement',
-      icon: Icons.access_time,
+      svgIcon: 'assets/svg/time.svg',
     ),
   ];
 }

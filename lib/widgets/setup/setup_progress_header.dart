@@ -30,8 +30,8 @@ class SetupProgressHeader extends StatelessWidget {
           style: TextStyle(
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(12),
-            fontWeight: FontWeight.w600,
-            color: AppColors.primaryColor.withValues(alpha: 0.75),
+            fontWeight: FontWeight.w400,
+            color: AppColors.primaryColor,
             letterSpacing: 0.5,
           ),
         ),
@@ -40,8 +40,9 @@ class SetupProgressHeader extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppSizes.h(4)),
           child: LinearProgressIndicator(
             value: progress,
+
             minHeight: AppSizes.h(6),
-            backgroundColor: AppColors.borderLight,
+            backgroundColor:Color(0xffF3E8FF),
             valueColor: const AlwaysStoppedAnimation<Color>(
               AppColors.primaryColor,
             ),
@@ -81,9 +82,9 @@ class SetupProgressHeader extends StatelessWidget {
             ),
             SizedBox(width: AppSizes.w(8)),
             Image.asset(
-              AppAssets.authBird,
-              width: AppSizes.w(90),
-              height: AppSizes.w(90),
+              AppAssets.birdWithMessage,
+              width: AppSizes.w(110),
+              height: AppSizes.w(110),
               fit: BoxFit.contain,
             ),
           ],
