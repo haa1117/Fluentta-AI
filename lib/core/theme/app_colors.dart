@@ -16,6 +16,7 @@ class AppColors {
 
   static const Color borderLight = Color(0xFFE0D5E9);
   static const Color borderSelected = primaryColor;
+  static const Color borderDarkPrimary=Color(0xffE9D8FD);
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color adBackground = Color(0xFFF9FAFB);

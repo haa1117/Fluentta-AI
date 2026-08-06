@@ -54,10 +54,16 @@ class _VocabularyLessonBody extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(height: AppSizes.spaceSm),
+          SizedBox(height: AppSizes.spaceLg),
           LessonProgressHeader(lessonNumber: lessonNumber),
           SizedBox(height: AppSizes.spaceLg),
-          const Expanded(child: Center(child: VocabularyWordCard())),
+          Center(child: VocabularyWordCard()
+          ),
+
+          SizedBox(
+            height: AppSizes.spaceXxl,
+          ),
+
           Padding(
             padding: EdgeInsets.fromLTRB(
               AppSizes.horizontalPadding,
@@ -121,17 +127,18 @@ class _NavWordButton extends StatelessWidget {
       child: Container(
         height: AppSizes.buttonHeight,
         decoration: BoxDecoration(
-          color: isPrimary
+          color: isPrimary || enabled
               ? AppColors.primaryColor
               : AppColors.homeCardLavender,
+          gradient:isPrimary || enabled ?  AppColors.primaryGradient : null,
           borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-          border: isPrimary
-              ? null
-              : Border.all(
-                  color: enabled
-                      ? AppColors.primaryColor.withValues(alpha: 0.3)
-                      : AppColors.borderLight,
-                ),
+          // border: isPrimary
+          //     ? null
+          //     : Border.all(
+          //         color: enabled
+          //             ? AppColors.primaryColor.withValues(alpha: 0.3)
+          //             : AppColors.borderLight,
+          //       ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -139,11 +146,13 @@ class _NavWordButton extends StatelessWidget {
             if (!iconOnRight) ...[
               Icon(
                 icon,
-                color: isPrimary
-                    ? AppColors.white
-                    : (enabled
-                        ? AppColors.primaryColor
-                        : AppColors.textTertiary),
+                color: AppColors.white,
+
+                // color: isPrimary
+                //     ? AppColors.white
+                //     : (enabled
+                //         ? AppColors.primaryColor
+                //         : AppColors.white),
                 size: AppSizes.sp(18),
               ),
               SizedBox(width: AppSizes.w(6)),
@@ -156,11 +165,12 @@ class _NavWordButton extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(13),
                   fontWeight: FontWeight.w600,
-                  color: isPrimary
-                      ? AppColors.white
-                      : (enabled
-                          ? AppColors.primaryColor
-                          : AppColors.textTertiary),
+                  color: Colors.white
+                  // color: isPrimary
+                  //     ? AppColors.white
+                  //     : (enabled
+                  //         ? AppColors.primaryColor
+                  //         : AppColors.textTertiary),
                 ),
               ),
             ),

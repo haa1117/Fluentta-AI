@@ -23,7 +23,7 @@ class LessonProgressHeader extends StatelessWidget {
             'LESSON $lessonNumber PROGRESS',
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
-              fontSize: AppSizes.sp(11),
+              fontSize: AppSizes.sp(12),
               fontWeight: FontWeight.w600,
               color: AppColors.primaryColor.withValues(alpha: 0.75),
               letterSpacing: 0.5,

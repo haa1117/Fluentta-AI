@@ -22,27 +22,40 @@ class VocabularyLessonTile extends StatelessWidget {
     final isInProgress = lesson.status == VocabularyLessonStatus.inProgress;
     final isCompleted = lesson.status == VocabularyLessonStatus.completed;
 
+    final borderRadius = BorderRadius.circular(AppSizes.cardRadius);
+
     return Container(
       margin: EdgeInsets.only(bottom: AppSizes.spaceSm),
       padding: EdgeInsets.all(AppSizes.w(14)),
-      decoration:isLocked ? DottedDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        shape: Shape.line,
-
-      ): BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: isInProgress
-            ? Border.all(color: AppColors.primaryColor, width: 1.5)
-            : Border.all(color: AppColors.borderLight.withValues(alpha: 0.5)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryColor.withValues(alpha: 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        borderRadius: borderRadius,
+        border: isLocked
+            ? null
+            : isInProgress
+                ? Border.all(color: AppColors.primaryColor, width: 1.5)
+                : Border.all(
+                    color: AppColors.borderDarkPrimary,
+                  ),
+        boxShadow: isLocked
+            ? null
+            : [
+                BoxShadow(
+                  color: AppColors.primaryColor.withValues(alpha: 0.04),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
+                ),
+              ],
       ),
+      foregroundDecoration: isLocked
+          ? DottedDecoration(
+              shape: Shape.box,
+              borderRadius: borderRadius,
+              color: AppColors.borderDarkPrimary,
+              strokeWidth: 1.5,
+              dash: const [5, 4],
+            )
+          : null,
       child: Row(
         children: [
           _LessonIcon(lesson: lesson),
@@ -83,7 +96,7 @@ class VocabularyLessonTile extends StatelessWidget {
                       minHeight: AppSizes.h(4),
                       backgroundColor: AppColors.progressTrack,
                       valueColor: const AlwaysStoppedAnimation<Color>(
-                        AppColors.primaryColor,
+                        AppColors.primaryBlueColor,
                       ),
                     ),
                   ),
@@ -231,7 +244,7 @@ class _ActionButton extends StatelessWidget {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(13),
             fontWeight: FontWeight.w600,
-            color: filled
+            color:  filled
                 ? AppColors.white
                 : (enabled ? AppColors.primaryBlueColor : AppColors.textTertiary),
           ),

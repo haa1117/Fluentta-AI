@@ -46,7 +46,7 @@ class VocabularyWordCard extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(36),
               fontWeight: FontWeight.w700,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryBlueColor,
             ),
           ),
           SizedBox(height: AppSizes.h(4)),
@@ -54,9 +54,10 @@ class VocabularyWordCard extends StatelessWidget {
             word.phonetic,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
-              fontSize: AppSizes.sp(14),
+              fontSize: AppSizes.sp(15),
               fontStyle: FontStyle.italic,
-              color: AppColors.textSecondary,
+              fontWeight: FontWeight.w500,
+              color: Color(0xff4A4455),
             ),
           ),
           SizedBox(height: AppSizes.spaceLg),
@@ -66,7 +67,7 @@ class VocabularyWordCard extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(11),
               fontWeight: FontWeight.w700,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryBlueColor,
               letterSpacing: 0.6,
             ),
           ),
@@ -78,7 +79,7 @@ class VocabularyWordCard extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(14),
               fontWeight: FontWeight.w400,
-              color: AppColors.textPrimary,
+              color: Color(0xff1D192C),
               height: 1.4,
             ),
           ),
@@ -89,6 +90,9 @@ class VocabularyWordCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.homeCardLavender,
               borderRadius: BorderRadius.circular(AppSizes.w(12)),
+              border: Border.all(
+                color: AppColors.borderDarkPrimary
+              )
             ),
             child: Column(
               children: [
@@ -98,7 +102,7 @@ class VocabularyWordCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(11),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.primaryColor,
+                    color: AppColors.primaryBlueColor,
                     letterSpacing: 0.6,
                   ),
                 ),
@@ -110,7 +114,7 @@ class VocabularyWordCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
                     fontWeight: FontWeight.w500,
-                    color: AppColors.textPrimary,
+                    color: Color(0xff4A4455),
                   ),
                 ),
               ],
@@ -167,20 +171,20 @@ class _WordActionButton extends StatelessWidget {
             width: AppSizes.w(52),
             height: AppSizes.w(52),
             decoration: BoxDecoration(
-              color: filled ? AppColors.primaryColor : AppColors.white,
+              color: filled ? AppColors.primaryBlueColor : AppColors.white,
               shape: BoxShape.circle,
               border: filled
                   ? null
                   : Border.all(
                       color: isActive
-                          ? AppColors.primaryColor
-                          : AppColors.primaryColor,
+                          ? AppColors.primaryBlueColor
+                          : AppColors.primaryBlueColor,
                       width: 1.5,
                     ),
             ),
             child: Icon(
               isActive ? Icons.bookmark_rounded : icon,
-              color: filled ? AppColors.white : AppColors.primaryColor,
+              color: filled ? AppColors.white : AppColors.primaryBlueColor,
               size: AppSizes.iconMedium,
             ),
           ),

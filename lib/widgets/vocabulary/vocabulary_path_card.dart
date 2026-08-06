@@ -19,6 +19,9 @@ class VocabularyPathCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+        border: Border.all(
+          color: AppColors.borderDarkPrimary
+        ),
         boxShadow: [
           BoxShadow(
             color: AppColors.primaryColor.withValues(alpha: 0.06),
@@ -51,10 +54,10 @@ class VocabularyPathCard extends StatelessWidget {
                       'Learn 50 useful beginner words\nstep by step.',
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(12),
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textSecondary,
-                        height: 1.4,
+                        fontSize: AppSizes.sp(13),
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff4A4455),
+                        height: 1.8,
                       ),
                     ),
                   ],
@@ -100,7 +103,7 @@ class VocabularyPathCard extends StatelessWidget {
               minHeight: AppSizes.h(6),
               backgroundColor: AppColors.progressTrack,
               valueColor: const AlwaysStoppedAnimation<Color>(
-                AppColors.primaryColor,
+                AppColors.primaryBlueColor,
               ),
             ),
           ),
@@ -111,7 +114,7 @@ class VocabularyPathCard extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(11),
               fontStyle: FontStyle.italic,
-              color: AppColors.primaryColor.withValues(alpha: 0.7),
+              color: AppColors.primaryColor,
             ),
           ),
         ],
