@@ -89,11 +89,11 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
           children: [
             SizedBox(height: AppSizes.h(16)),
             Image.asset(
-              AppAssets.authBird,
-              height: AppSizes.h(120),
+              AppAssets.reminderTimeBird,
+              height: AppSizes.h(150),
               fit: BoxFit.contain,
             ),
-            SizedBox(height: AppSizes.h(16)),
+            SizedBox(height: AppSizes.h(10)),
             Text(
               l10n.reminderTimeTitle,
               style: TextStyle(
@@ -104,21 +104,24 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
               ),
             ),
             SizedBox(height: AppSizes.h(8)),
-            Text(
-              l10n.chooseReminderTime,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: AppFonts.plusJakartaSans,
-                fontSize: AppSizes.sp(14),
-                color: AppColors.textSecondary,
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: AppSizes.spaceLg),
+              child: Text(
+                l10n.chooseReminderTime,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: AppFonts.plusJakartaSans,
+                  fontSize: AppSizes.sp(15),
+                  color: AppColors.textSecondary,
+                ),
               ),
             ),
             SizedBox(height: AppSizes.h(24)),
             Container(
-              height: AppSizes.h(180),
+              height: AppSizes.h(280),
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+                borderRadius: BorderRadius.circular(AppSizes.w(20)),
                 border: Border.all(color: AppColors.borderLight),
               ),
               child: Stack(
@@ -128,7 +131,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                     height: AppSizes.h(44),
                     margin: EdgeInsets.symmetric(horizontal: AppSizes.w(16)),
                     decoration: BoxDecoration(
-                      color: AppColors.homeCardLavender,
+                      color: Color(0xfff6eefd), 
                       borderRadius: BorderRadius.circular(AppSizes.w(12)),
                     ),
                   ),
@@ -182,15 +185,18 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
               },
             ),
             SizedBox(height: AppSizes.h(12)),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                l10n.cancelBtn,
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(15),
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textSecondary,
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(
+                  l10n.cancelBtn,
+                  style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    fontSize: AppSizes.sp(15),
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textSecondary,
+                  ),
                 ),
               ),
             ),
@@ -219,7 +225,7 @@ class _WheelPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: AppSizes.w(56),
-      height: AppSizes.h(160),
+      height: AppSizes.h(260),
       child: CupertinoPicker(
         scrollController: controller,
         itemExtent: AppSizes.h(44),
@@ -235,9 +241,10 @@ class _WheelPicker extends StatelessWidget {
               labelBuilder(index),
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
-                fontSize: AppSizes.sp(18),
+                fontSize: AppSizes.sp(28),
                 fontWeight: FontWeight.w700,
                 color: AppColors.primaryColor,
+
               ),
             ),
           ),
