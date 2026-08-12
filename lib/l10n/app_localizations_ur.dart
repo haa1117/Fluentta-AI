@@ -660,4 +660,218 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get levelB2 => 'B2+';
+
+  @override
+  String get profileTitle => 'پروفائل';
+
+  @override
+  String get hi => 'سلام،';
+
+  @override
+  String get a1Beginner => 'A1 ابتدائی';
+
+  @override
+  String get learningWithFluenta => 'فلوئینٹا کے ساتھ انگلش سیکھ رہے ہیں';
+
+  @override
+  String dayStreak(int days) {
+    return 'دن $days';
+  }
+
+  @override
+  String get progressLabel => 'پیش رفت';
+
+  @override
+  String get freePlan => 'مفت پلان';
+
+  @override
+  String heartsDaily(int count) {
+    return 'روزانہ $count دل';
+  }
+
+  @override
+  String get upgradePremiumDesc =>
+      'لامحدود AI مشق، تلفظ کی جانچ، مکمل رول پلے اور بغیر اشتہارات کے اپ گریڈ کریں۔';
+
+  @override
+  String get upgradeToPremium => 'پریمیم میں اپ گریڈ';
+
+  @override
+  String get yourStats => 'آپ کے اعداد و شمار';
+
+  @override
+  String get xpEarned => 'XP حاصل';
+
+  @override
+  String get wordsStat => 'الفاظ';
+
+  @override
+  String get lessonsStat => 'سبق';
+
+  @override
+  String get correctionsStat => 'اصلاحات';
+
+  @override
+  String get dailyGoal => 'روزانہ ہدف';
+
+  @override
+  String get changeGoal => 'ہدف تبدیل کریں';
+
+  @override
+  String minPerDay(int minutes) {
+    return 'روزانہ $minutes منٹ';
+  }
+
+  @override
+  String minToday(int done, int total) {
+    return 'آج $done / $total منٹ';
+  }
+
+  @override
+  String get settingsSection => 'ترتیبات';
+
+  @override
+  String get notificationsReminders => 'اطلاعات اور یاد دہانیاں';
+
+  @override
+  String dailyReminderAt(String time) {
+    return 'روزانہ یاد دہانی $time بجے';
+  }
+
+  @override
+  String get appAppearance => 'ایپ کی ظاہری شکل';
+
+  @override
+  String get lightMode => 'لائٹ موڈ';
+
+  @override
+  String get restorePurchases => 'خریداری بحال کریں';
+
+  @override
+  String get supportLegal => 'مدد اور قانونی';
+
+  @override
+  String get privacyPolicy => 'رازداری کی پالیسی';
+
+  @override
+  String get termsOfUse => 'استعمال کی شرائط';
+
+  @override
+  String get contactSupport => 'سپورٹ سے رابطہ';
+
+  @override
+  String get rateApp => 'ایپ کو ریٹ کریں';
+
+  @override
+  String get accountActions => 'اکاؤنٹ کے اقدامات';
+
+  @override
+  String get signOutTitle => 'سائن آؤٹ';
+
+  @override
+  String get signOutSub => 'اپنے اکاؤنٹ سے سائن آؤٹ کریں';
+
+  @override
+  String get deleteAccount => 'اکاؤنٹ حذف کریں';
+
+  @override
+  String get deleteAccountSub => 'اکاؤنٹ مستقل طور پر حذف کریں';
+
+  @override
+  String get allowNotifications => 'اطلاعات کی اجازت';
+
+  @override
+  String get allowNotificationsSub =>
+      'یاد دہانیاں اور سیکھنے کی اپ ڈیٹس حاصل کریں';
+
+  @override
+  String get practiceReminders => 'مشق کی یاد دہانیاں';
+
+  @override
+  String get dailyReminder => 'روزانہ یاد دہانی';
+
+  @override
+  String get reminderTime => 'یاد دہانی کا وقت';
+
+  @override
+  String get reminderTimeTitle => 'یاد دہانی کا وقت';
+
+  @override
+  String get chooseReminderTime => 'ہر روز مشق کا وقت منتخب کریں۔';
+
+  @override
+  String get saveReminder => 'یاد دہانی محفوظ کریں';
+
+  @override
+  String get cancelBtn => 'منسوخ';
+
+  @override
+  String get signOutQuestion => 'سائن آؤٹ؟';
+
+  @override
+  String get signOutDialogMessage =>
+      'آپ ki محفوظ پیش رفت محفوظ رہے گی۔ مطابقت اور پریمیم رسائی بحال کرنے کے لیے دوبارہ سائن ان کرنا ہوگا';
+
+  @override
+  String get deleteAccountQuestion => 'اکاؤنٹ حذف کریں؟';
+
+  @override
+  String get deleteAccountDialogMessage =>
+      'یہ آپ کا اکاؤنٹ، پیش رفت، محفوظ الفاظ اور سیکھنے ki تاریخ مستقل طور پر حذف کر دے گا۔';
+
+  @override
+  String get deleteAccountConfirmation => 'اکاؤنٹ حذف ki تصدیق';
+
+  @override
+  String get warning => 'انتباہ';
+
+  @override
+  String get deleteWarningMessage =>
+      'یہ عمل آپ ki تمام پیش رفت، اعداد و شمار اور ذاتی ڈیٹا مستقل طور پر حذف کر دے گا۔ یہ واپس نہیں ہو سکتا۔';
+
+  @override
+  String get understandPermanent => 'میں سمجھتا/سمجھتی ہوں کہ یہ عمل مستقل ہے۔';
+
+  @override
+  String get deleteAccountBtn => 'اکاؤنٹ حذف کریں';
+
+  @override
+  String get deleteMarketingNote =>
+      'اکاؤنٹ حذف کرنے سے آپ تمام مارکیٹنگ مواصلات سے بھی ان سبسکرائب ہو جائیں گے۔';
+
+  @override
+  String get accountDeleted => 'اکاؤنٹ حذف ہو گیا';
+
+  @override
+  String get accountDeletedMessage =>
+      'آپ کا اکاؤنٹ اور سیکھنے کا ڈیٹا حذف کر دیا گیا ہے۔';
+
+  @override
+  String get sorryToSeeYouGo => 'آپ ko جاتے دیکh kar افسوس ہے';
+
+  @override
+  String get done => 'مکمل';
+
+  @override
+  String get createAccountAnytime => 'آپ کسی بھی وقت نیا اکاؤنٹ بنا سکتے ہیں۔';
+
+  @override
+  String englishExplanationsIn(String language) {
+    return '$language میں انگلش وضاحتیں';
+  }
+
+  @override
+  String get lessonsQuickLink => 'سبق';
+
+  @override
+  String get correctionsQuickLink => 'اصلاحات';
+
+  @override
+  String get openingSoon => 'جلد آ رہا ہے';
+
+  @override
+  String get upgradeComingSoon => 'پریمیم اپ گریڈ جلد آ رہا ہے';
+
+  @override
+  String get restoringPurchases => 'خریداری بحال ki ja rahi hai...';
 }

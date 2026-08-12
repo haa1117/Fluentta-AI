@@ -22,6 +22,14 @@ class LocalStorage {
   static const String _streakDaysKey = 'streak_days';
   static const String _livesKey = 'lives';
   static const String _lessonProgressKey = 'lesson_progress';
+  static const String _notificationsEnabledKey = 'notifications_enabled';
+  static const String _dailyReminderEnabledKey = 'daily_reminder_enabled';
+  static const String _reminderHourKey = 'reminder_hour';
+  static const String _reminderMinuteKey = 'reminder_minute';
+  static const String _xpEarnedKey = 'xp_earned';
+  static const String _wordsLearnedCountKey = 'words_learned_count';
+  static const String _lessonsCompletedCountKey = 'lessons_completed_count';
+  static const String _correctionsCountKey = 'corrections_count';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -71,6 +79,17 @@ class LocalStorage {
   int get streakDays => _prefs!.getInt(_streakDaysKey) ?? 1;
   int get lives => _prefs!.getInt(_livesKey) ?? 5;
   double get lessonProgress => _prefs!.getDouble(_lessonProgressKey) ?? 0.35;
+  bool get notificationsEnabled =>
+      _prefs!.getBool(_notificationsEnabledKey) ?? true;
+  bool get dailyReminderEnabled =>
+      _prefs!.getBool(_dailyReminderEnabledKey) ?? true;
+  int get reminderHour => _prefs!.getInt(_reminderHourKey) ?? 20;
+  int get reminderMinute => _prefs!.getInt(_reminderMinuteKey) ?? 0;
+  int get xpEarned => _prefs!.getInt(_xpEarnedKey) ?? 320;
+  int get wordsLearnedCount => _prefs!.getInt(_wordsLearnedCountKey) ?? 24;
+  int get lessonsCompletedCount =>
+      _prefs!.getInt(_lessonsCompletedCountKey) ?? 8;
+  int get correctionsCount => _prefs!.getInt(_correctionsCountKey) ?? 12;
 
   Future<void> saveUserSession({
     required String uid,
@@ -145,6 +164,19 @@ class LocalStorage {
     await _prefs!.remove(_streakDaysKey);
     await _prefs!.remove(_livesKey);
     await _prefs!.remove(_lessonProgressKey);
+  }
+
+  Future<void> setNotificationsEnabled(bool value) async {
+    await _prefs!.setBool(_notificationsEnabledKey, value);
+  }
+
+  Future<void> setDailyReminderEnabled(bool value) async {
+    await _prefs!.setBool(_dailyReminderEnabledKey, value);
+  }
+
+  Future<void> setReminderTime({required int hour, required int minute}) async {
+    await _prefs!.setInt(_reminderHourKey, hour);
+    await _prefs!.setInt(_reminderMinuteKey, minute);
   }
 
   bool get shouldShowOnboarding => !isOnboardingComplete;

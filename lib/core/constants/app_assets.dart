@@ -23,6 +23,10 @@ class AppAssets {
   static const String businessMeeting='assets/images/business_metting.png';
   static const String yourLevelBird ='assets/images/your_level.png';
   static const String lessonCompletedBird='assets/images/lesson_completed_bird.png';
+static const String profileBirdWithCircle='assets/images/profile_bird.png';
+static const String logOutImage='assets/images/logout_bird.png';
+static const String deleteAccountDialogImage='assets/images/delete_account_bird.png';
+
 
 
   /// ---  SVG ICONS  ----///
@@ -34,9 +38,11 @@ class AppAssets {
   static const String grammar='assets/svg/grammar.svg';
 
 
-
   static const String homeIcon='assets/svg/home.svg';
   static const String learnIcon='assets/svg/learn.svg';
   static const String speakIcon='assets/svg/speak.svg';
   static const String profileIcon='assets/svg/profile.svg';
+  static const String warningIcon='assets/svg/warning.svg';
+
+
 }

@@ -63,7 +63,7 @@ final bool showActionButton;
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(14),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color: AppColors.primaryColor,
                 ),
               ),
               SizedBox(width: AppSizes.w(4)),

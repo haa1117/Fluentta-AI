@@ -1313,6 +1313,396 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'B2+'**
   String get levelB2;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTitle;
+
+  /// No description provided for @hi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi,'**
+  String get hi;
+
+  /// No description provided for @a1Beginner.
+  ///
+  /// In en, this message translates to:
+  /// **'A1 Beginner'**
+  String get a1Beginner;
+
+  /// No description provided for @learningWithFluenta.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning English with Fluentta'**
+  String get learningWithFluenta;
+
+  /// No description provided for @dayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {days}'**
+  String dayStreak(int days);
+
+  /// No description provided for @progressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PROGRESS'**
+  String get progressLabel;
+
+  /// No description provided for @freePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Free Plan'**
+  String get freePlan;
+
+  /// No description provided for @heartsDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} hearts daily'**
+  String heartsDaily(int count);
+
+  /// No description provided for @upgradePremiumDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade for unlimited AI practice, pronunciation checks, full roleplays, and no ads.'**
+  String get upgradePremiumDesc;
+
+  /// No description provided for @upgradeToPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Premium'**
+  String get upgradeToPremium;
+
+  /// No description provided for @yourStats.
+  ///
+  /// In en, this message translates to:
+  /// **'YOUR STATS'**
+  String get yourStats;
+
+  /// No description provided for @xpEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'XP earned'**
+  String get xpEarned;
+
+  /// No description provided for @wordsStat.
+  ///
+  /// In en, this message translates to:
+  /// **'Words'**
+  String get wordsStat;
+
+  /// No description provided for @lessonsStat.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons'**
+  String get lessonsStat;
+
+  /// No description provided for @correctionsStat.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrections'**
+  String get correctionsStat;
+
+  /// No description provided for @dailyGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Goal'**
+  String get dailyGoal;
+
+  /// No description provided for @changeGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Goal'**
+  String get changeGoal;
+
+  /// No description provided for @minPerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min per day'**
+  String minPerDay(int minutes);
+
+  /// No description provided for @minToday.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} / {total} min today'**
+  String minToday(int done, int total);
+
+  /// No description provided for @settingsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'SETTINGS'**
+  String get settingsSection;
+
+  /// No description provided for @notificationsReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications & reminders'**
+  String get notificationsReminders;
+
+  /// No description provided for @dailyReminderAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reminder at {time}'**
+  String dailyReminderAt(String time);
+
+  /// No description provided for @appAppearance.
+  ///
+  /// In en, this message translates to:
+  /// **'App Appearance'**
+  String get appAppearance;
+
+  /// No description provided for @lightMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light mode'**
+  String get lightMode;
+
+  /// No description provided for @restorePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Purchases'**
+  String get restorePurchases;
+
+  /// No description provided for @supportLegal.
+  ///
+  /// In en, this message translates to:
+  /// **'SUPPORT & LEGAL'**
+  String get supportLegal;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @termsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUse;
+
+  /// No description provided for @contactSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Support'**
+  String get contactSupport;
+
+  /// No description provided for @rateApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate App'**
+  String get rateApp;
+
+  /// No description provided for @accountActions.
+  ///
+  /// In en, this message translates to:
+  /// **'ACCOUNT ACTIONS'**
+  String get accountActions;
+
+  /// No description provided for @signOutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get signOutTitle;
+
+  /// No description provided for @signOutSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out from your account'**
+  String get signOutSub;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccount;
+
+  /// No description provided for @deleteAccountSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account permanently'**
+  String get deleteAccountSub;
+
+  /// No description provided for @allowNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Notifications'**
+  String get allowNotifications;
+
+  /// No description provided for @allowNotificationsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive reminders and learning updates'**
+  String get allowNotificationsSub;
+
+  /// No description provided for @practiceReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'PRACTICE REMINDERS'**
+  String get practiceReminders;
+
+  /// No description provided for @dailyReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Reminder'**
+  String get dailyReminder;
+
+  /// No description provided for @reminderTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder Time'**
+  String get reminderTime;
+
+  /// No description provided for @reminderTimeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder Time'**
+  String get reminderTimeTitle;
+
+  /// No description provided for @chooseReminderTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose when you\'d like to practice every day.'**
+  String get chooseReminderTime;
+
+  /// No description provided for @saveReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Reminder'**
+  String get saveReminder;
+
+  /// No description provided for @cancelBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelBtn;
+
+  /// No description provided for @signOutQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out?'**
+  String get signOutQuestion;
+
+  /// No description provided for @signOutDialogMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your saved progress will stay safe. You will need to sign in again to sync and restore premium access'**
+  String get signOutDialogMessage;
+
+  /// No description provided for @deleteAccountQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account?'**
+  String get deleteAccountQuestion;
+
+  /// No description provided for @deleteAccountDialogMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete your account, progress, saved words and learning history.'**
+  String get deleteAccountDialogMessage;
+
+  /// No description provided for @deleteAccountConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account Confirmation'**
+  String get deleteAccountConfirmation;
+
+  /// No description provided for @warning.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning'**
+  String get warning;
+
+  /// No description provided for @deleteWarningMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This action will permanently remove all your progress, stats, and personal data. This cannot be undone.'**
+  String get deleteWarningMessage;
+
+  /// No description provided for @understandPermanent.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this action is permanent.'**
+  String get understandPermanent;
+
+  /// No description provided for @deleteAccountBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccountBtn;
+
+  /// No description provided for @deleteMarketingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting your account will also unsubscribe you from all marketing communications.'**
+  String get deleteMarketingNote;
+
+  /// No description provided for @accountDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Deleted'**
+  String get accountDeleted;
+
+  /// No description provided for @accountDeletedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account and learning data have been deleted.'**
+  String get accountDeletedMessage;
+
+  /// No description provided for @sorryToSeeYouGo.
+  ///
+  /// In en, this message translates to:
+  /// **'We are sorry to see you go'**
+  String get sorryToSeeYouGo;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @createAccountAnytime.
+  ///
+  /// In en, this message translates to:
+  /// **'You can create your account anytime.'**
+  String get createAccountAnytime;
+
+  /// No description provided for @englishExplanationsIn.
+  ///
+  /// In en, this message translates to:
+  /// **'English explanations in {language}'**
+  String englishExplanationsIn(String language);
+
+  /// No description provided for @lessonsQuickLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons'**
+  String get lessonsQuickLink;
+
+  /// No description provided for @correctionsQuickLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrections'**
+  String get correctionsQuickLink;
+
+  /// No description provided for @openingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get openingSoon;
+
+  /// No description provided for @upgradeComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium upgrade coming soon'**
+  String get upgradeComingSoon;
+
+  /// No description provided for @restoringPurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring purchases...'**
+  String get restoringPurchases;
 }
 
 class _AppLocalizationsDelegate

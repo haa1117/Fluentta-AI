@@ -1,10 +1,21 @@
+import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
+import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:fluentta_ai/views/language/language_selection_screen.dart';
+import 'package:fluentta_ai/views/profile/notifications_reminders_screen.dart';
+import 'package:fluentta_ai/widgets/profile/profile_daily_goal_card.dart';
+import 'package:fluentta_ai/widgets/profile/profile_dialogs.dart';
+import 'package:fluentta_ai/widgets/profile/profile_premium_card.dart';
+import 'package:fluentta_ai/widgets/profile/profile_section_header.dart';
+import 'package:fluentta_ai/widgets/profile/profile_settings_tile.dart';
+import 'package:fluentta_ai/widgets/profile/profile_stats_grid.dart';
+import 'package:fluentta_ai/widgets/profile/profile_user_card.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTabScreen extends StatelessWidget {
@@ -15,165 +26,190 @@ class ProfileTabScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final authViewModel = context.watch<AuthViewModel>();
+    final profile = context.watch<ProfileViewModel>();
     final languageCode = authViewModel.selectedLanguage ?? 'en';
 
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
+    return Scaffold(
+      backgroundColor: AppColors.scaffoldBackgroundColor,
+      appBar: AppBarWidget(
+        title: 'Profile',
+      ),
+      body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: AppSizes.spaceXl),
-            Container(
-              width: AppSizes.w(88),
-              height: AppSizes.w(88),
-              decoration: BoxDecoration(
-                color: AppColors.homeCardLavender,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.person_outline_rounded,
-                color: AppColors.primaryColor,
-                size: AppSizes.w(44),
-              ),
-            ),
-            SizedBox(height: AppSizes.spaceLg),
-            Text(
-              authViewModel.displayName ?? l10n.user,
-              style: TextStyle(
-                fontFamily: AppFonts.plusJakartaSans,
-                fontSize: AppSizes.sp(22),
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
-              ),
-            ),
-            if (authViewModel.email != null) ...[
-              SizedBox(height: AppSizes.spaceSm),
-              Text(
-                authViewModel.email!,
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(14),
-                  color: AppColors.textSecondary,
-                ),
-              ),
-            ],
-            SizedBox(height: AppSizes.spaceXl),
-            _ProfileTile(
-              icon: Icons.language_outlined,
-              title: l10n.profileLanguage,
-              subtitle: localizedLanguageName(l10n, languageCode),
-              onTap: () {
-                Navigator.of(context).push<void>(
-                  MaterialPageRoute<void>(
-                    builder: (_) => LanguageSelectionScreen(
-                      onComplete: () => Navigator.of(context).pop(),
-                    ),
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: AppSizes.spaceSm),
-            _ProfileTile(
-              icon: Icons.settings_outlined,
-              title: l10n.profileSettings,
-              subtitle: l10n.profileSettingsSub,
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                onPressed: () => authViewModel.signOut(),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: AppColors.primaryColor,
-                  side: const BorderSide(color: AppColors.primaryColor),
-                  padding: EdgeInsets.symmetric(vertical: AppSizes.h(14)),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-                  ),
-                ),
-                child: Text(
-                  l10n.signOut,
-                  style: TextStyle(
-                    fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(15),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: AppSizes.spaceLg),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ProfileTile extends StatelessWidget {
-  const _ProfileTile({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    this.onTap,
-  });
-
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(AppSizes.w(16)),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-          border: Border.all(color: AppColors.borderLight),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: AppSizes.w(44),
-              height: AppSizes.w(44),
-              decoration: BoxDecoration(
-                color: AppColors.homeCardLavender,
-                borderRadius: BorderRadius.circular(AppSizes.w(12)),
-              ),
-              child: Icon(icon, color: AppColors.primaryColor),
-            ),
-            SizedBox(width: AppSizes.w(12)),
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(
+            //     AppSizes.horizontalPadding,
+            //     AppSizes.spaceMd,
+            //     AppSizes.horizontalPadding,
+            //     0,
+            //   ),
+            //   child: Row(
+            //     children: [
+            //       Text(
+            //         l10n.profileTitle,
+            //         style: TextStyle(
+            //           fontFamily: AppFonts.plusJakartaSans,
+            //           fontSize: AppSizes.sp(24),
+            //           fontWeight: FontWeight.w700,
+            //           color: AppColors.primaryColor,
+            //         ),
+            //       ),
+            //       const Spacer(),
+            //       Container(
+            //         padding: EdgeInsets.symmetric(
+            //           horizontal: AppSizes.w(12),
+            //           vertical: AppSizes.h(6),
+            //         ),
+            //         decoration: BoxDecoration(
+            //           color: AppColors.homeCardLavender,
+            //           borderRadius: BorderRadius.circular(AppSizes.w(20)),
+            //         ),
+            //         child: Row(
+            //           children: [
+            //             Text(
+            //               '${profile.lives}',
+            //               style: TextStyle(
+            //                 fontFamily: AppFonts.plusJakartaSans,
+            //                 fontSize: AppSizes.sp(14),
+            //                 fontWeight: FontWeight.w700,
+            //                 color: AppColors.textPrimary,
+            //               ),
+            //             ),
+            //             SizedBox(width: AppSizes.w(4)),
+            //             Icon(
+            //               Icons.favorite,
+            //               color: AppColors.heartRed,
+            //               size: AppSizes.sp(16),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontFamily: AppFonts.plusJakartaSans,
-                      fontSize: AppSizes.sp(15),
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimary,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(
+                  AppSizes.horizontalPadding,
+                  AppSizes.spaceMd,
+                  AppSizes.horizontalPadding,
+                  AppSizes.spaceLg,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const ProfileUserCard(),
+                    SizedBox(height: AppSizes.h(16)),
+                    const ProfilePremiumCard(),
+                    SizedBox(height: AppSizes.h(20)),
+                    ProfileSectionHeader(title: l10n.yourStats),
+                    const ProfileStatsGrid(),
+                    SizedBox(height: AppSizes.h(20)),
+                    const ProfileDailyGoalCard(),
+                    SizedBox(height: AppSizes.h(20)),
+                    ProfileSectionHeader(title: l10n.settingsSection),
+                    ProfileSettingsGroup(
+                      children: [
+                        ProfileSettingsTile(
+                          svgIcon: 'assets/svg/language.svg',
+                          title: l10n.profileLanguage,
+                          subtitle: l10n.englishExplanationsIn(
+                            localizedLanguageName(l10n, languageCode),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).push<void>(
+                              MaterialPageRoute<void>(
+                                builder: (_) => LanguageSelectionScreen(
+                                  onComplete: () =>
+                                      Navigator.of(context).pop(),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        ProfileSettingsTile(
+                          svgIcon: 'assets/svg/notifaction.svg',
+                          title: l10n.notificationsReminders,
+                          subtitle: l10n.dailyReminderAt(
+                            profile.formattedReminderTime(context),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).push<void>(
+                              MaterialPageRoute<void>(
+                                builder: (_) =>
+                                    const NotificationsRemindersScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        ProfileSettingsTile(
+                          svgIcon: 'assets/svg/theme.svg',
+                          title: l10n.appAppearance,
+                          subtitle: l10n.lightMode,
+                          onTap: () => SnackbarHelper.showSuccess(
+                              context, l10n.openingSoon),
+                        ),
+                        ProfileSettingsTile(
+                          svgIcon: 'assets/svg/restore_purchase.svg',
+                          title: l10n.restorePurchases,
+                          onTap: () => SnackbarHelper.showSuccess(
+                              context, l10n.restoringPurchases),
+                        ),
+                      ],
                     ),
-                  ),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontFamily: AppFonts.plusJakartaSans,
-                      fontSize: AppSizes.sp(12),
-                      color: AppColors.textSecondary,
+                    SizedBox(height: AppSizes.h(20)),
+                    ProfileSectionHeader(title: l10n.supportLegal),
+                    ProfileSettingsGroup(
+                      children: [
+                        ProfileSettingsTile(
+                          title: l10n.privacyPolicy,
+                          svgIcon: null,
+                          onTap: () => SnackbarHelper.showSuccess(
+                              context, l10n.openingSoon),
+                        ),
+                        ProfileSettingsTile(
+                          title: l10n.termsOfUse,
+                          svgIcon: null,
+                          onTap: () => SnackbarHelper.showSuccess(
+                              context, l10n.openingSoon),
+                        ),
+                        ProfileSettingsTile(
+                          title: l10n.contactSupport,
+                          svgIcon: null,
+                          onTap: () => SnackbarHelper.showSuccess(
+                              context, l10n.openingSoon),
+                        ),
+                        ProfileSettingsTile(
+                          title: l10n.rateApp,
+                          svgIcon: null,
+                          onTap: () => SnackbarHelper.showSuccess(
+                              context, l10n.openingSoon),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    SizedBox(height: AppSizes.h(20)),
+                    ProfileSectionHeader(title: l10n.accountActions),
+                    ProfileSettingsGroup(
+                      children: [
+                        ProfileSettingsTile(
+                          svgIcon: 'assets/svg/signout.svg',
+                          title: l10n.signOutTitle,
+                          subtitle: l10n.signOutSub,
+                          onTap: () => showSignOutDialog(context),
+                        ),
+                        ProfileSettingsTile(
+                          svgIcon: 'assets/svg/delete.svg',
+                          title: l10n.deleteAccount,
+                          subtitle: l10n.deleteAccountSub,
+                          isDestructive: true,
+                          onTap: () => showDeleteAccountDialog(context),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Icon(
-              Icons.chevron_right_rounded,
-              color: AppColors.textTertiary,
             ),
           ],
         ),

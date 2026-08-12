@@ -661,4 +661,218 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get levelB2 => 'B2+';
+
+  @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get hi => 'Hi,';
+
+  @override
+  String get a1Beginner => 'A1 Beginner';
+
+  @override
+  String get learningWithFluenta => 'Learning English with Fluentta';
+
+  @override
+  String dayStreak(int days) {
+    return 'Day $days';
+  }
+
+  @override
+  String get progressLabel => 'PROGRESS';
+
+  @override
+  String get freePlan => 'Free Plan';
+
+  @override
+  String heartsDaily(int count) {
+    return '$count hearts daily';
+  }
+
+  @override
+  String get upgradePremiumDesc =>
+      'Upgrade for unlimited AI practice, pronunciation checks, full roleplays, and no ads.';
+
+  @override
+  String get upgradeToPremium => 'Upgrade to Premium';
+
+  @override
+  String get yourStats => 'YOUR STATS';
+
+  @override
+  String get xpEarned => 'XP earned';
+
+  @override
+  String get wordsStat => 'Words';
+
+  @override
+  String get lessonsStat => 'Lessons';
+
+  @override
+  String get correctionsStat => 'Corrections';
+
+  @override
+  String get dailyGoal => 'Daily Goal';
+
+  @override
+  String get changeGoal => 'Change Goal';
+
+  @override
+  String minPerDay(int minutes) {
+    return '$minutes min per day';
+  }
+
+  @override
+  String minToday(int done, int total) {
+    return '$done / $total min today';
+  }
+
+  @override
+  String get settingsSection => 'SETTINGS';
+
+  @override
+  String get notificationsReminders => 'Notifications & reminders';
+
+  @override
+  String dailyReminderAt(String time) {
+    return 'Daily reminder at $time';
+  }
+
+  @override
+  String get appAppearance => 'App Appearance';
+
+  @override
+  String get lightMode => 'Light mode';
+
+  @override
+  String get restorePurchases => 'Restore Purchases';
+
+  @override
+  String get supportLegal => 'SUPPORT & LEGAL';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get termsOfUse => 'Terms of Use';
+
+  @override
+  String get contactSupport => 'Contact Support';
+
+  @override
+  String get rateApp => 'Rate App';
+
+  @override
+  String get accountActions => 'ACCOUNT ACTIONS';
+
+  @override
+  String get signOutTitle => 'Sign out';
+
+  @override
+  String get signOutSub => 'Sign out from your account';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get deleteAccountSub => 'Delete account permanently';
+
+  @override
+  String get allowNotifications => 'Allow Notifications';
+
+  @override
+  String get allowNotificationsSub => 'Receive reminders and learning updates';
+
+  @override
+  String get practiceReminders => 'PRACTICE REMINDERS';
+
+  @override
+  String get dailyReminder => 'Daily Reminder';
+
+  @override
+  String get reminderTime => 'Reminder Time';
+
+  @override
+  String get reminderTimeTitle => 'Reminder Time';
+
+  @override
+  String get chooseReminderTime =>
+      'Choose when you\'d like to practice every day.';
+
+  @override
+  String get saveReminder => 'Save Reminder';
+
+  @override
+  String get cancelBtn => 'Cancel';
+
+  @override
+  String get signOutQuestion => 'Sign out?';
+
+  @override
+  String get signOutDialogMessage =>
+      'Your saved progress will stay safe. You will need to sign in again to sync and restore premium access';
+
+  @override
+  String get deleteAccountQuestion => 'Delete Account?';
+
+  @override
+  String get deleteAccountDialogMessage =>
+      'This will permanently delete your account, progress, saved words and learning history.';
+
+  @override
+  String get deleteAccountConfirmation => 'Delete Account Confirmation';
+
+  @override
+  String get warning => 'Warning';
+
+  @override
+  String get deleteWarningMessage =>
+      'This action will permanently remove all your progress, stats, and personal data. This cannot be undone.';
+
+  @override
+  String get understandPermanent => 'I understand this action is permanent.';
+
+  @override
+  String get deleteAccountBtn => 'Delete Account';
+
+  @override
+  String get deleteMarketingNote =>
+      'Deleting your account will also unsubscribe you from all marketing communications.';
+
+  @override
+  String get accountDeleted => 'Account Deleted';
+
+  @override
+  String get accountDeletedMessage =>
+      'Your account and learning data have been deleted.';
+
+  @override
+  String get sorryToSeeYouGo => 'We are sorry to see you go';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get createAccountAnytime => 'You can create your account anytime.';
+
+  @override
+  String englishExplanationsIn(String language) {
+    return 'English explanations in $language';
+  }
+
+  @override
+  String get lessonsQuickLink => 'Lessons';
+
+  @override
+  String get correctionsQuickLink => 'Corrections';
+
+  @override
+  String get openingSoon => 'Coming soon';
+
+  @override
+  String get upgradeComingSoon => 'Premium upgrade coming soon';
+
+  @override
+  String get restoringPurchases => 'Restoring purchases...';
 }

@@ -669,4 +669,221 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get levelB2 => 'B2+';
+
+  @override
+  String get profileTitle => 'Profil';
+
+  @override
+  String get hi => 'Bonjour,';
+
+  @override
+  String get a1Beginner => 'A1 Débutant';
+
+  @override
+  String get learningWithFluenta => 'Apprendre l\'anglais avec Fluentta';
+
+  @override
+  String dayStreak(int days) {
+    return 'Jour $days';
+  }
+
+  @override
+  String get progressLabel => 'PROGRESSION';
+
+  @override
+  String get freePlan => 'Forfait gratuit';
+
+  @override
+  String heartsDaily(int count) {
+    return '$count cœurs par jour';
+  }
+
+  @override
+  String get upgradePremiumDesc =>
+      'Passez à Premium pour une pratique IA illimitée, la prononciation, les jeux de rôle complets et sans pub.';
+
+  @override
+  String get upgradeToPremium => 'Passer à Premium';
+
+  @override
+  String get yourStats => 'VOS STATISTIQUES';
+
+  @override
+  String get xpEarned => 'XP gagnés';
+
+  @override
+  String get wordsStat => 'Mots';
+
+  @override
+  String get lessonsStat => 'Leçons';
+
+  @override
+  String get correctionsStat => 'Corrections';
+
+  @override
+  String get dailyGoal => 'Objectif quotidien';
+
+  @override
+  String get changeGoal => 'Modifier l\'objectif';
+
+  @override
+  String minPerDay(int minutes) {
+    return '$minutes min par jour';
+  }
+
+  @override
+  String minToday(int done, int total) {
+    return '$done / $total min aujourd\'hui';
+  }
+
+  @override
+  String get settingsSection => 'PARAMÈTRES';
+
+  @override
+  String get notificationsReminders => 'Notifications et rappels';
+
+  @override
+  String dailyReminderAt(String time) {
+    return 'Rappel quotidien à $time';
+  }
+
+  @override
+  String get appAppearance => 'Apparence de l\'app';
+
+  @override
+  String get lightMode => 'Mode clair';
+
+  @override
+  String get restorePurchases => 'Restaurer les achats';
+
+  @override
+  String get supportLegal => 'SUPPORT ET LÉGAL';
+
+  @override
+  String get privacyPolicy => 'Politique de confidentialité';
+
+  @override
+  String get termsOfUse => 'Conditions d\'utilisation';
+
+  @override
+  String get contactSupport => 'Contacter le support';
+
+  @override
+  String get rateApp => 'Noter l\'app';
+
+  @override
+  String get accountActions => 'ACTIONS DU COMPTE';
+
+  @override
+  String get signOutTitle => 'Se déconnecter';
+
+  @override
+  String get signOutSub => 'Se déconnecter de votre compte';
+
+  @override
+  String get deleteAccount => 'Supprimer le compte';
+
+  @override
+  String get deleteAccountSub => 'Supprimer le compte définitivement';
+
+  @override
+  String get allowNotifications => 'Autoriser les notifications';
+
+  @override
+  String get allowNotificationsSub =>
+      'Recevoir des rappels et des mises à jour d\'apprentissage';
+
+  @override
+  String get practiceReminders => 'RAPPELS DE PRATIQUE';
+
+  @override
+  String get dailyReminder => 'Rappel quotidien';
+
+  @override
+  String get reminderTime => 'Heure du rappel';
+
+  @override
+  String get reminderTimeTitle => 'Heure du rappel';
+
+  @override
+  String get chooseReminderTime =>
+      'Choisissez quand vous souhaitez pratiquer chaque jour.';
+
+  @override
+  String get saveReminder => 'Enregistrer le rappel';
+
+  @override
+  String get cancelBtn => 'Annuler';
+
+  @override
+  String get signOutQuestion => 'Se déconnecter ?';
+
+  @override
+  String get signOutDialogMessage =>
+      'Votre progression sera conservée. Vous devrez vous reconnecter pour synchroniser et restaurer l\'accès premium';
+
+  @override
+  String get deleteAccountQuestion => 'Supprimer le compte ?';
+
+  @override
+  String get deleteAccountDialogMessage =>
+      'Cela supprimera définitivement votre compte, progression, mots enregistrés et historique d\'apprentissage.';
+
+  @override
+  String get deleteAccountConfirmation => 'Confirmation de suppression';
+
+  @override
+  String get warning => 'Avertissement';
+
+  @override
+  String get deleteWarningMessage =>
+      'Cette action supprimera définitivement toute votre progression, statistiques et données personnelles. Cette action est irréversible.';
+
+  @override
+  String get understandPermanent =>
+      'Je comprends que cette action est permanente.';
+
+  @override
+  String get deleteAccountBtn => 'Supprimer le compte';
+
+  @override
+  String get deleteMarketingNote =>
+      'La suppression de votre compte vous désabonnera également de toutes les communications marketing.';
+
+  @override
+  String get accountDeleted => 'Compte supprimé';
+
+  @override
+  String get accountDeletedMessage =>
+      'Votre compte et vos données d\'apprentissage ont été supprimés.';
+
+  @override
+  String get sorryToSeeYouGo => 'Nous sommes désolés de vous voir partir';
+
+  @override
+  String get done => 'Terminé';
+
+  @override
+  String get createAccountAnytime =>
+      'Vous pouvez créer votre compte à tout moment.';
+
+  @override
+  String englishExplanationsIn(String language) {
+    return 'Explications en anglais en $language';
+  }
+
+  @override
+  String get lessonsQuickLink => 'Leçons';
+
+  @override
+  String get correctionsQuickLink => 'Corrections';
+
+  @override
+  String get openingSoon => 'Bientôt disponible';
+
+  @override
+  String get upgradeComingSoon => 'Mise à niveau Premium bientôt';
+
+  @override
+  String get restoringPurchases => 'Restauration des achats...';
 }
