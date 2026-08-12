@@ -48,6 +48,8 @@ static const Color iconColor = Color(0xff665D72);
   static const Color learnReadingOrange = Color(0xFFF5A623);
   static const Color learnSavedTeal = Color(0xFF2EC4B6);
   static const Color learnSuccessGreen = Color(0xFF22C55E);
+  static const Color readingUserGreen = Color(0xFF22C55E);
+  static const Color readingUserBubbleBg = Color(0xFFE8F8EF);
 
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,

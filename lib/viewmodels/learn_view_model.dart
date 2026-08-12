@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/learn_category_model.dart';
 import 'package:fluentta_ai/views/grammar/grammar_screen.dart';
+import 'package:fluentta_ai/views/reading/reading_screen.dart';
 import 'package:fluentta_ai/views/vocabulary/vocabulary_screen.dart';
 
 class LearnViewModel extends ChangeNotifier {
@@ -61,6 +62,14 @@ class LearnViewModel extends ChangeNotifier {
   }
 
   void openCategory(BuildContext context, LearnCategoryModel category) {
+    if (category.id == 'reading') {
+      Navigator.of(context).push<void>(
+        MaterialPageRoute<void>(
+          builder: (_) => const ReadingScreen(),
+        ),
+      );
+      return;
+    }
     if (category.id == 'grammar') {
       Navigator.of(context).push<void>(
         MaterialPageRoute<void>(
