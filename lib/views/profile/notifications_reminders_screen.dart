@@ -54,9 +54,10 @@ class NotificationsRemindersScreen extends StatelessWidget {
             ),
             SizedBox(height: AppSizes.h(8)),
             Container(
+              padding: EdgeInsets.symmetric(horizontal: AppSizes.w(2),vertical: AppSizes.w(10)),
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+                borderRadius: BorderRadius.circular(AppSizes.sp(20) ),
                 border: Border.all(color: AppColors.borderLight),
               ),
               child: Column(
@@ -68,11 +69,14 @@ class NotificationsRemindersScreen extends StatelessWidget {
                     enabled: profile.notificationsEnabled,
                     onChanged: profile.setDailyReminderEnabled,
                   ),
-                  Divider(
-                    height: 1,
-                    color: AppColors.borderLight.withValues(alpha: 0.7),
-                    indent: AppSizes.w(16),
-                    endIndent: AppSizes.w(16),
+                  // Divider(
+                  //   height: 1,
+                  //   color: AppColors.borderLight.withValues(alpha: 0.7),
+                  //   indent: AppSizes.w(16),
+                  //   endIndent: AppSizes.w(16),
+                  // ),
+                  SizedBox(
+                    height: AppSizes.spaceLg,
                   ),
                   _ReminderTimeRow(
                     title: l10n.reminderTime,
@@ -116,10 +120,10 @@ class _ToggleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(AppSizes.w(16)),
+      padding: EdgeInsets.all(AppSizes.w(20)),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+        borderRadius: BorderRadius.circular(AppSizes.sp(20) ),
         border: Border.all(color: AppColors.borderLight),
       ),
       child: Row(
@@ -133,7 +137,7 @@ class _ToggleCard extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(16),
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                     color: AppColors.textPrimary,
                   ),
                 ),
@@ -143,6 +147,7 @@ class _ToggleCard extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(13),
+                    fontWeight: FontWeight.w400,
                     color: AppColors.textSecondary,
                   ),
                 ),
@@ -205,7 +210,7 @@ class _ReminderToggleRow extends StatelessWidget {
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(15),
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w400,
                 color: enabled
                     ? AppColors.textPrimary
                     : AppColors.textTertiary,
@@ -274,7 +279,7 @@ class _ReminderTimeRow extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(15),
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w400,
                     color: enabled
                         ? AppColors.textPrimary
                         : AppColors.textTertiary,
@@ -294,7 +299,7 @@ class _ReminderTimeRow extends StatelessWidget {
               ),
               Icon(
                 Icons.chevron_right_rounded,
-                color: AppColors.textTertiary,
+                color: AppColors.textSecondary,
                 size: AppSizes.sp(22),
               ),
             ],
