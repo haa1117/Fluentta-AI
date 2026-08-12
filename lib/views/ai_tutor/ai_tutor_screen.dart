@@ -73,12 +73,12 @@ class AiTutorScreen extends StatelessWidget {
             ),
             SizedBox(height: AppSizes.spaceLg),
             _OpenAiChatCard(
-              onTap: () {
-                Navigator.of(context).push<void>(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const OpenChatPracticeScreen(),
-                  ),
-                );
+              onTap: () { 
+                // Navigator.of(context).push<void>(
+                //   MaterialPageRoute<void>(
+                //     builder: (_) => const OpenChatPracticeScreen(),
+                //   ),
+                // );
               },
             ),
             SizedBox(height: AppSizes.spaceXl),
@@ -208,11 +208,11 @@ class _OpenAiChatCard extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              Icons.chevron_right_rounded,
-              color: AppColors.textTertiary,
-              size: AppSizes.sp(22),
-            ),
+            // Icon(
+            //   Icons.chevron_right_rounded,
+            //   color: AppColors.textTertiary,
+            //   size: AppSizes.sp(22),
+            // ),
           ],
         ),
       ),
