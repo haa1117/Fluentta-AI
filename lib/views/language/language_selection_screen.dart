@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/language_view_model.dart';
 import 'package:fluentta_ai/widgets/common/ad_placeholder.dart';
@@ -17,6 +18,7 @@ class LanguageSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<LanguageViewModel>();
 
     return Scaffold(
@@ -35,9 +37,9 @@ class LanguageSelectionScreen extends StatelessWidget {
                     SizedBox(height: AppSizes.spaceMd),
                     const LanguageBanner(),
                     SizedBox(height: AppSizes.spaceLg),
-                    const SectionHeader(title: 'Suggested For You'),
+                    SectionHeader(title: l10n.suggestedForYou),
                     SizedBox(height: AppSizes.spaceSm),
-                    ...LanguageViewModel.suggestedLanguages.map(
+                    ...viewModel.suggestedLanguages(l10n).map(
                       (language) => Padding(
                         padding: EdgeInsets.only(bottom: AppSizes.spaceSm),
                         child: LanguageTile(
@@ -51,9 +53,9 @@ class LanguageSelectionScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: AppSizes.spaceMd),
-                    const SectionHeader(title: 'Other Languages'),
+                    SectionHeader(title: l10n.otherLanguages),
                     SizedBox(height: AppSizes.spaceSm),
-                    ...LanguageViewModel.otherLanguages.map(
+                    ...viewModel.otherLanguages(l10n).map(
                       (language) => Padding(
                         padding: EdgeInsets.only(bottom: AppSizes.spaceSm),
                         child: LanguageTile(
@@ -80,7 +82,7 @@ class LanguageSelectionScreen extends StatelessWidget {
                 AppSizes.spaceMd,
               ),
               child: PrimaryButton(
-                text: 'Continue',
+                text: l10n.continueBtn,
                 onPressed: () => viewModel.continueWithLanguage(onComplete),
               ),
             ),

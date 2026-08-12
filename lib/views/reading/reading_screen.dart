@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/reading_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
@@ -13,12 +14,13 @@ class ReadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<ReadingViewModel>();
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
-      appBar: const AppBarWidget(
-        title: 'Reading',
+      appBar: AppBarWidget(
+        title: l10n.reading,
         showBackButton: true,
         centerTitle: true,
         showActionButton: false,

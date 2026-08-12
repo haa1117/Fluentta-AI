@@ -1,9 +1,12 @@
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
+import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LearningLessonTile extends StatelessWidget {
@@ -18,6 +21,7 @@ class LearningLessonTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final isLocked = lesson.status == LearningLessonStatus.locked;
     final isInProgress = lesson.status == LearningLessonStatus.inProgress;
     final isCompleted = lesson.status == LearningLessonStatus.completed;
@@ -73,10 +77,10 @@ class LearningLessonTile extends StatelessWidget {
                         : AppColors.textPrimary,
                   ),
                 ),
-                if (lesson.progressLabel.isNotEmpty) ...[
+                if (_progressLabel(l10n, lesson).isNotEmpty) ...[
                   SizedBox(height: AppSizes.h(2)),
                   Text(
-                    lesson.progressLabel,
+                    _progressLabel(l10n, lesson),
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(11),
@@ -108,10 +112,32 @@ class LearningLessonTile extends StatelessWidget {
           _ActionButton(
             status: lesson.status,
             onTap: isLocked ? null : onTap,
+            l10n: l10n,
           ),
         ],
       ),
     );
+  }
+
+  String _progressLabel(AppLocalizations l10n, LearningLessonItem lesson) {
+    if (lesson is VocabularyLessonModel) {
+      final statusLabel = _statusLabel(l10n, lesson.status);
+      return l10n.wordsProgress(
+        lesson.wordsCompleted,
+        lesson.totalWords,
+        statusLabel,
+      );
+    }
+    return _statusLabel(l10n, lesson.status);
+  }
+
+  String _statusLabel(AppLocalizations l10n, LearningLessonStatus status) {
+    return switch (status) {
+      LearningLessonStatus.completed => l10n.completed,
+      LearningLessonStatus.inProgress => l10n.inProgress,
+      LearningLessonStatus.notStarted => '',
+      LearningLessonStatus.locked => l10n.locked,
+    };
   }
 }
 
@@ -168,16 +194,22 @@ class _LessonIcon extends StatelessWidget {
 }
 
 class _ActionButton extends StatelessWidget {
-  const _ActionButton({required this.status, this.onTap});
+  const _ActionButton({
+    required this.status,
+    required this.l10n,
+    this.onTap,
+  });
 
   final LearningLessonStatus status;
+  final AppLocalizations l10n;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     if (status == LearningLessonStatus.completed) {
       return _pillButton(
-        label: 'Open',
+        label: l10n.open,
+        isOpenStyle: true,
         filled: false,
         enabled: true,
         onTap: onTap,
@@ -185,7 +217,8 @@ class _ActionButton extends StatelessWidget {
     }
     if (status == LearningLessonStatus.inProgress) {
       return _pillButton(
-        label: 'Continue',
+        label: l10n.continueBtn,
+        isOpenStyle: false,
         filled: true,
         enabled: true,
         onTap: onTap,
@@ -193,14 +226,16 @@ class _ActionButton extends StatelessWidget {
     }
     if (status == LearningLessonStatus.notStarted) {
       return _pillButton(
-        label: 'Start',
+        label: l10n.start,
+        isOpenStyle: false,
         filled: false,
         enabled: true,
         onTap: onTap,
       );
     }
     return _pillButton(
-      label: 'Start',
+      label: l10n.start,
+      isOpenStyle: false,
       filled: false,
       enabled: false,
       onTap: null,
@@ -209,6 +244,7 @@ class _ActionButton extends StatelessWidget {
 
   Widget _pillButton({
     required String label,
+    required bool isOpenStyle,
     required bool filled,
     required bool enabled,
     VoidCallback? onTap,
@@ -221,7 +257,7 @@ class _ActionButton extends StatelessWidget {
           vertical: AppSizes.h(8),
         ),
         decoration: BoxDecoration(
-          color: label == 'Open'
+          color: isOpenStyle
               ? const Color(0xffF7F1FF)
               : (filled
                   ? AppColors.primaryBlueColor

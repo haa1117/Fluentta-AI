@@ -1,67 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/l10n/localized_content.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/grammar_lesson_model.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/views/grammar/grammar_lesson_screen.dart';
 
 class GrammarViewModel extends ChangeNotifier {
-  GrammarViewModel(this._localStorage);
+  GrammarViewModel(this._localStorage, this._localeViewModel) {
+    _lessons = _buildLessons();
+    _localeViewModel.addListener(_onLocaleChanged);
+  }
 
   final LocalStorage _localStorage;
+  final LocaleViewModel _localeViewModel;
 
-  static const List<GrammarStepModel> _presentSimpleSteps = [
-    GrammarStepModel(
-      title: 'I You We',
-      description: 'Use the base verb with I, you, and we.',
-      formula: 'I / You / We + verb',
-      examples: [
-        GrammarExampleModel(
-          prefix: 'I',
-          highlight: 'work',
-          suffix: '.',
-        ),
-        GrammarExampleModel(
-          prefix: 'You',
-          highlight: 'study',
-          suffix: '.',
-        ),
-        GrammarExampleModel(
-          prefix: 'We',
-          highlight: 'speak',
-          suffix: ' in English.',
-        ),
-      ],
-      quickTip: 'Do not use \'s\' with i, you, we or they.',
-    ),
-    GrammarStepModel(
-      title: 'He, She, It',
-      description: 'With he, she, and it, add \'s\' to the verb.',
-      formula: 'He / She / It + verb + s',
-      examples: [
-        GrammarExampleModel(
-          prefix: 'He',
-          highlight: 'works',
-          suffix: '.',
-        ),
-        GrammarExampleModel(
-          prefix: 'She',
-          highlight: 'studies',
-          suffix: '.',
-          iconName: 'female'
-        ),
-        GrammarExampleModel(
-          prefix: 'It',
-          highlight: 'starts',
-          suffix: ' now.',
-          iconName: 'time',
-        ),
-      ],
-      quickTip: 'He, she, and it usually need \'s\'.',
-    ),
-  ];
+  late List<GrammarLessonModel> _lessons;
 
-  late List<GrammarLessonModel> _lessons = _buildLessons();
+  AppLocalizations get _l10n => _localeViewModel.strings;
 
   List<GrammarLessonModel> get lessons => _lessons;
 
@@ -74,27 +32,65 @@ class GrammarViewModel extends ChangeNotifier {
       totalLessonsCount == 0 ? 0 : completedLessonsCount / totalLessonsCount;
 
   LearningPathData get pathData => LearningPathData(
-        title: '$levelCode Grammar Path',
-        subtitle: 'Learn simple grammar rules\nstep by step.',
+        title: _l10n.grammarPathTitle(levelCode),
+        subtitle: _l10n.grammarPathSub,
         completedLessons: completedLessonsCount,
         totalLessons: totalLessonsCount,
       );
 
-  String get levelCode {
-    return switch (_localStorage.englishLevel) {
-      'elementary' => 'A2',
-      'intermediate' => 'B1',
-      'advanced' => 'B2+',
-      _ => 'A1',
-    };
+  String get levelCode =>
+      LocalizedContent.levelCode(_l10n, _localStorage.englishLevel);
+
+  void _onLocaleChanged() {
+    _lessons = _buildLessons();
+    notifyListeners();
   }
+
+  List<GrammarStepModel> _presentSimpleSteps() => [
+        GrammarStepModel(
+          title: _l10n.grammarStepIYouWe,
+          description: _l10n.grammarStepIYouWeDesc,
+          formula: _l10n.grammarStepIYouWeFormula,
+          examples: const [
+            GrammarExampleModel(prefix: 'I', highlight: 'work', suffix: '.'),
+            GrammarExampleModel(prefix: 'You', highlight: 'study', suffix: '.'),
+            GrammarExampleModel(
+              prefix: 'We',
+              highlight: 'speak',
+              suffix: ' in English.',
+            ),
+          ],
+          quickTip: _l10n.grammarTipNoS,
+        ),
+        GrammarStepModel(
+          title: _l10n.grammarStepHeSheIt,
+          description: _l10n.grammarStepHeSheItDesc,
+          formula: _l10n.grammarStepHeSheItFormula,
+          examples: const [
+            GrammarExampleModel(prefix: 'He', highlight: 'works', suffix: '.'),
+            GrammarExampleModel(
+              prefix: 'She',
+              highlight: 'studies',
+              suffix: '.',
+              iconName: 'female',
+            ),
+            GrammarExampleModel(
+              prefix: 'It',
+              highlight: 'starts',
+              suffix: ' now.',
+              iconName: 'time',
+            ),
+          ],
+          quickTip: _l10n.grammarTipNeedS,
+        ),
+      ];
 
   List<GrammarLessonModel> _buildLessons() {
     return [
-      const GrammarLessonModel(
+      GrammarLessonModel(
         id: 1,
         number: 1,
-        title: 'I am / you are',
+        title: _l10n.lesson1IAmYouAre,
         status: LearningLessonStatus.completed,
         stepsCompleted: 2,
         totalSteps: 2,
@@ -103,53 +99,52 @@ class GrammarViewModel extends ChangeNotifier {
       GrammarLessonModel(
         id: 2,
         number: 2,
-        title: 'Present Simple',
+        title: _l10n.lesson2PresentSimple,
         status: LearningLessonStatus.inProgress,
         stepsCompleted: 1,
         totalSteps: 2,
         iconName: 'chat',
-        steps: _presentSimpleSteps,
-        completionTitle: 'Present Simple Learned',
-        completionSummary: 'He, she, it, I, you, we',
+        steps: _presentSimpleSteps(),
+        completionTitle: _l10n.presentSimpleLearned,
+        completionSummary: _l10n.presentSimpleSummary,
       ),
-      const GrammarLessonModel(
+      GrammarLessonModel(
         id: 3,
         number: 3,
-        title: 'A / an / The',
+        title: _l10n.lessonArticles,
         status: LearningLessonStatus.notStarted,
         stepsCompleted: 0,
         totalSteps: 2,
         iconName: 'travel',
         useLessonPrefix: false,
       ),
-      ...List.generate(7, (index) {
-        const titles = [
-          'This / That',
-          'He / She / They',
-          'There is / There are',
-          'Can / Cannot',
-          'Have / Has',
-          'Was / Were',
-          'Will / Going to',
-        ];
-        return GrammarLessonModel(
-          id: index + 4,
-          number: index + 4,
-          title: titles[index],
-          status: LearningLessonStatus.locked,
-          stepsCompleted: 0,
-          totalSteps: 2,
-          iconName: 'lock',
-          useLessonPrefix: false,
-        );
-      }),
+      ...[
+        _l10n.lessonThisThat,
+        _l10n.lessonHeSheThey,
+        _l10n.lessonThereIsAre,
+        _l10n.lessonCanCannot,
+        _l10n.lessonHaveHas,
+        _l10n.lessonWasWere,
+        _l10n.lessonWillGoingTo,
+      ].asMap().entries.map(
+            (entry) => GrammarLessonModel(
+              id: entry.key + 4,
+              number: entry.key + 4,
+              title: entry.value,
+              status: LearningLessonStatus.locked,
+              stepsCompleted: 0,
+              totalSteps: 2,
+              iconName: 'lock',
+              useLessonPrefix: false,
+            ),
+          ),
     ];
   }
 
   void openLesson(BuildContext context, GrammarLessonModel lesson) {
     if (lesson.status == LearningLessonStatus.locked) return;
     if (lesson.steps.isEmpty) {
-      SnackbarHelper.showSuccess(context, 'Lesson content coming soon');
+      SnackbarHelper.showSuccess(context, _l10n.lessonContentSoon);
       return;
     }
 
@@ -204,5 +199,11 @@ class GrammarViewModel extends ChangeNotifier {
       return lesson;
     }).toList();
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _localeViewModel.removeListener(_onLocaleChanged);
+    super.dispose();
   }
 }

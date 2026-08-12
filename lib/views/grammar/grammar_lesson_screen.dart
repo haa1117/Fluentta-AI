@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/grammar_lesson_model.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/viewmodels/grammar_lesson_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/grammar/grammar_example_tile.dart';
@@ -44,13 +45,14 @@ class _GrammarLessonBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<GrammarLessonViewModel>();
     final step = viewModel.currentStep;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
       appBar: AppBarWidget(
-        title: 'Lesson $lessonNumber',
+        title: l10n.lessonTitle(lessonNumber),
         showBackButton: true,
         centerTitle: true,
         showActionButton: false,
@@ -90,7 +92,7 @@ class _GrammarLessonBody extends StatelessWidget {
               children: [
                 Expanded(
                   child: LessonNavButton(
-                    label: 'Previous',
+                    label: l10n.previous,
                     icon: Icons.arrow_back_rounded,
                     isPrimary: false,
                     enabled: !viewModel.isFirstStep,
@@ -102,7 +104,7 @@ class _GrammarLessonBody extends StatelessWidget {
                 SizedBox(width: AppSizes.w(12)),
                 Expanded(
                   child: LessonNavButton(
-                    label: viewModel.isLastStep ? 'Finish Lesson' : 'Next',
+                    label: viewModel.isLastStep ? l10n.finishLesson : l10n.next,
                     icon: Icons.arrow_forward_rounded,
                     isPrimary: true,
                     enabled: true,

@@ -1,4 +1,5 @@
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/viewmodels/splash_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
@@ -29,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -50,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               SizedBox(height: AppSizes.spaceLg),
               Text(
-                'Fluenta',
+                l10n.appName,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily:AppFonts.plusJakartaSans ,
@@ -61,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               SizedBox(height: AppSizes.spaceMd),
               Text(
-                'AI English Tutor',
+                l10n.aiEnglishTutor,
                 style: TextStyle(
                   fontFamily: 'PlusJakartaSans',
                   fontSize: AppSizes.fontTitle,
@@ -73,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Padding(
                 padding:  EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
                 child: Text(
-                  'Speak English with your AI tutor.',
+                  l10n.speakWithAiTutor,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'PlusJakartaSans',

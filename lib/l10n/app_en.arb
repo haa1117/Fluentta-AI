@@ -1,0 +1,284 @@
+{
+  "@@locale": "en",
+
+  "appName": "Fluenta",
+  "aiEnglishTutor": "AI English Tutor",
+  "speakWithAiTutor": "Speak English with your AI tutor.",
+  "next": "Next",
+  "skip": "Skip",
+  "continueBtn": "Continue",
+  "getStarted": "Get Started",
+  "open": "Open",
+  "start": "Start",
+  "previous": "Previous",
+  "finishLesson": "Finish Lesson",
+  "startNextLesson": "Start Next Lesson",
+  "lessonProgress": "LESSON {number} PROGRESS",
+  "@lessonProgress": {
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+  "lessonTitle": "Lesson {number}",
+  "@lessonTitle": {
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+  "lessonPhase": "LESSON PHASE",
+  "completed": "Completed",
+  "inProgress": "In progress",
+  "locked": "Locked",
+  "notStarted": "Not started",
+  "wordsProgress": "{done}/{total} words • {status}",
+  "@wordsProgress": {
+    "placeholders": {
+      "done": {"type": "int"},
+      "total": {"type": "int"},
+      "status": {"type": "String"}
+    }
+  },
+  "lessonsCompleted": "{done} / {total} lessons completed",
+  "@lessonsCompleted": {
+    "placeholders": {
+      "done": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "completedLessonsReview": "Completed lessons stay open for review.",
+  "lessonContentSoon": "Lesson content coming soon",
+  "openingCategory": "Opening {title}...",
+  "@openingCategory": {
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+
+  "onboardingTitle1": "Meet Your AI English Tutor",
+  "onboardingDesc1": "Practice English by chatting or speaking \n with your personal AI tutor",
+  "onboardingTitle2": "Get Instant Corrections",
+  "onboardingDesc2": "Fix Grammar, word choice, and sentences while you practice",
+  "onboardingTitle3": "Improve Every Day",
+  "onboardingDesc3": "Build your English with daily practice and simple progress tracking",
+
+  "chooseYourLanguage": "Choose Your Language",
+  "personalizeExperience": "We Personalize your learning Experience",
+  "suggestedForYou": "Suggested For You",
+  "otherLanguages": "Other Languages",
+  "recommendedRegion": "Recommended based on your region",
+  "languageUrdu": "Urdu",
+  "languageEnglish": "English",
+  "languageSpanish": "Spanish",
+  "languageFrench": "French",
+
+  "signInWithEmail": "Sign in with Email",
+  "signInSubtitle": "Continue your English learning journey.",
+  "createAccount": "Create account",
+  "createAccountSubtitle": "Save your learning progress across devices",
+  "emailAddress": "Email address",
+  "password": "Password",
+  "fullName": "Full Name",
+  "enterYourName": "Enter your name",
+  "minEightChars": "Min. 8 characters",
+  "forgotPassword": "Forgot password?",
+  "signIn": "Sign in",
+  "alreadyHaveAccount": "Already have an account? ",
+  "rememberPassword": "Remember your password? ",
+  "forgotPasswordTitle": "Forgot your password?",
+  "forgotPasswordSubtitle": "Enter the email linked to your account.\n We'll send you a verification code.",
+  "sendVerificationCode": "Send Verification Code",
+  "verificationEmailSent": "Verification email sent successfully.",
+  "checkYourEmail": "Check your email",
+  "otpSentTo": "We sent a 4-digit code to {email}",
+  "@otpSentTo": {
+    "placeholders": {
+      "email": {"type": "String"}
+    }
+  },
+  "verifyCode": "Verify Code",
+  "verificationCodeResent": "Verification code resent.",
+  "didntReceiveCode": "Didn't receive the code? ",
+  "resetPassword": "Reset Password",
+  "passwordUpdated": "Password Updated!",
+  "passwordUpdatedDesc": "Your password has been updated successfully.\nYou can now sign in with your new password",
+  "backToSignIn": "Back to sign in",
+  "accountCreatedTitle": "Account Created!",
+  "accountCreatedDesc": "Your account has been created successfully.\nLet's set up your learning preferences.",
+  "orContinueWith": "Or continue with",
+  "dontHaveAccount": "Don't have an account? ",
+
+  "setupGoalTitle": "What's Your English Goal?",
+  "setupGoalSubtitle": "Your tutor will create practice based on your goal.",
+  "setupLevelTitle": "Start Your Starting Point",
+  "setupLevelSubtitle": "We'll personalize your lessons based on your level.",
+  "setupDailyTitle": "Set Your Daily Goal",
+  "setupDailySubtitle": "Small daily practice builds real English fluency.",
+  "goalTravel": "Travel",
+  "goalTravelSub": "Easy Local Conversation",
+  "goalWork": "Work",
+  "goalWorkSub": "Master Workplace English",
+  "goalExam": "Exam",
+  "goalExamSub": "IELTS, TOEFL & Interviews",
+  "goalEveryday": "Everyday English",
+  "goalEverydaySub": "Practice natural conversation",
+  "levelBeginner": "Beginner",
+  "levelBeginnerSub": "A1 · New to English Basics",
+  "levelElementary": "Elementary",
+  "levelElementarySub": "A2 · Can use simple words",
+  "levelIntermediate": "Intermediate",
+  "levelIntermediateSub": "B1 · Can hold simple conversation",
+  "levelAdvanced": "Advanced",
+  "levelAdvancedSub": "B2+ · Comfortable in most situations",
+  "daily5": "5 minutes",
+  "daily5Sub": "Perfect for busy days",
+  "daily10": "10 Minutes",
+  "daily10Sub": "Best for consistent progress",
+  "daily15": "15 minutes",
+  "daily15Sub": "Learn more with focused practice",
+  "daily20": "20 minutes",
+  "daily20Sub": "For faster improvement",
+
+  "navHome": "Home",
+  "navLearn": "Learn",
+  "navSpeak": "Speak",
+  "navProfile": "Profile",
+  "readyToPractice": "Ready to practice?",
+  "journeyContinues": "Your English journey continues here.",
+  "learnAndGrow": "Learn & grow",
+  "vocabulary": "Vocabulary",
+  "vocabularySub": "5 words to review",
+  "grammar": "Grammar",
+  "grammarSub": "Quick practice",
+  "reading": "Reading",
+  "readingSub": "Short passage",
+  "savedWords": "Saved Words",
+  "savedWordsSub": "12 words to review",
+  "yourLevel": "Your level",
+  "beginnerLevel": "Beginner",
+  "speakTitle": "Speak",
+  "speakSubtitle": "Practice speaking with your AI tutor",
+  "speakComingSoon": "Speaking practice coming soon",
+  "profileLanguage": "Language",
+  "profileSettings": "Settings",
+  "profileSettingsSub": "App preferences",
+  "signOut": "Sign Out",
+  "user": "User",
+  "changeLanguage": "Change Language",
+
+  "vocabularyPathTitle": "{level} Vocabulary Path",
+  "@vocabularyPathTitle": {
+    "placeholders": {"level": {"type": "String"}}
+  },
+  "vocabularyPathSub": "Learn 50 useful beginner words\nstep by step.",
+  "grammarPathTitle": "{level} Grammar Path",
+  "@grammarPathTitle": {
+    "placeholders": {"level": {"type": "String"}}
+  },
+  "grammarPathSub": "Learn simple grammar rules\nstep by step.",
+  "readingPathTitle": "{level} Reading Path",
+  "@readingPathTitle": {
+    "placeholders": {"level": {"type": "String"}}
+  },
+  "readingPathSub": "Read short English passages\nstep by step.",
+  "previousWord": "Previous Word",
+  "nextWord": "Next Word",
+  "listen": "Listen",
+  "save": "Save",
+  "meaning": "MEANING",
+  "example": "EXAMPLE",
+  "wordIndex": "Word .{index}",
+  "@wordIndex": {
+    "placeholders": {"index": {"type": "int"}}
+  },
+  "wordsLearned": "{count} Words Learned",
+  "@wordsLearned": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "lessonCompletedSuccess": "You have completed Lesson {number} \n successfully",
+  "@lessonCompletedSuccess": {
+    "placeholders": {"number": {"type": "int"}}
+  },
+  "grammarLessonCompleted": "You have completed Grammar Lesson {number} Successfully",
+  "@grammarLessonCompleted": {
+    "placeholders": {"number": {"type": "int"}}
+  },
+  "readingLessonCompleted": "You have completed Reading Lesson {number} Successfully",
+  "@readingLessonCompleted": {
+    "placeholders": {"number": {"type": "int"}}
+  },
+  "learnedUseOf": "You have learned the use of",
+  "youHaveLearned": "You have learned",
+  "quickTip": "Quick Tip",
+  "fluentaTip": "Fluenta Tip",
+  "playingWord": "Playing \"{word}\"...",
+  "@playingWord": {
+    "placeholders": {"word": {"type": "String"}}
+  },
+  "wordSaved": "Word saved!",
+  "wordRemoved": "Removed from saved words",
+
+  "aiTutor": "AI Tutor",
+  "howToPracticeToday": "How do you want to\npractice today?",
+  "openChatPractice": "Open Chat Practice",
+  "openChatPracticeSub": "Free conversation with instant feedback",
+  "startAiChat": "Start AI Chat",
+  "roleplayScenarios": "Roleplay Scenarios",
+  "openingChatPractice": "Opening chat practice...",
+  "selectedScenario": "Selected: {title}",
+  "@selectedScenario": {
+    "placeholders": {"title": {"type": "String"}}
+  },
+
+  "lesson1DailyWords": "Daily Words",
+  "lesson2WorkplaceWords": "Workplace Words",
+  "lesson3TravelWords": "Travel Words",
+  "lesson1DailyRoutine": "Daily Routine",
+  "lesson2OfficeDialogue": "Office Dialogue",
+  "lesson3TravelStory": "Travel Story",
+  "lessonRestaurantTalk": "Restaurant Talk",
+  "lessonFamilyStory": "Family Story",
+  "lessonShoppingStory": "Shopping Story",
+  "lessonDoctorVisit": "Doctor Visit",
+  "lessonWorkEmail": "Work Email",
+  "lessonWeekendPlan": "Weekend Plan",
+  "lessonDirections": "Directions",
+  "lesson1IAmYouAre": "I am / you are",
+  "lesson2PresentSimple": "Present Simple",
+  "lessonArticles": "A / an / The",
+  "lessonThisThat": "This / That",
+  "lessonHeSheThey": "He / She / They",
+  "lessonThereIsAre": "There is / There are",
+  "lessonCanCannot": "Can / Cannot",
+  "lessonHaveHas": "Have / Has",
+  "lessonWasWere": "Was / Were",
+  "lessonWillGoingTo": "Will / Going to",
+
+  "presentSimpleLearned": "Present Simple Learned",
+  "officeDialogueLearned": "Office Dialogue Learned",
+  "generalOfficeConversation": "General office conversation",
+  "presentSimpleSummary": "He, she, it, I, you, we",
+
+  "grammarStepIYouWe": "I You We",
+  "grammarStepIYouWeDesc": "Use the base verb with I, you, and we.",
+  "grammarStepIYouWeFormula": "I / You / We + verb",
+  "grammarStepHeSheIt": "He, She, It",
+  "grammarStepHeSheItDesc": "With he, she, and it, add 's' to the verb.",
+  "grammarStepHeSheItFormula": "He / She / It + verb + s",
+  "grammarTipNoS": "Do not use 's' with i, you, we or they.",
+  "grammarTipNeedS": "He, she, and it usually need 's'.",
+
+  "readingDialoguePart": "Dialogue Part {part}",
+  "@readingDialoguePart": {
+    "placeholders": {"part": {"type": "int"}}
+  },
+  "readingManager": "Manager",
+  "readingYou": "You",
+  "readingManagerLine": "\"Can you join the meeting at 10?\"",
+  "readingYouLine": "\"Yes, I can join the meeting.\"",
+  "readingFluentaTipText": "Try speaking the 'You' response out loud to practice your office-ready pronunciation!",
+
+  "levelA1": "A1",
+  "levelA2": "A2",
+  "levelB1": "B1",
+  "levelB2": "B2+"
+}

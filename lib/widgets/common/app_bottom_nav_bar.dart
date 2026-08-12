@@ -1,6 +1,7 @@
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/main_shell_view_model.dart';
@@ -13,6 +14,7 @@ class AppBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<MainShellViewModel>();
 
     return Container(
@@ -38,25 +40,25 @@ class AppBottomNavBar extends StatelessWidget {
             children: [
               _NavItem(
                 svgIcon: AppAssets.homeIcon,
-                label: 'Home',
+                label: l10n.navHome,
                 isSelected: viewModel.currentTab == MainTab.home,
                 onTap: () => viewModel.selectTab(MainTab.home),
               ),
               _NavItem(
                 svgIcon: AppAssets.learnIcon,
-                label: 'Learn',
+                label: l10n.navLearn,
                 isSelected: viewModel.currentTab == MainTab.learn,
                 onTap: () => viewModel.selectTab(MainTab.learn),
               ),
               _NavItem(
                 svgIcon: AppAssets.speakIcon,
-                label: 'Speak',
+                label: l10n.navSpeak,
                 isSelected: viewModel.currentTab == MainTab.speak,
                 onTap: () => viewModel.selectTab(MainTab.speak),
               ),
               _NavItem(
                 svgIcon: AppAssets.profileIcon,
-                label: 'Profile',
+                label: l10n.navProfile,
                 isSelected: viewModel.currentTab == MainTab.profile,
                 onTap: () => viewModel.selectTab(MainTab.profile),
               ),

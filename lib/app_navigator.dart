@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
-import 'package:fluentta_ai/viewmodels/language_view_model.dart';
 import 'package:fluentta_ai/viewmodels/onboarding_view_model.dart';
 import 'package:fluentta_ai/viewmodels/setup_view_model.dart';
 import 'package:fluentta_ai/viewmodels/sign_in_view_model.dart';
@@ -135,13 +134,6 @@ class _AppNavigatorState extends State<AppNavigator> {
         ),
         ChangeNotifierProvider(
           create: (_) => OnboardingViewModel(
-            widget.localStorage,
-            widget.userRepository,
-            widget.authRepository,
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => LanguageViewModel(
             widget.localStorage,
             widget.userRepository,
             widget.authRepository,

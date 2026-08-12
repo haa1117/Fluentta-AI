@@ -37,25 +37,18 @@ class LearnCategoryCard extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
+            SizedBox(
               width: AppSizes.w(44),
               height: AppSizes.w(44),
-              // decoration: BoxDecoration(
-              //   color: category.iconColor,
-              //   borderRadius: BorderRadius.circular(AppSizes.w(12)),
-              // ),
-              child: SvgPicture.asset(
-                category.svgIcon,
-                // size: AppSizes.iconMedium,
-              ),
+              child: SvgPicture.asset(category.svgIcon),
             ),
-            SizedBox(
-              height: AppSizes.sp(20),
-            ),
-            // const Spacer(),
+            SizedBox(height: AppSizes.sp(12)),
             Text(
               category.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(15),
@@ -66,11 +59,14 @@ class LearnCategoryCard extends StatelessWidget {
             SizedBox(height: AppSizes.h(2)),
             Text(
               category.subtitle,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(11),
                 fontWeight: FontWeight.w500,
                 color: AppColors.textSecondary,
+                height: 1.2,
               ),
             ),
           ],

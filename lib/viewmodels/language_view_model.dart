@@ -3,43 +3,54 @@ import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/language_model.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 
 class LanguageViewModel extends ChangeNotifier {
   LanguageViewModel(
     this._localStorage,
     this._userRepository,
     this._authRepository,
-  );
+    this._localeViewModel,
+  ) {
+    _selectedLanguageCode = _localStorage.selectedLanguage ?? 'en';
+  }
 
   final LocalStorage _localStorage;
   final UserRepository _userRepository;
   final AuthRepository _authRepository;
+  final LocaleViewModel _localeViewModel;
 
-  static const List<LanguageModel> suggestedLanguages = [
-    LanguageModel(
-      code: 'ur',
-      name: 'Urdu',
-      flagEmoji: '🇵🇰',
-      subtitle: 'Recommended based on your region',
-      isSuggested: true,
-    ),
-  ];
-
-  static const List<LanguageModel> otherLanguages = [
-    LanguageModel(
-      code: 'en',
-      name: 'English',
-      flagEmoji: '🇺🇸',
-    ),
-    LanguageModel(
-      code: 'es',
-      name: 'Spanish',
-      flagEmoji: '🇪🇸',
-    ),
-  ];
-
-  String _selectedLanguageCode = 'ur';
+  String _selectedLanguageCode = 'en';
   String get selectedLanguageCode => _selectedLanguageCode;
+
+  List<LanguageModel> suggestedLanguages(AppLocalizations l10n) => [
+        LanguageModel(
+          code: 'ur',
+          name: l10n.languageUrdu,
+          flagEmoji: '🇵🇰',
+          subtitle: l10n.recommendedRegion,
+          isSuggested: true,
+        ),
+      ];
+
+  List<LanguageModel> otherLanguages(AppLocalizations l10n) => [
+        LanguageModel(
+          code: 'en',
+          name: l10n.languageEnglish,
+          flagEmoji: '🇺🇸',
+        ),
+        LanguageModel(
+          code: 'es',
+          name: l10n.languageSpanish,
+          flagEmoji: '🇪🇸',
+        ),
+        LanguageModel(
+          code: 'fr',
+          name: l10n.languageFrench,
+          flagEmoji: '🇫🇷',
+        ),
+      ];
 
   void selectLanguage(String code) {
     _selectedLanguageCode = code;
@@ -47,7 +58,7 @@ class LanguageViewModel extends ChangeNotifier {
   }
 
   Future<void> continueWithLanguage(VoidCallback onComplete) async {
-    await _localStorage.setSelectedLanguage(_selectedLanguageCode);
+    await _localeViewModel.setLocale(_selectedLanguageCode);
     await _syncToFirestoreIfLoggedIn();
     onComplete();
   }

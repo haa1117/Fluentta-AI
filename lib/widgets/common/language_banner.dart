@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
@@ -8,6 +9,8 @@ class LanguageBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Container(
       width: double.infinity,
       height: AppSizes.bannerHeight,
@@ -27,7 +30,7 @@ class LanguageBanner extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Choose Your Language',
+                  l10n.chooseYourLanguage,
                   style: TextStyle(
                     fontFamily: 'PlusJakartaSans',
                     fontSize: AppSizes.fontTitle,
@@ -37,7 +40,7 @@ class LanguageBanner extends StatelessWidget {
                 ),
                 SizedBox(height: AppSizes.h(4)),
                 Text(
-                  'We Personalize your learning Experience',
+                  l10n.personalizeExperience,
                   style: TextStyle(
                     fontFamily: 'PlusJakartaSans',
                     fontSize: AppSizes.fontCaption,

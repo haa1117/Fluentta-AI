@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/views/ai_tutor/ai_tutor_screen.dart';
@@ -17,6 +18,7 @@ class HomeTabScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
 
     return Scaffold(
       appBar: AppBarWidget(),
@@ -33,7 +35,7 @@ class HomeTabScreen extends StatelessWidget {
       
             // SizedBox(height: AppSizes.spaceLg),
             Text(
-              'Ready to practice?',
+              l10n.readyToPractice,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(24),
@@ -43,7 +45,7 @@ class HomeTabScreen extends StatelessWidget {
             ),
             SizedBox(height: AppSizes.h(6)),
             Text(
-              'Your English journey continues here.',
+              l10n.journeyContinues,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(14),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
@@ -15,13 +16,15 @@ class LessonProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'LESSON $lessonNumber PROGRESS',
+            l10n.lessonProgress(lessonNumber),
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(12),

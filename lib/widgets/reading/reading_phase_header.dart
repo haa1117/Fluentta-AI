@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -22,7 +23,7 @@ class ReadingPhaseHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppSizes.w(20)),
           ),
           child: Text(
-            'LESSON PHASE',
+            context.l10n.lessonPhase,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(13),

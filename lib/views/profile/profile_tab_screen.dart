@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
+import 'package:fluentta_ai/views/language/language_selection_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTabScreen extends StatelessWidget {
@@ -11,7 +13,9 @@ class ProfileTabScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final authViewModel = context.watch<AuthViewModel>();
+    final languageCode = authViewModel.selectedLanguage ?? 'en';
 
     return SafeArea(
       child: Padding(
@@ -34,7 +38,7 @@ class ProfileTabScreen extends StatelessWidget {
             ),
             SizedBox(height: AppSizes.spaceLg),
             Text(
-              authViewModel.displayName ?? 'User',
+              authViewModel.displayName ?? l10n.user,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(22),
@@ -56,14 +60,23 @@ class ProfileTabScreen extends StatelessWidget {
             SizedBox(height: AppSizes.spaceXl),
             _ProfileTile(
               icon: Icons.language_outlined,
-              title: 'Language',
-              subtitle: authViewModel.selectedLanguage?.toUpperCase() ?? 'UR',
+              title: l10n.profileLanguage,
+              subtitle: localizedLanguageName(l10n, languageCode),
+              onTap: () {
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => LanguageSelectionScreen(
+                      onComplete: () => Navigator.of(context).pop(),
+                    ),
+                  ),
+                );
+              },
             ),
             SizedBox(height: AppSizes.spaceSm),
             _ProfileTile(
               icon: Icons.settings_outlined,
-              title: 'Settings',
-              subtitle: 'App preferences',
+              title: l10n.profileSettings,
+              subtitle: l10n.profileSettingsSub,
             ),
             const Spacer(),
             SizedBox(
@@ -79,7 +92,7 @@ class ProfileTabScreen extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Sign Out',
+                  l10n.signOut,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(15),
@@ -101,63 +114,69 @@ class _ProfileTile extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.subtitle,
+    this.onTap,
   });
 
   final IconData icon;
   final String title;
   final String subtitle;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(AppSizes.w(16)),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: AppColors.borderLight),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: AppSizes.w(44),
-            height: AppSizes.w(44),
-            decoration: BoxDecoration(
-              color: AppColors.homeCardLavender,
-              borderRadius: BorderRadius.circular(AppSizes.w(12)),
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(AppSizes.w(16)),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+          border: Border.all(color: AppColors.borderLight),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: AppSizes.w(44),
+              height: AppSizes.w(44),
+              decoration: BoxDecoration(
+                color: AppColors.homeCardLavender,
+                borderRadius: BorderRadius.circular(AppSizes.w(12)),
+              ),
+              child: Icon(icon, color: AppColors.primaryColor),
             ),
-            child: Icon(icon, color: AppColors.primaryColor),
-          ),
-          SizedBox(width: AppSizes.w(12)),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(15),
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+            SizedBox(width: AppSizes.w(12)),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontFamily: AppFonts.plusJakartaSans,
+                      fontSize: AppSizes.sp(15),
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
                   ),
-                ),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(12),
-                    color: AppColors.textSecondary,
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontFamily: AppFonts.plusJakartaSans,
+                      fontSize: AppSizes.sp(12),
+                      color: AppColors.textSecondary,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Icon(
-            Icons.chevron_right_rounded,
-            color: AppColors.textTertiary,
-          ),
-        ],
+            Icon(
+              Icons.chevron_right_rounded,
+              color: AppColors.textTertiary,
+            ),
+          ],
+        ),
       ),
     );
   }

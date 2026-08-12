@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -43,6 +44,7 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<SignInViewModel>();
     final authRepository = context.read<AuthRepository>();
 
@@ -56,8 +58,8 @@ class SignInScreen extends StatelessWidget {
               SizedBox(height: AppSizes.spaceMd),
               AuthHeader(
                 imagePath: AppAssets.authBird,
-                title: 'Sign in with Email',
-                subtitle: 'Continue your English learning journey.',
+                title: l10n.signInWithEmail,
+                subtitle: l10n.signInSubtitle,
               ),
               SizedBox(height: AppSizes.spaceLg),
               AuthCard(
@@ -65,7 +67,7 @@ class SignInScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     AuthTextField(
-                      label: 'Email address',
+                      label: l10n.emailAddress,
                       hint: 'name@example.com',
                       prefixIcon: Icons.email_outlined,
                       controller: viewModel.emailController,
@@ -73,7 +75,7 @@ class SignInScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthTextField(
-                      label: 'Password',
+                      label: l10n.password,
                       hint: '••••••••',
                       prefixIcon: Icons.lock_outline,
                       controller: viewModel.passwordController,
@@ -97,7 +99,7 @@ class SignInScreen extends StatelessWidget {
                           );
                         },
                         child: Text(
-                          'Forgot password?',
+                          l10n.forgotPassword,
                           style: TextStyle(
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(13),
@@ -109,9 +111,9 @@ class SignInScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     PrimaryButton(
-                      text: 'Sign In',
+                      text: l10n.signIn,
                       isLoading: viewModel.isLoading,
-                      loadingText: 'Signing in...',
+                      loadingText: l10n.signIn,
                       onPressed: () => _handleAuthAction(
                         context,
                         () => viewModel.signIn(onSuccess: onSuccess),

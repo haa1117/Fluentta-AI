@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
@@ -15,6 +16,8 @@ class LearningPathCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(16)),
@@ -76,7 +79,10 @@ class LearningPathCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${pathData.completedLessons} / ${pathData.totalLessons} lessons completed',
+                l10n.lessonsCompleted(
+                  pathData.completedLessons,
+                  pathData.totalLessons,
+                ),
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),
@@ -109,7 +115,7 @@ class LearningPathCard extends StatelessWidget {
           ),
           SizedBox(height: AppSizes.spaceSm),
           Text(
-            'Completed lessons stay open for review.',
+            l10n.completedLessonsReview,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(11),

@@ -42,7 +42,7 @@ class UserModel {
       email: data['email'] as String? ?? '',
       displayName: data['displayName'] as String? ?? '',
       fullName: data['fullName'] as String? ?? '',
-      selectedLanguage: data['selectedLanguage'] as String? ?? 'ur',
+      selectedLanguage: data['selectedLanguage'] as String? ?? 'en',
       onboardingComplete: data['onboardingComplete'] as bool? ?? false,
       authProvider: data['authProvider'] as String? ?? 'email',
       photoUrl: data['photoUrl'] as String?,

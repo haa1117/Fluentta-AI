@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
@@ -13,12 +14,13 @@ class VocabularyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<VocabularyViewModel>();
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
-      appBar: const AppBarWidget(
-        title: 'Vocabulary',
+      appBar: AppBarWidget(
+        title: l10n.vocabulary,
         showBackButton: true,
         centerTitle: true,
         showActionButton: false,

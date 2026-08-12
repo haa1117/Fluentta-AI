@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_lesson_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_nav_button.dart';
@@ -42,12 +43,13 @@ class _VocabularyLessonBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<VocabularyLessonViewModel>();
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
       appBar: AppBarWidget(
-        title: 'Lesson $lessonNumber',
+        title: l10n.lessonTitle(lessonNumber),
         showBackButton: true,
         centerTitle: true,
         showActionButton: false,
@@ -73,7 +75,7 @@ class _VocabularyLessonBody extends StatelessWidget {
               children: [
                 Expanded(
                   child: LessonNavButton(
-                    label: 'Previous Word',
+                    label: l10n.previousWord,
                     icon: Icons.arrow_back_rounded,
                     isPrimary: false,
                     enabled: !viewModel.isFirstWord,
@@ -84,7 +86,7 @@ class _VocabularyLessonBody extends StatelessWidget {
                 SizedBox(width: AppSizes.w(12)),
                 Expanded(
                   child: LessonNavButton(
-                    label: 'Next Word',
+                    label: l10n.nextWord,
                     icon: Icons.arrow_forward_rounded,
                     isPrimary: true,
                     enabled: true,

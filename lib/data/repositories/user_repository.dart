@@ -33,7 +33,7 @@ class UserRepository {
     final snapshot = await docRef.get();
     final isNew = !snapshot.exists;
 
-    final localLanguage = _localStorage.selectedLanguage ?? 'ur';
+    final localLanguage = _localStorage.selectedLanguage ?? 'en';
     final localOnboardingComplete = _localStorage.isOnboardingComplete;
 
     final resolvedFullName = fullName?.trim().isNotEmpty == true
@@ -144,7 +144,7 @@ class UserRepository {
   Future<void> syncLocalPreferencesToFirestore(String uid) async {
     await _userDoc(uid).set(
       {
-        'selectedLanguage': _localStorage.selectedLanguage ?? 'ur',
+        'selectedLanguage': _localStorage.selectedLanguage ?? 'en',
         'onboardingComplete': _localStorage.isOnboardingComplete,
         if (_localStorage.englishGoal != null)
           'englishGoal': _localStorage.englishGoal,

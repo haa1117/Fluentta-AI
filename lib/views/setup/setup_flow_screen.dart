@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/localized_content.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/setup_view_model.dart';
@@ -56,8 +58,10 @@ class _SetupStepPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<SetupViewModel>();
-    final options = viewModel.optionsForStep(stepIndex);
+    final options = LocalizedContent.setupOptions(l10n, stepIndex);
     final selectedId = viewModel.selectedIdForStep(stepIndex);
     final isLastStep = stepIndex == SetupViewModel.totalSteps - 1;
 
@@ -75,8 +79,8 @@ class _SetupStepPage extends StatelessWidget {
                 SetupProgressHeader(
                   currentStep: stepIndex + 1,
                   totalSteps: SetupViewModel.totalSteps,
-                  title: viewModel.titleForStep(stepIndex),
-                  subtitle: viewModel.subtitleForStep(stepIndex),
+                  title: LocalizedContent.setupTitle(l10n, stepIndex),
+                  subtitle: LocalizedContent.setupSubtitle(l10n, stepIndex),
                 ),
                 SizedBox(height: AppSizes.spaceLg),
                 ...options.map(
@@ -106,7 +110,7 @@ class _SetupStepPage extends StatelessWidget {
             AppSizes.spaceMd,
           ),
           child: PrimaryButton(
-            text: isLastStep ? 'Get Started' : 'Next',
+            text: isLastStep ? l10n.getStarted : l10n.next,
             isLoading: viewModel.isLoading,
             onPressed: viewModel.isLoading
                 ? null

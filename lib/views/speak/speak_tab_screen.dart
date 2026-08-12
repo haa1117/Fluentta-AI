@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
@@ -9,6 +10,7 @@ class SpeakTabScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
 
     return SafeArea(
       child: Center(
@@ -32,7 +34,7 @@ class SpeakTabScreen extends StatelessWidget {
               ),
               SizedBox(height: AppSizes.spaceLg),
               Text(
-                'Speak',
+                l10n.speakTitle,
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(24),
@@ -42,7 +44,18 @@ class SpeakTabScreen extends StatelessWidget {
               ),
               SizedBox(height: AppSizes.spaceSm),
               Text(
-                'Practice speaking with your AI tutor.\nStart a chat from the Home screen.',
+                l10n.speakSubtitle,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: AppFonts.plusJakartaSans,
+                  fontSize: AppSizes.sp(14),
+                  color: AppColors.textSecondary,
+                  height: 1.5,
+                ),
+              ),
+              SizedBox(height: AppSizes.spaceSm),
+              Text(
+                l10n.speakComingSoon,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,

@@ -1,41 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/l10n/localized_content.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/views/reading/reading_lesson_screen.dart';
 
 class ReadingViewModel extends ChangeNotifier {
-  ReadingViewModel(this._localStorage);
+  ReadingViewModel(this._localStorage, this._localeViewModel) {
+    _lessons = _buildLessons();
+    _localeViewModel.addListener(_onLocaleChanged);
+  }
 
   final LocalStorage _localStorage;
+  final LocaleViewModel _localeViewModel;
 
-  static const _officeDialogueLines = [
-    ReadingDialogueLineModel(
-      speakerLabel: 'Manager',
-      text: '"Can you join the meeting at 10?"',
-      isUser: false,
-    ),
-    ReadingDialogueLineModel(
-      speakerLabel: 'You',
-      text: '"Yes, I can join the meeting."',
-      isUser: true,
-    ),
-  ];
+  late List<ReadingLessonModel> _lessons;
 
-  static const _fluentaTip =
-      'Try speaking the \'You\' response out loud to practice your office-ready pronunciation!';
-
-  static List<ReadingPhaseModel> get _officeDialoguePhases => List.generate(
-        5,
-        (index) => ReadingPhaseModel(
-          phaseTitle: 'Dialogue Part ${index + 1}',
-          lines: _officeDialogueLines,
-          tip: _fluentaTip,
-        ),
-      );
-
-  late List<ReadingLessonModel> _lessons = _buildLessons();
+  AppLocalizations get _l10n => _localeViewModel.strings;
 
   List<ReadingLessonModel> get lessons => _lessons;
 
@@ -48,27 +32,48 @@ class ReadingViewModel extends ChangeNotifier {
       totalLessonsCount == 0 ? 0 : completedLessonsCount / totalLessonsCount;
 
   LearningPathData get pathData => LearningPathData(
-        title: '$levelCode Reading Path',
-        subtitle: 'Read short English passages\nstep by step.',
+        title: _l10n.readingPathTitle(levelCode),
+        subtitle: _l10n.readingPathSub,
         completedLessons: completedLessonsCount,
         totalLessons: totalLessonsCount,
       );
 
-  String get levelCode {
-    return switch (_localStorage.englishLevel) {
-      'elementary' => 'A2',
-      'intermediate' => 'B1',
-      'advanced' => 'B2+',
-      _ => 'A1',
-    };
+  String get levelCode =>
+      LocalizedContent.levelCode(_l10n, _localStorage.englishLevel);
+
+  void _onLocaleChanged() {
+    _lessons = _buildLessons();
+    notifyListeners();
   }
+
+  List<ReadingDialogueLineModel> _officeDialogueLines() => [
+        ReadingDialogueLineModel(
+          speakerLabel: _l10n.readingManager,
+          text: _l10n.readingManagerLine,
+          isUser: false,
+        ),
+        ReadingDialogueLineModel(
+          speakerLabel: _l10n.readingYou,
+          text: _l10n.readingYouLine,
+          isUser: true,
+        ),
+      ];
+
+  List<ReadingPhaseModel> _officeDialoguePhases() => List.generate(
+        5,
+        (index) => ReadingPhaseModel(
+          phaseTitle: _l10n.readingDialoguePart(index + 1),
+          lines: _officeDialogueLines(),
+          tip: _l10n.readingFluentaTipText,
+        ),
+      );
 
   List<ReadingLessonModel> _buildLessons() {
     return [
-      const ReadingLessonModel(
+      ReadingLessonModel(
         id: 1,
         number: 1,
-        title: 'Daily Routine',
+        title: _l10n.lesson1DailyRoutine,
         status: LearningLessonStatus.completed,
         phasesCompleted: 5,
         totalPhases: 5,
@@ -77,53 +82,52 @@ class ReadingViewModel extends ChangeNotifier {
       ReadingLessonModel(
         id: 2,
         number: 2,
-        title: 'Office Dialogue',
+        title: _l10n.lesson2OfficeDialogue,
         status: LearningLessonStatus.inProgress,
         phasesCompleted: 1,
         totalPhases: 5,
         iconName: 'chat',
-        phases: _officeDialoguePhases,
-        completionTitle: 'Office Dialogue Learned',
-        completionSummary: 'General office conversation',
+        phases: _officeDialoguePhases(),
+        completionTitle: _l10n.officeDialogueLearned,
+        completionSummary: _l10n.generalOfficeConversation,
       ),
-      const ReadingLessonModel(
+      ReadingLessonModel(
         id: 3,
         number: 3,
-        title: 'Travel Story',
+        title: _l10n.lesson3TravelStory,
         status: LearningLessonStatus.notStarted,
         phasesCompleted: 0,
         totalPhases: 5,
         iconName: 'travel',
         useLessonPrefix: false,
       ),
-      ...List.generate(7, (index) {
-        const titles = [
-          'Restaurant Talk',
-          'Family Story',
-          'Shopping Story',
-          'Doctor Visit',
-          'Work Email',
-          'Weekend Plan',
-          'Directions',
-        ];
-        return ReadingLessonModel(
-          id: index + 4,
-          number: index + 4,
-          title: titles[index],
-          status: LearningLessonStatus.locked,
-          phasesCompleted: 0,
-          totalPhases: 5,
-          iconName: 'lock',
-          useLessonPrefix: false,
-        );
-      }),
+      ...[
+        _l10n.lessonRestaurantTalk,
+        _l10n.lessonFamilyStory,
+        _l10n.lessonShoppingStory,
+        _l10n.lessonDoctorVisit,
+        _l10n.lessonWorkEmail,
+        _l10n.lessonWeekendPlan,
+        _l10n.lessonDirections,
+      ].asMap().entries.map(
+            (entry) => ReadingLessonModel(
+              id: entry.key + 4,
+              number: entry.key + 4,
+              title: entry.value,
+              status: LearningLessonStatus.locked,
+              phasesCompleted: 0,
+              totalPhases: 5,
+              iconName: 'lock',
+              useLessonPrefix: false,
+            ),
+          ),
     ];
   }
 
   void openLesson(BuildContext context, ReadingLessonModel lesson) {
     if (lesson.status == LearningLessonStatus.locked) return;
     if (lesson.phases.isEmpty) {
-      SnackbarHelper.showSuccess(context, 'Lesson content coming soon');
+      SnackbarHelper.showSuccess(context, _l10n.lessonContentSoon);
       return;
     }
 
@@ -178,5 +182,11 @@ class ReadingViewModel extends ChangeNotifier {
       return lesson;
     }).toList();
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _localeViewModel.removeListener(_onLocaleChanged);
+    super.dispose();
   }
 }
