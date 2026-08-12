@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -11,7 +10,7 @@ import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
 class ReminderTimeScreen extends StatefulWidget {
-  const ReminderTimeScreen({super.key});
+  const ReminderTimeScreen({super.key}); 
 
   @override
   State<ReminderTimeScreen> createState() => _ReminderTimeScreenState();
@@ -166,6 +165,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                       _WheelPicker(
                         controller: _periodController!,
                         itemCount: 2,
+                        width: AppSizes.w(48),
                         labelBuilder: (i) => i == 0 ? 'AM' : 'PM',
                         onSelected: (i) => setState(() => _isPm = i == 1),
                       ),
@@ -208,46 +208,103 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
   }
 }
 
-class _WheelPicker extends StatelessWidget {
+class _WheelPicker extends StatefulWidget {
   const _WheelPicker({
     required this.controller,
     required this.itemCount,
     required this.labelBuilder,
     required this.onSelected,
+    this.width,
   });
 
   final FixedExtentScrollController controller;
   final int itemCount;
   final String Function(int index) labelBuilder;
   final ValueChanged<int> onSelected;
+  final double? width;
+
+  @override
+  State<_WheelPicker> createState() => _WheelPickerState();
+}
+
+class _WheelPickerState extends State<_WheelPicker> {
+  static double get _itemExtent => AppSizes.h(44);
+
+  late int _centerIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _centerIndex = widget.controller.initialItem;
+    widget.controller.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onScroll);
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (!widget.controller.hasClients) return;
+    final index = (widget.controller.offset / _itemExtent)
+        .round()
+        .clamp(0, widget.itemCount - 1);
+    if (index != _centerIndex) {
+      setState(() => _centerIndex = index);
+    }
+  }
+
+  TextStyle _textStyleFor(int index) {
+    final distance = (index - _centerIndex).abs();
+    if (distance == 0) {
+      return TextStyle(
+        fontFamily: AppFonts.plusJakartaSans,
+        fontSize: AppSizes.sp(22),
+        fontWeight: FontWeight.w700,
+        color: AppColors.primaryColor,
+      );
+    }
+
+    final alpha = switch (distance) {
+      1 => 0.65,
+      2 => 0.4,
+      _ => 0.22,
+    };
+
+    return TextStyle(
+      fontFamily: AppFonts.plusJakartaSans,
+      fontSize: AppSizes.sp(18),
+      fontWeight: FontWeight.w500,
+      color: AppColors.textTertiary.withValues(alpha: alpha),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: AppSizes.w(56),
+      width: widget.width ?? AppSizes.w(56),
       height: AppSizes.h(260),
-      child: CupertinoPicker(
-        scrollController: controller,
-        itemExtent: AppSizes.h(44),
-        magnification: 1.1,
-        squeeze: 1.1,
-        useMagnifier: true,
-        onSelectedItemChanged: onSelected,
-        selectionOverlay: const SizedBox.shrink(),
-        children: List.generate(
-          itemCount,
-          (index) => Center(
-            child: Text(
-              labelBuilder(index),
-              style: TextStyle(
-                fontFamily: AppFonts.plusJakartaSans,
-                fontSize: AppSizes.sp(28),
-                fontWeight: FontWeight.w700,
-                color: AppColors.primaryColor,
-
+      child: ListWheelScrollView.useDelegate(
+        controller: widget.controller,
+        itemExtent: _itemExtent,
+        physics: const FixedExtentScrollPhysics(),
+        diameterRatio: 1.4,
+        perspective: 0.003,
+        onSelectedItemChanged: (index) {
+          setState(() => _centerIndex = index);
+          widget.onSelected(index);
+        },
+        childDelegate: ListWheelChildBuilderDelegate(
+          childCount: widget.itemCount,
+          builder: (context, index) {
+            return Center(
+              child: Text(
+                widget.labelBuilder(index),
+                style: _textStyleFor(index),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
