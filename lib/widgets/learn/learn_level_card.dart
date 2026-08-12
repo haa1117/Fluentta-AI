@@ -54,7 +54,7 @@ class LearnLevelCard extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w700,
                     color: Color(0xff630ED4),
                     letterSpacing: 0.6,
                   ),

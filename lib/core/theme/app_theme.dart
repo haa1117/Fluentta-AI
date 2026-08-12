@@ -7,7 +7,7 @@ class AppTheme {
   static const String fontFamily = 'PlusJakartaSans';
 
   static ThemeData get lightTheme {
-    return ThemeData(
+    final base = ThemeData(
       useMaterial3: true,
       fontFamily: fontFamily,
       scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
@@ -16,47 +16,41 @@ class AppTheme {
         primary: AppColors.primaryColor,
         surface: AppColors.scaffoldBackgroundColor,
       ),
-      textTheme: const TextTheme(
-        displayLarge: TextStyle(
+    );
+
+    final textTheme = base.textTheme.apply(
+      fontFamily: fontFamily,
+      bodyColor: AppColors.textSecondary,
+      displayColor: AppColors.textPrimary,
+    );
+
+    return base.copyWith(
+      textTheme: textTheme,
+      primaryTextTheme: textTheme,
+      appBarTheme: AppBarTheme(
+        backgroundColor: AppColors.scaffoldBackgroundColor,
+        elevation: 0,
+        centerTitle: true,
+        titleTextStyle: TextStyle(
           fontFamily: fontFamily,
-          fontSize: 32,
-          fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
-        ),
-        headlineMedium: TextStyle(
-          fontFamily: fontFamily,
-          fontSize: 24,
-          fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
-        ),
-        titleLarge: TextStyle(
-          fontFamily: fontFamily,
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
-        ),
-        titleMedium: TextStyle(
-          fontFamily: fontFamily,
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: FontWeight.w600,
           color: AppColors.textPrimary,
         ),
-        bodyLarge: TextStyle(
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
           fontFamily: fontFamily,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
+          color: AppColors.textTertiary,
+        ),
+        labelStyle: TextStyle(
+          fontFamily: fontFamily,
           color: AppColors.textSecondary,
         ),
-        bodyMedium: TextStyle(
+      ),
+      snackBarTheme: SnackBarThemeData(
+        contentTextStyle: TextStyle(
           fontFamily: fontFamily,
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          color: AppColors.textSecondary,
-        ),
-        labelLarge: TextStyle(
-          fontFamily: fontFamily,
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
           color: AppColors.white,
         ),
       ),
