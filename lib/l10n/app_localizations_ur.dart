@@ -874,4 +874,175 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get restoringPurchases => 'خریداری بحال ki ja rahi hai...';
+
+  @override
+  String get speakWithAiTutorTitle => 'AI ٹیوٹر کے ساتھ بولیں';
+
+  @override
+  String get aiSpeakingTutor => 'AI Speaking Tutor';
+
+  @override
+  String get aiSpeakingTutorDesc =>
+      'آواز یا ٹیکسٹ سے بات کریں اور فوری اصلاحات حاصل کریں';
+
+  @override
+  String get tagVoice => 'آواز';
+
+  @override
+  String get tagText => 'ٹیکسٹ';
+
+  @override
+  String get tagCorrections => 'اصلاحات';
+
+  @override
+  String get pronunciationPractice => 'تلفظ کی مشق';
+
+  @override
+  String get pronunciationPracticeSub =>
+      'آواز ریکارڈ کریں اور فیڈبیک حاصل کریں';
+
+  @override
+  String get advertisement => 'اشتہار';
+
+  @override
+  String get bannerAdPlaceholder => ' بینر اشتہار';
+
+  @override
+  String get openAiChatPractice => 'AI چیٹ مشق کھولیں';
+
+  @override
+  String get pronunciation => 'تلفظ';
+
+  @override
+  String get pronunciationPracticeDesc =>
+      'ایک جملہ پڑھیں، اپنی آواز ریکارڈ کریں اور فیڈبیک حاصل کریں۔';
+
+  @override
+  String phraseOf(int current, int total) {
+    return 'جملہ $current / $total';
+  }
+
+  @override
+  String get speakClearly => 'واضح اور قدرتی بولیں۔';
+
+  @override
+  String get startRecording => 'ریکارڈنگ شروع کریں';
+
+  @override
+  String get heartPerPronunciation => '❤️ 1 دل فی تلفظ';
+
+  @override
+  String get recording => 'ریکارڈنگ...';
+
+  @override
+  String get stopRecording => 'ریکارڈنگ بند کریں';
+
+  @override
+  String get checkingPronunciation => 'آپ کا تلفظ چیک کیا جا رہا ہے...';
+
+  @override
+  String get checkingPronunciationSub =>
+      'ہم وضاحت، لے اور الفاظ کی درستگی سن رہے ہیں تاکہ ذاتی فیڈبیک دے سکیں۔';
+
+  @override
+  String get onlyTakesMoment => 'یہ صرف ایک لمحہ لے گا۔';
+
+  @override
+  String get greatEffort => 'بہترین کوشش!';
+
+  @override
+  String pronunciationScoreMessage(int score) {
+    return 'آپ کا تلفظ آپ کے لیول کے 85% سیکھنے والوں سے بہتر ہے۔ جاری رکھیں!';
+  }
+
+  @override
+  String get wordFeedback => 'لفظ کی فیڈبیک';
+
+  @override
+  String confidencePercent(int percent) {
+    return '$percent% اعتماد';
+  }
+
+  @override
+  String get tryAgain => 'دوبارہ کوشش';
+
+  @override
+  String get nextPhrase => 'اگلا جملہ';
+
+  @override
+  String get finish => 'ختم';
+
+  @override
+  String get practiceComplete => 'مشق مکمل';
+
+  @override
+  String practicedPhrases(int count) {
+    return 'آپ نے $count تلفظ کے جملے مشق کیے';
+  }
+
+  @override
+  String get averageScore => 'اوسط اسکور';
+
+  @override
+  String get phrasesLabel => 'جملے';
+
+  @override
+  String get bestWord => 'بہترین لفظ';
+
+  @override
+  String get practiceMore => 'مزید مشق';
+
+  @override
+  String get backToSpeak => 'Speak پر واپس';
+
+  @override
+  String get openChatPracticeTitle => 'چیٹ مشق کھولیں';
+
+  @override
+  String get textMode => 'ٹیکسٹ موڈ';
+
+  @override
+  String get chatGreeting => 'سلام! آج آپ کیا مشق کرنا چاہتے ہیں؟';
+
+  @override
+  String get outOfHearts => 'آپ کے دل ختم ہو گئے';
+
+  @override
+  String get outOfHeartsSub => 'مشق کے دوران گرامر، الفاظ اور جملے درست کریں';
+
+  @override
+  String get getMoreHearts => 'مزید دل حاصل کریں';
+
+  @override
+  String get goUnlimited => 'لامحدود بنیں';
+
+  @override
+  String get goUnlimitedSub => 'لامحدود AI مشق\nبغیر اشتہارات • لامحدود دل';
+
+  @override
+  String get watchAd => 'اشتہار دیکھیں';
+
+  @override
+  String get watchAdSub => 'فوری +2 دل حاصل کریں';
+
+  @override
+  String get playingPhrase => 'جملہ چلایا جا رہا ہے...';
+
+  @override
+  String get scenarioJobInterviews => 'نوکری کے انٹرویو';
+
+  @override
+  String get scenarioOrderFood => 'کھانا آرڈر';
+
+  @override
+  String get scenarioAtAirport => 'ہوائی اڈے پر';
+
+  @override
+  String get scenarioDoctorVisit => 'ڈاکٹر کا دورہ';
+
+  @override
+  String get scenarioSmallTalk => 'Small Talk';
+
+  @override
+  String get scenarioBusinessMeeting => 'Business Meeting';
 }

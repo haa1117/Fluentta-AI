@@ -880,4 +880,176 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get restoringPurchases => 'Restaurando compras...';
+
+  @override
+  String get speakWithAiTutorTitle => 'Habla con el Tutor IA';
+
+  @override
+  String get aiSpeakingTutor => 'Tutor de Conversación IA';
+
+  @override
+  String get aiSpeakingTutorDesc =>
+      'Habla por voz o texto y recibe correcciones al instante';
+
+  @override
+  String get tagVoice => 'Voz';
+
+  @override
+  String get tagText => 'Texto';
+
+  @override
+  String get tagCorrections => 'Correcciones';
+
+  @override
+  String get pronunciationPractice => 'Práctica de Pronunciación';
+
+  @override
+  String get pronunciationPracticeSub => 'Graba tu voz y recibe feedback';
+
+  @override
+  String get advertisement => 'PUBLICIDAD';
+
+  @override
+  String get bannerAdPlaceholder => 'Marcador de anuncio';
+
+  @override
+  String get openAiChatPractice => 'Abrir Chat de Práctica IA';
+
+  @override
+  String get pronunciation => 'Pronunciación';
+
+  @override
+  String get pronunciationPracticeDesc =>
+      'Lee una frase, graba tu voz y recibe feedback.';
+
+  @override
+  String phraseOf(int current, int total) {
+    return 'Frase $current de $total';
+  }
+
+  @override
+  String get speakClearly => 'Habla claro y con naturalidad.';
+
+  @override
+  String get startRecording => 'Iniciar Grabación';
+
+  @override
+  String get heartPerPronunciation => '❤️ 1 corazón por pronunciación';
+
+  @override
+  String get recording => 'GRABANDO...';
+
+  @override
+  String get stopRecording => 'Detener Grabación';
+
+  @override
+  String get checkingPronunciation => 'Comprobando tu pronunciación...';
+
+  @override
+  String get checkingPronunciationSub =>
+      'Escuchamos claridad, ritmo y precisión para darte feedback personalizado.';
+
+  @override
+  String get onlyTakesMoment => 'Esto solo toma un momento.';
+
+  @override
+  String get greatEffort => '¡Buen esfuerzo!';
+
+  @override
+  String pronunciationScoreMessage(int score) {
+    return 'Tu pronunciación es más clara que el $score% de estudiantes de tu nivel. ¡Sigue así!';
+  }
+
+  @override
+  String get wordFeedback => 'FEEDBACK DE PALABRAS';
+
+  @override
+  String confidencePercent(int percent) {
+    return '$percent% Confianza';
+  }
+
+  @override
+  String get tryAgain => 'Intentar de nuevo';
+
+  @override
+  String get nextPhrase => 'Siguiente Frase';
+
+  @override
+  String get finish => 'Finalizar';
+
+  @override
+  String get practiceComplete => 'Práctica Completa';
+
+  @override
+  String practicedPhrases(int count) {
+    return 'Practicaste $count frases de pronunciación';
+  }
+
+  @override
+  String get averageScore => 'PUNTUACIÓN MEDIA';
+
+  @override
+  String get phrasesLabel => 'Frases';
+
+  @override
+  String get bestWord => 'Mejor palabra';
+
+  @override
+  String get practiceMore => 'Practicar Más';
+
+  @override
+  String get backToSpeak => 'Volver a Hablar';
+
+  @override
+  String get openChatPracticeTitle => 'Abrir Chat de Práctica';
+
+  @override
+  String get textMode => 'Modo Texto';
+
+  @override
+  String get chatGreeting => '¡Hola! ¿Qué te gustaría practicar hoy?';
+
+  @override
+  String get outOfHearts => 'Te quedaste sin corazones';
+
+  @override
+  String get outOfHeartsSub =>
+      'Corrige gramática, palabras y frases mientras practicas';
+
+  @override
+  String get getMoreHearts => 'OBTENER MÁS CORAZONES';
+
+  @override
+  String get goUnlimited => 'Ir Ilimitado';
+
+  @override
+  String get goUnlimitedSub =>
+      'Práctica IA ilimitada\nSin anuncios • Corazones ilimitados';
+
+  @override
+  String get watchAd => 'Ver Anuncio';
+
+  @override
+  String get watchAdSub => 'Obtén +2 corazones al instante';
+
+  @override
+  String get playingPhrase => 'Reproduciendo frase...';
+
+  @override
+  String get scenarioJobInterviews => 'Entrevistas de Trabajo';
+
+  @override
+  String get scenarioOrderFood => 'Pedir Comida';
+
+  @override
+  String get scenarioAtAirport => 'En el Aeropuerto';
+
+  @override
+  String get scenarioDoctorVisit => 'Visita al Médico';
+
+  @override
+  String get scenarioSmallTalk => 'Conversación Casual';
+
+  @override
+  String get scenarioBusinessMeeting => 'Reunión de Negocios';
 }

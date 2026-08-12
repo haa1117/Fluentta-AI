@@ -52,6 +52,20 @@ class HomeViewModel extends ChangeNotifier {
     onComplete();
   }
 
+  Future<bool> useHeart() async {
+    if (_lives <= 0) return false;
+    await _localStorage.saveLives(_lives - 1);
+    _loadFromStorage();
+    notifyListeners();
+    return true;
+  }
+
+  Future<void> addHearts(int count) async {
+    await _localStorage.saveLives(_lives + count);
+    _loadFromStorage();
+    notifyListeners();
+  }
+
   Future<void> resumeLesson(VoidCallback onNavigateToLearn) async {
     await _localStorage.saveLessonProgress(
       (_lessonProgress + 0.1).clamp(0.0, 1.0),

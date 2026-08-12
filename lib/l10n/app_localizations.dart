@@ -1703,6 +1703,324 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Restoring purchases...'**
   String get restoringPurchases;
+
+  /// No description provided for @speakWithAiTutorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak With AI Tutor'**
+  String get speakWithAiTutorTitle;
+
+  /// No description provided for @aiSpeakingTutor.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Speaking Tutor'**
+  String get aiSpeakingTutor;
+
+  /// No description provided for @aiSpeakingTutorDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk by voice or text and get instant corrections'**
+  String get aiSpeakingTutorDesc;
+
+  /// No description provided for @tagVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get tagVoice;
+
+  /// No description provided for @tagText.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get tagText;
+
+  /// No description provided for @tagCorrections.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrections'**
+  String get tagCorrections;
+
+  /// No description provided for @pronunciationPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation Practice'**
+  String get pronunciationPractice;
+
+  /// No description provided for @pronunciationPracticeSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Record voice and get feedback'**
+  String get pronunciationPracticeSub;
+
+  /// No description provided for @advertisement.
+  ///
+  /// In en, this message translates to:
+  /// **'ADVERTISEMENT'**
+  String get advertisement;
+
+  /// No description provided for @bannerAdPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Banner Ad Placeholder'**
+  String get bannerAdPlaceholder;
+
+  /// No description provided for @openAiChatPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Open AI Chat Practice'**
+  String get openAiChatPractice;
+
+  /// No description provided for @pronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation'**
+  String get pronunciation;
+
+  /// No description provided for @pronunciationPracticeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Read a phrase, record your voice, and get feedback.'**
+  String get pronunciationPracticeDesc;
+
+  /// No description provided for @phraseOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrase {current} of {total}'**
+  String phraseOf(int current, int total);
+
+  /// No description provided for @speakClearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak clearly and naturally.'**
+  String get speakClearly;
+
+  /// No description provided for @startRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Recording'**
+  String get startRecording;
+
+  /// No description provided for @heartPerPronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'1 heart per Pronunciation'**
+  String get heartPerPronunciation;
+
+  /// No description provided for @recording.
+  ///
+  /// In en, this message translates to:
+  /// **'RECORDING...'**
+  String get recording;
+
+  /// No description provided for @stopRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop Recording'**
+  String get stopRecording;
+
+  /// No description provided for @checkingPronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking your pronunciation...'**
+  String get checkingPronunciation;
+
+  /// No description provided for @checkingPronunciationSub.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'re listening for clarity, rhythm, and word accuracy to provide your personalized feedback.'**
+  String get checkingPronunciationSub;
+
+  /// No description provided for @onlyTakesMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'This only takes a moment.'**
+  String get onlyTakesMoment;
+
+  /// No description provided for @greatEffort.
+  ///
+  /// In en, this message translates to:
+  /// **'Great effort!'**
+  String get greatEffort;
+
+  /// No description provided for @pronunciationScoreMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your pronunciation is clearer than {score}% of learners at your level. Keep it up!'**
+  String pronunciationScoreMessage(int score);
+
+  /// No description provided for @wordFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'WORD FEEDBACK'**
+  String get wordFeedback;
+
+  /// No description provided for @confidencePercent.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% Confidence'**
+  String confidencePercent(int percent);
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get tryAgain;
+
+  /// No description provided for @nextPhrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Phrase'**
+  String get nextPhrase;
+
+  /// No description provided for @finish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finish;
+
+  /// No description provided for @practiceComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice Complete'**
+  String get practiceComplete;
+
+  /// No description provided for @practicedPhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'You Practiced {count} pronunciation Phrases'**
+  String practicedPhrases(int count);
+
+  /// No description provided for @averageScore.
+  ///
+  /// In en, this message translates to:
+  /// **'AVERAGE SCORE'**
+  String get averageScore;
+
+  /// No description provided for @phrasesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrases'**
+  String get phrasesLabel;
+
+  /// No description provided for @bestWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Best word'**
+  String get bestWord;
+
+  /// No description provided for @practiceMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice More'**
+  String get practiceMore;
+
+  /// No description provided for @backToSpeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Speak'**
+  String get backToSpeak;
+
+  /// No description provided for @openChatPracticeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Chat Practice'**
+  String get openChatPracticeTitle;
+
+  /// No description provided for @textMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Text Mode'**
+  String get textMode;
+
+  /// No description provided for @chatGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi! What would you like to practice today?'**
+  String get chatGreeting;
+
+  /// No description provided for @outOfHearts.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re out of Hearts'**
+  String get outOfHearts;
+
+  /// No description provided for @outOfHeartsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix Grammar, word choice, and sentences while you practice'**
+  String get outOfHeartsSub;
+
+  /// No description provided for @getMoreHearts.
+  ///
+  /// In en, this message translates to:
+  /// **'GET MORE HEARTS'**
+  String get getMoreHearts;
+
+  /// No description provided for @goUnlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Unlimited'**
+  String get goUnlimited;
+
+  /// No description provided for @goUnlimitedSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited AI practice\nNo ads • Unlimited hearts'**
+  String get goUnlimitedSub;
+
+  /// No description provided for @watchAd.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Ad'**
+  String get watchAd;
+
+  /// No description provided for @watchAdSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Get +2 Hearts instantly'**
+  String get watchAdSub;
+
+  /// No description provided for @playingPhrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Playing phrase...'**
+  String get playingPhrase;
+
+  /// No description provided for @scenarioJobInterviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Job Interviews'**
+  String get scenarioJobInterviews;
+
+  /// No description provided for @scenarioOrderFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Food'**
+  String get scenarioOrderFood;
+
+  /// No description provided for @scenarioAtAirport.
+  ///
+  /// In en, this message translates to:
+  /// **'At Airport'**
+  String get scenarioAtAirport;
+
+  /// No description provided for @scenarioDoctorVisit.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor\'s Visit'**
+  String get scenarioDoctorVisit;
+
+  /// No description provided for @scenarioSmallTalk.
+  ///
+  /// In en, this message translates to:
+  /// **'Small Talk'**
+  String get scenarioSmallTalk;
+
+  /// No description provided for @scenarioBusinessMeeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Business Meeting'**
+  String get scenarioBusinessMeeting;
 }
 
 class _AppLocalizationsDelegate

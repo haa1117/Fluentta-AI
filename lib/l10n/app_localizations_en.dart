@@ -875,4 +875,176 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get restoringPurchases => 'Restoring purchases...';
+
+  @override
+  String get speakWithAiTutorTitle => 'Speak With AI Tutor';
+
+  @override
+  String get aiSpeakingTutor => 'AI Speaking Tutor';
+
+  @override
+  String get aiSpeakingTutorDesc =>
+      'Talk by voice or text and get instant corrections';
+
+  @override
+  String get tagVoice => 'Voice';
+
+  @override
+  String get tagText => 'Text';
+
+  @override
+  String get tagCorrections => 'Corrections';
+
+  @override
+  String get pronunciationPractice => 'Pronunciation Practice';
+
+  @override
+  String get pronunciationPracticeSub => 'Record voice and get feedback';
+
+  @override
+  String get advertisement => 'ADVERTISEMENT';
+
+  @override
+  String get bannerAdPlaceholder => 'Banner Ad Placeholder';
+
+  @override
+  String get openAiChatPractice => 'Open AI Chat Practice';
+
+  @override
+  String get pronunciation => 'Pronunciation';
+
+  @override
+  String get pronunciationPracticeDesc =>
+      'Read a phrase, record your voice, and get feedback.';
+
+  @override
+  String phraseOf(int current, int total) {
+    return 'Phrase $current of $total';
+  }
+
+  @override
+  String get speakClearly => 'Speak clearly and naturally.';
+
+  @override
+  String get startRecording => 'Start Recording';
+
+  @override
+  String get heartPerPronunciation => '1 heart per Pronunciation';
+
+  @override
+  String get recording => 'RECORDING...';
+
+  @override
+  String get stopRecording => 'Stop Recording';
+
+  @override
+  String get checkingPronunciation => 'Checking your pronunciation...';
+
+  @override
+  String get checkingPronunciationSub =>
+      'We\'re listening for clarity, rhythm, and word accuracy to provide your personalized feedback.';
+
+  @override
+  String get onlyTakesMoment => 'This only takes a moment.';
+
+  @override
+  String get greatEffort => 'Great effort!';
+
+  @override
+  String pronunciationScoreMessage(int score) {
+    return 'Your pronunciation is clearer than $score% of learners at your level. Keep it up!';
+  }
+
+  @override
+  String get wordFeedback => 'WORD FEEDBACK';
+
+  @override
+  String confidencePercent(int percent) {
+    return '$percent% Confidence';
+  }
+
+  @override
+  String get tryAgain => 'Try Again';
+
+  @override
+  String get nextPhrase => 'Next Phrase';
+
+  @override
+  String get finish => 'Finish';
+
+  @override
+  String get practiceComplete => 'Practice Complete';
+
+  @override
+  String practicedPhrases(int count) {
+    return 'You Practiced $count pronunciation Phrases';
+  }
+
+  @override
+  String get averageScore => 'AVERAGE SCORE';
+
+  @override
+  String get phrasesLabel => 'Phrases';
+
+  @override
+  String get bestWord => 'Best word';
+
+  @override
+  String get practiceMore => 'Practice More';
+
+  @override
+  String get backToSpeak => 'Back to Speak';
+
+  @override
+  String get openChatPracticeTitle => 'Open Chat Practice';
+
+  @override
+  String get textMode => 'Text Mode';
+
+  @override
+  String get chatGreeting => 'Hi! What would you like to practice today?';
+
+  @override
+  String get outOfHearts => 'You\'re out of Hearts';
+
+  @override
+  String get outOfHeartsSub =>
+      'Fix Grammar, word choice, and sentences while you practice';
+
+  @override
+  String get getMoreHearts => 'GET MORE HEARTS';
+
+  @override
+  String get goUnlimited => 'Go Unlimited';
+
+  @override
+  String get goUnlimitedSub =>
+      'Unlimited AI practice\nNo ads • Unlimited hearts';
+
+  @override
+  String get watchAd => 'Watch Ad';
+
+  @override
+  String get watchAdSub => 'Get +2 Hearts instantly';
+
+  @override
+  String get playingPhrase => 'Playing phrase...';
+
+  @override
+  String get scenarioJobInterviews => 'Job Interviews';
+
+  @override
+  String get scenarioOrderFood => 'Order Food';
+
+  @override
+  String get scenarioAtAirport => 'At Airport';
+
+  @override
+  String get scenarioDoctorVisit => 'Doctor\'s Visit';
+
+  @override
+  String get scenarioSmallTalk => 'Small Talk';
+
+  @override
+  String get scenarioBusinessMeeting => 'Business Meeting';
 }

@@ -159,6 +159,10 @@ class LocalStorage {
     await saveDailyProgressMinutes(current > goal ? goal : current);
   }
 
+  Future<void> saveLives(int lives) async {
+    await _prefs!.setInt(_livesKey, lives.clamp(0, 99));
+  }
+
   Future<void> resetHomeProgress() async {
     await _prefs!.remove(_dailyProgressMinutesKey);
     await _prefs!.remove(_streakDaysKey);

@@ -10,7 +10,7 @@ import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
 class ReminderTimeScreen extends StatefulWidget {
-  const ReminderTimeScreen({super.key}); 
+  const ReminderTimeScreen({super.key});
 
   @override
   State<ReminderTimeScreen> createState() => _ReminderTimeScreenState();
