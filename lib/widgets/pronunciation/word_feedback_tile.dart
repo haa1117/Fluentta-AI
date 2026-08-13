@@ -14,7 +14,7 @@ class WordFeedbackTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final isHigh = feedback.isHighConfidence;
-    final accent = isHigh ? AppColors.learnSuccessGreen : const Color(0xFFF97316);
+    final accent = isHigh ? AppColors.learnSuccessGreen : const Color(0xFFD97706);
 
     return Container(
       width: double.infinity,
@@ -26,18 +26,22 @@ class WordFeedbackTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: AppColors.borderLight),
+        border: Border(left: BorderSide(
+          color: accent,
+          width: 4
+        ))
+        // border: Border.all(color: AppColors.borderLight),
       ),
       child: Row(
         children: [
-          Container(
-            width: AppSizes.w(4),
-            height: AppSizes.h(44),
-            decoration: BoxDecoration(
-              color: accent,
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
+          // Container(
+          //   width: AppSizes.w(4),
+          //   height: AppSizes.h(44),
+          //   decoration: BoxDecoration(
+          //     color: accent,
+          //     borderRadius: BorderRadius.circular(2),
+          //   ),
+          // ),
           SizedBox(width: AppSizes.w(12)),
           Expanded(
             child: Column(
@@ -65,7 +69,7 @@ class WordFeedbackTile extends StatelessWidget {
             ),
           ),
           Icon(
-            isHigh ? Icons.check_circle_rounded : Icons.info_outline_rounded,
+            isHigh ? Icons.check_circle_outline : Icons.info_outline_rounded,
             color: accent,
             size: AppSizes.sp(24),
           ),

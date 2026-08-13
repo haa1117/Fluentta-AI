@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -89,7 +90,7 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                           style: TextStyle(
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(14),
-                            color: AppColors.textSecondary,
+                            color: AppColors.profileSubtitleColor,
                             height: 1.45,
                           ),
                         ),
@@ -103,9 +104,9 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                       l10n.wordFeedback,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(11),
+                        fontSize: AppSizes.sp(12),
                         fontWeight: FontWeight.w600,
-                        color: AppColors.textTertiary,
+                        color: AppColors.profileSubtitleColor,
                         letterSpacing: 0.8,
                       ),
                     ),
@@ -127,34 +128,40 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
             ),
             child: Column(
               children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: AppSizes.buttonHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed(
-                        PronunciationFlow.routeRecording,
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryColor,
-                      foregroundColor: AppColors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(AppSizes.buttonRadius),
-                      ),
-                    ),
-                    child: Text(
-                      l10n.tryAgain,
-                      style: TextStyle(
-                        fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(16),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
+
+                PrimaryButton(text: l10n.tryAgain , onPressed: (){
+                  Navigator.of(context).pushReplacementNamed(
+                    PronunciationFlow.routeRecording,
+                  );
+                }),
+                // SizedBox(
+                //   width: double.infinity,
+                //   height: AppSizes.buttonHeight,
+                //   child: ElevatedButton(
+                //     onPressed: () {
+                //       Navigator.of(context).pushReplacementNamed(
+                //         PronunciationFlow.routeRecording,
+                //       );
+                //     },
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: AppColors.primaryColor,
+                //       foregroundColor: AppColors.white,
+                //       elevation: 0,
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius:
+                //             BorderRadius.circular(AppSizes.buttonRadius),
+                //       ),
+                //     ),
+                //     child: Text(
+                //       l10n.tryAgain,
+                //       style: TextStyle(
+                //         fontFamily: AppFonts.plusJakartaSans,
+                //         fontSize: AppSizes.sp(16),
+                //         fontWeight: FontWeight.w700,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: AppSizes.h(10)),
                 SizedBox(
                   width: double.infinity,
