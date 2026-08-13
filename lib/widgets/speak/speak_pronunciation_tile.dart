@@ -29,12 +29,20 @@ class SpeakPronunciationTile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              ClipOval(
-                child: Image.asset(
-                  AppAssets.aiTutor,
-                  width: AppSizes.w(48),
-                  height: AppSizes.w(48),
-                  fit: BoxFit.cover,
+              Container(
+width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: AppColors.homeCardLavenderDark,
+                  shape: BoxShape.circle
+                ),
+                child: Center(
+                  child: Image.asset(
+                    AppAssets.pronunciationPracticeBird,
+                    width: AppSizes.w(38),
+                    height: AppSizes.w(38),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               SizedBox(width: AppSizes.w(12)),
@@ -56,7 +64,7 @@ class SpeakPronunciationTile extends StatelessWidget {
                       l10n.pronunciationPracticeSub,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(12),
+                        fontSize: AppSizes.sp(13),
                         color: AppColors.textSecondary,
                       ),
                     ),
@@ -65,8 +73,8 @@ class SpeakPronunciationTile extends StatelessWidget {
               ),
               Icon(
                 Icons.chevron_right_rounded,
-                color: AppColors.textTertiary,
-                size: AppSizes.sp(22),
+                color: AppColors.textSecondary,
+                size: AppSizes.sp(25),
               ),
             ],
           ),

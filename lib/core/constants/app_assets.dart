@@ -28,7 +28,7 @@ class AppAssets {
   static const String deleteAccountDialogImage = 'assets/images/delete_account_bird.png';
   static const String reminderTimeBird = 'assets/images/reminder_time_bird.png';
   static const String aiSpeakingTutorBird='assets/images/ai_speaking_tutor_bird.png';
-
+static const String pronunciationPracticeBird='assets/images/pronuciation_practice.png';
 
   /// ---  SVG ICONS  ----///
 
