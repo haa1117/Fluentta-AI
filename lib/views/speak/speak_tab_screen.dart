@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/widgets/home/todays_lesson_card.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -101,8 +102,8 @@ class SpeakTabScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    SizedBox(height: AppSizes.h(20)),
-                    const SpeakAdBanner(),
+                    SizedBox(height: AppSizes.h(130)),
+                    const HomeBannerAd(),
                   ],
                 ),
               ),
