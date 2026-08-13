@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/create_account_view_model.dart';
@@ -17,6 +18,7 @@ class CreateAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<CreateAccountViewModel>();
 
     return Scaffold(
@@ -30,8 +32,8 @@ class CreateAccountScreen extends StatelessWidget {
               SizedBox(height: AppSizes.spaceSm),
               AuthHeader(
                 imagePath: AppAssets.splashBird,
-                title: 'Create account',
-                subtitle: 'Save your learning progress across devices',
+                title: l10n.createAccount,
+                subtitle: l10n.createAccountSubtitle,
               ),
               SizedBox(height: AppSizes.spaceLg),
               AuthCard(
@@ -39,15 +41,15 @@ class CreateAccountScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     AuthTextField(
-                      label: 'Full Name',
-                      hint: 'Enter your name',
+                      label: l10n.fullName,
+                      hint: l10n.enterYourName,
                       prefixIcon: Icons.person_outline,
                       controller: viewModel.fullNameController,
                       isShowPrefixIcon: true,
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthTextField(
-                      label: 'Email address',
+                      label: l10n.emailAddress,
                       hint: 'name@example.com',
                       prefixIcon: Icons.email_outlined,
                       controller: viewModel.emailController,
@@ -56,8 +58,8 @@ class CreateAccountScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthTextField(
-                      label: 'Password',
-                      hint: 'Min. 8 characters',
+                      label: l10n.password,
+                      hint: l10n.minEightChars,
                       prefixIcon: Icons.lock_outline,
                       isShowPrefixIcon: true,
                       controller: viewModel.passwordController,
@@ -66,7 +68,7 @@ class CreateAccountScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceLg),
                     PrimaryButton(
-                      text: 'Create Account',
+                      text: l10n.createAccountButton,
                       isLoading: viewModel.isLoading,
                       onPressed: () async {
                         try {
@@ -81,7 +83,7 @@ class CreateAccountScreen extends StatelessWidget {
                           if (context.mounted) {
                             SnackbarHelper.showError(
                               context,
-                              viewModel.getErrorMessage(e),
+                              viewModel.getErrorMessage(e, l10n),
                             );
                           }
                         }
@@ -89,8 +91,8 @@ class CreateAccountScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthFooterLink(
-                      prefix: 'Already have an account? ',
-                      actionText: 'Sign in',
+                      prefix: l10n.alreadyHaveAccount,
+                      actionText: l10n.signIn,
                       onTap: () => Navigator.of(context).pop(),
                     ),
                   ],

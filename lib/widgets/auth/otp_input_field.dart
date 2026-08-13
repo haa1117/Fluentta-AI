@@ -103,26 +103,3 @@ class _OtpInputFieldState extends State<OtpInputField> {
     );
   }
 }
-
-class AuthIllustration extends StatelessWidget {
-  const AuthIllustration({
-    super.key,
-    required this.imagePath,
-    this.height,
-  });
-
-  final String imagePath;
-  final double? height;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: height ?? AppSizes.h(140),
-      width: double.infinity,
-      child: Image.asset(
-        imagePath,
-        fit: BoxFit.contain,
-      ),
-    );
-  }
-}

@@ -238,6 +238,138 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dontHaveAccount => '¿No tienes una cuenta? ';
 
   @override
+  String get newToFluenta => '¿Nuevo en Fluenta? ';
+
+  @override
+  String get continueWithGoogle => 'Continuar con Google';
+
+  @override
+  String get continueWithApple => 'Continuar con Apple';
+
+  @override
+  String get orLower => 'o';
+
+  @override
+  String get createAccountButton => 'Crear cuenta';
+
+  @override
+  String get createNewPasswordTitle => 'Crea una nueva contraseña';
+
+  @override
+  String get createNewPasswordSubtitle =>
+      'Elige una contraseña segura que no hayas usado antes';
+
+  @override
+  String get newPassword => 'Nueva contraseña';
+
+  @override
+  String get enterNewPassword => 'Ingresa la nueva contraseña';
+
+  @override
+  String get confirmNewPassword => 'Confirmar nueva contraseña';
+
+  @override
+  String get repeatPassword => 'Repite tu contraseña';
+
+  @override
+  String get updatePassword => 'Actualizar contraseña';
+
+  @override
+  String get accountCreatedSafeDesc =>
+      'Tu progreso y plan de aprendizaje\nse guardarán de forma segura.';
+
+  @override
+  String get resendCode => 'Reenviar código';
+
+  @override
+  String resendCodeIn(String time) {
+    return 'Reenviar código en $time';
+  }
+
+  @override
+  String get creatingAccountTitle => 'Creando tu cuenta...';
+
+  @override
+  String get creatingAccountSubtitle => 'Por favor espera un momento.';
+
+  @override
+  String get authErrorFillAllFields => 'Por favor completa todos los campos.';
+
+  @override
+  String get authErrorPasswordMinEight =>
+      'La contraseña debe tener al menos 8 caracteres.';
+
+  @override
+  String get authErrorInvalidEmail => 'Por favor ingresa un email válido.';
+
+  @override
+  String get authErrorUserDisabled => 'Esta cuenta ha sido deshabilitada.';
+
+  @override
+  String get authErrorUserNotFound =>
+      'No se encontró una cuenta con este email.';
+
+  @override
+  String get authErrorWrongPassword =>
+      'Contraseña incorrecta. Inténtalo de nuevo.';
+
+  @override
+  String get authErrorEmailInUse => 'Ya existe una cuenta con este email.';
+
+  @override
+  String get authErrorWeakPassword =>
+      'La contraseña debe tener al menos 6 caracteres.';
+
+  @override
+  String get authErrorInvalidCredential => 'Email o contraseña inválidos.';
+
+  @override
+  String get authErrorTooManyRequests =>
+      'Demasiados intentos. Inténtalo más tarde.';
+
+  @override
+  String get authErrorNetwork => 'Error de red. Verifica tu conexión.';
+
+  @override
+  String get authErrorOperationNotAllowed =>
+      'Este método de inicio de sesión no está habilitado.';
+
+  @override
+  String get authErrorInvalidVerificationCode =>
+      'Código de verificación inválido.';
+
+  @override
+  String get authErrorExpiredActionCode =>
+      'Este enlace de restablecimiento expiró. Solicita uno nuevo.';
+
+  @override
+  String get authErrorInvalidActionCode =>
+      'Código de restablecimiento inválido. Solicita uno nuevo.';
+
+  @override
+  String get authErrorRequiresRecentLogin =>
+      'Inicia sesión de nuevo para actualizar tu contraseña.';
+
+  @override
+  String get authErrorGeneric => 'Algo salió mal. Inténtalo de nuevo.';
+
+  @override
+  String get authErrorPermissionDenied =>
+      'No se pudo guardar el perfil. Habilita Firestore en Firebase Console.';
+
+  @override
+  String get authErrorUnavailable =>
+      'Firestore no está disponible. Verifica tu conexión.';
+
+  @override
+  String get authErrorNotFound =>
+      'Base de datos Firestore no encontrada. Créala en Firebase Console.';
+
+  @override
+  String get authErrorSaveFailed =>
+      'No se pudieron guardar los datos. Inténtalo de nuevo.';
+
+  @override
   String get setupGoalTitle => '¿Cuál es tu objetivo en inglés?';
 
   @override

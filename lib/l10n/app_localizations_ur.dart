@@ -235,6 +235,132 @@ class AppLocalizationsUr extends AppLocalizations {
   String get dontHaveAccount => 'اکاؤنٹ نہیں ہے؟ ';
 
   @override
+  String get newToFluenta => 'Fluenta میں نئے ہیں؟ ';
+
+  @override
+  String get continueWithGoogle => 'Google کے ساتھ جاری رکھیں';
+
+  @override
+  String get continueWithApple => 'Apple کے ساتھ جاری رکھیں';
+
+  @override
+  String get orLower => 'یا';
+
+  @override
+  String get createAccountButton => 'اکاؤنٹ بنائیں';
+
+  @override
+  String get createNewPasswordTitle => 'نیا پاس ورڈ بنائیں';
+
+  @override
+  String get createNewPasswordSubtitle =>
+      'ایک محفوظ پاس ورڈ منتخب کریں جو آپ نے پہلے استعمال نہیں کیا';
+
+  @override
+  String get newPassword => 'نیا پاس ورڈ';
+
+  @override
+  String get enterNewPassword => 'نیا پاس ورڈ درج کریں';
+
+  @override
+  String get confirmNewPassword => 'نیا پاس ورڈ کی تصدیق';
+
+  @override
+  String get repeatPassword => 'پاس ورڈ دوبارہ درج کریں';
+
+  @override
+  String get updatePassword => 'پاس ورڈ اپ ڈیٹ کریں';
+
+  @override
+  String get accountCreatedSafeDesc =>
+      'آپ ki پیش رفت اور سیکھنے کا plan\nمحفوظ طور پر محفوظ رہے گا۔';
+
+  @override
+  String get resendCode => 'کوڈ دوبارہ بھیجیں';
+
+  @override
+  String resendCodeIn(String time) {
+    return '$time میں کوڈ دوبارہ بھیجیں';
+  }
+
+  @override
+  String get creatingAccountTitle => 'آپ کا اکاؤنٹ بنایا جا رہا ہے...';
+
+  @override
+  String get creatingAccountSubtitle => 'براہ کرم تھوڑی دیر انتظار کریں۔';
+
+  @override
+  String get authErrorFillAllFields => 'براہ کرم تمام فیلڈز پُر کریں۔';
+
+  @override
+  String get authErrorPasswordMinEight =>
+      'پاس ورڈ کم از کم 8 حروف کا ہونا چاہیے۔';
+
+  @override
+  String get authErrorInvalidEmail => 'براہ کرم درست ای میل درج کریں۔';
+
+  @override
+  String get authErrorUserDisabled => 'یہ اکاؤنٹ غیر فعال کر دیا گیا ہے۔';
+
+  @override
+  String get authErrorUserNotFound => 'اس ای میل سے کوئی اکاؤنٹ نہیں ملا۔';
+
+  @override
+  String get authErrorWrongPassword => 'غلط پاس ورڈ۔ دوبارہ کوشش کریں۔';
+
+  @override
+  String get authErrorEmailInUse => 'اس ای میل سے پہلے سے اکاؤنٹ موجود ہے۔';
+
+  @override
+  String get authErrorWeakPassword => 'پاس ورڈ کم از کم 6 حروف کا ہونا چاہیے۔';
+
+  @override
+  String get authErrorInvalidCredential => 'غلط ای میل یا پاس ورڈ۔';
+
+  @override
+  String get authErrorTooManyRequests =>
+      'بہت زیادہ کوششیں۔ بعد میں دوبارہ کوشش کریں۔';
+
+  @override
+  String get authErrorNetwork => 'نیٹ ورک خرابی۔ اپنا کنکشن چیک کریں۔';
+
+  @override
+  String get authErrorOperationNotAllowed => 'یہ سائن ان طریقہ فعال نہیں ہے۔';
+
+  @override
+  String get authErrorInvalidVerificationCode => 'غلط تصدیقی کوڈ۔';
+
+  @override
+  String get authErrorExpiredActionCode =>
+      'یہ ری سیٹ لنک ختم ہو گیا۔ نیا کوڈ مانگیں۔';
+
+  @override
+  String get authErrorInvalidActionCode => 'غلط ری سیٹ کوڈ۔ نیا کوڈ مانگیں۔';
+
+  @override
+  String get authErrorRequiresRecentLogin =>
+      'پاس ورڈ اپ ڈیٹ کرنے کے لیے دوبارہ سائن ان کریں۔';
+
+  @override
+  String get authErrorGeneric => 'کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔';
+
+  @override
+  String get authErrorPermissionDenied =>
+      'پروفائل محفوظ نہیں ہو سکی۔ Firebase Console میں Firestore فعال کریں۔';
+
+  @override
+  String get authErrorUnavailable =>
+      'Firestore دستیاب نہیں۔ انternet چیک کریں۔';
+
+  @override
+  String get authErrorNotFound =>
+      'Firestore ڈیٹا بیس نہیں ملا۔ Firebase Console میں بنائیں۔';
+
+  @override
+  String get authErrorSaveFailed =>
+      'صارف کا ڈیٹا محفوظ نہیں ہو سکا۔ دوبارہ کوشش کریں۔';
+
+  @override
   String get setupGoalTitle => 'آپ کا انگلش مقصد کیا ہے؟';
 
   @override

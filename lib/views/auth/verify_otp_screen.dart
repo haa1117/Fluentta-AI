@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
@@ -19,6 +20,7 @@ class VerifyOtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<VerifyOtpViewModel>();
     final authRepository = context.read<AuthRepository>();
 
@@ -36,9 +38,8 @@ class VerifyOtpScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: AuthHeader(
-                  title: 'Check your email',
-                  subtitle:
-                      'We sent a 4-digit code to ${viewModel.maskedEmail}',
+                  title: l10n.checkYourEmail,
+                  subtitle: l10n.otpSentTo(viewModel.maskedEmail),
                 ),
               ),
               SizedBox(height: AppSizes.spaceLg * 2),
@@ -52,7 +53,7 @@ class VerifyOtpScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceLg),
                     PrimaryButton(
-                      text: 'Verify Code',
+                      text: l10n.verifyCode,
                       enabled: viewModel.isCodeComplete,
                       isLoading: viewModel.isLoading,
                       onPressed: () async {
@@ -74,7 +75,7 @@ class VerifyOtpScreen extends StatelessWidget {
                           if (context.mounted) {
                             SnackbarHelper.showError(
                               context,
-                              viewModel.getErrorMessage(e),
+                              viewModel.getErrorMessage(e, l10n),
                             );
                           }
                         }
@@ -92,14 +93,14 @@ class VerifyOtpScreen extends StatelessWidget {
                           if (context.mounted) {
                             SnackbarHelper.showSuccess(
                               context,
-                              'Verification code resent.',
+                              l10n.verificationCodeResent,
                             );
                           }
                         } catch (e) {
                           if (context.mounted) {
                             SnackbarHelper.showError(
                               context,
-                              viewModel.getErrorMessage(e),
+                              viewModel.getErrorMessage(e, l10n),
                             );
                           }
                         }
@@ -115,9 +116,9 @@ class VerifyOtpScreen extends StatelessWidget {
                       color: AppColors.textSecondary,
                     ),
                     children: [
-                      const TextSpan(text: 'Didn\'t receive the code? '),
+                      TextSpan(text: l10n.didntReceiveCode),
                       TextSpan(
-                        text: viewModel.resendText,
+                        text: viewModel.resendText(l10n),
                         style: TextStyle(
                           fontFamily: AppFonts.plusJakartaSans,
                           fontWeight: FontWeight.w700,

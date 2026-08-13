@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/widgets/auth/otp_input_field.dart';
+import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 
 class PasswordUpdatedScreen extends StatelessWidget {
@@ -12,6 +13,7 @@ class PasswordUpdatedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -27,7 +29,7 @@ class PasswordUpdatedScreen extends StatelessWidget {
               ),
               SizedBox(height: AppSizes.spaceLg),
               Text(
-                'Password Updated!',
+                l10n.passwordUpdated,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
@@ -38,7 +40,7 @@ class PasswordUpdatedScreen extends StatelessWidget {
               ),
               SizedBox(height: AppSizes.spaceSm),
               Text(
-                'Your password has been updated successfully.\nYou can now sign in with your new password',
+                l10n.passwordUpdatedDesc,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
@@ -50,7 +52,7 @@ class PasswordUpdatedScreen extends StatelessWidget {
               ),
               const Spacer(flex: 3),
               PrimaryButton(
-                text: 'Back to sign in',
+                text: l10n.backToSignIn,
                 onPressed: () {
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },

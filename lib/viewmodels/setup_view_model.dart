@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/data/models/setup_option_model.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
@@ -90,7 +91,8 @@ class SetupViewModel extends ChangeNotifier {
     }
   }
 
-  String getErrorMessage(Object error) => AuthExceptionHandler.getMessage(error);
+  String getErrorMessage(Object error, AppLocalizations l10n) =>
+      AuthExceptionHandler.getMessage(error, l10n);
 
   String titleForStep(int step) {
     return switch (step) {

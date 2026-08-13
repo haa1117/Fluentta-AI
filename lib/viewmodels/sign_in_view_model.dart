@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 
 class SignInViewModel extends ChangeNotifier {
@@ -91,7 +92,8 @@ class SignInViewModel extends ChangeNotifier {
     }
   }
 
-  String getErrorMessage(Object error) => AuthExceptionHandler.getMessage(error);
+  String getErrorMessage(Object error, AppLocalizations l10n) =>
+      AuthExceptionHandler.getMessage(error, l10n);
 
   @override
   void dispose() {

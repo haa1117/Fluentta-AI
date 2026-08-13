@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class AuthCard extends StatelessWidget {
@@ -107,11 +108,14 @@ class AuthFooterLink extends StatelessWidget {
             color: AppColors.textSecondary,
           ),
           children: [
-            TextSpan(text: prefix,style: TextStyle(
-              fontFamily: AppFonts.plusJakartaSans,
-              fontWeight: FontWeight.w400,
-              fontSize: AppSizes.sp(14)
-            )),
+            TextSpan(
+              text: prefix,
+              style: TextStyle(
+                fontFamily: AppFonts.plusJakartaSans,
+                fontWeight: FontWeight.w400,
+                fontSize: AppSizes.sp(14),
+              ),
+            ),
             TextSpan(
               text: actionText,
               style: const TextStyle(
@@ -132,18 +136,20 @@ class OrDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Row(
       children: [
         const Expanded(child: Divider(color: AppColors.borderLight)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: AppSizes.w(12)),
           child: Text(
-            'or',
+            l10n.orLower,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(13),
-              color: Color(0xff665D72),
-              fontWeight: FontWeight.bold
+              color: const Color(0xff665D72),
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -158,18 +164,20 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     this.showBack = false,
     this.onBack,
-    this.title = 'Fluenta',
+    this.title,
   });
 
   final bool showBack;
   final VoidCallback? onBack;
-  final String title;
+  final String? title;
 
   @override
   Size get preferredSize => Size.fromHeight(AppSizes.h(56));
 
   @override
   Widget build(BuildContext context) {
+    final appTitle = title ?? context.l10n.appName;
+
     return Container(
       color: Colors.white,
       child: SafeArea(
@@ -202,7 +210,7 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
                 SizedBox(width: AppSizes.w(40)),
               Expanded(
                 child: Text(
-                  title,
+                  appTitle,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
@@ -217,6 +225,26 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class AuthIllustration extends StatelessWidget {
+  const AuthIllustration({
+    super.key,
+    required this.imagePath,
+    this.height,
+  });
+
+  final String imagePath;
+  final double? height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      imagePath,
+      height: height ?? AppSizes.h(160),
+      fit: BoxFit.contain,
     );
   }
 }

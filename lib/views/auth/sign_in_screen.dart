@@ -32,11 +32,12 @@ class SignInScreen extends StatelessWidget {
     Future<bool> Function() action,
     SignInViewModel viewModel,
   ) async {
+    final l10n = context.l10n;
     try {
       await action();
     } catch (e) {
       if (context.mounted) {
-        SnackbarHelper.showError(context, viewModel.getErrorMessage(e));
+        SnackbarHelper.showError(context, viewModel.getErrorMessage(e, l10n));
       }
     }
   }
@@ -151,8 +152,8 @@ class SignInScreen extends StatelessWidget {
               ),
               SizedBox(height: AppSizes.spaceLg),
               AuthFooterLink(
-                prefix: 'New to Fluenta? ',
-                actionText: 'Create account',
+                prefix: l10n.newToFluenta,
+                actionText: l10n.createAccount,
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute<void>(

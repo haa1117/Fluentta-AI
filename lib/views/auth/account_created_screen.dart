@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 
@@ -13,6 +14,7 @@ class AccountCreatedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -32,7 +34,7 @@ class AccountCreatedScreen extends StatelessWidget {
               ),
               SizedBox(height: AppSizes.spaceLg),
               Text(
-                'Account created!',
+                l10n.accountCreatedTitle,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
@@ -43,7 +45,7 @@ class AccountCreatedScreen extends StatelessWidget {
               ),
               SizedBox(height: AppSizes.spaceSm / 2),
               Text(
-                'Your progress and learning plan\nwill be saved safely.',
+                l10n.accountCreatedSafeDesc,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
@@ -53,9 +55,11 @@ class AccountCreatedScreen extends StatelessWidget {
                   height: 1.5,
                 ),
               ),
-
               SizedBox(height: AppSizes.spaceXl),
-              PrimaryButton(text: 'Continue', onPressed: onContinue),
+              PrimaryButton(
+                text: l10n.continueBtn,
+                onPressed: onContinue,
+              ),
               SizedBox(height: AppSizes.spaceXxl),
             ],
           ),

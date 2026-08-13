@@ -516,6 +516,234 @@ abstract class AppLocalizations {
   /// **'Don\'t have an account? '**
   String get dontHaveAccount;
 
+  /// No description provided for @newToFluenta.
+  ///
+  /// In en, this message translates to:
+  /// **'New to Fluenta? '**
+  String get newToFluenta;
+
+  /// No description provided for @continueWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get continueWithGoogle;
+
+  /// No description provided for @continueWithApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get continueWithApple;
+
+  /// No description provided for @orLower.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get orLower;
+
+  /// No description provided for @createAccountButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccountButton;
+
+  /// No description provided for @createNewPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new password'**
+  String get createNewPasswordTitle;
+
+  /// No description provided for @createNewPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a secure password you haven\'t used before'**
+  String get createNewPasswordSubtitle;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPassword;
+
+  /// No description provided for @enterNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter new password'**
+  String get enterNewPassword;
+
+  /// No description provided for @confirmNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm new password'**
+  String get confirmNewPassword;
+
+  /// No description provided for @repeatPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat your password'**
+  String get repeatPassword;
+
+  /// No description provided for @updatePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Password'**
+  String get updatePassword;
+
+  /// No description provided for @accountCreatedSafeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress and learning plan\nwill be saved safely.'**
+  String get accountCreatedSafeDesc;
+
+  /// No description provided for @resendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code'**
+  String get resendCode;
+
+  /// No description provided for @resendCodeIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code in {time}'**
+  String resendCodeIn(String time);
+
+  /// No description provided for @creatingAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Creating your account...'**
+  String get creatingAccountTitle;
+
+  /// No description provided for @creatingAccountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait a moment.'**
+  String get creatingAccountSubtitle;
+
+  /// No description provided for @authErrorFillAllFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in all fields.'**
+  String get authErrorFillAllFields;
+
+  /// No description provided for @authErrorPasswordMinEight.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters.'**
+  String get authErrorPasswordMinEight;
+
+  /// No description provided for @authErrorInvalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address.'**
+  String get authErrorInvalidEmail;
+
+  /// No description provided for @authErrorUserDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'This account has been disabled.'**
+  String get authErrorUserDisabled;
+
+  /// No description provided for @authErrorUserNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No account found with this email.'**
+  String get authErrorUserNotFound;
+
+  /// No description provided for @authErrorWrongPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect password. Please try again.'**
+  String get authErrorWrongPassword;
+
+  /// No description provided for @authErrorEmailInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'An account already exists with this email.'**
+  String get authErrorEmailInUse;
+
+  /// No description provided for @authErrorWeakPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters.'**
+  String get authErrorWeakPassword;
+
+  /// No description provided for @authErrorInvalidCredential.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email or password.'**
+  String get authErrorInvalidCredential;
+
+  /// No description provided for @authErrorTooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please try again later.'**
+  String get authErrorTooManyRequests;
+
+  /// No description provided for @authErrorNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error. Check your connection.'**
+  String get authErrorNetwork;
+
+  /// No description provided for @authErrorOperationNotAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'This sign-in method is not enabled.'**
+  String get authErrorOperationNotAllowed;
+
+  /// No description provided for @authErrorInvalidVerificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid verification code.'**
+  String get authErrorInvalidVerificationCode;
+
+  /// No description provided for @authErrorExpiredActionCode.
+  ///
+  /// In en, this message translates to:
+  /// **'This reset link has expired. Request a new one.'**
+  String get authErrorExpiredActionCode;
+
+  /// No description provided for @authErrorInvalidActionCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid reset code. Please request a new one.'**
+  String get authErrorInvalidActionCode;
+
+  /// No description provided for @authErrorRequiresRecentLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Please sign in again to update your password.'**
+  String get authErrorRequiresRecentLogin;
+
+  /// No description provided for @authErrorGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get authErrorGeneric;
+
+  /// No description provided for @authErrorPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save profile. Enable Firestore and deploy security rules in Firebase Console.'**
+  String get authErrorPermissionDenied;
+
+  /// No description provided for @authErrorUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Firestore is unavailable. Check your internet connection.'**
+  String get authErrorUnavailable;
+
+  /// No description provided for @authErrorNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Firestore database not found. Create it in Firebase Console.'**
+  String get authErrorNotFound;
+
+  /// No description provided for @authErrorSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save user data. Please try again.'**
+  String get authErrorSaveFailed;
+
   /// No description provided for @setupGoalTitle.
   ///
   /// In en, this message translates to:

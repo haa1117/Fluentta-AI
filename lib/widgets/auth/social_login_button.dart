@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -18,6 +19,8 @@ class SocialLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppSizes.init(context);
+    final l10n = context.l10n;
     final isGoogle = type == SocialLoginType.google;
 
     return Material(
@@ -39,7 +42,7 @@ class SocialLoginButton extends StatelessWidget {
               if (isGoogle) const _GoogleIcon() else const _AppleIcon(),
               SizedBox(width: AppSizes.w(10)),
               Text(
-                isGoogle ? 'Continue with Google' : 'Continue with Apple',
+                isGoogle ? l10n.continueWithGoogle : l10n.continueWithApple,
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(14),
@@ -63,11 +66,10 @@ class _GoogleIcon extends StatelessWidget {
     return SizedBox(
       width: AppSizes.w(20),
       height: AppSizes.w(20),
-      child: SvgPicture.asset("assets/svg/google.svg"),
+      child: SvgPicture.asset('assets/svg/google.svg'),
     );
   }
 }
-
 
 class _AppleIcon extends StatelessWidget {
   const _AppleIcon();
@@ -77,9 +79,7 @@ class _AppleIcon extends StatelessWidget {
     return SizedBox(
       width: AppSizes.w(20),
       height: AppSizes.w(20),
-      child: SvgPicture.asset(
-        "assets/svg/apple.svg",
-      ),
+      child: SvgPicture.asset('assets/svg/apple.svg'),
     );
   }
 }

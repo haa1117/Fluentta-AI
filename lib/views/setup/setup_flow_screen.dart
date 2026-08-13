@@ -19,6 +19,7 @@ class SetupFlowScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<SetupViewModel>();
 
     return Scaffold(
@@ -121,7 +122,7 @@ class _SetupStepPage extends StatelessWidget {
                       if (context.mounted) {
                         SnackbarHelper.showError(
                           context,
-                          viewModel.getErrorMessage(e),
+                          viewModel.getErrorMessage(e, l10n),
                         );
                       }
                     }

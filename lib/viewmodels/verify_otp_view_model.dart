@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 
 class VerifyOtpViewModel extends ChangeNotifier {
@@ -29,11 +30,11 @@ class VerifyOtpViewModel extends ChangeNotifier {
   bool get isCodeComplete => _otpCode.length == otpLength;
   bool get canResend => _resendSeconds == 0;
 
-  String get resendText {
-    if (canResend) return 'Resend code';
+  String resendText(AppLocalizations l10n) {
+    if (canResend) return l10n.resendCode;
     final minutes = (_resendSeconds ~/ 60).toString().padLeft(2, '0');
     final seconds = (_resendSeconds % 60).toString().padLeft(2, '0');
-    return 'Resend code in $minutes:$seconds';
+    return l10n.resendCodeIn('$minutes:$seconds');
   }
 
   void initTimer() {
@@ -91,7 +92,8 @@ class VerifyOtpViewModel extends ChangeNotifier {
     }
   }
 
-  String getErrorMessage(Object error) => AuthExceptionHandler.getMessage(error);
+  String getErrorMessage(Object error, AppLocalizations l10n) =>
+      AuthExceptionHandler.getMessage(error, l10n);
 
   @override
   void dispose() {

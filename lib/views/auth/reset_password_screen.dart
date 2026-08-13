@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/reset_password_view_model.dart';
 import 'package:fluentta_ai/views/auth/password_updated_screen.dart';
 import 'package:fluentta_ai/widgets/auth/auth_text_field.dart';
 import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
-import 'package:fluentta_ai/widgets/auth/otp_input_field.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +17,7 @@ class ResetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<ResetPasswordViewModel>();
 
     return Scaffold(
@@ -30,10 +31,9 @@ class ResetPasswordScreen extends StatelessWidget {
               SizedBox(height: AppSizes.spaceSm),
               const AuthIllustration(imagePath: AppAssets.resetPassword),
               SizedBox(height: AppSizes.spaceMd),
-              const AuthHeader(
-                title: 'Create a new password',
-                subtitle:
-                    'Choose a secure password you haven\'t used before',
+              AuthHeader(
+                title: l10n.createNewPasswordTitle,
+                subtitle: l10n.createNewPasswordSubtitle,
               ),
               SizedBox(height: AppSizes.spaceLg),
               AuthCard(
@@ -41,8 +41,8 @@ class ResetPasswordScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     AuthTextField(
-                      label: 'New password',
-                      hint: 'Enter new password',
+                      label: l10n.newPassword,
+                      hint: l10n.enterNewPassword,
                       prefixIcon: Icons.lock_outline,
                       controller: viewModel.newPasswordController,
                       obscureText: true,
@@ -51,8 +51,8 @@ class ResetPasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthTextField(
-                      label: 'Confirm new password',
-                      hint: 'Repeat your password',
+                      label: l10n.confirmNewPassword,
+                      hint: l10n.repeatPassword,
                       prefixIcon: Icons.lock_outline,
                       controller: viewModel.confirmPasswordController,
                       obscureText: true,
@@ -61,7 +61,7 @@ class ResetPasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceLg),
                     PrimaryButton(
-                      text: 'Update Password',
+                      text: l10n.updatePassword,
                       enabled: viewModel.isFormValid,
                       isLoading: viewModel.isLoading,
                       onPressed: () async {
@@ -78,7 +78,7 @@ class ResetPasswordScreen extends StatelessWidget {
                           if (context.mounted) {
                             SnackbarHelper.showError(
                               context,
-                              viewModel.getErrorMessage(e),
+                              viewModel.getErrorMessage(e, l10n),
                             );
                           }
                         }

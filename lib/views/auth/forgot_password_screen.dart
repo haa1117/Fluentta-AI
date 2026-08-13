@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/viewmodels/forgot_password_view_model.dart';
 import 'package:fluentta_ai/viewmodels/verify_otp_view_model.dart';
-import 'package:fluentta_ai/widgets/auth/otp_input_field.dart';
 import 'package:fluentta_ai/views/auth/verify_otp_screen.dart';
 import 'package:fluentta_ai/widgets/auth/auth_text_field.dart';
 import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
@@ -19,6 +19,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final l10n = context.l10n;
     final viewModel = context.watch<ForgotPasswordViewModel>();
     final authRepository = context.read<AuthRepository>();
 
@@ -33,10 +34,9 @@ class ForgotPasswordScreen extends StatelessWidget {
               SizedBox(height: AppSizes.spaceLg),
               const AuthIllustration(imagePath: AppAssets.forgotPassword),
               SizedBox(height: AppSizes.spaceMd),
-              const AuthHeader(
-                title: 'Forgot your password?',
-                subtitle:
-                    'Enter the email linked to your account.\n We\'ll send you a verification code.',
+              AuthHeader(
+                title: l10n.forgotPasswordTitle,
+                subtitle: l10n.forgotPasswordSubtitle,
               ),
               SizedBox(height: AppSizes.spaceLg),
               AuthCard(
@@ -44,7 +44,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     AuthTextField(
-                      label: 'Email address',
+                      label: l10n.emailAddress,
                       hint: 'name@example.com',
                       prefixIcon: Icons.email_outlined,
                       controller: viewModel.emailController,
@@ -53,7 +53,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceLg),
                     PrimaryButton(
-                      text: 'Send Verification Code',
+                      text: l10n.sendVerificationCode,
                       isLoading: viewModel.isLoading,
                       onPressed: () async {
                         try {
@@ -61,7 +61,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                             if (!context.mounted) return;
                             SnackbarHelper.showSuccess(
                               context,
-                              'Verification email sent successfully.',
+                              l10n.verificationEmailSent,
                             );
                             Navigator.of(context).push(
                               MaterialPageRoute<void>(
@@ -80,7 +80,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                           if (context.mounted) {
                             SnackbarHelper.showError(
                               context,
-                              viewModel.getErrorMessage(e),
+                              viewModel.getErrorMessage(e, l10n),
                             );
                           }
                         }
@@ -91,8 +91,8 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
               SizedBox(height: AppSizes.spaceLg * 4),
               AuthFooterLink(
-                prefix: 'Remember your password? ',
-                actionText: 'Sign in',
+                prefix: l10n.rememberPassword,
+                actionText: l10n.signIn,
                 onTap: () => Navigator.of(context).pop(),
               ),
               SizedBox(height: AppSizes.spaceXl),

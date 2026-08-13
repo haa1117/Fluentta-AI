@@ -1,63 +1,71 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 
 class AuthExceptionHandler {
   AuthExceptionHandler._();
 
-  static String getMessage(Object error) {
+  static String getMessage(Object error, AppLocalizations l10n) {
     if (error is FirebaseAuthException) {
-      return _authMessage(error);
+      return _authMessage(error, l10n);
     }
     if (error is FirebaseException) {
-      return _firestoreMessage(error);
+      return _firestoreMessage(error, l10n);
     }
     return error.toString().replaceFirst('Exception: ', '');
   }
 
-  static String _firestoreMessage(FirebaseException error) {
+  static String _firestoreMessage(FirebaseException error, AppLocalizations l10n) {
     switch (error.code) {
       case 'permission-denied':
-        return 'Could not save profile. Enable Firestore and deploy security rules in Firebase Console.';
+        return l10n.authErrorPermissionDenied;
       case 'unavailable':
-        return 'Firestore is unavailable. Check your internet connection.';
+        return l10n.authErrorUnavailable;
       case 'not-found':
-        return 'Firestore database not found. Create it in Firebase Console.';
+        return l10n.authErrorNotFound;
       default:
-        return error.message ?? 'Failed to save user data. Please try again.';
+        return error.message ?? l10n.authErrorSaveFailed;
     }
   }
 
-  static String _authMessage(FirebaseAuthException error) {
+  static String _authMessage(FirebaseAuthException error, AppLocalizations l10n) {
+    if (error.message == 'Please fill in all fields.') {
+      return l10n.authErrorFillAllFields;
+    }
+    if (error.message == 'Password must be at least 8 characters.') {
+      return l10n.authErrorPasswordMinEight;
+    }
+
     switch (error.code) {
       case 'invalid-email':
-        return 'Please enter a valid email address.';
+        return l10n.authErrorInvalidEmail;
       case 'user-disabled':
-        return 'This account has been disabled.';
+        return l10n.authErrorUserDisabled;
       case 'user-not-found':
-        return 'No account found with this email.';
+        return l10n.authErrorUserNotFound;
       case 'wrong-password':
-        return 'Incorrect password. Please try again.';
+        return l10n.authErrorWrongPassword;
       case 'email-already-in-use':
-        return 'An account already exists with this email.';
+        return l10n.authErrorEmailInUse;
       case 'weak-password':
-        return 'Password must be at least 6 characters.';
+        return l10n.authErrorWeakPassword;
       case 'invalid-credential':
-        return 'Invalid email or password.';
+        return l10n.authErrorInvalidCredential;
       case 'too-many-requests':
-        return 'Too many attempts. Please try again later.';
+        return l10n.authErrorTooManyRequests;
       case 'network-request-failed':
-        return 'Network error. Check your connection.';
+        return l10n.authErrorNetwork;
       case 'operation-not-allowed':
-        return 'This sign-in method is not enabled.';
+        return l10n.authErrorOperationNotAllowed;
       case 'invalid-verification-code':
-        return 'Invalid verification code.';
+        return l10n.authErrorInvalidVerificationCode;
       case 'expired-action-code':
-        return 'This reset link has expired. Request a new one.';
+        return l10n.authErrorExpiredActionCode;
       case 'invalid-action-code':
-        return 'Invalid reset code. Please request a new one.';
+        return l10n.authErrorInvalidActionCode;
       case 'requires-recent-login':
-        return 'Please sign in again to update your password.';
+        return l10n.authErrorRequiresRecentLogin;
       default:
-        return error.message ?? 'Something went wrong. Please try again.';
+        return error.message ?? l10n.authErrorGeneric;
     }
   }
 }
