@@ -60,7 +60,7 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                     decoration: BoxDecoration(
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                      border: Border.all(color: AppColors.borderLight),
+                      // border: Border.all(color: AppColors.borderLight),
                       boxShadow: [
                         BoxShadow(
                           color: AppColors.primaryColor.withValues(alpha: 0.06),
@@ -75,7 +75,7 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                           l10n.greatEffort,
                           style: TextStyle(
                             fontFamily: AppFonts.plusJakartaSans,
-                            fontSize: AppSizes.sp(20),
+                            fontSize: AppSizes.sp(22),
                             fontWeight: FontWeight.w700,
                             color: AppColors.textPrimary,
                           ),

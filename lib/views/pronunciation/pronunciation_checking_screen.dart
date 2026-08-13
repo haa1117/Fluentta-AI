@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/views/pronunciation/pronunciation_flow.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
+import 'package:fluentta_ai/widgets/pronunciation/pronunciation_checking_hero.dart';
 
 class PronunciationCheckingScreen extends StatefulWidget {
   const PronunciationCheckingScreen({super.key});
@@ -26,9 +26,8 @@ class _PronunciationCheckingScreenState
     _progressController = AnimationController(
       vsync: this,
       duration: const Duration(
-          // milliseconds: 2200.
-        hours: 4
 
+          milliseconds: 2200
       ),
     )..forward();
 
@@ -64,25 +63,8 @@ class _PronunciationCheckingScreenState
         padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
         child: Column(
           children: [
-            SizedBox(height: AppSizes.h(24)),
-            Container(
-              width: AppSizes.w(160),
-              height: AppSizes.w(160),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.homeCardLavenderDark,
-                  width: 2,
-                ),
-              ),
-              child: Center(
-                child: Image.asset(
-                  AppAssets.pronunciationCheckingBird,
-                  width: AppSizes.w(100),
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
+            SizedBox(height: AppSizes.h(44)),
+            const Center(child: PronunciationCheckingHero()),
             SizedBox(height: AppSizes.h(44)),
             Container(
               width: double.infinity,
