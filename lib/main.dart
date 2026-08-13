@@ -31,6 +31,7 @@ import 'package:fluentta_ai/viewmodels/reading_view_model.dart';
 
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 
+import 'package:fluentta_ai/viewmodels/subscription_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
 
 import 'package:provider/provider.dart';
@@ -202,17 +203,17 @@ class FluentaApp extends StatelessWidget {
         ),
 
         ChangeNotifierProvider(
-
           create: (context) => ProfileViewModel(
-
             localStorage,
-
             context.read<LocaleViewModel>(),
-
           ),
-
         ),
-
+        ChangeNotifierProvider(
+          create: (context) => SubscriptionViewModel(
+            localStorage,
+            context.read<HomeViewModel>(),
+          ),
+        ),
       ],
 
       child: Consumer<LocaleViewModel>(

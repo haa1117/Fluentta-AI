@@ -2117,6 +2117,324 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Learn key meeting words'**
   String get scenarioBusinessMeetingVocabSub;
+
+  /// No description provided for @customPlanReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Custom plan is Ready'**
+  String get customPlanReady;
+
+  /// No description provided for @customPlanReadySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your goal level & daily practice time.'**
+  String get customPlanReadySub;
+
+  /// No description provided for @planGoalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'GOAL'**
+  String get planGoalLabel;
+
+  /// No description provided for @planLevelLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'LEVEL'**
+  String get planLevelLabel;
+
+  /// No description provided for @planDailyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DAILY'**
+  String get planDailyLabel;
+
+  /// No description provided for @dailyMinutesShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String dailyMinutesShort(int minutes);
+
+  /// No description provided for @includedInPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Included in your plan'**
+  String get includedInPlan;
+
+  /// No description provided for @featureUnlimitedConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited conversation'**
+  String get featureUnlimitedConversation;
+
+  /// No description provided for @featureUnlimitedGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited grammar corrections'**
+  String get featureUnlimitedGrammar;
+
+  /// No description provided for @featureAdvancedPronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced pronunciation feedback'**
+  String get featureAdvancedPronunciation;
+
+  /// No description provided for @featurePersonalizedLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized work-English Lessons'**
+  String get featurePersonalizedLessons;
+
+  /// No description provided for @featureOfflineMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline mode'**
+  String get featureOfflineMode;
+
+  /// No description provided for @annualPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual Plan'**
+  String get annualPlan;
+
+  /// No description provided for @threeDayFreeTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'3-Day Free Trial'**
+  String get threeDayFreeTrial;
+
+  /// No description provided for @annualPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'\$39.99/yr'**
+  String get annualPrice;
+
+  /// No description provided for @annualPricePerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s \$3.33/mo'**
+  String get annualPricePerMonth;
+
+  /// No description provided for @bestValue.
+  ///
+  /// In en, this message translates to:
+  /// **'BEST VALUE'**
+  String get bestValue;
+
+  /// No description provided for @weeklyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get weeklyPlan;
+
+  /// No description provided for @weeklyPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'\$4.99'**
+  String get weeklyPrice;
+
+  /// No description provided for @monthlyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get monthlyPlan;
+
+  /// No description provided for @monthlyPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'\$12.99'**
+  String get monthlyPrice;
+
+  /// No description provided for @lifetimePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Life Time'**
+  String get lifetimePlan;
+
+  /// No description provided for @lifetimePrice.
+  ///
+  /// In en, this message translates to:
+  /// **'\$79.99'**
+  String get lifetimePrice;
+
+  /// No description provided for @oneTime.
+  ///
+  /// In en, this message translates to:
+  /// **'One Time'**
+  String get oneTime;
+
+  /// No description provided for @orDivider.
+  ///
+  /// In en, this message translates to:
+  /// **'OR'**
+  String get orDivider;
+
+  /// No description provided for @needExtraHearts.
+  ///
+  /// In en, this message translates to:
+  /// **'Need extra hearts?'**
+  String get needExtraHearts;
+
+  /// No description provided for @smallPack.
+  ///
+  /// In en, this message translates to:
+  /// **'Small Pack'**
+  String get smallPack;
+
+  /// No description provided for @mediumPack.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium Pack'**
+  String get mediumPack;
+
+  /// No description provided for @largePack.
+  ///
+  /// In en, this message translates to:
+  /// **'Large Pack'**
+  String get largePack;
+
+  /// No description provided for @heartsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Hearts'**
+  String heartsCount(int count);
+
+  /// No description provided for @startFreeTrialDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Start {days}-Day Free Trial'**
+  String startFreeTrialDays(int days);
+
+  /// No description provided for @cancelAnytimeNoCharge.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel anytime. No charge today'**
+  String get cancelAnytimeNoCharge;
+
+  /// No description provided for @terms.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms'**
+  String get terms;
+
+  /// No description provided for @privacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get privacy;
+
+  /// No description provided for @restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restore;
+
+  /// No description provided for @buyHeartsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy {count} Hearts'**
+  String buyHeartsCount(int count);
+
+  /// No description provided for @heartsOneTimePurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time purchase. Hearts are added instantly.'**
+  String get heartsOneTimePurchase;
+
+  /// No description provided for @tryProForLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Pro for less'**
+  String get tryProForLess;
+
+  /// No description provided for @fiftyOffFirstYear.
+  ///
+  /// In en, this message translates to:
+  /// **'50% off your first year- \$29 instead of \$59.99'**
+  String get fiftyOffFirstYear;
+
+  /// No description provided for @fiftyPercentOff.
+  ///
+  /// In en, this message translates to:
+  /// **'50% OFF'**
+  String get fiftyPercentOff;
+
+  /// No description provided for @annualPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual Pro'**
+  String get annualPro;
+
+  /// No description provided for @annualProPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'\$29.99/year'**
+  String get annualProPrice;
+
+  /// No description provided for @annualProPriceStrikethrough.
+  ///
+  /// In en, this message translates to:
+  /// **'\$59.99/year'**
+  String get annualProPriceStrikethrough;
+
+  /// No description provided for @firstYearOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'First year only'**
+  String get firstYearOnly;
+
+  /// No description provided for @sevenDayFreeTrialIncluded.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day free trial included'**
+  String get sevenDayFreeTrialIncluded;
+
+  /// No description provided for @specialOffer.
+  ///
+  /// In en, this message translates to:
+  /// **'SPECIAL OFFER'**
+  String get specialOffer;
+
+  /// No description provided for @startSevenDayFreeTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Start 7-Days Free Trial'**
+  String get startSevenDayFreeTrial;
+
+  /// No description provided for @heartsAddedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Hearts Added'**
+  String heartsAddedTitle(int count);
+
+  /// No description provided for @heartsAddedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your hearts have been added. You are ready for more AI chat, corrections, and practice.'**
+  String get heartsAddedMessage;
+
+  /// No description provided for @currentBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Balance'**
+  String get currentBalance;
+
+  /// No description provided for @currentHeartsBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Hearts'**
+  String currentHeartsBalance(int count);
+
+  /// No description provided for @startPracticing.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Practicing'**
+  String get startPracticing;
+
+  /// No description provided for @oneHeartPerAiResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'1 heart per AI response'**
+  String get oneHeartPerAiResponse;
 }
 
 class _AppLocalizationsDelegate

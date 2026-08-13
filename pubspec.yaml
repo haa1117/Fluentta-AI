@@ -23,6 +23,7 @@ dependencies:
   cloud_firestore: ^6.8.0
   dotted_decoration: ^2.0.0
   intl: any
+  dotted_line: ^3.3.0
 
 
 dev_dependencies:

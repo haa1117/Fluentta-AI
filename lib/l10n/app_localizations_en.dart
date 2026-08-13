@@ -1097,4 +1097,179 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scenarioBusinessMeetingVocabSub => 'Learn key meeting words';
+
+  @override
+  String get customPlanReady => 'Your Custom plan is Ready';
+
+  @override
+  String get customPlanReadySub =>
+      'Based on your goal level & daily practice time.';
+
+  @override
+  String get planGoalLabel => 'GOAL';
+
+  @override
+  String get planLevelLabel => 'LEVEL';
+
+  @override
+  String get planDailyLabel => 'DAILY';
+
+  @override
+  String dailyMinutesShort(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get includedInPlan => 'Included in your plan';
+
+  @override
+  String get featureUnlimitedConversation => 'Unlimited conversation';
+
+  @override
+  String get featureUnlimitedGrammar => 'Unlimited grammar corrections';
+
+  @override
+  String get featureAdvancedPronunciation => 'Advanced pronunciation feedback';
+
+  @override
+  String get featurePersonalizedLessons => 'Personalized work-English Lessons';
+
+  @override
+  String get featureOfflineMode => 'Offline mode';
+
+  @override
+  String get annualPlan => 'Annual Plan';
+
+  @override
+  String get threeDayFreeTrial => '3-Day Free Trial';
+
+  @override
+  String get annualPrice => '\$39.99/yr';
+
+  @override
+  String get annualPricePerMonth => 'That\'s \$3.33/mo';
+
+  @override
+  String get bestValue => 'BEST VALUE';
+
+  @override
+  String get weeklyPlan => 'Weekly';
+
+  @override
+  String get weeklyPrice => '\$4.99';
+
+  @override
+  String get monthlyPlan => 'Monthly';
+
+  @override
+  String get monthlyPrice => '\$12.99';
+
+  @override
+  String get lifetimePlan => 'Life Time';
+
+  @override
+  String get lifetimePrice => '\$79.99';
+
+  @override
+  String get oneTime => 'One Time';
+
+  @override
+  String get orDivider => 'OR';
+
+  @override
+  String get needExtraHearts => 'Need extra hearts?';
+
+  @override
+  String get smallPack => 'Small Pack';
+
+  @override
+  String get mediumPack => 'Medium Pack';
+
+  @override
+  String get largePack => 'Large Pack';
+
+  @override
+  String heartsCount(int count) {
+    return '$count Hearts';
+  }
+
+  @override
+  String startFreeTrialDays(int days) {
+    return 'Start $days-Day Free Trial';
+  }
+
+  @override
+  String get cancelAnytimeNoCharge => 'Cancel anytime. No charge today';
+
+  @override
+  String get terms => 'Terms';
+
+  @override
+  String get privacy => 'Privacy';
+
+  @override
+  String get restore => 'Restore';
+
+  @override
+  String buyHeartsCount(int count) {
+    return 'Buy $count Hearts';
+  }
+
+  @override
+  String get heartsOneTimePurchase =>
+      'One-time purchase. Hearts are added instantly.';
+
+  @override
+  String get tryProForLess => 'Try Pro for less';
+
+  @override
+  String get fiftyOffFirstYear =>
+      '50% off your first year- \$29 instead of \$59.99';
+
+  @override
+  String get fiftyPercentOff => '50% OFF';
+
+  @override
+  String get annualPro => 'Annual Pro';
+
+  @override
+  String get annualProPrice => '\$29.99/year';
+
+  @override
+  String get annualProPriceStrikethrough => '\$59.99/year';
+
+  @override
+  String get firstYearOnly => 'First year only';
+
+  @override
+  String get sevenDayFreeTrialIncluded => '7-day free trial included';
+
+  @override
+  String get specialOffer => 'SPECIAL OFFER';
+
+  @override
+  String get startSevenDayFreeTrial => 'Start 7-Days Free Trial';
+
+  @override
+  String heartsAddedTitle(int count) {
+    return '$count Hearts Added';
+  }
+
+  @override
+  String get heartsAddedMessage =>
+      'Your hearts have been added. You are ready for more AI chat, corrections, and practice.';
+
+  @override
+  String get currentBalance => 'Current Balance';
+
+  @override
+  String currentHeartsBalance(int count) {
+    return '$count Hearts';
+  }
+
+  @override
+  String get startPracticing => 'Start Practicing';
+
+  @override
+  String get oneHeartPerAiResponse => '1 heart per AI response';
 }

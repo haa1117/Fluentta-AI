@@ -3,7 +3,7 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/views/subscription/subscription_screen.dart';
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -78,8 +78,7 @@ class ProfilePremiumCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-                      onTap: () =>
-                          SnackbarHelper.showSuccess(context, l10n.upgradeComingSoon),
+                      onTap: () => SubscriptionScreen.open(context),
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: AppSizes.w(24),

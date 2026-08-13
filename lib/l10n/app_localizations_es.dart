@@ -1106,4 +1106,181 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get scenarioBusinessMeetingVocabSub =>
       'Aprende palabras clave de reuniones';
+
+  @override
+  String get customPlanReady => 'Tu plan personalizado está listo';
+
+  @override
+  String get customPlanReadySub =>
+      'Basado en tu objetivo, nivel y tiempo diario de práctica.';
+
+  @override
+  String get planGoalLabel => 'OBJETIVO';
+
+  @override
+  String get planLevelLabel => 'NIVEL';
+
+  @override
+  String get planDailyLabel => 'DIARIO';
+
+  @override
+  String dailyMinutesShort(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get includedInPlan => 'Incluido en tu plan';
+
+  @override
+  String get featureUnlimitedConversation => 'Conversación ilimitada';
+
+  @override
+  String get featureUnlimitedGrammar => 'Correcciones gramaticales ilimitadas';
+
+  @override
+  String get featureAdvancedPronunciation =>
+      'Retroalimentación avanzada de pronunciación';
+
+  @override
+  String get featurePersonalizedLessons =>
+      'Lecciones personalizadas de inglés laboral';
+
+  @override
+  String get featureOfflineMode => 'Modo sin conexión';
+
+  @override
+  String get annualPlan => 'Plan Anual';
+
+  @override
+  String get threeDayFreeTrial => 'Prueba gratis de 3 días';
+
+  @override
+  String get annualPrice => '\$39.99/año';
+
+  @override
+  String get annualPricePerMonth => 'Eso es \$3.33/mes';
+
+  @override
+  String get bestValue => 'MEJOR VALOR';
+
+  @override
+  String get weeklyPlan => 'Semanal';
+
+  @override
+  String get weeklyPrice => '\$4.99';
+
+  @override
+  String get monthlyPlan => 'Mensual';
+
+  @override
+  String get monthlyPrice => '\$12.99';
+
+  @override
+  String get lifetimePlan => 'De por vida';
+
+  @override
+  String get lifetimePrice => '\$79.99';
+
+  @override
+  String get oneTime => 'Una vez';
+
+  @override
+  String get orDivider => 'O';
+
+  @override
+  String get needExtraHearts => '¿Necesitas corazones extra?';
+
+  @override
+  String get smallPack => 'Paquete Pequeño';
+
+  @override
+  String get mediumPack => 'Paquete Mediano';
+
+  @override
+  String get largePack => 'Paquete Grande';
+
+  @override
+  String heartsCount(int count) {
+    return '$count Corazones';
+  }
+
+  @override
+  String startFreeTrialDays(int days) {
+    return 'Iniciar prueba gratis de $days días';
+  }
+
+  @override
+  String get cancelAnytimeNoCharge => 'Cancela cuando quieras. Sin cargo hoy';
+
+  @override
+  String get terms => 'Términos';
+
+  @override
+  String get privacy => 'Privacidad';
+
+  @override
+  String get restore => 'Restaurar';
+
+  @override
+  String buyHeartsCount(int count) {
+    return 'Comprar $count Corazones';
+  }
+
+  @override
+  String get heartsOneTimePurchase =>
+      'Compra única. Los corazones se añaden al instante.';
+
+  @override
+  String get tryProForLess => 'Prueba Pro por menos';
+
+  @override
+  String get fiftyOffFirstYear =>
+      '50% de descuento el primer año: \$29 en lugar de \$59.99';
+
+  @override
+  String get fiftyPercentOff => '50% OFF';
+
+  @override
+  String get annualPro => 'Pro Anual';
+
+  @override
+  String get annualProPrice => '\$29.99/año';
+
+  @override
+  String get annualProPriceStrikethrough => '\$59.99/año';
+
+  @override
+  String get firstYearOnly => 'Solo el primer año';
+
+  @override
+  String get sevenDayFreeTrialIncluded => 'Prueba gratis de 7 días incluida';
+
+  @override
+  String get specialOffer => 'OFERTA ESPECIAL';
+
+  @override
+  String get startSevenDayFreeTrial => 'Iniciar prueba gratis de 7 días';
+
+  @override
+  String heartsAddedTitle(int count) {
+    return '$count Corazones Añadidos';
+  }
+
+  @override
+  String get heartsAddedMessage =>
+      'Tus corazones han sido añadidos. Estás listo para más chat AI, correcciones y práctica.';
+
+  @override
+  String get currentBalance => 'Saldo Actual';
+
+  @override
+  String currentHeartsBalance(int count) {
+    return '$count Corazones';
+  }
+
+  @override
+  String get startPracticing => 'Empezar a Practicar';
+
+  @override
+  String get oneHeartPerAiResponse => '1 corazón por respuesta AI';
 }

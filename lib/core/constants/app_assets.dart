@@ -30,6 +30,11 @@ class AppAssets {
   static const String aiSpeakingTutorBird='assets/images/ai_speaking_tutor_bird.png';
 static const String pronunciationPracticeBird='assets/images/pronuciation_practice.png';
 static const String pronunciationCheckingBird='assets/images/pronunciation_checking.png';
+  static const String subscriptionPlanBird = 'assets/images/your_level.png';
+  static const String subscriptionProBird = 'assets/images/account_created.png';
+  static const String heartsPurchaseSuccessBird = 'assets/images/account_created.png';
+  static const String planBird='assets/images/plan_bird.png';
+  static const String planSuccessBird='assets/images/plan_successfull_bird.png';
 
   /// ---  SVG ICONS  ----///
 

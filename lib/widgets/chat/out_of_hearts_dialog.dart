@@ -5,6 +5,7 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/views/subscription/subscription_screen.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -80,7 +81,7 @@ Future<void> showOutOfHeartsDialog(BuildContext context) {
                 subtitle: l10n.goUnlimitedSub,
                 onTap: () {
                   Navigator.of(dialogContext).pop();
-                  SnackbarHelper.showSuccess(dialogContext, l10n.openingSoon);
+                  SubscriptionScreen.open(dialogContext);
                 },
               ),
               SizedBox(height: AppSizes.h(10)),
