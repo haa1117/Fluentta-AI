@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -15,10 +16,10 @@ class SpeakAiTutorCard extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(AppSizes.w(16)),
+      padding: EdgeInsets.all(AppSizes.w(20)),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+        borderRadius: BorderRadius.circular(AppSizes.sp(20)),
         border: Border.all(color: AppColors.borderLight),
         boxShadow: [
           BoxShadow(
@@ -31,57 +32,69 @@ class SpeakAiTutorCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l10n.aiSpeakingTutor,
-                      style: TextStyle(
-                        fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(20),
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.primaryColor,
-                      ),
-                    ),
-                    SizedBox(height: AppSizes.h(6)),
-                    Text(
-                      l10n.aiSpeakingTutorDesc,
-                      style: TextStyle(
-                        fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(13),
-                        color: AppColors.textSecondary,
-                        height: 1.4,
-                      ),
-                    ),
-                    SizedBox(height: AppSizes.h(10)),
-                    Wrap(
-                      spacing: AppSizes.w(6),
-                      runSpacing: AppSizes.h(6),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 7,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _TagChip(label: l10n.tagVoice),
-                        _TagChip(label: l10n.tagText),
-                        _TagChip(label: l10n.tagCorrections),
+                        Text(
+                          l10n.aiSpeakingTutor,
+                          style: TextStyle(
+                            fontFamily: AppFonts.plusJakartaSans,
+                            fontSize: AppSizes.sp(25),
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.primarySecondaryColor,
+                          ),
+                        ),
+                        SizedBox(height: AppSizes.h(6)),
+                        Text(
+                          l10n.aiSpeakingTutorDesc,
+                          style: TextStyle(
+                            fontFamily: AppFonts.plusJakartaSans,
+                            fontSize: AppSizes.sp(14),
+                            color: AppColors.profileSubtitleColor,
+                            fontWeight: FontWeight.w400,
+                            height: 1.4,
+                          ),
+                        ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+
+                  Expanded(
+                    flex: 4,
+                    child: Image.asset(
+                      AppAssets.aiSpeakingTutorBird,
+                      width: AppSizes.w(120),
+                      height: AppSizes.w(120),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(width: AppSizes.w(8)),
-              Image.asset(
-                'assets/images/start_chat.png',
-                width: AppSizes.w(90),
-                height: AppSizes.w(90),
-                fit: BoxFit.contain,
+
+              SizedBox(height: AppSizes.h(20)),
+
+              Wrap(
+                spacing: AppSizes.w(6),
+                runSpacing: AppSizes.h(6),
+                children: [
+                  _TagChip(label: l10n.tagVoice),
+                  _TagChip(label: l10n.tagText),
+                  _TagChip(label: l10n.tagCorrections),
+                ],
               ),
             ],
           ),
-          SizedBox(height: AppSizes.h(16)),
+          SizedBox(height: AppSizes.h(20)),
           SizedBox(
-            width: double.infinity,
+            width: AppSizes.screenWidth * .5,
             height: AppSizes.h(48),
             child: ElevatedButton.icon(
               onPressed: onStartChat,
@@ -130,9 +143,9 @@ class _TagChip extends StatelessWidget {
         label,
         style: TextStyle(
           fontFamily: AppFonts.plusJakartaSans,
-          fontSize: AppSizes.sp(11),
+          fontSize: AppSizes.sp(12),
           fontWeight: FontWeight.w600,
-          color: AppColors.primaryColor,
+          color: Color(0xff2C0051),
         ),
       ),
     );
