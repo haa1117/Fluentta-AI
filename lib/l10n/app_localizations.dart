@@ -2021,6 +2021,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Business Meeting'**
   String get scenarioBusinessMeeting;
+
+  /// No description provided for @learnAndPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn & Practice'**
+  String get learnAndPractice;
+
+  /// No description provided for @quickCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Check'**
+  String get quickCheck;
+
+  /// No description provided for @quickCheckSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer comprehension questions'**
+  String get quickCheckSub;
+
+  /// No description provided for @roleplayPracticeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} Practice'**
+  String roleplayPracticeTitle(String title);
+
+  /// No description provided for @scenarioJobInterviewDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Job Interview'**
+  String get scenarioJobInterviewDetail;
+
+  /// No description provided for @scenarioJobInterviewVocabSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn key interview words'**
+  String get scenarioJobInterviewVocabSub;
+
+  /// No description provided for @scenarioOrderFoodDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Food'**
+  String get scenarioOrderFoodDetail;
+
+  /// No description provided for @scenarioOrderFoodVocabSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn key restaurant words'**
+  String get scenarioOrderFoodVocabSub;
+
+  /// No description provided for @scenarioAtAirportDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'At the Airport'**
+  String get scenarioAtAirportDetail;
+
+  /// No description provided for @scenarioAtAirportVocabSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn key travel words'**
+  String get scenarioAtAirportVocabSub;
+
+  /// No description provided for @scenarioDoctorVisitDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor Visit'**
+  String get scenarioDoctorVisitDetail;
+
+  /// No description provided for @scenarioDoctorVisitVocabSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn key medical words'**
+  String get scenarioDoctorVisitVocabSub;
+
+  /// No description provided for @scenarioSmallTalkDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Small Talk'**
+  String get scenarioSmallTalkDetail;
+
+  /// No description provided for @scenarioSmallTalkVocabSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn key conversation words'**
+  String get scenarioSmallTalkVocabSub;
+
+  /// No description provided for @scenarioBusinessMeetingDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Business Meeting'**
+  String get scenarioBusinessMeetingDetail;
+
+  /// No description provided for @scenarioBusinessMeetingVocabSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn key meeting words'**
+  String get scenarioBusinessMeetingVocabSub;
 }
 
 class _AppLocalizationsDelegate

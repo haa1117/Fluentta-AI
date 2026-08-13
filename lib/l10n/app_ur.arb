@@ -321,5 +321,24 @@
   "scenarioAtAirport": "ہوائی اڈے پر",
   "scenarioDoctorVisit": "ڈاکٹر کا دورہ",
   "scenarioSmallTalk": "Small Talk",
-  "scenarioBusinessMeeting": "Business Meeting"
+  "scenarioBusinessMeeting": "Business Meeting",
+  "learnAndPractice": "سیکھیں اور مشق کریں",
+  "quickCheck": "فوری جانچ",
+  "quickCheckSub": "سمجھ کے سوالات کے جواب دیں",
+  "roleplayPracticeTitle": "{title} مشق",
+  "@roleplayPracticeTitle": {
+    "placeholders": {"title": {"type": "String"}}
+  },
+  "scenarioJobInterviewDetail": "نوکری کا انٹرویو",
+  "scenarioJobInterviewVocabSub": "انٹرویو کے اہم الفاظ سیکھیں",
+  "scenarioOrderFoodDetail": "کھانا آرڈر",
+  "scenarioOrderFoodVocabSub": "ریستوران کے اہم الفاظ سیکھیں",
+  "scenarioAtAirportDetail": "ہوائی اڈے پر",
+  "scenarioAtAirportVocabSub": "سفر کے اہم الفاظ سیکھیں",
+  "scenarioDoctorVisitDetail": "ڈاکٹر کا دورہ",
+  "scenarioDoctorVisitVocabSub": "طبی اہم الفاظ سیکھیں",
+  "scenarioSmallTalkDetail": "Small Talk",
+  "scenarioSmallTalkVocabSub": "بات چیت کے اہم الفاظ سیکھیں",
+  "scenarioBusinessMeetingDetail": "Business Meeting",
+  "scenarioBusinessMeetingVocabSub": "میeting کے اہم الفاظ سیکھیں"
 }

@@ -1047,4 +1047,54 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scenarioBusinessMeeting => 'Business Meeting';
+
+  @override
+  String get learnAndPractice => 'Learn & Practice';
+
+  @override
+  String get quickCheck => 'Quick Check';
+
+  @override
+  String get quickCheckSub => 'Answer comprehension questions';
+
+  @override
+  String roleplayPracticeTitle(String title) {
+    return '$title Practice';
+  }
+
+  @override
+  String get scenarioJobInterviewDetail => 'Job Interview';
+
+  @override
+  String get scenarioJobInterviewVocabSub => 'Learn key interview words';
+
+  @override
+  String get scenarioOrderFoodDetail => 'Order Food';
+
+  @override
+  String get scenarioOrderFoodVocabSub => 'Learn key restaurant words';
+
+  @override
+  String get scenarioAtAirportDetail => 'At the Airport';
+
+  @override
+  String get scenarioAtAirportVocabSub => 'Learn key travel words';
+
+  @override
+  String get scenarioDoctorVisitDetail => 'Doctor Visit';
+
+  @override
+  String get scenarioDoctorVisitVocabSub => 'Learn key medical words';
+
+  @override
+  String get scenarioSmallTalkDetail => 'Small Talk';
+
+  @override
+  String get scenarioSmallTalkVocabSub => 'Learn key conversation words';
+
+  @override
+  String get scenarioBusinessMeetingDetail => 'Business Meeting';
+
+  @override
+  String get scenarioBusinessMeetingVocabSub => 'Learn key meeting words';
 }

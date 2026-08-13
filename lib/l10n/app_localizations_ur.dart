@@ -1045,4 +1045,54 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get scenarioBusinessMeeting => 'Business Meeting';
+
+  @override
+  String get learnAndPractice => 'سیکھیں اور مشق کریں';
+
+  @override
+  String get quickCheck => 'فوری جانچ';
+
+  @override
+  String get quickCheckSub => 'سمجھ کے سوالات کے جواب دیں';
+
+  @override
+  String roleplayPracticeTitle(String title) {
+    return '$title مشق';
+  }
+
+  @override
+  String get scenarioJobInterviewDetail => 'نوکری کا انٹرویو';
+
+  @override
+  String get scenarioJobInterviewVocabSub => 'انٹرویو کے اہم الفاظ سیکھیں';
+
+  @override
+  String get scenarioOrderFoodDetail => 'کھانا آرڈر';
+
+  @override
+  String get scenarioOrderFoodVocabSub => 'ریستوران کے اہم الفاظ سیکھیں';
+
+  @override
+  String get scenarioAtAirportDetail => 'ہوائی اڈے پر';
+
+  @override
+  String get scenarioAtAirportVocabSub => 'سفر کے اہم الفاظ سیکھیں';
+
+  @override
+  String get scenarioDoctorVisitDetail => 'ڈاکٹر کا دورہ';
+
+  @override
+  String get scenarioDoctorVisitVocabSub => 'طبی اہم الفاظ سیکھیں';
+
+  @override
+  String get scenarioSmallTalkDetail => 'Small Talk';
+
+  @override
+  String get scenarioSmallTalkVocabSub => 'بات چیت کے اہم الفاظ سیکھیں';
+
+  @override
+  String get scenarioBusinessMeetingDetail => 'Business Meeting';
+
+  @override
+  String get scenarioBusinessMeetingVocabSub => 'میeting کے اہم الفاظ سیکھیں';
 }

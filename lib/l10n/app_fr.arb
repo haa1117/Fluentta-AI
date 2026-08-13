@@ -321,5 +321,24 @@
   "scenarioAtAirport": "À l'Aéroport",
   "scenarioDoctorVisit": "Visite Médicale",
   "scenarioSmallTalk": "Conversation Informelle",
-  "scenarioBusinessMeeting": "Réunion d'Affaires"
+  "scenarioBusinessMeeting": "Réunion d'Affaires",
+  "learnAndPractice": "Apprendre et Pratiquer",
+  "quickCheck": "Vérification Rapide",
+  "quickCheckSub": "Répondez aux questions de compréhension",
+  "roleplayPracticeTitle": "Pratique {title}",
+  "@roleplayPracticeTitle": {
+    "placeholders": {"title": {"type": "String"}}
+  },
+  "scenarioJobInterviewDetail": "Entretien d'Embauche",
+  "scenarioJobInterviewVocabSub": "Apprenez les mots clés d'entretien",
+  "scenarioOrderFoodDetail": "Commander à Manger",
+  "scenarioOrderFoodVocabSub": "Apprenez les mots clés de restaurant",
+  "scenarioAtAirportDetail": "À l'Aéroport",
+  "scenarioAtAirportVocabSub": "Apprenez les mots clés de voyage",
+  "scenarioDoctorVisitDetail": "Visite Médicale",
+  "scenarioDoctorVisitVocabSub": "Apprenez les mots clés médicaux",
+  "scenarioSmallTalkDetail": "Conversation Informelle",
+  "scenarioSmallTalkVocabSub": "Apprenez les mots clés de conversation",
+  "scenarioBusinessMeetingDetail": "Réunion d'Affaires",
+  "scenarioBusinessMeetingVocabSub": "Apprenez les mots clés de réunion"
 }

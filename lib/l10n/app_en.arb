@@ -430,5 +430,24 @@
   "scenarioAtAirport": "At Airport",
   "scenarioDoctorVisit": "Doctor's Visit",
   "scenarioSmallTalk": "Small Talk",
-  "scenarioBusinessMeeting": "Business Meeting"
+  "scenarioBusinessMeeting": "Business Meeting",
+  "learnAndPractice": "Learn & Practice",
+  "quickCheck": "Quick Check",
+  "quickCheckSub": "Answer comprehension questions",
+  "roleplayPracticeTitle": "{title} Practice",
+  "@roleplayPracticeTitle": {
+    "placeholders": {"title": {"type": "String"}}
+  },
+  "scenarioJobInterviewDetail": "Job Interview",
+  "scenarioJobInterviewVocabSub": "Learn key interview words",
+  "scenarioOrderFoodDetail": "Order Food",
+  "scenarioOrderFoodVocabSub": "Learn key restaurant words",
+  "scenarioAtAirportDetail": "At the Airport",
+  "scenarioAtAirportVocabSub": "Learn key travel words",
+  "scenarioDoctorVisitDetail": "Doctor Visit",
+  "scenarioDoctorVisitVocabSub": "Learn key medical words",
+  "scenarioSmallTalkDetail": "Small Talk",
+  "scenarioSmallTalkVocabSub": "Learn key conversation words",
+  "scenarioBusinessMeetingDetail": "Business Meeting",
+  "scenarioBusinessMeetingVocabSub": "Learn key meeting words"
 }
