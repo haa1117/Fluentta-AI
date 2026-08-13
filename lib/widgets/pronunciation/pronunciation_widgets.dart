@@ -93,8 +93,8 @@ class PhraseProgressSegments extends StatelessWidget {
             margin: EdgeInsets.only(left: index == 0 ? 0 : AppSizes.w(4)),
             decoration: BoxDecoration(
               color: isActive
-                  ? AppColors.primaryColor
-                  : AppColors.progressTrack,
+                  ? AppColors.primarySecondaryColor
+                  : Color(0xffD3E4FE),
               borderRadius: BorderRadius.circular(AppSizes.w(4)),
             ),
           ),

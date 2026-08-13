@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/widgets/common/icon_background_container.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -29,13 +30,8 @@ class SpeakPronunciationTile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Container(
-width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: AppColors.homeCardLavenderDark,
-                  shape: BoxShape.circle
-                ),
+              IconBackgroundContainerWidget(
+
                 child: Center(
                   child: Image.asset(
                     AppAssets.pronunciationPracticeBird,
