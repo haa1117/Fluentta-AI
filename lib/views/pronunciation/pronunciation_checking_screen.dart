@@ -25,7 +25,11 @@ class _PronunciationCheckingScreenState
     super.initState();
     _progressController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2200),
+      duration: const Duration(
+          // milliseconds: 2200.
+        hours: 4
+
+      ),
     )..forward();
 
     _progressController.addStatusListener((status) {
@@ -73,20 +77,20 @@ class _PronunciationCheckingScreenState
               ),
               child: Center(
                 child: Image.asset(
-                  AppAssets.authBird,
+                  AppAssets.pronunciationCheckingBird,
                   width: AppSizes.w(100),
                   fit: BoxFit.contain,
                 ),
               ),
             ),
-            SizedBox(height: AppSizes.h(24)),
+            SizedBox(height: AppSizes.h(44)),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.all(AppSizes.w(20)),
+              padding: EdgeInsets.all(AppSizes.w(23)),
               decoration: BoxDecoration(
                 color: AppColors.white,
                 borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                border: Border.all(color: AppColors.borderLight),
+                // border: Border.all(color: AppColors.borderLight),
                 boxShadow: [
                   BoxShadow(
                     color: AppColors.primaryColor.withValues(alpha: 0.06),
@@ -102,7 +106,7 @@ class _PronunciationCheckingScreenState
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
-                      fontSize: AppSizes.sp(18),
+                      fontSize: AppSizes.sp(24),
                       fontWeight: FontWeight.w700,
                       color: AppColors.textPrimary,
                     ),
@@ -113,30 +117,34 @@ class _PronunciationCheckingScreenState
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
-                      fontSize: AppSizes.sp(14),
-                      color: AppColors.textSecondary,
+                      fontSize: AppSizes.sp(15),
+                      color: AppColors.profileSubtitleColor,
                       height: 1.45,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: AppSizes.h(24)),
-            AnimatedBuilder(
-              animation: _progressController,
-              builder: (context, _) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(AppSizes.w(8)),
-                  child: LinearProgressIndicator(
-                    value: _progressController.value,
-                    minHeight: AppSizes.h(8),
-                    backgroundColor: AppColors.progressTrack,
-                    color: AppColors.primaryColor,
-                  ),
-                );
-              },
+            SizedBox(height: AppSizes.h(50)),
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
+              child: AnimatedBuilder(
+                animation: _progressController,
+                builder: (context, _) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(AppSizes.w(8)),
+                    child: LinearProgressIndicator(
+                      value: _progressController.value,
+                      minHeight: AppSizes.h(8),
+                      backgroundColor: Color(0xffF3E8FF),
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  );
+                },
+              ),
             ),
-            SizedBox(height: AppSizes.h(12)),
+            SizedBox(height: AppSizes.h(15)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -150,7 +158,7 @@ class _PronunciationCheckingScreenState
                   l10n.onlyTakesMoment,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(13),
+                    fontSize: AppSizes.sp(14),
                     fontWeight: FontWeight.w600,
                     color: AppColors.primaryColor,
                   ),

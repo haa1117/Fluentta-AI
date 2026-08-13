@@ -29,6 +29,7 @@ class AppAssets {
   static const String reminderTimeBird = 'assets/images/reminder_time_bird.png';
   static const String aiSpeakingTutorBird='assets/images/ai_speaking_tutor_bird.png';
 static const String pronunciationPracticeBird='assets/images/pronuciation_practice.png';
+static const String pronunciationCheckingBird='assets/images/pronunciation_checking.png';
 
   /// ---  SVG ICONS  ----///
 

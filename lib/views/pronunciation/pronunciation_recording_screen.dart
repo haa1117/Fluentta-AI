@@ -147,7 +147,7 @@ class PronunciationRecordingScreen extends StatelessWidget {
               ),
             ),
 
-            PrimaryButton(text: 'Stop Recording', onPressed: () {
+            PrimaryButton(text: l10n.stopRecording, onPressed: () {
 
               Navigator.of(context).pushReplacementNamed(
                 PronunciationFlow.routeChecking,
