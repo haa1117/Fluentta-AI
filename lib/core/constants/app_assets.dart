@@ -42,6 +42,7 @@ static const String pronunciationCheckingBird='assets/images/pronunciation_check
   static const String speakIcon = 'assets/svg/speak.svg';
   static const String profileIcon = 'assets/svg/profile.svg';
   static const String warningIcon = 'assets/svg/warning.svg';
+  static const String badgeIcon='assets/svg/badge.svg';
 
 
 }

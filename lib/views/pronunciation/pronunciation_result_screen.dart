@@ -174,7 +174,10 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                         );
                       } else {
                         vm.nextPhrase();
-                        Navigator.of(context).pop();
+                        Navigator.of(context).popUntil(
+                          (route) =>
+                              route.settings.name == PronunciationFlow.routeHome,
+                        );
                       }
                     },
                     style: OutlinedButton.styleFrom(

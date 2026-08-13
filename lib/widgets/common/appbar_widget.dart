@@ -13,7 +13,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.showBackButton = false,
     this.centerTitle = false,
     this.onBack,
-    this.showActionButton = true
+    this.showActionButton = true,  this.backGroundColor= AppColors.white
   });
 
   final String title;
@@ -21,6 +21,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final bool centerTitle;
   final VoidCallback? onBack;
 final bool showActionButton;
+final Color backGroundColor;
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
@@ -30,7 +31,7 @@ final bool showActionButton;
     final lives = context.watch<HomeViewModel>().lives;
 
     return AppBar(
-      backgroundColor: AppColors.white,
+      backgroundColor: backGroundColor,
       scrolledUnderElevation: 0,
       centerTitle: centerTitle,
       leading: showBackButton ? _BackButton(onBack: onBack) : null,

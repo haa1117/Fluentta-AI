@@ -8,6 +8,7 @@ import 'package:fluentta_ai/viewmodels/pronunciation_view_model.dart';
 import 'package:fluentta_ai/views/pronunciation/pronunciation_flow.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 /// Practice-complete summary shown after all pronunciation phrases are done.
@@ -24,6 +25,7 @@ class PronunciationCompleteScreen extends StatelessWidget {
       backgroundColor: AppColors.scaffoldBackgroundColor,
       appBar: AppBarWidget(
         title: l10n.pronunciation,
+        backGroundColor: AppColors.scaffoldBackgroundColor,
         showBackButton: true,
         centerTitle: true,
         showActionButton: false,
@@ -40,10 +42,10 @@ class PronunciationCompleteScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: AppSizes.h(12)),
+                    SizedBox(height: AppSizes.h(30)),
                     Image.asset(
-                      AppAssets.pronunciationPracticeBird,
-                      height: AppSizes.h(180),
+                      AppAssets.lessonCompletedBird,
+                      height: AppSizes.h(160),
                       fit: BoxFit.contain,
                     ),
                     SizedBox(height: AppSizes.h(20)),
@@ -58,20 +60,23 @@ class PronunciationCompleteScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: AppSizes.h(8)),
-                    Text(
-                      l10n.practicedPhrases(vm.totalPhrases),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(14),
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.textSecondary,
-                        height: 1.4,
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
+                      child: Text(
+                        l10n.practicedPhrases(vm.totalPhrases),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: AppFonts.plusJakartaSans,
+                          fontSize: AppSizes.sp(15),
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff1F1B2E),
+                          height: 1.4,
+                        ),
                       ),
                     ),
                     SizedBox(height: AppSizes.h(24)),
                     _AverageScoreCard(score: vm.averageScore, label: l10n.averageScore),
-                    SizedBox(height: AppSizes.h(12)),
+                    SizedBox(height: AppSizes.h(20)),
                     Row(
                       children: [
                         Expanded(
@@ -173,13 +178,16 @@ class _AverageScoreCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryColor.withValues(alpha: 0.08),
-            blurRadius: AppSizes.w(16),
-            offset: Offset(0, AppSizes.h(6)),
-          ),
-        ],
+        border: Border.all(
+          color: Color(0xffE5EEFF)
+        ),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: AppColors.primaryColor.withValues(alpha: 0.08),
+        //     blurRadius: AppSizes.w(16),
+        //     offset: Offset(0, AppSizes.h(6)),
+        //   ),
+        // ],
       ),
       child: Row(
         children: [
@@ -191,9 +199,9 @@ class _AverageScoreCard extends StatelessWidget {
                   label,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(11),
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textTertiary,
+                    fontSize: AppSizes.sp(13),
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.profileSubtitleColor,
                     letterSpacing: 0.8,
                   ),
                 ),
@@ -204,49 +212,26 @@ class _AverageScoreCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(36),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.primaryColor,
+                    color: AppColors.primaryBlueColor,
                     height: 1.1,
                   ),
                 ),
               ],
             ),
           ),
-          _MedalBadge(size: AppSizes.w(52)),
+          
+          SvgPicture.asset(AppAssets.badgeIcon,
+          
+          width: AppSizes.w(52),
+            height: AppSizes.h(50),
+          )
+          // _MedalBadge(size: AppSizes.w(52)),
         ],
       ),
     );
   }
 }
 
-class _MedalBadge extends StatelessWidget {
-  const _MedalBadge({required this.size});
-
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.primaryGradientStart,
-            AppColors.primaryGradientEnd,
-          ],
-        ),
-        borderRadius: BorderRadius.circular(AppSizes.w(14)),
-      ),
-      child: Icon(
-        Icons.star_rounded,
-        color: AppColors.white,
-        size: size * 0.52,
-      ),
-    );
-  }
-}
 
 class _StatCard extends StatelessWidget {
   const _StatCard({
@@ -266,10 +251,10 @@ class _StatCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: AppSizes.w(16),
-        vertical: AppSizes.h(14),
+        vertical: AppSizes.h(20),
       ),
       decoration: BoxDecoration(
-        color: AppColors.homeCardLavender,
+        color: Color(0xffF3E8FF),
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
       ),
       child: Column(
@@ -279,9 +264,9 @@ class _StatCard extends StatelessWidget {
             label,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
-              fontSize: AppSizes.sp(12),
+              fontSize: AppSizes.sp(13),
               fontWeight: FontWeight.w500,
-              color: AppColors.textSecondary,
+              color: AppColors.profileSubtitleColor,
             ),
           ),
           SizedBox(height: AppSizes.h(4)),

@@ -20,16 +20,17 @@ class PronunciationViewModel extends ChangeNotifier {
       PronunciationContent.phrases[_currentPhraseIndex];
 
   int get averageScore {
-    if (_completedScores.isEmpty) return 0;
-    final sum = _completedScores.reduce((a, b) => a + b);
-    return (sum / _completedScores.length).round();
+    final scores = _completedScores.take(totalPhrases).toList();
+    if (scores.isEmpty) return 0;
+    final sum = scores.reduce((a, b) => a + b);
+    return (sum / scores.length).round();
   }
 
   String get bestWord {
     var best = '';
     var bestScore = 0;
-    final completedCount = _completedScores.length;
-    for (var i = 0; i < completedCount; i++) {
+    final phraseCount = _completedScores.length.clamp(0, totalPhrases);
+    for (var i = 0; i < phraseCount; i++) {
       for (final word in PronunciationContent.phrases[i].words) {
         if (word.confidence > bestScore) {
           bestScore = word.confidence;
@@ -38,7 +39,7 @@ class PronunciationViewModel extends ChangeNotifier {
       }
     }
     if (best.isNotEmpty) return best;
-    return currentPhrase.words.first.word;
+    return PronunciationContent.phrases.first.words.first.word;
   }
 
   Future<bool> deductHeartIfNeeded() async {
@@ -52,14 +53,17 @@ class PronunciationViewModel extends ChangeNotifier {
   }
 
   void completeCurrentPhrase() {
-    _completedScores.add(currentPhrase.overallScore);
+    if (_completedScores.length > _currentPhraseIndex) {
+      _completedScores[_currentPhraseIndex] = currentPhrase.overallScore;
+    } else if (_completedScores.length == _currentPhraseIndex) {
+      _completedScores.add(currentPhrase.overallScore);
+    }
     notifyListeners();
   }
 
   void nextPhrase() {
     if (!isLastPhrase) {
       _currentPhraseIndex++;
-      _heartDeducted = false;
       notifyListeners();
     }
   }
