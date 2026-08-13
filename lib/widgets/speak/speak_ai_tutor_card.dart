@@ -1,4 +1,6 @@
 import 'package:fluentta_ai/core/constants/app_assets.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
+import 'package:fluentta_ai/widgets/common/primary_button_with_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -93,35 +95,13 @@ class SpeakAiTutorCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: AppSizes.h(20)),
-          SizedBox(
-            width: AppSizes.screenWidth * .5,
-            height: AppSizes.h(48),
-            child: ElevatedButton.icon(
-              onPressed: onStartChat,
-              icon: Icon(Icons.mic_none_rounded, size: AppSizes.sp(20)),
-              label: Text(
-                l10n.startAiChat,
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(15),
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primarySecondaryColor,
-                foregroundColor: AppColors.white,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-                ),
-              ),
-            ),
-          ),
+          PrimaryButtonWithIcon(onTap: onStartChat, btnText:  l10n.startAiChat),
         ],
       ),
     );
   }
 }
+
 
 class _TagChip extends StatelessWidget {
   const _TagChip({required this.label});
