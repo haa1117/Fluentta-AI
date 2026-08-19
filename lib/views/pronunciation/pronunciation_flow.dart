@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart';
+import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/viewmodels/pronunciation_view_model.dart';
 import 'package:fluentta_ai/views/pronunciation/pronunciation_checking_screen.dart';
@@ -35,7 +37,11 @@ class PronunciationFlow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (ctx) => PronunciationViewModel(ctx.read<HomeViewModel>()),
+      create: (ctx) => PronunciationViewModel(
+        ctx.read<HomeViewModel>(),
+        ctx.read<TextToSpeechService>(),
+        ctx.read<PronunciationAssessmentService>(),
+      ),
       child: Navigator(
         initialRoute: routeHome,
         onGenerateRoute: (settings) {

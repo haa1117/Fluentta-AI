@@ -1201,6 +1201,14 @@ class AppLocalizationsEs extends AppLocalizations {
   String get playingPhrase => 'Reproduciendo frase...';
 
   @override
+  String get pronunciationUnavailable =>
+      'El micrófono o el reconocimiento de voz no están disponibles en este dispositivo.';
+
+  @override
+  String get microphonePermissionDenied =>
+      'Se necesita permiso del micrófono para practicar pronunciación.';
+
+  @override
   String get scenarioJobInterviews => 'Entrevistas de Trabajo';
 
   @override

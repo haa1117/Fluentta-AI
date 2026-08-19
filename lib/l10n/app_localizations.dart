@@ -2274,6 +2274,18 @@ abstract class AppLocalizations {
   /// **'Playing phrase...'**
   String get playingPhrase;
 
+  /// No description provided for @pronunciationUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone or speech recognition is not available on this device.'**
+  String get pronunciationUnavailable;
+
+  /// No description provided for @microphonePermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone permission is required for pronunciation practice.'**
+  String get microphonePermissionDenied;
+
   /// No description provided for @scenarioJobInterviews.
   ///
   /// In en, this message translates to:

@@ -24,7 +24,12 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<PronunciationViewModel>().completeCurrentPhrase();
+      final vm = context.read<PronunciationViewModel>();
+      if (vm.currentResult == null) {
+        Navigator.of(context).pop();
+        return;
+      }
+      vm.completeCurrentPhrase();
     });
   }
 
@@ -33,7 +38,10 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
     AppSizes.init(context);
     final l10n = context.l10n;
     final vm = context.watch<PronunciationViewModel>();
-    final phrase = vm.currentPhrase;
+    final result = vm.currentResult;
+    if (result == null) {
+      return const SizedBox.shrink();
+    }
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -82,10 +90,10 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                           ),
                         ),
                         SizedBox(height: AppSizes.h(16)),
-                        PronunciationScoreRing(score: phrase.overallScore),
+                        PronunciationScoreRing(score: result.overallScore),
                         SizedBox(height: AppSizes.h(16)),
                         Text(
-                          l10n.pronunciationScoreMessage(phrase.overallScore),
+                          l10n.pronunciationScoreMessage(result.overallScore),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: AppFonts.plusJakartaSans,
@@ -112,7 +120,7 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                     ),
                   ),
                   SizedBox(height: AppSizes.h(10)),
-                  ...phrase.words.map(
+                  ...result.words.map(
                     (w) => WordFeedbackTile(feedback: w),
                   ),
                 ],
@@ -130,6 +138,7 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
               children: [
 
                 PrimaryButton(text: l10n.tryAgain , onPressed: (){
+                  vm.clearCurrentResult();
                   Navigator.of(context).pushReplacementNamed(
                     PronunciationFlow.routeRecording,
                   );

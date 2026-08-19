@@ -364,6 +364,8 @@
   "watchAd": "Regarder une Pub",
   "watchAdSub": "Obtenez +2 cœurs instantanément",
   "playingPhrase": "Lecture de la phrase...",
+  "pronunciationUnavailable": "Le micro ou la reconnaissance vocale n'est pas disponible sur cet appareil.",
+  "microphonePermissionDenied": "L'autorisation du micro est requise pour la prononciation.",
   "scenarioJobInterviews": "Entretiens d'Embauche",
   "scenarioOrderFood": "Commander à Manger",
   "scenarioAtAirport": "À l'Aéroport",

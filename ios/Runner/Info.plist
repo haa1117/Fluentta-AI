@@ -66,5 +66,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Fluentta needs microphone access to check your pronunciation.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Fluentta uses speech recognition to score your pronunciation practice.</string>
 </dict>
 </plist>

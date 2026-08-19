@@ -10,6 +10,7 @@ import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_sync_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
+import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
@@ -43,6 +44,7 @@ void main() async {
     localStorage: localStorage,
   );
   final textToSpeechService = TextToSpeechService();
+  final pronunciationAssessmentService = PronunciationAssessmentService();
 
   await lessonContentRepository.initialize();
   await progressRepository.initialize();
@@ -59,6 +61,7 @@ void main() async {
       progressRepository: progressRepository,
       progressSyncService: progressSyncService,
       textToSpeechService: textToSpeechService,
+      pronunciationAssessmentService: pronunciationAssessmentService,
     ),
   );
 }
@@ -73,6 +76,7 @@ class FluentaApp extends StatelessWidget {
     required this.progressRepository,
     required this.progressSyncService,
     required this.textToSpeechService,
+    required this.pronunciationAssessmentService,
   });
 
   final LocalStorage localStorage;
@@ -82,6 +86,7 @@ class FluentaApp extends StatelessWidget {
   final ProgressRepository progressRepository;
   final ProgressSyncService progressSyncService;
   final TextToSpeechService textToSpeechService;
+  final PronunciationAssessmentService pronunciationAssessmentService;
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +98,9 @@ class FluentaApp extends StatelessWidget {
         Provider<ProgressRepository>.value(value: progressRepository),
         Provider<ProgressSyncService>.value(value: progressSyncService),
         Provider<TextToSpeechService>.value(value: textToSpeechService),
+        Provider<PronunciationAssessmentService>.value(
+          value: pronunciationAssessmentService,
+        ),
         ChangeNotifierProvider(
           create: (_) => LocaleViewModel(localStorage),
         ),

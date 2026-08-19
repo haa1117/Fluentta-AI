@@ -364,6 +364,8 @@
   "watchAd": "Ver Anuncio",
   "watchAdSub": "Obtén +2 corazones al instante",
   "playingPhrase": "Reproduciendo frase...",
+  "pronunciationUnavailable": "El micrófono o el reconocimiento de voz no están disponibles en este dispositivo.",
+  "microphonePermissionDenied": "Se necesita permiso del micrófono para practicar pronunciación.",
   "scenarioJobInterviews": "Entrevistas de Trabajo",
   "scenarioOrderFood": "Pedir Comida",
   "scenarioAtAirport": "En el Aeropuerto",

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -149,7 +148,7 @@ class PronunciationScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Text(
-                              '"${vm.currentPhrase.phrase}"',
+                              '"${vm.currentPhraseText}"',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: AppFonts.plusJakartaSans,
@@ -161,8 +160,18 @@ class PronunciationScreen extends StatelessWidget {
                             ),
                             SizedBox(height: AppSizes.h(16)),
                             OutlinedButton.icon(
-                              onPressed: () =>
-                                  SnackbarHelper.showSuccess(context, l10n.playingPhrase),
+                              onPressed: vm.isListeningPhrase
+                                  ? null
+                                  : () async {
+                                      final didSpeak = await vm.listenToCurrentPhrase();
+                                      if (!context.mounted) return;
+                                      if (!didSpeak) {
+                                        SnackbarHelper.showError(
+                                          context,
+                                          l10n.listenUnavailable,
+                                        );
+                                      }
+                                    },
                               icon: Icon(Icons.volume_up_rounded, size: AppSizes.sp(18)),
                               label: Text(l10n.listen,style: TextStyle(
                                fontFamily: AppFonts.plusJakartaSans,

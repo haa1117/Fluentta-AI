@@ -1,37 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/data/models/pronunciation_phrase_model.dart';
+import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart';
+import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 
 class PronunciationViewModel extends ChangeNotifier {
-  PronunciationViewModel(this._homeViewModel);
+  PronunciationViewModel(
+    this._homeViewModel,
+    this._textToSpeechService,
+    this._assessmentService,
+  );
 
   final HomeViewModel _homeViewModel;
+  final TextToSpeechService _textToSpeechService;
+  final PronunciationAssessmentService _assessmentService;
 
   int _currentPhraseIndex = 0;
   final List<int> _completedScores = [];
+  final List<PronunciationAssessmentResult> _phraseResults = [];
+  PronunciationAssessmentResult? _currentResult;
   bool _heartDeducted = false;
+  bool _isRecording = false;
+  bool _isListeningPhrase = false;
+  double _soundLevel = 0;
 
   int get lives => _homeViewModel.lives;
   int get currentPhraseIndex => _currentPhraseIndex;
   int get totalPhrases => PronunciationContent.phrases.length;
   bool get isLastPhrase => _currentPhraseIndex >= totalPhrases - 1;
+  bool get isRecording => _isRecording || _assessmentService.isListening;
+  bool get isListeningPhrase => _isListeningPhrase;
+  double get soundLevel => _soundLevel;
 
-  PronunciationPhraseData get currentPhrase =>
-      PronunciationContent.phrases[_currentPhraseIndex];
+  String get currentPhraseText =>
+      PronunciationContent.phrases[_currentPhraseIndex].text;
+
+  PronunciationAssessmentResult? get currentResult => _currentResult;
 
   int get averageScore {
-    final scores = _completedScores.take(totalPhrases).toList();
-    if (scores.isEmpty) return 0;
-    final sum = scores.reduce((a, b) => a + b);
-    return (sum / scores.length).round();
+    if (_completedScores.isEmpty) return 0;
+    final sum = _completedScores.reduce((a, b) => a + b);
+    return (sum / _completedScores.length).round();
   }
 
   String get bestWord {
     var best = '';
     var bestScore = 0;
-    final phraseCount = _completedScores.length.clamp(0, totalPhrases);
-    for (var i = 0; i < phraseCount; i++) {
-      for (final word in PronunciationContent.phrases[i].words) {
+    for (final result in _phraseResults) {
+      for (final word in result.words) {
         if (word.confidence > bestScore) {
           bestScore = word.confidence;
           best = word.word;
@@ -39,7 +55,7 @@ class PronunciationViewModel extends ChangeNotifier {
       }
     }
     if (best.isNotEmpty) return best;
-    return PronunciationContent.phrases.first.words.first.word;
+    return _extractWords(currentPhraseText).firstOrNull ?? '';
   }
 
   Future<bool> deductHeartIfNeeded() async {
@@ -52,11 +68,89 @@ class PronunciationViewModel extends ChangeNotifier {
     return ok;
   }
 
+  Future<bool> listenToCurrentPhrase() async {
+    await _textToSpeechService.stop();
+    _isListeningPhrase = true;
+    notifyListeners();
+
+    final didSpeak = await _textToSpeechService.speak(
+      currentPhraseText,
+      onComplete: () {
+        _isListeningPhrase = false;
+        notifyListeners();
+      },
+    );
+
+    if (!didSpeak) {
+      _isListeningPhrase = false;
+      notifyListeners();
+    }
+    return didSpeak;
+  }
+
+  PronunciationStartFailure get lastStartFailure =>
+      _assessmentService.lastStartFailure;
+
+  Future<bool> startRecording() async {
+    _currentResult = null;
+    _soundLevel = 0;
+    _isRecording = true;
+    notifyListeners();
+
+    final started = await _assessmentService.startListening(
+      onSoundLevel: (level) {
+        _soundLevel = level;
+        notifyListeners();
+      },
+    );
+
+    if (!started) {
+      _isRecording = false;
+      notifyListeners();
+    }
+    return started;
+  }
+
+  Future<PronunciationAssessmentResult?> stopRecordingAndAssess() async {
+    _isRecording = false;
+    notifyListeners();
+
+    final spokenText = await _assessmentService.stopListening();
+    final result = _assessmentService.assess(
+      expectedPhrase: currentPhraseText,
+      spokenText: spokenText,
+    );
+    _currentResult = result;
+    notifyListeners();
+    return result;
+  }
+
+  void cancelRecording() {
+    _assessmentService.cancelListening();
+    _isRecording = false;
+    _soundLevel = 0;
+    notifyListeners();
+  }
+
+  void clearCurrentResult() {
+    _currentResult = null;
+    notifyListeners();
+  }
+
   void completeCurrentPhrase() {
+    final result = _currentResult;
+    if (result == null) return;
+
     if (_completedScores.length > _currentPhraseIndex) {
-      _completedScores[_currentPhraseIndex] = currentPhrase.overallScore;
+      _completedScores[_currentPhraseIndex] = result.overallScore;
+      if (_phraseResults.length > _currentPhraseIndex) {
+        _phraseResults[_currentPhraseIndex] = result;
+      } else {
+        _phraseResults.add(result);
+      }
     } else if (_completedScores.length == _currentPhraseIndex) {
-      _completedScores.add(currentPhrase.overallScore);
+      _completedScores.add(result.overallScore);
+      _phraseResults.add(result);
     }
     notifyListeners();
   }
@@ -64,6 +158,7 @@ class PronunciationViewModel extends ChangeNotifier {
   void nextPhrase() {
     if (!isLastPhrase) {
       _currentPhraseIndex++;
+      _currentResult = null;
       notifyListeners();
     }
   }
@@ -71,7 +166,30 @@ class PronunciationViewModel extends ChangeNotifier {
   void resetSession() {
     _currentPhraseIndex = 0;
     _completedScores.clear();
+    _phraseResults.clear();
+    _currentResult = null;
     _heartDeducted = false;
+    _isRecording = false;
+    _soundLevel = 0;
+    _assessmentService.cancelListening();
     notifyListeners();
   }
+
+  @override
+  void dispose() {
+    _assessmentService.cancelListening();
+    _textToSpeechService.stop();
+    super.dispose();
+  }
+
+  List<String> _extractWords(String phrase) {
+    return RegExp(r"\b[\w']+\b")
+        .allMatches(phrase)
+        .map((match) => match.group(0)!)
+        .toList();
+  }
+}
+
+extension _FirstOrNull<T> on List<T> {
+  T? get firstOrNull => isEmpty ? null : first;
 }

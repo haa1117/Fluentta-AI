@@ -479,6 +479,8 @@
   "watchAd": "Watch Ad",
   "watchAdSub": "Get +2 Hearts instantly",
   "playingPhrase": "Playing phrase...",
+  "pronunciationUnavailable": "Microphone or speech recognition is not available on this device.",
+  "microphonePermissionDenied": "Microphone permission is required for pronunciation practice.",
   "scenarioJobInterviews": "Job Interviews",
   "scenarioOrderFood": "Order Food",
   "scenarioAtAirport": "At Airport",

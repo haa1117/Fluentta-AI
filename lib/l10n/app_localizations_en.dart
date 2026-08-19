@@ -1193,6 +1193,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get playingPhrase => 'Playing phrase...';
 
   @override
+  String get pronunciationUnavailable =>
+      'Microphone or speech recognition is not available on this device.';
+
+  @override
+  String get microphonePermissionDenied =>
+      'Microphone permission is required for pronunciation practice.';
+
+  @override
   String get scenarioJobInterviews => 'Job Interviews';
 
   @override

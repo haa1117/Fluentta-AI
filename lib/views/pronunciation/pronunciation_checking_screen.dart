@@ -25,10 +25,7 @@ class _PronunciationCheckingScreenState
     super.initState();
     _progressController = AnimationController(
       vsync: this,
-      duration: const Duration(
-
-          milliseconds: 2200
-      ),
+      duration: const Duration(milliseconds: 1200),
     )..forward();
 
     _progressController.addStatusListener((status) {

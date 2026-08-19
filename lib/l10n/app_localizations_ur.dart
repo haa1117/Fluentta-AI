@@ -1187,6 +1187,14 @@ class AppLocalizationsUr extends AppLocalizations {
   String get playingPhrase => 'جملہ چلایا جا رہا ہے...';
 
   @override
+  String get pronunciationUnavailable =>
+      'اس ڈیوائس پر مائیک یا speech recognition دستیاب نہیں ہے۔';
+
+  @override
+  String get microphonePermissionDenied =>
+      'تلفظ کی مشق کے لیے مائیک کی اجازت درکار ہے۔';
+
+  @override
   String get scenarioJobInterviews => 'نوکری کے انٹرویو';
 
   @override

@@ -364,6 +364,8 @@
   "watchAd": "اشتہار دیکھیں",
   "watchAdSub": "فوری +2 دل حاصل کریں",
   "playingPhrase": "جملہ چلایا جا رہا ہے...",
+  "pronunciationUnavailable": "اس ڈیوائس پر مائیک یا speech recognition دستیاب نہیں ہے۔",
+  "microphonePermissionDenied": "تلفظ کی مشق کے لیے مائیک کی اجازت درکار ہے۔",
   "scenarioJobInterviews": "نوکری کے انٹرویو",
   "scenarioOrderFood": "کھانا آرڈر",
   "scenarioAtAirport": "ہوائی اڈے پر",
