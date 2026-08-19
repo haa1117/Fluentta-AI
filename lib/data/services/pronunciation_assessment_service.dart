@@ -11,6 +11,18 @@ enum PronunciationStartFailure {
   unavailable,
 }
 
+class _WordMatch {
+  const _WordMatch({
+    required this.expected,
+    this.spoken,
+    required this.confidence,
+  });
+
+  final String expected;
+  final String? spoken;
+  final int confidence;
+}
+
 class PronunciationAssessmentService {
   PronunciationAssessmentService() : _speech = SpeechToText();
 
@@ -31,6 +43,21 @@ class PronunciationAssessmentService {
     'error_speech_timeout',
     'error_no_match',
   };
+
+  static const _trickySoundPatterns = [
+    'tion',
+    'sion',
+    'ough',
+    'th',
+    'sh',
+    'ch',
+    'ph',
+    'wh',
+    'ng',
+    'gh',
+    'ed',
+    'ly',
+  ];
 
   Future<bool> initialize() async {
     if (_initialized) {
@@ -128,7 +155,6 @@ class PronunciationAssessmentService {
       await _speech.stop();
     }
 
-    // Give the user a moment to raise the phone and start speaking.
     await Future<void>.delayed(const Duration(milliseconds: 400));
 
     final started = await _beginListenAttempt();
@@ -208,7 +234,6 @@ class PronunciationAssessmentService {
     }
     _isListening = false;
 
-    // Allow final recognition result to arrive after stop.
     await Future<void>.delayed(const Duration(milliseconds: 600));
     return _transcript.trim();
   }
@@ -227,20 +252,23 @@ class PronunciationAssessmentService {
   }) {
     final expectedWords = _extractWords(expectedPhrase);
     final spokenWords = _tokenize(spokenText);
+    final heardAnything = spokenWords.isNotEmpty;
+    final matches = _matchWords(expectedWords, spokenWords);
     final words = <PronunciationWordFeedback>[];
 
-    for (var index = 0; index < expectedWords.length; index++) {
-      final displayWord = expectedWords[index];
-      final expectedToken =
-          _tokenize(displayWord).firstOrNull ?? displayWord.toLowerCase();
-      final spokenToken = index < spokenWords.length ? spokenWords[index] : '';
-      final confidence =
-          _wordConfidence(expectedToken, spokenToken, spokenWords.isEmpty);
+    for (final match in matches) {
+      final spoken = match.spoken;
+      final weakAnalysis = spoken == null
+          ? _weakAnalysisForMissing(match.expected)
+          : _analyzeWeakSounds(match.expected, spoken);
 
       words.add(
         PronunciationWordFeedback(
-          word: displayWord,
-          confidence: confidence,
+          word: match.expected,
+          confidence: match.confidence,
+          spokenWord: spoken,
+          weakSounds: weakAnalysis.sounds,
+          weakCharIndices: weakAnalysis.charIndices,
         ),
       );
     }
@@ -250,6 +278,7 @@ class PronunciationAssessmentService {
         overallScore: 0,
         words: const [],
         transcript: spokenText,
+        heardAnything: heardAnything,
       );
     }
 
@@ -261,7 +290,190 @@ class PronunciationAssessmentService {
       overallScore: overall.clamp(0, 100),
       words: words,
       transcript: spokenText,
+      heardAnything: heardAnything,
     );
+  }
+
+  List<_WordMatch> _matchWords(
+    List<String> expectedWords,
+    List<String> spokenWords,
+  ) {
+    if (expectedWords.isEmpty) return const [];
+
+    final usedSpoken = List<bool>.filled(spokenWords.length, false);
+    final matches = <_WordMatch>[];
+
+    for (final expected in expectedWords) {
+      final expectedToken = _normalizeWord(expected);
+      var bestIndex = -1;
+      var bestScore = 0.0;
+
+      for (var i = 0; i < spokenWords.length; i++) {
+        if (usedSpoken[i]) continue;
+        final score = _similarity(expectedToken, spokenWords[i]);
+        if (score > bestScore) {
+          bestScore = score;
+          bestIndex = i;
+        }
+      }
+
+      if (bestIndex >= 0 && bestScore >= 0.45) {
+        usedSpoken[bestIndex] = true;
+        matches.add(
+          _WordMatch(
+            expected: expected,
+            spoken: spokenWords[bestIndex],
+            confidence: _confidenceFromSimilarity(bestScore, spokenWords.isEmpty),
+          ),
+        );
+      } else {
+        matches.add(
+          _WordMatch(
+            expected: expected,
+            confidence: spokenWords.isEmpty ? 35 : 42,
+          ),
+        );
+      }
+    }
+
+    return matches;
+  }
+
+  int _confidenceFromSimilarity(double similarity, bool noSpeech) {
+    if (noSpeech) return 35;
+    if (similarity >= 0.98) return 97;
+    if (similarity >= 0.85) return 90;
+    if (similarity >= 0.70) return 78;
+    if (similarity >= 0.55) return 65;
+    return (similarity * 100).round().clamp(40, 60);
+  }
+
+  ({List<String> sounds, List<int> charIndices}) _analyzeWeakSounds(
+    String expectedWord,
+    String spokenWord,
+  ) {
+    final expected = _normalizeWord(expectedWord);
+    final spoken = _normalizeWord(spokenWord);
+
+    if (expected == spoken) {
+      return (sounds: const [], charIndices: const []);
+    }
+
+    final sounds = <String>{};
+    final charIndices = <int>{};
+
+    for (final pattern in _trickySoundPatterns) {
+      if (expected.contains(pattern) && !spoken.contains(pattern)) {
+        sounds.add('/$pattern/');
+        _markPatternIndices(expectedWord, pattern, charIndices);
+      }
+    }
+
+    final mismatches = _mismatchIndices(expected, spoken);
+    for (final index in mismatches) {
+      if (index < expectedWord.length) {
+        charIndices.add(index);
+        final ch = expectedWord[index].toLowerCase();
+        if (RegExp(r'[a-z]').hasMatch(ch)) {
+          sounds.add("'$ch'");
+        }
+      }
+    }
+
+    return (
+      sounds: sounds.toList(),
+      charIndices: charIndices.toList()..sort(),
+    );
+  }
+
+  ({List<String> sounds, List<int> charIndices}) _weakAnalysisForMissing(
+    String expectedWord,
+  ) {
+    final sounds = <String>{};
+    final charIndices = <int>{};
+
+    for (final pattern in _trickySoundPatterns) {
+      if (expectedWord.toLowerCase().contains(pattern)) {
+        sounds.add('/$pattern/');
+        _markPatternIndices(expectedWord, pattern, charIndices);
+      }
+    }
+
+    if (sounds.isEmpty && expectedWord.isNotEmpty) {
+      charIndices.addAll(List.generate(expectedWord.length, (index) => index));
+    }
+
+    return (
+      sounds: sounds.toList(),
+      charIndices: charIndices.toList()..sort(),
+    );
+  }
+
+  void _markPatternIndices(
+    String word,
+    String pattern,
+    Set<int> indices,
+  ) {
+    final lower = word.toLowerCase();
+    var start = 0;
+    while (true) {
+      final found = lower.indexOf(pattern, start);
+      if (found < 0) break;
+      for (var i = found; i < found + pattern.length; i++) {
+        indices.add(i);
+      }
+      start = found + 1;
+    }
+  }
+
+  List<int> _mismatchIndices(String expected, String spoken) {
+    final n = expected.length;
+    final m = spoken.length;
+    if (n == 0) return const [];
+
+    final dp = List.generate(n + 1, (_) => List<int>.filled(m + 1, 0));
+    for (var i = 0; i <= n; i++) {
+      dp[i][0] = i;
+    }
+    for (var j = 0; j <= m; j++) {
+      dp[0][j] = j;
+    }
+
+    for (var i = 1; i <= n; i++) {
+      for (var j = 1; j <= m; j++) {
+        final cost = expected[i - 1] == spoken[j - 1] ? 0 : 1;
+        dp[i][j] = math.min(
+          math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1),
+          dp[i - 1][j - 1] + cost,
+        );
+      }
+    }
+
+    final mismatches = <int>{};
+    var i = n;
+    var j = m;
+    while (i > 0 || j > 0) {
+      if (i > 0 &&
+          j > 0 &&
+          dp[i][j] == dp[i - 1][j - 1] &&
+          expected[i - 1] == spoken[j - 1]) {
+        i--;
+        j--;
+      } else if (i > 0 && dp[i][j] == dp[i - 1][j] + 1) {
+        mismatches.add(i - 1);
+        i--;
+      } else if (j > 0 && dp[i][j] == dp[i][j - 1] + 1) {
+        j--;
+      } else if (i > 0 && j > 0) {
+        mismatches.add(i - 1);
+        i--;
+        j--;
+      } else {
+        break;
+      }
+    }
+
+    return mismatches.toList()..sort();
   }
 
   List<String> _extractWords(String phrase) {
@@ -278,16 +490,8 @@ class PronunciationAssessmentService {
         .toList();
   }
 
-  int _wordConfidence(String expected, String spoken, bool noSpeech) {
-    if (noSpeech) return 35;
-    if (spoken.isEmpty) return 42;
-    if (expected == spoken) return 96;
-
-    final similarity = _similarity(expected, spoken);
-    if (similarity >= 0.85) return 90;
-    if (similarity >= 0.65) return 78;
-    if (similarity >= 0.45) return 65;
-    return (similarity * 100).round().clamp(40, 60);
+  String _normalizeWord(String word) {
+    return word.toLowerCase().replaceAll(RegExp(r"[^a-z']"), '');
   }
 
   double _similarity(String a, String b) {

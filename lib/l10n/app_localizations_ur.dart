@@ -1122,6 +1122,25 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
+  String heardAs(String word) {
+    return 'سuna: \"$word\"';
+  }
+
+  @override
+  String focusOnSounds(String sounds) {
+    return 'توجہ دیں: $sounds';
+  }
+
+  @override
+  String youSaid(String transcript) {
+    return 'آپ نے کہا: \"$transcript\"';
+  }
+
+  @override
+  String get noSpeechDetected =>
+      'واضح آواز نہیں ملی۔ زور سے بولیں اور دوبارہ کوشش کریں۔';
+
+  @override
   String get tryAgain => 'دوبارہ کوشش';
 
   @override

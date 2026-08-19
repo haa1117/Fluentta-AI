@@ -2148,6 +2148,30 @@ abstract class AppLocalizations {
   /// **'{percent}% Confidence'**
   String confidencePercent(int percent);
 
+  /// No description provided for @heardAs.
+  ///
+  /// In en, this message translates to:
+  /// **'Heard: \"{word}\"'**
+  String heardAs(String word);
+
+  /// No description provided for @focusOnSounds.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus on: {sounds}'**
+  String focusOnSounds(String sounds);
+
+  /// No description provided for @youSaid.
+  ///
+  /// In en, this message translates to:
+  /// **'You said: \"{transcript}\"'**
+  String youSaid(String transcript);
+
+  /// No description provided for @noSpeechDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t detect clear speech. Try speaking louder and try again.'**
+  String get noSpeechDetected;
+
   /// No description provided for @tryAgain.
   ///
   /// In en, this message translates to:

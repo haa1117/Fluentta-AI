@@ -35,6 +35,7 @@ static const String pronunciationCheckingBird='assets/images/pronunciation_check
   static const String heartsPurchaseSuccessBird = 'assets/images/account_created.png';
   static const String planBird='assets/images/plan_bird.png';
   static const String planSuccessBird='assets/images/plan_successfull_bird.png';
+  static const String outOfHearthBird = 'assets/images/out_of_hearth_bird.png';
 
   /// ---  SVG ICONS  ----///
 
@@ -48,6 +49,8 @@ static const String pronunciationCheckingBird='assets/images/pronunciation_check
   static const String profileIcon = 'assets/svg/profile.svg';
   static const String warningIcon = 'assets/svg/warning.svg';
   static const String badgeIcon='assets/svg/badge.svg';
+  static const String diamondSvg='assets/svg/diamond.svg';
+  static const String watchAdSvg ='assets/svg/watch_ad.svg';
 
 
 }

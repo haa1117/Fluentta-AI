@@ -5,6 +5,7 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/pronunciation_view_model.dart';
+import 'package:fluentta_ai/views/pronunciation/pronunciation_check_helper.dart';
 import 'package:fluentta_ai/views/pronunciation/pronunciation_flow.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/pronunciation/pronunciation_widgets.dart';
@@ -93,7 +94,11 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                         PronunciationScoreRing(score: result.overallScore),
                         SizedBox(height: AppSizes.h(16)),
                         Text(
-                          l10n.pronunciationScoreMessage(result.overallScore),
+                          result.heardAnything
+                              ? l10n.pronunciationScoreMessage(
+                                  result.overallScore,
+                                )
+                              : l10n.noSpeechDetected,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: AppFonts.plusJakartaSans,
@@ -105,6 +110,23 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: AppSizes.h(20)),
+                  if (result.transcript.isNotEmpty) ...[
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        l10n.youSaid(result.transcript),
+                        style: TextStyle(
+                          fontFamily: AppFonts.plusJakartaSans,
+                          fontSize: AppSizes.sp(13),
+                          color: AppColors.profileSubtitleColor,
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: AppSizes.h(14)),
+                  ],
+                  PhraseWordHighlights(words: result.words),
                   SizedBox(height: AppSizes.h(20)),
                   Align(
                     alignment: Alignment.centerLeft,
@@ -137,12 +159,16 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
             child: Column(
               children: [
 
-                PrimaryButton(text: l10n.tryAgain , onPressed: (){
-                  vm.clearCurrentResult();
-                  Navigator.of(context).pushReplacementNamed(
-                    PronunciationFlow.routeRecording,
-                  );
-                }),
+                PrimaryButton(
+                  text: l10n.tryAgain,
+                  onPressed: () async {
+                    vm.clearCurrentResult();
+                    await startPronunciationCheck(
+                      context,
+                      replaceCurrent: true,
+                    );
+                  },
+                ),
                 // SizedBox(
                 //   width: double.infinity,
                 //   height: AppSizes.buttonHeight,

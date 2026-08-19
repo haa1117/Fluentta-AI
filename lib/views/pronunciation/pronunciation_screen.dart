@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/views/pronunciation/pronunciation_check_helper.dart';
 import 'package:fluentta_ai/viewmodels/pronunciation_view_model.dart';
 import 'package:fluentta_ai/views/pronunciation/pronunciation_flow.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
@@ -209,20 +210,7 @@ class PronunciationScreen extends StatelessWidget {
                 width: double.infinity,
                 height: AppSizes.buttonHeight,
                 child: ElevatedButton.icon(
-                  onPressed: () async {
-                    final ok = await vm.deductHeartIfNeeded();
-                    if (!context.mounted) return;
-                    if (!ok) {
-                      SnackbarHelper.showError(
-                        context,
-                        l10n.outOfHearts,
-                      );
-                      return;
-                    }
-                    Navigator.of(context).pushNamed(
-                      PronunciationFlow.routeRecording,
-                    );
-                  },
+                  onPressed: () => startPronunciationCheck(context),
                   icon: Icon(Icons.mic_none_rounded, size: AppSizes.sp(22)),
                   label: Text(
                     l10n.startRecording,
@@ -246,7 +234,7 @@ class PronunciationScreen extends StatelessWidget {
             SizedBox(height: AppSizes.h(18)),
             Center(
               child: Text(
-              '❤️ ${l10n.heartPerPronunciation}',
+                '❤️ ${l10n.heartPerPronunciation}',
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),

@@ -343,6 +343,19 @@
   "pronunciationScoreMessage": "Tu pronunciación es más clara que el {score}% de estudiantes de tu nivel. ¡Sigue así!",
   "wordFeedback": "FEEDBACK DE PALABRAS",
   "confidencePercent": "{percent}% Confianza",
+  "heardAs": "Escuchado: \"{word}\"",
+  "@heardAs": {
+    "placeholders": {"word": {"type": "String"}}
+  },
+  "focusOnSounds": "Enfócate en: {sounds}",
+  "@focusOnSounds": {
+    "placeholders": {"sounds": {"type": "String"}}
+  },
+  "youSaid": "Dijiste: \"{transcript}\"",
+  "@youSaid": {
+    "placeholders": {"transcript": {"type": "String"}}
+  },
+  "noSpeechDetected": "No detectamos voz clara. Habla más fuerte e inténtalo de nuevo.",
   "tryAgain": "Intentar de nuevo",
   "nextPhrase": "Siguiente Frase",
   "finish": "Finalizar",

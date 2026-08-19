@@ -343,6 +343,19 @@
   "pronunciationScoreMessage": "آپ کا تلفظ آپ کے لیول کے 85% سیکھنے والوں سے بہتر ہے۔ جاری رکھیں!",
   "wordFeedback": "لفظ کی فیڈبیک",
   "confidencePercent": "{percent}% اعتماد",
+  "heardAs": "سuna: \"{word}\"",
+  "@heardAs": {
+    "placeholders": {"word": {"type": "String"}}
+  },
+  "focusOnSounds": "توجہ دیں: {sounds}",
+  "@focusOnSounds": {
+    "placeholders": {"sounds": {"type": "String"}}
+  },
+  "youSaid": "آپ نے کہا: \"{transcript}\"",
+  "@youSaid": {
+    "placeholders": {"transcript": {"type": "String"}}
+  },
+  "noSpeechDetected": "واضح آواز نہیں ملی۔ زور سے بولیں اور دوبارہ کوشش کریں۔",
   "tryAgain": "دوبارہ کوشش",
   "nextPhrase": "اگلا جملہ",
   "finish": "ختم",

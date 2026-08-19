@@ -19,7 +19,6 @@ class PronunciationViewModel extends ChangeNotifier {
   final List<int> _completedScores = [];
   final List<PronunciationAssessmentResult> _phraseResults = [];
   PronunciationAssessmentResult? _currentResult;
-  bool _heartDeducted = false;
   bool _isRecording = false;
   bool _isListeningPhrase = false;
   double _soundLevel = 0;
@@ -31,6 +30,7 @@ class PronunciationViewModel extends ChangeNotifier {
   bool get isRecording => _isRecording || _assessmentService.isListening;
   bool get isListeningPhrase => _isListeningPhrase;
   double get soundLevel => _soundLevel;
+  bool get canAffordCheck => lives > 0;
 
   String get currentPhraseText =>
       PronunciationContent.phrases[_currentPhraseIndex].text;
@@ -58,14 +58,10 @@ class PronunciationViewModel extends ChangeNotifier {
     return _extractWords(currentPhraseText).firstOrNull ?? '';
   }
 
-  Future<bool> deductHeartIfNeeded() async {
-    if (_heartDeducted) return true;
-    final ok = await _homeViewModel.useHeart();
-    if (ok) {
-      _heartDeducted = true;
-      notifyListeners();
-    }
-    return ok;
+  /// Deducts one heart for each pronunciation check (free tier).
+  Future<bool> deductHeartForCheck() async {
+    if (!canAffordCheck) return false;
+    return _homeViewModel.useHeart();
   }
 
   Future<bool> listenToCurrentPhrase() async {
@@ -168,7 +164,6 @@ class PronunciationViewModel extends ChangeNotifier {
     _completedScores.clear();
     _phraseResults.clear();
     _currentResult = null;
-    _heartDeducted = false;
     _isRecording = false;
     _soundLevel = 0;
     _assessmentService.cancelListening();

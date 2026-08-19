@@ -455,6 +455,19 @@
   "@confidencePercent": {
     "placeholders": {"percent": {"type": "int"}}
   },
+  "heardAs": "Heard: \"{word}\"",
+  "@heardAs": {
+    "placeholders": {"word": {"type": "String"}}
+  },
+  "focusOnSounds": "Focus on: {sounds}",
+  "@focusOnSounds": {
+    "placeholders": {"sounds": {"type": "String"}}
+  },
+  "youSaid": "You said: \"{transcript}\"",
+  "@youSaid": {
+    "placeholders": {"transcript": {"type": "String"}}
+  },
+  "noSpeechDetected": "We couldn't detect clear speech. Try speaking louder and try again.",
   "tryAgain": "Try Again",
   "nextPhrase": "Next Phrase",
   "finish": "Finish",

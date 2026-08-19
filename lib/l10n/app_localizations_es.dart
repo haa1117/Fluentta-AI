@@ -1134,6 +1134,25 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String heardAs(String word) {
+    return 'Escuchado: \"$word\"';
+  }
+
+  @override
+  String focusOnSounds(String sounds) {
+    return 'Enfócate en: $sounds';
+  }
+
+  @override
+  String youSaid(String transcript) {
+    return 'Dijiste: \"$transcript\"';
+  }
+
+  @override
+  String get noSpeechDetected =>
+      'No detectamos voz clara. Habla más fuerte e inténtalo de nuevo.';
+
+  @override
   String get tryAgain => 'Intentar de nuevo';
 
   @override
