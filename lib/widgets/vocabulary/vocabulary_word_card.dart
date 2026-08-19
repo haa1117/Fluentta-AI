@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_lesson_view_model.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ class VocabularyWordCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final viewModel = context.watch<VocabularyLessonViewModel>();
     final word = viewModel.currentWord;
 
@@ -125,14 +127,17 @@ class VocabularyWordCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _WordActionButton(
-                label: 'Listen',
-                icon: Icons.volume_up_rounded,
+                label: l10n.listen,
+                icon: viewModel.isListening
+                    ? Icons.volume_off_rounded
+                    : Icons.volume_up_rounded,
                 filled: true,
+                isActive: viewModel.isListening,
                 onTap: () => viewModel.listenWord(context),
               ),
               SizedBox(width: AppSizes.w(32)),
               _WordActionButton(
-                label: 'Save',
+                label: l10n.save,
                 icon: Icons.bookmark_outline_rounded,
                 filled: false,
                 isActive: viewModel.isWordSaved(word.word),

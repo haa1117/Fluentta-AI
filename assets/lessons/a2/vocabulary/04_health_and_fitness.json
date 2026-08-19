@@ -1,0 +1,44 @@
+{
+  "id": "a2_vocab_04",
+  "cefrLevel": "A2",
+  "number": 4,
+  "title": "Health and Fitness",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "exercise",
+      "phonetic": "/ˈɛksərsaɪz/",
+      "partOfSpeech": "noun",
+      "definition": "Physical activity to stay healthy.",
+      "example": "I do exercise every morning."
+    },
+    {
+      "word": "medicine",
+      "phonetic": "/ˈmɛdɪsɪn/",
+      "partOfSpeech": "noun",
+      "definition": "A substance used to treat illness.",
+      "example": "Take this medicine twice a day."
+    },
+    {
+      "word": "headache",
+      "phonetic": "/ˈhɛdeɪk/",
+      "partOfSpeech": "noun",
+      "definition": "Pain in the head.",
+      "example": "I have a headache."
+    },
+    {
+      "word": "healthy",
+      "phonetic": "/ˈhɛlθi/",
+      "partOfSpeech": "adjective",
+      "definition": "In good physical condition.",
+      "example": "Eat healthy food every day."
+    },
+    {
+      "word": "tired",
+      "phonetic": "/ˈtaɪərd/",
+      "partOfSpeech": "adjective",
+      "definition": "Needing rest or sleep.",
+      "example": "I feel tired after work."
+    }
+  ]
+}

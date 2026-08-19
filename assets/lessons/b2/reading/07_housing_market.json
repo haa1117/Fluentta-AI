@@ -1,0 +1,64 @@
+{
+  "id": "b2_reading_07",
+  "cefrLevel": "B2",
+  "number": 7,
+  "title": "Housing Market",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Rising interest rates have made mortgages less affordable for first-time buyers.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Renters also face pressure as landlords increase prices.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Experts predict gradual stabilization next year.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "Who is especially affected?",
+      "options": [
+        "First-time buyers",
+        "Retired athletes",
+        "Tourists only"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What do experts predict?",
+      "options": [
+        "Immediate collapse",
+        "Gradual stabilization next year",
+        "Free housing"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Housing Market Learned",
+  "completionSummary": "General housing market conversation"
+}

@@ -1,0 +1,63 @@
+{
+  "id": "c2_grammar_10",
+  "cefrLevel": "C2",
+  "number": 10,
+  "title": "Precision in Modality",
+  "iconName": "grammar",
+  "rule": "Precise modality distinguishes certainty, obligation, and permission finely.",
+  "pattern": "modal + adverb + context-sensitive meaning",
+  "examples": [
+    {
+      "text": "The results must surely influence policy.",
+      "highlight": "must surely"
+    },
+    {
+      "text": "You may well be right.",
+      "highlight": "may well be"
+    },
+    {
+      "text": "They ought to have disclosed the conflict.",
+      "highlight": "ought to have disclosed"
+    },
+    {
+      "text": "That cannot possibly be accurate.",
+      "highlight": "cannot possibly be"
+    },
+    {
+      "text": "We would ordinarily expect compliance.",
+      "highlight": "would ordinarily expect"
+    }
+  ],
+  "practicePrompt": "Complete: The data ___ (would / appear) to corroborate the hypothesis.",
+  "practiceAnswer": "would appear",
+  "steps": [
+    {
+      "title": "Precise modality distinguishes certainty, obligation, and permission finely.",
+      "description": "modal + adverb + context-sensitive meaning",
+      "formula": "modal + adverb + context-sensitive meaning",
+      "examples": [
+        {
+          "text": "The results must surely influence policy.",
+          "highlight": "must surely"
+        },
+        {
+          "text": "You may well be right.",
+          "highlight": "may well be"
+        },
+        {
+          "text": "They ought to have disclosed the conflict.",
+          "highlight": "ought to have disclosed"
+        },
+        {
+          "text": "That cannot possibly be accurate.",
+          "highlight": "cannot possibly be"
+        },
+        {
+          "text": "We would ordinarily expect compliance.",
+          "highlight": "would ordinarily expect"
+        }
+      ],
+      "quickTip": "Complete: The data ___ (would / appear) to corroborate the hypothesis. (would appear)"
+    }
+  ]
+}

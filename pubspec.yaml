@@ -21,6 +21,8 @@ dependencies:
   firebase_auth: ^6.5.7
   google_sign_in: ^7.2.0
   cloud_firestore: ^6.8.0
+  connectivity_plus: ^6.1.4
+  flutter_tts: ^4.2.2
   dotted_decoration: ^2.0.0
   intl: any
   dotted_line: ^3.3.0
@@ -39,6 +41,25 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - assets/lessons/manifest.json
+    - assets/lessons/a1/vocabulary/
+    - assets/lessons/a1/grammar/
+    - assets/lessons/a1/reading/
+    - assets/lessons/a2/vocabulary/
+    - assets/lessons/a2/grammar/
+    - assets/lessons/a2/reading/
+    - assets/lessons/b1/vocabulary/
+    - assets/lessons/b1/grammar/
+    - assets/lessons/b1/reading/
+    - assets/lessons/b2/vocabulary/
+    - assets/lessons/b2/grammar/
+    - assets/lessons/b2/reading/
+    - assets/lessons/c1/vocabulary/
+    - assets/lessons/c1/grammar/
+    - assets/lessons/c1/reading/
+    - assets/lessons/c2/vocabulary/
+    - assets/lessons/c2/grammar/
+    - assets/lessons/c2/reading/
 
   fonts:
     - family: PlusJakartaSans

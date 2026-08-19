@@ -1,0 +1,44 @@
+{
+  "id": "b2_vocab_05",
+  "cefrLevel": "B2",
+  "number": 5,
+  "title": "Art and Culture",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "exhibition",
+      "phonetic": "/ˌɛksɪˈbɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A public display of art.",
+      "example": "The exhibition opens on Friday."
+    },
+    {
+      "word": "masterpiece",
+      "phonetic": "/ˈmæstərpiːs/",
+      "partOfSpeech": "noun",
+      "definition": "An outstanding work of art.",
+      "example": "The painting is a masterpiece."
+    },
+    {
+      "word": "heritage",
+      "phonetic": "/ˈhɛrɪtɪdʒ/",
+      "partOfSpeech": "noun",
+      "definition": "Traditions passed from the past.",
+      "example": "We must preserve cultural heritage."
+    },
+    {
+      "word": "performance",
+      "phonetic": "/pərˈfɔːrməns/",
+      "partOfSpeech": "noun",
+      "definition": "An act of presenting music or drama.",
+      "example": "The performance was moving."
+    },
+    {
+      "word": "creativity",
+      "phonetic": "/ˌkriːeɪˈtɪvɪti/",
+      "partOfSpeech": "noun",
+      "definition": "The ability to produce new ideas.",
+      "example": "Creativity flourishes in open teams."
+    }
+  ]
+}

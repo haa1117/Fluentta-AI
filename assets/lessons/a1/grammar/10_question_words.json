@@ -1,0 +1,63 @@
+{
+  "id": "a1_grammar_10",
+  "cefrLevel": "A1",
+  "number": 10,
+  "title": "Question Words",
+  "iconName": "grammar",
+  "rule": "Question words start information questions.",
+  "pattern": "Question word + auxiliary + subject + verb",
+  "examples": [
+    {
+      "text": "What is your name?",
+      "highlight": "What"
+    },
+    {
+      "text": "Where do you live?",
+      "highlight": "Where"
+    },
+    {
+      "text": "When does the shop open?",
+      "highlight": "When"
+    },
+    {
+      "text": "Who is your teacher?",
+      "highlight": "Who"
+    },
+    {
+      "text": "How old are you?",
+      "highlight": "How"
+    }
+  ],
+  "practicePrompt": "Complete: ___ is your phone number?",
+  "practiceAnswer": "What",
+  "steps": [
+    {
+      "title": "Question words start information questions.",
+      "description": "Question word + auxiliary + subject + verb",
+      "formula": "Question word + auxiliary + subject + verb",
+      "examples": [
+        {
+          "text": "What is your name?",
+          "highlight": "What"
+        },
+        {
+          "text": "Where do you live?",
+          "highlight": "Where"
+        },
+        {
+          "text": "When does the shop open?",
+          "highlight": "When"
+        },
+        {
+          "text": "Who is your teacher?",
+          "highlight": "Who"
+        },
+        {
+          "text": "How old are you?",
+          "highlight": "How"
+        }
+      ],
+      "quickTip": "Complete: ___ is your phone number? (What)"
+    }
+  ]
+}

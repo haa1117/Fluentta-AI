@@ -1,0 +1,63 @@
+{
+  "id": "b1_grammar_06",
+  "cefrLevel": "B1",
+  "number": 6,
+  "title": "Relative Clauses",
+  "iconName": "grammar",
+  "rule": "Relative clauses give extra information about a noun.",
+  "pattern": "noun + who/which/that + clause",
+  "examples": [
+    {
+      "text": "The man who called is my uncle.",
+      "highlight": "who"
+    },
+    {
+      "text": "This is the book that I recommended.",
+      "highlight": "that"
+    },
+    {
+      "text": "She met a friend who lives abroad.",
+      "highlight": "who"
+    },
+    {
+      "text": "The restaurant which we tried was excellent.",
+      "highlight": "which"
+    },
+    {
+      "text": "People who exercise regularly feel better.",
+      "highlight": "who"
+    }
+  ],
+  "practicePrompt": "Complete: The woman ___ lives next door is a nurse.",
+  "practiceAnswer": "who",
+  "steps": [
+    {
+      "title": "Relative clauses give extra information about a noun.",
+      "description": "noun + who/which/that + clause",
+      "formula": "noun + who/which/that + clause",
+      "examples": [
+        {
+          "text": "The man who called is my uncle.",
+          "highlight": "who"
+        },
+        {
+          "text": "This is the book that I recommended.",
+          "highlight": "that"
+        },
+        {
+          "text": "She met a friend who lives abroad.",
+          "highlight": "who"
+        },
+        {
+          "text": "The restaurant which we tried was excellent.",
+          "highlight": "which"
+        },
+        {
+          "text": "People who exercise regularly feel better.",
+          "highlight": "who"
+        }
+      ],
+      "quickTip": "Complete: The woman ___ lives next door is a nurse. (who)"
+    }
+  ]
+}

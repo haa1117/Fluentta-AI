@@ -1,0 +1,63 @@
+{
+  "id": "b1_grammar_09",
+  "cefrLevel": "B1",
+  "number": 9,
+  "title": "Phrasal Verbs 1",
+  "iconName": "grammar",
+  "rule": "Phrasal verbs combine a verb with a particle.",
+  "pattern": "verb + particle (look up, give up, turn on)",
+  "examples": [
+    {
+      "text": "Please turn off the lights.",
+      "highlight": "turn off"
+    },
+    {
+      "text": "I need to look up this word.",
+      "highlight": "look up"
+    },
+    {
+      "text": "Don't give up!",
+      "highlight": "give up"
+    },
+    {
+      "text": "She picked up the phone.",
+      "highlight": "picked up"
+    },
+    {
+      "text": "He ran into an old friend.",
+      "highlight": "ran into"
+    }
+  ],
+  "practicePrompt": "Complete: Can you ___ the TV, please?",
+  "practiceAnswer": "turn on",
+  "steps": [
+    {
+      "title": "Phrasal verbs combine a verb with a particle.",
+      "description": "verb + particle (look up, give up, turn on)",
+      "formula": "verb + particle (look up, give up, turn on)",
+      "examples": [
+        {
+          "text": "Please turn off the lights.",
+          "highlight": "turn off"
+        },
+        {
+          "text": "I need to look up this word.",
+          "highlight": "look up"
+        },
+        {
+          "text": "Don't give up!",
+          "highlight": "give up"
+        },
+        {
+          "text": "She picked up the phone.",
+          "highlight": "picked up"
+        },
+        {
+          "text": "He ran into an old friend.",
+          "highlight": "ran into"
+        }
+      ],
+      "quickTip": "Complete: Can you ___ the TV, please? (turn on)"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "a1_vocab_04",
+  "cefrLevel": "A1",
+  "number": 4,
+  "title": "Colors",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "red",
+      "phonetic": "/rɛd/",
+      "partOfSpeech": "adjective",
+      "definition": "The color of blood or fire.",
+      "example": "She wears a red dress."
+    },
+    {
+      "word": "blue",
+      "phonetic": "/bluː/",
+      "partOfSpeech": "adjective",
+      "definition": "The color of the sky.",
+      "example": "The sky is blue today."
+    },
+    {
+      "word": "green",
+      "phonetic": "/ɡriːn/",
+      "partOfSpeech": "adjective",
+      "definition": "The color of grass.",
+      "example": "The grass is green."
+    },
+    {
+      "word": "yellow",
+      "phonetic": "/ˈjɛloʊ/",
+      "partOfSpeech": "adjective",
+      "definition": "The color of the sun.",
+      "example": "The taxi is yellow."
+    },
+    {
+      "word": "black",
+      "phonetic": "/blæk/",
+      "partOfSpeech": "adjective",
+      "definition": "The darkest color.",
+      "example": "He has black hair."
+    }
+  ]
+}

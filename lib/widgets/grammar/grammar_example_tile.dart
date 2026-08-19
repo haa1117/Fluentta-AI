@@ -2,23 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/grammar_lesson_model.dart';
+import 'package:fluentta_ai/viewmodels/grammar_lesson_view_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class GrammarExampleTile extends StatelessWidget {
   const GrammarExampleTile({
     super.key,
     required this.example,
+    required this.exampleIndex,
   });
 
   final GrammarExampleModel example;
+  final int exampleIndex;
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<GrammarLessonViewModel>();
+    final isListening = viewModel.isExampleListening(exampleIndex);
+
     final iconPath = example.iconName == 'time'
         ? 'assets/svg/start_now.svg'
-        : example.iconName == 'female' ?  'assets/svg/female_profile.svg' :'assets/svg/profile.svg';
+        : example.iconName == 'female'
+            ? 'assets/svg/female_profile.svg'
+            : 'assets/svg/profile.svg';
 
     return Container(
       margin: EdgeInsets.only(
@@ -88,13 +96,10 @@ class GrammarExampleTile extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => SnackbarHelper.showSuccess(
-              context,
-              'Playing "${example.highlight}"...',
-            ),
+            onTap: () => viewModel.listenExample(context, example, exampleIndex),
             child: Icon(
-              Icons.volume_up_outlined,
-              color: AppColors.iconColor,
+              isListening ? Icons.volume_off_outlined : Icons.volume_up_outlined,
+              color: isListening ? AppColors.primaryColor : AppColors.iconColor,
               size: AppSizes.sp(20),
             ),
           ),

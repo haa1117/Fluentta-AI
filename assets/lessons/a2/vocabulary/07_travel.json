@@ -1,0 +1,44 @@
+{
+  "id": "a2_vocab_07",
+  "cefrLevel": "A2",
+  "number": 7,
+  "title": "Travel",
+  "iconName": "travel",
+  "words": [
+    {
+      "word": "passport",
+      "phonetic": "/ˈpæspɔːrt/",
+      "partOfSpeech": "noun",
+      "definition": "An official travel document.",
+      "example": "Don't forget your passport."
+    },
+    {
+      "word": "hotel",
+      "phonetic": "/hoʊˈtɛl/",
+      "partOfSpeech": "noun",
+      "definition": "A place where travelers sleep.",
+      "example": "We stayed at a small hotel."
+    },
+    {
+      "word": "luggage",
+      "phonetic": "/ˈlʌɡɪdʒ/",
+      "partOfSpeech": "noun",
+      "definition": "Bags used for travel.",
+      "example": "My luggage is heavy."
+    },
+    {
+      "word": "map",
+      "phonetic": "/mæp/",
+      "partOfSpeech": "noun",
+      "definition": "A drawing that shows places.",
+      "example": "Use a map to find the museum."
+    },
+    {
+      "word": "tourist",
+      "phonetic": "/ˈtʊrɪst/",
+      "partOfSpeech": "noun",
+      "definition": "A person visiting a place for pleasure.",
+      "example": "Many tourists visit Rome."
+    }
+  ]
+}

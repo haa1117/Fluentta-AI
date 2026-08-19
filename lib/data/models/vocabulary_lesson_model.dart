@@ -6,12 +6,14 @@ class VocabularyWordModel {
     required this.phonetic,
     required this.meaning,
     required this.example,
+    this.partOfSpeech,
   });
 
   final String word;
   final String phonetic;
   final String meaning;
   final String example;
+  final String? partOfSpeech;
 }
 
 class VocabularyLessonModel implements LearningLessonItem {
@@ -23,9 +25,11 @@ class VocabularyLessonModel implements LearningLessonItem {
     required this.wordsCompleted,
     required this.totalWords,
     required this.iconName,
+    this.lessonId = '',
     this.words = const [],
   });
 
+  final String lessonId;
   final int id;
   final int number;
   final String title;

@@ -1,0 +1,64 @@
+{
+  "id": "c1_reading_04",
+  "cefrLevel": "C1",
+  "number": 4,
+  "title": "Literary Analysis",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The novel's protagonist embodies conflicting ideals, symbolized by recurring motifs of light and shadow.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The critic suggests that this duality reflects the nation's unresolved historical trauma.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What motifs recur in the novel?",
+      "options": [
+        "Light and shadow",
+        "Cars and boats",
+        "Cats and dogs"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What might the duality reflect?",
+      "options": [
+        "Unresolved historical trauma",
+        "Cooking techniques",
+        "Sports scores"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Literary Analysis Learned",
+  "completionSummary": "General literary analysis conversation"
+}

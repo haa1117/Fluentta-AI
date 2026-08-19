@@ -1,0 +1,63 @@
+{
+  "id": "c1_grammar_06",
+  "cefrLevel": "C1",
+  "number": 6,
+  "title": "Register Shift",
+  "iconName": "grammar",
+  "rule": "Register shifts adjust language for audience and context.",
+  "pattern": "formal ↔ informal vocabulary and syntax",
+  "examples": [
+    {
+      "text": "Formal: We regret the inconvenience.",
+      "highlight": "regret"
+    },
+    {
+      "text": "Informal: Sorry about the hassle.",
+      "highlight": "Sorry"
+    },
+    {
+      "text": "Formal: Kindly submit the form.",
+      "highlight": "Kindly submit"
+    },
+    {
+      "text": "Informal: Send me the form.",
+      "highlight": "Send me"
+    },
+    {
+      "text": "Formal: The matter will be investigated.",
+      "highlight": "will be investigated"
+    }
+  ],
+  "practicePrompt": "Complete: Rewrite formally: 'We can't help right now.' → 'We ___ unable to assist at present.'",
+  "practiceAnswer": "are",
+  "steps": [
+    {
+      "title": "Register shifts adjust language for audience and context.",
+      "description": "formal ↔ informal vocabulary and syntax",
+      "formula": "formal ↔ informal vocabulary and syntax",
+      "examples": [
+        {
+          "text": "Formal: We regret the inconvenience.",
+          "highlight": "regret"
+        },
+        {
+          "text": "Informal: Sorry about the hassle.",
+          "highlight": "Sorry"
+        },
+        {
+          "text": "Formal: Kindly submit the form.",
+          "highlight": "Kindly submit"
+        },
+        {
+          "text": "Informal: Send me the form.",
+          "highlight": "Send me"
+        },
+        {
+          "text": "Formal: The matter will be investigated.",
+          "highlight": "will be investigated"
+        }
+      ],
+      "quickTip": "Complete: Rewrite formally: 'We can't help right now.' → 'We ___ unable to assist at present.' (are)"
+    }
+  ]
+}

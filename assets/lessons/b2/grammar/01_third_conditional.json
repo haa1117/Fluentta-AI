@@ -1,0 +1,63 @@
+{
+  "id": "b2_grammar_01",
+  "cefrLevel": "B2",
+  "number": 1,
+  "title": "Third Conditional",
+  "iconName": "grammar",
+  "rule": "Use the third conditional for unreal past situations.",
+  "pattern": "If + past perfect, would have + past participle",
+  "examples": [
+    {
+      "text": "If I had known, I would have helped.",
+      "highlight": "would have helped"
+    },
+    {
+      "text": "She would have passed if she had studied.",
+      "highlight": "would have passed"
+    },
+    {
+      "text": "If they had left earlier, they wouldn't have missed the train.",
+      "highlight": "wouldn't have missed"
+    },
+    {
+      "text": "Would you have come if you had been invited?",
+      "highlight": "Would you have come"
+    },
+    {
+      "text": "We would have won with a stronger team.",
+      "highlight": "would have won"
+    }
+  ],
+  "practicePrompt": "Complete: If we ___ (leave) earlier, we would have arrived on time.",
+  "practiceAnswer": "had left",
+  "steps": [
+    {
+      "title": "Use the third conditional for unreal past situations.",
+      "description": "If + past perfect, would have + past participle",
+      "formula": "If + past perfect, would have + past participle",
+      "examples": [
+        {
+          "text": "If I had known, I would have helped.",
+          "highlight": "would have helped"
+        },
+        {
+          "text": "She would have passed if she had studied.",
+          "highlight": "would have passed"
+        },
+        {
+          "text": "If they had left earlier, they wouldn't have missed the train.",
+          "highlight": "wouldn't have missed"
+        },
+        {
+          "text": "Would you have come if you had been invited?",
+          "highlight": "Would you have come"
+        },
+        {
+          "text": "We would have won with a stronger team.",
+          "highlight": "would have won"
+        }
+      ],
+      "quickTip": "Complete: If we ___ (leave) earlier, we would have arrived on time. (had left)"
+    }
+  ]
+}

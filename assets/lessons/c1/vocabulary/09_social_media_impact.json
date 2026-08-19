@@ -1,0 +1,44 @@
+{
+  "id": "c1_vocab_09",
+  "cefrLevel": "C1",
+  "number": 9,
+  "title": "Social Media Impact",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "algorithm",
+      "phonetic": "/ˈælɡərɪðəm/",
+      "partOfSpeech": "noun",
+      "definition": "A set of rules used by software.",
+      "example": "The algorithm shows personalized content."
+    },
+    {
+      "word": "viral",
+      "phonetic": "/ˈvaɪrəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Spreading rapidly online.",
+      "example": "The video went viral."
+    },
+    {
+      "word": "misinformation",
+      "phonetic": "/ˌmɪsɪnfərˈmeɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "False or inaccurate information.",
+      "example": "Misinformation spreads quickly."
+    },
+    {
+      "word": "engagement",
+      "phonetic": "/ɪnˈɡeɪdʒmənt/",
+      "partOfSpeech": "noun",
+      "definition": "Interaction with online content.",
+      "example": "Engagement rates rose sharply."
+    },
+    {
+      "word": "polarization",
+      "phonetic": "/ˌpoʊlərəˈzeɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Division into opposing groups.",
+      "example": "Polarization worsened online debate."
+    }
+  ]
+}

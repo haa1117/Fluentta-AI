@@ -1,0 +1,63 @@
+{
+  "id": "b2_grammar_07",
+  "cefrLevel": "B2",
+  "number": 7,
+  "title": "Inversion",
+  "iconName": "grammar",
+  "rule": "Inversion adds emphasis in formal English.",
+  "pattern": "Negative adverb + auxiliary + subject + verb",
+  "examples": [
+    {
+      "text": "Never have I seen such talent.",
+      "highlight": "have I"
+    },
+    {
+      "text": "Rarely do we get complaints.",
+      "highlight": "do we"
+    },
+    {
+      "text": "Not only did she win, she broke the record.",
+      "highlight": "did she"
+    },
+    {
+      "text": "Seldom had he felt so nervous.",
+      "highlight": "had he"
+    },
+    {
+      "text": "Only then did I understand.",
+      "highlight": "did I"
+    }
+  ],
+  "practicePrompt": "Complete: Never ___ I heard such nonsense.",
+  "practiceAnswer": "have",
+  "steps": [
+    {
+      "title": "Inversion adds emphasis in formal English.",
+      "description": "Negative adverb + auxiliary + subject + verb",
+      "formula": "Negative adverb + auxiliary + subject + verb",
+      "examples": [
+        {
+          "text": "Never have I seen such talent.",
+          "highlight": "have I"
+        },
+        {
+          "text": "Rarely do we get complaints.",
+          "highlight": "do we"
+        },
+        {
+          "text": "Not only did she win, she broke the record.",
+          "highlight": "did she"
+        },
+        {
+          "text": "Seldom had he felt so nervous.",
+          "highlight": "had he"
+        },
+        {
+          "text": "Only then did I understand.",
+          "highlight": "did I"
+        }
+      ],
+      "quickTip": "Complete: Never ___ I heard such nonsense. (have)"
+    }
+  ]
+}

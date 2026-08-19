@@ -1,60 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level.dart';
+import 'package:fluentta_ai/core/cefr/lesson_type.dart';
 import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
+import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/data/repositories/lesson_content_repository.dart';
+import 'package:fluentta_ai/data/repositories/progress_repository.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/views/vocabulary/vocabulary_lesson_screen.dart';
 
 class VocabularyViewModel extends ChangeNotifier {
-  VocabularyViewModel(this._localStorage, this._localeViewModel) {
-    _lessons = _buildLessons();
+  VocabularyViewModel(
+    this._localStorage,
+    this._localeViewModel,
+    this._contentRepository,
+    this._progressRepository,
+    this._syncService,
+  ) {
     _localeViewModel.addListener(_onLocaleChanged);
+    _loadLessons();
   }
 
   final LocalStorage _localStorage;
   final LocaleViewModel _localeViewModel;
+  final LessonContentRepository _contentRepository;
+  final ProgressRepository _progressRepository;
+  final ProgressSyncService _syncService;
 
-  static const List<VocabularyWordModel> _workplaceWords = [
-    VocabularyWordModel(
-      word: 'Meeting',
-      phonetic: "/'miː.tɪŋ/",
-      meaning: 'A time when people talk about work.',
-      example: '"We have a meeting at 10 AM."',
-    ),
-    VocabularyWordModel(
-      word: 'Report',
-      phonetic: "/rɪˈpɔːt/",
-      meaning: 'A document that gives information about work.',
-      example: '"I finished the report today."',
-    ),
-    VocabularyWordModel(
-      word: 'Deadline',
-      phonetic: "/ˈded.laɪn/",
-      meaning: 'The last day to finish something.',
-      example: '"The deadline is Friday."',
-    ),
-    VocabularyWordModel(
-      word: 'Manager',
-      phonetic: "/ˈmæn.ɪ.dʒər/",
-      meaning: 'A person who leads a team at work.',
-      example: '"My manager is very helpful."',
-    ),
-    VocabularyWordModel(
-      word: 'Office',
-      phonetic: "/ˈɒf.ɪs/",
-      meaning: 'A place where people work.',
-      example: '"I go to the office every day."',
-    ),
-  ];
-
-  late List<VocabularyLessonModel> _lessons;
+  List<VocabularyLessonModel> _lessons = [];
+  bool _isLoading = true;
 
   AppLocalizations get _l10n => _localeViewModel.strings;
 
   List<VocabularyLessonModel> get lessons => _lessons;
+  bool get isLoading => _isLoading;
+
+  CefrLevel get _level => CefrLevel.fromSetupId(_localStorage.englishLevel);
 
   int get completedLessonsCount =>
       _lessons.where((l) => l.status == LearningLessonStatus.completed).length;
@@ -76,71 +63,23 @@ class VocabularyViewModel extends ChangeNotifier {
   String get levelCode =>
       LocalizedContent.levelCode(_l10n, _localStorage.englishLevel);
 
-  void _onLocaleChanged() {
-    _lessons = _buildLessons();
+  Future<void> reload() => _loadLessons();
+
+  Future<void> _loadLessons() async {
+    _isLoading = true;
+    notifyListeners();
+    await _contentRepository.initialize();
+    await _progressRepository.initialize();
+    _lessons = await _contentRepository.getVocabularyLessons(
+      _level,
+      progress: _progressRepository.allProgress,
+    );
+    _isLoading = false;
     notifyListeners();
   }
 
-  List<VocabularyLessonModel> _buildLessons() {
-    return [
-      VocabularyLessonModel(
-        id: 1,
-        number: 1,
-        title: _l10n.lesson1DailyWords,
-        status: LearningLessonStatus.completed,
-        wordsCompleted: 5,
-        totalWords: 5,
-        iconName: 'check',
-      ),
-      VocabularyLessonModel(
-        id: 2,
-        number: 2,
-        title: _l10n.lesson2WorkplaceWords,
-        status: LearningLessonStatus.inProgress,
-        wordsCompleted: 3,
-        totalWords: 5,
-        iconName: 'chat',
-        words: _workplaceWords,
-      ),
-      VocabularyLessonModel(
-        id: 3,
-        number: 3,
-        title: _l10n.lesson3TravelWords,
-        status: LearningLessonStatus.notStarted,
-        wordsCompleted: 0,
-        totalWords: 5,
-        iconName: 'travel',
-      ),
-      VocabularyLessonModel(
-        id: 4,
-        number: 4,
-        title: _l10n.lesson2WorkplaceWords,
-        status: LearningLessonStatus.notStarted,
-        wordsCompleted: 0,
-        totalWords: 5,
-        iconName: 'chat',
-        words: _workplaceWords,
-      ),
-      ...List.generate(6, (index) {
-        const titleKeys = [
-          'Food',
-          'Shopping',
-          'Health',
-          'School',
-          'Family',
-          'Hobbies',
-        ];
-        return VocabularyLessonModel(
-          id: index + 5,
-          number: index + 5,
-          title: titleKeys[index],
-          status: LearningLessonStatus.locked,
-          wordsCompleted: 0,
-          totalWords: 5,
-          iconName: 'lock',
-        );
-      }),
-    ];
+  void _onLocaleChanged() {
+    _loadLessons();
   }
 
   void openLesson(BuildContext context, VocabularyLessonModel lesson) {
@@ -160,41 +99,64 @@ class VocabularyViewModel extends ChangeNotifier {
           lesson: lesson,
           initialWordIndex: startIndex,
           onLessonCompleted: _markLessonCompleted,
+          onProgressChanged: (index) => _saveInProgress(lesson, index),
         ),
       ),
     );
   }
 
-  void _markLessonCompleted(VocabularyLessonModel completedLesson) {
-    _lessons = _lessons.map((lesson) {
-      if (lesson.id == completedLesson.id) {
-        return VocabularyLessonModel(
-          id: lesson.id,
-          number: lesson.number,
-          title: lesson.title,
-          status: LearningLessonStatus.completed,
-          wordsCompleted: lesson.totalWords,
-          totalWords: lesson.totalWords,
-          iconName: 'check',
-          words: lesson.words,
-        );
-      }
-      if (lesson.id == completedLesson.id + 1 &&
-          lesson.status == LearningLessonStatus.locked) {
-        return VocabularyLessonModel(
-          id: lesson.id,
-          number: lesson.number,
-          title: lesson.title,
-          status: LearningLessonStatus.notStarted,
-          wordsCompleted: 0,
-          totalWords: lesson.totalWords,
-          iconName: lesson.iconName == 'lock' ? 'travel' : lesson.iconName,
-          words: lesson.words,
-        );
-      }
-      return lesson;
-    }).toList();
-    notifyListeners();
+  Future<void> _saveInProgress(VocabularyLessonModel lesson, int index) async {
+    await _progressRepository.saveInProgress(
+      lessonId: lesson.lessonId,
+      type: LessonType.vocabulary.id,
+      cefrLevel: _level.code,
+      currentIndex: index,
+    );
+    await _syncService.onProgressChanged(
+      LessonProgressModel(
+        lessonId: lesson.lessonId,
+        type: LessonType.vocabulary.id,
+        cefrLevel: _level.code,
+        status: LearningLessonStatus.inProgress,
+        currentIndex: index,
+        updatedAt: DateTime.now(),
+      ),
+    );
+    await _loadLessons();
+  }
+
+  Future<void> _markLessonCompleted(VocabularyLessonModel completedLesson) async {
+    final orderedIds = await _contentRepository.orderedLessonIds(
+      _level,
+      LessonType.vocabulary,
+    );
+    final nextId = LessonUnlockLogic.nextLessonIdToUnlock(
+      completedLessonId: completedLesson.lessonId,
+      orderedLessonIds: orderedIds,
+    );
+
+    await _progressRepository.markCompleted(
+      lessonId: completedLesson.lessonId,
+      type: LessonType.vocabulary.id,
+      cefrLevel: _level.code,
+      finalIndex: completedLesson.totalWords,
+      unlockLessonId: nextId,
+    );
+
+    await _syncService.onLessonCompleted(
+      progress: LessonProgressModel(
+        lessonId: completedLesson.lessonId,
+        type: LessonType.vocabulary.id,
+        cefrLevel: _level.code,
+        status: LearningLessonStatus.completed,
+        currentIndex: completedLesson.totalWords,
+        updatedAt: DateTime.now(),
+        completedAt: DateTime.now(),
+      ),
+      wordsLearned: completedLesson.totalWords,
+    );
+
+    await _loadLessons();
   }
 
   @override

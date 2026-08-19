@@ -1,0 +1,63 @@
+{
+  "id": "c1_grammar_01",
+  "cefrLevel": "C1",
+  "number": 1,
+  "title": "Advanced Passive",
+  "iconName": "grammar",
+  "rule": "Advanced passive includes reporting verbs and complex agents.",
+  "pattern": "It is said/believed/reported that... / subject + is said to...",
+  "examples": [
+    {
+      "text": "The policy is believed to be effective.",
+      "highlight": "is believed to be"
+    },
+    {
+      "text": "It is reported that prices will rise.",
+      "highlight": "It is reported"
+    },
+    {
+      "text": "He is said to have resigned.",
+      "highlight": "is said to have resigned"
+    },
+    {
+      "text": "The site was being monitored closely.",
+      "highlight": "was being monitored"
+    },
+    {
+      "text": "The issue has long been debated.",
+      "highlight": "has long been debated"
+    }
+  ],
+  "practicePrompt": "Complete: The CEO ___ (say) to be planning a merger.",
+  "practiceAnswer": "is said",
+  "steps": [
+    {
+      "title": "Advanced passive includes reporting verbs and complex agents.",
+      "description": "It is said/believed/reported that... / subject + is said to...",
+      "formula": "It is said/believed/reported that... / subject + is said to...",
+      "examples": [
+        {
+          "text": "The policy is believed to be effective.",
+          "highlight": "is believed to be"
+        },
+        {
+          "text": "It is reported that prices will rise.",
+          "highlight": "It is reported"
+        },
+        {
+          "text": "He is said to have resigned.",
+          "highlight": "is said to have resigned"
+        },
+        {
+          "text": "The site was being monitored closely.",
+          "highlight": "was being monitored"
+        },
+        {
+          "text": "The issue has long been debated.",
+          "highlight": "has long been debated"
+        }
+      ],
+      "quickTip": "Complete: The CEO ___ (say) to be planning a merger. (is said)"
+    }
+  ]
+}

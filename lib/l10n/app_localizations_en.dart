@@ -428,6 +428,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get levelIntermediateSub => 'B1 · Can hold simple conversation';
 
   @override
+  String get levelUpperIntermediate => 'Upper-Intermediate';
+
+  @override
+  String get levelUpperIntermediateSub => 'B2 · Can interact with fluency';
+
+  @override
+  String get levelAdvancedC1 => 'Advanced';
+
+  @override
+  String get levelAdvancedC1Sub => 'C1 · Can express ideas fluently';
+
+  @override
+  String get levelProficientC2 => 'Proficient';
+
+  @override
+  String get levelProficientC2Sub => 'C2 · Near-native mastery';
+
+  @override
   String get levelAdvanced => 'Advanced';
 
   @override
@@ -627,6 +645,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wordRemoved => 'Removed from saved words';
 
   @override
+  String get listenUnavailable =>
+      'Audio playback is not available on this device.';
+
+  @override
   String get aiTutor => 'AI Tutor';
 
   @override
@@ -764,6 +786,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String readingPassagePart(int part) {
+    return 'Reading Part $part';
+  }
+
+  @override
   String get readingManager => 'Manager';
 
   @override
@@ -789,7 +816,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get levelB1 => 'B1';
 
   @override
-  String get levelB2 => 'B2+';
+  String get levelB2 => 'B2';
+
+  @override
+  String get levelC1 => 'C1';
+
+  @override
+  String get levelC2 => 'C2';
 
   @override
   String get profileTitle => 'Profile';

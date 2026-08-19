@@ -1,0 +1,63 @@
+{
+  "id": "c1_grammar_02",
+  "cefrLevel": "C1",
+  "number": 2,
+  "title": "Subjunctive Mood",
+  "iconName": "grammar",
+  "rule": "The subjunctive expresses hypothetical or formal demands.",
+  "pattern": "If I were... / lest + subject + base verb",
+  "examples": [
+    {
+      "text": "If I were in charge, I'd reform the system.",
+      "highlight": "were"
+    },
+    {
+      "text": "He speaks as if he were an expert.",
+      "highlight": "were"
+    },
+    {
+      "text": "Lest we forget, the deadline is Friday.",
+      "highlight": "forget"
+    },
+    {
+      "text": "Suppose she were offered the role.",
+      "highlight": "were"
+    },
+    {
+      "text": "If it were not for your help, we'd fail.",
+      "highlight": "were"
+    }
+  ],
+  "practicePrompt": "Complete: If he ___ (be) more cautious, the error would not have occurred.",
+  "practiceAnswer": "had been",
+  "steps": [
+    {
+      "title": "The subjunctive expresses hypothetical or formal demands.",
+      "description": "If I were... / lest + subject + base verb",
+      "formula": "If I were... / lest + subject + base verb",
+      "examples": [
+        {
+          "text": "If I were in charge, I'd reform the system.",
+          "highlight": "were"
+        },
+        {
+          "text": "He speaks as if he were an expert.",
+          "highlight": "were"
+        },
+        {
+          "text": "Lest we forget, the deadline is Friday.",
+          "highlight": "forget"
+        },
+        {
+          "text": "Suppose she were offered the role.",
+          "highlight": "were"
+        },
+        {
+          "text": "If it were not for your help, we'd fail.",
+          "highlight": "were"
+        }
+      ],
+      "quickTip": "Complete: If he ___ (be) more cautious, the error would not have occurred. (had been)"
+    }
+  ]
+}

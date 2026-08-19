@@ -17,6 +17,19 @@ class ReadingScreen extends StatelessWidget {
     final l10n = context.l10n;
     final viewModel = context.watch<ReadingViewModel>();
 
+    if (viewModel.isLoading) {
+      return Scaffold(
+        backgroundColor: AppColors.scaffoldBackgroundColor,
+        appBar: AppBarWidget(
+          title: l10n.reading,
+          showBackButton: true,
+          centerTitle: true,
+          showActionButton: false,
+        ),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
       appBar: AppBarWidget(

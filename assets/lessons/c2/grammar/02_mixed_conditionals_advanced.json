@@ -1,0 +1,63 @@
+{
+  "id": "c2_grammar_02",
+  "cefrLevel": "C2",
+  "number": 2,
+  "title": "Mixed Conditionals Advanced",
+  "iconName": "grammar",
+  "rule": "Advanced mixed conditionals blend time frames with nuanced meaning.",
+  "pattern": "If + past perfect, would + base verb (present result)",
+  "examples": [
+    {
+      "text": "If they had invested earlier, they would be wealthy now.",
+      "highlight": "would be"
+    },
+    {
+      "text": "If I had listened, I wouldn't be in this situation.",
+      "highlight": "wouldn't be"
+    },
+    {
+      "text": "If she had trained harder, she would hold the record.",
+      "highlight": "would hold"
+    },
+    {
+      "text": "If the law had passed, we would face fewer risks today.",
+      "highlight": "would face"
+    },
+    {
+      "text": "If he hadn't emigrated, he would still live here.",
+      "highlight": "would still live"
+    }
+  ],
+  "practicePrompt": "Complete: If we ___ (adopt) the policy sooner, outcomes would differ today.",
+  "practiceAnswer": "had adopted",
+  "steps": [
+    {
+      "title": "Advanced mixed conditionals blend time frames with nuanced meaning.",
+      "description": "If + past perfect, would + base verb (present result)",
+      "formula": "If + past perfect, would + base verb (present result)",
+      "examples": [
+        {
+          "text": "If they had invested earlier, they would be wealthy now.",
+          "highlight": "would be"
+        },
+        {
+          "text": "If I had listened, I wouldn't be in this situation.",
+          "highlight": "wouldn't be"
+        },
+        {
+          "text": "If she had trained harder, she would hold the record.",
+          "highlight": "would hold"
+        },
+        {
+          "text": "If the law had passed, we would face fewer risks today.",
+          "highlight": "would face"
+        },
+        {
+          "text": "If he hadn't emigrated, he would still live here.",
+          "highlight": "would still live"
+        }
+      ],
+      "quickTip": "Complete: If we ___ (adopt) the policy sooner, outcomes would differ today. (had adopted)"
+    }
+  ]
+}

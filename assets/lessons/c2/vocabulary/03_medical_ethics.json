@@ -1,0 +1,44 @@
+{
+  "id": "c2_vocab_03",
+  "cefrLevel": "C2",
+  "number": 3,
+  "title": "Medical Ethics",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "autonomy",
+      "phonetic": "/ɔːˈtɒnəmi/",
+      "partOfSpeech": "noun",
+      "definition": "The right to make one's own decisions.",
+      "example": "Patient autonomy must be respected."
+    },
+    {
+      "word": "consent",
+      "phonetic": "/kənˈsɛnt/",
+      "partOfSpeech": "noun",
+      "definition": "Permission given voluntarily.",
+      "example": "Informed consent is required."
+    },
+    {
+      "word": "euthanasia",
+      "phonetic": "/ˌjuːθəˈneɪʒə/",
+      "partOfSpeech": "noun",
+      "definition": "Ending life to stop suffering.",
+      "example": "Euthanasia remains legally contested."
+    },
+    {
+      "word": "triage",
+      "phonetic": "/triˈɑːʒ/",
+      "partOfSpeech": "noun",
+      "definition": "Prioritizing patients by urgency.",
+      "example": "Triage saved lives during the crisis."
+    },
+    {
+      "word": "placebo",
+      "phonetic": "/pləˈsiːboʊ/",
+      "partOfSpeech": "noun",
+      "definition": "A treatment with no active drug.",
+      "example": "The placebo effect was significant."
+    }
+  ]
+}

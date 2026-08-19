@@ -1,0 +1,63 @@
+{
+  "id": "b2_grammar_06",
+  "cefrLevel": "B2",
+  "number": 6,
+  "title": "Cleft Sentences",
+  "iconName": "grammar",
+  "rule": "Cleft sentences emphasize one part of a sentence.",
+  "pattern": "It is/was + focus + that/who + clause",
+  "examples": [
+    {
+      "text": "It was John who called.",
+      "highlight": "who"
+    },
+    {
+      "text": "It is today that we must decide.",
+      "highlight": "that"
+    },
+    {
+      "text": "It was in Paris that they met.",
+      "highlight": "that"
+    },
+    {
+      "text": "It is honesty that matters most.",
+      "highlight": "that"
+    },
+    {
+      "text": "It was because of rain that we canceled.",
+      "highlight": "that"
+    }
+  ],
+  "practicePrompt": "Complete: It was Maria ___ solved the problem.",
+  "practiceAnswer": "who",
+  "steps": [
+    {
+      "title": "Cleft sentences emphasize one part of a sentence.",
+      "description": "It is/was + focus + that/who + clause",
+      "formula": "It is/was + focus + that/who + clause",
+      "examples": [
+        {
+          "text": "It was John who called.",
+          "highlight": "who"
+        },
+        {
+          "text": "It is today that we must decide.",
+          "highlight": "that"
+        },
+        {
+          "text": "It was in Paris that they met.",
+          "highlight": "that"
+        },
+        {
+          "text": "It is honesty that matters most.",
+          "highlight": "that"
+        },
+        {
+          "text": "It was because of rain that we canceled.",
+          "highlight": "that"
+        }
+      ],
+      "quickTip": "Complete: It was Maria ___ solved the problem. (who)"
+    }
+  ]
+}

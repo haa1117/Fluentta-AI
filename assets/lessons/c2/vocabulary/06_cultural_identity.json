@@ -1,0 +1,44 @@
+{
+  "id": "c2_vocab_06",
+  "cefrLevel": "C2",
+  "number": 6,
+  "title": "Cultural Identity",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "cosmopolitan",
+      "phonetic": "/ˌkɒzməˈpɒlɪtən/",
+      "partOfSpeech": "adjective",
+      "definition": "Including people from many cultures.",
+      "example": "London is a cosmopolitan city."
+    },
+    {
+      "word": "assimilationist",
+      "phonetic": "/əˌsɪmɪˈleɪʃənɪst/",
+      "partOfSpeech": "adjective",
+      "definition": "Favoring cultural absorption.",
+      "example": "Assimilationist policies were debated."
+    },
+    {
+      "word": "multiculturalism",
+      "phonetic": "/ˌmʌltiˈkʌltʃərəlɪzəm/",
+      "partOfSpeech": "noun",
+      "definition": "Coexistence of diverse cultures.",
+      "example": "Multiculturalism enriches society."
+    },
+    {
+      "word": "indigenous",
+      "phonetic": "/ɪnˈdɪdʒənəs/",
+      "partOfSpeech": "adjective",
+      "definition": "Native to a place.",
+      "example": "Indigenous rights were recognized."
+    },
+    {
+      "word": "hybridity",
+      "phonetic": "/haɪˈbrɪdɪti/",
+      "partOfSpeech": "noun",
+      "definition": "Mixing of cultural elements.",
+      "example": "Hybridity appears in modern art."
+    }
+  ]
+}

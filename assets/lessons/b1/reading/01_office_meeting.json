@@ -1,0 +1,64 @@
+{
+  "id": "b1_reading_01",
+  "cefrLevel": "B1",
+  "number": 1,
+  "title": "Office Meeting",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Manager",
+      "text": "We need to finish the report by Friday.",
+      "isUser": false
+    },
+    {
+      "speaker": "Employee",
+      "text": "I'll complete my section tomorrow.",
+      "isUser": true
+    },
+    {
+      "speaker": "Manager",
+      "text": "Please share it with the team.",
+      "isUser": false
+    },
+    {
+      "speaker": "Employee",
+      "text": "Sure, I'll send an email.",
+      "isUser": true
+    },
+    {
+      "speaker": "Manager",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "When is the deadline?",
+      "options": [
+        "Monday",
+        "Friday",
+        "Next month"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "How will the employee share the work?",
+      "options": [
+        "By phone",
+        "By email",
+        "In person only"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Office Meeting Learned",
+  "completionSummary": "General office meeting conversation"
+}

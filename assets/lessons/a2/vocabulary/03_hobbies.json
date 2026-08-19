@@ -1,0 +1,44 @@
+{
+  "id": "a2_vocab_03",
+  "cefrLevel": "A2",
+  "number": 3,
+  "title": "Hobbies",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "reading",
+      "phonetic": "/ˈriːdɪŋ/",
+      "partOfSpeech": "noun",
+      "definition": "The activity of looking at books.",
+      "example": "Reading helps me relax."
+    },
+    {
+      "word": "swimming",
+      "phonetic": "/ˈswɪmɪŋ/",
+      "partOfSpeech": "noun",
+      "definition": "Moving through water.",
+      "example": "Swimming is good exercise."
+    },
+    {
+      "word": "drawing",
+      "phonetic": "/ˈdrɔːɪŋ/",
+      "partOfSpeech": "noun",
+      "definition": "Making pictures with a pencil.",
+      "example": "She enjoys drawing animals."
+    },
+    {
+      "word": "cooking",
+      "phonetic": "/ˈkʊkɪŋ/",
+      "partOfSpeech": "noun",
+      "definition": "Preparing food.",
+      "example": "Cooking is his favorite hobby."
+    },
+    {
+      "word": "dancing",
+      "phonetic": "/ˈdænsɪŋ/",
+      "partOfSpeech": "noun",
+      "definition": "Moving to music.",
+      "example": "They go dancing on Saturdays."
+    }
+  ]
+}

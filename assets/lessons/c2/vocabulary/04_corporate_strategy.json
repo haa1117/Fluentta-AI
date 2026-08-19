@@ -1,0 +1,44 @@
+{
+  "id": "c2_vocab_04",
+  "cefrLevel": "C2",
+  "number": 4,
+  "title": "Corporate Strategy",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "acquisition",
+      "phonetic": "/ˌækwɪˈzɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Buying another company.",
+      "example": "The acquisition expanded market reach."
+    },
+    {
+      "word": "diversification",
+      "phonetic": "/daɪˌvɜːrsɪfɪˈkeɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Expanding into new areas.",
+      "example": "Diversification reduced risk."
+    },
+    {
+      "word": "synergy",
+      "phonetic": "/ˈsɪnərdʒi/",
+      "partOfSpeech": "noun",
+      "definition": "Combined effect greater than parts.",
+      "example": "The merger created synergy."
+    },
+    {
+      "word": "stakeholder",
+      "phonetic": "/ˈsteɪkˌhoʊldər/",
+      "partOfSpeech": "noun",
+      "definition": "A person with interest in a company.",
+      "example": "Stakeholders demanded transparency."
+    },
+    {
+      "word": "due diligence",
+      "phonetic": "/djuː ˈdɪlɪdʒəns/",
+      "partOfSpeech": "noun",
+      "definition": "Careful investigation before a deal.",
+      "example": "Due diligence revealed liabilities."
+    }
+  ]
+}

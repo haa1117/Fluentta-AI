@@ -13,6 +13,7 @@ class GrammarExampleModel {
   final String suffix;
   final String iconName;
 
+  String get fullText => '$prefix$highlight$suffix'.trim();
 }
 
 class GrammarStepModel {
@@ -40,12 +41,14 @@ class GrammarLessonModel implements LearningLessonItem {
     required this.stepsCompleted,
     required this.totalSteps,
     required this.iconName,
+    this.lessonId = '',
     this.useLessonPrefix = true,
     this.steps = const [],
     this.completionTitle,
     this.completionSummary,
   });
 
+  final String lessonId;
   final int id;
   final int number;
   final String title;

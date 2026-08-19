@@ -1,0 +1,64 @@
+{
+  "id": "b2_reading_06",
+  "cefrLevel": "B2",
+  "number": 6,
+  "title": "Relationship Conflict",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend A",
+      "text": "I felt hurt when you canceled our plans.",
+      "isUser": false
+    },
+    {
+      "speaker": "Friend B",
+      "text": "I'm sorry—I didn't explain my situation.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend A",
+      "text": "I need clearer communication.",
+      "isUser": false
+    },
+    {
+      "speaker": "Friend B",
+      "text": "You're right. I'll be more open.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend A",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "Why did Friend A feel hurt?",
+      "options": [
+        "Plans were canceled",
+        "A gift was lost",
+        "A message was deleted"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What does Friend A want?",
+      "options": [
+        "More money",
+        "Clearer communication",
+        "A longer vacation"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Relationship Conflict Learned",
+  "completionSummary": "General relationship conflict conversation"
+}

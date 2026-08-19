@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/grammar_lesson_model.dart';
+import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/viewmodels/grammar_lesson_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
@@ -18,19 +19,23 @@ class GrammarLessonScreen extends StatelessWidget {
     required this.lesson,
     required this.initialStepIndex,
     required this.onLessonCompleted,
+    this.onProgressChanged,
   });
 
   final GrammarLessonModel lesson;
   final int initialStepIndex;
   final ValueChanged<GrammarLessonModel> onLessonCompleted;
+  final ValueChanged<int>? onProgressChanged;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => GrammarLessonViewModel(
+      create: (context) => GrammarLessonViewModel(
         lesson: lesson,
         initialStepIndex: initialStepIndex,
         onLessonCompleted: onLessonCompleted,
+        onProgressChanged: onProgressChanged,
+        textToSpeechService: context.read<TextToSpeechService>(),
       ),
       child: _GrammarLessonBody(lessonNumber: lesson.number),
     );
@@ -71,9 +76,12 @@ class _GrammarLessonBody extends StatelessWidget {
                 children: [
                   GrammarRuleCard(step: step),
                   SizedBox(height: AppSizes.spaceMd),
-                  ...step.examples.map(
-                    (example) => GrammarExampleTile(example: example),
-                  ),
+                  ...step.examples.asMap().entries.map(
+                        (entry) => GrammarExampleTile(
+                          example: entry.value,
+                          exampleIndex: entry.key,
+                        ),
+                      ),
                   SizedBox(height: AppSizes.spaceMd),
                   GrammarQuickTipBox(tip: step.quickTip),
                   SizedBox(height: AppSizes.spaceLg),

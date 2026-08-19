@@ -1,0 +1,64 @@
+{
+  "id": "b1_reading_07",
+  "cefrLevel": "B1",
+  "number": 7,
+  "title": "Holiday Traditions",
+  "iconName": "travel",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "In my country, families gather on New Year's Eve for a large meal.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "At midnight, we watch fireworks and exchange small gifts.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "It's a tradition that brings generations together.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "When do families gather?",
+      "options": [
+        "Christmas morning",
+        "New Year's Eve",
+        "Every Sunday"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What happens at midnight?",
+      "options": [
+        "They sleep",
+        "They watch fireworks",
+        "They go to work"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Holiday Traditions Learned",
+  "completionSummary": "General holiday traditions conversation"
+}

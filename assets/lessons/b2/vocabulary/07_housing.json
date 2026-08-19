@@ -1,0 +1,44 @@
+{
+  "id": "b2_vocab_07",
+  "cefrLevel": "B2",
+  "number": 7,
+  "title": "Housing",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "mortgage",
+      "phonetic": "/ˈmɔːrɡɪdʒ/",
+      "partOfSpeech": "noun",
+      "definition": "A loan to buy property.",
+      "example": "They applied for a mortgage."
+    },
+    {
+      "word": "tenant",
+      "phonetic": "/ˈtɛnənt/",
+      "partOfSpeech": "noun",
+      "definition": "A person who rents a home.",
+      "example": "The tenant signed a one-year lease."
+    },
+    {
+      "word": "renovation",
+      "phonetic": "/ˌrɛnəˈveɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Work to improve a building.",
+      "example": "Renovation took three months."
+    },
+    {
+      "word": "landlord",
+      "phonetic": "/ˈlændlɔːrd/",
+      "partOfSpeech": "noun",
+      "definition": "A person who owns rented property.",
+      "example": "The landlord fixed the heater."
+    },
+    {
+      "word": "affordable",
+      "phonetic": "/əˈfɔːrdəbəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Not too expensive.",
+      "example": "Affordable housing is scarce."
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "a2_reading_05",
+  "cefrLevel": "A2",
+  "number": 5,
+  "title": "Weekend Trip",
+  "iconName": "travel",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "My friends and I drove to the mountains last weekend.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "We stayed in a small hotel and went hiking on Sunday.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The views were beautiful, but it was colder than we expected.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "Where did they go?",
+      "options": [
+        "To the beach",
+        "To the mountains",
+        "To the desert"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What activity did they do on Sunday?",
+      "options": [
+        "Shopping",
+        "Hiking",
+        "Swimming"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Weekend Trip Learned",
+  "completionSummary": "General weekend trip conversation"
+}

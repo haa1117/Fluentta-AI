@@ -1,0 +1,64 @@
+{
+  "id": "c1_reading_05",
+  "cefrLevel": "C1",
+  "number": 5,
+  "title": "Academic Peer Review",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Reviewer",
+      "text": "The methodology section lacks sufficient detail.",
+      "isUser": false
+    },
+    {
+      "speaker": "Author",
+      "text": "I'll expand the description of sampling procedures.",
+      "isUser": true
+    },
+    {
+      "speaker": "Reviewer",
+      "text": "Please also clarify limitations.",
+      "isUser": false
+    },
+    {
+      "speaker": "Author",
+      "text": "I'll add a dedicated paragraph.",
+      "isUser": true
+    },
+    {
+      "speaker": "Reviewer",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What section needs more detail?",
+      "options": [
+        "Methodology",
+        "Title page",
+        "Acknowledgments"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What will the author add regarding limitations?",
+      "options": [
+        "Nothing",
+        "A dedicated paragraph",
+        "A poem"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Academic Peer Review Learned",
+  "completionSummary": "General academic peer review conversation"
+}

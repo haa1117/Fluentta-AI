@@ -1,0 +1,63 @@
+{
+  "id": "b2_grammar_03",
+  "cefrLevel": "B2",
+  "number": 3,
+  "title": "Passive All Tenses",
+  "iconName": "grammar",
+  "rule": "Passive forms exist in all major tenses.",
+  "pattern": "be (in tense) + past participle",
+  "examples": [
+    {
+      "text": "The report is being written.",
+      "highlight": "is being written"
+    },
+    {
+      "text": "The bridge was built in 1920.",
+      "highlight": "was built"
+    },
+    {
+      "text": "The results have been published.",
+      "highlight": "have been published"
+    },
+    {
+      "text": "The issue will be discussed tomorrow.",
+      "highlight": "will be discussed"
+    },
+    {
+      "text": "The files had been deleted.",
+      "highlight": "had been deleted"
+    }
+  ],
+  "practicePrompt": "Complete: A new hospital ___ (build) next year.",
+  "practiceAnswer": "will be built",
+  "steps": [
+    {
+      "title": "Passive forms exist in all major tenses.",
+      "description": "be (in tense) + past participle",
+      "formula": "be (in tense) + past participle",
+      "examples": [
+        {
+          "text": "The report is being written.",
+          "highlight": "is being written"
+        },
+        {
+          "text": "The bridge was built in 1920.",
+          "highlight": "was built"
+        },
+        {
+          "text": "The results have been published.",
+          "highlight": "have been published"
+        },
+        {
+          "text": "The issue will be discussed tomorrow.",
+          "highlight": "will be discussed"
+        },
+        {
+          "text": "The files had been deleted.",
+          "highlight": "had been deleted"
+        }
+      ],
+      "quickTip": "Complete: A new hospital ___ (build) next year. (will be built)"
+    }
+  ]
+}

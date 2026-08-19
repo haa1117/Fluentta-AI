@@ -1,0 +1,63 @@
+{
+  "id": "c1_grammar_09",
+  "cefrLevel": "C1",
+  "number": 9,
+  "title": "Distancing",
+  "iconName": "grammar",
+  "rule": "Distancing language creates objectivity or politeness.",
+  "pattern": "It appears/seems + that / past forms for present",
+  "examples": [
+    {
+      "text": "It would seem that the plan is viable.",
+      "highlight": "would seem"
+    },
+    {
+      "text": "I was wondering if you could help.",
+      "highlight": "was wondering"
+    },
+    {
+      "text": "It appears that demand has fallen.",
+      "highlight": "appears"
+    },
+    {
+      "text": "Could I ask whether you'd reconsider?",
+      "highlight": "Could I ask"
+    },
+    {
+      "text": "One might argue that the policy failed.",
+      "highlight": "might argue"
+    }
+  ],
+  "practicePrompt": "Complete: I ___ (wonder) if you had time to review this.",
+  "practiceAnswer": "was wondering",
+  "steps": [
+    {
+      "title": "Distancing language creates objectivity or politeness.",
+      "description": "It appears/seems + that / past forms for present",
+      "formula": "It appears/seems + that / past forms for present",
+      "examples": [
+        {
+          "text": "It would seem that the plan is viable.",
+          "highlight": "would seem"
+        },
+        {
+          "text": "I was wondering if you could help.",
+          "highlight": "was wondering"
+        },
+        {
+          "text": "It appears that demand has fallen.",
+          "highlight": "appears"
+        },
+        {
+          "text": "Could I ask whether you'd reconsider?",
+          "highlight": "Could I ask"
+        },
+        {
+          "text": "One might argue that the policy failed.",
+          "highlight": "might argue"
+        }
+      ],
+      "quickTip": "Complete: I ___ (wonder) if you had time to review this. (was wondering)"
+    }
+  ]
+}

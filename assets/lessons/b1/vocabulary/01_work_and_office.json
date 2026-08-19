@@ -1,0 +1,44 @@
+{
+  "id": "b1_vocab_01",
+  "cefrLevel": "B1",
+  "number": 1,
+  "title": "Work and Office",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "deadline",
+      "phonetic": "/ˈdɛdlaɪn/",
+      "partOfSpeech": "noun",
+      "definition": "The latest time to finish work.",
+      "example": "The deadline is Friday."
+    },
+    {
+      "word": "colleague",
+      "phonetic": "/ˈkɒliːɡ/",
+      "partOfSpeech": "noun",
+      "definition": "A person you work with.",
+      "example": "My colleague helped me."
+    },
+    {
+      "word": "meeting",
+      "phonetic": "/ˈmiːtɪŋ/",
+      "partOfSpeech": "noun",
+      "definition": "When people come together to discuss work.",
+      "example": "We have a meeting at ten."
+    },
+    {
+      "word": "promotion",
+      "phonetic": "/prəˈmoʊʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A move to a higher job.",
+      "example": "She got a promotion last year."
+    },
+    {
+      "word": "salary",
+      "phonetic": "/ˈsæləri/",
+      "partOfSpeech": "noun",
+      "definition": "Money paid for work.",
+      "example": "His salary increased."
+    }
+  ]
+}

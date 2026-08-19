@@ -12,16 +12,37 @@ class ReadingDialogueLineModel {
   final bool isUser;
 }
 
+class ReadingQuestionModel {
+  const ReadingQuestionModel({
+    required this.prompt,
+    required this.options,
+    required this.correctIndex,
+  });
+
+  final String prompt;
+  final List<String> options;
+  final int correctIndex;
+}
+
 class ReadingPhaseModel {
   const ReadingPhaseModel({
     required this.phaseTitle,
     required this.lines,
     required this.tip,
+    this.question,
+    this.dialoguePartNumber,
+    this.isTextPassage = false,
   });
 
   final String phaseTitle;
   final List<ReadingDialogueLineModel> lines;
   final String tip;
+  final ReadingQuestionModel? question;
+  final int? dialoguePartNumber;
+  final bool isTextPassage;
+
+  bool get isQuestionPhase => question != null;
+  bool get isDialoguePhase => !isQuestionPhase && !isTextPassage;
 }
 
 class ReadingLessonModel implements LearningLessonItem {
@@ -33,12 +54,15 @@ class ReadingLessonModel implements LearningLessonItem {
     required this.phasesCompleted,
     required this.totalPhases,
     required this.iconName,
+    this.lessonId = '',
     this.useLessonPrefix = true,
     this.phases = const [],
+    this.questions = const [],
     this.completionTitle,
     this.completionSummary,
   });
 
+  final String lessonId;
   final int id;
   final int number;
   final String title;
@@ -50,6 +74,7 @@ class ReadingLessonModel implements LearningLessonItem {
   final String iconName;
   final bool useLessonPrefix;
   final List<ReadingPhaseModel> phases;
+  final List<ReadingQuestionModel> questions;
   final String? completionTitle;
   final String? completionSummary;
 

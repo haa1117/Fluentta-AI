@@ -433,6 +433,24 @@ class AppLocalizationsEs extends AppLocalizations {
       'B1 · Puede mantener conversaciones simples';
 
   @override
+  String get levelUpperIntermediate => 'Intermedio alto';
+
+  @override
+  String get levelUpperIntermediateSub => 'B2 · Puede interactuar con fluidez';
+
+  @override
+  String get levelAdvancedC1 => 'Avanzado';
+
+  @override
+  String get levelAdvancedC1Sub => 'C1 · Expresa ideas con fluidez';
+
+  @override
+  String get levelProficientC2 => 'Competente';
+
+  @override
+  String get levelProficientC2Sub => 'C2 · Dominio casi nativo';
+
+  @override
   String get levelAdvanced => 'Avanzado';
 
   @override
@@ -633,6 +651,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get wordRemoved => 'Eliminada de palabras guardadas';
 
   @override
+  String get listenUnavailable =>
+      'La reproducción de audio no está disponible en este dispositivo.';
+
+  @override
   String get aiTutor => 'Tutor IA';
 
   @override
@@ -771,6 +793,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String readingPassagePart(int part) {
+    return 'Lectura parte $part';
+  }
+
+  @override
   String get readingManager => 'Manager';
 
   @override
@@ -796,7 +823,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get levelB1 => 'B1';
 
   @override
-  String get levelB2 => 'B2+';
+  String get levelB2 => 'B2';
+
+  @override
+  String get levelC1 => 'C1';
+
+  @override
+  String get levelC2 => 'C2';
 
   @override
   String get profileTitle => 'Perfil';

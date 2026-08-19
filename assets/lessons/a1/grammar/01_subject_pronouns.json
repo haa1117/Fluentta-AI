@@ -1,0 +1,63 @@
+{
+  "id": "a1_grammar_01",
+  "cefrLevel": "A1",
+  "number": 1,
+  "title": "Subject Pronouns",
+  "iconName": "grammar",
+  "rule": "Subject pronouns replace the name of the person or thing doing the action.",
+  "pattern": "Subject + verb",
+  "examples": [
+    {
+      "text": "I am a student.",
+      "highlight": "I"
+    },
+    {
+      "text": "You are my friend.",
+      "highlight": "You"
+    },
+    {
+      "text": "He works in a shop.",
+      "highlight": "He"
+    },
+    {
+      "text": "She likes music.",
+      "highlight": "She"
+    },
+    {
+      "text": "We live in London.",
+      "highlight": "We"
+    }
+  ],
+  "practicePrompt": "Complete: ___ am happy.",
+  "practiceAnswer": "I",
+  "steps": [
+    {
+      "title": "Subject pronouns replace the name of the person or thing doing the action.",
+      "description": "Subject + verb",
+      "formula": "Subject + verb",
+      "examples": [
+        {
+          "text": "I am a student.",
+          "highlight": "I"
+        },
+        {
+          "text": "You are my friend.",
+          "highlight": "You"
+        },
+        {
+          "text": "He works in a shop.",
+          "highlight": "He"
+        },
+        {
+          "text": "She likes music.",
+          "highlight": "She"
+        },
+        {
+          "text": "We live in London.",
+          "highlight": "We"
+        }
+      ],
+      "quickTip": "Complete: ___ am happy. (I)"
+    }
+  ]
+}

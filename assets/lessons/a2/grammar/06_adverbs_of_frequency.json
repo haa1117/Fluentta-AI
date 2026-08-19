@@ -1,0 +1,63 @@
+{
+  "id": "a2_grammar_06",
+  "cefrLevel": "A2",
+  "number": 6,
+  "title": "Adverbs of Frequency",
+  "iconName": "grammar",
+  "rule": "Adverbs of frequency show how often something happens.",
+  "pattern": "Subject + adverb + verb (or verb + adverb)",
+  "examples": [
+    {
+      "text": "I always brush my teeth.",
+      "highlight": "always"
+    },
+    {
+      "text": "She usually takes the bus.",
+      "highlight": "usually"
+    },
+    {
+      "text": "We sometimes eat out.",
+      "highlight": "sometimes"
+    },
+    {
+      "text": "He rarely watches TV.",
+      "highlight": "rarely"
+    },
+    {
+      "text": "They never arrive early.",
+      "highlight": "never"
+    }
+  ],
+  "practicePrompt": "Complete: I ___ go to the gym on Mondays. (often)",
+  "practiceAnswer": "often",
+  "steps": [
+    {
+      "title": "Adverbs of frequency show how often something happens.",
+      "description": "Subject + adverb + verb (or verb + adverb)",
+      "formula": "Subject + adverb + verb (or verb + adverb)",
+      "examples": [
+        {
+          "text": "I always brush my teeth.",
+          "highlight": "always"
+        },
+        {
+          "text": "She usually takes the bus.",
+          "highlight": "usually"
+        },
+        {
+          "text": "We sometimes eat out.",
+          "highlight": "sometimes"
+        },
+        {
+          "text": "He rarely watches TV.",
+          "highlight": "rarely"
+        },
+        {
+          "text": "They never arrive early.",
+          "highlight": "never"
+        }
+      ],
+      "quickTip": "Complete: I ___ go to the gym on Mondays. (often) (often)"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "b2_grammar_10",
+  "cefrLevel": "B2",
+  "number": 10,
+  "title": "Ellipsis",
+  "iconName": "grammar",
+  "rule": "Ellipsis omits words when the meaning remains clear.",
+  "pattern": "Omit repeated words in parallel structures",
+  "examples": [
+    {
+      "text": "She can swim and he can too.",
+      "highlight": "can too"
+    },
+    {
+      "text": "I wanted to leave, but couldn't.",
+      "highlight": "couldn't"
+    },
+    {
+      "text": "Some students passed; others didn't.",
+      "highlight": "didn't"
+    },
+    {
+      "text": "He likes coffee and she tea.",
+      "highlight": "she tea"
+    },
+    {
+      "text": "If possible, call me.",
+      "highlight": "If possible"
+    }
+  ],
+  "practicePrompt": "Complete: A: Will you join us? B: I'd love ___.",
+  "practiceAnswer": "to",
+  "steps": [
+    {
+      "title": "Ellipsis omits words when the meaning remains clear.",
+      "description": "Omit repeated words in parallel structures",
+      "formula": "Omit repeated words in parallel structures",
+      "examples": [
+        {
+          "text": "She can swim and he can too.",
+          "highlight": "can too"
+        },
+        {
+          "text": "I wanted to leave, but couldn't.",
+          "highlight": "couldn't"
+        },
+        {
+          "text": "Some students passed; others didn't.",
+          "highlight": "didn't"
+        },
+        {
+          "text": "He likes coffee and she tea.",
+          "highlight": "she tea"
+        },
+        {
+          "text": "If possible, call me.",
+          "highlight": "If possible"
+        }
+      ],
+      "quickTip": "Complete: A: Will you join us? B: I'd love ___. (to)"
+    }
+  ]
+}

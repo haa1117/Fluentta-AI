@@ -6,18 +6,22 @@ import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/user_model.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 
 class AuthViewModel extends ChangeNotifier {
   AuthViewModel(
     this._authRepository,
     this._userRepository,
     this._localStorage,
+    this._progressSyncService,
   ) {
     _user = _authRepository.currentUser;
     _authSubscription = _authRepository.authStateChanges.listen((user) async {
       _user = user;
       if (user != null) {
         _firestoreUser = await _userRepository.getUser(user.uid);
+        await _userRepository.syncSetupFromFirestore(user.uid);
+        await _progressSyncService.pullAndMerge();
       } else {
         _firestoreUser = null;
       }
@@ -29,6 +33,7 @@ class AuthViewModel extends ChangeNotifier {
   final AuthRepository _authRepository;
   final UserRepository _userRepository;
   final LocalStorage _localStorage;
+  final ProgressSyncService _progressSyncService;
   late final StreamSubscription<User?> _authSubscription;
 
   User? _user;
@@ -53,6 +58,7 @@ class AuthViewModel extends ChangeNotifier {
     final uid = _user?.uid;
     if (uid == null) return;
     _firestoreUser = await _userRepository.getUser(uid);
+    await _progressSyncService.pullAndMerge();
     notifyListeners();
   }
 

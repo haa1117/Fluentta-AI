@@ -224,4 +224,27 @@ class UserRepository {
       await _localStorage.setSetupComplete();
     }
   }
+
+  Future<void> updateLearningStats({
+    required String uid,
+    required int xpEarned,
+    required int lessonsCompletedCount,
+    required int wordsLearnedCount,
+  }) async {
+    await _localStorage.saveStats(
+      xpEarned: xpEarned,
+      lessonsCompletedCount: lessonsCompletedCount,
+      wordsLearnedCount: wordsLearnedCount,
+    );
+
+    await _userDoc(uid).set(
+      {
+        'xpEarned': xpEarned,
+        'lessonsCompletedCount': lessonsCompletedCount,
+        'wordsLearnedCount': wordsLearnedCount,
+        'updatedAt': FieldValue.serverTimestamp(),
+      },
+      SetOptions(merge: true),
+    );
+  }
 }

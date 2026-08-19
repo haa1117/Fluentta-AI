@@ -1,27 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level.dart';
+import 'package:fluentta_ai/core/cefr/lesson_type.dart';
 import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/grammar_lesson_model.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
+import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
+import 'package:fluentta_ai/data/repositories/lesson_content_repository.dart';
+import 'package:fluentta_ai/data/repositories/progress_repository.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/views/grammar/grammar_lesson_screen.dart';
 
 class GrammarViewModel extends ChangeNotifier {
-  GrammarViewModel(this._localStorage, this._localeViewModel) {
-    _lessons = _buildLessons();
+  GrammarViewModel(
+    this._localStorage,
+    this._localeViewModel,
+    this._contentRepository,
+    this._progressRepository,
+    this._syncService,
+  ) {
     _localeViewModel.addListener(_onLocaleChanged);
+    _loadLessons();
   }
 
   final LocalStorage _localStorage;
   final LocaleViewModel _localeViewModel;
+  final LessonContentRepository _contentRepository;
+  final ProgressRepository _progressRepository;
+  final ProgressSyncService _syncService;
 
-  late List<GrammarLessonModel> _lessons;
+  List<GrammarLessonModel> _lessons = [];
+  bool _isLoading = true;
 
   AppLocalizations get _l10n => _localeViewModel.strings;
 
   List<GrammarLessonModel> get lessons => _lessons;
+  bool get isLoading => _isLoading;
+
+  CefrLevel get _level => CefrLevel.fromSetupId(_localStorage.englishLevel);
 
   int get completedLessonsCount =>
       _lessons.where((l) => l.status == LearningLessonStatus.completed).length;
@@ -41,104 +61,23 @@ class GrammarViewModel extends ChangeNotifier {
   String get levelCode =>
       LocalizedContent.levelCode(_l10n, _localStorage.englishLevel);
 
-  void _onLocaleChanged() {
-    _lessons = _buildLessons();
+  Future<void> reload() => _loadLessons();
+
+  Future<void> _loadLessons() async {
+    _isLoading = true;
+    notifyListeners();
+    await _contentRepository.initialize();
+    await _progressRepository.initialize();
+    _lessons = await _contentRepository.getGrammarLessons(
+      _level,
+      progress: _progressRepository.allProgress,
+    );
+    _isLoading = false;
     notifyListeners();
   }
 
-  List<GrammarStepModel> _presentSimpleSteps() => [
-        GrammarStepModel(
-          title: _l10n.grammarStepIYouWe,
-          description: _l10n.grammarStepIYouWeDesc,
-          formula: _l10n.grammarStepIYouWeFormula,
-          examples: const [
-            GrammarExampleModel(prefix: 'I', highlight: 'work', suffix: '.'),
-            GrammarExampleModel(prefix: 'You', highlight: 'study', suffix: '.'),
-            GrammarExampleModel(
-              prefix: 'We',
-              highlight: 'speak',
-              suffix: ' in English.',
-            ),
-          ],
-          quickTip: _l10n.grammarTipNoS,
-        ),
-        GrammarStepModel(
-          title: _l10n.grammarStepHeSheIt,
-          description: _l10n.grammarStepHeSheItDesc,
-          formula: _l10n.grammarStepHeSheItFormula,
-          examples: const [
-            GrammarExampleModel(prefix: 'He', highlight: 'works', suffix: '.'),
-            GrammarExampleModel(
-              prefix: 'She',
-              highlight: 'studies',
-              suffix: '.',
-              iconName: 'female',
-            ),
-            GrammarExampleModel(
-              prefix: 'It',
-              highlight: 'starts',
-              suffix: ' now.',
-              iconName: 'time',
-            ),
-          ],
-          quickTip: _l10n.grammarTipNeedS,
-        ),
-      ];
-
-  List<GrammarLessonModel> _buildLessons() {
-    return [
-      GrammarLessonModel(
-        id: 1,
-        number: 1,
-        title: _l10n.lesson1IAmYouAre,
-        status: LearningLessonStatus.completed,
-        stepsCompleted: 2,
-        totalSteps: 2,
-        iconName: 'grammar',
-      ),
-      GrammarLessonModel(
-        id: 2,
-        number: 2,
-        title: _l10n.lesson2PresentSimple,
-        status: LearningLessonStatus.inProgress,
-        stepsCompleted: 1,
-        totalSteps: 2,
-        iconName: 'chat',
-        steps: _presentSimpleSteps(),
-        completionTitle: _l10n.presentSimpleLearned,
-        completionSummary: _l10n.presentSimpleSummary,
-      ),
-      GrammarLessonModel(
-        id: 3,
-        number: 3,
-        title: _l10n.lessonArticles,
-        status: LearningLessonStatus.notStarted,
-        stepsCompleted: 0,
-        totalSteps: 2,
-        iconName: 'travel',
-        useLessonPrefix: false,
-      ),
-      ...[
-        _l10n.lessonThisThat,
-        _l10n.lessonHeSheThey,
-        _l10n.lessonThereIsAre,
-        _l10n.lessonCanCannot,
-        _l10n.lessonHaveHas,
-        _l10n.lessonWasWere,
-        _l10n.lessonWillGoingTo,
-      ].asMap().entries.map(
-            (entry) => GrammarLessonModel(
-              id: entry.key + 4,
-              number: entry.key + 4,
-              title: entry.value,
-              status: LearningLessonStatus.locked,
-              stepsCompleted: 0,
-              totalSteps: 2,
-              iconName: 'lock',
-              useLessonPrefix: false,
-            ),
-          ),
-    ];
+  void _onLocaleChanged() {
+    _loadLessons();
   }
 
   void openLesson(BuildContext context, GrammarLessonModel lesson) {
@@ -158,47 +97,63 @@ class GrammarViewModel extends ChangeNotifier {
           lesson: lesson,
           initialStepIndex: startIndex,
           onLessonCompleted: _markLessonCompleted,
+          onProgressChanged: (index) => _saveInProgress(lesson, index),
         ),
       ),
     );
   }
 
-  void _markLessonCompleted(GrammarLessonModel completedLesson) {
-    _lessons = _lessons.map((lesson) {
-      if (lesson.id == completedLesson.id) {
-        return GrammarLessonModel(
-          id: lesson.id,
-          number: lesson.number,
-          title: lesson.title,
-          status: LearningLessonStatus.completed,
-          stepsCompleted: lesson.totalSteps,
-          totalSteps: lesson.totalSteps,
-          iconName: 'check',
-          useLessonPrefix: lesson.useLessonPrefix,
-          steps: lesson.steps,
-          completionTitle: lesson.completionTitle,
-          completionSummary: lesson.completionSummary,
-        );
-      }
-      if (lesson.id == completedLesson.id + 1 &&
-          lesson.status == LearningLessonStatus.locked) {
-        return GrammarLessonModel(
-          id: lesson.id,
-          number: lesson.number,
-          title: lesson.title,
-          status: LearningLessonStatus.notStarted,
-          stepsCompleted: 0,
-          totalSteps: lesson.totalSteps,
-          iconName: lesson.iconName == 'lock' ? 'travel' : lesson.iconName,
-          useLessonPrefix: lesson.useLessonPrefix,
-          steps: lesson.steps,
-          completionTitle: lesson.completionTitle,
-          completionSummary: lesson.completionSummary,
-        );
-      }
-      return lesson;
-    }).toList();
-    notifyListeners();
+  Future<void> _saveInProgress(GrammarLessonModel lesson, int index) async {
+    await _progressRepository.saveInProgress(
+      lessonId: lesson.lessonId,
+      type: LessonType.grammar.id,
+      cefrLevel: _level.code,
+      currentIndex: index,
+    );
+    await _syncService.onProgressChanged(
+      LessonProgressModel(
+        lessonId: lesson.lessonId,
+        type: LessonType.grammar.id,
+        cefrLevel: _level.code,
+        status: LearningLessonStatus.inProgress,
+        currentIndex: index,
+        updatedAt: DateTime.now(),
+      ),
+    );
+    await _loadLessons();
+  }
+
+  Future<void> _markLessonCompleted(GrammarLessonModel completedLesson) async {
+    final orderedIds = await _contentRepository.orderedLessonIds(
+      _level,
+      LessonType.grammar,
+    );
+    final nextId = LessonUnlockLogic.nextLessonIdToUnlock(
+      completedLessonId: completedLesson.lessonId,
+      orderedLessonIds: orderedIds,
+    );
+
+    await _progressRepository.markCompleted(
+      lessonId: completedLesson.lessonId,
+      type: LessonType.grammar.id,
+      cefrLevel: _level.code,
+      finalIndex: completedLesson.totalSteps,
+      unlockLessonId: nextId,
+    );
+
+    await _syncService.onLessonCompleted(
+      progress: LessonProgressModel(
+        lessonId: completedLesson.lessonId,
+        type: LessonType.grammar.id,
+        cefrLevel: _level.code,
+        status: LearningLessonStatus.completed,
+        currentIndex: completedLesson.totalSteps,
+        updatedAt: DateTime.now(),
+        completedAt: DateTime.now(),
+      ),
+    );
+
+    await _loadLessons();
   }
 
   @override

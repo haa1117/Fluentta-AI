@@ -1,0 +1,64 @@
+{
+  "id": "b1_reading_08",
+  "cefrLevel": "B1",
+  "number": 8,
+  "title": "Email Misunderstanding",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Colleague A",
+      "text": "Did you receive my email about the meeting time?",
+      "isUser": false
+    },
+    {
+      "speaker": "Colleague B",
+      "text": "Yes, but I thought it was next Tuesday.",
+      "isUser": true
+    },
+    {
+      "speaker": "Colleague A",
+      "text": "No, it's this Tuesday at ten.",
+      "isUser": false
+    },
+    {
+      "speaker": "Colleague B",
+      "text": "Thanks for clarifying.",
+      "isUser": true
+    },
+    {
+      "speaker": "Colleague A",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What was misunderstood?",
+      "options": [
+        "The meeting topic",
+        "The meeting time",
+        "The meeting place"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "When is the meeting?",
+      "options": [
+        "Next Tuesday",
+        "This Tuesday at ten",
+        "Friday"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Email Misunderstanding Learned",
+  "completionSummary": "General email misunderstanding conversation"
+}

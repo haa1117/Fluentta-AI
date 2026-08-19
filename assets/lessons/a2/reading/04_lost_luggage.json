@@ -1,0 +1,64 @@
+{
+  "id": "a2_reading_04",
+  "cefrLevel": "A2",
+  "number": 4,
+  "title": "Lost Luggage",
+  "iconName": "travel",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Traveler",
+      "text": "Excuse me, my bag didn't arrive.",
+      "isUser": false
+    },
+    {
+      "speaker": "Agent",
+      "text": "Can I see your ticket and baggage tag?",
+      "isUser": true
+    },
+    {
+      "speaker": "Traveler",
+      "text": "Here they are.",
+      "isUser": false
+    },
+    {
+      "speaker": "Agent",
+      "text": "We'll contact you when we find it.",
+      "isUser": true
+    },
+    {
+      "speaker": "Traveler",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What is the traveler's problem?",
+      "options": [
+        "Missed flight",
+        "Lost luggage",
+        "Wrong seat"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What will the agent do?",
+      "options": [
+        "Refund the ticket",
+        "Contact the traveler when the bag is found",
+        "Cancel the trip"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Lost Luggage Learned",
+  "completionSummary": "General lost luggage conversation"
+}

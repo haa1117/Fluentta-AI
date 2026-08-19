@@ -1,0 +1,44 @@
+{
+  "id": "a1_vocab_06",
+  "cefrLevel": "A1",
+  "number": 6,
+  "title": "Foods",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "bread",
+      "phonetic": "/brɛd/",
+      "partOfSpeech": "noun",
+      "definition": "A basic baked food.",
+      "example": "I eat bread for breakfast."
+    },
+    {
+      "word": "water",
+      "phonetic": "/ˈwɔːtər/",
+      "partOfSpeech": "noun",
+      "definition": "A clear liquid for drinking.",
+      "example": "Can I have some water?"
+    },
+    {
+      "word": "apple",
+      "phonetic": "/ˈæpəl/",
+      "partOfSpeech": "noun",
+      "definition": "A round sweet fruit.",
+      "example": "She likes green apples."
+    },
+    {
+      "word": "rice",
+      "phonetic": "/raɪs/",
+      "partOfSpeech": "noun",
+      "definition": "Small white or brown grains.",
+      "example": "We cook rice with chicken."
+    },
+    {
+      "word": "milk",
+      "phonetic": "/mɪlk/",
+      "partOfSpeech": "noun",
+      "definition": "A white drink from cows.",
+      "example": "The child drinks milk."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "a2_grammar_10",
+  "cefrLevel": "A2",
+  "number": 10,
+  "title": "Should and Must",
+  "iconName": "grammar",
+  "rule": "Should gives advice; must shows strong obligation.",
+  "pattern": "Subject + should/must + base verb",
+  "examples": [
+    {
+      "text": "You should see a doctor.",
+      "highlight": "should"
+    },
+    {
+      "text": "Students must wear uniforms.",
+      "highlight": "must"
+    },
+    {
+      "text": "He shouldn't eat so much sugar.",
+      "highlight": "shouldn't"
+    },
+    {
+      "text": "You mustn't smoke here.",
+      "highlight": "mustn't"
+    },
+    {
+      "text": "We should leave early.",
+      "highlight": "should"
+    }
+  ],
+  "practicePrompt": "Complete: You ___ drink more water.",
+  "practiceAnswer": "should",
+  "steps": [
+    {
+      "title": "Should gives advice; must shows strong obligation.",
+      "description": "Subject + should/must + base verb",
+      "formula": "Subject + should/must + base verb",
+      "examples": [
+        {
+          "text": "You should see a doctor.",
+          "highlight": "should"
+        },
+        {
+          "text": "Students must wear uniforms.",
+          "highlight": "must"
+        },
+        {
+          "text": "He shouldn't eat so much sugar.",
+          "highlight": "shouldn't"
+        },
+        {
+          "text": "You mustn't smoke here.",
+          "highlight": "mustn't"
+        },
+        {
+          "text": "We should leave early.",
+          "highlight": "should"
+        }
+      ],
+      "quickTip": "Complete: You ___ drink more water. (should)"
+    }
+  ]
+}

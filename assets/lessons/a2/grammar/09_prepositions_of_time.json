@@ -1,0 +1,63 @@
+{
+  "id": "a2_grammar_09",
+  "cefrLevel": "A2",
+  "number": 9,
+  "title": "Prepositions of Time",
+  "iconName": "grammar",
+  "rule": "Use in for months/years, on for days/dates, at for times.",
+  "pattern": "in / on / at + time expression",
+  "examples": [
+    {
+      "text": "The meeting is on Monday.",
+      "highlight": "on"
+    },
+    {
+      "text": "She was born in 1998.",
+      "highlight": "in"
+    },
+    {
+      "text": "We eat lunch at noon.",
+      "highlight": "at"
+    },
+    {
+      "text": "I travel in summer.",
+      "highlight": "in"
+    },
+    {
+      "text": "The party is on July 4th.",
+      "highlight": "on"
+    }
+  ],
+  "practicePrompt": "Complete: The train leaves ___ 7:30.",
+  "practiceAnswer": "at",
+  "steps": [
+    {
+      "title": "Use in for months/years, on for days/dates, at for times.",
+      "description": "in / on / at + time expression",
+      "formula": "in / on / at + time expression",
+      "examples": [
+        {
+          "text": "The meeting is on Monday.",
+          "highlight": "on"
+        },
+        {
+          "text": "She was born in 1998.",
+          "highlight": "in"
+        },
+        {
+          "text": "We eat lunch at noon.",
+          "highlight": "at"
+        },
+        {
+          "text": "I travel in summer.",
+          "highlight": "in"
+        },
+        {
+          "text": "The party is on July 4th.",
+          "highlight": "on"
+        }
+      ],
+      "quickTip": "Complete: The train leaves ___ 7:30. (at)"
+    }
+  ]
+}

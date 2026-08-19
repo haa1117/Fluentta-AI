@@ -1,0 +1,44 @@
+{
+  "id": "b1_vocab_05",
+  "cefrLevel": "B1",
+  "number": 5,
+  "title": "Describing People",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "confident",
+      "phonetic": "/ˈkɒnfɪdənt/",
+      "partOfSpeech": "adjective",
+      "definition": "Sure of yourself.",
+      "example": "She is confident in interviews."
+    },
+    {
+      "word": "generous",
+      "phonetic": "/ˈdʒɛnərəs/",
+      "partOfSpeech": "adjective",
+      "definition": "Willing to give or share.",
+      "example": "He is generous with his time."
+    },
+    {
+      "word": "patient",
+      "phonetic": "/ˈpeɪʃənt/",
+      "partOfSpeech": "adjective",
+      "definition": "Able to wait calmly.",
+      "example": "Teachers need to be patient."
+    },
+    {
+      "word": "reliable",
+      "phonetic": "/rɪˈlaɪəbəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Able to be trusted.",
+      "example": "She is a reliable friend."
+    },
+    {
+      "word": "ambitious",
+      "phonetic": "/æmˈbɪʃəs/",
+      "partOfSpeech": "adjective",
+      "definition": "Wanting to succeed.",
+      "example": "He is ambitious about his career."
+    }
+  ]
+}

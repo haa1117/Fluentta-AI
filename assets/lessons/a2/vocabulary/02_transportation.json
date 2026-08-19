@@ -1,0 +1,44 @@
+{
+  "id": "a2_vocab_02",
+  "cefrLevel": "A2",
+  "number": 2,
+  "title": "Transportation",
+  "iconName": "travel",
+  "words": [
+    {
+      "word": "bus",
+      "phonetic": "/bʌs/",
+      "partOfSpeech": "noun",
+      "definition": "A large public vehicle.",
+      "example": "I take the bus to work."
+    },
+    {
+      "word": "train",
+      "phonetic": "/treɪn/",
+      "partOfSpeech": "noun",
+      "definition": "A vehicle that runs on rails.",
+      "example": "The train leaves at nine."
+    },
+    {
+      "word": "ticket",
+      "phonetic": "/ˈtɪkɪt/",
+      "partOfSpeech": "noun",
+      "definition": "A pass that allows travel.",
+      "example": "Buy a ticket at the station."
+    },
+    {
+      "word": "airport",
+      "phonetic": "/ˈɛərpɔːrt/",
+      "partOfSpeech": "noun",
+      "definition": "A place where planes take off.",
+      "example": "We arrived at the airport early."
+    },
+    {
+      "word": "bicycle",
+      "phonetic": "/ˈbaɪsɪkəl/",
+      "partOfSpeech": "noun",
+      "definition": "A two-wheeled vehicle.",
+      "example": "She rides her bicycle every day."
+    }
+  ]
+}

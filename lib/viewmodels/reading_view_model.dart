@@ -1,27 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level.dart';
+import 'package:fluentta_ai/core/cefr/lesson_type.dart';
 import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
+import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
+import 'package:fluentta_ai/data/repositories/lesson_content_repository.dart';
+import 'package:fluentta_ai/data/repositories/progress_repository.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/views/reading/reading_lesson_screen.dart';
 
 class ReadingViewModel extends ChangeNotifier {
-  ReadingViewModel(this._localStorage, this._localeViewModel) {
-    _lessons = _buildLessons();
+  ReadingViewModel(
+    this._localStorage,
+    this._localeViewModel,
+    this._contentRepository,
+    this._progressRepository,
+    this._syncService,
+  ) {
     _localeViewModel.addListener(_onLocaleChanged);
+    _loadLessons();
   }
 
   final LocalStorage _localStorage;
   final LocaleViewModel _localeViewModel;
+  final LessonContentRepository _contentRepository;
+  final ProgressRepository _progressRepository;
+  final ProgressSyncService _syncService;
 
-  late List<ReadingLessonModel> _lessons;
+  List<ReadingLessonModel> _lessons = [];
+  bool _isLoading = true;
 
   AppLocalizations get _l10n => _localeViewModel.strings;
 
   List<ReadingLessonModel> get lessons => _lessons;
+  bool get isLoading => _isLoading;
+
+  CefrLevel get _level => CefrLevel.fromSetupId(_localStorage.englishLevel);
 
   int get completedLessonsCount =>
       _lessons.where((l) => l.status == LearningLessonStatus.completed).length;
@@ -41,87 +61,23 @@ class ReadingViewModel extends ChangeNotifier {
   String get levelCode =>
       LocalizedContent.levelCode(_l10n, _localStorage.englishLevel);
 
-  void _onLocaleChanged() {
-    _lessons = _buildLessons();
+  Future<void> reload() => _loadLessons();
+
+  Future<void> _loadLessons() async {
+    _isLoading = true;
+    notifyListeners();
+    await _contentRepository.initialize();
+    await _progressRepository.initialize();
+    _lessons = await _contentRepository.getReadingLessons(
+      _level,
+      progress: _progressRepository.allProgress,
+    );
+    _isLoading = false;
     notifyListeners();
   }
 
-  List<ReadingDialogueLineModel> _officeDialogueLines() => [
-        ReadingDialogueLineModel(
-          speakerLabel: _l10n.readingManager,
-          text: _l10n.readingManagerLine,
-          isUser: false,
-        ),
-        ReadingDialogueLineModel(
-          speakerLabel: _l10n.readingYou,
-          text: _l10n.readingYouLine,
-          isUser: true,
-        ),
-      ];
-
-  List<ReadingPhaseModel> _officeDialoguePhases() => List.generate(
-        5,
-        (index) => ReadingPhaseModel(
-          phaseTitle: _l10n.readingDialoguePart(index + 1),
-          lines: _officeDialogueLines(),
-          tip: _l10n.readingFluentaTipText,
-        ),
-      );
-
-  List<ReadingLessonModel> _buildLessons() {
-    return [
-      ReadingLessonModel(
-        id: 1,
-        number: 1,
-        title: _l10n.lesson1DailyRoutine,
-        status: LearningLessonStatus.completed,
-        phasesCompleted: 5,
-        totalPhases: 5,
-        iconName: 'grammar',
-      ),
-      ReadingLessonModel(
-        id: 2,
-        number: 2,
-        title: _l10n.lesson2OfficeDialogue,
-        status: LearningLessonStatus.inProgress,
-        phasesCompleted: 1,
-        totalPhases: 5,
-        iconName: 'chat',
-        phases: _officeDialoguePhases(),
-        completionTitle: _l10n.officeDialogueLearned,
-        completionSummary: _l10n.generalOfficeConversation,
-      ),
-      ReadingLessonModel(
-        id: 3,
-        number: 3,
-        title: _l10n.lesson3TravelStory,
-        status: LearningLessonStatus.notStarted,
-        phasesCompleted: 0,
-        totalPhases: 5,
-        iconName: 'travel',
-        useLessonPrefix: false,
-      ),
-      ...[
-        _l10n.lessonRestaurantTalk,
-        _l10n.lessonFamilyStory,
-        _l10n.lessonShoppingStory,
-        _l10n.lessonDoctorVisit,
-        _l10n.lessonWorkEmail,
-        _l10n.lessonWeekendPlan,
-        _l10n.lessonDirections,
-      ].asMap().entries.map(
-            (entry) => ReadingLessonModel(
-              id: entry.key + 4,
-              number: entry.key + 4,
-              title: entry.value,
-              status: LearningLessonStatus.locked,
-              phasesCompleted: 0,
-              totalPhases: 5,
-              iconName: 'lock',
-              useLessonPrefix: false,
-            ),
-          ),
-    ];
+  void _onLocaleChanged() {
+    _loadLessons();
   }
 
   void openLesson(BuildContext context, ReadingLessonModel lesson) {
@@ -141,47 +97,63 @@ class ReadingViewModel extends ChangeNotifier {
           lesson: lesson,
           initialPhaseIndex: startIndex,
           onLessonCompleted: _markLessonCompleted,
+          onProgressChanged: (index) => _saveInProgress(lesson, index),
         ),
       ),
     );
   }
 
-  void _markLessonCompleted(ReadingLessonModel completedLesson) {
-    _lessons = _lessons.map((lesson) {
-      if (lesson.id == completedLesson.id) {
-        return ReadingLessonModel(
-          id: lesson.id,
-          number: lesson.number,
-          title: lesson.title,
-          status: LearningLessonStatus.completed,
-          phasesCompleted: lesson.totalPhases,
-          totalPhases: lesson.totalPhases,
-          iconName: 'check',
-          useLessonPrefix: lesson.useLessonPrefix,
-          phases: lesson.phases,
-          completionTitle: lesson.completionTitle,
-          completionSummary: lesson.completionSummary,
-        );
-      }
-      if (lesson.id == completedLesson.id + 1 &&
-          lesson.status == LearningLessonStatus.locked) {
-        return ReadingLessonModel(
-          id: lesson.id,
-          number: lesson.number,
-          title: lesson.title,
-          status: LearningLessonStatus.notStarted,
-          phasesCompleted: 0,
-          totalPhases: lesson.totalPhases,
-          iconName: lesson.iconName == 'lock' ? 'travel' : lesson.iconName,
-          useLessonPrefix: lesson.useLessonPrefix,
-          phases: lesson.phases,
-          completionTitle: lesson.completionTitle,
-          completionSummary: lesson.completionSummary,
-        );
-      }
-      return lesson;
-    }).toList();
-    notifyListeners();
+  Future<void> _saveInProgress(ReadingLessonModel lesson, int index) async {
+    await _progressRepository.saveInProgress(
+      lessonId: lesson.lessonId,
+      type: LessonType.reading.id,
+      cefrLevel: _level.code,
+      currentIndex: index,
+    );
+    await _syncService.onProgressChanged(
+      LessonProgressModel(
+        lessonId: lesson.lessonId,
+        type: LessonType.reading.id,
+        cefrLevel: _level.code,
+        status: LearningLessonStatus.inProgress,
+        currentIndex: index,
+        updatedAt: DateTime.now(),
+      ),
+    );
+    await _loadLessons();
+  }
+
+  Future<void> _markLessonCompleted(ReadingLessonModel completedLesson) async {
+    final orderedIds = await _contentRepository.orderedLessonIds(
+      _level,
+      LessonType.reading,
+    );
+    final nextId = LessonUnlockLogic.nextLessonIdToUnlock(
+      completedLessonId: completedLesson.lessonId,
+      orderedLessonIds: orderedIds,
+    );
+
+    await _progressRepository.markCompleted(
+      lessonId: completedLesson.lessonId,
+      type: LessonType.reading.id,
+      cefrLevel: _level.code,
+      finalIndex: completedLesson.totalPhases,
+      unlockLessonId: nextId,
+    );
+
+    await _syncService.onLessonCompleted(
+      progress: LessonProgressModel(
+        lessonId: completedLesson.lessonId,
+        type: LessonType.reading.id,
+        cefrLevel: _level.code,
+        status: LearningLessonStatus.completed,
+        currentIndex: completedLesson.totalPhases,
+        updatedAt: DateTime.now(),
+        completedAt: DateTime.now(),
+      ),
+    );
+
+    await _loadLessons();
   }
 
   @override

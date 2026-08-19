@@ -1,0 +1,44 @@
+{
+  "id": "c1_vocab_03",
+  "cefrLevel": "C1",
+  "number": 3,
+  "title": "Psychology",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "cognition",
+      "phonetic": "/kɒɡˈnɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Mental processes of knowing.",
+      "example": "Cognition declines with age."
+    },
+    {
+      "word": "subconscious",
+      "phonetic": "/sʌbˈkɒnʃəs/",
+      "partOfSpeech": "adjective",
+      "definition": "Below conscious awareness.",
+      "example": "Subconscious fears can surface."
+    },
+    {
+      "word": "behavioral",
+      "phonetic": "/bɪˈheɪvjərəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Related to actions and conduct.",
+      "example": "Behavioral therapy helped him."
+    },
+    {
+      "word": "motivation",
+      "phonetic": "/ˌmoʊtɪˈveɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Reason for acting.",
+      "example": "Motivation drives performance."
+    },
+    {
+      "word": "perception",
+      "phonetic": "/pərˈsɛpʃən/",
+      "partOfSpeech": "noun",
+      "definition": "The way something is understood.",
+      "example": "Perception varies by culture."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "c2_grammar_09",
+  "cefrLevel": "C2",
+  "number": 9,
+  "title": "Register and Tone",
+  "iconName": "grammar",
+  "rule": "C2 writers control tone: neutral, critical, diplomatic, or ironic.",
+  "pattern": "lexical choice + syntactic control",
+  "examples": [
+    {
+      "text": "The proposal is, to put it mildly, ambitious.",
+      "highlight": "to put it mildly"
+    },
+    {
+      "text": "I am compelled to dissent from this view.",
+      "highlight": "compelled to dissent"
+    },
+    {
+      "text": "The claim is not entirely unfounded.",
+      "highlight": "not entirely unfounded"
+    },
+    {
+      "text": "With respect, that argument overlooks key facts.",
+      "highlight": "With respect"
+    },
+    {
+      "text": "The outcome was predictable, if disappointing.",
+      "highlight": "if disappointing"
+    }
+  ],
+  "practicePrompt": "Complete: Diplomatic tone: 'You're wrong.' → 'I ___ a different interpretation.'",
+  "practiceAnswer": "favor",
+  "steps": [
+    {
+      "title": "C2 writers control tone: neutral, critical, diplomatic, or ironic.",
+      "description": "lexical choice + syntactic control",
+      "formula": "lexical choice + syntactic control",
+      "examples": [
+        {
+          "text": "The proposal is, to put it mildly, ambitious.",
+          "highlight": "to put it mildly"
+        },
+        {
+          "text": "I am compelled to dissent from this view.",
+          "highlight": "compelled to dissent"
+        },
+        {
+          "text": "The claim is not entirely unfounded.",
+          "highlight": "not entirely unfounded"
+        },
+        {
+          "text": "With respect, that argument overlooks key facts.",
+          "highlight": "With respect"
+        },
+        {
+          "text": "The outcome was predictable, if disappointing.",
+          "highlight": "if disappointing"
+        }
+      ],
+      "quickTip": "Complete: Diplomatic tone: 'You're wrong.' → 'I ___ a different interpretation.' (favor)"
+    }
+  ]
+}

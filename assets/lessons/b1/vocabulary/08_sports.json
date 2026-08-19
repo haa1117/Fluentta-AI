@@ -1,0 +1,44 @@
+{
+  "id": "b1_vocab_08",
+  "cefrLevel": "B1",
+  "number": 8,
+  "title": "Sports",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "competition",
+      "phonetic": "/ˌkɒmpəˈtɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "An event where people try to win.",
+      "example": "The competition starts tomorrow."
+    },
+    {
+      "word": "coach",
+      "phonetic": "/koʊtʃ/",
+      "partOfSpeech": "noun",
+      "definition": "A person who trains athletes.",
+      "example": "Our coach is very experienced."
+    },
+    {
+      "word": "score",
+      "phonetic": "/skɔːr/",
+      "partOfSpeech": "noun",
+      "definition": "Points in a game.",
+      "example": "The final score was 2–1."
+    },
+    {
+      "word": "teamwork",
+      "phonetic": "/ˈtiːmwɜːrk/",
+      "partOfSpeech": "noun",
+      "definition": "Working well together.",
+      "example": "Teamwork won the match."
+    },
+    {
+      "word": "championship",
+      "phonetic": "/ˈtʃæmpiənʃɪp/",
+      "partOfSpeech": "noun",
+      "definition": "A major sports contest.",
+      "example": "They won the championship."
+    }
+  ]
+}

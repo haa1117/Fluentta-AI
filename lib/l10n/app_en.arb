@@ -168,6 +168,12 @@
   "levelElementarySub": "A2 · Can use simple words",
   "levelIntermediate": "Intermediate",
   "levelIntermediateSub": "B1 · Can hold simple conversation",
+  "levelUpperIntermediate": "Upper-Intermediate",
+  "levelUpperIntermediateSub": "B2 · Can interact with fluency",
+  "levelAdvancedC1": "Advanced",
+  "levelAdvancedC1Sub": "C1 · Can express ideas fluently",
+  "levelProficientC2": "Proficient",
+  "levelProficientC2Sub": "C2 · Near-native mastery",
   "levelAdvanced": "Advanced",
   "levelAdvancedSub": "B2+ · Comfortable in most situations",
   "daily5": "5 minutes",
@@ -257,6 +263,7 @@
   },
   "wordSaved": "Word saved!",
   "wordRemoved": "Removed from saved words",
+  "listenUnavailable": "Audio playback is not available on this device.",
 
   "aiTutor": "AI Tutor",
   "howToPracticeToday": "How do you want to\npractice today?",
@@ -312,6 +319,10 @@
   "@readingDialoguePart": {
     "placeholders": {"part": {"type": "int"}}
   },
+  "readingPassagePart": "Reading Part {part}",
+  "@readingPassagePart": {
+    "placeholders": {"part": {"type": "int"}}
+  },
   "readingManager": "Manager",
   "readingYou": "You",
   "readingManagerLine": "\"Can you join the meeting at 10?\"",
@@ -321,7 +332,9 @@
   "levelA1": "A1",
   "levelA2": "A2",
   "levelB1": "B1",
-  "levelB2": "B2+",
+  "levelB2": "B2",
+  "levelC1": "C1",
+  "levelC2": "C2",
 
   "profileTitle": "Profile",
   "hi": "Hi,",

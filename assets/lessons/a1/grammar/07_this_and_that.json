@@ -1,0 +1,63 @@
+{
+  "id": "a1_grammar_07",
+  "cefrLevel": "A1",
+  "number": 7,
+  "title": "This and That",
+  "iconName": "grammar",
+  "rule": "Use this/these for things near you; that/those for things farther away.",
+  "pattern": "this/that + singular; these/those + plural",
+  "examples": [
+    {
+      "text": "This is my pen.",
+      "highlight": "This"
+    },
+    {
+      "text": "That is her car.",
+      "highlight": "That"
+    },
+    {
+      "text": "These shoes are mine.",
+      "highlight": "These"
+    },
+    {
+      "text": "Those trees are old.",
+      "highlight": "Those"
+    },
+    {
+      "text": "Is this your key?",
+      "highlight": "this"
+    }
+  ],
+  "practicePrompt": "Complete: ___ books are heavy. (near)",
+  "practiceAnswer": "These",
+  "steps": [
+    {
+      "title": "Use this/these for things near you; that/those for things farther away.",
+      "description": "this/that + singular; these/those + plural",
+      "formula": "this/that + singular; these/those + plural",
+      "examples": [
+        {
+          "text": "This is my pen.",
+          "highlight": "This"
+        },
+        {
+          "text": "That is her car.",
+          "highlight": "That"
+        },
+        {
+          "text": "These shoes are mine.",
+          "highlight": "These"
+        },
+        {
+          "text": "Those trees are old.",
+          "highlight": "Those"
+        },
+        {
+          "text": "Is this your key?",
+          "highlight": "this"
+        }
+      ],
+      "quickTip": "Complete: ___ books are heavy. (near) (These)"
+    }
+  ]
+}

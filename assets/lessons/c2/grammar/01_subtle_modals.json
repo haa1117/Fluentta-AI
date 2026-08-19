@@ -1,0 +1,63 @@
+{
+  "id": "c2_grammar_01",
+  "cefrLevel": "C2",
+  "number": 1,
+  "title": "Subtle Modals",
+  "iconName": "grammar",
+  "rule": "At C2, modals convey nuance, criticism, and probability.",
+  "pattern": "modal + perfect/progressive + subtle meaning",
+  "examples": [
+    {
+      "text": "You might have been more diplomatic.",
+      "highlight": "might have been"
+    },
+    {
+      "text": "She couldn't have known the outcome.",
+      "highlight": "couldn't have known"
+    },
+    {
+      "text": "He would rather have remained silent.",
+      "highlight": "would rather have remained"
+    },
+    {
+      "text": "They needn't have apologized so profusely.",
+      "highlight": "needn't have apologized"
+    },
+    {
+      "text": "That will have been his final decision.",
+      "highlight": "will have been"
+    }
+  ],
+  "practicePrompt": "Complete: You ___ (might / consider) the ethical implications more carefully.",
+  "practiceAnswer": "might have considered",
+  "steps": [
+    {
+      "title": "At C2, modals convey nuance, criticism, and probability.",
+      "description": "modal + perfect/progressive + subtle meaning",
+      "formula": "modal + perfect/progressive + subtle meaning",
+      "examples": [
+        {
+          "text": "You might have been more diplomatic.",
+          "highlight": "might have been"
+        },
+        {
+          "text": "She couldn't have known the outcome.",
+          "highlight": "couldn't have known"
+        },
+        {
+          "text": "He would rather have remained silent.",
+          "highlight": "would rather have remained"
+        },
+        {
+          "text": "They needn't have apologized so profusely.",
+          "highlight": "needn't have apologized"
+        },
+        {
+          "text": "That will have been his final decision.",
+          "highlight": "will have been"
+        }
+      ],
+      "quickTip": "Complete: You ___ (might / consider) the ethical implications more carefully. (might have considered)"
+    }
+  ]
+}

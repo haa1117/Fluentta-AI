@@ -1,0 +1,44 @@
+{
+  "id": "b1_vocab_02",
+  "cefrLevel": "B1",
+  "number": 2,
+  "title": "Education",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "degree",
+      "phonetic": "/dɪˈɡriː/",
+      "partOfSpeech": "noun",
+      "definition": "A qualification from a university.",
+      "example": "She has a degree in biology."
+    },
+    {
+      "word": "lecture",
+      "phonetic": "/ˈlɛktʃər/",
+      "partOfSpeech": "noun",
+      "definition": "A talk given to students.",
+      "example": "The lecture starts at nine."
+    },
+    {
+      "word": "assignment",
+      "phonetic": "/əˈsaɪnmənt/",
+      "partOfSpeech": "noun",
+      "definition": "Work given to students.",
+      "example": "I finished my assignment."
+    },
+    {
+      "word": "research",
+      "phonetic": "/rɪˈsɜːrtʃ/",
+      "partOfSpeech": "noun",
+      "definition": "Careful study to find facts.",
+      "example": "He is doing research on climate."
+    },
+    {
+      "word": "graduate",
+      "phonetic": "/ˈɡrædʒueɪt/",
+      "partOfSpeech": "verb",
+      "definition": "To complete a degree.",
+      "example": "She will graduate next June."
+    }
+  ]
+}

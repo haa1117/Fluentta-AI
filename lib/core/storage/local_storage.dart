@@ -91,6 +91,46 @@ class LocalStorage {
       _prefs!.getInt(_lessonsCompletedCountKey) ?? 8;
   int get correctionsCount => _prefs!.getInt(_correctionsCountKey) ?? 12;
 
+  String? getString(String key) => _prefs!.getString(key);
+
+  Future<void> setString(String key, String value) async {
+    await _prefs!.setString(key, value);
+  }
+
+  Future<void> incrementLessonsCompleted() async {
+    await _prefs!.setInt(
+      _lessonsCompletedCountKey,
+      lessonsCompletedCount + 1,
+    );
+  }
+
+  Future<void> incrementWordsLearned(int count) async {
+    await _prefs!.setInt(
+      _wordsLearnedCountKey,
+      wordsLearnedCount + count,
+    );
+  }
+
+  Future<void> addXp(int amount) async {
+    await _prefs!.setInt(_xpEarnedKey, xpEarned + amount);
+  }
+
+  Future<void> saveStats({
+    int? xpEarned,
+    int? wordsLearnedCount,
+    int? lessonsCompletedCount,
+  }) async {
+    if (xpEarned != null) {
+      await _prefs!.setInt(_xpEarnedKey, xpEarned);
+    }
+    if (wordsLearnedCount != null) {
+      await _prefs!.setInt(_wordsLearnedCountKey, wordsLearnedCount);
+    }
+    if (lessonsCompletedCount != null) {
+      await _prefs!.setInt(_lessonsCompletedCountKey, lessonsCompletedCount);
+    }
+  }
+
   Future<void> saveUserSession({
     required String uid,
     required String email,

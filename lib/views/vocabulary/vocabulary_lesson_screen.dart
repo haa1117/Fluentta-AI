@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_lesson_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
@@ -16,19 +17,23 @@ class VocabularyLessonScreen extends StatelessWidget {
     required this.lesson,
     required this.initialWordIndex,
     required this.onLessonCompleted,
+    this.onProgressChanged,
   });
 
   final VocabularyLessonModel lesson;
   final int initialWordIndex;
   final ValueChanged<VocabularyLessonModel> onLessonCompleted;
+  final ValueChanged<int>? onProgressChanged;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => VocabularyLessonViewModel(
+      create: (context) => VocabularyLessonViewModel(
         lesson: lesson,
         initialWordIndex: initialWordIndex,
         onLessonCompleted: onLessonCompleted,
+        onProgressChanged: onProgressChanged,
+        textToSpeechService: context.read<TextToSpeechService>(),
       ),
       child: _VocabularyLessonBody(lessonNumber: lesson.number),
     );

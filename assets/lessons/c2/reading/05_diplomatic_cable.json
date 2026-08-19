@@ -1,0 +1,64 @@
+{
+  "id": "c2_reading_05",
+  "cefrLevel": "C2",
+  "number": 5,
+  "title": "Diplomatic Cable",
+  "iconName": "travel",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The ambassador cautioned that unilateral sanctions might provoke retaliatory measures.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Multilateral coordination, she argued, would lend legitimacy and reduce the risk of escalation.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What might unilateral sanctions provoke?",
+      "options": [
+        "Retaliatory measures",
+        "Immediate peace",
+        "Free trade only"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What would multilateral coordination reduce?",
+      "options": [
+        "Risk of escalation",
+        "Need for diplomacy",
+        "All trade"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Diplomatic Cable Learned",
+  "completionSummary": "General diplomatic cable conversation"
+}

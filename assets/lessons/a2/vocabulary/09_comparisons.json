@@ -1,0 +1,44 @@
+{
+  "id": "a2_vocab_09",
+  "cefrLevel": "A2",
+  "number": 9,
+  "title": "Comparisons",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "bigger",
+      "phonetic": "/ˈbɪɡər/",
+      "partOfSpeech": "adjective",
+      "definition": "Comparative of big.",
+      "example": "My house is bigger than yours."
+    },
+    {
+      "word": "smaller",
+      "phonetic": "/ˈsmɔːlər/",
+      "partOfSpeech": "adjective",
+      "definition": "Comparative of small.",
+      "example": "This phone is smaller."
+    },
+    {
+      "word": "better",
+      "phonetic": "/ˈbɛtər/",
+      "partOfSpeech": "adjective",
+      "definition": "Comparative of good.",
+      "example": "Exercise makes you feel better."
+    },
+    {
+      "word": "worse",
+      "phonetic": "/wɜːrs/",
+      "partOfSpeech": "adjective",
+      "definition": "Comparative of bad.",
+      "example": "The weather is worse today."
+    },
+    {
+      "word": "than",
+      "phonetic": "/ðæn/",
+      "partOfSpeech": "conjunction",
+      "definition": "Used in comparisons.",
+      "example": "She is taller than me."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "b2_grammar_09",
+  "cefrLevel": "B2",
+  "number": 9,
+  "title": "Nominalization",
+  "iconName": "grammar",
+  "rule": "Nominalization turns verbs/adjectives into nouns for formal style.",
+  "pattern": "verb/adjective → noun (develop → development)",
+  "examples": [
+    {
+      "text": "The development of the plan took months.",
+      "highlight": "development"
+    },
+    {
+      "text": "There was a significant improvement.",
+      "highlight": "improvement"
+    },
+    {
+      "text": "Their analysis was thorough.",
+      "highlight": "analysis"
+    },
+    {
+      "text": "The government's decision surprised many.",
+      "highlight": "decision"
+    },
+    {
+      "text": "Failure to comply may lead to fines.",
+      "highlight": "Failure"
+    }
+  ],
+  "practicePrompt": "Complete: The ___ (implement) of the policy starts Monday.",
+  "practiceAnswer": "implementation",
+  "steps": [
+    {
+      "title": "Nominalization turns verbs/adjectives into nouns for formal style.",
+      "description": "verb/adjective → noun (develop → development)",
+      "formula": "verb/adjective → noun (develop → development)",
+      "examples": [
+        {
+          "text": "The development of the plan took months.",
+          "highlight": "development"
+        },
+        {
+          "text": "There was a significant improvement.",
+          "highlight": "improvement"
+        },
+        {
+          "text": "Their analysis was thorough.",
+          "highlight": "analysis"
+        },
+        {
+          "text": "The government's decision surprised many.",
+          "highlight": "decision"
+        },
+        {
+          "text": "Failure to comply may lead to fines.",
+          "highlight": "Failure"
+        }
+      ],
+      "quickTip": "Complete: The ___ (implement) of the policy starts Monday. (implementation)"
+    }
+  ]
+}

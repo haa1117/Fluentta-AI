@@ -1,0 +1,63 @@
+{
+  "id": "b2_grammar_04",
+  "cefrLevel": "B2",
+  "number": 4,
+  "title": "Advanced Modals",
+  "iconName": "grammar",
+  "rule": "Modals can express degrees of certainty, obligation, and criticism.",
+  "pattern": "modal + have + past participle / modal + base verb",
+  "examples": [
+    {
+      "text": "You should have told me earlier.",
+      "highlight": "should have told"
+    },
+    {
+      "text": "He might have forgotten.",
+      "highlight": "might have forgotten"
+    },
+    {
+      "text": "She needn't have waited.",
+      "highlight": "needn't have waited"
+    },
+    {
+      "text": "They could have tried harder.",
+      "highlight": "could have tried"
+    },
+    {
+      "text": "You must not have heard the news.",
+      "highlight": "must not have heard"
+    }
+  ],
+  "practicePrompt": "Complete: I ___ (should / call) you yesterday. Sorry!",
+  "practiceAnswer": "should have called",
+  "steps": [
+    {
+      "title": "Modals can express degrees of certainty, obligation, and criticism.",
+      "description": "modal + have + past participle / modal + base verb",
+      "formula": "modal + have + past participle / modal + base verb",
+      "examples": [
+        {
+          "text": "You should have told me earlier.",
+          "highlight": "should have told"
+        },
+        {
+          "text": "He might have forgotten.",
+          "highlight": "might have forgotten"
+        },
+        {
+          "text": "She needn't have waited.",
+          "highlight": "needn't have waited"
+        },
+        {
+          "text": "They could have tried harder.",
+          "highlight": "could have tried"
+        },
+        {
+          "text": "You must not have heard the news.",
+          "highlight": "must not have heard"
+        }
+      ],
+      "quickTip": "Complete: I ___ (should / call) you yesterday. Sorry! (should have called)"
+    }
+  ]
+}

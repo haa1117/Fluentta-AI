@@ -1,16 +1,30 @@
-import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class ReadingPhaseHeader extends StatelessWidget {
-  const ReadingPhaseHeader({super.key, required this.phaseTitle});
+  const ReadingPhaseHeader({
+    super.key,
+    required this.phaseTitle,
+    this.dialoguePartNumber,
+    this.isTextPassage = false,
+  });
 
   final String phaseTitle;
+  final int? dialoguePartNumber;
+  final bool isTextPassage;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final displayTitle = dialoguePartNumber != null
+        ? (isTextPassage
+            ? l10n.readingPassagePart(dialoguePartNumber!)
+            : l10n.readingDialoguePart(dialoguePartNumber!))
+        : phaseTitle;
+
     return Column(
       children: [
         Container(
@@ -23,7 +37,7 @@ class ReadingPhaseHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppSizes.w(20)),
           ),
           child: Text(
-            context.l10n.lessonPhase,
+            l10n.lessonPhase,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(13),
@@ -35,7 +49,7 @@ class ReadingPhaseHeader extends StatelessWidget {
         ),
         SizedBox(height: AppSizes.spaceSm),
         Text(
-          phaseTitle,
+          displayTitle,
           style: TextStyle(
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(16),

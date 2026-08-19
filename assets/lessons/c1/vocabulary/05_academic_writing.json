@@ -1,0 +1,44 @@
+{
+  "id": "c1_vocab_05",
+  "cefrLevel": "C1",
+  "number": 5,
+  "title": "Academic Writing",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "thesis",
+      "phonetic": "/ˈθiːsɪs/",
+      "partOfSpeech": "noun",
+      "definition": "A central argument in writing.",
+      "example": "State your thesis clearly."
+    },
+    {
+      "word": "citation",
+      "phonetic": "/saɪˈteɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A reference to a source.",
+      "example": "Include a citation for each claim."
+    },
+    {
+      "word": "coherence",
+      "phonetic": "/koʊˈhɪərəns/",
+      "partOfSpeech": "noun",
+      "definition": "Logical connection of ideas.",
+      "example": "Coherence improves readability."
+    },
+    {
+      "word": "methodology",
+      "phonetic": "/ˌmɛθəˈdɒlədʒi/",
+      "partOfSpeech": "noun",
+      "definition": "A system of methods used.",
+      "example": "Explain your methodology."
+    },
+    {
+      "word": "peer-reviewed",
+      "phonetic": "/pɪər rɪˈvjuːd/",
+      "partOfSpeech": "adjective",
+      "definition": "Evaluated by experts.",
+      "example": "Use peer-reviewed sources."
+    }
+  ]
+}

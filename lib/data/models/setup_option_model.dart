@@ -70,9 +70,21 @@ class SetupOptions {
       svgIcon:'assets/svg/intermediatate.svg',
     ),
     SetupOptionModel(
-      id: 'advanced',
+      id: 'upper_intermediate',
+      title: 'Upper-Intermediate',
+      subtitle: 'B2 · Can interact with fluency',
+      svgIcon: 'assets/svg/rocket.svg',
+    ),
+    SetupOptionModel(
+      id: 'advanced_c1',
       title: 'Advanced',
-      subtitle: 'B2+ · Comfortable in most situations',
+      subtitle: 'C1 · Can express ideas fluently',
+      svgIcon: 'assets/svg/rocket.svg',
+    ),
+    SetupOptionModel(
+      id: 'proficient_c2',
+      title: 'Proficient',
+      subtitle: 'C2 · Near-native mastery',
       svgIcon: 'assets/svg/rocket.svg',
     ),
   ];

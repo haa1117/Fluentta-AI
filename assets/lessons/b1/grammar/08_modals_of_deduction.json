@@ -1,0 +1,63 @@
+{
+  "id": "b1_grammar_08",
+  "cefrLevel": "B1",
+  "number": 8,
+  "title": "Modals of Deduction",
+  "iconName": "grammar",
+  "rule": "Use must, might, and can't to express logical conclusions.",
+  "pattern": "Subject + must/might/can't + base verb",
+  "examples": [
+    {
+      "text": "She must be at work.",
+      "highlight": "must be"
+    },
+    {
+      "text": "It might rain later.",
+      "highlight": "might"
+    },
+    {
+      "text": "He can't be serious.",
+      "highlight": "can't be"
+    },
+    {
+      "text": "They must have left early.",
+      "highlight": "must have left"
+    },
+    {
+      "text": "This might be the wrong address.",
+      "highlight": "might be"
+    }
+  ],
+  "practicePrompt": "Complete: You ___ be hungry after that walk.",
+  "practiceAnswer": "must",
+  "steps": [
+    {
+      "title": "Use must, might, and can't to express logical conclusions.",
+      "description": "Subject + must/might/can't + base verb",
+      "formula": "Subject + must/might/can't + base verb",
+      "examples": [
+        {
+          "text": "She must be at work.",
+          "highlight": "must be"
+        },
+        {
+          "text": "It might rain later.",
+          "highlight": "might"
+        },
+        {
+          "text": "He can't be serious.",
+          "highlight": "can't be"
+        },
+        {
+          "text": "They must have left early.",
+          "highlight": "must have left"
+        },
+        {
+          "text": "This might be the wrong address.",
+          "highlight": "might be"
+        }
+      ],
+      "quickTip": "Complete: You ___ be hungry after that walk. (must)"
+    }
+  ]
+}

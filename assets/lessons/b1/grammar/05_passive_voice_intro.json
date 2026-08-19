@@ -1,0 +1,63 @@
+{
+  "id": "b1_grammar_05",
+  "cefrLevel": "B1",
+  "number": 5,
+  "title": "Passive Voice Intro",
+  "iconName": "grammar",
+  "rule": "The passive focuses on the action or object, not the doer.",
+  "pattern": "Subject + be + past participle (+ by agent)",
+  "examples": [
+    {
+      "text": "The letter was sent yesterday.",
+      "highlight": "was sent"
+    },
+    {
+      "text": "English is spoken worldwide.",
+      "highlight": "is spoken"
+    },
+    {
+      "text": "The cake was made by Anna.",
+      "highlight": "was made"
+    },
+    {
+      "text": "These phones are made in Korea.",
+      "highlight": "are made"
+    },
+    {
+      "text": "The window was broken.",
+      "highlight": "was broken"
+    }
+  ],
+  "practicePrompt": "Complete: The book ___ (write) in 1990.",
+  "practiceAnswer": "was written",
+  "steps": [
+    {
+      "title": "The passive focuses on the action or object, not the doer.",
+      "description": "Subject + be + past participle (+ by agent)",
+      "formula": "Subject + be + past participle (+ by agent)",
+      "examples": [
+        {
+          "text": "The letter was sent yesterday.",
+          "highlight": "was sent"
+        },
+        {
+          "text": "English is spoken worldwide.",
+          "highlight": "is spoken"
+        },
+        {
+          "text": "The cake was made by Anna.",
+          "highlight": "was made"
+        },
+        {
+          "text": "These phones are made in Korea.",
+          "highlight": "are made"
+        },
+        {
+          "text": "The window was broken.",
+          "highlight": "was broken"
+        }
+      ],
+      "quickTip": "Complete: The book ___ (write) in 1990. (was written)"
+    }
+  ]
+}

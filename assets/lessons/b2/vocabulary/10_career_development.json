@@ -1,0 +1,44 @@
+{
+  "id": "b2_vocab_10",
+  "cefrLevel": "B2",
+  "number": 10,
+  "title": "Career Development",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "networking",
+      "phonetic": "/ˈnɛtwɜːrkɪŋ/",
+      "partOfSpeech": "noun",
+      "definition": "Building professional contacts.",
+      "example": "Networking opened new opportunities."
+    },
+    {
+      "word": "mentorship",
+      "phonetic": "/ˈmɛntɔːrʃɪp/",
+      "partOfSpeech": "noun",
+      "definition": "Guidance from an experienced person.",
+      "example": "Mentorship accelerated her growth."
+    },
+    {
+      "word": "portfolio",
+      "phonetic": "/pɔːrtˈfoʊlioʊ/",
+      "partOfSpeech": "noun",
+      "definition": "A collection of work samples.",
+      "example": "Update your portfolio regularly."
+    },
+    {
+      "word": "resilience",
+      "phonetic": "/rɪˈzɪliəns/",
+      "partOfSpeech": "noun",
+      "definition": "Ability to recover from difficulty.",
+      "example": "Resilience helps during setbacks."
+    },
+    {
+      "word": "leadership",
+      "phonetic": "/ˈliːdərʃɪp/",
+      "partOfSpeech": "noun",
+      "definition": "The ability to guide others.",
+      "example": "Leadership requires clear communication."
+    }
+  ]
+}

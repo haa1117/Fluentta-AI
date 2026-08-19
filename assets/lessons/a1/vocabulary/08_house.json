@@ -1,0 +1,44 @@
+{
+  "id": "a1_vocab_08",
+  "cefrLevel": "A1",
+  "number": 8,
+  "title": "House",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "door",
+      "phonetic": "/dɔːr/",
+      "partOfSpeech": "noun",
+      "definition": "An entrance to a room or building.",
+      "example": "Please close the door."
+    },
+    {
+      "word": "window",
+      "phonetic": "/ˈwɪndoʊ/",
+      "partOfSpeech": "noun",
+      "definition": "An opening in a wall with glass.",
+      "example": "Open the window, please."
+    },
+    {
+      "word": "kitchen",
+      "phonetic": "/ˈkɪtʃɪn/",
+      "partOfSpeech": "noun",
+      "definition": "The room where food is cooked.",
+      "example": "She is in the kitchen."
+    },
+    {
+      "word": "bedroom",
+      "phonetic": "/ˈbɛdruːm/",
+      "partOfSpeech": "noun",
+      "definition": "A room for sleeping.",
+      "example": "My bedroom is small."
+    },
+    {
+      "word": "bathroom",
+      "phonetic": "/ˈbæθruːm/",
+      "partOfSpeech": "noun",
+      "definition": "A room with a toilet and shower.",
+      "example": "The bathroom is upstairs."
+    }
+  ]
+}

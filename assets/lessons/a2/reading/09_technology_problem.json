@@ -1,0 +1,64 @@
+{
+  "id": "a2_reading_09",
+  "cefrLevel": "A2",
+  "number": 9,
+  "title": "Technology Problem",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "User",
+      "text": "My computer won't start.",
+      "isUser": false
+    },
+    {
+      "speaker": "Support",
+      "text": "Did you try restarting it?",
+      "isUser": true
+    },
+    {
+      "speaker": "User",
+      "text": "Yes, several times.",
+      "isUser": false
+    },
+    {
+      "speaker": "Support",
+      "text": "Please bring it to our service center.",
+      "isUser": true
+    },
+    {
+      "speaker": "User",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What is the problem?",
+      "options": [
+        "Broken phone",
+        "Computer won't start",
+        "Lost password"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What does support suggest?",
+      "options": [
+        "Buy a new computer",
+        "Bring it to the service center",
+        "Wait one week"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Technology Problem Learned",
+  "completionSummary": "General technology problem conversation"
+}

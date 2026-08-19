@@ -1,0 +1,64 @@
+{
+  "id": "c1_reading_07",
+  "cefrLevel": "C1",
+  "number": 7,
+  "title": "Innovation Strategy",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The startup prioritized iterative prototyping over lengthy planning cycles.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "By releasing early versions to users, the team gathered feedback that shaped subsequent development and reduced costly assumptions.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What did the startup prioritize?",
+      "options": [
+        "Iterative prototyping",
+        "Avoiding users",
+        "Long planning only"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What benefit came from early releases?",
+      "options": [
+        "Less feedback",
+        "Feedback shaped development",
+        "Immediate profit guarantee"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Innovation Strategy Learned",
+  "completionSummary": "General innovation strategy conversation"
+}

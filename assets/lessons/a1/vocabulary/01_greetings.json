@@ -1,0 +1,44 @@
+{
+  "id": "a1_vocab_01",
+  "cefrLevel": "A1",
+  "number": 1,
+  "title": "Greetings",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "hello",
+      "phonetic": "/həˈloʊ/",
+      "partOfSpeech": "interjection",
+      "definition": "A friendly greeting.",
+      "example": "Hello! Nice to meet you."
+    },
+    {
+      "word": "goodbye",
+      "phonetic": "/ɡʊdˈbaɪ/",
+      "partOfSpeech": "interjection",
+      "definition": "A word said when leaving.",
+      "example": "Goodbye! See you tomorrow."
+    },
+    {
+      "word": "please",
+      "phonetic": "/pliːz/",
+      "partOfSpeech": "adverb",
+      "definition": "Used to make a request polite.",
+      "example": "Can I have water, please?"
+    },
+    {
+      "word": "thank you",
+      "phonetic": "/θæŋk juː/",
+      "partOfSpeech": "phrase",
+      "definition": "An expression of gratitude.",
+      "example": "Thank you for your help."
+    },
+    {
+      "word": "sorry",
+      "phonetic": "/ˈsɒri/",
+      "partOfSpeech": "adjective",
+      "definition": "An apology or expression of regret.",
+      "example": "Sorry, I am late."
+    }
+  ]
+}

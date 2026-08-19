@@ -1,0 +1,64 @@
+{
+  "id": "c1_reading_06",
+  "cefrLevel": "C1",
+  "number": 6,
+  "title": "Ethics Panel",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Panelist",
+      "text": "Transparency alone cannot guarantee accountability.",
+      "isUser": false
+    },
+    {
+      "speaker": "Speaker",
+      "text": "I agree—institutional oversight is also required.",
+      "isUser": true
+    },
+    {
+      "speaker": "Panelist",
+      "text": "Whistleblower protections remain inadequate.",
+      "isUser": false
+    },
+    {
+      "speaker": "Speaker",
+      "text": "Reform must address that gap.",
+      "isUser": true
+    },
+    {
+      "speaker": "Panelist",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What does the panelist say transparency cannot guarantee?",
+      "options": [
+        "Profit",
+        "Accountability",
+        "Innovation"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What protection is described as inadequate?",
+      "options": [
+        "Parking",
+        "Whistleblower protections",
+        "Vacation time"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Ethics Panel Learned",
+  "completionSummary": "General ethics panel conversation"
+}

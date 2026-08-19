@@ -1,0 +1,63 @@
+{
+  "id": "b1_grammar_07",
+  "cefrLevel": "B1",
+  "number": 7,
+  "title": "Reported Speech Intro",
+  "iconName": "grammar",
+  "rule": "Reported speech tells what someone said without exact words.",
+  "pattern": "Subject + said/told + (that) + clause (tense shift)",
+  "examples": [
+    {
+      "text": "She said she was tired.",
+      "highlight": "was"
+    },
+    {
+      "text": "He told me he would come.",
+      "highlight": "would come"
+    },
+    {
+      "text": "They said they had finished.",
+      "highlight": "had finished"
+    },
+    {
+      "text": "Anna said she liked the film.",
+      "highlight": "liked"
+    },
+    {
+      "text": "He told us not to wait.",
+      "highlight": "not to wait"
+    }
+  ],
+  "practicePrompt": "Complete: Tom said he ___ (can) help us.",
+  "practiceAnswer": "could",
+  "steps": [
+    {
+      "title": "Reported speech tells what someone said without exact words.",
+      "description": "Subject + said/told + (that) + clause (tense shift)",
+      "formula": "Subject + said/told + (that) + clause (tense shift)",
+      "examples": [
+        {
+          "text": "She said she was tired.",
+          "highlight": "was"
+        },
+        {
+          "text": "He told me he would come.",
+          "highlight": "would come"
+        },
+        {
+          "text": "They said they had finished.",
+          "highlight": "had finished"
+        },
+        {
+          "text": "Anna said she liked the film.",
+          "highlight": "liked"
+        },
+        {
+          "text": "He told us not to wait.",
+          "highlight": "not to wait"
+        }
+      ],
+      "quickTip": "Complete: Tom said he ___ (can) help us. (could)"
+    }
+  ]
+}

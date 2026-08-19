@@ -1,0 +1,44 @@
+{
+  "id": "b1_vocab_07",
+  "cefrLevel": "B1",
+  "number": 7,
+  "title": "Cooking",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "ingredient",
+      "phonetic": "/ɪnˈɡriːdiənt/",
+      "partOfSpeech": "noun",
+      "definition": "A food used in a recipe.",
+      "example": "List all the ingredients."
+    },
+    {
+      "word": "recipe",
+      "phonetic": "/ˈrɛsɪpi/",
+      "partOfSpeech": "noun",
+      "definition": "Instructions for cooking.",
+      "example": "Follow the recipe carefully."
+    },
+    {
+      "word": "chop",
+      "phonetic": "/tʃɒp/",
+      "partOfSpeech": "verb",
+      "definition": "To cut into pieces.",
+      "example": "Chop the onions finely."
+    },
+    {
+      "word": "boil",
+      "phonetic": "/bɔɪl/",
+      "partOfSpeech": "verb",
+      "definition": "To heat liquid until it bubbles.",
+      "example": "Boil the water first."
+    },
+    {
+      "word": "season",
+      "phonetic": "/ˈsiːzən/",
+      "partOfSpeech": "verb",
+      "definition": "To add salt, pepper, or spices.",
+      "example": "Season the soup to taste."
+    }
+  ]
+}

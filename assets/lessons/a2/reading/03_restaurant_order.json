@@ -1,0 +1,64 @@
+{
+  "id": "a2_reading_03",
+  "cefrLevel": "A2",
+  "number": 3,
+  "title": "Restaurant Order",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Waiter",
+      "text": "Are you ready to order?",
+      "isUser": false
+    },
+    {
+      "speaker": "Guest",
+      "text": "Yes, I'd like the chicken soup and salad.",
+      "isUser": true
+    },
+    {
+      "speaker": "Waiter",
+      "text": "Anything to drink?",
+      "isUser": false
+    },
+    {
+      "speaker": "Guest",
+      "text": "Water, please.",
+      "isUser": true
+    },
+    {
+      "speaker": "Waiter",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What food does the guest order?",
+      "options": [
+        "Pizza",
+        "Chicken soup and salad",
+        "Steak"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What drink does the guest choose?",
+      "options": [
+        "Juice",
+        "Water",
+        "Wine"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Restaurant Order Learned",
+  "completionSummary": "General restaurant order conversation"
+}

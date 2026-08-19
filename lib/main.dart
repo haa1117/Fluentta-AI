@@ -1,207 +1,153 @@
 import 'package:firebase_core/firebase_core.dart';
-
-import 'package:fluentta_ai/firebase_options.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:fluentta_ai/app_navigator.dart';
-
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
-
 import 'package:fluentta_ai/core/storage/local_storage.dart';
-
 import 'package:fluentta_ai/core/theme/app_theme.dart';
-
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
-
+import 'package:fluentta_ai/data/repositories/lesson_content_repository.dart';
+import 'package:fluentta_ai/data/repositories/progress_repository.dart';
+import 'package:fluentta_ai/data/repositories/progress_sync_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
-
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
+import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
-
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
-
 import 'package:fluentta_ai/viewmodels/grammar_view_model.dart';
-
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
-
 import 'package:fluentta_ai/viewmodels/learn_view_model.dart';
-
 import 'package:fluentta_ai/viewmodels/language_view_model.dart';
 import 'package:fluentta_ai/viewmodels/reading_view_model.dart';
-
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
-
 import 'package:fluentta_ai/viewmodels/subscription_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
-
 import 'package:provider/provider.dart';
-
-
+import 'package:fluentta_ai/firebase_options.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
-
     options: DefaultFirebaseOptions.currentPlatform,
-
   );
 
-
-
   final localStorage = await LocalStorage.getInstance();
-
   final userRepository = UserRepository(localStorage);
-
   final authRepository = AuthRepository(localStorage, userRepository);
-
-  await authRepository.initializeGoogleSignIn();
-
-  await authRepository.syncCurrentUser();
-
-
-
-  runApp(FluentaApp(
-
-    localStorage: localStorage,
-
-    authRepository: authRepository,
-
+  final lessonContentRepository = LessonContentRepository();
+  final progressRepository = ProgressRepository(localStorage);
+  final progressSyncRepository = ProgressSyncRepository();
+  final progressSyncService = ProgressSyncService(
+    progressRepository: progressRepository,
+    syncRepository: progressSyncRepository,
     userRepository: userRepository,
+    localStorage: localStorage,
+  );
+  final textToSpeechService = TextToSpeechService();
 
-  ));
+  await lessonContentRepository.initialize();
+  await progressRepository.initialize();
+  await authRepository.initializeGoogleSignIn();
+  await authRepository.syncCurrentUser();
+  await progressSyncService.pullAndMerge();
 
+  runApp(
+    FluentaApp(
+      localStorage: localStorage,
+      authRepository: authRepository,
+      userRepository: userRepository,
+      lessonContentRepository: lessonContentRepository,
+      progressRepository: progressRepository,
+      progressSyncService: progressSyncService,
+      textToSpeechService: textToSpeechService,
+    ),
+  );
 }
 
-
-
 class FluentaApp extends StatelessWidget {
-
   const FluentaApp({
-
     super.key,
-
     required this.localStorage,
-
     required this.authRepository,
-
     required this.userRepository,
-
+    required this.lessonContentRepository,
+    required this.progressRepository,
+    required this.progressSyncService,
+    required this.textToSpeechService,
   });
 
-
-
   final LocalStorage localStorage;
-
   final AuthRepository authRepository;
-
   final UserRepository userRepository;
-
-
+  final LessonContentRepository lessonContentRepository;
+  final ProgressRepository progressRepository;
+  final ProgressSyncService progressSyncService;
+  final TextToSpeechService textToSpeechService;
 
   @override
-
   Widget build(BuildContext context) {
-
     return MultiProvider(
-
       providers: [
-
         Provider<UserRepository>.value(value: userRepository),
-
         Provider<AuthRepository>.value(value: authRepository),
-
+        Provider<LessonContentRepository>.value(value: lessonContentRepository),
+        Provider<ProgressRepository>.value(value: progressRepository),
+        Provider<ProgressSyncService>.value(value: progressSyncService),
+        Provider<TextToSpeechService>.value(value: textToSpeechService),
         ChangeNotifierProvider(
-
           create: (_) => LocaleViewModel(localStorage),
-
         ),
-
         ChangeNotifierProvider(
-
           create: (_) => AuthViewModel(
-
             authRepository,
-
             userRepository,
-
             localStorage,
-
+            progressSyncService,
           ),
-
         ),
-
         ChangeNotifierProvider(
-
           create: (context) => LanguageViewModel(
-
             localStorage,
-
             userRepository,
-
             authRepository,
-
             context.read<LocaleViewModel>(),
-
           ),
-
         ),
-
         ChangeNotifierProvider(
-
           create: (_) => HomeViewModel(localStorage),
-
         ),
-
         ChangeNotifierProvider(
-
           create: (context) => LearnViewModel(
-
             localStorage,
-
             context.read<LocaleViewModel>(),
-
           ),
-
         ),
-
         ChangeNotifierProvider(
-
           create: (context) => GrammarViewModel(
-
             localStorage,
-
             context.read<LocaleViewModel>(),
-
+            context.read<LessonContentRepository>(),
+            context.read<ProgressRepository>(),
+            context.read<ProgressSyncService>(),
           ),
-
         ),
-
         ChangeNotifierProvider(
-
           create: (context) => ReadingViewModel(
-
             localStorage,
-
             context.read<LocaleViewModel>(),
-
+            context.read<LessonContentRepository>(),
+            context.read<ProgressRepository>(),
+            context.read<ProgressSyncService>(),
           ),
-
         ),
-
         ChangeNotifierProvider(
-
           create: (context) => VocabularyViewModel(
-
             localStorage,
-
             context.read<LocaleViewModel>(),
-
+            context.read<LessonContentRepository>(),
+            context.read<ProgressRepository>(),
+            context.read<ProgressSyncService>(),
           ),
-
         ),
-
         ChangeNotifierProvider(
           create: (context) => ProfileViewModel(
             localStorage,
@@ -215,45 +161,23 @@ class FluentaApp extends StatelessWidget {
           ),
         ),
       ],
-
       child: Consumer<LocaleViewModel>(
-
         builder: (context, localeViewModel, _) {
-
           return MaterialApp(
-
             title: 'Fluenta',
-
             debugShowCheckedModeBanner: false,
-
             theme: AppTheme.lightTheme,
-
             locale: localeViewModel.locale,
-
             localizationsDelegates: AppLocalizations.localizationsDelegates,
-
             supportedLocales: AppLocalizations.supportedLocales,
-
             home: AppNavigator(
-
               localStorage: localStorage,
-
               authRepository: authRepository,
-
               userRepository: userRepository,
-
             ),
-
           );
-
         },
-
       ),
-
     );
-
   }
-
 }
-
-

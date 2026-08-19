@@ -92,9 +92,21 @@ class LocalizedContent {
             svgIcon: 'assets/svg/intermediatate.svg',
           ),
           SetupOptionModel(
-            id: 'advanced',
-            title: l10n.levelAdvanced,
-            subtitle: l10n.levelAdvancedSub,
+            id: 'upper_intermediate',
+            title: l10n.levelUpperIntermediate,
+            subtitle: l10n.levelUpperIntermediateSub,
+            svgIcon: 'assets/svg/rocket.svg',
+          ),
+          SetupOptionModel(
+            id: 'advanced_c1',
+            title: l10n.levelAdvancedC1,
+            subtitle: l10n.levelAdvancedC1Sub,
+            svgIcon: 'assets/svg/rocket.svg',
+          ),
+          SetupOptionModel(
+            id: 'proficient_c2',
+            title: l10n.levelProficientC2,
+            subtitle: l10n.levelProficientC2Sub,
             svgIcon: 'assets/svg/rocket.svg',
           ),
         ],
@@ -132,7 +144,10 @@ class LocalizedContent {
     return switch (englishLevel) {
       'elementary' => l10n.levelA2,
       'intermediate' => l10n.levelB1,
+      'upper_intermediate' => l10n.levelB2,
       'advanced' => l10n.levelB2,
+      'advanced_c1' => l10n.levelC1,
+      'proficient_c2' => l10n.levelC2,
       _ => l10n.levelA1,
     };
   }

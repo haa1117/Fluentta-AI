@@ -1,0 +1,44 @@
+{
+  "id": "c2_vocab_07",
+  "cefrLevel": "C2",
+  "number": 7,
+  "title": "Artificial Intelligence",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "algorithmic bias",
+      "phonetic": "/ˌælɡəˈrɪðmɪk ˈbaɪəs/",
+      "partOfSpeech": "noun",
+      "definition": "Unfair outcomes from AI systems.",
+      "example": "Algorithmic bias must be addressed."
+    },
+    {
+      "word": "autonomous",
+      "phonetic": "/ɔːˈtɒnəməs/",
+      "partOfSpeech": "adjective",
+      "definition": "Operating independently.",
+      "example": "Autonomous vehicles are being tested."
+    },
+    {
+      "word": "generalization",
+      "phonetic": "/ˌdʒɛnərəlɪˈzeɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Applying learned patterns broadly.",
+      "example": "Poor generalization limits the model."
+    },
+    {
+      "word": "interpretability",
+      "phonetic": "/ɪnˌtɜːrprɪtəˈbɪlɪti/",
+      "partOfSpeech": "noun",
+      "definition": "Ability to explain AI decisions.",
+      "example": "Interpretability builds user trust."
+    },
+    {
+      "word": "singularity",
+      "phonetic": "/ˌsɪŋɡjuˈlærɪti/",
+      "partOfSpeech": "noun",
+      "definition": "Hypothetical AI surpassing humans.",
+      "example": "The singularity remains speculative."
+    }
+  ]
+}

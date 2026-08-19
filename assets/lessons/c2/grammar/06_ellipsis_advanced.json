@@ -1,0 +1,63 @@
+{
+  "id": "c2_grammar_06",
+  "cefrLevel": "C2",
+  "number": 6,
+  "title": "Ellipsis Advanced",
+  "iconName": "grammar",
+  "rule": "Advanced ellipsis removes clauses while preserving precise meaning.",
+  "pattern": "gapping, stripping, sluicing",
+  "examples": [
+    {
+      "text": "Some supported the plan, others opposed.",
+      "highlight": "others opposed"
+    },
+    {
+      "text": "He will resign, though reluctantly.",
+      "highlight": "though reluctantly"
+    },
+    {
+      "text": "She said she would call, but didn't.",
+      "highlight": "didn't"
+    },
+    {
+      "text": "Who called? — John.",
+      "highlight": "John"
+    },
+    {
+      "text": "If not now, when?",
+      "highlight": "If not now"
+    }
+  ],
+  "practicePrompt": "Complete: A: Finished the report? B: Not yet, but I will ___.",
+  "practiceAnswer": "soon",
+  "steps": [
+    {
+      "title": "Advanced ellipsis removes clauses while preserving precise meaning.",
+      "description": "gapping, stripping, sluicing",
+      "formula": "gapping, stripping, sluicing",
+      "examples": [
+        {
+          "text": "Some supported the plan, others opposed.",
+          "highlight": "others opposed"
+        },
+        {
+          "text": "He will resign, though reluctantly.",
+          "highlight": "though reluctantly"
+        },
+        {
+          "text": "She said she would call, but didn't.",
+          "highlight": "didn't"
+        },
+        {
+          "text": "Who called? — John.",
+          "highlight": "John"
+        },
+        {
+          "text": "If not now, when?",
+          "highlight": "If not now"
+        }
+      ],
+      "quickTip": "Complete: A: Finished the report? B: Not yet, but I will ___. (soon)"
+    }
+  ]
+}

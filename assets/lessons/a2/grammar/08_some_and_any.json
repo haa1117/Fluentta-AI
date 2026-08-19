@@ -1,0 +1,63 @@
+{
+  "id": "a2_grammar_08",
+  "cefrLevel": "A2",
+  "number": 8,
+  "title": "Some and Any",
+  "iconName": "grammar",
+  "rule": "Use some in positive sentences; any in questions and negatives.",
+  "pattern": "some/any + noun",
+  "examples": [
+    {
+      "text": "I have some friends here.",
+      "highlight": "some"
+    },
+    {
+      "text": "Do you have any questions?",
+      "highlight": "any"
+    },
+    {
+      "text": "There aren't any tickets left.",
+      "highlight": "any"
+    },
+    {
+      "text": "She bought some bread.",
+      "highlight": "some"
+    },
+    {
+      "text": "Is there any coffee?",
+      "highlight": "any"
+    }
+  ],
+  "practicePrompt": "Complete: We don't have ___ time.",
+  "practiceAnswer": "any",
+  "steps": [
+    {
+      "title": "Use some in positive sentences; any in questions and negatives.",
+      "description": "some/any + noun",
+      "formula": "some/any + noun",
+      "examples": [
+        {
+          "text": "I have some friends here.",
+          "highlight": "some"
+        },
+        {
+          "text": "Do you have any questions?",
+          "highlight": "any"
+        },
+        {
+          "text": "There aren't any tickets left.",
+          "highlight": "any"
+        },
+        {
+          "text": "She bought some bread.",
+          "highlight": "some"
+        },
+        {
+          "text": "Is there any coffee?",
+          "highlight": "any"
+        }
+      ],
+      "quickTip": "Complete: We don't have ___ time. (any)"
+    }
+  ]
+}

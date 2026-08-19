@@ -864,6 +864,42 @@ abstract class AppLocalizations {
   /// **'B1 · Can hold simple conversation'**
   String get levelIntermediateSub;
 
+  /// No description provided for @levelUpperIntermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper-Intermediate'**
+  String get levelUpperIntermediate;
+
+  /// No description provided for @levelUpperIntermediateSub.
+  ///
+  /// In en, this message translates to:
+  /// **'B2 · Can interact with fluency'**
+  String get levelUpperIntermediateSub;
+
+  /// No description provided for @levelAdvancedC1.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get levelAdvancedC1;
+
+  /// No description provided for @levelAdvancedC1Sub.
+  ///
+  /// In en, this message translates to:
+  /// **'C1 · Can express ideas fluently'**
+  String get levelAdvancedC1Sub;
+
+  /// No description provided for @levelProficientC2.
+  ///
+  /// In en, this message translates to:
+  /// **'Proficient'**
+  String get levelProficientC2;
+
+  /// No description provided for @levelProficientC2Sub.
+  ///
+  /// In en, this message translates to:
+  /// **'C2 · Near-native mastery'**
+  String get levelProficientC2Sub;
+
   /// No description provided for @levelAdvanced.
   ///
   /// In en, this message translates to:
@@ -1224,6 +1260,12 @@ abstract class AppLocalizations {
   /// **'Removed from saved words'**
   String get wordRemoved;
 
+  /// No description provided for @listenUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio playback is not available on this device.'**
+  String get listenUnavailable;
+
   /// No description provided for @aiTutor.
   ///
   /// In en, this message translates to:
@@ -1488,6 +1530,12 @@ abstract class AppLocalizations {
   /// **'Dialogue Part {part}'**
   String readingDialoguePart(int part);
 
+  /// No description provided for @readingPassagePart.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading Part {part}'**
+  String readingPassagePart(int part);
+
   /// No description provided for @readingManager.
   ///
   /// In en, this message translates to:
@@ -1539,8 +1587,20 @@ abstract class AppLocalizations {
   /// No description provided for @levelB2.
   ///
   /// In en, this message translates to:
-  /// **'B2+'**
+  /// **'B2'**
   String get levelB2;
+
+  /// No description provided for @levelC1.
+  ///
+  /// In en, this message translates to:
+  /// **'C1'**
+  String get levelC1;
+
+  /// No description provided for @levelC2.
+  ///
+  /// In en, this message translates to:
+  /// **'C2'**
+  String get levelC2;
 
   /// No description provided for @profileTitle.
   ///

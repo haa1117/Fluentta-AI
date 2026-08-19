@@ -1,0 +1,44 @@
+{
+  "id": "b2_vocab_09",
+  "cefrLevel": "B2",
+  "number": 9,
+  "title": "Nutrition",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "nutrient",
+      "phonetic": "/ˈnjuːtriənt/",
+      "partOfSpeech": "noun",
+      "definition": "A substance needed for health.",
+      "example": "Vegetables provide essential nutrients."
+    },
+    {
+      "word": "balanced",
+      "phonetic": "/ˈbælənst/",
+      "partOfSpeech": "adjective",
+      "definition": "Including different types in good amounts.",
+      "example": "Eat a balanced diet."
+    },
+    {
+      "word": "calorie",
+      "phonetic": "/ˈkæləri/",
+      "partOfSpeech": "noun",
+      "definition": "A unit of energy in food.",
+      "example": "Track your daily calorie intake."
+    },
+    {
+      "word": "deficiency",
+      "phonetic": "/dɪˈfɪʃənsi/",
+      "partOfSpeech": "noun",
+      "definition": "A lack of something needed.",
+      "example": "Iron deficiency is common."
+    },
+    {
+      "word": "organic",
+      "phonetic": "/ɔːrˈɡænɪk/",
+      "partOfSpeech": "adjective",
+      "definition": "Produced without artificial chemicals.",
+      "example": "She buys organic vegetables."
+    }
+  ]
+}

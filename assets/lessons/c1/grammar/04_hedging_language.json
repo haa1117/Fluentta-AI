@@ -1,0 +1,63 @@
+{
+  "id": "c1_grammar_04",
+  "cefrLevel": "C1",
+  "number": 4,
+  "title": "Hedging Language",
+  "iconName": "grammar",
+  "rule": "Hedging softens claims in academic and professional contexts.",
+  "pattern": "modal/adverb + tentative verb (may, tend to, appear to)",
+  "examples": [
+    {
+      "text": "The data suggest a possible link.",
+      "highlight": "suggest"
+    },
+    {
+      "text": "This may indicate a trend.",
+      "highlight": "may indicate"
+    },
+    {
+      "text": "Results appear to support the theory.",
+      "highlight": "appear to support"
+    },
+    {
+      "text": "It seems likely that costs will rise.",
+      "highlight": "seems likely"
+    },
+    {
+      "text": "The effect tends to be temporary.",
+      "highlight": "tends to be"
+    }
+  ],
+  "practicePrompt": "Complete: The findings ___ (appear) to confirm earlier research.",
+  "practiceAnswer": "appear",
+  "steps": [
+    {
+      "title": "Hedging softens claims in academic and professional contexts.",
+      "description": "modal/adverb + tentative verb (may, tend to, appear to)",
+      "formula": "modal/adverb + tentative verb (may, tend to, appear to)",
+      "examples": [
+        {
+          "text": "The data suggest a possible link.",
+          "highlight": "suggest"
+        },
+        {
+          "text": "This may indicate a trend.",
+          "highlight": "may indicate"
+        },
+        {
+          "text": "Results appear to support the theory.",
+          "highlight": "appear to support"
+        },
+        {
+          "text": "It seems likely that costs will rise.",
+          "highlight": "seems likely"
+        },
+        {
+          "text": "The effect tends to be temporary.",
+          "highlight": "tends to be"
+        }
+      ],
+      "quickTip": "Complete: The findings ___ (appear) to confirm earlier research. (appear)"
+    }
+  ]
+}

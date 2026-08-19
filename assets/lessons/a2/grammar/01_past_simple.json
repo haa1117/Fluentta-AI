@@ -1,0 +1,63 @@
+{
+  "id": "a2_grammar_01",
+  "cefrLevel": "A2",
+  "number": 1,
+  "title": "Past Simple",
+  "iconName": "grammar",
+  "rule": "Use the past simple for completed actions in the past.",
+  "pattern": "Subject + past verb (+ed or irregular)",
+  "examples": [
+    {
+      "text": "I visited Paris last year.",
+      "highlight": "visited"
+    },
+    {
+      "text": "She didn't go to work.",
+      "highlight": "didn't"
+    },
+    {
+      "text": "Did you see the film?",
+      "highlight": "Did"
+    },
+    {
+      "text": "They arrived late.",
+      "highlight": "arrived"
+    },
+    {
+      "text": "He bought a new coat.",
+      "highlight": "bought"
+    }
+  ],
+  "practicePrompt": "Complete: We ___ (walk) to school yesterday.",
+  "practiceAnswer": "walked",
+  "steps": [
+    {
+      "title": "Use the past simple for completed actions in the past.",
+      "description": "Subject + past verb (+ed or irregular)",
+      "formula": "Subject + past verb (+ed or irregular)",
+      "examples": [
+        {
+          "text": "I visited Paris last year.",
+          "highlight": "visited"
+        },
+        {
+          "text": "She didn't go to work.",
+          "highlight": "didn't"
+        },
+        {
+          "text": "Did you see the film?",
+          "highlight": "Did"
+        },
+        {
+          "text": "They arrived late.",
+          "highlight": "arrived"
+        },
+        {
+          "text": "He bought a new coat.",
+          "highlight": "bought"
+        }
+      ],
+      "quickTip": "Complete: We ___ (walk) to school yesterday. (walked)"
+    }
+  ]
+}

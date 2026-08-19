@@ -1,0 +1,84 @@
+{
+  "id": "a1_reading_05",
+  "cefrLevel": "A1",
+  "number": 5,
+  "title": "My Home",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "My home has three rooms.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "There is a kitchen, a bedroom, and a bathroom.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The kitchen is big.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "I like to cook there.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "My bedroom is small but comfortable.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "How many rooms are in the home?",
+      "options": [
+        "Two",
+        "Three",
+        "Four"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "Which room is big?",
+      "options": [
+        "Bedroom",
+        "Bathroom",
+        "Kitchen"
+      ],
+      "correctIndex": 2
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "My Home Learned",
+  "completionSummary": "General my home conversation"
+}

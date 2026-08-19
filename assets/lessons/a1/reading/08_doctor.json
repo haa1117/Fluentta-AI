@@ -1,0 +1,64 @@
+{
+  "id": "a1_reading_08",
+  "cefrLevel": "A1",
+  "number": 8,
+  "title": "Doctor",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Doctor",
+      "text": "Hello. How do you feel today?",
+      "isUser": false
+    },
+    {
+      "speaker": "Patient",
+      "text": "I have a headache.",
+      "isUser": true
+    },
+    {
+      "speaker": "Doctor",
+      "text": "Do you have a fever?",
+      "isUser": false
+    },
+    {
+      "speaker": "Patient",
+      "text": "No, just a headache.",
+      "isUser": true
+    },
+    {
+      "speaker": "Doctor",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What is wrong with the patient?",
+      "options": [
+        "A headache",
+        "A broken leg",
+        "A cough"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "Does the patient have a fever?",
+      "options": [
+        "Yes",
+        "No",
+        "Maybe"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Doctor Learned",
+  "completionSummary": "General doctor conversation"
+}

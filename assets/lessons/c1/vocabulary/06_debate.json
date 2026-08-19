@@ -1,0 +1,44 @@
+{
+  "id": "c1_vocab_06",
+  "cefrLevel": "C1",
+  "number": 6,
+  "title": "Debate",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "rhetoric",
+      "phonetic": "/ˈrɛtərɪk/",
+      "partOfSpeech": "noun",
+      "definition": "The art of persuasive speaking.",
+      "example": "His rhetoric swayed the audience."
+    },
+    {
+      "word": "rebuttal",
+      "phonetic": "/rɪˈbʌtəl/",
+      "partOfSpeech": "noun",
+      "definition": "An argument against a claim.",
+      "example": "She offered a strong rebuttal."
+    },
+    {
+      "word": "contentious",
+      "phonetic": "/kənˈtɛnʃəs/",
+      "partOfSpeech": "adjective",
+      "definition": "Causing disagreement.",
+      "example": "It is a contentious issue."
+    },
+    {
+      "word": "consensus",
+      "phonetic": "/kənˈsɛnsəs/",
+      "partOfSpeech": "noun",
+      "definition": "General agreement.",
+      "example": "They reached a consensus."
+    },
+    {
+      "word": "fallacy",
+      "phonetic": "/ˈfæləsi/",
+      "partOfSpeech": "noun",
+      "definition": "A mistaken belief or argument.",
+      "example": "Avoid logical fallacies."
+    }
+  ]
+}

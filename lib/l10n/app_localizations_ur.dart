@@ -423,6 +423,24 @@ class AppLocalizationsUr extends AppLocalizations {
   String get levelIntermediateSub => 'B1 · سادہ گفتگو کر سکتے ہیں';
 
   @override
+  String get levelUpperIntermediate => 'Upper-Intermediate';
+
+  @override
+  String get levelUpperIntermediateSub => 'B2 · روانی سے بات چیت';
+
+  @override
+  String get levelAdvancedC1 => 'Advanced';
+
+  @override
+  String get levelAdvancedC1Sub => 'C1 · روانی سے خیالات';
+
+  @override
+  String get levelProficientC2 => 'Proficient';
+
+  @override
+  String get levelProficientC2Sub => 'C2 · ماہر سطح';
+
+  @override
   String get levelAdvanced => 'اعلیٰ';
 
   @override
@@ -621,6 +639,9 @@ class AppLocalizationsUr extends AppLocalizations {
   String get wordRemoved => 'محفوظ الفاظ سے ہٹایا گیا';
 
   @override
+  String get listenUnavailable => 'اس ڈیوائس پر آڈیو چلانا دستیاب نہیں ہے۔';
+
+  @override
   String get aiTutor => 'AI ٹیوٹر';
 
   @override
@@ -760,6 +781,11 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
+  String readingPassagePart(int part) {
+    return 'پڑھائی حصہ $part';
+  }
+
+  @override
   String get readingManager => 'مینیجر';
 
   @override
@@ -785,7 +811,13 @@ class AppLocalizationsUr extends AppLocalizations {
   String get levelB1 => 'B1';
 
   @override
-  String get levelB2 => 'B2+';
+  String get levelB2 => 'B2';
+
+  @override
+  String get levelC1 => 'C1';
+
+  @override
+  String get levelC2 => 'C2';
 
   @override
   String get profileTitle => 'پروفائل';

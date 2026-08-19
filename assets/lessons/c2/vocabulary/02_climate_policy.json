@@ -1,0 +1,44 @@
+{
+  "id": "c2_vocab_02",
+  "cefrLevel": "C2",
+  "number": 2,
+  "title": "Climate Policy",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "decarbonization",
+      "phonetic": "/diːˌkɑːrbənaɪˈzeɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Reducing carbon emissions.",
+      "example": "Decarbonization requires investment."
+    },
+    {
+      "word": "mitigation",
+      "phonetic": "/ˌmɪtɪˈɡeɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Action to reduce harm.",
+      "example": "Mitigation plans were approved."
+    },
+    {
+      "word": "adaptation",
+      "phonetic": "/ˌædæpˈteɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Adjusting to new conditions.",
+      "example": "Coastal adaptation is urgent."
+    },
+    {
+      "word": "biodiversity",
+      "phonetic": "/ˌbaɪoʊdaɪˈvɜːrsɪti/",
+      "partOfSpeech": "noun",
+      "definition": "Variety of life on Earth.",
+      "example": "Biodiversity loss accelerates extinction."
+    },
+    {
+      "word": "net-zero",
+      "phonetic": "/nɛt ˈzɪroʊ/",
+      "partOfSpeech": "adjective",
+      "definition": "Balancing emissions with removal.",
+      "example": "The company pledged net-zero by 2040."
+    }
+  ]
+}

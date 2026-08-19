@@ -1,0 +1,44 @@
+{
+  "id": "b2_vocab_08",
+  "cefrLevel": "B2",
+  "number": 8,
+  "title": "Law and Rights",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "justice",
+      "phonetic": "/ˈdʒʌstɪs/",
+      "partOfSpeech": "noun",
+      "definition": "Fair treatment under the law.",
+      "example": "Everyone deserves justice."
+    },
+    {
+      "word": "verdict",
+      "phonetic": "/ˈvɜːrdɪkt/",
+      "partOfSpeech": "noun",
+      "definition": "A decision in court.",
+      "example": "The jury reached a verdict."
+    },
+    {
+      "word": "witness",
+      "phonetic": "/ˈwɪtnəs/",
+      "partOfSpeech": "noun",
+      "definition": "A person who saw an event.",
+      "example": "The witness testified in court."
+    },
+    {
+      "word": "rights",
+      "phonetic": "/raɪts/",
+      "partOfSpeech": "noun",
+      "definition": "Legal or moral freedoms.",
+      "example": "Human rights must be protected."
+    },
+    {
+      "word": "regulation",
+      "phonetic": "/ˌrɛɡjuˈleɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "An official rule.",
+      "example": "New regulations take effect Monday."
+    }
+  ]
+}

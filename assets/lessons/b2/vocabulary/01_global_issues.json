@@ -1,0 +1,44 @@
+{
+  "id": "b2_vocab_01",
+  "cefrLevel": "B2",
+  "number": 1,
+  "title": "Global Issues",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "inequality",
+      "phonetic": "/ˌɪnɪˈkwɒlɪti/",
+      "partOfSpeech": "noun",
+      "definition": "Unfair differences between groups.",
+      "example": "Income inequality is growing."
+    },
+    {
+      "word": "poverty",
+      "phonetic": "/ˈpɒvərti/",
+      "partOfSpeech": "noun",
+      "definition": "The state of being very poor.",
+      "example": "Programs aim to reduce poverty."
+    },
+    {
+      "word": "refugee",
+      "phonetic": "/ˌrɛfjuˈdʒiː/",
+      "partOfSpeech": "noun",
+      "definition": "A person forced to leave their country.",
+      "example": "Refugees need safe shelter."
+    },
+    {
+      "word": "humanitarian",
+      "phonetic": "/hjuːˌmænɪˈtɛəriən/",
+      "partOfSpeech": "adjective",
+      "definition": "Concerned with reducing suffering.",
+      "example": "Humanitarian aid arrived quickly."
+    },
+    {
+      "word": "sustainability",
+      "phonetic": "/səˌsteɪnəˈbɪlɪti/",
+      "partOfSpeech": "noun",
+      "definition": "Using resources without destroying them.",
+      "example": "Sustainability guides our policy."
+    }
+  ]
+}

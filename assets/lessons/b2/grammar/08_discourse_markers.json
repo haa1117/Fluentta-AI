@@ -1,0 +1,63 @@
+{
+  "id": "b2_grammar_08",
+  "cefrLevel": "B2",
+  "number": 8,
+  "title": "Discourse Markers",
+  "iconName": "grammar",
+  "rule": "Discourse markers connect ideas in speech and writing.",
+  "pattern": "marker + clause (however, therefore, moreover)",
+  "examples": [
+    {
+      "text": "However, the results were inconclusive.",
+      "highlight": "However"
+    },
+    {
+      "text": "Therefore, we changed our approach.",
+      "highlight": "Therefore"
+    },
+    {
+      "text": "Moreover, costs increased sharply.",
+      "highlight": "Moreover"
+    },
+    {
+      "text": "On the other hand, quality improved.",
+      "highlight": "On the other hand"
+    },
+    {
+      "text": "Nevertheless, the project continued.",
+      "highlight": "Nevertheless"
+    }
+  ],
+  "practicePrompt": "Complete: ___, we need more data before deciding.",
+  "practiceAnswer": "Therefore",
+  "steps": [
+    {
+      "title": "Discourse markers connect ideas in speech and writing.",
+      "description": "marker + clause (however, therefore, moreover)",
+      "formula": "marker + clause (however, therefore, moreover)",
+      "examples": [
+        {
+          "text": "However, the results were inconclusive.",
+          "highlight": "However"
+        },
+        {
+          "text": "Therefore, we changed our approach.",
+          "highlight": "Therefore"
+        },
+        {
+          "text": "Moreover, costs increased sharply.",
+          "highlight": "Moreover"
+        },
+        {
+          "text": "On the other hand, quality improved.",
+          "highlight": "On the other hand"
+        },
+        {
+          "text": "Nevertheless, the project continued.",
+          "highlight": "Nevertheless"
+        }
+      ],
+      "quickTip": "Complete: ___, we need more data before deciding. (Therefore)"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "a1_vocab_03",
+  "cefrLevel": "A1",
+  "number": 3,
+  "title": "Family",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "mother",
+      "phonetic": "/ˈmʌðər/",
+      "partOfSpeech": "noun",
+      "definition": "A female parent.",
+      "example": "My mother cooks dinner."
+    },
+    {
+      "word": "father",
+      "phonetic": "/ˈfɑːðər/",
+      "partOfSpeech": "noun",
+      "definition": "A male parent.",
+      "example": "His father is a teacher."
+    },
+    {
+      "word": "sister",
+      "phonetic": "/ˈsɪstər/",
+      "partOfSpeech": "noun",
+      "definition": "A female sibling.",
+      "example": "I have one sister."
+    },
+    {
+      "word": "brother",
+      "phonetic": "/ˈbrʌðər/",
+      "partOfSpeech": "noun",
+      "definition": "A male sibling.",
+      "example": "Her brother plays football."
+    },
+    {
+      "word": "child",
+      "phonetic": "/tʃaɪld/",
+      "partOfSpeech": "noun",
+      "definition": "A young person.",
+      "example": "The child is happy."
+    }
+  ]
+}

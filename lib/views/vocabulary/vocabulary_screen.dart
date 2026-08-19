@@ -17,6 +17,19 @@ class VocabularyScreen extends StatelessWidget {
     final l10n = context.l10n;
     final viewModel = context.watch<VocabularyViewModel>();
 
+    if (viewModel.isLoading) {
+      return Scaffold(
+        backgroundColor: AppColors.scaffoldBackgroundColor,
+        appBar: AppBarWidget(
+          title: l10n.vocabulary,
+          showBackButton: true,
+          centerTitle: true,
+          showActionButton: false,
+        ),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
       appBar: AppBarWidget(

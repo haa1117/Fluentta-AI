@@ -1,0 +1,44 @@
+{
+  "id": "c1_vocab_08",
+  "cefrLevel": "C1",
+  "number": 8,
+  "title": "Innovation",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "disruptive",
+      "phonetic": "/dɪsˈrʌptɪv/",
+      "partOfSpeech": "adjective",
+      "definition": "Causing major change in an industry.",
+      "example": "Disruptive technology reshaped retail."
+    },
+    {
+      "word": "prototype",
+      "phonetic": "/ˈproʊtətaɪp/",
+      "partOfSpeech": "noun",
+      "definition": "An early model of a product.",
+      "example": "They tested a working prototype."
+    },
+    {
+      "word": "scalable",
+      "phonetic": "/ˈskeɪləbəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Able to grow efficiently.",
+      "example": "The platform is highly scalable."
+    },
+    {
+      "word": "iteration",
+      "phonetic": "/ˌɪtəˈreɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A repeated version improving on the last.",
+      "example": "Each iteration fixed bugs."
+    },
+    {
+      "word": "automation",
+      "phonetic": "/ˌɔːtəˈmeɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Use of machines to do work.",
+      "example": "Automation increased productivity."
+    }
+  ]
+}

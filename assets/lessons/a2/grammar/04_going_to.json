@@ -1,0 +1,63 @@
+{
+  "id": "a2_grammar_04",
+  "cefrLevel": "A2",
+  "number": 4,
+  "title": "Going To",
+  "iconName": "grammar",
+  "rule": "Use going to for plans and evidence-based predictions.",
+  "pattern": "Subject + am/is/are + going to + base verb",
+  "examples": [
+    {
+      "text": "We are going to travel in June.",
+      "highlight": "going to"
+    },
+    {
+      "text": "She is going to study medicine.",
+      "highlight": "going to"
+    },
+    {
+      "text": "They aren't going to wait.",
+      "highlight": "going to"
+    },
+    {
+      "text": "Is he going to move?",
+      "highlight": "going to"
+    },
+    {
+      "text": "Look at those clouds—it is going to rain.",
+      "highlight": "going to"
+    }
+  ],
+  "practicePrompt": "Complete: I ___ visit my parents this weekend.",
+  "practiceAnswer": "am going to",
+  "steps": [
+    {
+      "title": "Use going to for plans and evidence-based predictions.",
+      "description": "Subject + am/is/are + going to + base verb",
+      "formula": "Subject + am/is/are + going to + base verb",
+      "examples": [
+        {
+          "text": "We are going to travel in June.",
+          "highlight": "going to"
+        },
+        {
+          "text": "She is going to study medicine.",
+          "highlight": "going to"
+        },
+        {
+          "text": "They aren't going to wait.",
+          "highlight": "going to"
+        },
+        {
+          "text": "Is he going to move?",
+          "highlight": "going to"
+        },
+        {
+          "text": "Look at those clouds—it is going to rain.",
+          "highlight": "going to"
+        }
+      ],
+      "quickTip": "Complete: I ___ visit my parents this weekend. (am going to)"
+    }
+  ]
+}

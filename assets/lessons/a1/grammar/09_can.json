@@ -1,0 +1,63 @@
+{
+  "id": "a1_grammar_09",
+  "cefrLevel": "A1",
+  "number": 9,
+  "title": "Can",
+  "iconName": "grammar",
+  "rule": "Use can to talk about ability and permission.",
+  "pattern": "Subject + can + base verb",
+  "examples": [
+    {
+      "text": "I can swim.",
+      "highlight": "can"
+    },
+    {
+      "text": "She can speak Spanish.",
+      "highlight": "can"
+    },
+    {
+      "text": "Can you help me?",
+      "highlight": "Can"
+    },
+    {
+      "text": "We can meet tomorrow.",
+      "highlight": "can"
+    },
+    {
+      "text": "He can't drive yet.",
+      "highlight": "can't"
+    }
+  ],
+  "practicePrompt": "Complete: They ___ play the guitar.",
+  "practiceAnswer": "can",
+  "steps": [
+    {
+      "title": "Use can to talk about ability and permission.",
+      "description": "Subject + can + base verb",
+      "formula": "Subject + can + base verb",
+      "examples": [
+        {
+          "text": "I can swim.",
+          "highlight": "can"
+        },
+        {
+          "text": "She can speak Spanish.",
+          "highlight": "can"
+        },
+        {
+          "text": "Can you help me?",
+          "highlight": "Can"
+        },
+        {
+          "text": "We can meet tomorrow.",
+          "highlight": "can"
+        },
+        {
+          "text": "He can't drive yet.",
+          "highlight": "can't"
+        }
+      ],
+      "quickTip": "Complete: They ___ play the guitar. (can)"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "c1_vocab_02",
+  "cefrLevel": "C1",
+  "number": 2,
+  "title": "Economics",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "inflation",
+      "phonetic": "/ɪnˈfleɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A general rise in prices.",
+      "example": "Inflation reduced purchasing power."
+    },
+    {
+      "word": "recession",
+      "phonetic": "/rɪˈsɛʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A period of economic decline.",
+      "example": "The recession affected employment."
+    },
+    {
+      "word": "fiscal",
+      "phonetic": "/ˈfɪskəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Related to government revenue.",
+      "example": "Fiscal policy was tightened."
+    },
+    {
+      "word": "commodity",
+      "phonetic": "/kəˈmɒdɪti/",
+      "partOfSpeech": "noun",
+      "definition": "A basic good traded widely.",
+      "example": "Oil is a valuable commodity."
+    },
+    {
+      "word": "stimulus",
+      "phonetic": "/ˈstɪmjələs/",
+      "partOfSpeech": "noun",
+      "definition": "Government spending to boost the economy.",
+      "example": "The stimulus package passed quickly."
+    }
+  ]
+}

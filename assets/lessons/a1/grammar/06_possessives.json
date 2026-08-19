@@ -1,0 +1,63 @@
+{
+  "id": "a1_grammar_06",
+  "cefrLevel": "A1",
+  "number": 6,
+  "title": "Possessives",
+  "iconName": "grammar",
+  "rule": "Possessive adjectives show who something belongs to.",
+  "pattern": "my / your / his / her / its / our / their + noun",
+  "examples": [
+    {
+      "text": "This is my house.",
+      "highlight": "my"
+    },
+    {
+      "text": "Is that your bag?",
+      "highlight": "your"
+    },
+    {
+      "text": "His name is Tom.",
+      "highlight": "His"
+    },
+    {
+      "text": "Her phone is new.",
+      "highlight": "Her"
+    },
+    {
+      "text": "Their dog is friendly.",
+      "highlight": "Their"
+    }
+  ],
+  "practicePrompt": "Complete: ___ name is Anna. (she)",
+  "practiceAnswer": "Her",
+  "steps": [
+    {
+      "title": "Possessive adjectives show who something belongs to.",
+      "description": "my / your / his / her / its / our / their + noun",
+      "formula": "my / your / his / her / its / our / their + noun",
+      "examples": [
+        {
+          "text": "This is my house.",
+          "highlight": "my"
+        },
+        {
+          "text": "Is that your bag?",
+          "highlight": "your"
+        },
+        {
+          "text": "His name is Tom.",
+          "highlight": "His"
+        },
+        {
+          "text": "Her phone is new.",
+          "highlight": "Her"
+        },
+        {
+          "text": "Their dog is friendly.",
+          "highlight": "Their"
+        }
+      ],
+      "quickTip": "Complete: ___ name is Anna. (she) (Her)"
+    }
+  ]
+}
