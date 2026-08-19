@@ -21,41 +21,39 @@ class GrammarLessonCompleteScreen extends StatelessWidget {
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),
-      summaryCard: lesson.completionSummary == null
-          ? null
-          : Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(AppSizes.w(16)),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                border: Border.all(color: AppColors.borderDarkPrimary),
+      summaryCard: Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(AppSizes.w(16)),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+            border: Border.all(color: AppColors.borderDarkPrimary),
+          ),
+          child: Column(
+            children: [
+              Text(
+                l10n.learnedUseOf,
+                style: TextStyle(
+                  fontFamily: AppFonts.plusJakartaSans,
+                  fontSize: AppSizes.sp(14),
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.primaryColor,
+                ),
               ),
-              child: Column(
-                children: [
-                  Text(
-                    l10n.learnedUseOf,
-                    style: TextStyle(
-                      fontFamily: AppFonts.plusJakartaSans,
-                      fontSize: AppSizes.sp(14),
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.primaryColor,
-                    ),
-                  ),
-                  SizedBox(height: AppSizes.spaceSm),
-                  Text(
-                    lesson.completionSummary!,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: AppFonts.plusJakartaSans,
-                      fontSize: AppSizes.sp(16),
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                ],
+              SizedBox(height: AppSizes.spaceSm),
+              Text(
+                lesson.completionSummary ?? lesson.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: AppFonts.plusJakartaSans,
+                  fontSize: AppSizes.sp(16),
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                ),
               ),
-            ),
+            ],
+          ),
+        ),
     );
   }
 }

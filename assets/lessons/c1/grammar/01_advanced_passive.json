@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: The CEO ___ (say) to be planning a merger. (is said)"
     }
-  ]
+  ],
+  "completionTitle": "Advanced Passive Learned",
+  "completionSummary": "It is said/believed/reported that... / subject + is said to..."
 }

@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: The ___ (implement) of the policy starts Monday. (implementation)"
     }
-  ]
+  ],
+  "completionTitle": "Nominalization Learned",
+  "completionSummary": "verb/adjective → noun (develop → development)"
 }

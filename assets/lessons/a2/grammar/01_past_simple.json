@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: We ___ (walk) to school yesterday. (walked)"
     }
-  ]
+  ],
+  "completionTitle": "Past Simple Learned",
+  "completionSummary": "Subject + past verb (+ed or irregular)"
 }

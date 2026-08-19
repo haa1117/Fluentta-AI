@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: Diplomatic tone: 'You're wrong.' → 'I ___ a different interpretation.' (favor)"
     }
-  ]
+  ],
+  "completionTitle": "Register and Tone Learned",
+  "completionSummary": "lexical choice + syntactic control"
 }

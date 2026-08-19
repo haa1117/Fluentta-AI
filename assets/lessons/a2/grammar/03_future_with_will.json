@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: I think it ___ be sunny. (will)"
     }
-  ]
+  ],
+  "completionTitle": "Future with Will Learned",
+  "completionSummary": "Subject + will + base verb"
 }

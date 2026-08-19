@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: three ___ (child) (children)"
     }
-  ]
+  ],
+  "completionTitle": "Plurals Learned",
+  "completionSummary": "singular noun + s/es"
 }

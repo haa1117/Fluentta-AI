@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: I ___ visit my parents this weekend. (am going to)"
     }
-  ]
+  ],
+  "completionTitle": "Going To Learned",
+  "completionSummary": "Subject + am/is/are + going to + base verb"
 }

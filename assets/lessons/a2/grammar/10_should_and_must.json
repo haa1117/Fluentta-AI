@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: You ___ drink more water. (should)"
     }
-  ]
+  ],
+  "completionTitle": "Should and Must Learned",
+  "completionSummary": "Subject + should/must + base verb"
 }

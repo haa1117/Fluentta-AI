@@ -752,12 +752,15 @@ GRAMMAR: dict[str, list[dict]] = {
             "iconName": "grammar",
             "rule": "Subject pronouns replace the name of the person or thing doing the action.",
             "pattern": "Subject + verb",
+            "learnedPoints": "I, you, he, she, it, we, they",
             "examples": [
                 grammar_example("I am a student.", "I"),
                 grammar_example("You are my friend.", "You"),
                 grammar_example("He works in a shop.", "He"),
                 grammar_example("She likes music.", "She"),
+                grammar_example("It is a small cat.", "It"),
                 grammar_example("We live in London.", "We"),
+                grammar_example("They are happy.", "They"),
             ],
             "practicePrompt": "Complete: ___ am happy.",
             "practiceAnswer": "I",
@@ -1865,7 +1868,47 @@ READING: dict[str, list[dict]] = {
 }
 
 
+def grammar_learned_summary(data: dict) -> str:
+    if data.get("learnedPoints"):
+        return data["learnedPoints"]
+    if data.get("completionSummary"):
+        return data["completionSummary"]
+
+    grammar_tokens = {
+        "am", "is", "are", "was", "were", "be", "been",
+        "a", "an", "the",
+        "i", "you", "he", "she", "it", "we", "they",
+        "do", "does", "did", "have", "has", "had",
+        "can", "could", "will", "would", "should", "must",
+    }
+
+    highlights: list[str] = []
+    seen: set[str] = set()
+    for example in data.get("examples", []):
+        highlight = example.get("highlight", "").strip()
+        if not highlight:
+            continue
+        key = highlight.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        highlights.append(highlight)
+
+    if highlights and all(token.lower() in grammar_tokens for token in highlights):
+        return ", ".join("I" if token.lower() == "i" else token.lower() for token in highlights)
+
+    pattern = data.get("pattern", "").strip()
+    if pattern:
+        return pattern
+
+    if highlights:
+        return ", ".join("I" if token.lower() == "i" else token.lower() for token in highlights)
+
+    return data.get("rule", data["title"])
+
+
 def build_grammar_lesson(level: str, number: int, data: dict) -> dict:
+    title = data["title"]
     step = {
         "title": data["rule"],
         "description": data["pattern"],
@@ -1877,7 +1920,7 @@ def build_grammar_lesson(level: str, number: int, data: dict) -> dict:
         "id": f"{level}_{TYPE_CODES['grammar']}_{number:02d}",
         "cefrLevel": level.upper(),
         "number": number,
-        "title": data["title"],
+        "title": title,
         "iconName": data["iconName"],
         "rule": data["rule"],
         "pattern": data["pattern"],
@@ -1885,6 +1928,8 @@ def build_grammar_lesson(level: str, number: int, data: dict) -> dict:
         "practicePrompt": data["practicePrompt"],
         "practiceAnswer": data["practiceAnswer"],
         "steps": [step],
+        "completionTitle": data.get("completionTitle", f"{title} Learned"),
+        "completionSummary": grammar_learned_summary(data),
     }
 
 

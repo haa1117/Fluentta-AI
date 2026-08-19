@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: The findings ___ (appear) to confirm earlier research. (appear)"
     }
-  ]
+  ],
+  "completionTitle": "Hedging Language Learned",
+  "completionSummary": "modal/adverb + tentative verb (may, tend to, appear to)"
 }

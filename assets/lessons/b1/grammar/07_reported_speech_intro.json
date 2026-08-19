@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: Tom said he ___ (can) help us. (could)"
     }
-  ]
+  ],
+  "completionTitle": "Reported Speech Intro Learned",
+  "completionSummary": "Subject + said/told + (that) + clause (tense shift)"
 }

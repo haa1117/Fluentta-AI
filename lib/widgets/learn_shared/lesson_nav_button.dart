@@ -27,56 +27,65 @@ class LessonNavButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final activeColor = isPrimary ? AppColors.primaryColor : AppColors.white;
     final textColor = outlined
-        ? AppColors.primaryColor
+        ? (enabled ? AppColors.primaryColor : AppColors.white)
         : (enabled ? AppColors.white : AppColors.textTertiary);
-    final iconColor = outlined ? AppColors.primaryColor : AppColors.white;
+    final iconColor = outlined
+        ? (enabled ? AppColors.primaryColor : AppColors.white)
+        : (enabled ? AppColors.white : AppColors.textTertiary);
 
-    return GestureDetector(
-      onTap: enabled ? onTap : null,
-      child: Container(
-        height: AppSizes.buttonHeight,
-        decoration: BoxDecoration(
-          color: outlined
-              ? AppColors.white
-              : (isPrimary || enabled
-                  ? null
-                  : AppColors.homeCardLavender),
-          gradient: outlined
-              ? null
-              : (isPrimary || enabled ? AppColors.primaryGradient : null),
-          borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-          border: outlined
-              ? Border.all(
-                  color: enabled
-                      ? AppColors.primaryColor
-                      : AppColors.borderLight,
-                )
-              : null,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (!iconOnRight) ...[
-              Icon(icon, color: outlined ? iconColor : activeColor, size: AppSizes.sp(18)),
-              SizedBox(width: AppSizes.w(6)),
-            ],
-            Flexible(
-              child: Text(
-                label,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(13),
-                  fontWeight: FontWeight.w600,
-                  color: outlined ? textColor : AppColors.white,
+    return Opacity(
+      opacity: enabled ? 1 : 0.55,
+      child: GestureDetector(
+        onTap: enabled ? onTap : null,
+        child: Container(
+          height: AppSizes.buttonHeight,
+          decoration: BoxDecoration(
+            color: outlined
+                ? (enabled ? AppColors.white : Color(0xffe0d5e9))
+                : (isPrimary || enabled
+                    ? null
+                    : AppColors.homeCardLavender),
+            gradient: outlined
+                ? null
+                : (isPrimary || enabled ? AppColors.primaryGradient : null),
+            borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
+            border: outlined
+                ? Border.all(
+                    color: enabled
+                        ? AppColors.primaryColor
+                        : Colors.transparent,
+                  )
+                : null,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (!iconOnRight) ...[
+                Icon(icon, color: outlined ? iconColor : activeColor, size: AppSizes.sp(18)),
+                SizedBox(width: AppSizes.w(6)),
+              ],
+              Flexible(
+                child: Text(
+                  label,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    fontSize: AppSizes.sp(13),
+                    fontWeight: FontWeight.w600,
+                    color: outlined ? textColor : (enabled ? AppColors.white : textColor),
+                  ),
                 ),
               ),
-            ),
-            if (iconOnRight) ...[
-              SizedBox(width: AppSizes.w(6)),
-              Icon(icon, color: outlined ? iconColor : AppColors.white, size: AppSizes.sp(18)),
+              if (iconOnRight) ...[
+                SizedBox(width: AppSizes.w(6)),
+                Icon(
+                  icon,
+                  color: outlined ? iconColor : (enabled ? AppColors.white : iconColor),
+                  size: AppSizes.sp(18),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );

@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: A: Will you join us? B: I'd love ___. (to)"
     }
-  ]
+  ],
+  "completionTitle": "Ellipsis Learned",
+  "completionSummary": "Omit repeated words in parallel structures"
 }

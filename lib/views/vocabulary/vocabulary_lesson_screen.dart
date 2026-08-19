@@ -85,6 +85,7 @@ class _VocabularyLessonBody extends StatelessWidget {
                     isPrimary: false,
                     enabled: !viewModel.isFirstWord,
                     iconOnRight: false,
+                    outlined: true,
                     onTap: viewModel.previousWord,
                   ),
                 ),

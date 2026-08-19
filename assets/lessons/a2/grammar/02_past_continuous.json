@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: He ___ (study) when I called. (was studying)"
     }
-  ]
+  ],
+  "completionTitle": "Past Continuous Learned",
+  "completionSummary": "Subject + was/were + verb-ing"
 }

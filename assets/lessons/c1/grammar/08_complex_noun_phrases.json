@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: The ___ (recent / market / analysis) shows growth. (recent market analysis)"
     }
-  ]
+  ],
+  "completionTitle": "Complex Noun Phrases Learned",
+  "completionSummary": "pre-modifiers + head noun + post-modifiers"
 }

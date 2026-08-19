@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: ___ is your phone number? (What)"
     }
-  ]
+  ],
+  "completionTitle": "Question Words Learned",
+  "completionSummary": "Question word + auxiliary + subject + verb"
 }

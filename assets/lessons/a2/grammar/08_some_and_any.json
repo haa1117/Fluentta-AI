@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: We don't have ___ time. (any)"
     }
-  ]
+  ],
+  "completionTitle": "Some and Any Learned",
+  "completionSummary": "some/any + noun"
 }

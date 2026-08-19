@@ -41,7 +41,7 @@ class GrammarExampleTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: AppColors.borderDarkPrimary),
+        // border: Border.all(color: AppColors.borderDarkPrimary),
         boxShadow: [
           BoxShadow(
             color: AppColors.primaryColor.withValues(alpha: 0.04),

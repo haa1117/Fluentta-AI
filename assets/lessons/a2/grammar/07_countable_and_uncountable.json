@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: There isn't ___ water left. (much)"
     }
-  ]
+  ],
+  "completionTitle": "Countable and Uncountable Learned",
+  "completionSummary": "a/an + countable; some/much + uncountable"
 }

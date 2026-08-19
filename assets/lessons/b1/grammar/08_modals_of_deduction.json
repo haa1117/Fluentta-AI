@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: You ___ be hungry after that walk. (must)"
     }
-  ]
+  ],
+  "completionTitle": "Modals of Deduction Learned",
+  "completionSummary": "Subject + must/might/can't + base verb"
 }

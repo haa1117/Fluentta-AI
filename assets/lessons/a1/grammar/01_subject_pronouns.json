@@ -24,8 +24,16 @@
       "highlight": "She"
     },
     {
+      "text": "It is a small cat.",
+      "highlight": "It"
+    },
+    {
       "text": "We live in London.",
       "highlight": "We"
+    },
+    {
+      "text": "They are happy.",
+      "highlight": "They"
     }
   ],
   "practicePrompt": "Complete: ___ am happy.",
@@ -53,11 +61,21 @@
           "highlight": "She"
         },
         {
+          "text": "It is a small cat.",
+          "highlight": "It"
+        },
+        {
           "text": "We live in London.",
           "highlight": "We"
+        },
+        {
+          "text": "They are happy.",
+          "highlight": "They"
         }
       ],
       "quickTip": "Complete: ___ am happy. (I)"
     }
-  ]
+  ],
+  "completionTitle": "Subject Pronouns Learned",
+  "completionSummary": "I, you, he, she, it, we, they"
 }

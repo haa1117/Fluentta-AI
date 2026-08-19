@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: ___, the evidence supports cautious optimism. (On balance)"
     }
-  ]
+  ],
+  "completionTitle": "Discourse Structure Learned",
+  "completionSummary": "thesis → development → counterargument → conclusion"
 }

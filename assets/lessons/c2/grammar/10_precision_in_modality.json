@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: The data ___ (would / appear) to corroborate the hypothesis. (would appear)"
     }
-  ]
+  ],
+  "completionTitle": "Precision in Modality Learned",
+  "completionSummary": "modal + adverb + context-sensitive meaning"
 }

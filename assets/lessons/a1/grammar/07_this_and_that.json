@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: ___ books are heavy. (near) (These)"
     }
-  ]
+  ],
+  "completionTitle": "This and That Learned",
+  "completionSummary": "this/that + singular; these/those + plural"
 }

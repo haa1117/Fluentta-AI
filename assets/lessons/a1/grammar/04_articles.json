@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: I need ___ umbrella. (an)"
     }
-  ]
+  ],
+  "completionTitle": "Articles Learned",
+  "completionSummary": "a, an, the"
 }

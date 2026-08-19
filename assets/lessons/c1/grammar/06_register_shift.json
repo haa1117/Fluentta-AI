@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: Rewrite formally: 'We can't help right now.' → 'We ___ unable to assist at present.' (are)"
     }
-  ]
+  ],
+  "completionTitle": "Register Shift Learned",
+  "completionSummary": "formal ↔ informal vocabulary and syntax"
 }

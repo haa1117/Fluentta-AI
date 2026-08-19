@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: ___, we need more data before deciding. (Therefore)"
     }
-  ]
+  ],
+  "completionTitle": "Discourse Markers Learned",
+  "completionSummary": "marker + clause (however, therefore, moreover)"
 }

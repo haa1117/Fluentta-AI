@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: ___ I cannot accept. (Such behavior)"
     }
-  ]
+  ],
+  "completionTitle": "Fronting Learned",
+  "completionSummary": "Focused element + clause"
 }

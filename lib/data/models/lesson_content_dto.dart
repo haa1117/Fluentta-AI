@@ -269,9 +269,56 @@ class GrammarLessonContentDto {
       totalSteps: steps.length,
       iconName: status == LearningLessonStatus.completed ? 'check' : iconName,
       steps: steps.map((s) => s.toModel()).toList(),
-      completionTitle: completionTitle ?? title,
-      completionSummary: completionSummary ?? 'Great job!',
+      completionTitle: completionTitle ?? '$title Learned',
+      completionSummary: completionSummary ?? _deriveLearnedSummary(),
     );
+  }
+
+  String _deriveLearnedSummary() {
+    const grammarTokens = {
+      'am', 'is', 'are', 'was', 'were', 'be', 'been',
+      'a', 'an', 'the',
+      'i', 'you', 'he', 'she', 'it', 'we', 'they',
+      'do', 'does', 'did', 'have', 'has', 'had',
+      'can', 'could', 'will', 'would', 'should', 'must',
+    };
+
+    final highlights = <String>[];
+    final seen = <String>{};
+    for (final step in steps) {
+      for (final example in step.examples) {
+        final highlight = example.highlight?.trim() ?? '';
+        if (highlight.isEmpty) continue;
+        final key = highlight.toLowerCase();
+        if (seen.add(key)) {
+          highlights.add(highlight);
+        }
+      }
+    }
+
+    if (highlights.isNotEmpty &&
+        highlights.every((token) => grammarTokens.contains(token.toLowerCase()))) {
+      return highlights
+          .map((token) => token.toLowerCase() == 'i' ? 'I' : token.toLowerCase())
+          .join(', ');
+    }
+
+    for (final step in steps) {
+      if (step.formula.trim().isNotEmpty) {
+        return step.formula.trim();
+      }
+      if (step.description.trim().isNotEmpty) {
+        return step.description.trim();
+      }
+    }
+
+    if (highlights.isNotEmpty) {
+      return highlights
+          .map((token) => token.toLowerCase() == 'i' ? 'I' : token.toLowerCase())
+          .join(', ');
+    }
+
+    return steps.isNotEmpty ? steps.first.title : title;
   }
 }
 

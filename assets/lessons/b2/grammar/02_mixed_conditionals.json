@@ -59,5 +59,7 @@
       ],
       "quickTip": "Complete: If I ___ (learn) Spanish, I would travel more in Latin America. (had learned)"
     }
-  ]
+  ],
+  "completionTitle": "Mixed Conditionals Learned",
+  "completionSummary": "If + past perfect, would + base verb (or reverse)"
 }
