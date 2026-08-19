@@ -8,9 +8,13 @@ import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
+import 'package:fluentta_ai/data/models/srs_record.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/data/models/vocabulary_word_entry.dart';
+import 'package:fluentta_ai/data/repositories/daily_vocabulary_repository.dart';
 import 'package:fluentta_ai/data/repositories/lesson_content_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
+import 'package:fluentta_ai/data/repositories/spaced_repetition_repository.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/views/vocabulary/vocabulary_lesson_screen.dart';
@@ -22,6 +26,8 @@ class VocabularyViewModel extends ChangeNotifier {
     this._contentRepository,
     this._progressRepository,
     this._syncService,
+    this._dailyRepository,
+    this._srsRepository,
   ) {
     _localeViewModel.addListener(_onLocaleChanged);
     _loadLessons();
@@ -32,8 +38,12 @@ class VocabularyViewModel extends ChangeNotifier {
   final LessonContentRepository _contentRepository;
   final ProgressRepository _progressRepository;
   final ProgressSyncService _syncService;
+  final DailyVocabularyRepository _dailyRepository;
+  final SpacedRepetitionRepository _srsRepository;
 
   List<VocabularyLessonModel> _lessons = [];
+  Set<String> _todaysWordIds = {};
+  Set<String> _dueWordIds = {};
   bool _isLoading = true;
 
   AppLocalizations get _l10n => _localeViewModel.strings;
@@ -41,7 +51,7 @@ class VocabularyViewModel extends ChangeNotifier {
   List<VocabularyLessonModel> get lessons => _lessons;
   bool get isLoading => _isLoading;
 
-  CefrLevel get _level => CefrLevel.fromSetupId(_localStorage.englishLevel);
+  CefrLevel get level => CefrLevel.fromSetupId(_localStorage.englishLevel);
 
   int get completedLessonsCount =>
       _lessons.where((l) => l.status == LearningLessonStatus.completed).length;
@@ -63,23 +73,87 @@ class VocabularyViewModel extends ChangeNotifier {
   String get levelCode =>
       LocalizedContent.levelCode(_l10n, _localStorage.englishLevel);
 
+  Set<String> get todaysWordIds => _todaysWordIds;
+  Set<String> get dueWordIds => _dueWordIds;
+
   Future<void> reload() => _loadLessons();
 
   Future<void> _loadLessons() async {
     _isLoading = true;
     notifyListeners();
+
     await _contentRepository.initialize();
     await _progressRepository.initialize();
+    await _srsRepository.initialize();
+
     _lessons = await _contentRepository.getVocabularyLessons(
-      _level,
+      level,
       progress: _progressRepository.allProgress,
     );
+
+    final todaysWords = await _dailyRepository.getTodaysWords(level);
+    _todaysWordIds = todaysWords.map((w) => w.id).toSet();
+
+    final dueReviews = await _srsRepository.getDueReviews();
+    _dueWordIds = dueReviews.map((r) => r.wordId).toSet();
+
     _isLoading = false;
     notifyListeners();
   }
 
   void _onLocaleChanged() {
     _loadLessons();
+  }
+
+  /// Picks the best starting word index: due review first, then today's word.
+  int _resolveStartIndex(VocabularyLessonModel lesson) {
+    if (lesson.status == LearningLessonStatus.inProgress) {
+      final saved = lesson.wordsCompleted.clamp(0, lesson.words.length - 1);
+      for (var i = saved; i < lesson.words.length; i++) {
+        final id = _wordId(lesson, lesson.words[i].word);
+        if (_dueWordIds.contains(id) || _todaysWordIds.contains(id)) {
+          return i;
+        }
+      }
+      return saved;
+    }
+
+    for (var i = 0; i < lesson.words.length; i++) {
+      final id = _wordId(lesson, lesson.words[i].word);
+      if (_dueWordIds.contains(id)) return i;
+    }
+    for (var i = 0; i < lesson.words.length; i++) {
+      final id = _wordId(lesson, lesson.words[i].word);
+      if (_todaysWordIds.contains(id)) return i;
+    }
+    return 0;
+  }
+
+  String _wordId(VocabularyLessonModel lesson, String word) {
+    return VocabularyWordEntry.buildId(lesson.lessonId, word);
+  }
+
+  Future<void> onWordStudied({
+    required String lessonId,
+    required String word,
+  }) async {
+    final wordId = VocabularyWordEntry.buildId(lessonId, word);
+    final existing = await _srsRepository.getRecord(wordId);
+
+    if (existing != null && existing.isDueOn(DateTime.now())) {
+      await _srsRepository.recordReview(wordId, SrsRating.good);
+    } else {
+      await _srsRepository.introduceWord(wordId);
+    }
+
+    if (_todaysWordIds.contains(wordId)) {
+      await _dailyRepository.recordWordStudied(wordId);
+    }
+
+    _dueWordIds = (await _srsRepository.getDueReviews())
+        .map((r) => r.wordId)
+        .toSet();
+    notifyListeners();
   }
 
   void openLesson(BuildContext context, VocabularyLessonModel lesson) {
@@ -89,9 +163,7 @@ class VocabularyViewModel extends ChangeNotifier {
       return;
     }
 
-    final startIndex = lesson.status == LearningLessonStatus.inProgress
-        ? lesson.wordsCompleted.clamp(0, lesson.words.length - 1)
-        : 0;
+    final startIndex = _resolveStartIndex(lesson);
 
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(
@@ -100,6 +172,11 @@ class VocabularyViewModel extends ChangeNotifier {
           initialWordIndex: startIndex,
           onLessonCompleted: _markLessonCompleted,
           onProgressChanged: (index) => _saveInProgress(lesson, index),
+          onWordStudied: (word) => onWordStudied(
+            lessonId: lesson.lessonId,
+            word: word,
+          ),
+          cefrLevel: level.code,
         ),
       ),
     );
@@ -109,14 +186,14 @@ class VocabularyViewModel extends ChangeNotifier {
     await _progressRepository.saveInProgress(
       lessonId: lesson.lessonId,
       type: LessonType.vocabulary.id,
-      cefrLevel: _level.code,
+      cefrLevel: level.code,
       currentIndex: index,
     );
     await _syncService.onProgressChanged(
       LessonProgressModel(
         lessonId: lesson.lessonId,
         type: LessonType.vocabulary.id,
-        cefrLevel: _level.code,
+        cefrLevel: level.code,
         status: LearningLessonStatus.inProgress,
         currentIndex: index,
         updatedAt: DateTime.now(),
@@ -127,7 +204,7 @@ class VocabularyViewModel extends ChangeNotifier {
 
   Future<void> _markLessonCompleted(VocabularyLessonModel completedLesson) async {
     final orderedIds = await _contentRepository.orderedLessonIds(
-      _level,
+      level,
       LessonType.vocabulary,
     );
     final nextId = LessonUnlockLogic.nextLessonIdToUnlock(
@@ -138,7 +215,7 @@ class VocabularyViewModel extends ChangeNotifier {
     await _progressRepository.markCompleted(
       lessonId: completedLesson.lessonId,
       type: LessonType.vocabulary.id,
-      cefrLevel: _level.code,
+      cefrLevel: level.code,
       finalIndex: completedLesson.totalWords,
       unlockLessonId: nextId,
     );
@@ -147,7 +224,7 @@ class VocabularyViewModel extends ChangeNotifier {
       progress: LessonProgressModel(
         lessonId: completedLesson.lessonId,
         type: LessonType.vocabulary.id,
-        cefrLevel: _level.code,
+        cefrLevel: level.code,
         status: LearningLessonStatus.completed,
         currentIndex: completedLesson.totalWords,
         updatedAt: DateTime.now(),

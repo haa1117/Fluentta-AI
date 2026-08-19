@@ -186,7 +186,7 @@ class _LessonIcon extends StatelessWidget {
           svgIcon,
           width: AppSizes.iconSmall,
           height: AppSizes.iconSmall,
-          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+          // colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
         ),
       ),
     );

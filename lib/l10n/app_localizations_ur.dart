@@ -498,6 +498,11 @@ class AppLocalizationsUr extends AppLocalizations {
   String get vocabularySub => '5 الفاظ دیکھنے ہیں';
 
   @override
+  String vocabularySubDynamic(int count) {
+    return '$count الفاظ دوبارہ دیکھنے ہیں';
+  }
+
+  @override
   String get grammar => 'گرامر';
 
   @override
@@ -514,6 +519,96 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get savedWordsSub => '12 الفاظ دیکھنے ہیں';
+
+  @override
+  String savedWordsSubDynamic(int count) {
+    return '$count محفوظ الفاظ';
+  }
+
+  @override
+  String get dailyVocabulary => 'روزانہ الفاظ';
+
+  @override
+  String dailyVocabularySub(int count) {
+    return '5 نئے الفاظ • $count دوبارہ دیکھنے';
+  }
+
+  @override
+  String dailyVocabularyDoneSub(int count) {
+    return 'آج مکمل • $count دوبارہ دیکھنے';
+  }
+
+  @override
+  String get freeAndUnlimited => 'مفت اور لامحدود';
+
+  @override
+  String get startDailyVocabulary => 'روزانہ الفاظ شروع کریں';
+
+  @override
+  String get todaysWords => 'آج کے الفاظ';
+
+  @override
+  String todaysWordsDesc(int count) {
+    return 'آج کے لیے $count نئے الفاظ سیکھیں۔';
+  }
+
+  @override
+  String get dailyVocabularyComplete => 'روزانہ الفاظ مکمل!';
+
+  @override
+  String get learnTodaysWords => 'آج کے الفاظ سیکھیں';
+
+  @override
+  String get reviewTodaysWordsAgain => 'آج کے الفاظ دوبارہ مشق کریں';
+
+  @override
+  String get spacedRepetitionReview => 'وقفے وار دہرائی';
+
+  @override
+  String spacedRepetitionReviewDesc(int count) {
+    return '$count الفاظ دوبارہ دیکھنے کے لیے تیار ہیں۔';
+  }
+
+  @override
+  String reviewWords(int count) {
+    return 'الفاظ دوبارہ ($count)';
+  }
+
+  @override
+  String get reviewSession => 'دہرائی سیشن';
+
+  @override
+  String get revealMeaning => 'معنی دکھائیں';
+
+  @override
+  String get howWellDidYouKnow => 'آپ کو یہ لفظ کتنا آتا تھا؟';
+
+  @override
+  String get srsAgain => 'دوبارہ';
+
+  @override
+  String get srsGood => 'اچھا';
+
+  @override
+  String get srsEasy => 'آسان';
+
+  @override
+  String get reviewSessionComplete => 'دہرائی مکمل!';
+
+  @override
+  String get noSavedWords =>
+      'ابھی کوئی لفظ محفوظ نہیں۔ سیکھتے وقت بک مارک دبائیں۔';
+
+  @override
+  String wordProgress(int current, int total) {
+    return 'لفظ $current از $total';
+  }
+
+  @override
+  String get meaningLabel => 'معنی';
+
+  @override
+  String get exampleLabel => 'مثال';
 
   @override
   String get yourLevel => 'آپ کا لیول';

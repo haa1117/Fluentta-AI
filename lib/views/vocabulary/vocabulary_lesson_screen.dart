@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_lesson_view_model.dart';
@@ -17,13 +18,17 @@ class VocabularyLessonScreen extends StatelessWidget {
     required this.lesson,
     required this.initialWordIndex,
     required this.onLessonCompleted,
+    required this.cefrLevel,
     this.onProgressChanged,
+    this.onWordStudied,
   });
 
   final VocabularyLessonModel lesson;
   final int initialWordIndex;
   final ValueChanged<VocabularyLessonModel> onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
+  final Future<void> Function(String word)? onWordStudied;
+  final String cefrLevel;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,10 @@ class VocabularyLessonScreen extends StatelessWidget {
         initialWordIndex: initialWordIndex,
         onLessonCompleted: onLessonCompleted,
         onProgressChanged: onProgressChanged,
+        onWordStudied: onWordStudied,
+        cefrLevel: cefrLevel,
         textToSpeechService: context.read<TextToSpeechService>(),
+        savedWordsRepository: context.read<SavedWordsRepository>(),
       ),
       child: _VocabularyLessonBody(lessonNumber: lesson.number),
     );

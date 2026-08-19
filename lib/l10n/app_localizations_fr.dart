@@ -509,6 +509,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get vocabularySub => '5 mots à réviser';
 
   @override
+  String vocabularySubDynamic(int count) {
+    return '$count mots à réviser';
+  }
+
+  @override
   String get grammar => 'Grammaire';
 
   @override
@@ -525,6 +530,97 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get savedWordsSub => '12 mots à réviser';
+
+  @override
+  String savedWordsSubDynamic(int count) {
+    return '$count mots enregistrés';
+  }
+
+  @override
+  String get dailyVocabulary => 'Vocabulaire quotidien';
+
+  @override
+  String dailyVocabularySub(int count) {
+    return '5 nouveaux mots • $count à réviser';
+  }
+
+  @override
+  String dailyVocabularyDoneSub(int count) {
+    return 'Terminé pour aujourd\'hui • $count à réviser';
+  }
+
+  @override
+  String get freeAndUnlimited => 'Gratuit et illimité';
+
+  @override
+  String get startDailyVocabulary => 'Commencer le vocabulaire quotidien';
+
+  @override
+  String get todaysWords => 'Mots du jour';
+
+  @override
+  String todaysWordsDesc(int count) {
+    return 'Apprenez $count nouveaux mots choisis pour vous aujourd\'hui.';
+  }
+
+  @override
+  String get dailyVocabularyComplete => 'Vocabulaire quotidien terminé !';
+
+  @override
+  String get learnTodaysWords => 'Apprendre les mots du jour';
+
+  @override
+  String get reviewTodaysWordsAgain => 'Pratiquer à nouveau les mots du jour';
+
+  @override
+  String get spacedRepetitionReview => 'Révision par répétition espacée';
+
+  @override
+  String spacedRepetitionReviewDesc(int count) {
+    return 'Vous avez $count mots prêts à réviser.';
+  }
+
+  @override
+  String reviewWords(int count) {
+    return 'Réviser les mots ($count)';
+  }
+
+  @override
+  String get reviewSession => 'Session de révision';
+
+  @override
+  String get revealMeaning => 'Afficher le sens';
+
+  @override
+  String get howWellDidYouKnow =>
+      'Dans quelle mesure connaissiez-vous ce mot ?';
+
+  @override
+  String get srsAgain => 'Encore';
+
+  @override
+  String get srsGood => 'Bien';
+
+  @override
+  String get srsEasy => 'Facile';
+
+  @override
+  String get reviewSessionComplete => 'Session de révision terminée !';
+
+  @override
+  String get noSavedWords =>
+      'Aucun mot enregistré. Appuyez sur le signet pendant l\'apprentissage.';
+
+  @override
+  String wordProgress(int current, int total) {
+    return 'Mot $current sur $total';
+  }
+
+  @override
+  String get meaningLabel => 'SENS';
+
+  @override
+  String get exampleLabel => 'EXEMPLE';
 
   @override
   String get yourLevel => 'Votre niveau';

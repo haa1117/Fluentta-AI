@@ -194,12 +194,62 @@
   "learnAndGrow": "Learn & grow",
   "vocabulary": "Vocabulary",
   "vocabularySub": "5 words to review",
+  "vocabularySubDynamic": "{count} words due for review",
+  "@vocabularySubDynamic": {
+    "placeholders": {"count": {"type": "int"}}
+  },
   "grammar": "Grammar",
   "grammarSub": "Quick practice",
   "reading": "Reading",
   "readingSub": "Short passage",
   "savedWords": "Saved Words",
   "savedWordsSub": "12 words to review",
+  "savedWordsSubDynamic": "{count} saved words",
+  "@savedWordsSubDynamic": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "dailyVocabulary": "Daily Vocabulary",
+  "dailyVocabularySub": "5 new words • {count} to review",
+  "@dailyVocabularySub": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "dailyVocabularyDoneSub": "Done for today • {count} to review",
+  "@dailyVocabularyDoneSub": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "freeAndUnlimited": "Free & Unlimited",
+  "startDailyVocabulary": "Start Daily Vocabulary",
+  "todaysWords": "Today's Words",
+  "todaysWordsDesc": "Learn {count} new words picked for you today.",
+  "@todaysWordsDesc": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "dailyVocabularyComplete": "Daily vocabulary complete!",
+  "learnTodaysWords": "Learn Today's Words",
+  "reviewTodaysWordsAgain": "Practice Today's Words Again",
+  "spacedRepetitionReview": "Spaced Repetition Review",
+  "spacedRepetitionReviewDesc": "You have {count} words ready to review.",
+  "@spacedRepetitionReviewDesc": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "reviewWords": "Review Words ({count})",
+  "@reviewWords": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "reviewSession": "Review Session",
+  "revealMeaning": "Reveal Meaning",
+  "howWellDidYouKnow": "How well did you know this word?",
+  "srsAgain": "Again",
+  "srsGood": "Good",
+  "srsEasy": "Easy",
+  "reviewSessionComplete": "Review session complete!",
+  "noSavedWords": "No saved words yet. Tap the bookmark icon while learning to save favorites.",
+  "wordProgress": "Word {current} of {total}",
+  "@wordProgress": {
+    "placeholders": {"current": {"type": "int"}, "total": {"type": "int"}}
+  },
+  "meaningLabel": "MEANING",
+  "exampleLabel": "EXAMPLE",
   "yourLevel": "Your level",
   "beginnerLevel": "Beginner",
   "speakTitle": "Speak",

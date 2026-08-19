@@ -1014,6 +1014,12 @@ abstract class AppLocalizations {
   /// **'5 words to review'**
   String get vocabularySub;
 
+  /// No description provided for @vocabularySubDynamic.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} words due for review'**
+  String vocabularySubDynamic(int count);
+
   /// No description provided for @grammar.
   ///
   /// In en, this message translates to:
@@ -1049,6 +1055,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'12 words to review'**
   String get savedWordsSub;
+
+  /// No description provided for @savedWordsSubDynamic.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} saved words'**
+  String savedWordsSubDynamic(int count);
+
+  /// No description provided for @dailyVocabulary.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Vocabulary'**
+  String get dailyVocabulary;
+
+  /// No description provided for @dailyVocabularySub.
+  ///
+  /// In en, this message translates to:
+  /// **'5 new words • {count} to review'**
+  String dailyVocabularySub(int count);
+
+  /// No description provided for @dailyVocabularyDoneSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Done for today • {count} to review'**
+  String dailyVocabularyDoneSub(int count);
+
+  /// No description provided for @freeAndUnlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Free & Unlimited'**
+  String get freeAndUnlimited;
+
+  /// No description provided for @startDailyVocabulary.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Daily Vocabulary'**
+  String get startDailyVocabulary;
+
+  /// No description provided for @todaysWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Words'**
+  String get todaysWords;
+
+  /// No description provided for @todaysWordsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn {count} new words picked for you today.'**
+  String todaysWordsDesc(int count);
+
+  /// No description provided for @dailyVocabularyComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily vocabulary complete!'**
+  String get dailyVocabularyComplete;
+
+  /// No description provided for @learnTodaysWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn Today\'s Words'**
+  String get learnTodaysWords;
+
+  /// No description provided for @reviewTodaysWordsAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice Today\'s Words Again'**
+  String get reviewTodaysWordsAgain;
+
+  /// No description provided for @spacedRepetitionReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Spaced Repetition Review'**
+  String get spacedRepetitionReview;
+
+  /// No description provided for @spacedRepetitionReviewDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You have {count} words ready to review.'**
+  String spacedRepetitionReviewDesc(int count);
+
+  /// No description provided for @reviewWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Words ({count})'**
+  String reviewWords(int count);
+
+  /// No description provided for @reviewSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Session'**
+  String get reviewSession;
+
+  /// No description provided for @revealMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Reveal Meaning'**
+  String get revealMeaning;
+
+  /// No description provided for @howWellDidYouKnow.
+  ///
+  /// In en, this message translates to:
+  /// **'How well did you know this word?'**
+  String get howWellDidYouKnow;
+
+  /// No description provided for @srsAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Again'**
+  String get srsAgain;
+
+  /// No description provided for @srsGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get srsGood;
+
+  /// No description provided for @srsEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get srsEasy;
+
+  /// No description provided for @reviewSessionComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Review session complete!'**
+  String get reviewSessionComplete;
+
+  /// No description provided for @noSavedWords.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved words yet. Tap the bookmark icon while learning to save favorites.'**
+  String get noSavedWords;
+
+  /// No description provided for @wordProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Word {current} of {total}'**
+  String wordProgress(int current, int total);
+
+  /// No description provided for @meaningLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'MEANING'**
+  String get meaningLabel;
+
+  /// No description provided for @exampleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'EXAMPLE'**
+  String get exampleLabel;
 
   /// No description provided for @yourLevel.
   ///

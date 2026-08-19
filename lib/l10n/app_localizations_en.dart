@@ -503,6 +503,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vocabularySub => '5 words to review';
 
   @override
+  String vocabularySubDynamic(int count) {
+    return '$count words due for review';
+  }
+
+  @override
   String get grammar => 'Grammar';
 
   @override
@@ -519,6 +524,96 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get savedWordsSub => '12 words to review';
+
+  @override
+  String savedWordsSubDynamic(int count) {
+    return '$count saved words';
+  }
+
+  @override
+  String get dailyVocabulary => 'Daily Vocabulary';
+
+  @override
+  String dailyVocabularySub(int count) {
+    return '5 new words • $count to review';
+  }
+
+  @override
+  String dailyVocabularyDoneSub(int count) {
+    return 'Done for today • $count to review';
+  }
+
+  @override
+  String get freeAndUnlimited => 'Free & Unlimited';
+
+  @override
+  String get startDailyVocabulary => 'Start Daily Vocabulary';
+
+  @override
+  String get todaysWords => 'Today\'s Words';
+
+  @override
+  String todaysWordsDesc(int count) {
+    return 'Learn $count new words picked for you today.';
+  }
+
+  @override
+  String get dailyVocabularyComplete => 'Daily vocabulary complete!';
+
+  @override
+  String get learnTodaysWords => 'Learn Today\'s Words';
+
+  @override
+  String get reviewTodaysWordsAgain => 'Practice Today\'s Words Again';
+
+  @override
+  String get spacedRepetitionReview => 'Spaced Repetition Review';
+
+  @override
+  String spacedRepetitionReviewDesc(int count) {
+    return 'You have $count words ready to review.';
+  }
+
+  @override
+  String reviewWords(int count) {
+    return 'Review Words ($count)';
+  }
+
+  @override
+  String get reviewSession => 'Review Session';
+
+  @override
+  String get revealMeaning => 'Reveal Meaning';
+
+  @override
+  String get howWellDidYouKnow => 'How well did you know this word?';
+
+  @override
+  String get srsAgain => 'Again';
+
+  @override
+  String get srsGood => 'Good';
+
+  @override
+  String get srsEasy => 'Easy';
+
+  @override
+  String get reviewSessionComplete => 'Review session complete!';
+
+  @override
+  String get noSavedWords =>
+      'No saved words yet. Tap the bookmark icon while learning to save favorites.';
+
+  @override
+  String wordProgress(int current, int total) {
+    return 'Word $current of $total';
+  }
+
+  @override
+  String get meaningLabel => 'MEANING';
+
+  @override
+  String get exampleLabel => 'EXAMPLE';
 
   @override
   String get yourLevel => 'Your level';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/data/models/vocabulary_word_entry.dart';
+import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/views/vocabulary/vocabulary_lesson_complete_screen.dart';
@@ -11,17 +13,25 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     required this.initialWordIndex,
     required this.onLessonCompleted,
     required this.textToSpeechService,
+    required this.savedWordsRepository,
+    required this.cefrLevel,
     this.onProgressChanged,
-  }) : _currentWordIndex = initialWordIndex;
+    this.onWordStudied,
+  }) : _currentWordIndex = initialWordIndex {
+    _loadSavedWords();
+  }
 
   final VocabularyLessonModel lesson;
   final int initialWordIndex;
   final ValueChanged<VocabularyLessonModel> onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
+  final Future<void> Function(String word)? onWordStudied;
   final TextToSpeechService textToSpeechService;
+  final SavedWordsRepository savedWordsRepository;
+  final String cefrLevel;
 
   int _currentWordIndex;
-  final Set<String> _savedWords = {};
+  final Set<String> _savedWordIds = {};
   bool _isListening = false;
 
   int get currentWordIndex => _currentWordIndex;
@@ -36,7 +46,28 @@ class VocabularyLessonViewModel extends ChangeNotifier {
   bool get isFirstWord => _currentWordIndex == 0;
   bool get isLastWord => _currentWordIndex >= totalWords - 1;
 
-  bool isWordSaved(String word) => _savedWords.contains(word);
+  bool isWordSaved(String word) => _savedWordIds.contains(
+        VocabularyWordEntry.buildId(lesson.lessonId, word),
+      );
+
+  Future<void> _loadSavedWords() async {
+    await savedWordsRepository.initialize();
+    for (final word in lesson.words) {
+      final id = VocabularyWordEntry.buildId(lesson.lessonId, word.word);
+      if (await savedWordsRepository.isSaved(id)) {
+        _savedWordIds.add(id);
+      }
+    }
+    notifyListeners();
+  }
+
+  VocabularyWordEntry _entryFor(VocabularyWordModel wordModel) {
+    return VocabularyWordEntry.fromWord(
+      lessonId: lesson.lessonId,
+      cefrLevel: cefrLevel,
+      wordModel: wordModel,
+    );
+  }
 
   Future<void> listenWord(BuildContext context) async {
     if (_isListening) {
@@ -72,14 +103,20 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     }
   }
 
-  void toggleSaveWord(BuildContext context) {
+  Future<void> toggleSaveWord(BuildContext context) async {
     final l10n = context.l10n;
-    if (_savedWords.contains(currentWord.word)) {
-      _savedWords.remove(currentWord.word);
-      SnackbarHelper.showSuccess(context, l10n.wordRemoved);
+    final entry = _entryFor(currentWord);
+    final saved = await savedWordsRepository.toggle(entry);
+    if (saved) {
+      _savedWordIds.add(entry.id);
+      if (context.mounted) {
+        SnackbarHelper.showSuccess(context, l10n.wordSaved);
+      }
     } else {
-      _savedWords.add(currentWord.word);
-      SnackbarHelper.showSuccess(context, l10n.wordSaved);
+      _savedWordIds.remove(entry.id);
+      if (context.mounted) {
+        SnackbarHelper.showSuccess(context, l10n.wordRemoved);
+      }
     }
     notifyListeners();
   }
@@ -93,12 +130,16 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void nextWord(BuildContext context) {
+  Future<void> nextWord(BuildContext context) async {
     textToSpeechService.stop();
     _isListening = false;
 
+    final studiedWord = currentWord.word;
+    await onWordStudied?.call(studiedWord);
+
     if (isLastWord) {
       onLessonCompleted(lesson);
+      if (!context.mounted) return;
       Navigator.of(context).pushReplacement<void, void>(
         MaterialPageRoute<void>(
           builder: (_) => VocabularyLessonCompleteScreen(

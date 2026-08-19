@@ -9,6 +9,7 @@ import 'package:fluentta_ai/data/models/lesson_content_dto.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/data/models/vocabulary_word_entry.dart';
 import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 
 class LessonContentRepository {
@@ -280,5 +281,41 @@ class LessonContentRepository {
   Future<List<String>> orderedLessonIds(CefrLevel level, LessonType type) async {
     final entries = await getManifestEntries(level: level, type: type);
     return entries.map((e) => e.id).toList();
+  }
+
+  Future<List<VocabularyWordEntry>> getAllVocabularyWordEntries({
+    required CefrLevel maxLevel,
+  }) async {
+    final maxIndex = CefrLevel.values.indexOf(maxLevel);
+    final entries = <VocabularyWordEntry>[];
+
+    for (var i = 0; i <= maxIndex; i++) {
+      final level = CefrLevel.values[i];
+      final lessons = await getManifestEntries(
+        level: level,
+        type: LessonType.vocabulary,
+      );
+
+      for (final lesson in lessons) {
+        final json = await _loadJson(lesson.assetPath);
+        final dto = VocabularyLessonContentDto.fromJson(json);
+        for (final word in dto.words) {
+          entries.add(
+            VocabularyWordEntry(
+              id: VocabularyWordEntry.buildId(dto.id, word.word),
+              lessonId: dto.id,
+              cefrLevel: dto.cefrLevel,
+              word: word.word,
+              phonetic: word.phonetic,
+              meaning: word.definition,
+              example: word.example,
+              partOfSpeech: word.partOfSpeech,
+            ),
+          );
+        }
+      }
+    }
+
+    return entries;
   }
 }

@@ -23,7 +23,6 @@ class LearnTabScreen extends StatelessWidget {
       appBar: AppBarWidget(
         title: l10n.learnAndGrow,
         showActionButton: false,
-
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(
@@ -35,7 +34,6 @@ class LearnTabScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             const LearnLevelCard(),
             SizedBox(height: AppSizes.spaceMd),
             GridView.builder(
@@ -57,8 +55,7 @@ class LearnTabScreen extends StatelessWidget {
                 );
               },
             ),
-
-            SizedBox(height: AppSizes.spaceXxl+AppSizes.spaceLg),
+            SizedBox(height: AppSizes.spaceXxl + AppSizes.spaceLg),
             const HomeBannerAd(),
           ],
         ),
