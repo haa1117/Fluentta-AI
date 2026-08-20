@@ -9,6 +9,7 @@ import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
+import 'package:fluentta_ai/data/repositories/daily_lesson_repository.dart';
 import 'package:fluentta_ai/data/repositories/lesson_content_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
@@ -22,6 +23,7 @@ class ReadingViewModel extends ChangeNotifier {
     this._contentRepository,
     this._progressRepository,
     this._syncService,
+    this._dailyLessonRepository,
   ) {
     _localeViewModel.addListener(_onLocaleChanged);
     _loadLessons();
@@ -32,6 +34,7 @@ class ReadingViewModel extends ChangeNotifier {
   final LessonContentRepository _contentRepository;
   final ProgressRepository _progressRepository;
   final ProgressSyncService _syncService;
+  final DailyLessonRepository _dailyLessonRepository;
 
   List<ReadingLessonModel> _lessons = [];
   bool _isLoading = true;
@@ -68,10 +71,22 @@ class ReadingViewModel extends ChangeNotifier {
     notifyListeners();
     await _contentRepository.initialize();
     await _progressRepository.initialize();
-    _lessons = await _contentRepository.getReadingLessons(
+    await _dailyLessonRepository.initialize();
+
+    await _dailyLessonRepository.prepareForDay(
+      type: LessonType.reading,
+      cefrLevel: _level.code,
+      progressRepository: _progressRepository,
+    );
+
+    var lessons = await _contentRepository.getReadingLessons(
       _level,
       progress: _progressRepository.allProgress,
     );
+    final dailyState =
+        _dailyLessonRepository.stateFor(LessonType.reading, _level.code);
+    _lessons =
+        _dailyLessonRepository.applyReadingDailyGate(lessons, dailyState);
     _isLoading = false;
     notifyListeners();
   }
@@ -80,12 +95,21 @@ class ReadingViewModel extends ChangeNotifier {
     _loadLessons();
   }
 
-  void openLesson(BuildContext context, ReadingLessonModel lesson) {
+  Future<void> openLesson(BuildContext context, ReadingLessonModel lesson) async {
     if (lesson.status == LearningLessonStatus.locked) return;
     if (lesson.phases.isEmpty) {
       SnackbarHelper.showSuccess(context, _l10n.lessonContentSoon);
       return;
     }
+
+    if (lesson.status == LearningLessonStatus.notStarted) {
+      await _dailyLessonRepository.recordLessonStarted(
+        type: LessonType.reading,
+        cefrLevel: _level.code,
+        lessonId: lesson.lessonId,
+      );
+    }
+    if (!context.mounted) return;
 
     final startIndex = lesson.status == LearningLessonStatus.inProgress
         ? lesson.phasesCompleted.clamp(0, lesson.phases.length - 1)
@@ -138,7 +162,13 @@ class ReadingViewModel extends ChangeNotifier {
       type: LessonType.reading.id,
       cefrLevel: _level.code,
       finalIndex: completedLesson.totalPhases,
-      unlockLessonId: nextId,
+    );
+
+    await _dailyLessonRepository.recordLessonCompleted(
+      type: LessonType.reading,
+      cefrLevel: _level.code,
+      completedLessonId: completedLesson.lessonId,
+      nextUnlockLessonId: nextId,
     );
 
     await _syncService.onLessonCompleted(

@@ -60,6 +60,27 @@ class ProgressRepository {
     );
   }
 
+  Future<void> unlockLesson({
+    required String lessonId,
+    required String type,
+    required String cefrLevel,
+  }) async {
+    final existing = _cache[lessonId];
+    if (existing != null && existing.status != LearningLessonStatus.locked) {
+      return;
+    }
+    await saveProgress(
+      LessonProgressModel(
+        lessonId: lessonId,
+        type: type,
+        cefrLevel: cefrLevel,
+        status: LearningLessonStatus.notStarted,
+        currentIndex: 0,
+        updatedAt: DateTime.now(),
+      ),
+    );
+  }
+
   Future<void> markCompleted({
     required String lessonId,
     required String type,

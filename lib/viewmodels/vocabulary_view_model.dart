@@ -11,6 +11,7 @@ import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
 import 'package:fluentta_ai/data/models/srs_record.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
 import 'package:fluentta_ai/data/models/vocabulary_word_entry.dart';
+import 'package:fluentta_ai/data/repositories/daily_lesson_repository.dart';
 import 'package:fluentta_ai/data/repositories/daily_vocabulary_repository.dart';
 import 'package:fluentta_ai/data/repositories/lesson_content_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
@@ -28,6 +29,7 @@ class VocabularyViewModel extends ChangeNotifier {
     this._syncService,
     this._dailyRepository,
     this._srsRepository,
+    this._dailyLessonRepository,
   ) {
     _localeViewModel.addListener(_onLocaleChanged);
     _loadLessons();
@@ -40,6 +42,7 @@ class VocabularyViewModel extends ChangeNotifier {
   final ProgressSyncService _syncService;
   final DailyVocabularyRepository _dailyRepository;
   final SpacedRepetitionRepository _srsRepository;
+  final DailyLessonRepository _dailyLessonRepository;
 
   List<VocabularyLessonModel> _lessons = [];
   Set<String> _todaysWordIds = {};
@@ -85,11 +88,22 @@ class VocabularyViewModel extends ChangeNotifier {
     await _contentRepository.initialize();
     await _progressRepository.initialize();
     await _srsRepository.initialize();
+    await _dailyLessonRepository.initialize();
 
-    _lessons = await _contentRepository.getVocabularyLessons(
+    await _dailyLessonRepository.prepareForDay(
+      type: LessonType.vocabulary,
+      cefrLevel: level.code,
+      progressRepository: _progressRepository,
+    );
+
+    var lessons = await _contentRepository.getVocabularyLessons(
       level,
       progress: _progressRepository.allProgress,
     );
+    final dailyState =
+        _dailyLessonRepository.stateFor(LessonType.vocabulary, level.code);
+    _lessons =
+        _dailyLessonRepository.applyVocabularyDailyGate(lessons, dailyState);
 
     final todaysWords = await _dailyRepository.getTodaysWords(level);
     _todaysWordIds = todaysWords.map((w) => w.id).toSet();
@@ -156,12 +170,24 @@ class VocabularyViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void openLesson(BuildContext context, VocabularyLessonModel lesson) {
+  Future<void> openLesson(
+    BuildContext context,
+    VocabularyLessonModel lesson,
+  ) async {
     if (lesson.status == LearningLessonStatus.locked) return;
     if (lesson.words.isEmpty) {
       SnackbarHelper.showSuccess(context, _l10n.lessonContentSoon);
       return;
     }
+
+    if (lesson.status == LearningLessonStatus.notStarted) {
+      await _dailyLessonRepository.recordLessonStarted(
+        type: LessonType.vocabulary,
+        cefrLevel: level.code,
+        lessonId: lesson.lessonId,
+      );
+    }
+    if (!context.mounted) return;
 
     final startIndex = _resolveStartIndex(lesson);
 
@@ -217,7 +243,13 @@ class VocabularyViewModel extends ChangeNotifier {
       type: LessonType.vocabulary.id,
       cefrLevel: level.code,
       finalIndex: completedLesson.totalWords,
-      unlockLessonId: nextId,
+    );
+
+    await _dailyLessonRepository.recordLessonCompleted(
+      type: LessonType.vocabulary,
+      cefrLevel: level.code,
+      completedLessonId: completedLesson.lessonId,
+      nextUnlockLessonId: nextId,
     );
 
     await _syncService.onLessonCompleted(
