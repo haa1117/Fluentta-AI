@@ -32,6 +32,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The total cost is $5.50."
+        },
+        {
+          "prompt": "What does \"order\" mean?",
+          "options": [
+            "a list of food and drinks available",
+            "served cold with ice",
+            "to ask for food or drink in a café or restaurant"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"order\" means to ask for food or drink in a café or restaurant."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"menu\"?",
+          "options": [
+            "Are you ready to order?",
+            "I would like an iced coffee.",
+            "Can I see the menu, please?"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"Can I see the menu, please?\" is a good example."
+        },
+        {
+          "prompt": "What does \"iced\" mean?",
+          "options": [
+            "to ask for food or drink in a café or restaurant",
+            "a list of food and drinks available",
+            "served cold with ice"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"iced\" means served cold with ice."
         }
       ]
     },
@@ -63,6 +93,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The customer orders grilled chicken as the main course."
+        },
+        {
+          "prompt": "What does \"starter\" mean?",
+          "options": [
+            "the biggest and most important part of a meal",
+            "cooked on a grill using direct heat",
+            "the first course of a meal"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"starter\" means the first course of a meal."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"main course\"?",
+          "options": [
+            "I'll have the salad as a starter.",
+            "I prefer grilled fish to fried.",
+            "For my main course, I'd like the pasta."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"For my main course, I'd like the pasta.\" is a good example."
+        },
+        {
+          "prompt": "What does \"grilled\" mean?",
+          "options": [
+            "the first course of a meal",
+            "the biggest and most important part of a meal",
+            "cooked on a grill using direct heat"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"grilled\" means cooked on a grill using direct heat."
         }
       ]
     },
@@ -94,6 +154,36 @@
           ],
           "correctIndex": 2,
           "feedback": "Correct! The customer is allergic to nuts."
+        },
+        {
+          "prompt": "What does \"vegetarian\" mean?",
+          "options": [
+            "having a bad reaction to a particular food or substance",
+            "a liquid base made by boiling meat or vegetables, used in cooking",
+            "a person who does not eat meat; food with no meat"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"vegetarian\" means a person who does not eat meat; food with no meat."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"allergic\"?",
+          "options": [
+            "Is there a vegetarian option on the menu?",
+            "The soup is made with chicken stock.",
+            "I am allergic to shellfish."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"I am allergic to shellfish.\" is a good example."
+        },
+        {
+          "prompt": "What does \"stock\" mean?",
+          "options": [
+            "a person who does not eat meat; food with no meat",
+            "having a bad reaction to a particular food or substance",
+            "a liquid base made by boiling meat or vegetables, used in cooking"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"stock\" means a liquid base made by boiling meat or vegetables, used in cooking."
         }
       ]
     },
@@ -125,6 +215,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The side salad was missing from the order."
+        },
+        {
+          "prompt": "What does \"medium-rare\" mean?",
+          "options": [
+            "meat that is cooked thoroughly with no pink inside",
+            "a small dish served alongside the main meal",
+            "a way of cooking meat — pink inside, slightly cooked outside"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"medium-rare\" means a way of cooking meat — pink inside, slightly cooked outside."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"well-done\"?",
+          "options": [
+            "I'd like my steak medium-rare, please.",
+            "I ordered a side of fries.",
+            "She always orders her steak well-done."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"She always orders her steak well-done.\" is a good example."
+        },
+        {
+          "prompt": "What does \"side\" mean?",
+          "options": [
+            "a way of cooking meat — pink inside, slightly cooked outside",
+            "meat that is cooked thoroughly with no pink inside",
+            "a small dish served alongside the main meal"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"side\" means a small dish served alongside the main meal."
         }
       ]
     },
@@ -156,6 +276,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The host recommends the sea bass because it is locally sourced."
+        },
+        {
+          "prompt": "What does \"seasonal menu\" mean?",
+          "options": [
+            "feeling drawn to or favouring a particular option",
+            "unusually good; outstanding",
+            "a menu that changes based on ingredients available in the current season"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"seasonal menu\" means a menu that changes based on ingredients available in the current season."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"inclined towards\"?",
+          "options": [
+            "The seasonal menu features fresh autumn vegetables.",
+            "The service was absolutely exceptional.",
+            "I'm inclined towards the fish tonight."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"I'm inclined towards the fish tonight.\" is a good example."
+        },
+        {
+          "prompt": "What does \"exceptional\" mean?",
+          "options": [
+            "a menu that changes based on ingredients available in the current season",
+            "feeling drawn to or favouring a particular option",
+            "unusually good; outstanding"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"exceptional\" means unusually good; outstanding."
         }
       ]
     }

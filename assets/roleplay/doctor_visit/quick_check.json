@@ -32,6 +32,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The doctor asks the patient to open their mouth."
+        },
+        {
+          "prompt": "What does \"symptom\" mean?",
+          "options": [
+            "a painful or irritated feeling in the throat",
+            "a pain inside the head",
+            "a sign of illness felt by a patient"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"symptom\" means a sign of illness felt by a patient."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"sore throat\"?",
+          "options": [
+            "A sore throat is a common symptom of a cold.",
+            "I've had a headache all day.",
+            "I have a bad sore throat and can't swallow."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"I have a bad sore throat and can't swallow.\" is a good example."
+        },
+        {
+          "prompt": "What does \"headache\" mean?",
+          "options": [
+            "a sign of illness felt by a patient",
+            "a painful or irritated feeling in the throat",
+            "a pain inside the head"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"headache\" means a pain inside the head."
         }
       ]
     },
@@ -63,6 +93,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The patient should stop and return to the doctor."
+        },
+        {
+          "prompt": "What does \"prescribe\" mean?",
+          "options": [
+            "medicines that kill bacterial infections",
+            "an unwanted result of taking a medication",
+            "to officially tell a patient to take a medicine"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"prescribe\" means to officially tell a patient to take a medicine."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"antibiotics\"?",
+          "options": [
+            "The doctor prescribed antibiotics for the infection.",
+            "One side effect of this medicine is dizziness.",
+            "Always finish your course of antibiotics."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"Always finish your course of antibiotics.\" is a good example."
+        },
+        {
+          "prompt": "What does \"side effect\" mean?",
+          "options": [
+            "to officially tell a patient to take a medicine",
+            "medicines that kill bacterial infections",
+            "an unwanted result of taking a medication"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"side effect\" means an unwanted result of taking a medication."
         }
       ]
     },
@@ -94,6 +154,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The tingling goes down the right leg."
+        },
+        {
+          "prompt": "What does \"sharp\" mean?",
+          "options": [
+            "a continuous, low-level pain that is not intense",
+            "happening all the time without stopping",
+            "a sudden, intense pain (like a knife)"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"sharp\" means a sudden, intense pain (like a knife)."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"dull ache\"?",
+          "options": [
+            "I feel a sharp pain when I breathe in.",
+            "The pain is constant — it never goes away.",
+            "I have a dull ache in my shoulder."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"I have a dull ache in my shoulder.\" is a good example."
+        },
+        {
+          "prompt": "What does \"constant\" mean?",
+          "options": [
+            "a sudden, intense pain (like a knife)",
+            "a continuous, low-level pain that is not intense",
+            "happening all the time without stopping"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"constant\" means happening all the time without stopping."
         }
       ]
     },
@@ -125,6 +215,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The patient changed jobs six months ago."
+        },
+        {
+          "prompt": "What does \"exhausted\" mean?",
+          "options": [
+            "continuing for a long time; not stopping",
+            "severe and sudden in onset (in medical terms)",
+            "extremely tired, with no energy left"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"exhausted\" means extremely tired, with no energy left."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"persistent\"?",
+          "options": [
+            "I feel completely exhausted, even after a full night's sleep.",
+            "The patient arrived with acute chest pain.",
+            "She has a persistent cough that won't go away."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"She has a persistent cough that won't go away.\" is a good example."
+        },
+        {
+          "prompt": "What does \"acute\" mean?",
+          "options": [
+            "extremely tired, with no energy left",
+            "continuing for a long time; not stopping",
+            "severe and sudden in onset (in medical terms)"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"acute\" means severe and sudden in onset (in medical terms)."
         }
       ]
     },
@@ -156,6 +276,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The doctor says a second opinion is the patient's right."
+        },
+        {
+          "prompt": "What does \"referral\" mean?",
+          "options": [
+            "a doctor who specialises in the heart",
+            "something that is irregular or unexpected",
+            "when a doctor sends a patient to see a specialist"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"referral\" means when a doctor sends a patient to see a specialist."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"cardiologist\"?",
+          "options": [
+            "I have a referral to see a specialist next month.",
+            "The scan revealed a small anomaly.",
+            "The cardiologist reviewed my ECG results."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"The cardiologist reviewed my ECG results.\" is a good example."
+        },
+        {
+          "prompt": "What does \"anomaly\" mean?",
+          "options": [
+            "when a doctor sends a patient to see a specialist",
+            "a doctor who specialises in the heart",
+            "something that is irregular or unexpected"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"anomaly\" means something that is irregular or unexpected."
         }
       ]
     }

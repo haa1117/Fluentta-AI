@@ -67,7 +67,7 @@ class _RoleplayQuickCheckLessonBody extends StatelessWidget {
             lessonNumber: lessonNumber,
             progress: viewModel.lessonProgress,
           ),
-          SizedBox(height: AppSizes.spaceLg),
+          SizedBox(height: AppSizes.spaceXl * 2), 
           Expanded(
             child: SingleChildScrollView(
               child: RoleplayQuizCard(

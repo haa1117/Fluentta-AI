@@ -51,6 +51,58 @@ def question(prompt: str, options: list[str], correct_index: int, feedback: str)
     }
 
 
+QUICK_CHECK_QUESTIONS_PER_LESSON = 5
+
+
+def vocab_definition_question(target: dict, all_words: list[dict]) -> dict:
+    distractors = [
+        other["definition"]
+        for other in all_words
+        if other["word"] != target["word"]
+    ][:2]
+    options = distractors + [target["definition"]]
+    return question(
+        f'What does "{target["word"]}" mean?',
+        options,
+        2,
+        f'Correct! "{target["word"]}" means {target["definition"]}.',
+    )
+
+
+def vocab_example_question(target: dict, all_words: list[dict]) -> dict:
+    distractors = [
+        other["example"]
+        for other in all_words
+        if other["word"] != target["word"]
+    ][:2]
+    options = distractors + [target["example"]]
+    return question(
+        f'Which sentence shows the correct use of "{target["word"]}"?',
+        options,
+        2,
+        f'Correct! "{target["example"]}" is a good example.',
+    )
+
+
+def build_lesson_questions(lesson: dict) -> list[dict]:
+    comprehension = list(lesson["questions"])
+    words = lesson["words"]
+
+    if len(comprehension) >= QUICK_CHECK_QUESTIONS_PER_LESSON:
+        return comprehension[:QUICK_CHECK_QUESTIONS_PER_LESSON]
+
+    extra_needed = QUICK_CHECK_QUESTIONS_PER_LESSON - len(comprehension)
+    vocab_generators = [vocab_definition_question, vocab_example_question]
+    vocab_questions: list[dict] = []
+
+    for index in range(extra_needed):
+        word = words[index % len(words)]
+        generator = vocab_generators[index % len(vocab_generators)]
+        vocab_questions.append(generator(word, words))
+
+    return comprehension + vocab_questions
+
+
 SCENARIOS = {
     "job_interviews": {
         "title": "Job Interview",
@@ -1013,7 +1065,7 @@ def build_quick_check_lesson(
         "iconName": "chat",
         "completionTitle": completion_title,
         "completionSummary": f"You have completed {lesson['title']} successfully",
-        "questions": lesson["questions"],
+        "questions": build_lesson_questions(lesson),
     }
 
 
@@ -1085,7 +1137,18 @@ def main() -> None:
     print(f"  Total lessons: {total_lessons} (expected 30)")
     if len(SCENARIOS) != 6 or total_lessons != 30:
         raise SystemExit("Verification failed: expected 6 scenarios with 30 lessons total")
-    print("  Verification passed: 6 scenarios x 5 lessons each")
+
+    for scenario_id, scenario in SCENARIOS.items():
+        for index, lesson in enumerate(scenario["lessons"], start=1):
+            question_count = len(build_lesson_questions(lesson))
+            if question_count != QUICK_CHECK_QUESTIONS_PER_LESSON:
+                raise SystemExit(
+                    f"Verification failed: {scenario_id} lesson {index} "
+                    f"has {question_count} questions, expected "
+                    f"{QUICK_CHECK_QUESTIONS_PER_LESSON}"
+                )
+
+    print("  Verification passed: 6 scenarios x 5 lessons x 5 questions each")
 
 
 if __name__ == "__main__":

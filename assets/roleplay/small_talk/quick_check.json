@@ -32,6 +32,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The forecast says rain stops by the afternoon."
+        },
+        {
+          "prompt": "What does \"forecast\" mean?",
+          "options": [
+            "very bad",
+            "a device you open to protect yourself from rain",
+            "a prediction of future weather"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"forecast\" means a prediction of future weather."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"terrible\"?",
+          "options": [
+            "The forecast says sun tomorrow.",
+            "I always carry an umbrella in winter.",
+            "It's terrible weather for a picnic."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"It's terrible weather for a picnic.\" is a good example."
+        },
+        {
+          "prompt": "What does \"umbrella\" mean?",
+          "options": [
+            "a prediction of future weather",
+            "very bad",
+            "a device you open to protect yourself from rain"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"umbrella\" means a device you open to protect yourself from rain."
         }
       ]
     },
@@ -63,6 +93,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The colleague says it is scary but worth watching."
+        },
+        {
+          "prompt": "What does \"hiking\" mean?",
+          "options": [
+            "stayed at home instead of going out",
+            "a film or book with suspense and excitement",
+            "walking in nature for exercise or enjoyment"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"hiking\" means walking in nature for exercise or enjoyment."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"stayed in\"?",
+          "options": [
+            "We go hiking in the mountains every summer.",
+            "I love a good thriller — they keep me guessing.",
+            "I stayed in on Friday and watched TV."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"I stayed in on Friday and watched TV.\" is a good example."
+        },
+        {
+          "prompt": "What does \"thriller\" mean?",
+          "options": [
+            "walking in nature for exercise or enjoyment",
+            "stayed at home instead of going out",
+            "a film or book with suspense and excitement"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"thriller\" means a film or book with suspense and excitement."
         }
       ]
     },
@@ -94,6 +154,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! Jamie loves the freedom of freelance work."
+        },
+        {
+          "prompt": "What does \"stayed in touch\" mean?",
+          "options": [
+            "working independently for different clients, not one employer",
+            "completely disordered and unpredictable",
+            "maintained contact with someone over time"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"stayed in touch\" means maintained contact with someone over time."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"freelance\"?",
+          "options": [
+            "We stayed in touch after school through social media.",
+            "The office was chaotic on deadline day.",
+            "She works freelance as a photographer."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"She works freelance as a photographer.\" is a good example."
+        },
+        {
+          "prompt": "What does \"chaotic\" mean?",
+          "options": [
+            "maintained contact with someone over time",
+            "working independently for different clients, not one employer",
+            "completely disordered and unpredictable"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"chaotic\" means completely disordered and unpredictable."
         }
       ]
     },
@@ -125,6 +215,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The speaker leads the digital transformation team."
+        },
+        {
+          "prompt": "What does \"panel discussion\" mean?",
+          "options": [
+            "highly persuasive or interesting",
+            "causing you to think deeply",
+            "a group of experts discussing a topic in public"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"panel discussion\" means a group of experts discussing a topic in public."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"compelling\"?",
+          "options": [
+            "The panel discussion covered climate policy.",
+            "That was a thought-provoking question.",
+            "She made a compelling argument for change."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"She made a compelling argument for change.\" is a good example."
+        },
+        {
+          "prompt": "What does \"thought-provoking\" mean?",
+          "options": [
+            "a group of experts discussing a topic in public",
+            "highly persuasive or interesting",
+            "causing you to think deeply"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"thought-provoking\" means causing you to think deeply."
         }
       ]
     },
@@ -156,6 +276,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! At twenty-five, ambition felt like its own answer."
+        },
+        {
+          "prompt": "What does \"surface-level\" mean?",
+          "options": [
+            "a strong desire to achieve something",
+            "disappointment from discovering something is not as good as believed",
+            "not going deep; only dealing with what is obvious"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"surface-level\" means not going deep; only dealing with what is obvious."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"ambition\"?",
+          "options": [
+            "We only had a surface-level conversation at the party.",
+            "There is a growing disillusionment with politics.",
+            "His ambition drove him to work eighteen-hour days."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"His ambition drove him to work eighteen-hour days.\" is a good example."
+        },
+        {
+          "prompt": "What does \"disillusionment\" mean?",
+          "options": [
+            "not going deep; only dealing with what is obvious",
+            "a strong desire to achieve something",
+            "disappointment from discovering something is not as good as believed"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"disillusionment\" means disappointment from discovering something is not as good as believed."
         }
       ]
     }

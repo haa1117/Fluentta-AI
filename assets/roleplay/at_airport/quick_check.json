@@ -32,6 +32,36 @@
           ],
           "correctIndex": 2,
           "feedback": "Correct! The passenger chooses a window seat."
+        },
+        {
+          "prompt": "What does \"check in\" mean?",
+          "options": [
+            "a document that allows you to board a plane",
+            "the walkway between seats on a plane",
+            "to register your arrival at an airport or hotel"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"check in\" means to register your arrival at an airport or hotel."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"boarding pass\"?",
+          "options": [
+            "I need to check in two hours before the flight.",
+            "I prefer an aisle seat for long flights.",
+            "Please have your boarding pass ready."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"Please have your boarding pass ready.\" is a good example."
+        },
+        {
+          "prompt": "What does \"aisle\" mean?",
+          "options": [
+            "to register your arrival at an airport or hotel",
+            "a document that allows you to board a plane",
+            "the walkway between seats on a plane"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"aisle\" means the walkway between seats on a plane."
         }
       ]
     },
@@ -63,6 +93,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The water is over 100ml and cannot be kept."
+        },
+        {
+          "prompt": "What does \"security\" mean?",
+          "options": [
+            "a flat container used to carry or place items",
+            "a substance that flows, like water or juice",
+            "the safety checks at an airport"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"security\" means the safety checks at an airport."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"tray\"?",
+          "options": [
+            "The security queue was very long today.",
+            "Liquids must be under 100ml.",
+            "Put your phone in the tray."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"Put your phone in the tray.\" is a good example."
+        },
+        {
+          "prompt": "What does \"liquid\" mean?",
+          "options": [
+            "the safety checks at an airport",
+            "a flat container used to carry or place items",
+            "a substance that flows, like water or juice"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"liquid\" means a substance that flows, like water or juice."
         }
       ]
     },
@@ -94,6 +154,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The agent recommends speaking to the transfer desk in Dubai."
+        },
+        {
+          "prompt": "What does \"delay\" mean?",
+          "options": [
+            "trouble or difficulty caused to someone",
+            "a second flight that continues your journey",
+            "when something happens later than expected"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"delay\" means when something happens later than expected."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"inconvenience\"?",
+          "options": [
+            "The flight has a three-hour delay.",
+            "I have a connecting flight in Istanbul.",
+            "We apologize for any inconvenience caused."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"We apologize for any inconvenience caused.\" is a good example."
+        },
+        {
+          "prompt": "What does \"connecting flight\" mean?",
+          "options": [
+            "when something happens later than expected",
+            "trouble or difficulty caused to someone",
+            "a second flight that continues your journey"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"connecting flight\" means a second flight that continues your journey."
         }
       ]
     },
@@ -125,6 +215,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! The airline offers a $50 emergency allowance."
+        },
+        {
+          "prompt": "What does \"baggage belt\" mean?",
+          "options": [
+            "placed onto a vehicle or aircraft",
+            "the airport where bags move from one flight to another",
+            "the moving conveyor where luggage arrives after a flight"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"baggage belt\" means the moving conveyor where luggage arrives after a flight."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"loaded\"?",
+          "options": [
+            "My bag came through on belt three.",
+            "There was a delay at the transfer point.",
+            "All bags were loaded before departure."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"All bags were loaded before departure.\" is a good example."
+        },
+        {
+          "prompt": "What does \"transfer point\" mean?",
+          "options": [
+            "the moving conveyor where luggage arrives after a flight",
+            "placed onto a vehicle or aircraft",
+            "the airport where bags move from one flight to another"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"transfer point\" means the airport where bags move from one flight to another."
         }
       ]
     },
@@ -156,6 +276,36 @@
           ],
           "correctIndex": 1,
           "feedback": "Correct! Business class boards 15 minutes before general boarding."
+        },
+        {
+          "prompt": "What does \"frequent flyer\" mean?",
+          "options": [
+            "given free of charge as a courtesy",
+            "having the right or qualification for something",
+            "a passenger who travels often and earns loyalty rewards"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"frequent flyer\" means a passenger who travels often and earns loyalty rewards."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"complimentary\"?",
+          "options": [
+            "As a frequent flyer, she always gets priority boarding.",
+            "You are eligible for a free upgrade.",
+            "The hotel offered a complimentary breakfast."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"The hotel offered a complimentary breakfast.\" is a good example."
+        },
+        {
+          "prompt": "What does \"eligible\" mean?",
+          "options": [
+            "a passenger who travels often and earns loyalty rewards",
+            "given free of charge as a courtesy",
+            "having the right or qualification for something"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"eligible\" means having the right or qualification for something."
         }
       ]
     }
