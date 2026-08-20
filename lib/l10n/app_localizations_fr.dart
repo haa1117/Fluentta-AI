@@ -1416,6 +1416,35 @@ class AppLocalizationsFr extends AppLocalizations {
       'Apprenez les mots clés de réunion';
 
   @override
+  String get scenarioJobInterviewQuickSub => 'Answer job interview questions';
+
+  @override
+  String get scenarioOrderFoodQuickSub => 'Answer restaurant questions';
+
+  @override
+  String get scenarioAtAirportQuickSub => 'Answer airport travel questions';
+
+  @override
+  String get scenarioDoctorVisitQuickSub => 'Answer doctor visit questions';
+
+  @override
+  String get scenarioSmallTalkQuickSub => 'Answer small talk questions';
+
+  @override
+  String get scenarioBusinessMeetingQuickSub =>
+      'Answer business meeting questions';
+
+  @override
+  String roleplayQuestionsLearned(int count) {
+    return '$count Questions Learned';
+  }
+
+  @override
+  String roleplayLessonCompleted(int lessonNumber) {
+    return 'You have completed Lesson $lessonNumber successfully';
+  }
+
+  @override
   String get customPlanReady => 'Votre plan personnalisé est prêt';
 
   @override

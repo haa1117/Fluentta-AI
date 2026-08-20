@@ -120,13 +120,8 @@ class LearningLessonTile extends StatelessWidget {
   }
 
   String _progressLabel(AppLocalizations l10n, LearningLessonItem lesson) {
-    if (lesson is VocabularyLessonModel) {
-      final statusLabel = _statusLabel(l10n, lesson.status);
-      return l10n.wordsProgress(
-        lesson.wordsCompleted,
-        lesson.totalWords,
-        statusLabel,
-      );
+    if (lesson.progressLabel.isNotEmpty) {
+      return lesson.progressLabel;
     }
     return _statusLabel(l10n, lesson.status);
   }

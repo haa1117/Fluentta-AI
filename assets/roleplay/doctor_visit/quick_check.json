@@ -1,0 +1,163 @@
+{
+  "scenarioId": "doctor_visit",
+  "cefrLevel": "A2",
+  "pathTitle": "Doctor Visit Quick Check",
+  "pathSubtitle": "Communicate health concerns, describe symptoms, and understand medical advice clearly.",
+  "lessons": [
+    {
+      "id": "doctor_visit_quick_01",
+      "number": 1,
+      "title": "Describing Basic Symptoms",
+      "cefrLevel": "A2",
+      "iconName": "chat",
+      "completionTitle": "Doctor Visit",
+      "completionSummary": "You have completed Describing Basic Symptoms successfully",
+      "questions": [
+        {
+          "prompt": "How long has the patient had symptoms?",
+          "options": [
+            "One day",
+            "Three days",
+            "A week"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The patient has had symptoms for three days."
+        },
+        {
+          "prompt": "What does the doctor ask the patient to do?",
+          "options": [
+            "Lie down",
+            "Open their mouth",
+            "Breathe deeply"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The doctor asks the patient to open their mouth."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_quick_02",
+      "number": 2,
+      "title": "Getting a Prescription",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Doctor Visit",
+      "completionSummary": "You have completed Getting a Prescription successfully",
+      "questions": [
+        {
+          "prompt": "What type of infection does the patient have?",
+          "options": [
+            "Viral",
+            "Bacterial",
+            "Fungal"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The patient has a bacterial infection."
+        },
+        {
+          "prompt": "What should the patient do if they get a rash?",
+          "options": [
+            "Take more medicine",
+            "Stop and return to the doctor",
+            "Drink more water"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The patient should stop and return to the doctor."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_quick_03",
+      "number": 3,
+      "title": "Describing Pain",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Doctor Visit",
+      "completionSummary": "You have completed Describing Pain successfully",
+      "questions": [
+        {
+          "prompt": "What caused the back pain?",
+          "options": [
+            "A car accident",
+            "Moving heavy boxes",
+            "A sports injury"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The back pain started after moving heavy boxes."
+        },
+        {
+          "prompt": "Where does the tingling feeling go?",
+          "options": [
+            "Up the back",
+            "Down the right leg",
+            "Into the left arm"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The tingling goes down the right leg."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_quick_04",
+      "number": 4,
+      "title": "Mental Health Consultation",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "Doctor Visit",
+      "completionSummary": "You have completed Mental Health Consultation successfully",
+      "questions": [
+        {
+          "prompt": "Which symptom does the patient NOT mention?",
+          "options": [
+            "Poor sleep",
+            "Chest pain",
+            "Loss of interest"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The patient does not mention chest pain."
+        },
+        {
+          "prompt": "What significant life change happened six months ago?",
+          "options": [
+            "They moved house",
+            "They changed jobs",
+            "They ended a relationship"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The patient changed jobs six months ago."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_quick_05",
+      "number": 5,
+      "title": "Specialist Referral & Second Opinion",
+      "cefrLevel": "C1",
+      "iconName": "chat",
+      "completionTitle": "Doctor Visit",
+      "completionSummary": "You have completed Specialist Referral & Second Opinion successfully",
+      "questions": [
+        {
+          "prompt": "Why is the doctor referring the patient?",
+          "options": [
+            "Broken bone",
+            "ECG irregularities",
+            "High blood pressure"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The doctor is referring the patient due to ECG irregularities."
+        },
+        {
+          "prompt": "What does the doctor say about seeking a second opinion?",
+          "options": [
+            "It's not advisable",
+            "It's the patient's right",
+            "It will delay treatment"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The doctor says a second opinion is the patient's right."
+        }
+      ]
+    }
+  ]
+}

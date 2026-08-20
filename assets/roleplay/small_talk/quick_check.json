@@ -1,0 +1,163 @@
+{
+  "scenarioId": "small_talk",
+  "cefrLevel": "A1",
+  "pathTitle": "Small Talk Quick Check",
+  "pathSubtitle": "Master casual conversation — from talking about the weather to connecting meaningfully at social events.",
+  "lessons": [
+    {
+      "id": "small_talk_quick_01",
+      "number": 1,
+      "title": "The Weather",
+      "cefrLevel": "A1",
+      "iconName": "chat",
+      "completionTitle": "Small Talk",
+      "completionSummary": "You have completed The Weather successfully",
+      "questions": [
+        {
+          "prompt": "What did the speaker forget?",
+          "options": [
+            "Their coat",
+            "Their umbrella",
+            "Their phone"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The speaker forgot their umbrella."
+        },
+        {
+          "prompt": "What does the forecast say?",
+          "options": [
+            "More rain",
+            "Rain stops by the afternoon",
+            "Wind and cold"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The forecast says rain stops by the afternoon."
+        }
+      ]
+    },
+    {
+      "id": "small_talk_quick_02",
+      "number": 2,
+      "title": "Talking About the Weekend",
+      "cefrLevel": "A2",
+      "iconName": "chat",
+      "completionTitle": "Small Talk",
+      "completionSummary": "You have completed Talking About the Weekend successfully",
+      "questions": [
+        {
+          "prompt": "What did the speaker do on Saturday?",
+          "options": [
+            "Watched a film",
+            "Cooked dinner",
+            "Went hiking"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! The speaker went hiking on Saturday."
+        },
+        {
+          "prompt": "How does the colleague describe the film?",
+          "options": [
+            "Boring but long",
+            "Scary but worth watching",
+            "Funny and light"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The colleague says it is scary but worth watching."
+        }
+      ]
+    },
+    {
+      "id": "small_talk_quick_03",
+      "number": 3,
+      "title": "At a Party",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Small Talk",
+      "completionSummary": "You have completed At a Party successfully",
+      "questions": [
+        {
+          "prompt": "How does Alex know Sarah?",
+          "options": [
+            "They worked together",
+            "They went to university together",
+            "They are family"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Alex and Sarah went to university together."
+        },
+        {
+          "prompt": "What does Jamie like about their job?",
+          "options": [
+            "The salary",
+            "The freedom",
+            "The colleagues"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Jamie loves the freedom of freelance work."
+        }
+      ]
+    },
+    {
+      "id": "small_talk_quick_04",
+      "number": 4,
+      "title": "Networking Event",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "Small Talk",
+      "completionSummary": "You have completed Networking Event successfully",
+      "questions": [
+        {
+          "prompt": "Which speaker did the contact find more compelling?",
+          "options": [
+            "The first",
+            "The second",
+            "The third"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The contact found the second speaker more compelling."
+        },
+        {
+          "prompt": "What is the speaker's role?",
+          "options": [
+            "Sales director",
+            "Digital transformation team lead",
+            "IT consultant"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The speaker leads the digital transformation team."
+        }
+      ]
+    },
+    {
+      "id": "small_talk_quick_05",
+      "number": 5,
+      "title": "Deep Conversation — Life & Ambitions",
+      "cefrLevel": "C1",
+      "iconName": "chat",
+      "completionTitle": "Small Talk",
+      "completionSummary": "You have completed Deep Conversation — Life & Ambitions successfully",
+      "questions": [
+        {
+          "prompt": "What is the speaker questioning about their life?",
+          "options": [
+            "Their salary",
+            "Whether they are building something that matters",
+            "Their relationship"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The speaker questions whether they are building something that matters."
+        },
+        {
+          "prompt": "How did ambition feel at twenty-five?",
+          "options": [
+            "Exhausting",
+            "Its own answer",
+            "Pointless"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! At twenty-five, ambition felt like its own answer."
+        }
+      ]
+    }
+  ]
+}

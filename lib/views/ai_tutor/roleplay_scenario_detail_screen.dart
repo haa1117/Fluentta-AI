@@ -4,12 +4,13 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/l10n/roleplay_scenario_l10n.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/ai_tutor_view_model.dart';
 import 'package:fluentta_ai/widgets/ai_tutor/roleplay_practice_option_tile.dart';
 import 'package:fluentta_ai/widgets/ai_tutor/roleplay_scenario_overview_card.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/home/todays_lesson_card.dart';
+import 'package:fluentta_ai/views/ai_tutor/roleplay_quick_check_path_screen.dart';
+import 'package:fluentta_ai/views/ai_tutor/roleplay_vocabulary_path_screen.dart';
 
 class RoleplayScenarioDetailScreen extends StatelessWidget {
   const RoleplayScenarioDetailScreen({
@@ -77,16 +78,31 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
               subtitle: RoleplayScenarioL10n.vocabularySubtitle(l10n, scenario.id),
               iconAsset: 'assets/svg/vocabulary_book.svg',
               iconBackgroundColor: AppColors.primaryColor,
-              onTap: () => _showComingSoon(context),
+              onTap: () {
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => RoleplayVocabularyPathScreen(
+                      scenarioId: scenario.id,
+                    ),
+                  ),
+                );
+              },
             ),
             SizedBox(height: AppSizes.h(12)),
             RoleplayPracticeOptionTile(
               title: l10n.quickCheck,
-              subtitle: l10n.quickCheckSub,
+              subtitle: RoleplayScenarioL10n.quickCheckSubtitle(l10n, scenario.id),
               iconBackgroundColor: AppColors.learnReadingOrange,
               iconAsset: 'assets/svg/quick_che3ck.svg',
-              onTap: () => _showComingSoon(context),
-
+              onTap: () {
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => RoleplayQuickCheckPathScreen(
+                      scenarioId: scenario.id,
+                    ),
+                  ),
+                );
+              },
             ),
             SizedBox(height: AppSizes.h(180)),
             const HomeBannerAd(),
@@ -94,9 +110,5 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _showComingSoon(BuildContext context) {
-    SnackbarHelper.showSuccess(context, context.l10n.openingSoon);
   }
 }

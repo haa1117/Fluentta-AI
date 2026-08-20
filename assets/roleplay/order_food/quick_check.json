@@ -1,0 +1,163 @@
+{
+  "scenarioId": "order_food",
+  "cefrLevel": "A1",
+  "pathTitle": "Order Food Quick Check",
+  "pathSubtitle": "Practice ordering at cafés, restaurants, and food stalls — from simple requests to handling dietary needs and complaints.",
+  "lessons": [
+    {
+      "id": "order_food_quick_01",
+      "number": 1,
+      "title": "At a Café",
+      "cefrLevel": "A1",
+      "iconName": "chat",
+      "completionTitle": "Order Food",
+      "completionSummary": "You have completed At a Café successfully",
+      "questions": [
+        {
+          "prompt": "What does the customer order to drink?",
+          "options": [
+            "Tea",
+            "Iced coffee",
+            "Hot coffee"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! The customer orders hot coffee."
+        },
+        {
+          "prompt": "How much does it cost?",
+          "options": [
+            "$4.50",
+            "$5.50",
+            "$6.50"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The total cost is $5.50."
+        }
+      ]
+    },
+    {
+      "id": "order_food_quick_02",
+      "number": 2,
+      "title": "At a Restaurant",
+      "cefrLevel": "A2",
+      "iconName": "chat",
+      "completionTitle": "Order Food",
+      "completionSummary": "You have completed At a Restaurant successfully",
+      "questions": [
+        {
+          "prompt": "What is the soup of the day?",
+          "options": [
+            "Chicken soup",
+            "Tomato and basil",
+            "Mushroom"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The soup of the day is tomato and basil."
+        },
+        {
+          "prompt": "What does the customer order as a main course?",
+          "options": [
+            "Grilled fish",
+            "Grilled chicken",
+            "Pasta"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The customer orders grilled chicken as the main course."
+        }
+      ]
+    },
+    {
+      "id": "order_food_quick_03",
+      "number": 3,
+      "title": "Dietary Requirements",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Order Food",
+      "completionSummary": "You have completed Dietary Requirements successfully",
+      "questions": [
+        {
+          "prompt": "Why does the customer ask about the risotto?",
+          "options": [
+            "They don't like rice",
+            "They are vegetarian",
+            "It is too expensive"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The customer asks because they are vegetarian."
+        },
+        {
+          "prompt": "What allergy does the customer have?",
+          "options": [
+            "Dairy",
+            "Gluten",
+            "Nuts"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! The customer is allergic to nuts."
+        }
+      ]
+    },
+    {
+      "id": "order_food_quick_04",
+      "number": 4,
+      "title": "Sending Food Back",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "Order Food",
+      "completionSummary": "You have completed Sending Food Back successfully",
+      "questions": [
+        {
+          "prompt": "How did the customer order their steak?",
+          "options": [
+            "Well-done",
+            "Medium",
+            "Medium-rare"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! The customer ordered their steak medium-rare."
+        },
+        {
+          "prompt": "What else was missing from the order?",
+          "options": [
+            "Fries",
+            "Side salad",
+            "Bread"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The side salad was missing from the order."
+        }
+      ]
+    },
+    {
+      "id": "order_food_quick_05",
+      "number": 5,
+      "title": "A Business Dinner",
+      "cefrLevel": "C1",
+      "iconName": "chat",
+      "completionTitle": "Order Food",
+      "completionSummary": "You have completed A Business Dinner successfully",
+      "questions": [
+        {
+          "prompt": "What does the client consider ordering?",
+          "options": [
+            "Sea bass",
+            "Lamb",
+            "Chicken"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The client considers ordering lamb."
+        },
+        {
+          "prompt": "Why does the host recommend the sea bass?",
+          "options": [
+            "It is cheaper",
+            "It is locally sourced",
+            "It is the chef's favourite"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The host recommends the sea bass because it is locally sourced."
+        }
+      ]
+    }
+  ]
+}

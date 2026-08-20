@@ -1,0 +1,423 @@
+{
+  "scenarioId": "at_airport",
+  "cefrLevel": "A2",
+  "pathTitle": "At the Airport Vocabulary",
+  "pathSubtitle": "Navigate check-in, security, boarding, and flight delays with confidence.",
+  "lessons": [
+    {
+      "id": "at_airport_vocab_01",
+      "number": 1,
+      "title": "Check-In Desk",
+      "cefrLevel": "A2",
+      "levelLabel": "Elementary",
+      "situation": "You arrive at the airport and go to the check-in desk.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Agent",
+          "text": "Good morning. Can I see your passport and booking, please?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Of course. Here you are.",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "Thank you. Are you checking any bags today?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Yes, one suitcase.",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "Please put it on the scale. It's 22 kilograms — that's within the limit. Window or aisle seat?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Window, please.",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "Here is your boarding pass. Your gate is B14. Boarding starts at 10:30.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Thank you. What time is it now?",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "It's 9:15. You have plenty of time.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "check in",
+          "phonetic": "/ʧɛk ɪn/",
+          "partOfSpeech": "phrasal verb",
+          "definition": "to register your arrival at an airport or hotel",
+          "example": "I need to check in two hours before the flight."
+        },
+        {
+          "word": "boarding pass",
+          "phonetic": "/ˈbɔːrdɪŋ pɑːs/",
+          "partOfSpeech": "noun",
+          "definition": "a document that allows you to board a plane",
+          "example": "Please have your boarding pass ready."
+        },
+        {
+          "word": "aisle",
+          "phonetic": "/aɪl/",
+          "partOfSpeech": "noun",
+          "definition": "the walkway between seats on a plane",
+          "example": "I prefer an aisle seat for long flights."
+        },
+        {
+          "word": "gate",
+          "phonetic": "/ɡeɪt/",
+          "partOfSpeech": "noun",
+          "definition": "the specific exit in an airport where you board your plane",
+          "example": "Our gate is C22."
+        },
+        {
+          "word": "limit",
+          "phonetic": "/ˈlɪmɪt/",
+          "partOfSpeech": "noun",
+          "definition": "the maximum amount allowed",
+          "example": "The baggage limit is 23 kilograms."
+        }
+      ]
+    },
+    {
+      "id": "at_airport_vocab_02",
+      "number": 2,
+      "title": "Through Security",
+      "cefrLevel": "A2",
+      "levelLabel": "Elementary",
+      "situation": "You are going through airport security.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Officer",
+          "text": "Please remove your laptop from your bag and put it in a separate tray.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "OK. Do I need to take off my shoes?",
+          "isUser": true
+        },
+        {
+          "speaker": "Officer",
+          "text": "Yes, shoes and belts too, please. And any liquids must be in a clear bag.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I have a small bottle of water — is that OK?",
+          "isUser": true
+        },
+        {
+          "speaker": "Officer",
+          "text": "Sorry, liquids over 100ml are not allowed through. You'll need to throw it away.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Of course. I understand.",
+          "isUser": true
+        },
+        {
+          "speaker": "Officer",
+          "text": "Thank you. Please walk through the scanner now.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "security",
+          "phonetic": "/sɪˈkjʊərɪti/",
+          "partOfSpeech": "noun",
+          "definition": "the safety checks at an airport",
+          "example": "The security queue was very long today."
+        },
+        {
+          "word": "tray",
+          "phonetic": "/treɪ/",
+          "partOfSpeech": "noun",
+          "definition": "a flat container used to carry or place items",
+          "example": "Put your phone in the tray."
+        },
+        {
+          "word": "liquid",
+          "phonetic": "/ˈlɪkwɪd/",
+          "partOfSpeech": "noun",
+          "definition": "a substance that flows, like water or juice",
+          "example": "Liquids must be under 100ml."
+        },
+        {
+          "word": "allowed",
+          "phonetic": "/əˈlaʊd/",
+          "partOfSpeech": "adjective",
+          "definition": "permitted; acceptable",
+          "example": "Large bottles are not allowed through security."
+        },
+        {
+          "word": "scanner",
+          "phonetic": "/ˈskænər/",
+          "partOfSpeech": "noun",
+          "definition": "a machine that checks what you are carrying",
+          "example": "Walk slowly through the scanner."
+        }
+      ]
+    },
+    {
+      "id": "at_airport_vocab_03",
+      "number": 3,
+      "title": "Flight Delay",
+      "cefrLevel": "B1",
+      "levelLabel": "Intermediate",
+      "situation": "Your flight has been delayed. You approach the information desk to find out what is happening.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "You",
+          "text": "Excuse me. I'm on the 14:30 flight to Dubai — the board says it's delayed. Do you know how long?",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "I'm sorry for the inconvenience. There's a technical issue with the aircraft. We're currently estimating a two-hour delay.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Two hours? I have a connecting flight in Dubai at 19:00. Will I make it?",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "It's going to be tight. If you miss the connection, the airline will book you on the next available flight at no extra cost.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Is there anything I can do now to speed that process up if needed?",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "I'd recommend speaking to the transfer desk in Dubai as soon as you land. They'll have your details on the system.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "delay",
+          "phonetic": "/dɪˈleɪ/",
+          "partOfSpeech": "noun/verb",
+          "definition": "when something happens later than expected",
+          "example": "The flight has a three-hour delay."
+        },
+        {
+          "word": "inconvenience",
+          "phonetic": "/ˌɪnkənˈviːniəns/",
+          "partOfSpeech": "noun",
+          "definition": "trouble or difficulty caused to someone",
+          "example": "We apologize for any inconvenience caused."
+        },
+        {
+          "word": "connecting flight",
+          "phonetic": "/kəˈnɛktɪŋ flaɪt/",
+          "partOfSpeech": "phrase",
+          "definition": "a second flight that continues your journey",
+          "example": "I have a connecting flight in Istanbul."
+        },
+        {
+          "word": "tight",
+          "phonetic": "/taɪt/",
+          "partOfSpeech": "adjective",
+          "definition": "with little time to spare",
+          "example": "The connection is going to be tight."
+        },
+        {
+          "word": "transfer desk",
+          "phonetic": "/ˈtrænsfɜːr dɛsk/",
+          "partOfSpeech": "phrase",
+          "definition": "an airport desk that helps passengers with connecting flights",
+          "example": "Go to the transfer desk to rebook your connection."
+        }
+      ]
+    },
+    {
+      "id": "at_airport_vocab_04",
+      "number": 4,
+      "title": "Lost Luggage",
+      "cefrLevel": "B2",
+      "levelLabel": "Upper-Intermediate",
+      "situation": "You have arrived at your destination but your suitcase has not appeared on the baggage belt.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "You",
+          "text": "Excuse me. I've been waiting at belt six for forty minutes and my bag still hasn't come through.",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "I'm sorry to hear that. Can I take your name, flight number, and a description of the bag?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "It's a large black suitcase with a red ribbon tied to the handle. Flight was BA207 from London.",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "Thank you. I can see in our system that your bag was loaded but there may have been a scanning error at the transfer point. It's likely on the next flight, arriving in three hours.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "That's frustrating. I have a business meeting this evening — my work clothes are in that bag.",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "I completely understand. We can offer an emergency allowance of $50 for essential items. Here is the claim form and our tracking number for your file.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "baggage belt",
+          "phonetic": "/ˈbæɡɪʤ bɛlt/",
+          "partOfSpeech": "phrase",
+          "definition": "the moving conveyor where luggage arrives after a flight",
+          "example": "My bag came through on belt three."
+        },
+        {
+          "word": "loaded",
+          "phonetic": "/ˈloʊdɪd/",
+          "partOfSpeech": "adjective",
+          "definition": "placed onto a vehicle or aircraft",
+          "example": "All bags were loaded before departure."
+        },
+        {
+          "word": "transfer point",
+          "phonetic": "/ˈtrænsfɜːr pɔɪnt/",
+          "partOfSpeech": "phrase",
+          "definition": "the airport where bags move from one flight to another",
+          "example": "There was a delay at the transfer point."
+        },
+        {
+          "word": "allowance",
+          "phonetic": "/əˈlaʊəns/",
+          "partOfSpeech": "noun",
+          "definition": "an amount of money or items that is officially permitted",
+          "example": "We received a $50 emergency allowance."
+        },
+        {
+          "word": "claim form",
+          "phonetic": "/kleɪm fɔːrm/",
+          "partOfSpeech": "phrase",
+          "definition": "a document you complete to request compensation",
+          "example": "Please fill in this claim form for your lost bag."
+        }
+      ]
+    },
+    {
+      "id": "at_airport_vocab_05",
+      "number": 5,
+      "title": "Upgrade & Premium Travel",
+      "cefrLevel": "C1",
+      "levelLabel": "Advanced",
+      "situation": "You are at the check-in desk and politely ask about the possibility of an upgrade.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Agent",
+          "text": "Good morning. Passport and booking reference, please.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Of course. I was wondering — is there any availability in business class today? I'm a frequent flyer with Gold status.",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "Let me check. You're in luck — we do have one seat remaining in business class. As a Gold member, you're eligible for a complimentary upgrade subject to availability, which it appears we have.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "That's wonderful. I have a long-haul flight and I'd genuinely appreciate it.",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "Absolutely. I'll reassign your seat. You'll also have access to the premium lounge — it's past security on the left, beside gate A4.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Perfect. Is there anything else I should be aware of for the premium cabin?",
+          "isUser": true
+        },
+        {
+          "speaker": "Agent",
+          "text": "Boarding for business class begins 15 minutes before the general boarding call. You'll have priority disembarkation on arrival as well.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "frequent flyer",
+          "phonetic": "/ˈfriːkwənt ˈflaɪər/",
+          "partOfSpeech": "phrase",
+          "definition": "a passenger who travels often and earns loyalty rewards",
+          "example": "As a frequent flyer, she always gets priority boarding."
+        },
+        {
+          "word": "complimentary",
+          "phonetic": "/ˌkɒmplɪˈmɛntəri/",
+          "partOfSpeech": "adjective",
+          "definition": "given free of charge as a courtesy",
+          "example": "The hotel offered a complimentary breakfast."
+        },
+        {
+          "word": "eligible",
+          "phonetic": "/ˈɛlɪʤɪbəl/",
+          "partOfSpeech": "adjective",
+          "definition": "having the right or qualification for something",
+          "example": "You are eligible for a free upgrade."
+        },
+        {
+          "word": "lounge",
+          "phonetic": "/laʊnʤ/",
+          "partOfSpeech": "noun",
+          "definition": "a comfortable waiting area at an airport for premium passengers",
+          "example": "Business class passengers can use the lounge."
+        },
+        {
+          "word": "disembarkation",
+          "phonetic": "/ˌdɪsɛmbɑːrˈkeɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "the process of leaving an aircraft after landing",
+          "example": "Priority disembarkation means you exit first."
+        }
+      ]
+    }
+  ]
+}

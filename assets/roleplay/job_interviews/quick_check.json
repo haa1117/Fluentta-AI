@@ -1,0 +1,163 @@
+{
+  "scenarioId": "job_interviews",
+  "cefrLevel": "A2",
+  "pathTitle": "Job Interview Quick Check",
+  "pathSubtitle": "Practice the language of job interviews — from first impressions to tough questions and salary negotiation.",
+  "lessons": [
+    {
+      "id": "job_interviews_quick_01",
+      "number": 1,
+      "title": "First Impressions",
+      "cefrLevel": "A2",
+      "iconName": "chat",
+      "completionTitle": "Job Interview",
+      "completionSummary": "You have completed First Impressions successfully",
+      "questions": [
+        {
+          "prompt": "Why is Sam at the office?",
+          "options": [
+            "To deliver a package",
+            "For a job interview at ten",
+            "To meet a friend"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Sam is at the office for a job interview at ten."
+        },
+        {
+          "prompt": "What does the HR assistant offer Sam?",
+          "options": [
+            "Coffee",
+            "Water",
+            "A biscuit"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The HR assistant offers Sam water."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_quick_02",
+      "number": 2,
+      "title": "Tell Me About Yourself",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Job Interview",
+      "completionSummary": "You have completed Tell Me About Yourself successfully",
+      "questions": [
+        {
+          "prompt": "What did the candidate study?",
+          "options": [
+            "Marketing",
+            "Business Management",
+            "Computer Science"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate studied Business Management."
+        },
+        {
+          "prompt": "Why does the candidate's manager give them urgent tasks?",
+          "options": [
+            "They are slow",
+            "They are reliable and finish on time",
+            "They have nothing else to do"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The manager gives them urgent tasks because they are reliable and finish on time."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_quick_03",
+      "number": 3,
+      "title": "Handling Tough Questions",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Job Interview",
+      "completionSummary": "You have completed Handling Tough Questions successfully",
+      "questions": [
+        {
+          "prompt": "What mistake did the candidate make?",
+          "options": [
+            "Sent an email to a wrong address",
+            "Sent a report to the wrong client",
+            "Forgot a deadline"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate sent a report to the wrong client."
+        },
+        {
+          "prompt": "What is the candidate's weakness?",
+          "options": [
+            "Being too slow",
+            "Difficulty delegating tasks",
+            "Poor communication"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate's weakness is difficulty delegating tasks."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_quick_04",
+      "number": 4,
+      "title": "Salary Negotiation",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "Job Interview",
+      "completionSummary": "You have completed Salary Negotiation successfully",
+      "questions": [
+        {
+          "prompt": "What salary range does the candidate request?",
+          "options": [
+            "$45,000–$50,000",
+            "$55,000–$60,000",
+            "$60,000–$65,000"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate requests $55,000–$60,000."
+        },
+        {
+          "prompt": "What does the candidate ask about when the salary is low?",
+          "options": [
+            "Company size",
+            "The full package and benefits",
+            "Working hours"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate asks about the full package and benefits."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_quick_05",
+      "number": 5,
+      "title": "Senior-Level Strategic Interview",
+      "cefrLevel": "C1",
+      "iconName": "chat",
+      "completionTitle": "Job Interview",
+      "completionSummary": "You have completed Senior-Level Strategic Interview successfully",
+      "questions": [
+        {
+          "prompt": "What did the candidate do first to tackle the customer service problem?",
+          "options": [
+            "Fired the team",
+            "Conducted a root-cause analysis",
+            "Hired more staff"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate first conducted a root-cause analysis."
+        },
+        {
+          "prompt": "How did customer satisfaction scores change?",
+          "options": [
+            "From 58% to 81%",
+            "From 40% to 80%",
+            "From 70% to 90%"
+          ],
+          "correctIndex": 0,
+          "feedback": "Correct! Customer satisfaction scores rose from 58% to 81%."
+        }
+      ]
+    }
+  ]
+}

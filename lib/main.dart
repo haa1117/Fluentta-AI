@@ -10,6 +10,8 @@ import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_sync_repository.dart';
 import 'package:fluentta_ai/data/repositories/daily_lesson_repository.dart';
 import 'package:fluentta_ai/data/repositories/daily_vocabulary_repository.dart';
+import 'package:fluentta_ai/data/repositories/roleplay_content_repository.dart';
+import 'package:fluentta_ai/data/repositories/roleplay_content_sync_repository.dart';
 import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
 import 'package:fluentta_ai/data/repositories/spaced_repetition_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
@@ -48,6 +50,11 @@ void main() async {
     lessonContentRepository,
   );
   final dailyLessonRepository = DailyLessonRepository(localStorage);
+  final roleplayContentSyncRepository = RoleplayContentSyncRepository();
+  final roleplayContentRepository = RoleplayContentRepository(
+    localStorage,
+    roleplayContentSyncRepository,
+  );
   final progressSyncService = ProgressSyncService(
     progressRepository: progressRepository,
     syncRepository: progressSyncRepository,
@@ -61,6 +68,7 @@ void main() async {
   await progressRepository.initialize();
   await savedWordsRepository.initialize();
   await spacedRepetitionRepository.initialize();
+  await roleplayContentRepository.initialize();
   await authRepository.initializeGoogleSignIn();
   await authRepository.syncCurrentUser();
   await progressSyncService.pullAndMerge();
@@ -77,6 +85,7 @@ void main() async {
       spacedRepetitionRepository: spacedRepetitionRepository,
       dailyVocabularyRepository: dailyVocabularyRepository,
       dailyLessonRepository: dailyLessonRepository,
+      roleplayContentRepository: roleplayContentRepository,
       textToSpeechService: textToSpeechService,
       pronunciationAssessmentService: pronunciationAssessmentService,
     ),
@@ -96,6 +105,7 @@ class FluentaApp extends StatelessWidget {
     required this.spacedRepetitionRepository,
     required this.dailyVocabularyRepository,
     required this.dailyLessonRepository,
+    required this.roleplayContentRepository,
     required this.textToSpeechService,
     required this.pronunciationAssessmentService,
   });
@@ -110,6 +120,7 @@ class FluentaApp extends StatelessWidget {
   final SpacedRepetitionRepository spacedRepetitionRepository;
   final DailyVocabularyRepository dailyVocabularyRepository;
   final DailyLessonRepository dailyLessonRepository;
+  final RoleplayContentRepository roleplayContentRepository;
   final TextToSpeechService textToSpeechService;
   final PronunciationAssessmentService pronunciationAssessmentService;
 
@@ -133,6 +144,9 @@ class FluentaApp extends StatelessWidget {
         ),
         Provider<DailyLessonRepository>.value(
           value: dailyLessonRepository,
+        ),
+        Provider<RoleplayContentRepository>.value(
+          value: roleplayContentRepository,
         ),
         Provider<TextToSpeechService>.value(value: textToSpeechService),
         Provider<PronunciationAssessmentService>.value(

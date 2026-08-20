@@ -355,17 +355,20 @@ class ReadingQuestionDto {
     required this.prompt,
     required this.options,
     required this.correctIndex,
+    this.feedback,
   });
 
   final String prompt;
   final List<String> options;
   final int correctIndex;
+  final String? feedback;
 
   factory ReadingQuestionDto.fromJson(Map<String, dynamic> json) {
     return ReadingQuestionDto(
       prompt: json['prompt'] as String,
       options: (json['options'] as List<dynamic>).cast<String>(),
       correctIndex: json['correctIndex'] as int,
+      feedback: json['feedback'] as String?,
     );
   }
 
@@ -375,6 +378,11 @@ class ReadingQuestionDto {
       options: options,
       correctIndex: correctIndex,
     );
+  }
+
+  String feedbackOrDefault() {
+    if (feedback != null && feedback!.isNotEmpty) return feedback!;
+    return 'Correct! ${options[correctIndex]}';
   }
 }
 

@@ -1,0 +1,163 @@
+{
+  "scenarioId": "at_airport",
+  "cefrLevel": "A2",
+  "pathTitle": "At the Airport Quick Check",
+  "pathSubtitle": "Navigate check-in, security, boarding, and flight delays with confidence.",
+  "lessons": [
+    {
+      "id": "at_airport_quick_01",
+      "number": 1,
+      "title": "Check-In Desk",
+      "cefrLevel": "A2",
+      "iconName": "chat",
+      "completionTitle": "At the Airport",
+      "completionSummary": "You have completed Check-In Desk successfully",
+      "questions": [
+        {
+          "prompt": "How heavy is the suitcase?",
+          "options": [
+            "20 kg",
+            "22 kg",
+            "25 kg"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The suitcase weighs 22 kg."
+        },
+        {
+          "prompt": "What seat does the passenger choose?",
+          "options": [
+            "Aisle",
+            "Middle",
+            "Window"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! The passenger chooses a window seat."
+        }
+      ]
+    },
+    {
+      "id": "at_airport_quick_02",
+      "number": 2,
+      "title": "Through Security",
+      "cefrLevel": "A2",
+      "iconName": "chat",
+      "completionTitle": "At the Airport",
+      "completionSummary": "You have completed Through Security successfully",
+      "questions": [
+        {
+          "prompt": "What does the passenger need to put in a separate tray?",
+          "options": [
+            "Phone",
+            "Laptop",
+            "Shoes"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The passenger needs to put their laptop in a separate tray."
+        },
+        {
+          "prompt": "Why can't the passenger keep their water?",
+          "options": [
+            "It is too heavy",
+            "It is over 100ml",
+            "Glass bottles are banned"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The water is over 100ml and cannot be kept."
+        }
+      ]
+    },
+    {
+      "id": "at_airport_quick_03",
+      "number": 3,
+      "title": "Flight Delay",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "At the Airport",
+      "completionSummary": "You have completed Flight Delay successfully",
+      "questions": [
+        {
+          "prompt": "Why is the flight delayed?",
+          "options": [
+            "Bad weather",
+            "A technical issue",
+            "Staff shortage"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The flight is delayed due to a technical issue."
+        },
+        {
+          "prompt": "What does the agent recommend?",
+          "options": [
+            "Book a new ticket",
+            "Speak to the transfer desk in Dubai",
+            "Wait for an announcement"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The agent recommends speaking to the transfer desk in Dubai."
+        }
+      ]
+    },
+    {
+      "id": "at_airport_quick_04",
+      "number": 4,
+      "title": "Lost Luggage",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "At the Airport",
+      "completionSummary": "You have completed Lost Luggage successfully",
+      "questions": [
+        {
+          "prompt": "What does the bag look like?",
+          "options": [
+            "Small red bag",
+            "Large black suitcase with a red ribbon",
+            "Blue backpack"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! It is a large black suitcase with a red ribbon."
+        },
+        {
+          "prompt": "What does the airline offer?",
+          "options": [
+            "A full refund",
+            "$50 emergency allowance",
+            "A free flight"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The airline offers a $50 emergency allowance."
+        }
+      ]
+    },
+    {
+      "id": "at_airport_quick_05",
+      "number": 5,
+      "title": "Upgrade & Premium Travel",
+      "cefrLevel": "C1",
+      "iconName": "chat",
+      "completionTitle": "At the Airport",
+      "completionSummary": "You have completed Upgrade & Premium Travel successfully",
+      "questions": [
+        {
+          "prompt": "Why is the passenger eligible for an upgrade?",
+          "options": [
+            "They paid for it",
+            "They have Gold frequent flyer status",
+            "The flight is overbooked"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The passenger has Gold frequent flyer status."
+        },
+        {
+          "prompt": "When does business class board?",
+          "options": [
+            "At the same time as everyone",
+            "15 minutes before general boarding",
+            "30 minutes before general boarding"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Business class boards 15 minutes before general boarding."
+        }
+      ]
+    }
+  ]
+}

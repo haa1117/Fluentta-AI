@@ -573,6 +573,20 @@
   "scenarioSmallTalkVocabSub": "Learn key conversation words",
   "scenarioBusinessMeetingDetail": "Business Meeting",
   "scenarioBusinessMeetingVocabSub": "Learn key meeting words",
+  "scenarioJobInterviewQuickSub": "Answer job interview questions",
+  "scenarioOrderFoodQuickSub": "Answer restaurant questions",
+  "scenarioAtAirportQuickSub": "Answer airport travel questions",
+  "scenarioDoctorVisitQuickSub": "Answer doctor visit questions",
+  "scenarioSmallTalkQuickSub": "Answer small talk questions",
+  "scenarioBusinessMeetingQuickSub": "Answer business meeting questions",
+  "roleplayQuestionsLearned": "{count} Questions Learned",
+  "@roleplayQuestionsLearned": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "roleplayLessonCompleted": "You have completed Lesson {lessonNumber} successfully",
+  "@roleplayLessonCompleted": {
+    "placeholders": {"lessonNumber": {"type": "int"}}
+  },
 
   "customPlanReady": "Your Custom plan is Ready",
   "customPlanReadySub": "Based on your goal level & daily practice time.",

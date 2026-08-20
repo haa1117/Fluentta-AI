@@ -2622,6 +2622,54 @@ abstract class AppLocalizations {
   /// **'Learn key meeting words'**
   String get scenarioBusinessMeetingVocabSub;
 
+  /// No description provided for @scenarioJobInterviewQuickSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer job interview questions'**
+  String get scenarioJobInterviewQuickSub;
+
+  /// No description provided for @scenarioOrderFoodQuickSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer restaurant questions'**
+  String get scenarioOrderFoodQuickSub;
+
+  /// No description provided for @scenarioAtAirportQuickSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer airport travel questions'**
+  String get scenarioAtAirportQuickSub;
+
+  /// No description provided for @scenarioDoctorVisitQuickSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer doctor visit questions'**
+  String get scenarioDoctorVisitQuickSub;
+
+  /// No description provided for @scenarioSmallTalkQuickSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer small talk questions'**
+  String get scenarioSmallTalkQuickSub;
+
+  /// No description provided for @scenarioBusinessMeetingQuickSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer business meeting questions'**
+  String get scenarioBusinessMeetingQuickSub;
+
+  /// No description provided for @roleplayQuestionsLearned.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Questions Learned'**
+  String roleplayQuestionsLearned(int count);
+
+  /// No description provided for @roleplayLessonCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'You have completed Lesson {lessonNumber} successfully'**
+  String roleplayLessonCompleted(int lessonNumber);
+
   /// No description provided for @customPlanReady.
   ///
   /// In en, this message translates to:

@@ -44,6 +44,7 @@ class VocabularyWordCard extends StatelessWidget {
           SizedBox(height: AppSizes.spaceMd),
           Text(
             word.word,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(36),

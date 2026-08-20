@@ -1,0 +1,40 @@
+{
+  "scenarios": [
+    {
+      "id": "job_interviews",
+      "cefrLevel": "A2",
+      "vocabularyAsset": "assets/roleplay/job_interviews/vocabulary.json",
+      "quickCheckAsset": "assets/roleplay/job_interviews/quick_check.json"
+    },
+    {
+      "id": "order_food",
+      "cefrLevel": "A1",
+      "vocabularyAsset": "assets/roleplay/order_food/vocabulary.json",
+      "quickCheckAsset": "assets/roleplay/order_food/quick_check.json"
+    },
+    {
+      "id": "at_airport",
+      "cefrLevel": "A2",
+      "vocabularyAsset": "assets/roleplay/at_airport/vocabulary.json",
+      "quickCheckAsset": "assets/roleplay/at_airport/quick_check.json"
+    },
+    {
+      "id": "doctor_visit",
+      "cefrLevel": "A2",
+      "vocabularyAsset": "assets/roleplay/doctor_visit/vocabulary.json",
+      "quickCheckAsset": "assets/roleplay/doctor_visit/quick_check.json"
+    },
+    {
+      "id": "small_talk",
+      "cefrLevel": "A1",
+      "vocabularyAsset": "assets/roleplay/small_talk/vocabulary.json",
+      "quickCheckAsset": "assets/roleplay/small_talk/quick_check.json"
+    },
+    {
+      "id": "business_meeting",
+      "cefrLevel": "B1",
+      "vocabularyAsset": "assets/roleplay/business_meeting/vocabulary.json",
+      "quickCheckAsset": "assets/roleplay/business_meeting/quick_check.json"
+    }
+  ]
+}

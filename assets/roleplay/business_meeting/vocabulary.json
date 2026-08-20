@@ -1,0 +1,418 @@
+{
+  "scenarioId": "business_meeting",
+  "cefrLevel": "B1",
+  "pathTitle": "Business Meeting Vocabulary",
+  "pathSubtitle": "Run and participate in meetings — from setting the agenda to handling disagreements and closing with action points.",
+  "lessons": [
+    {
+      "id": "business_meeting_vocab_01",
+      "number": 1,
+      "title": "Starting a Meeting",
+      "cefrLevel": "B1",
+      "levelLabel": "Intermediate",
+      "situation": "You are the team leader starting a weekly update meeting.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "You",
+          "text": "OK, let's get started. Thanks everyone for coming. Today's agenda has three points: project update, budget review, and next steps.",
+          "isUser": true
+        },
+        {
+          "speaker": "Colleague A",
+          "text": "Before we begin, can we add one item? We got feedback from the client this morning.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Of course. We'll add that as point four. Right — project update first. Where are we?",
+          "isUser": true
+        },
+        {
+          "speaker": "Colleague B",
+          "text": "We're on track. Phase one is complete and phase two starts next Monday.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Great. Any blockers?",
+          "isUser": true
+        },
+        {
+          "speaker": "Colleague B",
+          "text": "One small one — we're waiting on sign-off from legal. Should be done by Friday.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "OK. Let's move on to the budget.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "agenda",
+          "phonetic": "/əˈʤɛndə/",
+          "partOfSpeech": "noun",
+          "definition": "a list of items to discuss at a meeting",
+          "example": "The agenda for today has five points."
+        },
+        {
+          "word": "on track",
+          "phonetic": "/ɒn træk/",
+          "partOfSpeech": "phrase",
+          "definition": "progressing as planned",
+          "example": "The project is on track for the October deadline."
+        },
+        {
+          "word": "blocker",
+          "phonetic": "/ˈblɒkər/",
+          "partOfSpeech": "noun",
+          "definition": "a problem that stops progress",
+          "example": "We have one blocker — approval from management."
+        },
+        {
+          "word": "sign-off",
+          "phonetic": "/saɪn ɒf/",
+          "partOfSpeech": "noun",
+          "definition": "official approval for something",
+          "example": "We need sign-off before we can proceed."
+        },
+        {
+          "word": "move on",
+          "phonetic": "/muːv ɒn/",
+          "partOfSpeech": "phrasal verb",
+          "definition": "to go to the next topic or item",
+          "example": "Let's move on to the next agenda point."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_vocab_02",
+      "number": 2,
+      "title": "Presenting Data",
+      "cefrLevel": "B1",
+      "levelLabel": "Intermediate",
+      "situation": "You are presenting quarterly sales data to your manager and team.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "You",
+          "text": "I'll take you through the Q3 numbers. As you can see on the slide, total revenue was up 12% compared to Q2.",
+          "isUser": true
+        },
+        {
+          "speaker": "Manager",
+          "text": "That's encouraging. What's driving that growth?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Two main factors. First, the new product line launched in August — it performed above expectations. Second, we expanded into the German market, which contributed around 4% of total revenue.",
+          "isUser": true
+        },
+        {
+          "speaker": "Manager",
+          "text": "And what about the North America numbers? They look flat.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Yes, North America is a concern. We saw a slowdown in July and August. We believe it's seasonal, but we're monitoring it closely.",
+          "isUser": true
+        },
+        {
+          "speaker": "Manager",
+          "text": "Good. What's the forecast for Q4?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "We're projecting 15–18% growth, assuming the new campaign lands well in October.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "revenue",
+          "phonetic": "/ˈrɛvənjuː/",
+          "partOfSpeech": "noun",
+          "definition": "income from business activity",
+          "example": "Revenue increased by 10% this quarter."
+        },
+        {
+          "word": "performing above expectations",
+          "phonetic": "/pəˈfɔːrmɪŋ əˈbʌv ˌɛkspɛkˈteɪʃənz/",
+          "partOfSpeech": "phrase",
+          "definition": "doing better than predicted",
+          "example": "The new product is performing above expectations."
+        },
+        {
+          "word": "flat",
+          "phonetic": "/flæt/",
+          "partOfSpeech": "adjective",
+          "definition": "not growing or declining; staying the same",
+          "example": "Sales were flat in the third quarter."
+        },
+        {
+          "word": "seasonal",
+          "phonetic": "/ˈsiːzənəl/",
+          "partOfSpeech": "adjective",
+          "definition": "changing regularly with the season",
+          "example": "The slowdown is likely seasonal."
+        },
+        {
+          "word": "projecting",
+          "phonetic": "/prəˈʤɛktɪŋ/",
+          "partOfSpeech": "verb",
+          "definition": "predicting or forecasting a future amount",
+          "example": "We are projecting a 20% increase."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_vocab_03",
+      "number": 3,
+      "title": "Disagreeing Professionally",
+      "cefrLevel": "B2",
+      "levelLabel": "Upper-Intermediate",
+      "situation": "During a strategy meeting, you respectfully disagree with a proposal.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Colleague",
+          "text": "I think we should move to a fully remote model. It's cheaper and employees seem to prefer it.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I take your point on cost, and I agree remote flexibility matters. However, I'd push back on making it fully remote. We've seen a real drop in cross-team collaboration since we shifted last year.",
+          "isUser": true
+        },
+        {
+          "speaker": "Colleague",
+          "text": "That could be a training issue rather than a structural one.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Possibly. But the data from our last engagement survey suggests it's more than that — satisfaction in junior staff dropped 15 points, and they specifically cited isolation.",
+          "isUser": true
+        },
+        {
+          "speaker": "Manager",
+          "text": "Both fair points. Could we explore a hybrid model as a middle ground?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "That's exactly what I'd propose. Two or three anchor days in the office, flexibility for the rest.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "push back",
+          "phonetic": "/pʊʃ bæk/",
+          "partOfSpeech": "phrasal verb",
+          "definition": "to express disagreement or resistance to an idea",
+          "example": "I need to push back on that suggestion."
+        },
+        {
+          "word": "collaboration",
+          "phonetic": "/kəˌlæbəˈreɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "working together with others",
+          "example": "Good collaboration is key to project success."
+        },
+        {
+          "word": "engagement survey",
+          "phonetic": "/ɪnˈɡeɪʤmənt ˈsɜːrveɪ/",
+          "partOfSpeech": "phrase",
+          "definition": "a questionnaire measuring how committed and motivated employees feel",
+          "example": "The engagement survey results were concerning."
+        },
+        {
+          "word": "hybrid model",
+          "phonetic": "/ˈhaɪbrɪd ˈmɒdəl/",
+          "partOfSpeech": "phrase",
+          "definition": "a system combining remote and in-office work",
+          "example": "We moved to a hybrid model after the pandemic."
+        },
+        {
+          "word": "anchor day",
+          "phonetic": "/ˈæŋkər deɪ/",
+          "partOfSpeech": "phrase",
+          "definition": "a fixed day that all employees come into the office",
+          "example": "Wednesday is our anchor day for team meetings."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_vocab_04",
+      "number": 4,
+      "title": "Closing & Action Points",
+      "cefrLevel": "B2",
+      "levelLabel": "Upper-Intermediate",
+      "situation": "You are wrapping up a meeting and assigning clear next steps.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "You",
+          "text": "OK, I think we've covered everything. Let me summarise what we've agreed before we close.",
+          "isUser": true
+        },
+        {
+          "speaker": "You",
+          "text": "David, you're going to finalize the budget proposal by Wednesday. Maria, you'll follow up with the client about their feedback. And I'll set up the legal sign-off call for Thursday.",
+          "isUser": true
+        },
+        {
+          "speaker": "David",
+          "text": "Quick question — for the budget, should I include the contingency line or keep it separate?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Include it but label it clearly. Let's keep everything in one document.",
+          "isUser": true
+        },
+        {
+          "speaker": "Maria",
+          "text": "And for the client follow-up — email or call?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Try the call first. If you can't reach them by Tuesday afternoon, send an email.",
+          "isUser": true
+        },
+        {
+          "speaker": "You",
+          "text": "Great. Minutes will go out by end of day. Thanks everyone — productive session.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "summarise",
+          "phonetic": "/ˈsʌməraɪz/",
+          "partOfSpeech": "verb",
+          "definition": "to give the main points briefly",
+          "example": "Let me summarise what we discussed."
+        },
+        {
+          "word": "action point",
+          "phonetic": "/ˈækʃən pɔɪnt/",
+          "partOfSpeech": "phrase",
+          "definition": "a specific task someone must complete after a meeting",
+          "example": "You have three action points from today's meeting."
+        },
+        {
+          "word": "contingency",
+          "phonetic": "/kənˈtɪnʤənsi/",
+          "partOfSpeech": "noun",
+          "definition": "a reserve budget for unexpected costs",
+          "example": "We always include a 10% contingency in project budgets."
+        },
+        {
+          "word": "minutes",
+          "phonetic": "/ˈmɪnɪts/",
+          "partOfSpeech": "noun (plural)",
+          "definition": "the official written record of what was said in a meeting",
+          "example": "Can you send the meeting minutes by Thursday?"
+        },
+        {
+          "word": "productive",
+          "phonetic": "/prəˈdʌktɪv/",
+          "partOfSpeech": "adjective",
+          "definition": "achieving a lot; effective",
+          "example": "That was a very productive conversation."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_vocab_05",
+      "number": 5,
+      "title": "High-Stakes Executive Meeting",
+      "cefrLevel": "C1",
+      "levelLabel": "Advanced",
+      "situation": "You are presenting a major strategic recommendation to the executive board.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "CEO",
+          "text": "You've had three months to review the acquisition target. What's your recommendation?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Our recommendation is to proceed, subject to the resolution of two outstanding due diligence concerns — their IP ownership structure and the pending litigation in the German subsidiary.",
+          "isUser": true
+        },
+        {
+          "speaker": "CFO",
+          "text": "Walk me through your valuation rationale.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "We used a DCF model with a WACC of 8.5% and a terminal growth rate of 2.5%, which gives a base-case valuation of $420 million. We stress-tested against a downside scenario where revenue growth is 30% below projection and still saw positive NPV.",
+          "isUser": true
+        },
+        {
+          "speaker": "CEO",
+          "text": "What's your confidence level on the IP issue being resolved before close?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Moderate. Their legal team is engaged and we have a fallback clause in the term sheet that protects our position if it isn't resolved within 60 days.",
+          "isUser": true
+        },
+        {
+          "speaker": "CEO",
+          "text": "Good. We'll put this to a vote next week once the full board has reviewed the deck.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "due diligence",
+          "phonetic": "/djuː ˈdɪlɪʤəns/",
+          "partOfSpeech": "phrase",
+          "definition": "a thorough investigation before completing a business deal",
+          "example": "We completed due diligence before signing the contract."
+        },
+        {
+          "word": "litigation",
+          "phonetic": "/ˌlɪtɪˈɡeɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "the process of taking legal action",
+          "example": "The company is involved in ongoing litigation."
+        },
+        {
+          "word": "valuation",
+          "phonetic": "/ˌvæljuˈeɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "an estimate of how much something is worth",
+          "example": "The startup's valuation was $500 million."
+        },
+        {
+          "word": "stress-tested",
+          "phonetic": "/strɛs tɛstɪd/",
+          "partOfSpeech": "verb (past)",
+          "definition": "evaluated under extreme or unfavourable conditions",
+          "example": "We stress-tested the model against a recession scenario."
+        },
+        {
+          "word": "fallback clause",
+          "phonetic": "/ˈfɔːlbæk klɔːz/",
+          "partOfSpeech": "phrase",
+          "definition": "a provision in an agreement that protects a party if something goes wrong",
+          "example": "The contract has a fallback clause in case of delays."
+        }
+      ]
+    }
+  ]
+}

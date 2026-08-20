@@ -61,6 +61,13 @@ flutter:
     - assets/lessons/c2/vocabulary/
     - assets/lessons/c2/grammar/
     - assets/lessons/c2/reading/
+    - assets/roleplay/manifest.json
+    - assets/roleplay/job_interviews/
+    - assets/roleplay/order_food/
+    - assets/roleplay/at_airport/
+    - assets/roleplay/doctor_visit/
+    - assets/roleplay/small_talk/
+    - assets/roleplay/business_meeting/
 
   fonts:
     - family: PlusJakartaSans

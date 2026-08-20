@@ -1,0 +1,163 @@
+{
+  "scenarioId": "business_meeting",
+  "cefrLevel": "B1",
+  "pathTitle": "Business Meeting Quick Check",
+  "pathSubtitle": "Run and participate in meetings — from setting the agenda to handling disagreements and closing with action points.",
+  "lessons": [
+    {
+      "id": "business_meeting_quick_01",
+      "number": 1,
+      "title": "Starting a Meeting",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Business Meeting",
+      "completionSummary": "You have completed Starting a Meeting successfully",
+      "questions": [
+        {
+          "prompt": "How many original agenda items were there?",
+          "options": [
+            "Two",
+            "Three",
+            "Four"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! There were three original agenda items."
+        },
+        {
+          "prompt": "What is the blocker for phase two?",
+          "options": [
+            "Budget issue",
+            "Waiting for sign-off from legal",
+            "Missing team member"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The blocker is waiting for sign-off from legal."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_quick_02",
+      "number": 2,
+      "title": "Presenting Data",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Business Meeting",
+      "completionSummary": "You have completed Presenting Data successfully",
+      "questions": [
+        {
+          "prompt": "What was total revenue growth in Q3?",
+          "options": [
+            "4%",
+            "12%",
+            "15%"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Total revenue was up 12% in Q3."
+        },
+        {
+          "prompt": "Why are North America numbers flat?",
+          "options": [
+            "Price competition",
+            "Believed to be seasonal slowdown",
+            "Product issues"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The slowdown is believed to be seasonal."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_quick_03",
+      "number": 3,
+      "title": "Disagreeing Professionally",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "Business Meeting",
+      "completionSummary": "You have completed Disagreeing Professionally successfully",
+      "questions": [
+        {
+          "prompt": "What does the speaker use to support their argument?",
+          "options": [
+            "Personal opinion",
+            "Data from an engagement survey",
+            "External research"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The speaker uses data from an engagement survey."
+        },
+        {
+          "prompt": "What solution does the speaker propose?",
+          "options": [
+            "Fully remote",
+            "Fully in-office",
+            "Hybrid model"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! The speaker proposes a hybrid model."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_quick_04",
+      "number": 4,
+      "title": "Closing & Action Points",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "Business Meeting",
+      "completionSummary": "You have completed Closing & Action Points successfully",
+      "questions": [
+        {
+          "prompt": "Who is responsible for following up with the client?",
+          "options": [
+            "David",
+            "Maria",
+            "The speaker"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Maria is responsible for following up with the client."
+        },
+        {
+          "prompt": "When should Maria send an email to the client?",
+          "options": [
+            "Immediately",
+            "If the call fails by Tuesday afternoon",
+            "After the meeting minutes"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Maria should email if the call fails by Tuesday afternoon."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_quick_05",
+      "number": 5,
+      "title": "High-Stakes Executive Meeting",
+      "cefrLevel": "C1",
+      "iconName": "chat",
+      "completionTitle": "Business Meeting",
+      "completionSummary": "You have completed High-Stakes Executive Meeting successfully",
+      "questions": [
+        {
+          "prompt": "What are the two outstanding due diligence concerns?",
+          "options": [
+            "Revenue and profit",
+            "IP ownership and pending litigation",
+            "Market size and competition"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The concerns are IP ownership and pending litigation."
+        },
+        {
+          "prompt": "What protects the company if the IP issue isn't resolved in 60 days?",
+          "options": [
+            "A penalty clause",
+            "A fallback clause in the term sheet",
+            "The CEO's decision"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! A fallback clause in the term sheet protects the company."
+        }
+      ]
+    }
+  ]
+}

@@ -42,4 +42,16 @@ class RoleplayScenarioL10n {
       _ => l10n.scenarioJobInterviewVocabSub,
     };
   }
+
+  static String quickCheckSubtitle(AppLocalizations l10n, String id) {
+    return switch (id) {
+      'job_interviews' => l10n.scenarioJobInterviewQuickSub,
+      'order_food' => l10n.scenarioOrderFoodQuickSub,
+      'at_airport' => l10n.scenarioAtAirportQuickSub,
+      'doctor_visit' => l10n.scenarioDoctorVisitQuickSub,
+      'small_talk' => l10n.scenarioSmallTalkQuickSub,
+      'business_meeting' => l10n.scenarioBusinessMeetingQuickSub,
+      _ => l10n.quickCheckSub,
+    };
+  }
 }
