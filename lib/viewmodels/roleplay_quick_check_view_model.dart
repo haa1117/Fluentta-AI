@@ -6,6 +6,7 @@ import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
 import 'package:fluentta_ai/data/models/roleplay_content_dto.dart';
+import 'package:fluentta_ai/data/repositories/daily_lesson_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/repositories/roleplay_content_repository.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
@@ -19,6 +20,7 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
     this._contentRepository,
     this._progressRepository,
     this._syncService,
+    this._dailyLessonRepository,
   ) {
     _localeViewModel.addListener(_onLocaleChanged);
     _loadLessons();
@@ -29,6 +31,7 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
   final RoleplayContentRepository _contentRepository;
   final ProgressRepository _progressRepository;
   final ProgressSyncService _syncService;
+  final DailyLessonRepository _dailyLessonRepository;
 
   List<RoleplayQuickCheckLessonModel> _lessons = [];
   String _pathTitle = '';
@@ -61,14 +64,37 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
+    await _contentRepository.initialize();
+    await _progressRepository.initialize();
+    await _dailyLessonRepository.initialize();
+
     final path = await _contentRepository.getQuickCheckPath(_scenarioId);
     _pathTitle = path.pathTitle;
     _pathSubtitle = path.pathSubtitle;
     _cefrLevel = path.cefrLevel;
 
-    _lessons = await _contentRepository.buildQuickCheckLessons(
+    await _dailyLessonRepository.prepareForDayPath(
+      typeId: RoleplayPracticeType.quickCheck.id,
+      scopeId: _scenarioId,
+      progressCefrLevel: _cefrLevel,
+      progressRepository: _progressRepository,
+    );
+
+    var lessons = await _contentRepository.buildQuickCheckLessons(
       scenarioId: _scenarioId,
       progressRepository: _progressRepository,
+    );
+
+    final dailyState = _dailyLessonRepository.stateForPath(
+      RoleplayPracticeType.quickCheck.id,
+      _scenarioId,
+    );
+    _lessons = _dailyLessonRepository.applyGenericDailyGate(
+      lessons,
+      dailyState,
+      lessonIdOf: (lesson) => lesson.lessonId,
+      statusOf: (lesson) => lesson.status,
+      withStatus: (lesson, status) => lesson.copyWith(status: status),
     );
 
     _isLoading = false;
@@ -77,12 +103,24 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
 
   void _onLocaleChanged() => _loadLessons();
 
-  void openLesson(BuildContext context, RoleplayQuickCheckLessonModel lesson) {
+  Future<void> openLesson(
+    BuildContext context,
+    RoleplayQuickCheckLessonModel lesson,
+  ) async {
     if (lesson.status == LearningLessonStatus.locked) return;
     if (lesson.questions.isEmpty) {
       SnackbarHelper.showSuccess(context, _l10n.lessonContentSoon);
       return;
     }
+
+    if (lesson.status == LearningLessonStatus.notStarted) {
+      await _dailyLessonRepository.recordLessonStartedPath(
+        typeId: RoleplayPracticeType.quickCheck.id,
+        scopeId: _scenarioId,
+        lessonId: lesson.lessonId,
+      );
+    }
+    if (!context.mounted) return;
 
     final startIndex = lesson.status == LearningLessonStatus.inProgress
         ? lesson.questionsCompleted.clamp(0, lesson.questions.length - 1)
@@ -138,7 +176,13 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
       type: RoleplayPracticeType.quickCheck.id,
       cefrLevel: _cefrLevel,
       finalIndex: completedLesson.totalQuestions,
-      unlockLessonId: nextId,
+    );
+
+    await _dailyLessonRepository.recordLessonCompletedPath(
+      typeId: RoleplayPracticeType.quickCheck.id,
+      scopeId: _scenarioId,
+      completedLessonId: completedLesson.lessonId,
+      nextUnlockLessonId: nextId,
     );
 
     await _syncService.onLessonCompleted(

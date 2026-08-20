@@ -87,7 +87,7 @@ class LearningLessonTile extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: isCompleted
                           ? AppColors.learnSuccessGreen
-                          : AppColors.textSecondary,
+                          : Color(0xffD3C4DC),
                     ),
                   ),
                 ],

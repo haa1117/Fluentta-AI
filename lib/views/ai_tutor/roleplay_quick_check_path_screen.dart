@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/data/repositories/daily_lesson_repository.dart';
 import 'package:fluentta_ai/viewmodels/roleplay_quick_check_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/learn_shared/learning_lesson_tile.dart';
@@ -25,6 +26,7 @@ class RoleplayQuickCheckPathScreen extends StatelessWidget {
         context.read(),
         context.read(),
         context.read(),
+        context.read<DailyLessonRepository>(),
       ),
       child: Consumer<RoleplayQuickCheckViewModel>(
         builder: (context, viewModel, _) {

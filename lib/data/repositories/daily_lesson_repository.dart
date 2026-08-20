@@ -106,11 +106,15 @@ class DailyLessonRepository {
   }
 
   DailyLessonState stateFor(LessonType type, String cefrLevel) {
-    final key = _stateKey(type, cefrLevel);
+    return stateForPath(type.id, cefrLevel);
+  }
+
+  DailyLessonState stateForPath(String typeId, String scopeId) {
+    final key = _pathStateKey(typeId, scopeId);
     return _states[key] ??
         DailyLessonState.empty(
-          type: type.id,
-          cefrLevel: cefrLevel,
+          type: typeId,
+          cefrLevel: scopeId,
           date: _dateKey(DateTime.now()),
         );
   }
@@ -119,23 +123,37 @@ class DailyLessonRepository {
     required LessonType type,
     required String cefrLevel,
     required ProgressRepository progressRepository,
+  }) {
+    return prepareForDayPath(
+      typeId: type.id,
+      scopeId: cefrLevel,
+      progressCefrLevel: cefrLevel,
+      progressRepository: progressRepository,
+    );
+  }
+
+  Future<void> prepareForDayPath({
+    required String typeId,
+    required String scopeId,
+    required String progressCefrLevel,
+    required ProgressRepository progressRepository,
   }) async {
     await initialize();
-    final key = _stateKey(type, cefrLevel);
+    final key = _pathStateKey(typeId, scopeId);
     final today = _dateKey(DateTime.now());
-    var state = stateFor(type, cefrLevel);
+    var state = stateForPath(typeId, scopeId);
 
     if (state.date != today) {
       if (state.pendingUnlockLessonId != null) {
         await progressRepository.unlockLesson(
           lessonId: state.pendingUnlockLessonId!,
-          type: type.id,
-          cefrLevel: cefrLevel,
+          type: typeId,
+          cefrLevel: progressCefrLevel,
         );
       }
       state = DailyLessonState.empty(
-        type: type.id,
-        cefrLevel: cefrLevel,
+        type: typeId,
+        cefrLevel: scopeId,
         date: today,
       );
       _states[key] = state;
@@ -147,16 +165,28 @@ class DailyLessonRepository {
     required LessonType type,
     required String cefrLevel,
     required String lessonId,
+  }) {
+    return recordLessonStartedPath(
+      typeId: type.id,
+      scopeId: cefrLevel,
+      lessonId: lessonId,
+    );
+  }
+
+  Future<void> recordLessonStartedPath({
+    required String typeId,
+    required String scopeId,
+    required String lessonId,
   }) async {
     await initialize();
-    final key = _stateKey(type, cefrLevel);
+    final key = _pathStateKey(typeId, scopeId);
     final today = _dateKey(DateTime.now());
-    var state = stateFor(type, cefrLevel);
+    var state = stateForPath(typeId, scopeId);
 
     if (state.date != today) {
       state = DailyLessonState.empty(
-        type: type.id,
-        cefrLevel: cefrLevel,
+        type: typeId,
+        cefrLevel: scopeId,
         date: today,
       );
     }
@@ -171,16 +201,30 @@ class DailyLessonRepository {
     required String cefrLevel,
     required String completedLessonId,
     String? nextUnlockLessonId,
+  }) {
+    return recordLessonCompletedPath(
+      typeId: type.id,
+      scopeId: cefrLevel,
+      completedLessonId: completedLessonId,
+      nextUnlockLessonId: nextUnlockLessonId,
+    );
+  }
+
+  Future<void> recordLessonCompletedPath({
+    required String typeId,
+    required String scopeId,
+    required String completedLessonId,
+    String? nextUnlockLessonId,
   }) async {
     await initialize();
-    final key = _stateKey(type, cefrLevel);
+    final key = _pathStateKey(typeId, scopeId);
     final today = _dateKey(DateTime.now());
-    var state = stateFor(type, cefrLevel);
+    var state = stateForPath(typeId, scopeId);
 
     if (state.date != today) {
       state = DailyLessonState.empty(
-        type: type.id,
-        cefrLevel: cefrLevel,
+        type: typeId,
+        cefrLevel: scopeId,
         date: today,
       );
     }
@@ -277,8 +321,30 @@ class DailyLessonRepository {
         .toList();
   }
 
-  String _stateKey(LessonType type, String cefrLevel) =>
-      '${type.id}_$cefrLevel';
+  List<T> applyGenericDailyGate<T>(
+    List<T> lessons,
+    DailyLessonState state, {
+    required String Function(T lesson) lessonIdOf,
+    required LearningLessonStatus Function(T lesson) statusOf,
+    required T Function(T lesson, LearningLessonStatus status) withStatus,
+  }) {
+    final allowedId = allowedNotStartedLessonId(
+      lessons,
+      state,
+      lessonIdOf: lessonIdOf,
+      statusOf: statusOf,
+    );
+    return lessons
+        .map(
+          (lesson) => statusOf(lesson) == LearningLessonStatus.notStarted &&
+                  lessonIdOf(lesson) != allowedId
+              ? withStatus(lesson, LearningLessonStatus.locked)
+              : lesson,
+        )
+        .toList();
+  }
+
+  String _pathStateKey(String typeId, String scopeId) => '${typeId}_$scopeId';
 
   String _dateKey(DateTime date) {
     final local = DateTime(date.year, date.month, date.day);
