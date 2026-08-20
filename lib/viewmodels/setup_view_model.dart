@@ -52,6 +52,17 @@ class SetupViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void resetForRetake() {
+    _currentStep = 0;
+    _selectedGoal = _localStorage.englishGoal ?? 'work';
+    _selectedLevel = _localStorage.englishLevel ?? 'elementary';
+    _selectedDailyGoal = _localStorage.dailyGoalMinutes?.toString() ?? '10';
+    if (pageController.hasClients) {
+      pageController.jumpToPage(0);
+    }
+    notifyListeners();
+  }
+
   Future<void> nextStep(VoidCallback onComplete) async {
     if (_currentStep < totalSteps - 1) {
       _currentStep++;

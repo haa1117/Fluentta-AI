@@ -12,9 +12,14 @@ import 'package:fluentta_ai/widgets/setup/setup_progress_header.dart';
 import 'package:provider/provider.dart';
 
 class SetupFlowScreen extends StatelessWidget {
-  const SetupFlowScreen({super.key, required this.onComplete});
+  const SetupFlowScreen({
+    super.key,
+    required this.onComplete,
+    this.isRetake = false,
+  });
 
   final VoidCallback onComplete;
+  final bool isRetake;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +42,7 @@ class SetupFlowScreen extends StatelessWidget {
                   return _SetupStepPage(
                     stepIndex: index,
                     onComplete: onComplete,
+                    isRetake: isRetake,
                   );
                 },
               ),
@@ -52,10 +58,12 @@ class _SetupStepPage extends StatelessWidget {
   const _SetupStepPage({
     required this.stepIndex,
     required this.onComplete,
+    this.isRetake = false,
   });
 
   final int stepIndex;
   final VoidCallback onComplete;
+  final bool isRetake;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +119,9 @@ class _SetupStepPage extends StatelessWidget {
             AppSizes.spaceMd,
           ),
           child: PrimaryButton(
-            text: isLastStep ? l10n.getStarted : l10n.next,
+            text: isLastStep
+                ? (isRetake ? l10n.savePreferences : l10n.getStarted)
+                : l10n.next,
             isLoading: viewModel.isLoading,
             onPressed: viewModel.isLoading
                 ? null

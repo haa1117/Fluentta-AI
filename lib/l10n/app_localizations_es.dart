@@ -996,6 +996,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsSection => 'AJUSTES';
 
   @override
+  String get learningPreferences => 'Preferencias de aprendizaje';
+
+  @override
+  String get learningPreferencesSub => 'Repetir objetivo, nivel y meta diaria';
+
+  @override
+  String get savePreferences => 'Guardar preferencias';
+
+  @override
+  String get setupSaved => 'Tus preferencias se actualizaron';
+
+  @override
   String get notificationsReminders => 'Notificaciones y recordatorios';
 
   @override

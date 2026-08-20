@@ -70,7 +70,7 @@ class UserModel {
       if (englishGoal != null) 'englishGoal': englishGoal,
       if (englishLevel != null) 'englishLevel': englishLevel,
       if (dailyGoalMinutes != null) 'dailyGoalMinutes': dailyGoalMinutes,
-      'setupComplete': setupComplete,
+      if (setupComplete) 'setupComplete': true,
       'updatedAt': now,
       'lastLoginAt': now,
       if (isNew) 'createdAt': now,

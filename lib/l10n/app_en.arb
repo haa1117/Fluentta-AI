@@ -418,6 +418,10 @@
     "placeholders": {"done": {"type": "int"}, "total": {"type": "int"}}
   },
   "settingsSection": "SETTINGS",
+  "learningPreferences": "Learning Preferences",
+  "learningPreferencesSub": "Retake goal, level & daily target",
+  "savePreferences": "Save Preferences",
+  "setupSaved": "Your preferences were updated",
   "notificationsReminders": "Notifications & reminders",
   "dailyReminderAt": "Daily reminder at {time}",
   "@dailyReminderAt": {

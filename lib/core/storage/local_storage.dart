@@ -72,6 +72,15 @@ class LocalStorage {
       _prefs!.getString(_pendingResetOobCodeKey);
 
   bool get isSetupComplete => _prefs!.getBool(_setupCompleteKey) ?? false;
+
+  /// True when setup was finished, including legacy users who saved prefs
+  /// before the completion flag existed.
+  bool get hasCompletedSetup =>
+      isSetupComplete ||
+      (englishGoal != null &&
+          englishLevel != null &&
+          dailyGoalMinutes != null);
+
   String? get englishGoal => _prefs!.getString(_englishGoalKey);
   String? get englishLevel => _prefs!.getString(_englishLevelKey);
   int? get dailyGoalMinutes => _prefs!.getInt(_dailyGoalMinutesKey);

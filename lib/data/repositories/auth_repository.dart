@@ -220,6 +220,7 @@ class AuthRepository {
       authProvider: authProvider,
       fullName: fullName,
     );
+    await _userRepository.syncSetupFromFirestore(user.uid);
   }
 
   Future<void> _clearResetState() async {
@@ -236,11 +237,11 @@ class AuthRepository {
         email: user.email ?? '',
         displayName: user.displayName ?? '',
       );
+      await _userRepository.syncSetupFromFirestore(user.uid);
       await _userRepository.syncUserFromAuth(
         user: user,
         authProvider: _resolveAuthProvider(user),
       );
-      await _userRepository.syncSetupFromFirestore(user.uid);
     } else {
       await _localStorage.clearUserSession();
     }

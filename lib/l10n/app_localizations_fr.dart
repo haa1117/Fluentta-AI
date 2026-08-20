@@ -1000,6 +1000,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsSection => 'PARAMÈTRES';
 
   @override
+  String get learningPreferences => 'Préférences d\'apprentissage';
+
+  @override
+  String get learningPreferencesSub =>
+      'Refaire objectif, niveau et objectif quotidien';
+
+  @override
+  String get savePreferences => 'Enregistrer les préférences';
+
+  @override
+  String get setupSaved => 'Vos préférences ont été mises à jour';
+
+  @override
   String get notificationsReminders => 'Notifications et rappels';
 
   @override

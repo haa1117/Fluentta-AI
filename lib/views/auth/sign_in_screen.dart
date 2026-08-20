@@ -24,7 +24,7 @@ class SignInScreen extends StatelessWidget {
     required this.onAccountCreated,
   });
 
-  final VoidCallback onSuccess;
+  final Future<void> Function() onSuccess;
   final VoidCallback onAccountCreated;
 
   Future<void> _handleAuthAction(

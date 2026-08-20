@@ -984,6 +984,19 @@ class AppLocalizationsUr extends AppLocalizations {
   String get settingsSection => 'ترتیبات';
 
   @override
+  String get learningPreferences => 'سیکھنے کی ترجیحات';
+
+  @override
+  String get learningPreferencesSub =>
+      'مقصد، لیول اور روزانہ ہدف دوبارہ منتخب کریں';
+
+  @override
+  String get savePreferences => 'ترجیحات محفوظ کریں';
+
+  @override
+  String get setupSaved => 'آپ کی ترجیحات اپ ڈیٹ ہو گئیں';
+
+  @override
   String get notificationsReminders => 'اطلاعات اور یاد دہانیاں';
 
   @override

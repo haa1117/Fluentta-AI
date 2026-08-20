@@ -1878,6 +1878,30 @@ abstract class AppLocalizations {
   /// **'SETTINGS'**
   String get settingsSection;
 
+  /// No description provided for @learningPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning Preferences'**
+  String get learningPreferences;
+
+  /// No description provided for @learningPreferencesSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake goal, level & daily target'**
+  String get learningPreferencesSub;
+
+  /// No description provided for @savePreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Preferences'**
+  String get savePreferences;
+
+  /// No description provided for @setupSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Your preferences were updated'**
+  String get setupSaved;
+
   /// No description provided for @notificationsReminders.
   ///
   /// In en, this message translates to:

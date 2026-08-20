@@ -58,6 +58,7 @@ class AuthViewModel extends ChangeNotifier {
     final uid = _user?.uid;
     if (uid == null) return;
     _firestoreUser = await _userRepository.getUser(uid);
+    await _userRepository.syncSetupFromFirestore(uid);
     await _progressSyncService.pullAndMerge();
     notifyListeners();
   }

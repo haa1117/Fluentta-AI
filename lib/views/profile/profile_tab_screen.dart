@@ -5,7 +5,16 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/data/repositories/auth_repository.dart';
+import 'package:fluentta_ai/data/repositories/user_repository.dart';
+import 'package:fluentta_ai/viewmodels/setup_view_model.dart';
+import 'package:fluentta_ai/views/setup/setup_flow_screen.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
+import 'package:fluentta_ai/viewmodels/grammar_view_model.dart';
+import 'package:fluentta_ai/viewmodels/learn_view_model.dart';
+import 'package:fluentta_ai/viewmodels/reading_view_model.dart';
+import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:fluentta_ai/views/language/language_selection_screen.dart';
 import 'package:fluentta_ai/views/profile/notifications_reminders_screen.dart';
@@ -112,6 +121,12 @@ class ProfileTabScreen extends StatelessWidget {
                     ProfileSettingsGroup(
                       children: [
                         ProfileSettingsTile(
+                          svgIcon: 'assets/svg/learn.svg',
+                          title: l10n.learningPreferences,
+                          subtitle: l10n.learningPreferencesSub,
+                          onTap: () => _openLearningPreferences(context),
+                        ),
+                        ProfileSettingsTile(
                           svgIcon: 'assets/svg/language.svg',
                           title: l10n.profileLanguage,
                           subtitle: l10n.englishExplanationsIn(
@@ -212,6 +227,37 @@ class ProfileTabScreen extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _openLearningPreferences(BuildContext context) async {
+    final l10n = context.l10n;
+    final authRepository = context.read<AuthRepository>();
+    final userRepository = context.read<UserRepository>();
+
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (routeContext) => ChangeNotifierProvider(
+          create: (_) => SetupViewModel(
+            LocalStorage.instance,
+            userRepository,
+            authRepository,
+          ),
+          child: SetupFlowScreen(
+            isRetake: true,
+            onComplete: () {
+              Navigator.of(routeContext).pop();
+              if (!context.mounted) return;
+              context.read<ProfileViewModel>().refresh();
+              context.read<LearnViewModel>().refreshCounts();
+              context.read<VocabularyViewModel>().reload();
+              context.read<GrammarViewModel>().reload();
+              context.read<ReadingViewModel>().reload();
+              SnackbarHelper.showSuccess(context, l10n.setupSaved);
+            },
+          ),
         ),
       ),
     );

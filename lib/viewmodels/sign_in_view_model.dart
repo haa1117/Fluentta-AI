@@ -16,7 +16,7 @@ class SignInViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   Future<bool> signIn({
-    required VoidCallback onSuccess,
+    required Future<void> Function() onSuccess,
   }) async {
     if (_isLoading) return false;
 
@@ -38,7 +38,7 @@ class SignInViewModel extends ChangeNotifier {
         email: email,
         password: password,
       );
-      onSuccess();
+      await onSuccess();
       return true;
     } finally {
       _isLoading = false;
@@ -47,7 +47,7 @@ class SignInViewModel extends ChangeNotifier {
   }
 
   Future<bool> signInWithGoogle({
-    required VoidCallback onSuccess,
+    required Future<void> Function() onSuccess,
     required VoidCallback onNewUser,
   }) async {
     if (_isLoading) return false;
@@ -61,7 +61,7 @@ class SignInViewModel extends ChangeNotifier {
       if (result.isNewUser) {
         onNewUser();
       } else {
-        onSuccess();
+        await onSuccess();
       }
       return true;
     } finally {
@@ -71,7 +71,7 @@ class SignInViewModel extends ChangeNotifier {
   }
 
   Future<bool> signInWithApple({
-    required VoidCallback onSuccess,
+    required Future<void> Function() onSuccess,
     required VoidCallback onNewUser,
   }) async {
     if (_isLoading) return false;
@@ -83,7 +83,7 @@ class SignInViewModel extends ChangeNotifier {
       if (result.isNewUser) {
         onNewUser();
       } else {
-        onSuccess();
+        await onSuccess();
       }
       return true;
     } finally {

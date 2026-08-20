@@ -59,7 +59,7 @@ class _AppNavigatorState extends State<AppNavigator> {
           _currentFlow != AppFlow.setup &&
           _currentFlow != AppFlow.accountCreated &&
           _currentFlow != AppFlow.splash) {
-        if (widget.localStorage.isSetupComplete) {
+        if (widget.localStorage.hasCompletedSetup) {
           setState(() => _currentFlow = AppFlow.home);
         }
       } else if (user == null &&
@@ -79,7 +79,7 @@ class _AppNavigatorState extends State<AppNavigator> {
   AppFlow _resolvePostSplashFlow() {
     if (widget.authRepository.currentUser != null ||
         widget.localStorage.isLoggedIn) {
-      if (widget.localStorage.isSetupComplete) {
+      if (widget.localStorage.hasCompletedSetup) {
         return AppFlow.home;
       }
       return AppFlow.setup;
@@ -117,8 +117,26 @@ class _AppNavigatorState extends State<AppNavigator> {
     setState(() => _currentFlow = AppFlow.home);
   }
 
-  void _handleSignInSuccess() {
-    if (widget.localStorage.isSetupComplete) {
+  Future<void> _handleSignInSuccess() async {
+    final uid = widget.authRepository.currentUser?.uid;
+    if (uid != null) {
+      await widget.userRepository.syncSetupFromFirestore(uid);
+    }
+    if (!mounted) return;
+    if (widget.localStorage.hasCompletedSetup) {
+      _goToHome();
+    } else {
+      _goToSetup();
+    }
+  }
+
+  Future<void> _continueFromAccountCreated() async {
+    final uid = widget.authRepository.currentUser?.uid;
+    if (uid != null) {
+      await widget.userRepository.syncSetupFromFirestore(uid);
+    }
+    if (!mounted) return;
+    if (widget.localStorage.hasCompletedSetup) {
       _goToHome();
     } else {
       _goToSetup();
@@ -172,7 +190,7 @@ class _AppNavigatorState extends State<AppNavigator> {
             ),
           AppFlow.accountCreated => AccountCreatedScreen(
               key: const ValueKey('accountCreated'),
-              onContinue: _goToSetup,
+              onContinue: _continueFromAccountCreated,
             ),
           AppFlow.setup => SetupFlowScreen(
               key: const ValueKey('setup'),

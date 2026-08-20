@@ -33,6 +33,11 @@ class UserRepository {
     final snapshot = await docRef.get();
     final isNew = !snapshot.exists;
 
+    // Pull remote setup before pushing empty local state (e.g. after reinstall).
+    if (!isNew) {
+      await syncSetupFromFirestore(user.uid);
+    }
+
     final localLanguage = _localStorage.selectedLanguage ?? 'en';
     final localOnboardingComplete = _localStorage.isOnboardingComplete;
 
@@ -49,6 +54,10 @@ class UserRepository {
       onboardingComplete: localOnboardingComplete,
       authProvider: authProvider,
       photoUrl: user.photoURL,
+      englishGoal: _localStorage.englishGoal,
+      englishLevel: _localStorage.englishLevel,
+      dailyGoalMinutes: _localStorage.dailyGoalMinutes,
+      setupComplete: _localStorage.hasCompletedSetup,
     );
 
     try {
@@ -142,21 +151,26 @@ class UserRepository {
   }
 
   Future<void> syncLocalPreferencesToFirestore(String uid) async {
-    await _userDoc(uid).set(
-      {
-        'selectedLanguage': _localStorage.selectedLanguage ?? 'en',
-        'onboardingComplete': _localStorage.isOnboardingComplete,
-        if (_localStorage.englishGoal != null)
-          'englishGoal': _localStorage.englishGoal,
-        if (_localStorage.englishLevel != null)
-          'englishLevel': _localStorage.englishLevel,
-        if (_localStorage.dailyGoalMinutes != null)
-          'dailyGoalMinutes': _localStorage.dailyGoalMinutes,
-        'setupComplete': _localStorage.isSetupComplete,
-        'updatedAt': FieldValue.serverTimestamp(),
-      },
-      SetOptions(merge: true),
-    );
+    final payload = <String, dynamic>{
+      'selectedLanguage': _localStorage.selectedLanguage ?? 'en',
+      'onboardingComplete': _localStorage.isOnboardingComplete,
+      'updatedAt': FieldValue.serverTimestamp(),
+    };
+
+    if (_localStorage.englishGoal != null) {
+      payload['englishGoal'] = _localStorage.englishGoal;
+    }
+    if (_localStorage.englishLevel != null) {
+      payload['englishLevel'] = _localStorage.englishLevel;
+    }
+    if (_localStorage.dailyGoalMinutes != null) {
+      payload['dailyGoalMinutes'] = _localStorage.dailyGoalMinutes;
+    }
+    if (_localStorage.hasCompletedSetup) {
+      payload['setupComplete'] = true;
+    }
+
+    await _userDoc(uid).set(payload, SetOptions(merge: true));
   }
 
   Future<void> saveSetupPreferences({
@@ -176,6 +190,7 @@ class UserRepository {
         'englishGoal': englishGoal,
         'englishLevel': englishLevel,
         'dailyGoalMinutes': dailyGoalMinutes,
+        if (_localStorage.hasCompletedSetup) 'setupComplete': true,
         'updatedAt': FieldValue.serverTimestamp(),
       },
       SetOptions(merge: true),
@@ -206,9 +221,14 @@ class UserRepository {
     );
   }
 
-  Future<void> syncSetupFromFirestore(String uid) async {
+  Future<bool> syncSetupFromFirestore(String uid) async {
     final user = await getUser(uid);
-    if (user == null) return;
+    if (user == null) return false;
+
+    final completedOnServer = user.setupComplete ||
+        (user.englishGoal != null &&
+            user.englishLevel != null &&
+            user.dailyGoalMinutes != null);
 
     if (user.englishGoal != null &&
         user.englishLevel != null &&
@@ -220,9 +240,11 @@ class UserRepository {
       );
     }
 
-    if (user.setupComplete) {
+    if (completedOnServer) {
       await _localStorage.setSetupComplete();
     }
+
+    return completedOnServer;
   }
 
   Future<void> updateLearningStats({
