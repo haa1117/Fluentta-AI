@@ -65,7 +65,9 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<void> signOut() async {
     await _authRepository.signOut();
+    _user = null;
     _firestoreUser = null;
+    notifyListeners();
   }
 
   @override

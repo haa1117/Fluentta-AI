@@ -62,9 +62,8 @@ class _AppNavigatorState extends State<AppNavigator> {
         if (widget.localStorage.hasCompletedSetup) {
           setState(() => _currentFlow = AppFlow.home);
         }
-      } else if (user == null &&
-          _currentFlow == AppFlow.home &&
-          widget.localStorage.hasSelectedLanguage) {
+      } else if ((user == null || !widget.localStorage.isLoggedIn) &&
+          _isSignedInFlow(_currentFlow)) {
         setState(() => _currentFlow = AppFlow.signIn);
       }
     });
@@ -115,6 +114,13 @@ class _AppNavigatorState extends State<AppNavigator> {
 
   void _goToHome() {
     setState(() => _currentFlow = AppFlow.home);
+  }
+
+  bool _isSignedInFlow(AppFlow flow) {
+    return switch (flow) {
+      AppFlow.home || AppFlow.setup || AppFlow.accountCreated => true,
+      _ => false,
+    };
   }
 
   Future<void> _handleSignInSuccess() async {

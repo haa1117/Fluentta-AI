@@ -192,10 +192,20 @@ class AuthRepository {
   }
 
   Future<void> signOut() async {
-    await Future.wait([
-      _auth.signOut(),
-      if (!kIsWeb) _googleSignIn.signOut(),
-    ]);
+    try {
+      await _auth.signOut();
+    } catch (_) {
+      // Continue clearing local session even if Firebase sign-out fails.
+    }
+
+    if (!kIsWeb) {
+      try {
+        await _googleSignIn.signOut();
+      } catch (_) {
+        // User may have signed in with email/password only.
+      }
+    }
+
     await _localStorage.clearUserSession();
     await _clearResetState();
   }

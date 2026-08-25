@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 Future<void> showSignOutDialog(BuildContext context) {
   final l10n = context.l10n;
+  final authViewModel = context.read<AuthViewModel>();
 
   return showDialog<void>(
     context: context,
@@ -84,9 +85,9 @@ Future<void> showSignOutDialog(BuildContext context) {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.of(dialogContext).pop();
-                    dialogContext.read<AuthViewModel>().signOut();
+                    await authViewModel.signOut();
                   },
                   child: Text(
                     l10n.signOutTitle,
