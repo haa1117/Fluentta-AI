@@ -68,6 +68,11 @@ flutter:
     - assets/roleplay/doctor_visit/
     - assets/roleplay/small_talk/
     - assets/roleplay/business_meeting/
+    - assets/english_basics/manifest.json
+    - assets/english_basics/exam.json
+    - assets/english_basics/work.json
+    - assets/english_basics/travel.json
+    - assets/english_basics/everyday.json
 
   fonts:
     - family: PlusJakartaSans

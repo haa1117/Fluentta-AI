@@ -9,6 +9,7 @@ import 'package:fluentta_ai/data/repositories/lesson_content_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_sync_repository.dart';
 import 'package:fluentta_ai/data/repositories/daily_lesson_repository.dart';
+import 'package:fluentta_ai/data/repositories/english_basics_repository.dart';
 import 'package:fluentta_ai/data/repositories/daily_vocabulary_repository.dart';
 import 'package:fluentta_ai/data/repositories/roleplay_content_repository.dart';
 import 'package:fluentta_ai/data/repositories/roleplay_content_sync_repository.dart';
@@ -20,6 +21,7 @@ import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart'
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
+import 'package:fluentta_ai/viewmodels/english_basics_view_model.dart';
 import 'package:fluentta_ai/viewmodels/grammar_view_model.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/viewmodels/learn_view_model.dart';
@@ -50,6 +52,11 @@ void main() async {
     lessonContentRepository,
   );
   final dailyLessonRepository = DailyLessonRepository(localStorage);
+  final englishBasicsRepository = EnglishBasicsRepository(
+    localStorage,
+    progressRepository,
+    dailyLessonRepository,
+  );
   final roleplayContentSyncRepository = RoleplayContentSyncRepository();
   final roleplayContentRepository = RoleplayContentRepository(
     localStorage,
@@ -85,6 +92,7 @@ void main() async {
       spacedRepetitionRepository: spacedRepetitionRepository,
       dailyVocabularyRepository: dailyVocabularyRepository,
       dailyLessonRepository: dailyLessonRepository,
+      englishBasicsRepository: englishBasicsRepository,
       roleplayContentRepository: roleplayContentRepository,
       textToSpeechService: textToSpeechService,
       pronunciationAssessmentService: pronunciationAssessmentService,
@@ -105,6 +113,7 @@ class FluentaApp extends StatelessWidget {
     required this.spacedRepetitionRepository,
     required this.dailyVocabularyRepository,
     required this.dailyLessonRepository,
+    required this.englishBasicsRepository,
     required this.roleplayContentRepository,
     required this.textToSpeechService,
     required this.pronunciationAssessmentService,
@@ -120,6 +129,7 @@ class FluentaApp extends StatelessWidget {
   final SpacedRepetitionRepository spacedRepetitionRepository;
   final DailyVocabularyRepository dailyVocabularyRepository;
   final DailyLessonRepository dailyLessonRepository;
+  final EnglishBasicsRepository englishBasicsRepository;
   final RoleplayContentRepository roleplayContentRepository;
   final TextToSpeechService textToSpeechService;
   final PronunciationAssessmentService pronunciationAssessmentService;
@@ -144,6 +154,9 @@ class FluentaApp extends StatelessWidget {
         ),
         Provider<DailyLessonRepository>.value(
           value: dailyLessonRepository,
+        ),
+        Provider<EnglishBasicsRepository>.value(
+          value: englishBasicsRepository,
         ),
         Provider<RoleplayContentRepository>.value(
           value: roleplayContentRepository,
@@ -173,6 +186,12 @@ class FluentaApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => HomeViewModel(localStorage),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EnglishBasicsViewModel(
+            localStorage,
+            context.read<EnglishBasicsRepository>(),
+          ),
         ),
         ChangeNotifierProvider(
           create: (context) => LearnViewModel(

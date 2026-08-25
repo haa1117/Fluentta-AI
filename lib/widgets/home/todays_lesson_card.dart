@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/viewmodels/home_view_model.dart';
+import 'package:fluentta_ai/viewmodels/english_basics_view_model.dart';
 import 'package:provider/provider.dart';
 
 class HomeBannerAd extends StatelessWidget {
@@ -73,14 +73,23 @@ class HomeBannerAd extends StatelessWidget {
 class TodaysLessonCard extends StatelessWidget {
   const TodaysLessonCard({
     super.key,
-    required this.onResume,
+    required this.onStartLesson,
   });
 
-  final VoidCallback onResume;
+  final VoidCallback onStartLesson;
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<HomeViewModel>();
+    final basicsViewModel = context.watch<EnglishBasicsViewModel>();
+
+    if (basicsViewModel.isLoading) {
+      return const SizedBox(
+        height: 180,
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    final lessonProgress = basicsViewModel.trackProgress;
 
     return Container(
       width: double.infinity,
@@ -117,7 +126,7 @@ class TodaysLessonCard extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceSm),
                     Text(
-                      viewModel.lessonTitle,
+                      basicsViewModel.pathTitle,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(18),
@@ -170,7 +179,7 @@ class TodaysLessonCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(AppSizes.h(4)),
                   child: LinearProgressIndicator(
-                    value: viewModel.lessonProgress,
+                    value: lessonProgress,
                     minHeight: AppSizes.h(6),
                     backgroundColor: AppColors.progressTrack,
                     valueColor: const AlwaysStoppedAnimation<Color>(
@@ -181,23 +190,29 @@ class TodaysLessonCard extends StatelessWidget {
               ),
               SizedBox(width: AppSizes.w(12)),
               GestureDetector(
-                onTap: onResume,
+                onTap: basicsViewModel.canStartOrResume ? onStartLesson : null,
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: AppSizes.w(20),
                     vertical: AppSizes.h(10),
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.resumeButtonBg,
+                    color: basicsViewModel.canStartOrResume
+                        ? AppColors.resumeButtonBg
+                        : AppColors.progressTrack,
                     borderRadius: BorderRadius.circular(AppSizes.w(20)),
                   ),
                   child: Text(
-                    'Resume',
+                    basicsViewModel.hasCompletedToday
+                        ? 'Completed'
+                        : basicsViewModel.actionLabel,
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(13),
                       fontWeight: FontWeight.w600,
-                      color: AppColors.primaryColor,
+                      color: basicsViewModel.canStartOrResume
+                          ? AppColors.primaryColor
+                          : AppColors.textTertiary,
                     ),
                   ),
                 ),

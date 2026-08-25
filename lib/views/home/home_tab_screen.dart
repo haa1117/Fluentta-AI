@@ -4,8 +4,8 @@ import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/views/ai_tutor/ai_tutor_screen.dart';
+import 'package:fluentta_ai/viewmodels/english_basics_view_model.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
-import 'package:fluentta_ai/viewmodels/main_shell_view_model.dart';
 import 'package:fluentta_ai/widgets/home/daily_goal_card.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/home/practice_conversing_card.dart';
@@ -63,12 +63,13 @@ class HomeTabScreen extends StatelessWidget {
             const HomeBannerAd(),
             SizedBox(height: AppSizes.spaceMd),
             TodaysLessonCard(
-              onResume: () {
-                context.read<HomeViewModel>().resumeLesson(
-                  () => context.read<MainShellViewModel>().selectTab(
-                    MainTab.learn,
-                  ),
-                );
+              onStartLesson: () async {
+                await context.read<EnglishBasicsViewModel>().openLessonFlow(
+                      context,
+                    );
+                if (context.mounted) {
+                  context.read<HomeViewModel>().refresh();
+                }
               },
             ),
           ],

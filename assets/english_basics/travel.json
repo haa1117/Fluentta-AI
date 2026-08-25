@@ -1,0 +1,716 @@
+{
+  "goalId": "travel",
+  "pathTitle": "Travel English Basics",
+  "lessons": [
+    {
+      "id": "travel_lesson_01",
+      "number": 1,
+      "title": "Travel English Basics",
+      "subtitle": "Master the essential vocabulary and etiquette for professional communication.",
+      "introItems": [
+        {
+          "title": "5 workplace words",
+          "subtitle": "Office, Meeting, Agenda..."
+        },
+        {
+          "title": "3 key sentences",
+          "subtitle": "Common business greetings"
+        },
+        {
+          "title": "1 realistic dialogue",
+          "subtitle": "Practice a coffee break chat"
+        }
+      ],
+      "wordsStep": {
+        "stepLabel": "Workplace Words",
+        "title": "Learn 5 workspace words",
+        "subtitle": "These words help you talk about work",
+        "words": [
+          {
+            "word": "Meeting",
+            "tag": "Noun",
+            "definition": "A planned discussion at work.",
+            "example": "We have a meeting at 10 AM."
+          },
+          {
+            "word": "Deadline",
+            "tag": "Critical",
+            "definition": "The last day to finish work.",
+            "example": "The deadline is Friday."
+          },
+          {
+            "word": "Report",
+            "tag": "Document",
+            "definition": "A written summary of work.",
+            "example": "Please send the report today."
+          },
+          {
+            "word": "Manager",
+            "tag": "Noun",
+            "definition": "The person who leads your team.",
+            "example": "My manager is very helpful."
+          },
+          {
+            "word": "Office",
+            "tag": "Noun",
+            "definition": "The place where you work.",
+            "example": "I work in a small office."
+          }
+        ]
+      },
+      "sentencesStep": {
+        "stepLabel": "Sentence Practice",
+        "title": "Practice work sentences",
+        "subtitle": "Choose the correct word to complete sentence",
+        "questions": [
+          {
+            "prompt": "I have a ________ with my manager.",
+            "options": [
+              "meeting",
+              "office",
+              "report"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "prompt": "Please check the ________.",
+            "options": [
+              "deadline",
+              "report",
+              "manager"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "prompt": "The ________ is on Friday.",
+            "options": [
+              "office",
+              "deadline",
+              "meeting"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      },
+      "dialogueStep": {
+        "stepLabel": "Dialogue",
+        "title": "Practice work dialogue",
+        "subtitle": "Read a short office dialogue",
+        "lines": [
+          {
+            "speaker": "Manager",
+            "text": "Can you join the meeting at 10?",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Yes, I can join the meeting.",
+            "isUser": true
+          },
+          {
+            "speaker": "Manager",
+            "text": "Great. Please bring the report.",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Sure, I will bring the report.",
+            "isUser": true
+          },
+          {
+            "speaker": "Manager",
+            "text": "Thank you. We will discuss the deadline.",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Sounds good. I will be ready.",
+            "isUser": true
+          }
+        ]
+      },
+      "completeItems": [
+        {
+          "title": "5 workplace words",
+          "subtitle": "Office, Meeting, Agenda..."
+        },
+        {
+          "title": "3 key sentences",
+          "subtitle": "Common business greetings"
+        },
+        {
+          "title": "1 realistic dialogue",
+          "subtitle": "Practice a workspace dialogue"
+        }
+      ]
+    },
+    {
+      "id": "travel_lesson_02",
+      "number": 2,
+      "title": "Travel English Basics",
+      "subtitle": "Build confidence with test-day vocabulary and polite requests.",
+      "introItems": [
+        {
+          "title": "5 exam words",
+          "subtitle": "Schedule, Register, Candidate..."
+        },
+        {
+          "title": "3 key sentences",
+          "subtitle": "Asking for help during a test"
+        },
+        {
+          "title": "1 realistic dialogue",
+          "subtitle": "At the exam registration desk"
+        }
+      ],
+      "wordsStep": {
+        "stepLabel": "Exam Words",
+        "title": "Learn 5 exam words",
+        "subtitle": "These words help you on test day",
+        "words": [
+          {
+            "word": "Schedule",
+            "tag": "Noun",
+            "definition": "A plan that shows when things happen.",
+            "example": "Check the exam schedule online."
+          },
+          {
+            "word": "Register",
+            "tag": "Verb",
+            "definition": "To sign up officially for something.",
+            "example": "I registered for the IELTS test."
+          },
+          {
+            "word": "Candidate",
+            "tag": "Noun",
+            "definition": "A person taking an exam.",
+            "example": "Each candidate needs an ID card."
+          },
+          {
+            "word": "Instructions",
+            "tag": "Noun",
+            "definition": "Directions that tell you what to do.",
+            "example": "Read the instructions carefully."
+          },
+          {
+            "word": "Result",
+            "tag": "Noun",
+            "definition": "The score or outcome of a test.",
+            "example": "My result will arrive next week."
+          }
+        ]
+      },
+      "sentencesStep": {
+        "stepLabel": "Sentence Practice",
+        "title": "Practice exam sentences",
+        "subtitle": "Choose the correct word to complete sentence",
+        "questions": [
+          {
+            "prompt": "Please ________ for the test before Friday.",
+            "options": [
+              "register",
+              "result",
+              "schedule"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "prompt": "Every ________ must bring a photo ID.",
+            "options": [
+              "instruction",
+              "candidate",
+              "result"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "prompt": "Follow the ________ on the first page.",
+            "options": [
+              "schedule",
+              "instructions",
+              "register"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      },
+      "dialogueStep": {
+        "stepLabel": "Dialogue",
+        "title": "Practice exam dialogue",
+        "subtitle": "Read a short registration dialogue",
+        "lines": [
+          {
+            "speaker": "Staff",
+            "text": "Good morning. Are you here to register?",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Yes, I want to register for the speaking test.",
+            "isUser": true
+          },
+          {
+            "speaker": "Staff",
+            "text": "Sure. The schedule is on the screen behind you.",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Thank you. When will the result be ready?",
+            "isUser": true
+          },
+          {
+            "speaker": "Staff",
+            "text": "Results are usually sent within seven days.",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Great. I will check my email.",
+            "isUser": true
+          }
+        ]
+      },
+      "completeItems": [
+        {
+          "title": "5 exam words",
+          "subtitle": "Schedule, Register, Candidate..."
+        },
+        {
+          "title": "3 key sentences",
+          "subtitle": "Asking for help during a test"
+        },
+        {
+          "title": "1 realistic dialogue",
+          "subtitle": "At the exam registration desk"
+        }
+      ]
+    },
+    {
+      "id": "travel_lesson_03",
+      "number": 3,
+      "title": "Travel English Basics",
+      "subtitle": "Learn interview language for exams and admissions.",
+      "introItems": [
+        {
+          "title": "5 interview words",
+          "subtitle": "Apply, Qualify, Experience..."
+        },
+        {
+          "title": "3 key sentences",
+          "subtitle": "Talking about your background"
+        },
+        {
+          "title": "1 realistic dialogue",
+          "subtitle": "Practice a short interview"
+        }
+      ],
+      "wordsStep": {
+        "stepLabel": "Interview Words",
+        "title": "Learn 5 interview words",
+        "subtitle": "These words help in exam interviews",
+        "words": [
+          {
+            "word": "Apply",
+            "tag": "Verb",
+            "definition": "To request a place or position formally.",
+            "example": "I applied to three universities."
+          },
+          {
+            "word": "Qualify",
+            "tag": "Verb",
+            "definition": "To meet the requirements for something.",
+            "example": "She qualifies for a scholarship."
+          },
+          {
+            "word": "Experience",
+            "tag": "Noun",
+            "definition": "Knowledge gained from doing something.",
+            "example": "I have volunteer experience."
+          },
+          {
+            "word": "Strength",
+            "tag": "Noun",
+            "definition": "Something you are good at.",
+            "example": "Communication is my strength."
+          },
+          {
+            "word": "Goal",
+            "tag": "Noun",
+            "definition": "Something you want to achieve.",
+            "example": "My goal is to study abroad."
+          }
+        ]
+      },
+      "sentencesStep": {
+        "stepLabel": "Sentence Practice",
+        "title": "Practice interview sentences",
+        "subtitle": "Choose the correct word to complete sentence",
+        "questions": [
+          {
+            "prompt": "I want to ________ for the exchange program.",
+            "options": [
+              "qualify",
+              "apply",
+              "goal"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "prompt": "My main ________ is public speaking.",
+            "options": [
+              "experience",
+              "strength",
+              "apply"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "prompt": "My long-term ________ is to work in research.",
+            "options": [
+              "goal",
+              "qualify",
+              "strength"
+            ],
+            "correctIndex": 0
+          }
+        ]
+      },
+      "dialogueStep": {
+        "stepLabel": "Dialogue",
+        "title": "Practice interview dialogue",
+        "subtitle": "Read a short interview dialogue",
+        "lines": [
+          {
+            "speaker": "Interviewer",
+            "text": "Tell me about your experience.",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "I have two years of tutoring experience.",
+            "isUser": true
+          },
+          {
+            "speaker": "Interviewer",
+            "text": "What is your greatest strength?",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "I stay calm under pressure.",
+            "isUser": true
+          },
+          {
+            "speaker": "Interviewer",
+            "text": "What is your goal after this program?",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "My goal is to study engineering abroad.",
+            "isUser": true
+          }
+        ]
+      },
+      "completeItems": [
+        {
+          "title": "5 interview words",
+          "subtitle": "Apply, Qualify, Experience..."
+        },
+        {
+          "title": "3 key sentences",
+          "subtitle": "Talking about your background"
+        },
+        {
+          "title": "1 realistic dialogue",
+          "subtitle": "Practice a short interview"
+        }
+      ]
+    },
+    {
+      "id": "travel_lesson_04",
+      "number": 4,
+      "title": "Travel English Basics",
+      "subtitle": "Practice academic vocabulary for reading and writing tasks.",
+      "introItems": [
+        {
+          "title": "5 academic words",
+          "subtitle": "Analyze, Evidence, Opinion..."
+        },
+        {
+          "title": "3 key sentences",
+          "subtitle": "Expressing ideas clearly"
+        },
+        {
+          "title": "1 realistic dialogue",
+          "subtitle": "Discussing an essay topic"
+        }
+      ],
+      "wordsStep": {
+        "stepLabel": "Academic Words",
+        "title": "Learn 5 academic words",
+        "subtitle": "These words help in writing tasks",
+        "words": [
+          {
+            "word": "Analyze",
+            "tag": "Verb",
+            "definition": "To study something in detail.",
+            "example": "Analyze the chart before you write."
+          },
+          {
+            "word": "Evidence",
+            "tag": "Noun",
+            "definition": "Facts that support an idea.",
+            "example": "Use evidence from the passage."
+          },
+          {
+            "word": "Opinion",
+            "tag": "Noun",
+            "definition": "What you think about a topic.",
+            "example": "In my opinion, education is important."
+          },
+          {
+            "word": "Conclusion",
+            "tag": "Noun",
+            "definition": "The final part that sums up ideas.",
+            "example": "Write a clear conclusion."
+          },
+          {
+            "word": "Topic",
+            "tag": "Noun",
+            "definition": "The subject you write or talk about.",
+            "example": "Choose one topic from the list."
+          }
+        ]
+      },
+      "sentencesStep": {
+        "stepLabel": "Sentence Practice",
+        "title": "Practice academic sentences",
+        "subtitle": "Choose the correct word to complete sentence",
+        "questions": [
+          {
+            "prompt": "You need to ________ both sides of the argument.",
+            "options": [
+              "analyze",
+              "topic",
+              "conclusion"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "prompt": "Strong ________ makes your essay better.",
+            "options": [
+              "opinion",
+              "evidence",
+              "topic"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "prompt": "End your essay with a short ________.",
+            "options": [
+              "evidence",
+              "conclusion",
+              "analyze"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      },
+      "dialogueStep": {
+        "stepLabel": "Dialogue",
+        "title": "Practice study dialogue",
+        "subtitle": "Read a short discussion about an essay",
+        "lines": [
+          {
+            "speaker": "Tutor",
+            "text": "What topic did you choose?",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "I chose online learning.",
+            "isUser": true
+          },
+          {
+            "speaker": "Tutor",
+            "text": "Did you include enough evidence?",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Yes, I added two examples.",
+            "isUser": true
+          },
+          {
+            "speaker": "Tutor",
+            "text": "Good. Now write a stronger conclusion.",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Okay, I will rewrite the final paragraph.",
+            "isUser": true
+          }
+        ]
+      },
+      "completeItems": [
+        {
+          "title": "5 academic words",
+          "subtitle": "Analyze, Evidence, Opinion..."
+        },
+        {
+          "title": "3 key sentences",
+          "subtitle": "Expressing ideas clearly"
+        },
+        {
+          "title": "1 realistic dialogue",
+          "subtitle": "Discussing an essay topic"
+        }
+      ]
+    },
+    {
+      "id": "travel_lesson_05",
+      "number": 5,
+      "title": "Travel English Basics",
+      "subtitle": "Review test-day phrases for confidence and clarity.",
+      "introItems": [
+        {
+          "title": "5 review words",
+          "subtitle": "Confirm, Clarify, Submit..."
+        },
+        {
+          "title": "3 key sentences",
+          "subtitle": "Polite phrases on exam day"
+        },
+        {
+          "title": "1 realistic dialogue",
+          "subtitle": "Asking for clarification"
+        }
+      ],
+      "wordsStep": {
+        "stepLabel": "Review Words",
+        "title": "Learn 5 review words",
+        "subtitle": "These words help you stay confident",
+        "words": [
+          {
+            "word": "Confirm",
+            "tag": "Verb",
+            "definition": "To make sure something is correct.",
+            "example": "Please confirm your seat number."
+          },
+          {
+            "word": "Clarify",
+            "tag": "Verb",
+            "definition": "To make something easier to understand.",
+            "example": "Could you clarify the question?"
+          },
+          {
+            "word": "Submit",
+            "tag": "Verb",
+            "definition": "To hand in your work officially.",
+            "example": "Submit your answer sheet at the end."
+          },
+          {
+            "word": "Prepare",
+            "tag": "Verb",
+            "definition": "To get ready for something.",
+            "example": "I prepare the night before."
+          },
+          {
+            "word": "Confident",
+            "tag": "Adjective",
+            "definition": "Feeling sure about your ability.",
+            "example": "Stay confident during the speaking test."
+          }
+        ]
+      },
+      "sentencesStep": {
+        "stepLabel": "Sentence Practice",
+        "title": "Practice review sentences",
+        "subtitle": "Choose the correct word to complete sentence",
+        "questions": [
+          {
+            "prompt": "Can you ________ the time of my speaking test?",
+            "options": [
+              "submit",
+              "confirm",
+              "prepare"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "prompt": "I did not understand. Could you ________?",
+            "options": [
+              "clarify",
+              "confident",
+              "submit"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "prompt": "Please ________ your paper before you leave.",
+            "options": [
+              "prepare",
+              "submit",
+              "confirm"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      },
+      "dialogueStep": {
+        "stepLabel": "Dialogue",
+        "title": "Practice exam-day dialogue",
+        "subtitle": "Read a short clarification dialogue",
+        "lines": [
+          {
+            "speaker": "Examiner",
+            "text": "Do you understand the task?",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Could you clarify the second question?",
+            "isUser": true
+          },
+          {
+            "speaker": "Examiner",
+            "text": "Yes. Please compare both options.",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Thank you. I feel more confident now.",
+            "isUser": true
+          },
+          {
+            "speaker": "Examiner",
+            "text": "Good. You may begin when ready.",
+            "isUser": false
+          },
+          {
+            "speaker": "You",
+            "text": "Great. I am ready to start.",
+            "isUser": true
+          }
+        ]
+      },
+      "completeItems": [
+        {
+          "title": "5 review words",
+          "subtitle": "Confirm, Clarify, Submit..."
+        },
+        {
+          "title": "3 key sentences",
+          "subtitle": "Polite phrases on exam day"
+        },
+        {
+          "title": "1 realistic dialogue",
+          "subtitle": "Asking for clarification"
+        }
+      ]
+    }
+  ]
+}

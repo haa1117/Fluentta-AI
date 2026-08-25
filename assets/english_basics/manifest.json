@@ -1,0 +1,20 @@
+{
+  "tracks": [
+    {
+      "goalId": "exam",
+      "asset": "assets/english_basics/exam.json"
+    },
+    {
+      "goalId": "work",
+      "asset": "assets/english_basics/work.json"
+    },
+    {
+      "goalId": "travel",
+      "asset": "assets/english_basics/travel.json"
+    },
+    {
+      "goalId": "everyday",
+      "asset": "assets/english_basics/everyday.json"
+    }
+  ]
+}
