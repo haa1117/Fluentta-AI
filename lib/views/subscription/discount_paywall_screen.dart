@@ -25,6 +25,7 @@ class DiscountPaywallScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
+    final vm = context.watch<SubscriptionViewModel>();
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -152,7 +153,7 @@ class DiscountPaywallScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    l10n.annualProPrice,
+                                    vm.discountAnnualPrice(l10n),
                                     style: TextStyle(
                                       fontFamily: AppFonts.plusJakartaSans,
                                       fontSize: AppSizes.sp(28),
@@ -162,7 +163,7 @@ class DiscountPaywallScreen extends StatelessWidget {
                                   ),
                                   SizedBox(width: AppSizes.w(10)),
                                   Text(
-                                    l10n.annualProPriceStrikethrough,
+                                    vm.discountAnnualStrikethrough(l10n),
                                     style: TextStyle(
                                       fontFamily: AppFonts.plusJakartaSans,
                                       fontSize: AppSizes.sp(14),
@@ -244,8 +245,27 @@ class DiscountPaywallScreen extends StatelessWidget {
                 children: [
                   PrimaryButton(
                     text: l10n.startSevenDayFreeTrial,
-                    onPressed: () =>
-                        SnackbarHelper.showSuccess(context, l10n.openingSoon),
+                    onPressed: vm.isPurchasing
+                        ? null
+                        : () async {
+                            final result = await vm.purchaseDiscountAnnual();
+                            if (!context.mounted) return;
+                            if (result.success) {
+                              SnackbarHelper.showSuccess(
+                                context,
+                                result.message ?? l10n.includedInPlan,
+                              );
+                              Navigator.of(context).pop();
+                              return;
+                            }
+                            if (result.message != null &&
+                                result.message != 'Purchase canceled.') {
+                              SnackbarHelper.showSuccess(
+                                context,
+                                result.message!,
+                              );
+                            }
+                          },
                   ),
                   SizedBox(height: AppSizes.h(10)),
                   Text(
@@ -263,8 +283,16 @@ class DiscountPaywallScreen extends StatelessWidget {
                     termsLabel: l10n.terms,
                     privacyLabel: l10n.privacy,
                     restoreLabel: l10n.restore,
-                    onRestore: () =>
-                        SnackbarHelper.showSuccess(context, l10n.openingSoon),
+                    onRestore: () async {
+                      final result = await vm.restorePurchases();
+                      if (!context.mounted) return;
+                      SnackbarHelper.showSuccess(
+                        context,
+                        result.success
+                            ? (result.message ?? l10n.restorePurchases)
+                            : (result.message ?? l10n.openingSoon),
+                      );
+                    },
                   ),
                 ],
               ),

@@ -16,6 +16,7 @@ import 'package:fluentta_ai/viewmodels/learn_view_model.dart';
 import 'package:fluentta_ai/viewmodels/reading_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
+import 'package:fluentta_ai/viewmodels/subscription_view_model.dart';
 import 'package:fluentta_ai/views/language/language_selection_screen.dart';
 import 'package:fluentta_ai/views/profile/notifications_reminders_screen.dart';
 import 'package:fluentta_ai/widgets/profile/profile_daily_goal_card.dart';
@@ -168,8 +169,18 @@ class ProfileTabScreen extends StatelessWidget {
                         ProfileSettingsTile(
                           svgIcon: 'assets/svg/restore_purchase.svg',
                           title: l10n.restorePurchases,
-                          onTap: () => SnackbarHelper.showSuccess(
-                              context, l10n.restoringPurchases),
+                          onTap: () async {
+                            final result = await context
+                                .read<SubscriptionViewModel>()
+                                .restorePurchases();
+                            if (!context.mounted) return;
+                            SnackbarHelper.showSuccess(
+                              context,
+                              result.success
+                                  ? (result.message ?? l10n.restorePurchases)
+                                  : (result.message ?? l10n.openingSoon),
+                            );
+                          },
                         ),
                       ],
                     ),

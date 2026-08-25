@@ -30,6 +30,8 @@ class LocalStorage {
   static const String _wordsLearnedCountKey = 'words_learned_count';
   static const String _lessonsCompletedCountKey = 'lessons_completed_count';
   static const String _correctionsCountKey = 'corrections_count';
+  static const String _isPremiumKey = 'is_premium';
+  static const String _premiumProductIdKey = 'premium_product_id';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -99,6 +101,8 @@ class LocalStorage {
   int get lessonsCompletedCount =>
       _prefs!.getInt(_lessonsCompletedCountKey) ?? 8;
   int get correctionsCount => _prefs!.getInt(_correctionsCountKey) ?? 12;
+  bool get isPremium => _prefs!.getBool(_isPremiumKey) ?? false;
+  String? get premiumProductId => _prefs!.getString(_premiumProductIdKey);
 
   String? getString(String key) => _prefs!.getString(key);
 
@@ -118,6 +122,18 @@ class LocalStorage {
       _wordsLearnedCountKey,
       wordsLearnedCount + count,
     );
+  }
+
+  Future<void> setPremiumActive({
+    required bool active,
+    String? productId,
+  }) async {
+    await _prefs!.setBool(_isPremiumKey, active);
+    if (active && productId != null) {
+      await _prefs!.setString(_premiumProductIdKey, productId);
+    } else if (!active) {
+      await _prefs!.remove(_premiumProductIdKey);
+    }
   }
 
   Future<void> addXp(int amount) async {
@@ -217,6 +233,11 @@ class LocalStorage {
     await _prefs!.remove(_streakDaysKey);
     await _prefs!.remove(_livesKey);
     await _prefs!.remove(_lessonProgressKey);
+  }
+
+  Future<void> clearPremiumStatus() async {
+    await _prefs!.remove(_isPremiumKey);
+    await _prefs!.remove(_premiumProductIdKey);
   }
 
   Future<void> setNotificationsEnabled(bool value) async {

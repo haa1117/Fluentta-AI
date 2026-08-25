@@ -35,15 +35,44 @@ class SubscriptionScreen extends StatelessWidget {
     final vm = context.read<SubscriptionViewModel>();
     final l10n = context.l10n;
 
-    if (vm.isHeartsSelection) {
-      final added = await vm.purchaseSelectedHearts();
-      if (!context.mounted || added <= 0) return;
-      await showHeartsPurchaseSuccessDialog(context, heartsAdded: added);
+    if (vm.isPurchasing) return;
+
+    final result = await vm.purchaseSelected();
+    if (!context.mounted) return;
+
+    if (!result.success) {
+      if (result.message != null && result.message != 'Purchase canceled.') {
+        SnackbarHelper.showSuccess(context, result.message!);
+      }
+      return;
+    }
+
+    if (result.heartsAdded != null && result.heartsAdded! > 0) {
+      await showHeartsPurchaseSuccessDialog(
+        context,
+        heartsAdded: result.heartsAdded!,
+      );
       if (context.mounted) Navigator.of(context).pop();
       return;
     }
 
-    SnackbarHelper.showSuccess(context, l10n.openingSoon);
+    if (result.isPremium) {
+      SnackbarHelper.showSuccess(context, l10n.includedInPlan);
+      if (context.mounted) Navigator.of(context).pop();
+    }
+  }
+
+  Future<void> _onRestore(BuildContext context) async {
+    final vm = context.read<SubscriptionViewModel>();
+    final l10n = context.l10n;
+    final result = await vm.restorePurchases();
+    if (!context.mounted) return;
+    SnackbarHelper.showSuccess(
+      context,
+      result.success
+          ? (result.message ?? l10n.restorePurchases)
+          : (result.message ?? l10n.openingSoon),
+    );
   }
 
   String _heartPackLabel(AppLocalizations l10n, HeartPackOption pack) {
@@ -139,8 +168,8 @@ class SubscriptionScreen extends StatelessWidget {
                       badge: l10n.bestValue,
                       title: l10n.annualPlan,
                       subtitle: l10n.threeDayFreeTrial,
-                      price: l10n.annualPrice,
-                      perMonth: l10n.annualPricePerMonth,
+                      price: vm.planPrice(SubscriptionSelection.annual, l10n),
+                      perMonth: vm.planPricePerMonth(l10n),
                       onTap: () => vm.select(SubscriptionSelection.annual),
                     ),
                     SizedBox(height: AppSizes.h(12)),
@@ -151,7 +180,7 @@ class SubscriptionScreen extends StatelessWidget {
                             isSelected:
                                 vm.selection == SubscriptionSelection.weekly,
                             title: l10n.weeklyPlan,
-                            price: l10n.weeklyPrice,
+                            price: vm.planPrice(SubscriptionSelection.weekly, l10n),
                             onTap: () => vm.select(SubscriptionSelection.weekly),
                           ),
                         ),
@@ -161,7 +190,7 @@ class SubscriptionScreen extends StatelessWidget {
                             isSelected:
                                 vm.selection == SubscriptionSelection.monthly,
                             title: l10n.monthlyPlan,
-                            price: l10n.monthlyPrice,
+                            price: vm.planPrice(SubscriptionSelection.monthly, l10n),
                             onTap: () => vm.select(SubscriptionSelection.monthly),
                           ),
                         ),
@@ -171,7 +200,7 @@ class SubscriptionScreen extends StatelessWidget {
                             isSelected:
                                 vm.selection == SubscriptionSelection.lifetime,
                             title: l10n.lifetimePlan,
-                            price: l10n.lifetimePrice,
+                            price: vm.planPrice(SubscriptionSelection.lifetime, l10n),
                             extraLabel: l10n.oneTime,
                             onTap: () =>
                                 vm.select(SubscriptionSelection.lifetime),
@@ -204,14 +233,12 @@ class SubscriptionScreen extends StatelessWidget {
                     SizedBox(height: AppSizes.h(12)),
                     Row(
                       children: [
-                        for (var i = 0;
-                            i < SubscriptionContent.heartPacks.length;
-                            i++) ...[
+                        for (var i = 0; i < vm.heartPacks.length; i++) ...[
                           if (i > 0) SizedBox(width: AppSizes.w(10)),
                           Expanded(
                             child: Builder(
                               builder: (context) {
-                                final pack = SubscriptionContent.heartPacks[i];
+                                final pack = vm.heartPacks[i];
                                 return SubscriptionHeartPackCard(
                                   isSelected: vm.selection == pack.selection,
                                   title: _heartPackLabel(l10n, pack),
@@ -262,8 +289,7 @@ class SubscriptionScreen extends StatelessWidget {
                     termsLabel: l10n.terms,
                     privacyLabel: l10n.privacy,
                     restoreLabel: l10n.restore,
-                    onRestore: () =>
-                        SnackbarHelper.showSuccess(context, l10n.openingSoon),
+                    onRestore: () => _onRestore(context),
                   ),
                 ],
               ),

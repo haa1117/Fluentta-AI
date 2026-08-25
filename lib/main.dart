@@ -16,6 +16,7 @@ import 'package:fluentta_ai/data/repositories/roleplay_content_sync_repository.d
 import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
 import 'package:fluentta_ai/data/repositories/spaced_repetition_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
+import 'package:fluentta_ai/data/services/iap_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
@@ -187,6 +188,20 @@ class FluentaApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => HomeViewModel(localStorage),
         ),
+        Provider<IapService>(
+          create: (context) => IapService(
+            localStorage,
+            context.read<HomeViewModel>(),
+          ),
+          dispose: (_, service) => service.dispose(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SubscriptionViewModel(
+            localStorage,
+            context.read<HomeViewModel>(),
+            context.read<IapService>(),
+          ),
+        ),
         ChangeNotifierProvider(
           create: (context) => EnglishBasicsViewModel(
             localStorage,
@@ -237,12 +252,6 @@ class FluentaApp extends StatelessWidget {
           create: (context) => ProfileViewModel(
             localStorage,
             context.read<LocaleViewModel>(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => SubscriptionViewModel(
-            localStorage,
-            context.read<HomeViewModel>(),
           ),
         ),
       ],
