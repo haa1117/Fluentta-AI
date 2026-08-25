@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:fluentta_ai/viewmodels/main_shell_view_model.dart';
 import 'package:fluentta_ai/views/home/home_tab_screen.dart';
 import 'package:fluentta_ai/views/learn/learn_tab_screen.dart';
@@ -22,8 +23,22 @@ class MainShellScreen extends StatelessWidget {
   }
 }
 
-class _MainShellBody extends StatelessWidget {
+class _MainShellBody extends StatefulWidget {
   const _MainShellBody();
+
+  @override
+  State<_MainShellBody> createState() => _MainShellBodyState();
+}
+
+class _MainShellBodyState extends State<_MainShellBody> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<ProfileViewModel>().bootstrapNotificationsOnAppOpen();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

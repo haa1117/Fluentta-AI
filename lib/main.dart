@@ -17,6 +17,7 @@ import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
 import 'package:fluentta_ai/data/repositories/spaced_repetition_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:fluentta_ai/data/services/iap_service.dart';
+import 'package:fluentta_ai/data/services/local_notification_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
@@ -31,6 +32,7 @@ import 'package:fluentta_ai/viewmodels/reading_view_model.dart';
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:fluentta_ai/viewmodels/subscription_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
+import 'package:fluentta_ai/widgets/common/notification_lifecycle_watcher.dart';
 import 'package:provider/provider.dart';
 import 'package:fluentta_ai/firebase_options.dart';
 
@@ -71,6 +73,8 @@ void main() async {
   );
   final textToSpeechService = TextToSpeechService();
   final pronunciationAssessmentService = PronunciationAssessmentService();
+  final localNotificationService = LocalNotificationService();
+  await localNotificationService.initialize();
 
   await lessonContentRepository.initialize();
   await progressRepository.initialize();
@@ -97,6 +101,7 @@ void main() async {
       roleplayContentRepository: roleplayContentRepository,
       textToSpeechService: textToSpeechService,
       pronunciationAssessmentService: pronunciationAssessmentService,
+      localNotificationService: localNotificationService,
     ),
   );
 }
@@ -118,6 +123,7 @@ class FluentaApp extends StatelessWidget {
     required this.roleplayContentRepository,
     required this.textToSpeechService,
     required this.pronunciationAssessmentService,
+    required this.localNotificationService,
   });
 
   final LocalStorage localStorage;
@@ -134,6 +140,7 @@ class FluentaApp extends StatelessWidget {
   final RoleplayContentRepository roleplayContentRepository;
   final TextToSpeechService textToSpeechService;
   final PronunciationAssessmentService pronunciationAssessmentService;
+  final LocalNotificationService localNotificationService;
 
   @override
   Widget build(BuildContext context) {
@@ -141,6 +148,9 @@ class FluentaApp extends StatelessWidget {
       providers: [
         Provider<UserRepository>.value(value: userRepository),
         Provider<AuthRepository>.value(value: authRepository),
+        Provider<LocalNotificationService>.value(
+          value: localNotificationService,
+        ),
         Provider<LessonContentRepository>.value(value: lessonContentRepository),
         Provider<ProgressRepository>.value(value: progressRepository),
         Provider<ProgressSyncService>.value(value: progressSyncService),
@@ -255,6 +265,7 @@ class FluentaApp extends StatelessWidget {
           create: (context) => ProfileViewModel(
             localStorage,
             context.read<LocaleViewModel>(),
+            context.read<LocalNotificationService>(),
           ),
         ),
       ],
@@ -267,10 +278,12 @@ class FluentaApp extends StatelessWidget {
             locale: localeViewModel.locale,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            home: AppNavigator(
-              localStorage: localStorage,
-              authRepository: authRepository,
-              userRepository: userRepository,
+            home: NotificationLifecycleWatcher(
+              child: AppNavigator(
+                localStorage: localStorage,
+                authRepository: authRepository,
+                userRepository: userRepository,
+              ),
             ),
           );
         },

@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/data/services/local_notification_service.dart';
 import 'package:intl/intl.dart';
 
 class ProfileViewModel extends ChangeNotifier {
-  ProfileViewModel(this._localStorage, this._localeViewModel) {
+  ProfileViewModel(
+    this._localStorage,
+    this._localeViewModel,
+    this._notificationService,
+  ) {
     _localeViewModel.addListener(notifyListeners);
     _loadFromStorage();
   }
 
   final LocalStorage _localStorage;
   final LocaleViewModel _localeViewModel;
+  final LocalNotificationService _notificationService;
 
   bool _notificationsEnabled = true;
   bool _dailyReminderEnabled = true;
@@ -80,22 +86,42 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   Future<void> setNotificationsEnabled(bool value) async {
+    if (value) {
+      final granted = await _notificationService.requestPermissions();
+      if (!granted) {
+        _notificationsEnabled = false;
+        await _localStorage.setNotificationsEnabled(false);
+        notifyListeners();
+        return;
+      }
+    }
+
     _notificationsEnabled = value;
     await _localStorage.setNotificationsEnabled(value);
     if (!value) {
       _dailyReminderEnabled = false;
       await _localStorage.setDailyReminderEnabled(false);
     }
+    await _applyReminderSchedule();
     notifyListeners();
   }
 
   Future<void> setDailyReminderEnabled(bool value) async {
+    if (value) {
+      final granted = await _notificationService.requestPermissions();
+      if (!granted) {
+        notifyListeners();
+        return;
+      }
+    }
+
     _dailyReminderEnabled = value;
     await _localStorage.setDailyReminderEnabled(value);
     if (value) {
       _notificationsEnabled = true;
       await _localStorage.setNotificationsEnabled(true);
     }
+    await _applyReminderSchedule();
     notifyListeners();
   }
 
@@ -106,7 +132,35 @@ class ProfileViewModel extends ChangeNotifier {
       hour: time.hour,
       minute: time.minute,
     );
+    await _applyReminderSchedule();
     notifyListeners();
+  }
+
+  Future<void> _applyReminderSchedule() async {
+    if (_notificationsEnabled && _dailyReminderEnabled) {
+      if (!await _notificationService.hasNotificationPermission()) {
+        final granted = await _notificationService.requestPermissions();
+        if (!granted) return;
+      }
+
+      final l10n = _localeViewModel.strings;
+      await _notificationService.scheduleDailyReminder(
+        hour: _reminderHour,
+        minute: _reminderMinute,
+        title: l10n.dailyReminder,
+        body: l10n.readyToPractice,
+      );
+      return;
+    }
+
+    await _notificationService.cancelDailyReminder();
+  }
+
+  Future<void> bootstrapNotificationsOnAppOpen() async {
+    await _notificationService.bootstrapReminders(
+      storage: _localStorage,
+      l10n: _localeViewModel.strings,
+    );
   }
 
   void setPendingReminderTime(TimeOfDay time) {
