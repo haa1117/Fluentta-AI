@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/english_basics_lesson_model.dart';
 import 'package:fluentta_ai/data/repositories/english_basics_repository.dart';
@@ -104,6 +105,9 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
     if (_sentenceAnswered[questionIndex] == true) return;
     _sentenceSelections[questionIndex] = optionIndex;
     _sentenceAnswered[questionIndex] = true;
+    if (!isSelectionCorrect(questionIndex, optionIndex)) {
+      HapticFeedback.heavyImpact();
+    }
     notifyListeners();
   }
 

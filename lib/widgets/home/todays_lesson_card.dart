@@ -1,8 +1,10 @@
+import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/english_basics_view_model.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class HomeBannerAd extends StatelessWidget {
@@ -97,6 +99,9 @@ class TodaysLessonCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+        border: Border.all(
+          color: AppColors.borderLight
+        ),
         boxShadow: [
           BoxShadow(
             color: AppColors.primaryColor.withValues(alpha: 0.06),
@@ -119,9 +124,9 @@ class TodaysLessonCard extends StatelessWidget {
                       'Today\'s Lesson',
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(12),
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.textTertiary,
+                        fontSize: AppSizes.sp(14),
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textSecondary,
                       ),
                     ),
                     SizedBox(height: AppSizes.spaceSm),
@@ -129,18 +134,19 @@ class TodaysLessonCard extends StatelessWidget {
                       basicsViewModel.pathTitle,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(18),
-                        fontWeight: FontWeight.w700,
+                        fontSize: AppSizes.sp(20),
+                        fontWeight: FontWeight.w600,
                         color: AppColors.textPrimary,
                       ),
                     ),
+
                     SizedBox(height: AppSizes.h(4)),
                     Text(
                       'Learn useful phrases with AI correction',
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(12),
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.textSecondary,
                       ),
                     ),
@@ -148,16 +154,18 @@ class TodaysLessonCard extends StatelessWidget {
                 ),
               ),
               Container(
-                width: AppSizes.w(52),
-                height: AppSizes.w(52),
+                width: AppSizes.w(62),
+                height: AppSizes.w(62),
                 decoration: BoxDecoration(
                   color: AppColors.homeCardLavender,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.school_outlined,
-                  color: AppColors.primaryColor,
-                  size: AppSizes.iconMedium,
+                child: Center(
+                  child: SvgPicture.asset(
+                    AppAssets.hatSvgIcon,
+                    color: AppColors.primaryColor,
+                    width: AppSizes.iconLarge,
+                  ),
                 ),
               ),
             ],
@@ -181,7 +189,7 @@ class TodaysLessonCard extends StatelessWidget {
                   child: LinearProgressIndicator(
                     value: lessonProgress,
                     minHeight: AppSizes.h(6),
-                    backgroundColor: AppColors.progressTrack,
+                    backgroundColor: Color(0xffF3E8FF),
                     valueColor: const AlwaysStoppedAnimation<Color>(
                       AppColors.primaryColor,
                     ),
@@ -200,7 +208,7 @@ class TodaysLessonCard extends StatelessWidget {
                     color: basicsViewModel.canStartOrResume
                         ? AppColors.resumeButtonBg
                         : AppColors.progressTrack,
-                    borderRadius: BorderRadius.circular(AppSizes.w(20)),
+                    borderRadius: BorderRadius.circular(AppSizes.w(10)),
                   ),
                   child: Text(
                     basicsViewModel.hasCompletedToday
@@ -236,21 +244,21 @@ class _LessonTag extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: AppSizes.w(6),
-          height: AppSizes.w(6),
+          width: AppSizes.w(8),
+          height: AppSizes.w(8),
           decoration: const BoxDecoration(
             color: AppColors.primaryColor,
             shape: BoxShape.circle,
           ),
         ),
-        SizedBox(width: AppSizes.w(4)),
+        SizedBox(width: AppSizes.w(10)),
         Text(
           label,
           style: TextStyle(
             fontFamily: AppFonts.plusJakartaSans,
-            fontSize: AppSizes.sp(11),
+            fontSize: AppSizes.sp(12),
             fontWeight: FontWeight.w500,
-            color: AppColors.primaryColor,
+            color: AppColors.textSecondary,
           ),
         ),
       ],

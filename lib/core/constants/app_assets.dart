@@ -52,6 +52,9 @@ static const String pronunciationCheckingBird='assets/images/pronunciation_check
   static const String badgeIcon='assets/svg/badge.svg';
   static const String diamondSvg='assets/svg/diamond.svg';
   static const String watchAdSvg ='assets/svg/watch_ad.svg';
+  static const String correctAnswer='assets/svg/correct_answer.svg';
+  static const String wrongAnswer = 'assets/svg/wrong_answer.svg';
+  static const String hatSvgIcon= 'assets/svg/hat.svg';
 
 
 }

@@ -16,9 +16,13 @@ class DailyGoalCard extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(AppSizes.w(16)),
+      padding: EdgeInsets.all(AppSizes.w(20)),
       decoration: BoxDecoration(
         color: AppColors.white,
+        border: Border.all(
+            color: AppColors.borderLight,
+          width: 0.3
+        ),
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         boxShadow: [
           BoxShadow(
@@ -38,9 +42,9 @@ class DailyGoalCard extends StatelessWidget {
                   'DAILY GOAL',
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(11),
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textTertiary,
+                    fontSize: AppSizes.sp(12),
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.textSecondary,
                     letterSpacing: 0.6,
                   ),
                 ),
@@ -52,8 +56,8 @@ class DailyGoalCard extends StatelessWidget {
                         text: '${viewModel.dailyProgressMinutes}',
                         style: TextStyle(
                           fontFamily: AppFonts.plusJakartaSans,
-                          fontSize: AppSizes.sp(28),
-                          fontWeight: FontWeight.w700,
+                          fontSize: AppSizes.sp(24),
+                          fontWeight: FontWeight.w600,
                           color: AppColors.primaryColor,
                         ),
                       ),
@@ -62,7 +66,7 @@ class DailyGoalCard extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(16),
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           color: AppColors.textSecondary,
                         ),
                       ),
@@ -82,8 +86,8 @@ class DailyGoalCard extends StatelessWidget {
                       'Day ${viewModel.streakDays} Streak',
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(13),
-                        fontWeight: FontWeight.w600,
+                        fontSize: AppSizes.sp(14),
+                        fontWeight: FontWeight.w700,
                         color: AppColors.primaryColor,
                       ),
                     ),
@@ -93,8 +97,8 @@ class DailyGoalCard extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: AppSizes.w(72),
-            height: AppSizes.w(72),
+            width: AppSizes.w(64),
+            height: AppSizes.w(64),
             child: CustomPaint(
               painter: _CircularProgressPainter(
                 progress: viewModel.dailyGoalPercent,

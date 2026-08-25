@@ -19,11 +19,19 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: const Icon(Icons.close_rounded),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  style: IconButton.styleFrom(
+                    backgroundColor: Color(0xffF3E8FF)
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon:  Icon(Icons.close_rounded,
+                  color: AppColors.textSecondary,
+                  ),
+                ),
               ),
             ),
             Expanded(
@@ -31,6 +39,9 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: AppSizes.spaceXl,
+                    ),
                     Image.asset(
                       'assets/images/lesson_completed_bird.png',
                       height: AppSizes.h(160),
@@ -85,8 +96,8 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    width: AppSizes.w(8),
-                                    height: AppSizes.w(8),
+                                    width: AppSizes.w(10),
+                                    height: AppSizes.w(10),
                                     margin: EdgeInsets.only(top: AppSizes.h(6)),
                                     decoration: const BoxDecoration(
                                       color: AppColors.primaryColor,
@@ -106,7 +117,7 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
                                                 AppFonts.plusJakartaSans,
                                             fontSize: AppSizes.sp(14),
                                             fontWeight: FontWeight.w700,
-                                            color: AppColors.textPrimary,
+                                            color: Color(0xff7B7487),
                                           ),
                                         ),
                                         SizedBox(height: AppSizes.h(2)),
@@ -115,8 +126,9 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
                                           style: TextStyle(
                                             fontFamily:
                                                 AppFonts.plusJakartaSans,
-                                            fontSize: AppSizes.sp(12),
+                                            fontSize: AppSizes.sp(11),
                                             color: AppColors.textSecondary,
+                                            fontWeight: FontWeight.w500
                                           ),
                                         ),
                                       ],
@@ -137,36 +149,36 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(
-                AppSizes.horizontalPadding,
-                AppSizes.spaceSm,
-                AppSizes.horizontalPadding,
-                AppSizes.spaceLg,
-              ),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryColor,
-                    foregroundColor: AppColors.white,
-                    padding: EdgeInsets.symmetric(vertical: AppSizes.h(16)),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.w(28)),
-                    ),
-                  ),
-                  child: Text(
-                    'Done',
-                    style: TextStyle(
-                      fontFamily: AppFonts.plusJakartaSans,
-                      fontSize: AppSizes.sp(16),
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(
+            //     AppSizes.horizontalPadding,
+            //     AppSizes.spaceSm,
+            //     AppSizes.horizontalPadding,
+            //     AppSizes.spaceLg,
+            //   ),
+            //   child: SizedBox(
+            //     width: double.infinity,
+            //     child: ElevatedButton(
+            //       onPressed: () => Navigator.of(context).pop(),
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: AppColors.primaryColor,
+            //         foregroundColor: AppColors.white,
+            //         padding: EdgeInsets.symmetric(vertical: AppSizes.h(16)),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(AppSizes.w(28)),
+            //         ),
+            //       ),
+            //       child: Text(
+            //         'Done',
+            //         style: TextStyle(
+            //           fontFamily: AppFonts.plusJakartaSans,
+            //           fontSize: AppSizes.sp(16),
+            //           fontWeight: FontWeight.w700,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'package:fluentta_ai/widgets/common/primary_button.dart';
+import 'package:fluentta_ai/widgets/footer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -32,7 +34,9 @@ class EnglishBasicsDialogueScreen extends StatelessWidget {
           EnglishBasicsStepHeader(label: viewModel.stepLabel, progress: 0.85),
           SizedBox(height: AppSizes.spaceLg),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
+            padding: EdgeInsets.symmetric(
+              horizontal: AppSizes.horizontalPadding,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -75,36 +79,8 @@ class EnglishBasicsDialogueScreen extends StatelessWidget {
               },
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-              AppSizes.horizontalPadding,
-              AppSizes.spaceSm,
-              AppSizes.horizontalPadding,
-              AppSizes.spaceLg,
-            ),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () => viewModel.completeLesson(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryColor,
-                  foregroundColor: AppColors.white,
-                  padding: EdgeInsets.symmetric(vertical: AppSizes.h(16)),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSizes.w(28)),
-                  ),
-                ),
-                child: Text(
-                  'Continue',
-                  style: TextStyle(
-                    fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(16),
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          FooterWidget(child: PrimaryButton(text: 'Continue', onPressed: () => viewModel.completeLesson()))
+
         ],
       ),
     );
@@ -124,39 +100,65 @@ class _DialogueBubble extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: AppSizes.spaceMd),
       child: Column(
-        crossAxisAlignment:
-            isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: isUser
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
         children: [
-          Text(
-            line.speaker,
-            style: TextStyle(
-              fontFamily: AppFonts.plusJakartaSans,
-              fontSize: AppSizes.sp(11),
-              fontWeight: FontWeight.w500,
-              color: AppColors.textSecondary,
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              line.speaker,
+              style: TextStyle(
+                fontFamily: AppFonts.plusJakartaSans,
+                fontSize: AppSizes.sp(11),
+                fontWeight: FontWeight.w500,
+                color: AppColors.textSecondary,
+              ),
             ),
           ),
           SizedBox(height: AppSizes.h(4)),
           Row(
-            mainAxisAlignment:
-                isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+            mainAxisAlignment: isUser
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               if (isUser) ...[
                 IconButton(
+                  style: IconButton.styleFrom(
+                    backgroundColor: Color(0xffF3E8FF),
+                  ),
                   onPressed: onSpeak,
                   icon: const Icon(
-                    Icons.volume_up_rounded,
-                    color: AppColors.primaryColor,
+                    Icons.volume_up_outlined,
+                    color: AppColors.textSecondary,
                   ),
                 ),
               ],
+              SizedBox(
+                width: 10,
+              ),
               Flexible(
                 child: Container(
                   padding: EdgeInsets.all(AppSizes.w(14)),
                   decoration: BoxDecoration(
-                    color: isUser ? AppColors.primaryColor : AppColors.white,
-                    borderRadius: BorderRadius.circular(AppSizes.w(16)),
+                    color: isUser ? AppColors.primaryBlueColor : AppColors.white,
+
+                    // borderRadius: BorderRadius.circular(AppSizes.w(16)),
+                    borderRadius:isUser ? BorderRadius.only(
+
+                      bottomLeft: Radius.circular(AppSizes.w(16)),
+                      topLeft: Radius.circular(AppSizes.w(16)),
+                      bottomRight: Radius.circular(AppSizes.w(16)),
+
+                    ): BorderRadius.only(
+                      bottomLeft: Radius.circular(AppSizes.w(16)),
+                      topRight: Radius.circular(AppSizes.w(16)),
+                      bottomRight: Radius.circular(AppSizes.w(16)),
+                    ),
+                    // border: Border(
+                    //
+                    // )
                     border: isUser
                         ? null
                         : Border.all(color: AppColors.borderDarkPrimary),
@@ -174,11 +176,17 @@ class _DialogueBubble extends StatelessWidget {
                 ),
               ),
               if (!isUser) ...[
+                SizedBox(
+                  width: 10,
+                ),
                 IconButton(
+                  style: IconButton.styleFrom(
+                    backgroundColor: Color(0xffF3E8FF),
+                  ),
                   onPressed: onSpeak,
                   icon: const Icon(
-                    Icons.volume_up_rounded,
-                    color: AppColors.primaryColor,
+                    Icons.volume_up_outlined,
+                    color: AppColors.textSecondary,
                   ),
                 ),
               ],
