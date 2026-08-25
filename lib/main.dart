@@ -186,7 +186,10 @@ class FluentaApp extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider(
-          create: (_) => HomeViewModel(localStorage),
+          create: (context) => HomeViewModel(
+            localStorage,
+            context.read<ProgressSyncService>(),
+          ),
         ),
         Provider<IapService>(
           create: (context) => IapService(

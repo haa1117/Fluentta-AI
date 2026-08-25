@@ -14,6 +14,7 @@ class UserModel {
     this.englishLevel,
     this.dailyGoalMinutes,
     this.setupComplete = false,
+    this.lives,
     this.createdAt,
     this.updatedAt,
     this.lastLoginAt,
@@ -31,6 +32,7 @@ class UserModel {
   final String? englishLevel;
   final int? dailyGoalMinutes;
   final bool setupComplete;
+  final int? lives;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? lastLoginAt;
@@ -50,6 +52,7 @@ class UserModel {
       englishLevel: data['englishLevel'] as String?,
       dailyGoalMinutes: data['dailyGoalMinutes'] as int?,
       setupComplete: data['setupComplete'] as bool? ?? false,
+      lives: data['lives'] as int?,
       createdAt: (data['createdAt'] as Timestamp?)?.toDate(),
       updatedAt: (data['updatedAt'] as Timestamp?)?.toDate(),
       lastLoginAt: (data['lastLoginAt'] as Timestamp?)?.toDate(),

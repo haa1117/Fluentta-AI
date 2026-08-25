@@ -36,6 +36,7 @@ class UserRepository {
     // Pull remote setup before pushing empty local state (e.g. after reinstall).
     if (!isNew) {
       await syncSetupFromFirestore(user.uid);
+      await syncLivesFromFirestore(user.uid);
     }
 
     final localLanguage = _localStorage.selectedLanguage ?? 'en';
@@ -67,6 +68,10 @@ class UserRepository {
       );
 
       await syncLocalPreferencesToFirestore(user.uid);
+
+      if (isNew) {
+        await updateLives(uid: user.uid, lives: _localStorage.lives);
+      }
 
       final saved = await docRef.get();
       if (!saved.exists) {
@@ -173,6 +178,12 @@ class UserRepository {
     await _userDoc(uid).set(payload, SetOptions(merge: true));
   }
 
+  Future<void> syncLivesFromFirestore(String uid) async {
+    final user = await getUser(uid);
+    if (user?.lives == null) return;
+    await _localStorage.saveLives(user!.lives!);
+  }
+
   Future<void> saveSetupPreferences({
     required String uid,
     required String englishGoal,
@@ -245,6 +256,24 @@ class UserRepository {
     }
 
     return completedOnServer;
+  }
+
+  Future<void> updateLives({
+    required String uid,
+    required int lives,
+  }) async {
+    await _userDoc(uid).set(
+      {
+        'lives': lives.clamp(0, 99),
+        'updatedAt': FieldValue.serverTimestamp(),
+      },
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<int?> fetchLives(String uid) async {
+    final user = await getUser(uid);
+    return user?.lives;
   }
 
   Future<void> updateLearningStats({

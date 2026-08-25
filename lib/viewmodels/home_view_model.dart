@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  HomeViewModel(this._localStorage) {
+  HomeViewModel(this._localStorage, this._progressSyncService) {
     _loadFromStorage();
+    _progressSyncService.addMergeListener(refresh);
   }
 
   final LocalStorage _localStorage;
+  final ProgressSyncService _progressSyncService;
 
   int _dailyProgressMinutes = 0;
   int _dailyGoalMinutes = 10;
@@ -56,6 +59,7 @@ class HomeViewModel extends ChangeNotifier {
     if (_lives <= 0) return false;
     await _localStorage.saveLives(_lives - 1);
     _loadFromStorage();
+    await _progressSyncService.onLivesChanged(_lives);
     notifyListeners();
     return true;
   }
@@ -63,6 +67,7 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> addHearts(int count) async {
     await _localStorage.saveLives(_lives + count);
     _loadFromStorage();
+    await _progressSyncService.onLivesChanged(_lives);
     notifyListeners();
   }
 
@@ -78,5 +83,11 @@ class HomeViewModel extends ChangeNotifier {
   void refresh() {
     _loadFromStorage();
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _progressSyncService.removeMergeListener(refresh);
+    super.dispose();
   }
 }
