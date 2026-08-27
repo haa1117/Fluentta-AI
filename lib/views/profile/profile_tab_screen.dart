@@ -1,5 +1,7 @@
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/iap/iap_product_ids.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -207,6 +209,26 @@ class ProfileTabScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+                    if (kDebugMode) ...[
+                      SizedBox(height: AppSizes.h(20)),
+                      ProfileSectionHeader(title: 'Debug'),
+                      ProfileSettingsGroup(
+                        children: [
+                          ProfileSettingsTile(
+                            title: 'Enable Pro (debug)',
+                            subtitle: 'Grant Pro subscription on this device',
+                            svgIcon: null,
+                            onTap: () => _debugEnablePro(context),
+                          ),
+                          ProfileSettingsTile(
+                            title: 'Add hearts (debug)',
+                            subtitle: 'Add 5 hearts instantly',
+                            svgIcon: null,
+                            onTap: () => _debugAddHearts(context),
+                          ),
+                        ],
+                      ),
+                    ],
                     SizedBox(height: AppSizes.h(20)),
                     ProfileSectionHeader(title: 'PRO FEATURES'),
                     ProfileSettingsGroup(
@@ -347,6 +369,33 @@ class ProfileTabScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _debugEnablePro(BuildContext context) async {
+    await LocalStorage.instance.setPremiumActive(
+          active: true,
+          productId: IapProductIds.lifetime,
+        );
+    if (!context.mounted) return;
+    context.read<ProfileViewModel>().refresh();
+    context.read<HomeViewModel>().refresh();
+    SnackbarHelper.showSuccess(context, 'Pro enabled (debug only).');
+  }
+
+  Future<void> _debugAddHearts(BuildContext context) async {
+    final home = context.read<HomeViewModel>();
+    if (home.hasUnlimitedHearts) {
+      SnackbarHelper.showSuccess(
+        context,
+        'Pro already has unlimited hearts.',
+      );
+      return;
+    }
+
+    await home.addHearts(5);
+    if (!context.mounted) return;
+    context.read<ProfileViewModel>().refresh();
+    SnackbarHelper.showSuccess(context, 'Added 5 hearts (debug only).');
   }
 
   Future<void> _openLearningPreferences(BuildContext context) async {

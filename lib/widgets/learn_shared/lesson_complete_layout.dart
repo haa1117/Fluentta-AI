@@ -221,17 +221,17 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                     ),
                     SizedBox(height: AppSizes.spaceLg),
                   ],
-                  if (widget.summaryCard != null) widget.summaryCard!,
-                  if (widget.chips != null)
-                    Padding(
-                      padding: EdgeInsets.only(top: AppSizes.spaceMd),
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: AppSizes.w(18),
-                        runSpacing: AppSizes.h(15),
-                        children: widget.chips!,
-                      ),
-                    ),
+                  // if (widget.summaryCard != null) widget.summaryCard!,
+                  // if (widget.chips != null)
+                  //   Padding(
+                  //     padding: EdgeInsets.only(top: AppSizes.spaceMd),
+                  //     child: Wrap(
+                  //       alignment: WrapAlignment.center,
+                  //       spacing: AppSizes.w(18),
+                  //       runSpacing: AppSizes.h(15),
+                  //       children: widget.chips!,
+                  //     ),
+                  //   ),
                   SizedBox(height: AppSizes.spaceMd),
                   PrimaryButton(
                     text: widget.buttonText,
