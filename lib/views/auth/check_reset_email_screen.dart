@@ -73,7 +73,7 @@ class _CheckResetEmailScreenState extends State<CheckResetEmailScreen>
     final authRepository = context.read<AuthRepository>();
 
     if (!authRepository.hasVerifiedResetCode) {
-      await PasswordResetDeepLinkHandler.tryConsumePendingLink(authRepository);
+      await PasswordResetDeepLinkHandler.tryConsumeLatestLink(authRepository);
     }
 
     if (!mounted || !authRepository.hasVerifiedResetCode) return;

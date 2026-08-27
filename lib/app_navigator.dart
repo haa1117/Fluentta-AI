@@ -54,8 +54,7 @@ class _AppNavigatorState extends State<AppNavigator> {
   @override
   void initState() {
     super.initState();
-    _currentFlow = widget.authRepository.shouldLaunchDirectToPasswordReset ||
-            widget.authRepository.shouldOpenPasswordResetScreen
+    _currentFlow = widget.authRepository.shouldLaunchDirectToPasswordReset
         ? AppFlow.passwordReset
         : AppFlow.splash;
     widget.authRepository.passwordResetSignal.addListener(_onPasswordResetSignal);

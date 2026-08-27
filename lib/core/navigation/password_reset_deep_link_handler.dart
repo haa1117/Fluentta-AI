@@ -32,23 +32,22 @@ class PasswordResetDeepLinkHandler {
     return true;
   }
 
-  /// Reads the latest intent/deep link (works when app resumes from background).
-  static Future<bool> tryConsumePendingLink(
+  /// Reads the latest deep link after the app returns from background.
+  static Future<bool> tryConsumeLatestLink(
     AuthRepository authRepository,
   ) async {
     try {
-      final uri =
-          await _appLinks.getLatestLink() ?? await _appLinks.getInitialLink();
+      final uri = await _appLinks.getLatestLink();
       if (uri == null) return false;
 
       if (kDebugMode) {
-        debugPrint('Consuming pending password reset link: $uri');
+        debugPrint('Consuming latest password reset link: $uri');
       }
 
       return handleUri(uri, authRepository);
     } catch (error) {
       if (kDebugMode) {
-        debugPrint('tryConsumePendingLink failed: $error');
+        debugPrint('tryConsumeLatestLink failed: $error');
       }
       return false;
     }

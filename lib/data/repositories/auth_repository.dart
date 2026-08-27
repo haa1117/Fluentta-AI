@@ -14,8 +14,6 @@ class SocialSignInResult {
 class AuthRepository {
   AuthRepository(this._localStorage, this._userRepository) {
     _resetEmail = _localStorage.pendingResetEmail;
-    _resetOobCode = _localStorage.pendingResetOobCode;
-    _pendingPasswordResetNavigation = _resetOobCode != null;
   }
 
   final LocalStorage _localStorage;
@@ -62,6 +60,14 @@ class AuthRepository {
   void completePasswordResetFlow() {
     consumePendingPasswordResetNavigation();
     passwordResetCompleteSignal.value++;
+  }
+
+  /// Clears stale reset state when the app is opened normally (not via link).
+  Future<void> discardPersistedPasswordResetLaunch() async {
+    _resetOobCode = null;
+    _pendingPasswordResetNavigation = false;
+    _launchDirectToPasswordReset = false;
+    await _localStorage.clearPendingResetOobCode();
   }
 
   Future<void> initializeGoogleSignIn() async {

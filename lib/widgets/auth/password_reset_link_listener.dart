@@ -30,14 +30,13 @@ class _PasswordResetLinkListenerState extends State<PasswordResetLinkListener>
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _listenForLinks();
-      _handlePendingLinkOnLaunch();
     });
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      _handlePendingLinkOnLaunch();
+      _handleLinkOnResume();
     }
   }
 
@@ -52,7 +51,7 @@ class _PasswordResetLinkListenerState extends State<PasswordResetLinkListener>
     );
   }
 
-  Future<void> _handlePendingLinkOnLaunch() async {
+  Future<void> _handleLinkOnResume() async {
     if (_isHandlingLink || !mounted) return;
 
     final authRepository = context.read<AuthRepository>();
@@ -65,7 +64,7 @@ class _PasswordResetLinkListenerState extends State<PasswordResetLinkListener>
 
     _isHandlingLink = true;
     try {
-      final handled = await PasswordResetDeepLinkHandler.tryConsumePendingLink(
+      final handled = await PasswordResetDeepLinkHandler.tryConsumeLatestLink(
         authRepository,
       );
       if (!handled || !mounted) return;
@@ -75,7 +74,7 @@ class _PasswordResetLinkListenerState extends State<PasswordResetLinkListener>
       );
     } catch (error) {
       if (kDebugMode) {
-        debugPrint('PasswordResetLinkListener pending link failed: $error');
+        debugPrint('PasswordResetLinkListener resume link failed: $error');
       }
     } finally {
       _isHandlingLink = false;

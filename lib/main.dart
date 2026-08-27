@@ -82,7 +82,11 @@ void main() async {
   await localNotificationService.initialize();
 
   if (!kIsWeb) {
-    await _handleLaunchPasswordResetLink(authRepository);
+    final openedFromResetLink =
+        await _handleLaunchPasswordResetLink(authRepository);
+    if (!openedFromResetLink) {
+      await authRepository.discardPersistedPasswordResetLaunch();
+    }
   }
 
   final isPasswordResetLaunch =
@@ -122,20 +126,23 @@ void main() async {
   );
 }
 
-Future<void> _handleLaunchPasswordResetLink(AuthRepository authRepository) async {
+Future<bool> _handleLaunchPasswordResetLink(
+  AuthRepository authRepository,
+) async {
   try {
     final initialUri = await AppLinks().getInitialLink();
-    if (initialUri == null) return;
+    if (initialUri == null) return false;
 
     if (kDebugMode) {
       debugPrint('Launch password reset link: $initialUri');
     }
 
-    await PasswordResetDeepLinkHandler.handleUri(initialUri, authRepository);
+    return PasswordResetDeepLinkHandler.handleUri(initialUri, authRepository);
   } catch (error) {
     if (kDebugMode) {
       debugPrint('Launch password reset link failed: $error');
     }
+    return false;
   }
 }
 
