@@ -15,12 +15,15 @@ import 'package:fluentta_ai/viewmodels/grammar_view_model.dart';
 import 'package:fluentta_ai/viewmodels/learn_view_model.dart';
 import 'package:fluentta_ai/viewmodels/reading_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
+import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:fluentta_ai/viewmodels/subscription_view_model.dart';
 import 'package:fluentta_ai/views/language/language_selection_screen.dart';
 import 'package:fluentta_ai/views/profile/account_and_security_screen.dart';
 import 'package:fluentta_ai/views/profile/notifications_reminders_screen.dart';
 import 'package:fluentta_ai/widgets/profile/profile_daily_goal_card.dart';
+import 'package:fluentta_ai/views/profile/weekly_progress_report_screen.dart';
+import 'package:fluentta_ai/widgets/common/pro_feature_sheet.dart';
 import 'package:fluentta_ai/widgets/profile/profile_dialogs.dart';
 import 'package:fluentta_ai/widgets/profile/profile_premium_card.dart';
 import 'package:fluentta_ai/widgets/profile/profile_section_header.dart';
@@ -199,6 +202,89 @@ class ProfileTabScreen extends StatelessWidget {
                               result.success
                                   ? (result.message ?? l10n.restorePurchases)
                                   : (result.message ?? l10n.openingSoon),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: AppSizes.h(20)),
+                    ProfileSectionHeader(title: 'PRO FEATURES'),
+                    ProfileSettingsGroup(
+                      children: [
+                        ProfileSettingsTile(
+                          svgIcon: 'assets/svg/learn.svg',
+                          title: 'Weekly Progress Report',
+                          subtitle: profile.canViewWeeklyReport
+                              ? 'View your learning summary'
+                              : 'Pro feature',
+                          onTap: () {
+                            if (profile.canViewWeeklyReport) {
+                              Navigator.of(context).push<void>(
+                                MaterialPageRoute<void>(
+                                  builder: (_) =>
+                                      const WeeklyProgressReportScreen(),
+                                ),
+                              );
+                              return;
+                            }
+                            showProFeatureSheet(
+                              context,
+                              title: 'Weekly Progress Report',
+                              message:
+                                  'Upgrade to Pro for weekly learning reports.',
+                            );
+                          },
+                        ),
+                        ProfileSettingsTile(
+                          svgIcon: 'assets/svg/restore_purchase.svg',
+                          title: profile.isPro
+                              ? 'Streak Repair'
+                              : 'Streak Freezes',
+                          subtitle: profile.isPro
+                              ? (profile.canRepairStreak
+                                  ? 'Restore streak once this month'
+                                  : 'Already used this month')
+                              : '${profile.streakFreezesRemaining} remaining this week',
+                          onTap: () async {
+                            if (profile.isPro) {
+                              final repaired = await context
+                                  .read<HomeViewModel>()
+                                  .repairStreak();
+                              if (!context.mounted) return;
+                              SnackbarHelper.showSuccess(
+                                context,
+                                repaired
+                                    ? 'Streak restored.'
+                                    : 'No streak available to repair.',
+                              );
+                              context.read<ProfileViewModel>().refresh();
+                              return;
+                            }
+                            SnackbarHelper.showSuccess(
+                              context,
+                              'Streak freezes apply automatically when you miss a day.',
+                            );
+                          },
+                        ),
+                        ProfileSettingsTile(
+                          svgIcon: 'assets/svg/theme.svg',
+                          title: 'Offline Mode',
+                          subtitle: profile.canUseOfflineMode
+                              ? 'Enabled for Pro'
+                              : 'Pro feature',
+                          onTap: () {
+                            if (profile.canUseOfflineMode) {
+                              SnackbarHelper.showSuccess(
+                                context,
+                                'Offline mode is active. Bundled lessons work without internet.',
+                              );
+                              return;
+                            }
+                            showProFeatureSheet(
+                              context,
+                              title: 'Offline Mode',
+                              message:
+                                  'Upgrade to Pro to keep learning without internet.',
                             );
                           },
                         ),

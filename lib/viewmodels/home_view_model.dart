@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  HomeViewModel(this._localStorage, this._progressSyncService) {
-    _loadFromStorage();
+  HomeViewModel(
+    this._localStorage,
+    this._progressSyncService,
+    this._entitlementsService,
+  ) {
+    _bootstrap();
     _progressSyncService.addMergeListener(refresh);
   }
 
   final LocalStorage _localStorage;
   final ProgressSyncService _progressSyncService;
+  final EntitlementsService _entitlementsService;
 
   int _dailyProgressMinutes = 0;
   int _dailyGoalMinutes = 10;
@@ -22,6 +28,10 @@ class HomeViewModel extends ChangeNotifier {
   int get streakDays => _streakDays;
   int get lives => _lives;
   double get lessonProgress => _lessonProgress;
+  bool get isPro => _entitlementsService.isPro;
+  bool get hasUnlimitedHearts => _entitlementsService.hasUnlimitedHearts;
+  int get dailyHeartAllowance => _entitlementsService.dailyHeartAllowance;
+  int get streakFreezesRemaining => _entitlementsService.streakFreezesRemaining;
 
   double get dailyGoalPercent {
     if (_dailyGoalMinutes <= 0) return 0;
@@ -40,6 +50,12 @@ class HomeViewModel extends ChangeNotifier {
     };
   }
 
+  Future<void> _bootstrap() async {
+    await _entitlementsService.ensureDailyHeartsReset();
+    _loadFromStorage();
+    notifyListeners();
+  }
+
   void _loadFromStorage() {
     _dailyGoalMinutes = _localStorage.dailyGoalMinutes ?? 10;
     _dailyProgressMinutes = _localStorage.dailyProgressMinutes;
@@ -50,14 +66,15 @@ class HomeViewModel extends ChangeNotifier {
 
   Future<void> startAiChat(VoidCallback onComplete) async {
     await _localStorage.incrementDailyProgress(2);
+    await _entitlementsService.recordLearningActivity();
     _loadFromStorage();
     notifyListeners();
     onComplete();
   }
 
   Future<bool> useHeart() async {
-    if (_lives <= 0) return false;
-    await _localStorage.saveLives(_lives - 1);
+    final consumed = await _entitlementsService.consumeHeart();
+    if (!consumed) return false;
     _loadFromStorage();
     await _progressSyncService.onLivesChanged(_lives);
     notifyListeners();
@@ -65,16 +82,33 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> addHearts(int count) async {
+    if (_entitlementsService.hasUnlimitedHearts) return;
     await _localStorage.saveLives(_lives + count);
     _loadFromStorage();
     await _progressSyncService.onLivesChanged(_lives);
     notifyListeners();
   }
 
+  Future<void> recordLearningActivity() async {
+    await _entitlementsService.recordLearningActivity();
+    _loadFromStorage();
+    notifyListeners();
+  }
+
+  Future<bool> repairStreak() async {
+    final repaired = await _entitlementsService.repairStreak();
+    if (repaired) {
+      _loadFromStorage();
+      notifyListeners();
+    }
+    return repaired;
+  }
+
   Future<void> resumeLesson(VoidCallback onNavigateToLearn) async {
     await _localStorage.saveLessonProgress(
       (_lessonProgress + 0.1).clamp(0.0, 1.0),
     );
+    await _entitlementsService.recordLearningActivity();
     _loadFromStorage();
     notifyListeners();
     onNavigateToLearn();

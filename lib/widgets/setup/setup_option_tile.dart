@@ -12,6 +12,7 @@ class SetupOptionTile extends StatelessWidget {
     required this.subtitle,
     required this.isSelected,
     required this.onTap,
+    this.isLocked = false,
   });
 
   final String svgIcons;
@@ -19,6 +20,7 @@ class SetupOptionTile extends StatelessWidget {
   final String subtitle;
   final bool isSelected;
   final VoidCallback onTap;
+  final bool isLocked;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,13 @@ class SetupOptionTile extends StatelessWidget {
                 ],
               ),
             ),
-            if (isSelected)
+            if (isLocked)
+              Icon(
+                Icons.lock_rounded,
+                color: AppColors.textSecondary,
+                size: AppSizes.w(20),
+              )
+            else if (isSelected)
               Container(
                 width: AppSizes.w(24),
                 height: AppSizes.w(24),

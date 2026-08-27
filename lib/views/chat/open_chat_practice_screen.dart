@@ -156,12 +156,19 @@ class _OpenChatPracticeScreenState extends State<OpenChatPracticeScreen> {
                 ),
                 SizedBox(width: AppSizes.w(8)),
                 IconButton(
-                  onPressed: () {
-                    if (context.read<HomeViewModel>().lives <= 0) {
+                  onPressed: () async {
+                    final home = context.read<HomeViewModel>();
+                    if (!home.hasUnlimitedHearts && home.lives <= 0) {
                       showOutOfHeartsDialog(context);
-                    } else {
-                      SnackbarHelper.showSuccess(context, l10n.openingSoon);
+                      return;
                     }
+                    final charged = await home.useHeart();
+                    if (!context.mounted) return;
+                    if (!charged) {
+                      showOutOfHeartsDialog(context);
+                      return;
+                    }
+                    SnackbarHelper.showSuccess(context, l10n.openingSoon);
                   },
                   icon: Icon(
                     Icons.send_rounded,

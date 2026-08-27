@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/learning_stats_service.dart';
 import 'package:fluentta_ai/data/services/local_notification_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
@@ -14,6 +15,7 @@ class ProfileViewModel extends ChangeNotifier {
     this._notificationService,
     this._learningStatsService,
     this._progressSyncService,
+    this._entitlementsService,
   ) {
     _localeViewModel.addListener(notifyListeners);
     _progressSyncService.addMergeListener(_onProgressMerged);
@@ -26,6 +28,15 @@ class ProfileViewModel extends ChangeNotifier {
   final LocalNotificationService _notificationService;
   final LearningStatsService _learningStatsService;
   final ProgressSyncService _progressSyncService;
+  final EntitlementsService _entitlementsService;
+
+  bool get isPro => _entitlementsService.isPro;
+  bool get hasUnlimitedHearts => _entitlementsService.hasUnlimitedHearts;
+  int get streakFreezesRemaining => _entitlementsService.streakFreezesRemaining;
+  bool get canRepairStreak => _entitlementsService.canRepairStreakThisMonth;
+  bool get canViewWeeklyReport =>
+      _entitlementsService.canViewWeeklyProgressReport();
+  bool get canUseOfflineMode => _entitlementsService.canUseOfflineMode();
 
   bool _notificationsEnabled = true;
   bool _dailyReminderEnabled = true;
@@ -46,6 +57,7 @@ class ProfileViewModel extends ChangeNotifier {
   int get dailyProgressMinutes => _localStorage.dailyProgressMinutes;
   int get streakDays => _localStorage.streakDays;
   int get lives => _localStorage.lives;
+  int get dailyHeartAllowance => _entitlementsService.dailyHeartAllowance;
 
   double get lessonProgress => _localStorage.lessonProgress;
   int get progressPercent => (lessonProgress * 100).round();

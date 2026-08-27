@@ -8,11 +8,15 @@ import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/views/subscription/subscription_screen.dart';
 import 'package:fluentta_ai/widgets/common/action_option_card.dart';
+import 'package:fluentta_ai/widgets/common/premium_upsell_sheet_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-/// Shows the reusable out-of-hearts bottom sheet.
-Future<void> showOutOfHeartsBottomSheet(BuildContext context) {
+/// Shared upsell bottom sheet (out-of-hearts + Pro-locked features).
+Future<void> showPremiumUpsellBottomSheet(
+  BuildContext context, {
+  PremiumUpsellSheetConfig config = const PremiumUpsellSheetConfig(),
+}) {
   AppSizes.init(context);
 
   return showModalBottomSheet<void>(
@@ -26,6 +30,7 @@ Future<void> showOutOfHeartsBottomSheet(BuildContext context) {
           bottom: MediaQuery.viewInsetsOf(sheetContext).bottom,
         ),
         child: OutOfHeartsBottomSheet(
+          config: config,
           onClose: () => Navigator.of(sheetContext).pop(),
           onGoUnlimited: () {
             Navigator.of(sheetContext).pop();
@@ -46,27 +51,41 @@ Future<void> showOutOfHeartsBottomSheet(BuildContext context) {
   );
 }
 
-/// Reusable out-of-hearts UI. Can be embedded directly or via
-/// [showOutOfHeartsBottomSheet].
+/// Shows the out-of-hearts bottom sheet when the user has no hearts left.
+Future<void> showOutOfHeartsBottomSheet(
+  BuildContext context, {
+  PremiumUpsellSheetConfig config = const PremiumUpsellSheetConfig(),
+}) {
+  AppSizes.init(context);
+  if (context.read<HomeViewModel>().hasUnlimitedHearts) {
+    return Future.value();
+  }
+
+  return showPremiumUpsellBottomSheet(context, config: config);
+}
+
+/// Reusable upsell UI. Used for out-of-hearts and Pro-locked features.
 class OutOfHeartsBottomSheet extends StatelessWidget {
   const OutOfHeartsBottomSheet({
     super.key,
     required this.onClose,
     required this.onGoUnlimited,
     required this.onWatchAd,
+    this.config = const PremiumUpsellSheetConfig(),
   });
 
   final VoidCallback onClose;
   final VoidCallback onGoUnlimited;
   final VoidCallback onWatchAd;
+  final PremiumUpsellSheetConfig config;
 
   static const _premiumGradient = LinearGradient(
-    begin: Alignment.centerLeft,
-    end: Alignment.centerRight,
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    stops: [0.2115, 1.0],
     colors: [
-      Color(0xFF8E2DE2),
-      Color(0xFFE65BFF),
-      Color(0xFFF09819),
+      Color(0xFF9B35F4),
+      Color(0xFFFBBF24),
     ],
   );
 
@@ -95,16 +114,12 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
               child: _CloseButton(onTap: onClose),
             ),
           ),
-          Image.asset(
-            AppAssets.outOfHearthBird,
-            height: AppSizes.h(140),
-            fit: BoxFit.contain,
-          ),
+          _SheetHeroImage(config: config),
           SizedBox(height: AppSizes.h(8)),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: AppSizes.w(24)),
             child: Text(
-              l10n.outOfHearts,
+              config.title ?? l10n.outOfHearts,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
@@ -119,7 +134,7 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: AppSizes.w(28)),
             child: Text(
-              l10n.outOfHeartsSub,
+              config.subtitle ?? l10n.outOfHeartsSub,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
@@ -132,7 +147,7 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
           ),
           SizedBox(height: AppSizes.h(20)),
           Text(
-            l10n.getMoreHearts,
+            config.sectionLabel ?? l10n.getMoreHearts,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(14),
@@ -149,15 +164,7 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
                 ActionOptionCard(
                   title: l10n.goUnlimited,
                   subtitle: l10n.goUnlimitedSub,
-                gradient: const LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    stops: [0.2115, 1.0],
-    colors: [
-    Color(0xFF9B35F4),
-    Color(0xFFFBBF24),
-    ],
-    ),
+                  gradient: _premiumGradient,
                   titleColor: AppColors.white,
                   chevronColor: AppColors.white,
                   onTap: onGoUnlimited,
@@ -168,30 +175,54 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: AppSizes.h(16)),
-                ActionOptionCard(
-                  title: l10n.watchAd,
-                  subtitle: l10n.watchAdSub,
-                  backgroundColor: AppColors.white,
-                  borderColor: AppColors.borderLight,
-                  titleColor: AppColors.textPrimary,
-                  subtitleColor: AppColors.primaryColor,
-                  chevronColor: AppColors.textSecondary,
-                  onTap: onWatchAd,
-                  leading: ActionOptionLeadingIcon(
-                    backgroundColor: Color(0xfff7f1ff),
-                    child: SvgPicture.asset(
-                      AppAssets.watchAdSvg,
-                      width: AppSizes.sp(24),
+                if (config.showWatchAd) ...[
+                  SizedBox(height: AppSizes.h(16)),
+                  ActionOptionCard(
+                    title: l10n.watchAd,
+                    subtitle: l10n.watchAdSub,
+                    backgroundColor: AppColors.white,
+                    borderColor: AppColors.borderLight,
+                    titleColor: AppColors.textPrimary,
+                    subtitleColor: AppColors.primaryColor,
+                    chevronColor: AppColors.textSecondary,
+                    onTap: onWatchAd,
+                    leading: ActionOptionLeadingIcon(
+                      backgroundColor: const Color(0xfff7f1ff),
+                      child: SvgPicture.asset(
+                        AppAssets.watchAdSvg,
+                        width: AppSizes.sp(24),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ],
             ),
           ),
           SizedBox(height: AppSizes.h(16) + bottomInset),
         ],
       ),
+    );
+  }
+}
+
+class _SheetHeroImage extends StatelessWidget {
+  const _SheetHeroImage({required this.config});
+
+  final PremiumUpsellSheetConfig config;
+
+  @override
+  Widget build(BuildContext context) {
+    AppSizes.init(context);
+    final height = config.imageHeight ?? AppSizes.h(140);
+
+    if (config.image != null) {
+      return SizedBox(height: height, child: config.image);
+    }
+
+    return Image.asset(
+      config.imageAsset ?? AppAssets.outOfHearthBird,
+      height: height,
+      fit: BoxFit.contain,
     );
   }
 }

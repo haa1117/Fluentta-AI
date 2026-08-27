@@ -32,6 +32,12 @@ class LocalStorage {
   static const String _correctionsCountKey = 'corrections_count';
   static const String _isPremiumKey = 'is_premium';
   static const String _premiumProductIdKey = 'premium_product_id';
+  static const String _lastHeartResetDateKey = 'last_heart_reset_date';
+  static const String _lastStreakActiveDateKey = 'last_streak_active_date';
+  static const String _streakFreezeWeekStartKey = 'streak_freeze_week_start';
+  static const String _streakFreezesUsedWeekKey = 'streak_freezes_used_week';
+  static const String _streakRepairMonthKey = 'streak_repair_month_used';
+  static const String _streakBeforeBreakKey = 'streak_before_break';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -103,6 +109,16 @@ class LocalStorage {
   int get correctionsCount => _prefs!.getInt(_correctionsCountKey) ?? 0;
   bool get isPremium => _prefs!.getBool(_isPremiumKey) ?? false;
   String? get premiumProductId => _prefs!.getString(_premiumProductIdKey);
+  String? get lastHeartResetDate => _prefs!.getString(_lastHeartResetDateKey);
+  String? get lastStreakActiveDate =>
+      _prefs!.getString(_lastStreakActiveDateKey);
+  String? get streakFreezeWeekStart =>
+      _prefs!.getString(_streakFreezeWeekStartKey);
+  int get streakFreezesUsedThisWeek =>
+      _prefs!.getInt(_streakFreezesUsedWeekKey) ?? 0;
+  String? get streakRepairMonthUsed =>
+      _prefs!.getString(_streakRepairMonthKey);
+  int get streakBeforeBreak => _prefs!.getInt(_streakBeforeBreakKey) ?? 0;
 
   String? getString(String key) => _prefs!.getString(key);
 
@@ -243,6 +259,34 @@ class LocalStorage {
 
   Future<void> saveLives(int lives) async {
     await _prefs!.setInt(_livesKey, lives.clamp(0, 99));
+  }
+
+  Future<void> setLastHeartResetDate(String isoDate) async {
+    await _prefs!.setString(_lastHeartResetDateKey, isoDate);
+  }
+
+  Future<void> setStreakDays(int days) async {
+    await _prefs!.setInt(_streakDaysKey, days.clamp(0, 9999));
+  }
+
+  Future<void> setLastStreakActiveDate(String isoDate) async {
+    await _prefs!.setString(_lastStreakActiveDateKey, isoDate);
+  }
+
+  Future<void> setStreakFreezeWeekStart(String isoDate) async {
+    await _prefs!.setString(_streakFreezeWeekStartKey, isoDate);
+  }
+
+  Future<void> setStreakFreezesUsedThisWeek(int count) async {
+    await _prefs!.setInt(_streakFreezesUsedWeekKey, count.clamp(0, 99));
+  }
+
+  Future<void> setStreakRepairMonthUsed(String yearMonth) async {
+    await _prefs!.setString(_streakRepairMonthKey, yearMonth);
+  }
+
+  Future<void> setStreakBeforeBreak(int days) async {
+    await _prefs!.setInt(_streakBeforeBreakKey, days.clamp(0, 9999));
   }
 
   Future<void> resetHomeProgress() async {

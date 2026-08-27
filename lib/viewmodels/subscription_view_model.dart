@@ -129,11 +129,15 @@ class SubscriptionViewModel extends ChangeNotifier {
 
   List<String> planFeatures(AppLocalizations l10n) {
     return [
-      l10n.featureUnlimitedConversation,
-      l10n.featureUnlimitedGrammar,
-      l10n.featureAdvancedPronunciation,
-      l10n.featurePersonalizedLessons,
+      'Unlimited AI conversation',
+      'Unlimited pronunciation practice',
+      'Unlimited grammar corrections',
+      'All roleplay scenarios',
+      'B2+ lesson content',
       l10n.featureOfflineMode,
+      'Weekly progress report',
+      'Unlimited streak freezes',
+      '1 streak repair per month',
     ];
   }
 

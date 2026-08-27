@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/cefr/lesson_type.dart';
+import 'package:fluentta_ai/core/entitlements/user_entitlements.dart';
 import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
@@ -44,7 +45,10 @@ class GrammarViewModel extends ChangeNotifier {
   List<GrammarLessonModel> get lessons => _lessons;
   bool get isLoading => _isLoading;
 
-  CefrLevel get _level => CefrLevel.fromSetupId(_localStorage.englishLevel);
+  CefrLevel get _level => UserEntitlements.contentLevelForUser(
+        _localStorage.englishLevel,
+        _localStorage.isPremium,
+      );
 
   int get completedLessonsCount =>
       _lessons.where((l) => l.status == LearningLessonStatus.completed).length;

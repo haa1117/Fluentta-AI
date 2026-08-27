@@ -10,11 +10,13 @@ class RoleplayScenarioCard extends StatelessWidget {
     required this.scenario,
     required this.isSelected,
     required this.onTap,
+    this.isLocked = false,
   });
 
   final RoleplayScenarioModel scenario;
   final bool isSelected;
   final VoidCallback onTap;
+  final bool isLocked;
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +41,42 @@ class RoleplayScenarioCard extends StatelessWidget {
                   width: 2,
                 ),
               ),
-              child: scenario.imagePath != null
-                  ? Center(
-                    child: Image.asset(
-                      scenario.imagePath!,
-                      // fit: BoxFit.cover,
-                      width: AppSizes.sp(80),
-                      height: AppSizes.sp(80),
+              child: Stack(
+                children: [
+                  if (scenario.imagePath != null)
+                    Center(
+                      child: Image.asset(
+                        scenario.imagePath!,
+                        width: AppSizes.sp(80),
+                        height: AppSizes.sp(80),
+                        color: isLocked
+                            ? Colors.grey.withValues(alpha: 0.35)
+                            : null,
+                        colorBlendMode:
+                            isLocked ? BlendMode.saturation : null,
+                      ),
+                    )
+                  else
+                    _ScenarioPlaceholder(icon: scenario.icon),
+                  if (isLocked)
+                    Positioned(
+                      top: AppSizes.h(8),
+                      right: AppSizes.w(8),
+                      child: Container(
+                        padding: EdgeInsets.all(AppSizes.w(6)),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.55),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.lock_rounded,
+                          color: AppColors.white,
+                          size: AppSizes.sp(14),
+                        ),
+                      ),
                     ),
-                  )
-                  : _ScenarioPlaceholder(icon: scenario.icon),
+                ],
+              ),
             ),
             SizedBox(height: AppSizes.h(10)),
             Text(

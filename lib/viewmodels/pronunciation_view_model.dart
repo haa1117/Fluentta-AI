@@ -33,7 +33,8 @@ class PronunciationViewModel extends ChangeNotifier {
   bool get isRecording => _isRecording || _assessmentService.isListening;
   bool get isListeningPhrase => _isListeningPhrase;
   double get soundLevel => _soundLevel;
-  bool get canAffordCheck => lives > 0;
+  bool get canAffordCheck =>
+      _homeViewModel.hasUnlimitedHearts || lives > 0;
 
   String get currentPhraseText =>
       PronunciationContent.phrases[_currentPhraseIndex].text;
@@ -63,6 +64,7 @@ class PronunciationViewModel extends ChangeNotifier {
 
   /// Deducts one heart for each pronunciation check (free tier).
   Future<bool> deductHeartForCheck() async {
+    if (_homeViewModel.hasUnlimitedHearts) return true;
     if (!canAffordCheck) return false;
     return _homeViewModel.useHeart();
   }

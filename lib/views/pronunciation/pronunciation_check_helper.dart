@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
@@ -12,9 +13,10 @@ Future<bool> startPronunciationCheck(
   bool replaceCurrent = false,
 }) async {
   final vm = context.read<PronunciationViewModel>();
+  final home = context.read<HomeViewModel>();
   final l10n = context.l10n;
 
-  if (!vm.canAffordCheck) {
+  if (!home.hasUnlimitedHearts && !vm.canAffordCheck) {
     await showOutOfHeartsBottomSheet(context);
     return false;
   }

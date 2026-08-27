@@ -8,6 +8,9 @@ import 'package:fluentta_ai/viewmodels/ai_tutor_view_model.dart';
 import 'package:fluentta_ai/widgets/ai_tutor/roleplay_practice_option_tile.dart';
 import 'package:fluentta_ai/widgets/ai_tutor/roleplay_scenario_overview_card.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
+import 'package:fluentta_ai/data/services/entitlements_service.dart';
+import 'package:fluentta_ai/widgets/common/pro_feature_sheet.dart';
+import 'package:provider/provider.dart';
 import 'package:fluentta_ai/widgets/home/todays_lesson_card.dart';
 import 'package:fluentta_ai/views/ai_tutor/roleplay_quick_check_path_screen.dart';
 import 'package:fluentta_ai/views/ai_tutor/roleplay_vocabulary_path_screen.dart';
@@ -25,6 +28,21 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final scenario = AiTutorViewModel.scenarioById(scenarioId);
+
+    if (scenario != null &&
+        !context.read<EntitlementsService>().canAccessRoleplayScenario(
+              scenario.id,
+            )) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!context.mounted) return;
+        showProFeatureSheet(
+          context,
+          title: 'Advanced Roleplay',
+          message: 'Upgrade to Pro to unlock all roleplay scenarios.',
+        );
+        Navigator.of(context).pop();
+      });
+    }
 
     if (scenario == null) {
       return Scaffold(

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/entitlements/user_entitlements.dart';
 import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/setup_view_model.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
+import 'package:fluentta_ai/widgets/common/pro_feature_sheet.dart';
 import 'package:fluentta_ai/widgets/setup/setup_banner_ad.dart';
 import 'package:fluentta_ai/widgets/setup/setup_option_tile.dart';
 import 'package:fluentta_ai/widgets/setup/setup_progress_header.dart';
@@ -100,7 +103,27 @@ class _SetupStepPage extends StatelessWidget {
                       title: option.title,
                       subtitle: option.subtitle,
                       isSelected: selectedId == option.id,
-                      onTap: () => viewModel.selectForStep(stepIndex, option.id),
+                      isLocked: stepIndex == 1 &&
+                          !UserEntitlements.canAccessSetupLevel(
+                            option.id,
+                            context.read<LocalStorage>().isPremium,
+                          ),
+                      onTap: () {
+                        if (stepIndex == 1 &&
+                            !UserEntitlements.canAccessSetupLevel(
+                              option.id,
+                              context.read<LocalStorage>().isPremium,
+                            )) {
+                          showProFeatureSheet(
+                            context,
+                            title: 'B2+ content is Pro',
+                            message:
+                                'Upgrade to Pro to unlock B2 and advanced levels.',
+                          );
+                          return;
+                        }
+                        viewModel.selectForStep(stepIndex, option.id);
+                      },
                     ),
                   ),
                 ),

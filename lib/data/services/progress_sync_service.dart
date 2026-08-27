@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
+import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/learning_stats_service.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_sync_repository.dart';
@@ -14,12 +15,14 @@ class ProgressSyncService {
     required UserRepository userRepository,
     required LocalStorage localStorage,
     required LearningStatsService learningStatsService,
+    required EntitlementsService entitlementsService,
     Connectivity? connectivity,
   })  : _progressRepository = progressRepository,
         _syncRepository = syncRepository,
         _userRepository = userRepository,
         _localStorage = localStorage,
         _learningStatsService = learningStatsService,
+        _entitlementsService = entitlementsService,
         _connectivity = connectivity ?? Connectivity();
 
   final ProgressRepository _progressRepository;
@@ -27,6 +30,7 @@ class ProgressSyncService {
   final UserRepository _userRepository;
   final LocalStorage _localStorage;
   final LearningStatsService _learningStatsService;
+  final EntitlementsService _entitlementsService;
   final Connectivity _connectivity;
 
   final List<LessonProgressModel> _pendingWrites = [];
@@ -57,7 +61,9 @@ class ProgressSyncService {
   Future<void> pullAndMerge() async {
     final uid = _uid;
     if (uid == null) return;
-    if (!await _isOnline) return;
+    if (!await _isOnline) {
+      if (!_entitlementsService.canUseOfflineMode()) return;
+    }
 
     await _progressRepository.initialize();
     final remote = await _syncRepository.fetchAll(uid);
@@ -89,6 +95,7 @@ class ProgressSyncService {
       await _localStorage.incrementWordsLearned(wordsLearned);
     }
     await _learningStatsService.reconcileFromProgress();
+    await _entitlementsService.recordLearningActivity();
     await _syncStatsToFirestore();
     await _pushProgress(progress);
     _notifyMerged();
