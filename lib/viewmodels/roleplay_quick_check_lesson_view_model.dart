@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluentta_ai/data/models/lesson_content_dto.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
 import 'package:fluentta_ai/data/models/roleplay_content_dto.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/views/ai_tutor/roleplay_quick_check_complete_screen.dart';
 
 class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
@@ -9,17 +13,20 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
     required this.lesson,
     required this.initialQuestionIndex,
     required this.onLessonCompleted,
+    required this.progressSyncService,
     this.onProgressChanged,
   }) : _currentIndex = initialQuestionIndex;
 
   final RoleplayQuickCheckLessonModel lesson;
   final int initialQuestionIndex;
   final ValueChanged<RoleplayQuickCheckLessonModel> onLessonCompleted;
+  final ProgressSyncService progressSyncService;
   final ValueChanged<int>? onProgressChanged;
 
   int _currentIndex;
   int? _selectedIndex;
   bool _answered = false;
+  int? _lastWrongIndex;
 
   int get currentIndex => _currentIndex;
   int get totalQuestions => lesson.questions.length;
@@ -50,11 +57,30 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
   bool get isSelectionCorrect =>
       _selectedIndex != null && _selectedIndex == currentQuestion.correctIndex;
 
+  bool get hasWrongSelection =>
+      _selectedIndex != null && !_answered && !isSelectionCorrect;
+
+  String correctionFeedbackForSelection() {
+    final correctAnswer =
+        currentQuestion.options[currentQuestion.correctIndex];
+    return 'Not quite. The correct answer is: $correctAnswer';
+  }
+
+  Future<void> _recordWrongAnswer(int optionIndex) async {
+    if (_lastWrongIndex == optionIndex) return;
+    _lastWrongIndex = optionIndex;
+    HapticFeedback.heavyImpact();
+    await progressSyncService.recordCorrections(1);
+  }
+
   void selectOption(int index) {
     if (_answered) return;
     _selectedIndex = index;
     if (index == currentQuestion.correctIndex) {
       _answered = true;
+      _lastWrongIndex = null;
+    } else {
+      unawaited(_recordWrongAnswer(index));
     }
     notifyListeners();
   }
@@ -95,5 +121,6 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
   void _resetQuestionState() {
     _selectedIndex = null;
     _answered = false;
+    _lastWrongIndex = null;
   }
 }

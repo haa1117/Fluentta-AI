@@ -29,6 +29,20 @@ class PronunciationAssessmentResult {
   final List<PronunciationWordFeedback> words;
   final String transcript;
   final bool heardAnything;
+
+  /// Words flagged for practice, or one session when feedback shows room to improve.
+  int get correctionCount {
+    if (words.isEmpty) {
+      return heardAnything ? 0 : 1;
+    }
+
+    final needsPracticeCount =
+        words.where((word) => word.needsPractice).length;
+    if (needsPracticeCount > 0) return needsPracticeCount;
+
+    if (overallScore < 100) return 1;
+    return 0;
+  }
 }
 
 class PronunciationPhrase {

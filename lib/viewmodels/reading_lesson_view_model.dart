@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/views/reading/reading_lesson_complete_screen.dart';
 
@@ -11,6 +14,7 @@ class ReadingLessonViewModel extends ChangeNotifier {
     required this.initialPhaseIndex,
     required this.onLessonCompleted,
     required this.textToSpeechService,
+    required this.progressSyncService,
     this.onProgressChanged,
   }) : _currentPhaseIndex = initialPhaseIndex;
 
@@ -19,6 +23,7 @@ class ReadingLessonViewModel extends ChangeNotifier {
   final ValueChanged<ReadingLessonModel> onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
   final TextToSpeechService textToSpeechService;
+  final ProgressSyncService progressSyncService;
 
   int _currentPhaseIndex;
   int? _selectedOptionIndex;
@@ -81,6 +86,12 @@ class ReadingLessonViewModel extends ChangeNotifier {
   }
 
   void selectOption(int index) {
+    final question = currentPhase.question;
+    if (currentPhase.isQuestionPhase &&
+        question != null &&
+        index != question.correctIndex) {
+      unawaited(progressSyncService.recordCorrections(1));
+    }
     _selectedOptionIndex = index;
     notifyListeners();
   }

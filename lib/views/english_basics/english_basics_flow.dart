@@ -39,6 +39,7 @@ class EnglishBasicsFlow {
             repository: repository,
             allLessons: allLessons,
             textToSpeechService: ctx.read<TextToSpeechService>(),
+            progressSyncService: ctx.read<ProgressSyncService>(),
             onFinished: () {},
             onStatsUpdated: () async {
               await ctx.read<LearningStatsService>().reconcileFromProgress();

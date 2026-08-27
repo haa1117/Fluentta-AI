@@ -172,6 +172,12 @@ class ProgressSyncService {
     _notifyMerged();
   }
 
+  Future<void> recordCorrections(int count) async {
+    await _learningStatsService.recordCorrections(count);
+    if (count <= 0) return;
+    await syncStatsToFirestore();
+  }
+
   Future<void> _pullStats(String uid) async {
     if (!await _isOnline) return;
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/viewmodels/reading_lesson_view_model.dart';
@@ -38,6 +39,7 @@ class ReadingLessonScreen extends StatelessWidget {
         onLessonCompleted: onLessonCompleted,
         onProgressChanged: onProgressChanged,
         textToSpeechService: context.read<TextToSpeechService>(),
+        progressSyncService: context.read<ProgressSyncService>(),
       ),
       child: _ReadingLessonBody(lessonNumber: lesson.number),
     );

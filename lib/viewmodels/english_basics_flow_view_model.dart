@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/english_basics_lesson_model.dart';
 import 'package:fluentta_ai/data/repositories/english_basics_repository.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 
 class EnglishBasicsFlowViewModel extends ChangeNotifier {
@@ -12,6 +15,7 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
     required this.repository,
     required this.allLessons,
     required this.textToSpeechService,
+    required this.progressSyncService,
     required this.onFinished,
     this.onStatsUpdated,
   }) : _step = _initialStep(lesson);
@@ -29,6 +33,7 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
   final EnglishBasicsRepository repository;
   final List<EnglishBasicsLessonModel> allLessons;
   final TextToSpeechService textToSpeechService;
+  final ProgressSyncService progressSyncService;
   final VoidCallback onFinished;
   final Future<void> Function()? onStatsUpdated;
 
@@ -110,6 +115,7 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
     _sentenceAnswered[questionIndex] = true;
     if (!isSelectionCorrect(questionIndex, optionIndex)) {
       HapticFeedback.heavyImpact();
+      unawaited(progressSyncService.recordCorrections(1));
     }
     notifyListeners();
   }

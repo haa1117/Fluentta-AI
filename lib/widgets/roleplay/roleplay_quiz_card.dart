@@ -13,6 +13,7 @@ class RoleplayQuizCard extends StatelessWidget {
     required this.answered,
     required this.onSelect,
     this.feedback,
+    this.correctionFeedback,
   });
 
   final int questionNumber;
@@ -21,6 +22,7 @@ class RoleplayQuizCard extends StatelessWidget {
   final bool answered;
   final ValueChanged<int> onSelect;
   final String? feedback;
+  final String? correctionFeedback;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +77,7 @@ class RoleplayQuizCard extends StatelessWidget {
               final isSelected = selectedIndex == index;
               final isCorrect = index == question.correctIndex;
               final showCorrect = answered && isCorrect;
+              final showWrong = !answered && isSelected && !isCorrect;
 
               return Padding(
                 padding: EdgeInsets.only(bottom: AppSizes.spaceSm),
@@ -90,13 +93,19 @@ class RoleplayQuizCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: showCorrect
                           ? AppColors.primaryColor.withValues(alpha: 0.08)
-                          : AppColors.white,
+                          : showWrong
+                              ? AppColors.redColor.withValues(alpha: 0.08)
+                              : AppColors.white,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: showCorrect || isSelected
+                        color: showCorrect
                             ? AppColors.primaryColor
-                            : AppColors.borderLight,
-                        width: showCorrect || isSelected ? 1.5 : 1,
+                            : showWrong
+                                ? AppColors.redColor
+                                : isSelected
+                                    ? AppColors.primaryColor
+                                    : AppColors.borderLight,
+                        width: showCorrect || showWrong || isSelected ? 1.5 : 1,
                       ),
                     ),
                     child: Row(
@@ -118,12 +127,45 @@ class RoleplayQuizCard extends StatelessWidget {
                             color: AppColors.learnSuccessGreen,
                             size: AppSizes.sp(20),
                           ),
+                        if (showWrong)
+                          Icon(
+                            Icons.close_rounded,
+                            color: AppColors.redColor,
+                            size: AppSizes.sp(20),
+                          ),
                       ],
                     ),
                   ),
                 ),
               );
             }),
+            if (correctionFeedback != null) ...[
+              SizedBox(height: AppSizes.spaceSm),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(AppSizes.w(12)),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFF7ED),
+                  borderRadius: BorderRadius.circular(10),
+                  border: const Border(
+                    left: BorderSide(
+                      color: Color(0xFFD97706),
+                      width: 3,
+                    ),
+                  ),
+                ),
+                child: Text(
+                  correctionFeedback!,
+                  style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    fontSize: AppSizes.sp(13),
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFFD97706),
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
             if (feedback != null) ...[
               SizedBox(height: AppSizes.spaceSm),
               Container(

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fluentta_ai/core/constants/app_fonts.dart';
-import 'package:fluentta_ai/core/constants/app_sizes.dart';
-import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/core/constants/app_sizes.dart';import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/roleplay_content_dto.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/viewmodels/roleplay_quick_check_lesson_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_nav_button.dart';
@@ -17,6 +16,7 @@ class RoleplayQuickCheckLessonScreen extends StatelessWidget {
     required this.lesson,
     required this.initialQuestionIndex,
     required this.cefrLevel,
+    required this.progressSyncService,
     required this.onLessonCompleted,
     this.onProgressChanged,
   });
@@ -24,6 +24,7 @@ class RoleplayQuickCheckLessonScreen extends StatelessWidget {
   final RoleplayQuickCheckLessonModel lesson;
   final int initialQuestionIndex;
   final String cefrLevel;
+  final ProgressSyncService progressSyncService;
   final ValueChanged<RoleplayQuickCheckLessonModel> onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
 
@@ -34,6 +35,7 @@ class RoleplayQuickCheckLessonScreen extends StatelessWidget {
         lesson: lesson,
         initialQuestionIndex: initialQuestionIndex,
         onLessonCompleted: onLessonCompleted,
+        progressSyncService: progressSyncService,
         onProgressChanged: onProgressChanged,
       ),
       child: _RoleplayQuickCheckLessonBody(lessonNumber: lesson.number),
@@ -77,6 +79,9 @@ class _RoleplayQuickCheckLessonBody extends StatelessWidget {
                 answered: viewModel.answered,
                 feedback: viewModel.answered && viewModel.isSelectionCorrect
                     ? viewModel.feedbackForSelection()
+                    : null,
+                correctionFeedback: viewModel.hasWrongSelection
+                    ? viewModel.correctionFeedbackForSelection()
                     : null,
                 onSelect: viewModel.selectOption,
               ),

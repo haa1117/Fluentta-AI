@@ -12,6 +12,7 @@ import 'package:fluentta_ai/data/repositories/roleplay_content_repository.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/views/ai_tutor/roleplay_quick_check_lesson_screen.dart';
+import 'package:provider/provider.dart';
 
 class RoleplayQuickCheckViewModel extends ChangeNotifier {
   RoleplayQuickCheckViewModel(
@@ -126,12 +127,15 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
         ? lesson.questionsCompleted.clamp(0, lesson.questions.length - 1)
         : 0;
 
+    final progressSyncService = context.read<ProgressSyncService>();
+
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(
         builder: (_) => RoleplayQuickCheckLessonScreen(
           lesson: lesson,
           initialQuestionIndex: startIndex,
           cefrLevel: _cefrLevel,
+          progressSyncService: progressSyncService,
           onLessonCompleted: _markLessonCompleted,
           onProgressChanged: (index) => _saveInProgress(lesson, index),
         ),
