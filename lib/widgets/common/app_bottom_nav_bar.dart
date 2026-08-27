@@ -52,7 +52,7 @@ class AppBottomNavBar extends StatelessWidget {
                 onTap: () => viewModel.selectTab(MainTab.learn),
               ),
               _NavItem(
-                svgIcon: AppAssets.speakIcon,
+                svgIcon: AppAssets.rolePlayIcon,
                 label: l10n.navSpeak,
                 isSelected: viewModel.currentTab == MainTab.speak,
                 onTap: () => viewModel.selectTab(MainTab.speak),

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -64,14 +65,14 @@ final Color backGroundColor;
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(14),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.primaryColor,
+                  color: AppColors.primaryBlueColor,
                 ),
               ),
               SizedBox(width: AppSizes.w(4)),
-              Icon(
-                Icons.favorite,
-                color: AppColors.heartRed,
-                size: AppSizes.sp(16),
+              SvgPicture.asset(
+AppAssets.xpEarnIcon,                // color: AppColors.heartRed,
+                width: AppSizes.sp(16),
+                height: AppSizes.sp(16),
               ),
             ],
           ),
