@@ -26,10 +26,7 @@ import 'package:fluentta_ai/widgets/home/todays_lesson_card.dart';
 import 'package:provider/provider.dart';
 
 class RoleplayScenarioDetailScreen extends StatelessWidget {
-  const RoleplayScenarioDetailScreen({
-    super.key,
-    required this.scenarioId,
-  });
+  const RoleplayScenarioDetailScreen({super.key, required this.scenarioId});
 
   final String scenarioId;
 
@@ -41,8 +38,8 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
 
     if (scenario != null &&
         !context.read<EntitlementsService>().canAccessRoleplayScenario(
-              scenario.id,
-            )) {
+          scenario.id,
+        )) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!context.mounted) return;
         showProFeatureSheet(
@@ -90,10 +87,8 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
           }
 
           final level = detailVm.selectedLevel;
-          final levelCode =
-              RoleplayCefrProgress.levelCodeLabel(l10n, level);
-          final levelLabel =
-              RoleplayCefrProgress.levelNameLabel(l10n, level);
+          final levelCode = RoleplayCefrProgress.levelCodeLabel(l10n, level);
+          final levelLabel = RoleplayCefrProgress.levelNameLabel(l10n, level);
 
           return Scaffold(
             backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -120,8 +115,10 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
                   SizedBox(height: AppSizes.h(16)),
                   RoleplayScenarioOverviewCard(
                     scenario: scenario,
-                    practiceTitle:
-                        RoleplayScenarioL10n.practiceTitle(l10n, scenario.id),
+                    practiceTitle: RoleplayScenarioL10n.practiceTitle(
+                      l10n,
+                      scenario.id,
+                    ),
                     levelCode: levelCode,
                     levelLabel: levelLabel,
                     progress: detailVm.moduleProgress,
@@ -140,36 +137,45 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
                   RoleplayPracticeOptionTile(
                     title: l10n.dialogue,
                     subtitle: l10n.roleplayDialogueSub,
-                    xpLabel: l10n.roleplayXpPerLesson(RoleplayXpRewards.dialogue),
-                    iconAsset:AppAssets.roleDialog,
+                    xpLabel: l10n.roleplayXpPerLesson(
+                      RoleplayXpRewards.dialogue,
+                    ),
+                    iconAsset: AppAssets.roleDialog,
                     iconBackgroundColor: AppColors.primaryColor,
                     onTap: () {
-                      Navigator.of(context).push<void>(
-                        MaterialPageRoute<void>(
-                          builder: (_) => RoleplayDialoguePathScreen(
-                            scenarioId: scenario.id,
-                          ),
-                        ),
-                      ).then((_) => detailVm.reload());
+                      Navigator.of(context)
+                          .push<void>(
+                            MaterialPageRoute<void>(
+                              builder: (_) => RoleplayDialoguePathScreen(
+                                scenarioId: scenario.id,
+                              ),
+                            ),
+                          )
+                          .then((_) => detailVm.reload());
                     },
                   ),
                   SizedBox(height: AppSizes.h(12)),
                   RoleplayPracticeOptionTile(
                     title: l10n.vocabulary,
-                    subtitle:
-                        RoleplayScenarioL10n.vocabularySubtitle(l10n, scenario.id),
-                    xpLabel:
-                        l10n.roleplayXpPerLesson(RoleplayXpRewards.vocabulary),
+                    subtitle: RoleplayScenarioL10n.vocabularySubtitle(
+                      l10n,
+                      scenario.id,
+                    ),
+                    xpLabel: l10n.roleplayXpPerLesson(
+                      RoleplayXpRewards.vocabulary,
+                    ),
                     iconAsset: 'assets/svg/vocabulary_book.svg',
                     iconBackgroundColor: AppColors.primaryColor,
                     onTap: () {
-                      Navigator.of(context).push<void>(
-                        MaterialPageRoute<void>(
-                          builder: (_) => RoleplayVocabularyPathScreen(
-                            scenarioId: scenario.id,
-                          ),
-                        ),
-                      ).then((_) => detailVm.reload());
+                      Navigator.of(context)
+                          .push<void>(
+                            MaterialPageRoute<void>(
+                              builder: (_) => RoleplayVocabularyPathScreen(
+                                scenarioId: scenario.id,
+                              ),
+                            ),
+                          )
+                          .then((_) => detailVm.reload());
                     },
                   ),
                   SizedBox(height: AppSizes.h(12)),
@@ -182,13 +188,15 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
                     iconBackgroundColor: AppColors.learnReadingOrange,
                     iconAsset: 'assets/svg/quick_che3ck.svg',
                     onTap: () {
-                      Navigator.of(context).push<void>(
-                        MaterialPageRoute<void>(
-                          builder: (_) => RoleplayQuickCheckPathScreen(
-                            scenarioId: scenario.id,
-                          ),
-                        ),
-                      ).then((_) => detailVm.reload());
+                      Navigator.of(context)
+                          .push<void>(
+                            MaterialPageRoute<void>(
+                              builder: (_) => RoleplayQuickCheckPathScreen(
+                                scenarioId: scenario.id,
+                              ),
+                            ),
+                          )
+                          .then((_) => detailVm.reload());
                     },
                   ),
                   SizedBox(height: AppSizes.h(180)),
