@@ -4,10 +4,8 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
-import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/viewmodels/forgot_password_view_model.dart';
-import 'package:fluentta_ai/viewmodels/verify_otp_view_model.dart';
-import 'package:fluentta_ai/views/auth/verify_otp_screen.dart';
+import 'package:fluentta_ai/views/auth/check_reset_email_screen.dart';
 import 'package:fluentta_ai/widgets/auth/auth_text_field.dart';
 import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
@@ -21,7 +19,6 @@ class ForgotPasswordScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<ForgotPasswordViewModel>();
-    final authRepository = context.read<AuthRepository>();
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -65,13 +62,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                             );
                             Navigator.of(context).push(
                               MaterialPageRoute<void>(
-                                builder: (_) => ChangeNotifierProvider(
-                                  create: (_) => VerifyOtpViewModel(
-                                    authRepository: authRepository,
-                                    email: viewModel.email,
-                                    maskedEmail: viewModel.maskedEmail,
-                                  )..initTimer(),
-                                  child: const VerifyOtpScreen(),
+                                builder: (_) => CheckResetEmailScreen(
+                                  email: viewModel.email,
+                                  maskedEmail: viewModel.maskedEmail,
                                 ),
                               ),
                             );

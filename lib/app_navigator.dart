@@ -15,6 +15,8 @@ import 'package:fluentta_ai/views/main/main_shell_screen.dart';
 import 'package:fluentta_ai/views/language/language_selection_screen.dart';
 import 'package:fluentta_ai/views/onboarding/onboarding_screen.dart';
 import 'package:fluentta_ai/views/setup/setup_flow_screen.dart';
+import 'package:fluentta_ai/viewmodels/reset_password_view_model.dart';
+import 'package:fluentta_ai/views/auth/reset_password_screen.dart';
 import 'package:fluentta_ai/views/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +28,7 @@ enum AppFlow {
   accountCreated,
   setup,
   home,
+  passwordReset,
 }
 
 class AppNavigator extends StatefulWidget {
@@ -51,9 +54,14 @@ class _AppNavigatorState extends State<AppNavigator> {
   @override
   void initState() {
     super.initState();
-    _currentFlow = AppFlow.splash;
+    _currentFlow = widget.authRepository.shouldLaunchDirectToPasswordReset ||
+            widget.authRepository.shouldOpenPasswordResetScreen
+        ? AppFlow.passwordReset
+        : AppFlow.splash;
+    widget.authRepository.passwordResetSignal.addListener(_onPasswordResetSignal);
     _authSubscription = widget.authRepository.authStateChanges.listen((user) {
       if (!mounted) return;
+      if (widget.authRepository.shouldOpenPasswordResetScreen) return;
       if (user != null &&
           _currentFlow != AppFlow.home &&
           _currentFlow != AppFlow.setup &&
@@ -71,8 +79,14 @@ class _AppNavigatorState extends State<AppNavigator> {
 
   @override
   void dispose() {
+    widget.authRepository.passwordResetSignal.removeListener(_onPasswordResetSignal);
     _authSubscription?.cancel();
     super.dispose();
+  }
+
+  void _onPasswordResetSignal() {
+    if (!mounted || !widget.authRepository.hasVerifiedResetCode) return;
+    setState(() => _currentFlow = AppFlow.passwordReset);
   }
 
   AppFlow _resolvePostSplashFlow() {
@@ -94,6 +108,12 @@ class _AppNavigatorState extends State<AppNavigator> {
 
   void _completeSplash() {
     setState(() => _currentFlow = _resolvePostSplashFlow());
+  }
+
+  void _completePasswordResetFlow() {
+    widget.authRepository.consumePendingPasswordResetNavigation();
+    if (!mounted) return;
+    setState(() => _currentFlow = AppFlow.signIn);
   }
 
   void _goToLanguage() {
@@ -203,6 +223,14 @@ class _AppNavigatorState extends State<AppNavigator> {
               onComplete: _goToHome,
             ),
           AppFlow.home => const MainShellScreen(key: ValueKey('home')),
+          AppFlow.passwordReset => ChangeNotifierProvider(
+              key: const ValueKey('passwordReset'),
+              create: (_) => ResetPasswordViewModel(widget.authRepository),
+              child: ResetPasswordScreen(
+                isDeepLinkFlow: true,
+                onFlowComplete: _completePasswordResetFlow,
+              ),
+            ),
         },
       ),
     );

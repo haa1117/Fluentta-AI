@@ -8,7 +8,9 @@ import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 
 class PasswordUpdatedScreen extends StatelessWidget {
-  const PasswordUpdatedScreen({super.key});
+  const PasswordUpdatedScreen({super.key, this.onBackToSignIn});
+
+  final VoidCallback? onBackToSignIn;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,10 @@ class PasswordUpdatedScreen extends StatelessWidget {
               PrimaryButton(
                 text: l10n.backToSignIn,
                 onPressed: () {
+                  if (onBackToSignIn != null) {
+                    onBackToSignIn!();
+                    return;
+                  }
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
               ),

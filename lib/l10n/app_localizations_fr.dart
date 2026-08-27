@@ -186,22 +186,26 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get forgotPasswordSubtitle =>
-      'Entrez l\'email lié à votre compte.\n Nous vous enverrons un code de vérification.';
+      'Entrez l\'email lié à votre compte.\n Nous vous enverrons un lien de réinitialisation.';
 
   @override
-  String get sendVerificationCode => 'Envoyer le code de vérification';
+  String get sendVerificationCode => 'Envoyer le lien';
 
   @override
   String get verificationEmailSent =>
-      'Email de vérification envoyé avec succès.';
+      'Lien de réinitialisation envoyé avec succès.';
 
   @override
   String get checkYourEmail => 'Vérifiez votre email';
 
   @override
   String otpSentTo(String email) {
-    return 'Nous avons envoyé un code à 4 chiffres à $email';
+    return 'Nous avons envoyé un lien de réinitialisation à $email';
   }
+
+  @override
+  String get checkResetEmailInstructions =>
+      'Ouvrez votre email et touchez le lien. L\'application s\'ouvrira pour définir un nouveau mot de passe.';
 
   @override
   String get verifyCode => 'Vérifier le code';

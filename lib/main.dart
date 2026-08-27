@@ -1,7 +1,10 @@
+import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/app_navigator.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/core/navigation/password_reset_deep_link_handler.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/theme/app_theme.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
@@ -32,6 +35,8 @@ import 'package:fluentta_ai/viewmodels/reading_view_model.dart';
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:fluentta_ai/viewmodels/subscription_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
+import 'package:fluentta_ai/core/navigation/root_navigator_key.dart';
+import 'package:fluentta_ai/widgets/auth/password_reset_link_listener.dart';
 import 'package:fluentta_ai/widgets/common/notification_lifecycle_watcher.dart';
 import 'package:provider/provider.dart';
 import 'package:fluentta_ai/firebase_options.dart';
@@ -76,14 +81,25 @@ void main() async {
   final localNotificationService = LocalNotificationService();
   await localNotificationService.initialize();
 
-  await lessonContentRepository.initialize();
-  await progressRepository.initialize();
-  await savedWordsRepository.initialize();
-  await spacedRepetitionRepository.initialize();
-  await roleplayContentRepository.initialize();
-  await authRepository.initializeGoogleSignIn();
-  await authRepository.syncCurrentUser();
-  await progressSyncService.pullAndMerge();
+  if (!kIsWeb) {
+    await _handleLaunchPasswordResetLink(authRepository);
+  }
+
+  final isPasswordResetLaunch =
+      authRepository.shouldLaunchDirectToPasswordReset;
+
+  if (isPasswordResetLaunch) {
+    await authRepository.initializeGoogleSignIn();
+  } else {
+    await lessonContentRepository.initialize();
+    await progressRepository.initialize();
+    await savedWordsRepository.initialize();
+    await spacedRepetitionRepository.initialize();
+    await roleplayContentRepository.initialize();
+    await authRepository.initializeGoogleSignIn();
+    await authRepository.syncCurrentUser();
+    await progressSyncService.pullAndMerge();
+  }
 
   runApp(
     FluentaApp(
@@ -104,6 +120,23 @@ void main() async {
       localNotificationService: localNotificationService,
     ),
   );
+}
+
+Future<void> _handleLaunchPasswordResetLink(AuthRepository authRepository) async {
+  try {
+    final initialUri = await AppLinks().getInitialLink();
+    if (initialUri == null) return;
+
+    if (kDebugMode) {
+      debugPrint('Launch password reset link: $initialUri');
+    }
+
+    await PasswordResetDeepLinkHandler.handleUri(initialUri, authRepository);
+  } catch (error) {
+    if (kDebugMode) {
+      debugPrint('Launch password reset link failed: $error');
+    }
+  }
 }
 
 class FluentaApp extends StatelessWidget {
@@ -276,13 +309,16 @@ class FluentaApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             locale: localeViewModel.locale,
+            navigatorKey: rootNavigatorKey,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            home: NotificationLifecycleWatcher(
-              child: AppNavigator(
-                localStorage: localStorage,
-                authRepository: authRepository,
-                userRepository: userRepository,
+            home: PasswordResetLinkListener(
+              child: NotificationLifecycleWatcher(
+                child: AppNavigator(
+                  localStorage: localStorage,
+                  authRepository: authRepository,
+                  userRepository: userRepository,
+                ),
               ),
             ),
           );

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fluentta_ai/core/constants/auth_deep_link_config.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,7 +12,11 @@ class SocialSignInResult {
 }
 
 class AuthRepository {
-  AuthRepository(this._localStorage, this._userRepository);
+  AuthRepository(this._localStorage, this._userRepository) {
+    _resetEmail = _localStorage.pendingResetEmail;
+    _resetOobCode = _localStorage.pendingResetOobCode;
+    _pendingPasswordResetNavigation = _resetOobCode != null;
+  }
 
   final LocalStorage _localStorage;
   final UserRepository _userRepository;
@@ -23,6 +28,9 @@ class AuthRepository {
 
   String? _resetEmail;
   String? _resetOobCode;
+  bool _pendingPasswordResetNavigation = false;
+  bool _launchDirectToPasswordReset = false;
+  final ValueNotifier<int> passwordResetSignal = ValueNotifier(0);
 
   UserRepository get userRepository => _userRepository;
 
@@ -30,6 +38,25 @@ class AuthRepository {
   Stream<User?> get authStateChanges => _auth.authStateChanges();
   String? get resetEmail => _resetEmail;
   String? get resetOobCode => _resetOobCode;
+  bool get shouldOpenPasswordResetScreen =>
+      _pendingPasswordResetNavigation && hasVerifiedResetCode;
+  bool get hasVerifiedResetCode =>
+      _resetOobCode != null && _resetOobCode!.isNotEmpty;
+  bool get shouldLaunchDirectToPasswordReset => _launchDirectToPasswordReset;
+
+  void markPendingPasswordResetNavigation() {
+    _pendingPasswordResetNavigation = true;
+  }
+
+  void markDirectPasswordResetLaunch() {
+    _launchDirectToPasswordReset = true;
+    markPendingPasswordResetNavigation();
+  }
+
+  void consumePendingPasswordResetNavigation() {
+    _pendingPasswordResetNavigation = false;
+    _launchDirectToPasswordReset = false;
+  }
 
   Future<void> initializeGoogleSignIn() async {
     if (kIsWeb) return;
@@ -148,7 +175,29 @@ class AuthRepository {
     _resetEmail = trimmedEmail;
     _resetOobCode = null;
     await _localStorage.setPendingResetEmail(trimmedEmail);
-    await _auth.sendPasswordResetEmail(email: trimmedEmail);
+    await _localStorage.clearPendingResetOobCode();
+
+    await _auth.sendPasswordResetEmail(
+      email: trimmedEmail,
+      actionCodeSettings: ActionCodeSettings(
+        url: AuthDeepLinkConfig.continueUrl,
+        handleCodeInApp: true,
+        androidPackageName: AuthDeepLinkConfig.androidPackageName,
+        androidInstallApp: true,
+        androidMinimumVersion: '21',
+        iOSBundleId: AuthDeepLinkConfig.iOSBundleId,
+      ),
+    );
+  }
+
+  Future<void> handlePasswordResetLink({required String oobCode}) async {
+    await verifyPasswordResetCode(oobCode);
+    markDirectPasswordResetLaunch();
+    _notifyPasswordResetReady();
+  }
+
+  void _notifyPasswordResetReady() {
+    passwordResetSignal.value++;
   }
 
   Future<void> verifyPasswordResetCode(String code) async {

@@ -184,6 +184,10 @@ class LocalStorage {
     await _prefs!.setString(_pendingResetOobCodeKey, code);
   }
 
+  Future<void> clearPendingResetOobCode() async {
+    await _prefs!.remove(_pendingResetOobCodeKey);
+  }
+
   Future<void> clearPendingReset() async {
     await _prefs!.remove(_pendingResetEmailKey);
     await _prefs!.remove(_pendingResetOobCodeKey);

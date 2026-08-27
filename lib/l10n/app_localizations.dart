@@ -423,19 +423,19 @@ abstract class AppLocalizations {
   /// No description provided for @forgotPasswordSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Enter the email linked to your account.\n We\'ll send you a verification code.'**
+  /// **'Enter the email linked to your account.\n We\'ll send you a reset link.'**
   String get forgotPasswordSubtitle;
 
   /// No description provided for @sendVerificationCode.
   ///
   /// In en, this message translates to:
-  /// **'Send Verification Code'**
+  /// **'Send Reset Link'**
   String get sendVerificationCode;
 
   /// No description provided for @verificationEmailSent.
   ///
   /// In en, this message translates to:
-  /// **'Verification email sent successfully.'**
+  /// **'Reset link sent successfully.'**
   String get verificationEmailSent;
 
   /// No description provided for @checkYourEmail.
@@ -447,8 +447,14 @@ abstract class AppLocalizations {
   /// No description provided for @otpSentTo.
   ///
   /// In en, this message translates to:
-  /// **'We sent a 4-digit code to {email}'**
+  /// **'We sent a password reset link to {email}'**
   String otpSentTo(String email);
+
+  /// No description provided for @checkResetEmailInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Open your email and tap the reset link. The app will open so you can set a new password.'**
+  String get checkResetEmailInstructions;
 
   /// No description provided for @verifyCode.
   ///

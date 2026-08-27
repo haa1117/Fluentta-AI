@@ -70,5 +70,18 @@
 	<string>Fluentta needs microphone access to check your pronunciation.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Fluentta uses speech recognition to score your pronunciation practice.</string>
+	<key>FlutterDeepLinkingEnabled</key>
+	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.futurewatch.fluenta</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -12,7 +12,14 @@ import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({super.key});
+  const ResetPasswordScreen({
+    super.key,
+    this.isDeepLinkFlow = false,
+    this.onFlowComplete,
+  });
+
+  final bool isDeepLinkFlow;
+  final VoidCallback? onFlowComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,7 @@ class ResetPasswordScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
-      appBar: const AuthAppBar(showBack: true),
+      appBar: AuthAppBar(showBack: !isDeepLinkFlow),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
@@ -70,7 +77,11 @@ class ResetPasswordScreen extends StatelessWidget {
                             if (!context.mounted) return;
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute<void>(
-                                builder: (_) => const PasswordUpdatedScreen(),
+                                builder: (_) => PasswordUpdatedScreen(
+                                  onBackToSignIn: isDeepLinkFlow
+                                      ? onFlowComplete
+                                      : null,
+                                ),
                               ),
                             );
                           });

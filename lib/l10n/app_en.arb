@@ -85,11 +85,12 @@
   "alreadyHaveAccount": "Already have an account? ",
   "rememberPassword": "Remember your password? ",
   "forgotPasswordTitle": "Forgot your password?",
-  "forgotPasswordSubtitle": "Enter the email linked to your account.\n We'll send you a verification code.",
-  "sendVerificationCode": "Send Verification Code",
-  "verificationEmailSent": "Verification email sent successfully.",
+  "forgotPasswordSubtitle": "Enter the email linked to your account.\n We'll send you a reset link.",
+  "sendVerificationCode": "Send Reset Link",
+  "verificationEmailSent": "Reset link sent successfully.",
   "checkYourEmail": "Check your email",
-  "otpSentTo": "We sent a 4-digit code to {email}",
+  "otpSentTo": "We sent a password reset link to {email}",
+  "checkResetEmailInstructions": "Open your email and tap the reset link. The app will open so you can set a new password.",
   "@otpSentTo": {
     "placeholders": {
       "email": {"type": "String"}

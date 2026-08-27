@@ -200,6 +200,10 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
+  String get checkResetEmailInstructions =>
+      'Open your email and tap the reset link. The app will open so you can set a new password.';
+
+  @override
   String get verifyCode => 'کوڈ کی تصدیق';
 
   @override
