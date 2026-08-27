@@ -36,7 +36,7 @@ class ResetPasswordScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: AppSizes.spaceSm),
-              const AuthIllustration(imagePath: AppAssets.resetPassword),
+              const AuthIllustration(imagePath: AppAssets.checkEmail),
               SizedBox(height: AppSizes.spaceMd),
               AuthHeader(
                 title: l10n.createNewPasswordTitle,

@@ -31,6 +31,7 @@ class AuthRepository {
   bool _pendingPasswordResetNavigation = false;
   bool _launchDirectToPasswordReset = false;
   final ValueNotifier<int> passwordResetSignal = ValueNotifier(0);
+  final ValueNotifier<int> passwordResetCompleteSignal = ValueNotifier(0);
 
   UserRepository get userRepository => _userRepository;
 
@@ -56,6 +57,11 @@ class AuthRepository {
   void consumePendingPasswordResetNavigation() {
     _pendingPasswordResetNavigation = false;
     _launchDirectToPasswordReset = false;
+  }
+
+  void completePasswordResetFlow() {
+    consumePendingPasswordResetNavigation();
+    passwordResetCompleteSignal.value++;
   }
 
   Future<void> initializeGoogleSignIn() async {

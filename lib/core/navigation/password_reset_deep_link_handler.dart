@@ -79,9 +79,8 @@ class PasswordResetDeepLinkHandler {
                   child: ResetPasswordScreen(
                     isDeepLinkFlow: true,
                     onFlowComplete: () {
-                      authRepository.consumePendingPasswordResetNavigation();
+                      authRepository.completePasswordResetFlow();
                       _hasPresentedResetFlow = false;
-                      navigator.popUntil((route) => route.isFirst);
                     },
                   ),
                 ),

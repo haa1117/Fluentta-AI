@@ -59,6 +59,8 @@ class _AppNavigatorState extends State<AppNavigator> {
         ? AppFlow.passwordReset
         : AppFlow.splash;
     widget.authRepository.passwordResetSignal.addListener(_onPasswordResetSignal);
+    widget.authRepository.passwordResetCompleteSignal
+        .addListener(_onPasswordResetComplete);
     _authSubscription = widget.authRepository.authStateChanges.listen((user) {
       if (!mounted) return;
       if (widget.authRepository.shouldOpenPasswordResetScreen) return;
@@ -80,6 +82,8 @@ class _AppNavigatorState extends State<AppNavigator> {
   @override
   void dispose() {
     widget.authRepository.passwordResetSignal.removeListener(_onPasswordResetSignal);
+    widget.authRepository.passwordResetCompleteSignal
+        .removeListener(_onPasswordResetComplete);
     _authSubscription?.cancel();
     super.dispose();
   }
@@ -87,6 +91,11 @@ class _AppNavigatorState extends State<AppNavigator> {
   void _onPasswordResetSignal() {
     if (!mounted || !widget.authRepository.hasVerifiedResetCode) return;
     setState(() => _currentFlow = AppFlow.passwordReset);
+  }
+
+  void _onPasswordResetComplete() {
+    if (!mounted) return;
+    setState(() => _currentFlow = AppFlow.signIn);
   }
 
   AppFlow _resolvePostSplashFlow() {
@@ -111,9 +120,7 @@ class _AppNavigatorState extends State<AppNavigator> {
   }
 
   void _completePasswordResetFlow() {
-    widget.authRepository.consumePendingPasswordResetNavigation();
-    if (!mounted) return;
-    setState(() => _currentFlow = AppFlow.signIn);
+    widget.authRepository.completePasswordResetFlow();
   }
 
   void _goToLanguage() {

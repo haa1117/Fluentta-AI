@@ -56,10 +56,7 @@ class PasswordUpdatedScreen extends StatelessWidget {
               PrimaryButton(
                 text: l10n.backToSignIn,
                 onPressed: () {
-                  if (onBackToSignIn != null) {
-                    onBackToSignIn!();
-                    return;
-                  }
+                  onBackToSignIn?.call();
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
               ),
