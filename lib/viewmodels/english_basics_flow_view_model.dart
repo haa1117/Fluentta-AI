@@ -13,6 +13,7 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
     required this.allLessons,
     required this.textToSpeechService,
     required this.onFinished,
+    this.onStatsUpdated,
   }) : _step = _initialStep(lesson);
 
   static EnglishBasicsStep _initialStep(EnglishBasicsLessonModel lesson) {
@@ -29,6 +30,7 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
   final List<EnglishBasicsLessonModel> allLessons;
   final TextToSpeechService textToSpeechService;
   final VoidCallback onFinished;
+  final Future<void> Function()? onStatsUpdated;
 
   EnglishBasicsStep _step;
   final Map<int, int?> _sentenceSelections = {};
@@ -98,6 +100,7 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
       lesson: lesson,
       allLessons: allLessons,
     );
+    await onStatsUpdated?.call();
     onFinished();
   }
 

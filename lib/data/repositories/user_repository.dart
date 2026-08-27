@@ -295,21 +295,43 @@ class UserRepository {
     required int xpEarned,
     required int lessonsCompletedCount,
     required int wordsLearnedCount,
+    required int correctionsCount,
   }) async {
-    await _localStorage.saveStats(
-      xpEarned: xpEarned,
-      lessonsCompletedCount: lessonsCompletedCount,
-      wordsLearnedCount: wordsLearnedCount,
-    );
-
     await _userDoc(uid).set(
       {
         'xpEarned': xpEarned,
         'lessonsCompletedCount': lessonsCompletedCount,
         'wordsLearnedCount': wordsLearnedCount,
+        'correctionsCount': correctionsCount,
         'updatedAt': FieldValue.serverTimestamp(),
       },
       SetOptions(merge: true),
     );
+  }
+
+  Future<Map<String, int>?> fetchLearningStats(String uid) async {
+    final snapshot = await _userDoc(uid).get();
+    if (!snapshot.exists) return null;
+    final data = snapshot.data();
+    if (data == null) return null;
+
+    int? readInt(Object? value) {
+      if (value is int) return value;
+      if (value is num) return value.toInt();
+      return null;
+    }
+
+    final stats = <String, int>{};
+    final xp = readInt(data['xpEarned']);
+    final lessons = readInt(data['lessonsCompletedCount']);
+    final words = readInt(data['wordsLearnedCount']);
+    final corrections = readInt(data['correctionsCount']);
+
+    if (xp != null) stats['xpEarned'] = xp;
+    if (lessons != null) stats['lessonsCompletedCount'] = lessons;
+    if (words != null) stats['wordsLearnedCount'] = words;
+    if (corrections != null) stats['correctionsCount'] = corrections;
+
+    return stats.isEmpty ? null : stats;
   }
 }

@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
+import 'package:fluentta_ai/data/services/learning_stats_service.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_sync_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
@@ -12,17 +13,20 @@ class ProgressSyncService {
     required ProgressSyncRepository syncRepository,
     required UserRepository userRepository,
     required LocalStorage localStorage,
+    required LearningStatsService learningStatsService,
     Connectivity? connectivity,
   })  : _progressRepository = progressRepository,
         _syncRepository = syncRepository,
         _userRepository = userRepository,
         _localStorage = localStorage,
+        _learningStatsService = learningStatsService,
         _connectivity = connectivity ?? Connectivity();
 
   final ProgressRepository _progressRepository;
   final ProgressSyncRepository _syncRepository;
   final UserRepository _userRepository;
   final LocalStorage _localStorage;
+  final LearningStatsService _learningStatsService;
   final Connectivity _connectivity;
 
   final List<LessonProgressModel> _pendingWrites = [];
@@ -60,6 +64,9 @@ class ProgressSyncService {
     await _progressRepository.mergeRemoteProgress(remote);
     await _flushPending(uid);
     await _pullLives(uid);
+    await _pullStats(uid);
+    await _learningStatsService.reconcileFromProgress();
+    _notifyMerged();
   }
 
   Future<void> onLivesChanged(int lives) async {
@@ -77,13 +84,14 @@ class ProgressSyncService {
     int wordsLearned = 0,
   }) async {
     await _progressRepository.saveProgress(progress);
-    await _localStorage.incrementLessonsCompleted();
     await _localStorage.addXp(25);
     if (wordsLearned > 0) {
       await _localStorage.incrementWordsLearned(wordsLearned);
     }
+    await _learningStatsService.reconcileFromProgress();
     await _syncStatsToFirestore();
     await _pushProgress(progress);
+    _notifyMerged();
   }
 
   Future<void> _pushProgress(LessonProgressModel progress) async {
@@ -155,6 +163,26 @@ class ProgressSyncService {
       xpEarned: _localStorage.xpEarned,
       lessonsCompletedCount: _localStorage.lessonsCompletedCount,
       wordsLearnedCount: _localStorage.wordsLearnedCount,
+      correctionsCount: _localStorage.correctionsCount,
+    );
+  }
+
+  Future<void> syncStatsToFirestore() async {
+    await _syncStatsToFirestore();
+    _notifyMerged();
+  }
+
+  Future<void> _pullStats(String uid) async {
+    if (!await _isOnline) return;
+
+    final remote = await _userRepository.fetchLearningStats(uid);
+    if (remote == null) return;
+
+    await _learningStatsService.mergeRemoteStats(
+      xpEarned: remote['xpEarned'],
+      wordsLearnedCount: remote['wordsLearnedCount'],
+      lessonsCompletedCount: remote['lessonsCompletedCount'],
+      correctionsCount: remote['correctionsCount'],
     );
   }
 }

@@ -21,6 +21,7 @@ import 'package:fluentta_ai/data/repositories/spaced_repetition_repository.dart'
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:fluentta_ai/data/services/iap_service.dart';
 import 'package:fluentta_ai/data/services/local_notification_service.dart';
+import 'package:fluentta_ai/data/services/learning_stats_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
@@ -70,11 +71,16 @@ void main() async {
     localStorage,
     roleplayContentSyncRepository,
   );
+  final learningStatsService = LearningStatsService(
+    localStorage,
+    progressRepository,
+  );
   final progressSyncService = ProgressSyncService(
     progressRepository: progressRepository,
     syncRepository: progressSyncRepository,
     userRepository: userRepository,
     localStorage: localStorage,
+    learningStatsService: learningStatsService,
   );
   final textToSpeechService = TextToSpeechService();
   final pronunciationAssessmentService = PronunciationAssessmentService();
@@ -113,6 +119,7 @@ void main() async {
       lessonContentRepository: lessonContentRepository,
       progressRepository: progressRepository,
       progressSyncService: progressSyncService,
+      learningStatsService: learningStatsService,
       savedWordsRepository: savedWordsRepository,
       spacedRepetitionRepository: spacedRepetitionRepository,
       dailyVocabularyRepository: dailyVocabularyRepository,
@@ -155,6 +162,7 @@ class FluentaApp extends StatelessWidget {
     required this.lessonContentRepository,
     required this.progressRepository,
     required this.progressSyncService,
+    required this.learningStatsService,
     required this.savedWordsRepository,
     required this.spacedRepetitionRepository,
     required this.dailyVocabularyRepository,
@@ -172,6 +180,7 @@ class FluentaApp extends StatelessWidget {
   final LessonContentRepository lessonContentRepository;
   final ProgressRepository progressRepository;
   final ProgressSyncService progressSyncService;
+  final LearningStatsService learningStatsService;
   final SavedWordsRepository savedWordsRepository;
   final SpacedRepetitionRepository spacedRepetitionRepository;
   final DailyVocabularyRepository dailyVocabularyRepository;
@@ -194,6 +203,7 @@ class FluentaApp extends StatelessWidget {
         Provider<LessonContentRepository>.value(value: lessonContentRepository),
         Provider<ProgressRepository>.value(value: progressRepository),
         Provider<ProgressSyncService>.value(value: progressSyncService),
+        Provider<LearningStatsService>.value(value: learningStatsService),
         ChangeNotifierProvider<SavedWordsRepository>.value(
           value: savedWordsRepository,
         ),
@@ -306,6 +316,8 @@ class FluentaApp extends StatelessWidget {
             localStorage,
             context.read<LocaleViewModel>(),
             context.read<LocalNotificationService>(),
+            context.read<LearningStatsService>(),
+            context.read<ProgressSyncService>(),
           ),
         ),
       ],

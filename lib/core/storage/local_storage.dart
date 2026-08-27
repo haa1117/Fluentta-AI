@@ -97,10 +97,10 @@ class LocalStorage {
   int get reminderHour => _prefs!.getInt(_reminderHourKey) ?? 20;
   int get reminderMinute => _prefs!.getInt(_reminderMinuteKey) ?? 0;
   int get xpEarned => _prefs!.getInt(_xpEarnedKey) ?? 320;
-  int get wordsLearnedCount => _prefs!.getInt(_wordsLearnedCountKey) ?? 24;
+  int get wordsLearnedCount => _prefs!.getInt(_wordsLearnedCountKey) ?? 0;
   int get lessonsCompletedCount =>
-      _prefs!.getInt(_lessonsCompletedCountKey) ?? 8;
-  int get correctionsCount => _prefs!.getInt(_correctionsCountKey) ?? 12;
+      _prefs!.getInt(_lessonsCompletedCountKey) ?? 0;
+  int get correctionsCount => _prefs!.getInt(_correctionsCountKey) ?? 0;
   bool get isPremium => _prefs!.getBool(_isPremiumKey) ?? false;
   String? get premiumProductId => _prefs!.getString(_premiumProductIdKey);
 
@@ -118,9 +118,18 @@ class LocalStorage {
   }
 
   Future<void> incrementWordsLearned(int count) async {
+    if (count <= 0) return;
     await _prefs!.setInt(
       _wordsLearnedCountKey,
       wordsLearnedCount + count,
+    );
+  }
+
+  Future<void> incrementCorrectionsCount(int count) async {
+    if (count <= 0) return;
+    await _prefs!.setInt(
+      _correctionsCountKey,
+      correctionsCount + count,
     );
   }
 
@@ -144,6 +153,7 @@ class LocalStorage {
     int? xpEarned,
     int? wordsLearnedCount,
     int? lessonsCompletedCount,
+    int? correctionsCount,
   }) async {
     if (xpEarned != null) {
       await _prefs!.setInt(_xpEarnedKey, xpEarned);
@@ -153,6 +163,9 @@ class LocalStorage {
     }
     if (lessonsCompletedCount != null) {
       await _prefs!.setInt(_lessonsCompletedCountKey, lessonsCompletedCount);
+    }
+    if (correctionsCount != null) {
+      await _prefs!.setInt(_correctionsCountKey, correctionsCount);
     }
   }
 

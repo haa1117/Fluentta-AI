@@ -5,6 +5,7 @@ import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/main_shell_view_model.dart';
+import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -60,7 +61,10 @@ class AppBottomNavBar extends StatelessWidget {
                 svgIcon: AppAssets.profileIcon,
                 label: l10n.navProfile,
                 isSelected: viewModel.currentTab == MainTab.profile,
-                onTap: () => viewModel.selectTab(MainTab.profile),
+                onTap: () {
+                  viewModel.selectTab(MainTab.profile);
+                  context.read<ProfileViewModel>().refreshStats();
+                },
               ),
             ],
           ),

@@ -1,3 +1,5 @@
+import 'package:fluentta_ai/data/services/learning_stats_service.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
@@ -41,6 +43,8 @@ class PronunciationFlow extends StatelessWidget {
         ctx.read<HomeViewModel>(),
         ctx.read<TextToSpeechService>(),
         ctx.read<PronunciationAssessmentService>(),
+        ctx.read<LearningStatsService>(),
+        ctx.read<ProgressSyncService>(),
       ),
       child: Navigator(
         initialRoute: routeHome,

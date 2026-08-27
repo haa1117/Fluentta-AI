@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/data/models/pronunciation_phrase_model.dart';
 import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
+import 'package:fluentta_ai/data/services/learning_stats_service.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 
 class PronunciationViewModel extends ChangeNotifier {
@@ -9,11 +11,15 @@ class PronunciationViewModel extends ChangeNotifier {
     this._homeViewModel,
     this._textToSpeechService,
     this._assessmentService,
+    this._learningStatsService,
+    this._progressSyncService,
   );
 
   final HomeViewModel _homeViewModel;
   final TextToSpeechService _textToSpeechService;
   final PronunciationAssessmentService _assessmentService;
+  final LearningStatsService _learningStatsService;
+  final ProgressSyncService _progressSyncService;
 
   int _currentPhraseIndex = 0;
   final List<int> _completedScores = [];
@@ -117,6 +123,13 @@ class PronunciationViewModel extends ChangeNotifier {
       spokenText: spokenText,
     );
     _currentResult = result;
+
+    final corrections = result.words.where((word) => word.needsPractice).length;
+    if (corrections > 0) {
+      await _learningStatsService.recordCorrections(corrections);
+      await _progressSyncService.syncStatsToFirestore();
+    }
+
     notifyListeners();
     return result;
   }

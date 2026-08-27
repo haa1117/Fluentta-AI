@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/data/services/learning_stats_service.dart';
 import 'package:fluentta_ai/data/services/local_notification_service.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:intl/intl.dart';
 
 class ProfileViewModel extends ChangeNotifier {
@@ -10,14 +12,20 @@ class ProfileViewModel extends ChangeNotifier {
     this._localStorage,
     this._localeViewModel,
     this._notificationService,
+    this._learningStatsService,
+    this._progressSyncService,
   ) {
     _localeViewModel.addListener(notifyListeners);
+    _progressSyncService.addMergeListener(_onProgressMerged);
     _loadFromStorage();
+    refreshStats();
   }
 
   final LocalStorage _localStorage;
   final LocaleViewModel _localeViewModel;
   final LocalNotificationService _notificationService;
+  final LearningStatsService _learningStatsService;
+  final ProgressSyncService _progressSyncService;
 
   bool _notificationsEnabled = true;
   bool _dailyReminderEnabled = true;
@@ -29,10 +37,10 @@ class ProfileViewModel extends ChangeNotifier {
   int get reminderHour => _reminderHour;
   int get reminderMinute => _reminderMinute;
 
-  int get xpEarned => _localStorage.xpEarned;
-  int get wordsCount => _localStorage.wordsLearnedCount;
-  int get lessonsCount => _localStorage.lessonsCompletedCount;
-  int get correctionsCount => _localStorage.correctionsCount;
+  int get xpEarned => _learningStatsService.xpEarned;
+  int get wordsCount => _learningStatsService.wordsCount;
+  int get lessonsCount => _learningStatsService.lessonsCount;
+  int get correctionsCount => _learningStatsService.correctionsCount;
 
   int get dailyGoalMinutes => _localStorage.dailyGoalMinutes ?? 10;
   int get dailyProgressMinutes => _localStorage.dailyProgressMinutes;
@@ -80,9 +88,18 @@ class ProfileViewModel extends ChangeNotifier {
     _reminderMinute = _localStorage.reminderMinute;
   }
 
+  void _onProgressMerged() {
+    refreshStats();
+  }
+
+  Future<void> refreshStats() async {
+    await _learningStatsService.reconcileFromProgress();
+    notifyListeners();
+  }
+
   void refresh() {
     _loadFromStorage();
-    notifyListeners();
+    refreshStats();
   }
 
   Future<void> setNotificationsEnabled(bool value) async {
@@ -171,6 +188,7 @@ class ProfileViewModel extends ChangeNotifier {
 
   @override
   void dispose() {
+    _progressSyncService.removeMergeListener(_onProgressMerged);
     _localeViewModel.removeListener(notifyListeners);
     super.dispose();
   }

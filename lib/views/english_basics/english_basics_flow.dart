@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/data/models/english_basics_lesson_model.dart';
 import 'package:fluentta_ai/data/repositories/english_basics_repository.dart';
+import 'package:fluentta_ai/data/services/learning_stats_service.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/viewmodels/english_basics_flow_view_model.dart';
 import 'package:fluentta_ai/views/english_basics/english_basics_complete_screen.dart';
@@ -38,6 +40,10 @@ class EnglishBasicsFlow {
             allLessons: allLessons,
             textToSpeechService: ctx.read<TextToSpeechService>(),
             onFinished: () {},
+            onStatsUpdated: () async {
+              await ctx.read<LearningStatsService>().reconcileFromProgress();
+              await ctx.read<ProgressSyncService>().syncStatsToFirestore();
+            },
           ),
           child: const _EnglishBasicsFlowHost(),
         ),
