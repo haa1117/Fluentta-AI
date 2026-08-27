@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_practice_type.dart';
+import 'package:fluentta_ai/core/reading/dialogue_phase_builder.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
@@ -182,6 +183,74 @@ class RoleplayContentRepository {
     return _applyQuickCheckUnlock(lessons, progress);
   }
 
+  Future<List<RoleplayDialogueLessonModel>> buildDialogueLessons({
+    required String scenarioId,
+    required ProgressRepository progressRepository,
+  }) async {
+    final path = await getVocabularyPath(scenarioId);
+    await progressRepository.initialize();
+    final progress = progressRepository.allProgress;
+
+    final lessons = path.lessons.map((lessonJson) {
+      final number = lessonJson['number'] as int;
+      final lessonId =
+          '${scenarioId}_dialogue_${number.toString().padLeft(2, '0')}';
+      final dialogueJson = lessonJson['dialogue'] as List<dynamic>? ?? [];
+      final saved = progress[lessonId];
+      final status = saved?.status ??
+          LessonUnlockLogic.statusForLesson(
+            lessonNumber: number,
+            progressByLessonId: progress,
+            lessonId: lessonId,
+            hasContent: dialogueJson.isNotEmpty,
+          );
+      final phasesCompleted = saved?.status == LearningLessonStatus.completed
+          ? DialoguePhaseBuilder.defaultPartCount
+          : saved?.currentIndex ?? 0;
+
+      return RoleplayDialogueLessonModel.fromLessonJson(
+        scenarioId: scenarioId,
+        json: lessonJson,
+        status: status,
+        phasesCompleted: phasesCompleted,
+      );
+    }).toList();
+
+    return _applyDialogueUnlock(lessons, progress);
+  }
+
+  Future<double> scenarioModuleProgress({
+    required String scenarioId,
+    required ProgressRepository progressRepository,
+  }) async {
+    final vocab = await buildVocabularyLessons(
+      scenarioId: scenarioId,
+      progressRepository: progressRepository,
+    );
+    final quick = await buildQuickCheckLessons(
+      scenarioId: scenarioId,
+      progressRepository: progressRepository,
+    );
+    final dialogue = await buildDialogueLessons(
+      scenarioId: scenarioId,
+      progressRepository: progressRepository,
+    );
+
+    final lessonCount = vocab.length;
+    if (lessonCount == 0) return 0;
+
+    final vocabDone =
+        vocab.where((l) => l.status == LearningLessonStatus.completed).length;
+    final quickDone =
+        quick.where((l) => l.status == LearningLessonStatus.completed).length;
+    final dialogueDone =
+        dialogue.where((l) => l.status == LearningLessonStatus.completed).length;
+
+    final completedModules = vocabDone + quickDone + dialogueDone;
+    final totalModules = lessonCount * 3;
+    return completedModules / totalModules;
+  }
+
   List<VocabularyLessonModel> _applySequentialUnlock(
     List<VocabularyLessonModel> lessons,
     Map<String, LessonProgressModel> progress,
@@ -235,6 +304,37 @@ class RoleplayContentRepository {
       final lesson = lessons[i];
       if (lesson.status != LearningLessonStatus.locked) continue;
       if (lesson.questions.isEmpty) continue;
+
+      if (i == 0) {
+        lessons[i] = lesson.copyWith(status: LearningLessonStatus.notStarted);
+      } else if (lessons[i - 1].status == LearningLessonStatus.completed) {
+        lessons[i] = lesson.copyWith(status: LearningLessonStatus.notStarted);
+      }
+    }
+    return lessons;
+  }
+
+  List<RoleplayDialogueLessonModel> _applyDialogueUnlock(
+    List<RoleplayDialogueLessonModel> lessons,
+    Map<String, LessonProgressModel> progress,
+  ) {
+    if (lessons.isEmpty) return lessons;
+
+    if (progress.isEmpty ||
+        !progress.values.any(
+          (p) => p.type == RoleplayPracticeType.dialogue.id,
+        )) {
+      if (lessons.first.phases.isNotEmpty) {
+        lessons[0] = lessons[0].copyWith(
+          status: LearningLessonStatus.notStarted,
+        );
+      }
+    }
+
+    for (var i = 0; i < lessons.length; i++) {
+      final lesson = lessons[i];
+      if (lesson.status != LearningLessonStatus.locked) continue;
+      if (lesson.phases.isEmpty) continue;
 
       if (i == 0) {
         lessons[i] = lesson.copyWith(status: LearningLessonStatus.notStarted);

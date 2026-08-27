@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/data/models/vocabulary_word_entry.dart';
 import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
@@ -17,6 +18,7 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     required this.cefrLevel,
     this.onProgressChanged,
     this.onWordStudied,
+    this.completionXpEarned = LessonXpRewards.coreLesson,
   }) : _currentWordIndex = initialWordIndex {
     _loadSavedWords();
   }
@@ -29,6 +31,7 @@ class VocabularyLessonViewModel extends ChangeNotifier {
   final TextToSpeechService textToSpeechService;
   final SavedWordsRepository savedWordsRepository;
   final String cefrLevel;
+  final int completionXpEarned;
 
   int _currentWordIndex;
   final Set<String> _savedWordIds = {};
@@ -144,6 +147,8 @@ class VocabularyLessonViewModel extends ChangeNotifier {
         MaterialPageRoute<void>(
           builder: (_) => VocabularyLessonCompleteScreen(
             lessonNumber: lesson.number,
+            lessonId: lesson.lessonId,
+            xpEarned: completionXpEarned,
             learnedWords: lesson.words.map((w) => w.word).toList(),
           ),
         ),

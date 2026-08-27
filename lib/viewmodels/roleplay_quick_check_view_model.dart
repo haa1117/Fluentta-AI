@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_practice_type.dart';
+import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
@@ -169,6 +170,14 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
   Future<void> _markLessonCompleted(
     RoleplayQuickCheckLessonModel completedLesson,
   ) async {
+    await _progressRepository.initialize();
+    final existing =
+        await _progressRepository.getProgress(completedLesson.lessonId);
+    if (existing?.status == LearningLessonStatus.completed) {
+      await _loadLessons();
+      return;
+    }
+
     final orderedIds = _lessons.map((l) => l.lessonId).toList();
     final nextId = LessonUnlockLogic.nextLessonIdToUnlock(
       completedLessonId: completedLesson.lessonId,
@@ -189,7 +198,7 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
       nextUnlockLessonId: nextId,
     );
 
-    await _syncService.onLessonCompleted(
+    await _syncService.onRoleplayModuleCompleted(
       progress: LessonProgressModel(
         lessonId: completedLesson.lessonId,
         type: RoleplayPracticeType.quickCheck.id,
@@ -199,6 +208,9 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
         updatedAt: DateTime.now(),
         completedAt: DateTime.now(),
       ),
+      xpAmount: RoleplayXpRewards.comprehension,
+      scenarioId: _scenarioId,
+      lessonNumber: completedLesson.number,
     );
 
     await _loadLessons();

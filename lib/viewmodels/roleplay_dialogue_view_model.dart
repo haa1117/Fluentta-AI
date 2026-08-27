@@ -6,16 +6,16 @@ import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
-import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/data/models/roleplay_content_dto.dart';
 import 'package:fluentta_ai/data/repositories/daily_lesson_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/repositories/roleplay_content_repository.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
-import 'package:fluentta_ai/views/vocabulary/vocabulary_lesson_screen.dart';
+import 'package:fluentta_ai/views/ai_tutor/roleplay_dialogue_lesson_screen.dart';
 
-class RoleplayVocabularyViewModel extends ChangeNotifier {
-  RoleplayVocabularyViewModel(
+class RoleplayDialogueViewModel extends ChangeNotifier {
+  RoleplayDialogueViewModel(
     this._scenarioId,
     this._localeViewModel,
     this._contentRepository,
@@ -34,7 +34,7 @@ class RoleplayVocabularyViewModel extends ChangeNotifier {
   final ProgressSyncService _syncService;
   final DailyLessonRepository _dailyLessonRepository;
 
-  List<VocabularyLessonModel> _lessons = [];
+  List<RoleplayDialogueLessonModel> _lessons = [];
   String _pathTitle = '';
   String _pathSubtitle = '';
   String _cefrLevel = 'A1';
@@ -42,7 +42,7 @@ class RoleplayVocabularyViewModel extends ChangeNotifier {
 
   AppLocalizations get _l10n => _localeViewModel.strings;
 
-  List<VocabularyLessonModel> get lessons => _lessons;
+  List<RoleplayDialogueLessonModel> get lessons => _lessons;
   bool get isLoading => _isLoading;
   String get pathTitle => _pathTitle;
   String get pathSubtitle => _pathSubtitle;
@@ -69,29 +69,34 @@ class RoleplayVocabularyViewModel extends ChangeNotifier {
     await _progressRepository.initialize();
     await _dailyLessonRepository.initialize();
 
-    final path = await _contentRepository.getVocabularyPath(_scenarioId);
-    _pathTitle = path.pathTitle;
-    _pathSubtitle = path.pathSubtitle;
-    _cefrLevel = path.cefrLevel;
+    final vocabPath = await _contentRepository.getVocabularyPath(_scenarioId);
+    _pathTitle = '${vocabPath.pathTitle.split(' ').first} Dialogue';
+    _pathSubtitle = vocabPath.pathSubtitle;
+    _cefrLevel = vocabPath.cefrLevel;
 
     await _dailyLessonRepository.prepareForDayPath(
-      typeId: RoleplayPracticeType.vocabulary.id,
+      typeId: RoleplayPracticeType.dialogue.id,
       scopeId: _scenarioId,
       progressCefrLevel: _cefrLevel,
       progressRepository: _progressRepository,
     );
 
-    var lessons = await _contentRepository.buildVocabularyLessons(
+    var lessons = await _contentRepository.buildDialogueLessons(
       scenarioId: _scenarioId,
       progressRepository: _progressRepository,
     );
 
     final dailyState = _dailyLessonRepository.stateForPath(
-      RoleplayPracticeType.vocabulary.id,
+      RoleplayPracticeType.dialogue.id,
       _scenarioId,
     );
-    _lessons =
-        _dailyLessonRepository.applyVocabularyDailyGate(lessons, dailyState);
+    _lessons = _dailyLessonRepository.applyGenericDailyGate(
+      lessons,
+      dailyState,
+      lessonIdOf: (lesson) => lesson.lessonId,
+      statusOf: (lesson) => lesson.status,
+      withStatus: (lesson, status) => lesson.copyWith(status: status),
+    );
 
     _isLoading = false;
     notifyListeners();
@@ -99,16 +104,19 @@ class RoleplayVocabularyViewModel extends ChangeNotifier {
 
   void _onLocaleChanged() => _loadLessons();
 
-  Future<void> openLesson(BuildContext context, VocabularyLessonModel lesson) async {
+  Future<void> openLesson(
+    BuildContext context,
+    RoleplayDialogueLessonModel lesson,
+  ) async {
     if (lesson.status == LearningLessonStatus.locked) return;
-    if (lesson.words.isEmpty) {
+    if (lesson.phases.isEmpty) {
       SnackbarHelper.showSuccess(context, _l10n.lessonContentSoon);
       return;
     }
 
     if (lesson.status == LearningLessonStatus.notStarted) {
       await _dailyLessonRepository.recordLessonStartedPath(
-        typeId: RoleplayPracticeType.vocabulary.id,
+        typeId: RoleplayPracticeType.dialogue.id,
         scopeId: _scenarioId,
         lessonId: lesson.lessonId,
       );
@@ -116,34 +124,35 @@ class RoleplayVocabularyViewModel extends ChangeNotifier {
     if (!context.mounted) return;
 
     final startIndex = lesson.status == LearningLessonStatus.inProgress
-        ? lesson.wordsCompleted.clamp(0, lesson.words.length - 1)
+        ? lesson.phasesCompleted.clamp(0, lesson.totalPhases - 1)
         : 0;
 
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(
-        builder: (_) => VocabularyLessonScreen(
+        builder: (_) => RoleplayDialogueLessonScreen(
           lesson: lesson,
-          initialWordIndex: startIndex,
+          initialPhaseIndex: startIndex,
           onLessonCompleted: _markLessonCompleted,
           onProgressChanged: (index) => _saveInProgress(lesson, index),
-          cefrLevel: _cefrLevel,
-          completionXpEarned: RoleplayXpRewards.vocabulary,
         ),
       ),
     );
   }
 
-  Future<void> _saveInProgress(VocabularyLessonModel lesson, int index) async {
+  Future<void> _saveInProgress(
+    RoleplayDialogueLessonModel lesson,
+    int index,
+  ) async {
     await _progressRepository.saveInProgress(
       lessonId: lesson.lessonId,
-      type: RoleplayPracticeType.vocabulary.id,
+      type: RoleplayPracticeType.dialogue.id,
       cefrLevel: _cefrLevel,
       currentIndex: index,
     );
     await _syncService.onProgressChanged(
       LessonProgressModel(
         lessonId: lesson.lessonId,
-        type: RoleplayPracticeType.vocabulary.id,
+        type: RoleplayPracticeType.dialogue.id,
         cefrLevel: _cefrLevel,
         status: LearningLessonStatus.inProgress,
         currentIndex: index,
@@ -153,7 +162,9 @@ class RoleplayVocabularyViewModel extends ChangeNotifier {
     await _loadLessons();
   }
 
-  Future<void> _markLessonCompleted(VocabularyLessonModel completedLesson) async {
+  Future<void> _markLessonCompleted(
+    RoleplayDialogueLessonModel completedLesson,
+  ) async {
     await _progressRepository.initialize();
     final existing =
         await _progressRepository.getProgress(completedLesson.lessonId);
@@ -170,13 +181,13 @@ class RoleplayVocabularyViewModel extends ChangeNotifier {
 
     await _progressRepository.markCompleted(
       lessonId: completedLesson.lessonId,
-      type: RoleplayPracticeType.vocabulary.id,
+      type: RoleplayPracticeType.dialogue.id,
       cefrLevel: _cefrLevel,
-      finalIndex: completedLesson.totalWords,
+      finalIndex: completedLesson.totalPhases,
     );
 
     await _dailyLessonRepository.recordLessonCompletedPath(
-      typeId: RoleplayPracticeType.vocabulary.id,
+      typeId: RoleplayPracticeType.dialogue.id,
       scopeId: _scenarioId,
       completedLessonId: completedLesson.lessonId,
       nextUnlockLessonId: nextId,
@@ -185,17 +196,16 @@ class RoleplayVocabularyViewModel extends ChangeNotifier {
     await _syncService.onRoleplayModuleCompleted(
       progress: LessonProgressModel(
         lessonId: completedLesson.lessonId,
-        type: RoleplayPracticeType.vocabulary.id,
+        type: RoleplayPracticeType.dialogue.id,
         cefrLevel: _cefrLevel,
         status: LearningLessonStatus.completed,
-        currentIndex: completedLesson.totalWords,
+        currentIndex: completedLesson.totalPhases,
         updatedAt: DateTime.now(),
         completedAt: DateTime.now(),
       ),
-      xpAmount: RoleplayXpRewards.vocabulary,
+      xpAmount: RoleplayXpRewards.dialogue,
       scenarioId: _scenarioId,
       lessonNumber: completedLesson.number,
-      wordsLearned: completedLesson.totalWords,
     );
 
     await _loadLessons();

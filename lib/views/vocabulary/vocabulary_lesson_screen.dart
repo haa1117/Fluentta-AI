@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
 import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
@@ -21,6 +22,7 @@ class VocabularyLessonScreen extends StatelessWidget {
     required this.cefrLevel,
     this.onProgressChanged,
     this.onWordStudied,
+    this.completionXpEarned = LessonXpRewards.coreLesson,
   });
 
   final VocabularyLessonModel lesson;
@@ -29,6 +31,7 @@ class VocabularyLessonScreen extends StatelessWidget {
   final ValueChanged<int>? onProgressChanged;
   final Future<void> Function(String word)? onWordStudied;
   final String cefrLevel;
+  final int completionXpEarned;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,7 @@ class VocabularyLessonScreen extends StatelessWidget {
         onProgressChanged: onProgressChanged,
         onWordStudied: onWordStudied,
         cefrLevel: cefrLevel,
+        completionXpEarned: completionXpEarned,
         textToSpeechService: context.read<TextToSpeechService>(),
         savedWordsRepository: context.read<SavedWordsRepository>(),
       ),

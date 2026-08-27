@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/reading/dialogue_phase_builder.dart';
 import 'package:fluentta_ai/data/models/lesson_content_dto.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
@@ -182,5 +183,149 @@ extension RoleplayVocabularyPathParsing on RoleplayPathDto {
         wordsCompleted: wordsCompleted.clamp(0, dto.words.length),
       );
     }).toList();
+  }
+}
+
+class RoleplayDialogueLineModel {
+  const RoleplayDialogueLineModel({
+    required this.speaker,
+    required this.text,
+    required this.isUser,
+  });
+
+  final String speaker;
+  final String text;
+  final bool isUser;
+
+  factory RoleplayDialogueLineModel.fromJson(Map<String, dynamic> json) {
+    return RoleplayDialogueLineModel(
+      speaker: json['speaker'] as String,
+      text: json['text'] as String,
+      isUser: json['isUser'] as bool? ?? false,
+    );
+  }
+}
+
+class RoleplayDialogueLessonModel implements LearningLessonItem {
+  const RoleplayDialogueLessonModel({
+    required this.lessonId,
+    required this.id,
+    required this.number,
+    required this.title,
+    required this.status,
+    required this.phasesCompleted,
+    required this.totalPhases,
+    required this.iconName,
+    required this.phases,
+    this.situation,
+    this.completionTitle,
+    this.completionSummary,
+  });
+
+  final String lessonId;
+  final int id;
+  final int number;
+  final String title;
+  @override
+  final LearningLessonStatus status;
+  final int phasesCompleted;
+  final int totalPhases;
+  @override
+  final String iconName;
+  final List<ReadingPhaseModel> phases;
+  final String? situation;
+  final String? completionTitle;
+  final String? completionSummary;
+
+  @override
+  String get displayTitle => 'Lesson $number: $title';
+
+  @override
+  String get progressLabel {
+    return switch (status) {
+      LearningLessonStatus.completed => 'Completed',
+      LearningLessonStatus.inProgress => 'In progress',
+      LearningLessonStatus.notStarted => '',
+      LearningLessonStatus.locked => 'Locked',
+    };
+  }
+
+  @override
+  double get progressValue {
+    if (totalPhases == 0) return 0;
+    return phasesCompleted / totalPhases;
+  }
+
+  RoleplayDialogueLessonModel copyWith({
+    LearningLessonStatus? status,
+    int? phasesCompleted,
+  }) {
+    return RoleplayDialogueLessonModel(
+      lessonId: lessonId,
+      id: id,
+      number: number,
+      title: title,
+      status: status ?? this.status,
+      phasesCompleted: phasesCompleted ?? this.phasesCompleted,
+      totalPhases: totalPhases,
+      iconName: iconName,
+      phases: phases,
+      situation: situation,
+      completionTitle: completionTitle,
+      completionSummary: completionSummary,
+    );
+  }
+
+  static List<ReadingDialogueLineModel> _dialogueUnits(
+    List<RoleplayDialogueLineModel> dialogue,
+  ) {
+    return dialogue
+        .map(
+          (line) => ReadingDialogueLineModel(
+            speakerLabel: line.speaker,
+            text: line.text,
+            isUser: line.isUser,
+          ),
+        )
+        .toList();
+  }
+
+  static RoleplayDialogueLessonModel fromLessonJson({
+    required String scenarioId,
+    required Map<String, dynamic> json,
+    required LearningLessonStatus status,
+    required int phasesCompleted,
+  }) {
+    final number = json['number'] as int;
+    final dialogueJson = json['dialogue'] as List<dynamic>? ?? [];
+    final lines = dialogueJson
+        .map(
+          (e) => RoleplayDialogueLineModel.fromJson(e as Map<String, dynamic>),
+        )
+        .toList();
+    final title = json['title'] as String;
+    final phases = DialoguePhaseBuilder.buildDialoguePhases(
+      _dialogueUnits(lines),
+    );
+    final resolvedPhasesCompleted = status == LearningLessonStatus.completed
+        ? phases.length
+        : phasesCompleted;
+
+    return RoleplayDialogueLessonModel(
+      lessonId: '${scenarioId}_dialogue_${number.toString().padLeft(2, '0')}',
+      id: number,
+      number: number,
+      title: title,
+      status: status,
+      phasesCompleted: resolvedPhasesCompleted,
+      totalPhases: phases.length,
+      iconName: json['iconName'] as String? ?? 'chat',
+      phases: phases,
+      situation: json['situation'] as String?,
+      completionTitle: json['completionTitle'] as String? ?? '$title Learned',
+      completionSummary: json['completionSummary'] as String? ??
+          json['situation'] as String? ??
+          title,
+    );
   }
 }

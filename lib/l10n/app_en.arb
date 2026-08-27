@@ -619,6 +619,32 @@
   "@roleplayLessonCompleted": {
     "placeholders": {"lessonNumber": {"type": "int"}}
   },
+  "dialogue": "Dialogue",
+  "comprehension": "Comprehension",
+  "roleplayDialogueSub": "Practice the conversation",
+  "roleplayComprehensionSub": "Check your understanding",
+  "roleplayXpPerLesson": "+{xp} XP/Lesson",
+  "@roleplayXpPerLesson": {
+    "placeholders": {"xp": {"type": "int"}}
+  },
+  "roleplayLevelLocked": "Reach {xp} XP to unlock this level",
+  "@roleplayLevelLocked": {
+    "placeholders": {"xp": {"type": "int"}}
+  },
+  "xpEarnedCelebration": "+{xp} XP Earned",
+  "@xpEarnedCelebration": {
+    "placeholders": {"xp": {"type": "int"}}
+  },
+  "boostYourXp": "Boost Your XP",
+  "watchShortAd": "Watch a short ad",
+  "boostXpButton": "Boost +{xp} XP",
+  "@boostXpButton": {
+    "placeholders": {"xp": {"type": "int"}}
+  },
+  "xpBoostApplied": "+{xp} XP boost applied!",
+  "@xpBoostApplied": {
+    "placeholders": {"xp": {"type": "int"}}
+  },
 
   "customPlanReady": "Your Custom plan is Ready",
   "customPlanReadySub": "Based on your goal level & daily practice time.",

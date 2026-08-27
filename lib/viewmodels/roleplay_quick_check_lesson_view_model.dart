@@ -102,9 +102,7 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
         MaterialPageRoute<void>(
           builder: (_) => RoleplayQuickCheckCompleteScreen(
             lessonNumber: lesson.number,
-            lessonTitle: lesson.title,
-            questionCount: totalQuestions,
-            completionTitle: lesson.completionTitle,
+            lessonId: lesson.lessonId,
             completionSummary: lesson.completionSummary,
           ),
         ),

@@ -106,6 +106,7 @@ void main() async {
   } else {
     await lessonContentRepository.initialize();
     await progressRepository.initialize();
+    await progressSyncService.ensureLessonXpBackfill();
     await savedWordsRepository.initialize();
     await spacedRepetitionRepository.initialize();
     await roleplayContentRepository.initialize();

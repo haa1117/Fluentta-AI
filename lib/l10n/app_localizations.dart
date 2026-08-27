@@ -2862,6 +2862,72 @@ abstract class AppLocalizations {
   /// **'You have completed Lesson {lessonNumber} successfully'**
   String roleplayLessonCompleted(int lessonNumber);
 
+  /// No description provided for @dialogue.
+  ///
+  /// In en, this message translates to:
+  /// **'Dialogue'**
+  String get dialogue;
+
+  /// No description provided for @comprehension.
+  ///
+  /// In en, this message translates to:
+  /// **'Comprehension'**
+  String get comprehension;
+
+  /// No description provided for @roleplayDialogueSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice the conversation'**
+  String get roleplayDialogueSub;
+
+  /// No description provided for @roleplayComprehensionSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your understanding'**
+  String get roleplayComprehensionSub;
+
+  /// No description provided for @roleplayXpPerLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'+{xp} XP/Lesson'**
+  String roleplayXpPerLesson(int xp);
+
+  /// No description provided for @roleplayLevelLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach {xp} XP to unlock this level'**
+  String roleplayLevelLocked(int xp);
+
+  /// No description provided for @xpEarnedCelebration.
+  ///
+  /// In en, this message translates to:
+  /// **'+{xp} XP Earned'**
+  String xpEarnedCelebration(int xp);
+
+  /// No description provided for @boostYourXp.
+  ///
+  /// In en, this message translates to:
+  /// **'Boost Your XP'**
+  String get boostYourXp;
+
+  /// No description provided for @watchShortAd.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch a short ad'**
+  String get watchShortAd;
+
+  /// No description provided for @boostXpButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Boost +{xp} XP'**
+  String boostXpButton(int xp);
+
+  /// No description provided for @xpBoostApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'+{xp} XP boost applied!'**
+  String xpBoostApplied(int xp);
+
   /// No description provided for @customPlanReady.
   ///
   /// In en, this message translates to:

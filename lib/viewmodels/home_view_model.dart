@@ -21,12 +21,14 @@ class HomeViewModel extends ChangeNotifier {
   int _dailyGoalMinutes = 10;
   int _streakDays = 1;
   int _lives = 5;
+  int _xpEarned = 0;
   double _lessonProgress = 0.35;
 
   int get dailyProgressMinutes => _dailyProgressMinutes;
   int get dailyGoalMinutes => _dailyGoalMinutes;
   int get streakDays => _streakDays;
   int get lives => _lives;
+  int get xpEarned => _xpEarned;
   double get lessonProgress => _lessonProgress;
   bool get isPro => _entitlementsService.isPro;
   bool get hasUnlimitedHearts => _entitlementsService.hasUnlimitedHearts;
@@ -61,6 +63,7 @@ class HomeViewModel extends ChangeNotifier {
     _dailyProgressMinutes = _localStorage.dailyProgressMinutes;
     _streakDays = _localStorage.streakDays;
     _lives = _localStorage.lives;
+    _xpEarned = _localStorage.xpEarned;
     _lessonProgress = _localStorage.lessonProgress;
   }
 

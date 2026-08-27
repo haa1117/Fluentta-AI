@@ -29,7 +29,7 @@ final Color backGroundColor;
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
-    final lives = context.watch<HomeViewModel>().lives;
+    final xpEarned = context.watch<HomeViewModel>().xpEarned;
 
     return AppBar(
       backgroundColor: backGroundColor,
@@ -60,7 +60,7 @@ final Color backGroundColor;
           child: Row(
             children: [
               Text(
-                '$lives',
+                '$xpEarned',
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(14),

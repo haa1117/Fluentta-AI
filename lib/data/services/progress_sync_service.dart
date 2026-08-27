@@ -1,6 +1,10 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/core/roleplay/roleplay_practice_type.dart';
+import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
+import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
+import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
 import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/learning_stats_service.dart';
@@ -68,6 +72,7 @@ class ProgressSyncService {
     await _progressRepository.initialize();
     final remote = await _syncRepository.fetchAll(uid);
     await _progressRepository.mergeRemoteProgress(remote);
+    await _backfillLessonXpAwardedFlags();
     await _flushPending(uid);
     await _pullLives(uid);
     await _pullStats(uid);
@@ -90,15 +95,109 @@ class ProgressSyncService {
     int wordsLearned = 0,
   }) async {
     await _progressRepository.saveProgress(progress);
-    await _localStorage.addXp(25);
-    if (wordsLearned > 0) {
-      await _localStorage.incrementWordsLearned(wordsLearned);
+
+    final firstCompletion =
+        !await _localStorage.hasLessonXpAwarded(progress.lessonId);
+    if (firstCompletion) {
+      await _localStorage.markLessonXpAwarded(progress.lessonId);
+      await _localStorage.addXp(LessonXpRewards.coreLesson);
+      if (wordsLearned > 0) {
+        await _localStorage.incrementWordsLearned(wordsLearned);
+      }
+      await _entitlementsService.recordLearningActivity();
     }
+
     await _learningStatsService.reconcileFromProgress();
-    await _entitlementsService.recordLearningActivity();
     await _syncStatsToFirestore();
     await _pushProgress(progress);
     _notifyMerged();
+  }
+
+  /// Awards roleplay module XP once per lesson module; +2 bonus when all three complete.
+  /// Returns total XP granted on this call (0 if replay).
+  Future<int> onRoleplayModuleCompleted({
+    required LessonProgressModel progress,
+    required int xpAmount,
+    required String scenarioId,
+    required int lessonNumber,
+    int wordsLearned = 0,
+  }) async {
+    await _progressRepository.saveProgress(progress);
+
+    var totalGranted = 0;
+    final firstCompletion =
+        !await _localStorage.hasLessonXpAwarded(progress.lessonId);
+    if (firstCompletion) {
+      await _localStorage.markLessonXpAwarded(progress.lessonId);
+      totalGranted = xpAmount;
+      await _localStorage.addXp(xpAmount);
+
+      if (wordsLearned > 0) {
+        await _localStorage.incrementWordsLearned(wordsLearned);
+      }
+    }
+
+    final bonus = firstCompletion
+        ? await _maybeAwardRoleplayLessonBonus(
+            scenarioId: scenarioId,
+            lessonNumber: lessonNumber,
+            cefrLevel: progress.cefrLevel,
+          )
+        : 0;
+    totalGranted += bonus;
+
+    if (firstCompletion) {
+      await _entitlementsService.recordLearningActivity();
+    }
+
+    await _learningStatsService.reconcileFromProgress();
+    await _syncStatsToFirestore();
+    await _pushProgress(progress);
+    _notifyMerged();
+    return totalGranted;
+  }
+
+  Future<void> _backfillLessonXpAwardedFlags() async {
+    if (_localStorage.xpAwardedBackfillDone) return;
+
+    for (final entry in _progressRepository.allProgress.entries) {
+      if (entry.value.status == LearningLessonStatus.completed) {
+        await _localStorage.markLessonXpAwarded(entry.key);
+      }
+    }
+    await _localStorage.setXpAwardedBackfillDone();
+  }
+
+  Future<int> _maybeAwardRoleplayLessonBonus({
+    required String scenarioId,
+    required int lessonNumber,
+    required String cefrLevel,
+  }) async {
+    final suffix = lessonNumber.toString().padLeft(2, '0');
+    final vocabId = '${scenarioId}_vocab_$suffix';
+    final quickId = '${scenarioId}_quick_$suffix';
+    final dialogueId = '${scenarioId}_dialogue_$suffix';
+
+    await _progressRepository.initialize();
+    final all = _progressRepository.allProgress;
+
+    bool moduleDone(String lessonId, String typeId) {
+      final entry = all[lessonId];
+      return entry != null &&
+          entry.type == typeId &&
+          entry.status == LearningLessonStatus.completed;
+    }
+
+    if (!moduleDone(vocabId, RoleplayPracticeType.vocabulary.id)) return 0;
+    if (!moduleDone(quickId, RoleplayPracticeType.quickCheck.id)) return 0;
+    if (!moduleDone(dialogueId, RoleplayPracticeType.dialogue.id)) return 0;
+
+    final bonusKey = '$scenarioId|$cefrLevel|$lessonNumber';
+    if (await _localStorage.hasRoleplayLessonBonus(bonusKey)) return 0;
+
+    await _localStorage.markRoleplayLessonBonus(bonusKey);
+    await _localStorage.addXp(RoleplayXpRewards.lessonCompleteBonus);
+    return RoleplayXpRewards.lessonCompleteBonus;
   }
 
   Future<void> _pushProgress(LessonProgressModel progress) async {
@@ -158,6 +257,11 @@ class ProgressSyncService {
     _notifyMerged();
   }
 
+  Future<void> ensureLessonXpBackfill() async {
+    await _progressRepository.initialize();
+    await _backfillLessonXpAwardedFlags();
+  }
+
   Future<void> syncOnConnectivityRestored() async {
     await pullAndMerge();
   }
@@ -177,6 +281,24 @@ class ProgressSyncService {
   Future<void> syncStatsToFirestore() async {
     await _syncStatsToFirestore();
     _notifyMerged();
+  }
+
+  /// PRD 4.2.3 — one +5 XP boost per completed lesson (ad or Premium auto).
+  Future<bool> hasLessonXpBoostClaimed(String lessonKey) =>
+      _localStorage.hasXpBoostClaimed(lessonKey);
+
+  Future<bool> claimLessonXpBoost({
+    required String lessonKey,
+    int boostAmount = LessonXpRewards.rewardedBoost,
+  }) async {
+    if (await _localStorage.hasXpBoostClaimed(lessonKey)) return false;
+
+    await _localStorage.markXpBoostClaimed(lessonKey);
+    await _localStorage.addXp(boostAmount);
+    await _learningStatsService.reconcileFromProgress();
+    await _syncStatsToFirestore();
+    _notifyMerged();
+    return true;
   }
 
   Future<void> recordCorrections(int count) async {

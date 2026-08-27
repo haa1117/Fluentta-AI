@@ -12,12 +12,14 @@ class RoleplayScenarioOverviewCard extends StatelessWidget {
     required this.practiceTitle,
     required this.levelCode,
     required this.levelLabel,
+    this.progress,
   });
 
   final RoleplayScenarioModel scenario;
   final String practiceTitle;
   final String levelCode;
   final String levelLabel;
+  final double? progress;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +87,7 @@ class RoleplayScenarioOverviewCard extends StatelessWidget {
               ],
             ),
           ),
-          RoleplayProgressRing(progress: scenario.progress),
+          RoleplayProgressRing(progress: progress ?? scenario.progress),
         ],
       ),
     );

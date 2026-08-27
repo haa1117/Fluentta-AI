@@ -31,13 +31,12 @@ static const Color profileSubtitleColor=Color(0xff4C4354);
   static const Color splashDotCyan = Color(0xFF09EBD5);
   static const Color splashDotPurple = Color(0xFF6934FF);
   static const Color splashDotPink = Color(0xFFE65BFF);
-
-
+  static const Color xpEarnedTextColor = Color(0xffFD6901);
   static const Color bannerGradientStart = Color(0xFFF3E8FF);
   static const Color bannerGradientEnd = Color(0xFFEDE9FE);
 
   static const Color radioUnselected = Color(0xFFD1D5DB);
-
+static const Color inActiveTextColo=Color(0xffD3C4DC);
   static const Color heartRed = Color(0xFFFF4D6D);
   static const Color homeCardLavender = Color(0xFFF3EBFF);
   static const Color homeCardLavenderDark = Color(0xFFEDE4FF);

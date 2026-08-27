@@ -38,6 +38,10 @@ class LocalStorage {
   static const String _streakFreezesUsedWeekKey = 'streak_freezes_used_week';
   static const String _streakRepairMonthKey = 'streak_repair_month_used';
   static const String _streakBeforeBreakKey = 'streak_before_break';
+  static const String _roleplayLessonBonusKey = 'roleplay_lesson_bonus_v1';
+  static const String _xpBoostClaimedKey = 'xp_boost_claimed_v1';
+  static const String _lessonXpAwardedKey = 'lesson_xp_awarded_v1';
+  static const String _xpAwardedBackfillDoneKey = 'xp_awarded_backfill_done';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -312,6 +316,62 @@ class LocalStorage {
   Future<void> setReminderTime({required int hour, required int minute}) async {
     await _prefs!.setInt(_reminderHourKey, hour);
     await _prefs!.setInt(_reminderMinuteKey, minute);
+  }
+
+  Future<bool> hasRoleplayLessonBonus(String bonusKey) async {
+    final raw = _prefs!.getString(_roleplayLessonBonusKey);
+    if (raw == null || raw.isEmpty) return false;
+    final keys = raw.split('\n');
+    return keys.contains(bonusKey);
+  }
+
+  Future<void> markRoleplayLessonBonus(String bonusKey) async {
+    if (await hasRoleplayLessonBonus(bonusKey)) return;
+    final raw = _prefs!.getString(_roleplayLessonBonusKey);
+    final keys = raw == null || raw.isEmpty
+        ? <String>[]
+        : raw.split('\n').where((k) => k.isNotEmpty).toList();
+    keys.add(bonusKey);
+    await _prefs!.setString(_roleplayLessonBonusKey, keys.join('\n'));
+  }
+
+  Future<bool> hasXpBoostClaimed(String lessonKey) async {
+    final raw = _prefs!.getString(_xpBoostClaimedKey);
+    if (raw == null || raw.isEmpty) return false;
+    return raw.split('\n').contains(lessonKey);
+  }
+
+  Future<void> markXpBoostClaimed(String lessonKey) async {
+    if (await hasXpBoostClaimed(lessonKey)) return;
+    final raw = _prefs!.getString(_xpBoostClaimedKey);
+    final keys = raw == null || raw.isEmpty
+        ? <String>[]
+        : raw.split('\n').where((k) => k.isNotEmpty).toList();
+    keys.add(lessonKey);
+    await _prefs!.setString(_xpBoostClaimedKey, keys.join('\n'));
+  }
+
+  Future<bool> hasLessonXpAwarded(String lessonId) async {
+    final raw = _prefs!.getString(_lessonXpAwardedKey);
+    if (raw == null || raw.isEmpty) return false;
+    return raw.split('\n').contains(lessonId);
+  }
+
+  Future<void> markLessonXpAwarded(String lessonId) async {
+    if (await hasLessonXpAwarded(lessonId)) return;
+    final raw = _prefs!.getString(_lessonXpAwardedKey);
+    final keys = raw == null || raw.isEmpty
+        ? <String>[]
+        : raw.split('\n').where((k) => k.isNotEmpty).toList();
+    keys.add(lessonId);
+    await _prefs!.setString(_lessonXpAwardedKey, keys.join('\n'));
+  }
+
+  bool get xpAwardedBackfillDone =>
+      _prefs!.getBool(_xpAwardedBackfillDoneKey) ?? false;
+
+  Future<void> setXpAwardedBackfillDone() async {
+    await _prefs!.setBool(_xpAwardedBackfillDoneKey, true);
   }
 
   bool get shouldShowOnboarding => !isOnboardingComplete;

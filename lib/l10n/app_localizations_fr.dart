@@ -1546,6 +1546,49 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get dialogue => 'Dialogue';
+
+  @override
+  String get comprehension => 'Comprehension';
+
+  @override
+  String get roleplayDialogueSub => 'Practice the conversation';
+
+  @override
+  String get roleplayComprehensionSub => 'Check your understanding';
+
+  @override
+  String roleplayXpPerLesson(int xp) {
+    return '+$xp XP/Lesson';
+  }
+
+  @override
+  String roleplayLevelLocked(int xp) {
+    return 'Reach $xp XP to unlock this level';
+  }
+
+  @override
+  String xpEarnedCelebration(int xp) {
+    return '+$xp XP Earned';
+  }
+
+  @override
+  String get boostYourXp => 'Boost Your XP';
+
+  @override
+  String get watchShortAd => 'Watch a short ad';
+
+  @override
+  String boostXpButton(int xp) {
+    return 'Boost +$xp XP';
+  }
+
+  @override
+  String xpBoostApplied(int xp) {
+    return '+$xp XP boost applied!';
+  }
+
+  @override
   String get customPlanReady => 'Votre plan personnalisé est prêt';
 
   @override
