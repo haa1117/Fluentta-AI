@@ -7,6 +7,7 @@ import 'package:fluentta_ai/views/learn/learn_tab_screen.dart';
 import 'package:fluentta_ai/views/profile/profile_tab_screen.dart';
 import 'package:fluentta_ai/views/speak/speak_tab_screen.dart';
 import 'package:fluentta_ai/widgets/common/app_bottom_nav_bar.dart';
+import 'package:fluentta_ai/widgets/common/exit_app_dialog.dart';
 import 'package:provider/provider.dart';
 
 class MainShellScreen extends StatelessWidget {
@@ -43,19 +44,33 @@ class _MainShellBodyState extends State<_MainShellBody> {
   @override
   Widget build(BuildContext context) {
     final currentIndex = context.watch<MainShellViewModel>().currentIndex;
+    final shellViewModel = context.read<MainShellViewModel>();
 
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
-      body: IndexedStack(
-        index: currentIndex,
-        children: const [
-          HomeTabScreen(),
-          LearnTabScreen(),
-          SpeakTabScreen(),
-          ProfileTabScreen(),
-        ],
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+
+        if (shellViewModel.currentTab != MainTab.home) {
+          shellViewModel.selectTab(MainTab.home);
+          return;
+        }
+
+        showExitAppDialog(context);
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.scaffoldBackgroundColor,
+        body: IndexedStack(
+          index: currentIndex,
+          children: const [
+            HomeTabScreen(),
+            LearnTabScreen(),
+            SpeakTabScreen(),
+            ProfileTabScreen(),
+          ],
+        ),
+        bottomNavigationBar: const AppBottomNavBar(),
       ),
-      bottomNavigationBar: const AppBottomNavBar(),
     );
   }
 }

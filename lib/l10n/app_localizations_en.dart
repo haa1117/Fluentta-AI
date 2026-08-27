@@ -1083,6 +1083,19 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your saved progress will stay safe. You will need to sign in again to sync and restore premium access';
 
   @override
+  String get exitAppQuestion => 'Exit Fluenta?';
+
+  @override
+  String get exitAppMessage =>
+      'Your progress is saved. Come back anytime to continue learning.';
+
+  @override
+  String get keepLearning => 'Keep Learning';
+
+  @override
+  String get exitApp => 'Exit App';
+
+  @override
   String get deleteAccountQuestion => 'Delete Account?';
 
   @override

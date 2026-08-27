@@ -1079,6 +1079,19 @@ class AppLocalizationsUr extends AppLocalizations {
       'آپ ki محفوظ پیش رفت محفوظ رہے گی۔ مطابقت اور پریمیم رسائی بحال کرنے کے لیے دوبارہ سائن ان کرنا ہوگا';
 
   @override
+  String get exitAppQuestion => 'Fluenta سے باہر نکلیں؟';
+
+  @override
+  String get exitAppMessage =>
+      'آپ ki پیش رفت محفوظ ہے۔ سیکھنا جاری رکھنے کے لیے کبھی بھی واپس آئیں۔';
+
+  @override
+  String get keepLearning => 'سیکھنا جاری رکھیں';
+
+  @override
+  String get exitApp => 'ایپ بند کریں';
+
+  @override
   String get deleteAccountQuestion => 'اکاؤنٹ حذف کریں؟';
 
   @override

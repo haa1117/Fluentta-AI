@@ -2058,6 +2058,30 @@ abstract class AppLocalizations {
   /// **'Your saved progress will stay safe. You will need to sign in again to sync and restore premium access'**
   String get signOutDialogMessage;
 
+  /// No description provided for @exitAppQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit Fluenta?'**
+  String get exitAppQuestion;
+
+  /// No description provided for @exitAppMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress is saved. Come back anytime to continue learning.'**
+  String get exitAppMessage;
+
+  /// No description provided for @keepLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Learning'**
+  String get keepLearning;
+
+  /// No description provided for @exitApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit App'**
+  String get exitApp;
+
   /// No description provided for @deleteAccountQuestion.
   ///
   /// In en, this message translates to:

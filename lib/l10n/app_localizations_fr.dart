@@ -1096,6 +1096,19 @@ class AppLocalizationsFr extends AppLocalizations {
       'Votre progression sera conservée. Vous devrez vous reconnecter pour synchroniser et restaurer l\'accès premium';
 
   @override
+  String get exitAppQuestion => 'Quitter Fluenta ?';
+
+  @override
+  String get exitAppMessage =>
+      'Votre progression est enregistrée. Revenez quand vous voulez pour continuer à apprendre.';
+
+  @override
+  String get keepLearning => 'Continuer à apprendre';
+
+  @override
+  String get exitApp => 'Quitter l\'application';
+
+  @override
   String get deleteAccountQuestion => 'Supprimer le compte ?';
 
   @override

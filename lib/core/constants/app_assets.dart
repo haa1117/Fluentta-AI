@@ -25,6 +25,7 @@ class AppAssets {
   static const String lessonCompletedBird = 'assets/images/lesson_completed_bird.png';
   static const String profileBirdWithCircle = 'assets/images/profile_bird.png';
   static const String logOutImage = 'assets/images/logout_bird.png';
+  static const String exitAppBird = 'assets/images/exit_bird.png';
   static const String deleteAccountDialogImage = 'assets/images/delete_account_bird.png';
   static const String reminderTimeBird = 'assets/images/reminder_time_bird.png';
   static const String aiSpeakingTutorBird='assets/images/ai_speaking_tutor_bird.png';
