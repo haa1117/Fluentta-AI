@@ -18,6 +18,7 @@ import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:fluentta_ai/viewmodels/subscription_view_model.dart';
 import 'package:fluentta_ai/views/language/language_selection_screen.dart';
+import 'package:fluentta_ai/views/profile/account_and_security_screen.dart';
 import 'package:fluentta_ai/views/profile/notifications_reminders_screen.dart';
 import 'package:fluentta_ai/widgets/profile/profile_daily_goal_card.dart';
 import 'package:fluentta_ai/widgets/profile/profile_dialogs.dart';
@@ -117,6 +118,25 @@ class ProfileTabScreen extends StatelessWidget {
                     const ProfileStatsGrid(),
                     SizedBox(height: AppSizes.h(20)),
                     const ProfileDailyGoalCard(),
+                    SizedBox(height: AppSizes.h(20)),
+                    ProfileSectionHeader(title: l10n.accountSection),
+                    ProfileSettingsGroup(
+                      children: [
+                        ProfileSettingsTile(
+                          svgIcon: 'assets/svg/account_settings_icon.svg',
+                          title: l10n.accountAndSecurity,
+                          subtitle: l10n.accountAndSecuritySub,
+                          onTap: () {
+                            Navigator.of(context).push<void>(
+                              MaterialPageRoute<void>(
+                                builder: (_) =>
+                                    const AccountAndSecurityScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                     SizedBox(height: AppSizes.h(20)),
                     ProfileSectionHeader(title: l10n.settingsSection),
                     ProfileSettingsGroup(

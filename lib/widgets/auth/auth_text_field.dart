@@ -8,12 +8,14 @@ class AuthTextField extends StatefulWidget {
     super.key,
     required this.label,
     required this.hint,
-    required this.prefixIcon,
+    this.prefixIcon = Icons.edit_outlined,
     this.controller,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.showVisibilityToggle = false,
-    this.isShowPrefixIcon=false
+    this.isShowPrefixIcon = false,
+    this.readOnly = false,
+    this.enabled = true,
   });
 
   final String label;
@@ -24,6 +26,8 @@ class AuthTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final bool showVisibilityToggle;
   final bool isShowPrefixIcon;
+  final bool readOnly;
+  final bool enabled;
 
   @override
   State<AuthTextField> createState() => _AuthTextFieldState();
@@ -57,6 +61,8 @@ class _AuthTextFieldState extends State<AuthTextField> {
           controller: widget.controller,
           obscureText: _obscure,
           keyboardType: widget.keyboardType,
+          readOnly: widget.readOnly,
+          enabled: widget.enabled,
           style: TextStyle(
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(14),

@@ -38,6 +38,8 @@ class AuthExceptionHandler {
     switch (error.code) {
       case 'invalid-email':
         return l10n.authErrorInvalidEmail;
+      case 'invalid-name':
+        return l10n.authErrorNameRequired;
       case 'user-disabled':
         return l10n.authErrorUserDisabled;
       case 'user-not-found':
@@ -56,6 +58,8 @@ class AuthExceptionHandler {
         return l10n.authErrorNetwork;
       case 'operation-not-allowed':
         return l10n.authErrorOperationNotAllowed;
+      case 'password-change-unavailable':
+        return l10n.passwordChangeUnavailable;
       case 'invalid-verification-code':
         return l10n.authErrorInvalidVerificationCode;
       case 'expired-action-code':

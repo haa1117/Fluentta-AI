@@ -70,6 +70,15 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> refreshProfile() async {
+    final user = _authRepository.currentUser;
+    if (user != null) {
+      await user.reload();
+      _user = _authRepository.currentUser;
+    }
+    await _loadFirestoreUser();
+  }
+
   @override
   void dispose() {
     _authSubscription.cancel();

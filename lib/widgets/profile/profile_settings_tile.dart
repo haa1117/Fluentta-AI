@@ -63,7 +63,7 @@ class ProfileSettingsTile extends StatelessWidget {
                       title,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(15),
+                        fontSize: AppSizes.sp(16),
                         fontWeight: FontWeight.w600,
                         color: effectiveTitleColor,
                       ),
@@ -76,7 +76,7 @@ class ProfileSettingsTile extends StatelessWidget {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(12),
                           fontWeight: FontWeight.w400,
-                          color: AppColors.profileSubtitleColor,
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     ],

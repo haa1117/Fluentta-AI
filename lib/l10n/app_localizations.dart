@@ -1974,6 +1974,168 @@ abstract class AppLocalizations {
   /// **'ACCOUNT ACTIONS'**
   String get accountActions;
 
+  /// No description provided for @accountSection.
+  ///
+  /// In en, this message translates to:
+  /// **'ACCOUNT'**
+  String get accountSection;
+
+  /// No description provided for @accountAndSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Account and Security'**
+  String get accountAndSecurity;
+
+  /// No description provided for @accountAndSecuritySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Name, Email and Password settings'**
+  String get accountAndSecuritySub;
+
+  /// No description provided for @manageAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Account'**
+  String get manageAccount;
+
+  /// No description provided for @manageAccountDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage the information associated with your Fluenta profile.'**
+  String get manageAccountDesc;
+
+  /// No description provided for @personalDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'PERSONAL DETAILS'**
+  String get personalDetails;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameLabel;
+
+  /// No description provided for @emailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailLabel;
+
+  /// No description provided for @passwordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get passwordLabel;
+
+  /// No description provided for @passwordMasked.
+  ///
+  /// In en, this message translates to:
+  /// **'••••••••'**
+  String get passwordMasked;
+
+  /// No description provided for @yourNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Name'**
+  String get yourNameTitle;
+
+  /// No description provided for @manageYourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your name'**
+  String get manageYourName;
+
+  /// No description provided for @firstName.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get firstName;
+
+  /// No description provided for @lastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get lastName;
+
+  /// No description provided for @saveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChanges;
+
+  /// No description provided for @nameUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Name updated successfully'**
+  String get nameUpdated;
+
+  /// No description provided for @emailScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailScreenTitle;
+
+  /// No description provided for @manageYourEmailAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Your Email Address'**
+  String get manageYourEmailAddress;
+
+  /// No description provided for @emailCannotBeChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your email address cannot be changed.'**
+  String get emailCannotBeChanged;
+
+  /// No description provided for @currentEmailAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Current email address'**
+  String get currentEmailAddress;
+
+  /// No description provided for @changePasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get changePasswordTitle;
+
+  /// No description provided for @changePasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your current password and choose a new one'**
+  String get changePasswordSubtitle;
+
+  /// No description provided for @currentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get currentPassword;
+
+  /// No description provided for @enterCurrentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter current password'**
+  String get enterCurrentPassword;
+
+  /// No description provided for @passwordUpdatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated successfully'**
+  String get passwordUpdatedSuccess;
+
+  /// No description provided for @passwordChangeUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Password change is not available for social sign-in accounts.'**
+  String get passwordChangeUnavailable;
+
+  /// No description provided for @authErrorNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your first name.'**
+  String get authErrorNameRequired;
+
   /// No description provided for @signOutTitle.
   ///
   /// In en, this message translates to:

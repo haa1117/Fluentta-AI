@@ -1040,6 +1040,90 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountActions => 'ACCOUNT ACTIONS';
 
   @override
+  String get accountSection => 'ACCOUNT';
+
+  @override
+  String get accountAndSecurity => 'Account and Security';
+
+  @override
+  String get accountAndSecuritySub => 'Name, Email and Password settings';
+
+  @override
+  String get manageAccount => 'Manage Account';
+
+  @override
+  String get manageAccountDesc =>
+      'Manage the information associated with your Fluenta profile.';
+
+  @override
+  String get personalDetails => 'PERSONAL DETAILS';
+
+  @override
+  String get nameLabel => 'Name';
+
+  @override
+  String get emailLabel => 'Email';
+
+  @override
+  String get passwordLabel => 'Password';
+
+  @override
+  String get passwordMasked => '••••••••';
+
+  @override
+  String get yourNameTitle => 'Your Name';
+
+  @override
+  String get manageYourName => 'Manage your name';
+
+  @override
+  String get firstName => 'First Name';
+
+  @override
+  String get lastName => 'Last Name';
+
+  @override
+  String get saveChanges => 'Save Changes';
+
+  @override
+  String get nameUpdated => 'Name updated successfully';
+
+  @override
+  String get emailScreenTitle => 'Email';
+
+  @override
+  String get manageYourEmailAddress => 'Manage Your Email Address';
+
+  @override
+  String get emailCannotBeChanged => 'Your email address cannot be changed.';
+
+  @override
+  String get currentEmailAddress => 'Current email address';
+
+  @override
+  String get changePasswordTitle => 'Change Password';
+
+  @override
+  String get changePasswordSubtitle =>
+      'Enter your current password and choose a new one';
+
+  @override
+  String get currentPassword => 'Current password';
+
+  @override
+  String get enterCurrentPassword => 'Enter current password';
+
+  @override
+  String get passwordUpdatedSuccess => 'Password updated successfully';
+
+  @override
+  String get passwordChangeUnavailable =>
+      'Password change is not available for social sign-in accounts.';
+
+  @override
+  String get authErrorNameRequired => 'Please enter your first name.';
+
+  @override
   String get signOutTitle => 'Sign out';
 
   @override

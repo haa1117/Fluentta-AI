@@ -327,4 +327,67 @@ class AuthRepository {
     if (providerId.contains('apple')) return 'apple';
     return 'email';
   }
+
+  bool get canChangePassword {
+    final user = _auth.currentUser;
+    if (user == null) return false;
+    return user.providerData.any((info) => info.providerId == 'password');
+  }
+
+  Future<void> updateProfileName(String fullName) async {
+    final trimmed = fullName.trim();
+    if (trimmed.isEmpty) {
+      throw FirebaseAuthException(
+        code: 'invalid-name',
+        message: 'Please enter your first name.',
+      );
+    }
+
+    final user = _auth.currentUser;
+    if (user == null) {
+      throw FirebaseAuthException(
+        code: 'user-not-found',
+        message: 'No signed-in user found.',
+      );
+    }
+
+    await user.updateDisplayName(trimmed);
+    await user.reload();
+
+    await _localStorage.saveUserSession(
+      uid: user.uid,
+      email: user.email ?? '',
+      displayName: trimmed,
+    );
+
+    await _userRepository.updateFullName(uid: user.uid, fullName: trimmed);
+  }
+
+  Future<void> updatePasswordWithCurrent({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    final user = _auth.currentUser;
+    final email = user?.email;
+    if (user == null || email == null || email.isEmpty) {
+      throw FirebaseAuthException(
+        code: 'user-not-found',
+        message: 'No signed-in user found.',
+      );
+    }
+
+    if (!canChangePassword) {
+      throw FirebaseAuthException(
+        code: 'password-change-unavailable',
+        message: 'Password change is not available for this account.',
+      );
+    }
+
+    final credential = EmailAuthProvider.credential(
+      email: email,
+      password: currentPassword,
+    );
+    await user.reauthenticateWithCredential(credential);
+    await user.updatePassword(newPassword);
+  }
 }

@@ -276,6 +276,20 @@ class UserRepository {
     return user?.lives;
   }
 
+  Future<void> updateFullName({
+    required String uid,
+    required String fullName,
+  }) async {
+    await _userDoc(uid).set(
+      {
+        'fullName': fullName,
+        'displayName': fullName,
+        'updatedAt': FieldValue.serverTimestamp(),
+      },
+      SetOptions(merge: true),
+    );
+  }
+
   Future<void> updateLearningStats({
     required String uid,
     required int xpEarned,
