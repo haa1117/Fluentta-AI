@@ -390,4 +390,54 @@ class AuthRepository {
     await user.reauthenticateWithCredential(credential);
     await user.updatePassword(newPassword);
   }
+
+  Future<void> deleteAccount({String? currentPassword}) async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      throw FirebaseAuthException(
+        code: 'user-not-found',
+        message: 'No signed-in user found.',
+      );
+    }
+
+    if (canChangePassword) {
+      final password = currentPassword?.trim() ?? '';
+      if (password.isEmpty) {
+        throw FirebaseAuthException(
+          code: 'invalid-credential',
+          message: 'Please enter your current password.',
+        );
+      }
+
+      final email = user.email;
+      if (email == null || email.isEmpty) {
+        throw FirebaseAuthException(
+          code: 'invalid-email',
+          message: 'No email is linked to this account.',
+        );
+      }
+
+      await user.reauthenticateWithCredential(
+        EmailAuthProvider.credential(
+          email: email,
+          password: password,
+        ),
+      );
+    }
+
+    final uid = user.uid;
+    await _userRepository.deleteUserAccount(uid);
+    await user.delete();
+
+    if (!kIsWeb) {
+      try {
+        await _googleSignIn.signOut();
+      } catch (_) {
+        // User may have signed in with email/password only.
+      }
+    }
+
+    await _localStorage.clearUserSession();
+    await _clearResetState();
+  }
 }

@@ -54,6 +54,8 @@ class AuthViewModel extends ChangeNotifier {
   String? get selectedLanguage =>
       _firestoreUser?.selectedLanguage ?? _localStorage.selectedLanguage;
 
+  bool get canChangePassword => _authRepository.canChangePassword;
+
   Future<void> _loadFirestoreUser() async {
     final uid = _user?.uid;
     if (uid == null) return;
@@ -65,6 +67,13 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<void> signOut() async {
     await _authRepository.signOut();
+    _user = null;
+    _firestoreUser = null;
+    notifyListeners();
+  }
+
+  Future<void> deleteAccount({String? currentPassword}) async {
+    await _authRepository.deleteAccount(currentPassword: currentPassword);
     _user = null;
     _firestoreUser = null;
     notifyListeners();

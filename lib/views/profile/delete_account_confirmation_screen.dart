@@ -4,8 +4,11 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
 import 'package:fluentta_ai/views/profile/account_deleted_screen.dart';
+import 'package:fluentta_ai/widgets/auth/auth_text_field.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -21,21 +24,59 @@ class _DeleteAccountConfirmationScreenState
     extends State<DeleteAccountConfirmationScreen> {
   bool _confirmed = false;
   bool _isDeleting = false;
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordController.addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  bool get _requiresPassword =>
+      context.read<AuthViewModel>().canChangePassword;
+
+  bool get _canDelete {
+    if (!_confirmed || _isDeleting) return false;
+    if (_requiresPassword && _passwordController.text.trim().isEmpty) {
+      return false;
+    }
+    return true;
+  }
 
   Future<void> _deleteAccount() async {
-    if (!_confirmed || _isDeleting) return;
+    if (!_canDelete) return;
     setState(() => _isDeleting = true);
-    await context.read<AuthViewModel>().signOut();
-    if (!mounted) return;
-    await Navigator.of(context).pushReplacement<void, void>(
-      MaterialPageRoute<void>(builder: (_) => const AccountDeletedScreen()),
-    );
+    try {
+      await context.read<AuthViewModel>().deleteAccount(
+            currentPassword: _requiresPassword
+                ? _passwordController.text
+                : null,
+          );
+      if (!mounted) return;
+      await Navigator.of(context).pushReplacement<void, void>(
+        MaterialPageRoute<void>(builder: (_) => const AccountDeletedScreen()),
+      );
+    } catch (error) {
+      if (!mounted) return;
+      setState(() => _isDeleting = false);
+      SnackbarHelper.showError(
+        context,
+        AuthExceptionHandler.getMessage(error, context.l10n),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
+    final requiresPassword = context.watch<AuthViewModel>().canChangePassword;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -211,12 +252,23 @@ class _DeleteAccountConfirmationScreenState
                   ],
                 ),
               ),
+              if (requiresPassword) ...[
+                SizedBox(height: AppSizes.h(20)),
+                AuthTextField(
+                  label: l10n.currentPassword,
+                  hint: l10n.enterCurrentPassword,
+                  controller: _passwordController,
+                  obscureText: true,
+                  showVisibilityToggle: true,
+                  isShowPrefixIcon: false,
+                ),
+              ],
               SizedBox(height: AppSizes.h(24)),
               SizedBox(
                 width: double.infinity,
                 height: AppSizes.buttonHeight,
                 child: ElevatedButton(
-                  onPressed: _confirmed && !_isDeleting ? _deleteAccount : null,
+                  onPressed: _canDelete ? _deleteAccount : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.redColor,
                     disabledBackgroundColor:

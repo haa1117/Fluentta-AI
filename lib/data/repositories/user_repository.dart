@@ -362,4 +362,20 @@ class UserRepository {
 
     return stats.isEmpty ? null : stats;
   }
+
+  Future<void> deleteUserAccount(String uid) async {
+    final progressRef = _userDoc(uid).collection('lessonProgress');
+    while (true) {
+      final snapshot = await progressRef.limit(450).get();
+      if (snapshot.docs.isEmpty) break;
+
+      final batch = _firestore.batch();
+      for (final doc in snapshot.docs) {
+        batch.delete(doc.reference);
+      }
+      await batch.commit();
+    }
+
+    await _userDoc(uid).delete();
+  }
 }
