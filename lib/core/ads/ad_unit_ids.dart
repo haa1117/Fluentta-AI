@@ -4,10 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
 
 /// AdMob unit IDs live in the app only — never in Firestore.
-/// Uses Google test IDs in debug and until production IDs are configured.
+/// One unit ID per ad format: native, banner, rewarded.
+/// Firestore controls *where* ads show (placements), not unit IDs.
 class AdUnitIds {
   AdUnitIds._();
-
+ 
   static const androidTestAppId = 'ca-app-pub-3940256099942544~3347511713';
   static const iosTestAppId = 'ca-app-pub-3940256099942544~1458002511';
 
@@ -16,11 +17,34 @@ class AdUnitIds {
       'ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY';
   static const iosProductionAppId = 'ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY';
 
+  // --- Test unit IDs (Google official) ---
+  static const androidTestNative = 'ca-app-pub-3940256099942544/2247696110';
+  static const iosTestNative = 'ca-app-pub-3940256099942544/3986624511';
+  static const androidTestBanner = 'ca-app-pub-3940256099942544/6300978111';
+  static const iosTestBanner = 'ca-app-pub-3940256099942544/2934735716';
+  static const androidTestRewarded = 'ca-app-pub-3940256099942544/5224354917';
+  static const iosTestRewarded = 'ca-app-pub-3940256099942544/1712485313';
+
+  // TODO: Replace with your real AdMob unit IDs before release.
+  static const androidProductionNative =
+      'ca-app-pub-XXXXXXXXXXXXXXXX/NATIVE0000';
+  static const iosProductionNative = 'ca-app-pub-XXXXXXXXXXXXXXXX/NATIVE0000';
+  static const androidProductionBanner =
+      'ca-app-pub-XXXXXXXXXXXXXXXX/BANNER0000';
+  static const iosProductionBanner = 'ca-app-pub-XXXXXXXXXXXXXXXX/BANNER0000';
+  static const androidProductionRewarded =
+      'ca-app-pub-XXXXXXXXXXXXXXXX/REWARD0000';
+  static const iosProductionRewarded = 'ca-app-pub-XXXXXXXXXXXXXXXX/REWARD0000';
+
   static bool get _productionConfigured =>
       !androidProductionAppId.contains('XXXXXXXX') &&
       !iosProductionAppId.contains('XXXXXXXX') &&
-      !_productionAndroidUnits.values.any((id) => id.contains('XXXXXXXX')) &&
-      !_productionIosUnits.values.any((id) => id.contains('XXXXXXXX'));
+      !androidProductionNative.contains('XXXXXXXX') &&
+      !iosProductionNative.contains('XXXXXXXX') &&
+      !androidProductionBanner.contains('XXXXXXXX') &&
+      !iosProductionBanner.contains('XXXXXXXX') &&
+      !androidProductionRewarded.contains('XXXXXXXX') &&
+      !iosProductionRewarded.contains('XXXXXXXX');
 
   static bool get useTestIds => kDebugMode || !_productionConfigured;
 
@@ -30,54 +54,33 @@ class AdUnitIds {
   static String get iosAppId => useTestIds ? iosTestAppId : iosProductionAppId;
 
   static String unitId(AdPlacement placement) {
-    if (useTestIds) {
-      return Platform.isIOS
-          ? _testIosUnits[placement]!
-          : _testAndroidUnits[placement]!;
+    if (placement.isRewarded) {
+      return _rewardedUnitId;
     }
-    return Platform.isIOS
-        ? _productionIosUnits[placement]!
-        : _productionAndroidUnits[placement]!;
+    if (placement.isNative) {
+      return _nativeUnitId;
+    }
+    return _bannerUnitId;
   }
 
-  static const _testAndroidUnits = {
-    AdPlacement.onboardingNative: 'ca-app-pub-3940256099942544/2247696110',
-    AdPlacement.homeBanner: 'ca-app-pub-3940256099942544/6300978111',
-    AdPlacement.learnBanner: 'ca-app-pub-3940256099942544/6300978111',
-    AdPlacement.setupBanner: 'ca-app-pub-3940256099942544/6300978111',
-    AdPlacement.roleplayBanner: 'ca-app-pub-3940256099942544/6300978111',
-    AdPlacement.lessonNative: 'ca-app-pub-3940256099942544/2247696110',
-    AdPlacement.rewardedXpBoost: 'ca-app-pub-3940256099942544/5224354917',
-  };
+  static String get _nativeUnitId {
+    if (useTestIds) {
+      return Platform.isIOS ? iosTestNative : androidTestNative;
+    }
+    return Platform.isIOS ? iosProductionNative : androidProductionNative;
+  }
 
-  static const _testIosUnits = {
-    AdPlacement.onboardingNative: 'ca-app-pub-3940256099942544/3986624511',
-    AdPlacement.homeBanner: 'ca-app-pub-3940256099942544/2934735716',
-    AdPlacement.learnBanner: 'ca-app-pub-3940256099942544/2934735716',
-    AdPlacement.setupBanner: 'ca-app-pub-3940256099942544/2934735716',
-    AdPlacement.roleplayBanner: 'ca-app-pub-3940256099942544/2934735716',
-    AdPlacement.lessonNative: 'ca-app-pub-3940256099942544/3986624511',
-    AdPlacement.rewardedXpBoost: 'ca-app-pub-3940256099942544/1712485313',
-  };
+  static String get _bannerUnitId {
+    if (useTestIds) {
+      return Platform.isIOS ? iosTestBanner : androidTestBanner;
+    }
+    return Platform.isIOS ? iosProductionBanner : androidProductionBanner;
+  }
 
-  // TODO: Replace with your real AdMob unit IDs before release.
-  static const _productionAndroidUnits = {
-    AdPlacement.onboardingNative: 'ca-app-pub-XXXXXXXXXXXXXXXX/AAAAAAAAAA',
-    AdPlacement.homeBanner: 'ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB',
-    AdPlacement.learnBanner: 'ca-app-pub-XXXXXXXXXXXXXXXX/CCCCCCCCCC',
-    AdPlacement.setupBanner: 'ca-app-pub-XXXXXXXXXXXXXXXX/DDDDDDDDDD',
-    AdPlacement.roleplayBanner: 'ca-app-pub-XXXXXXXXXXXXXXXX/EEEEEEEEEE',
-    AdPlacement.lessonNative: 'ca-app-pub-XXXXXXXXXXXXXXXX/FFFFFFFFFF',
-    AdPlacement.rewardedXpBoost: 'ca-app-pub-XXXXXXXXXXXXXXXX/GGGGGGGGGG',
-  };
-
-  static const _productionIosUnits = {
-    AdPlacement.onboardingNative: 'ca-app-pub-XXXXXXXXXXXXXXXX/HHHHHHHHHH',
-    AdPlacement.homeBanner: 'ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII',
-    AdPlacement.learnBanner: 'ca-app-pub-XXXXXXXXXXXXXXXX/JJJJJJJJJJ',
-    AdPlacement.setupBanner: 'ca-app-pub-XXXXXXXXXXXXXXXX/KKKKKKKKKK',
-    AdPlacement.roleplayBanner: 'ca-app-pub-XXXXXXXXXXXXXXXX/LLLLLLLLLL',
-    AdPlacement.lessonNative: 'ca-app-pub-XXXXXXXXXXXXXXXX/MMMMMMMMMM',
-    AdPlacement.rewardedXpBoost: 'ca-app-pub-XXXXXXXXXXXXXXXX/NNNNNNNNNN',
-  };
+  static String get _rewardedUnitId {
+    if (useTestIds) {
+      return Platform.isIOS ? iosTestRewarded : androidTestRewarded;
+    }
+    return Platform.isIOS ? iosProductionRewarded : androidProductionRewarded;
+  }
 }

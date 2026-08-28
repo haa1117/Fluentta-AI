@@ -7,6 +7,11 @@
       "showRate": 1,
       "minIntervalSeconds": 0
     },
+    "language_native": {
+      "enabled": true,
+      "showRate": 1,
+      "minIntervalSeconds": 0
+    },
     "home_banner": {
       "enabled": false,
       "showRate": 0.8,

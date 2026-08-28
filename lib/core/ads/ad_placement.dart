@@ -1,6 +1,7 @@
 /// Remote-controlled ad slots. Add new values here when wiring more screens.
 enum AdPlacement {
   onboardingNative('onboarding_native'),
+  languageNative('language_native'),
   homeBanner('home_banner'),
   learnBanner('learn_banner'),
   setupBanner('setup_banner'),
@@ -20,6 +21,7 @@ enum AdPlacement {
 
   bool get isNative =>
       this == AdPlacement.onboardingNative ||
+      this == AdPlacement.languageNative ||
       this == AdPlacement.lessonNative;
 
   bool get isRewarded => this == AdPlacement.rewardedXpBoost;

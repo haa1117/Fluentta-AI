@@ -3,7 +3,8 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/language_view_model.dart';
-import 'package:fluentta_ai/widgets/common/ad_placeholder.dart';
+import 'package:fluentta_ai/core/ads/ad_placement.dart';
+import 'package:fluentta_ai/widgets/ads/ad_banner_widget.dart';
 import 'package:fluentta_ai/widgets/common/language_banner.dart';
 import 'package:fluentta_ai/widgets/common/language_tile.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
@@ -67,8 +68,7 @@ class LanguageSelectionScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: AppSizes.spaceMd),
-                    const AdPlaceholder(),
+
                     SizedBox(height: AppSizes.spaceMd),
                   ],
                 ),
@@ -81,9 +81,19 @@ class LanguageSelectionScreen extends StatelessWidget {
                 AppSizes.horizontalPadding,
                 AppSizes.spaceMd,
               ),
-              child: PrimaryButton(
-                text: l10n.continueBtn,
-                onPressed: () => viewModel.continueWithLanguage(onComplete),
+              child: Column(
+                children: [
+                  SizedBox(height: AppSizes.spaceMd),
+                  const AdNativeWidget(
+                    placement: AdPlacement.languageNative,
+                  ),
+
+
+                  PrimaryButton(
+                    text: l10n.continueBtn,
+                    onPressed: () => viewModel.continueWithLanguage(onComplete),
+                  ),
+                ],
               ),
             ),
           ],
