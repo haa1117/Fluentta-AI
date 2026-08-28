@@ -1,5 +1,7 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/ads/ad_placement.dart';
+import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -46,6 +48,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
   late final ConfettiController _confettiController;
   bool _boostClaimed = false;
   bool _boostChecked = false;
+  bool _boostLoading = false;
 
   @override
   void initState() {
@@ -89,9 +92,20 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
 
   Future<void> _onBoostTap() async {
     final lessonKey = widget.boostLessonKey;
-    if (lessonKey == null || _boostClaimed) return;
+    if (lessonKey == null || _boostClaimed || _boostLoading) return;
 
-    // Stub rewarded ad — wire ads SDK here later.
+    setState(() => _boostLoading = true);
+
+    final rewarded = await AdMobService.instance.showRewarded(
+      AdPlacement.rewardedXpBoost,
+      onReward: () {},
+    );
+
+    if (!mounted) return;
+    setState(() => _boostLoading = false);
+
+    if (!rewarded) return;
+
     final sync = context.read<ProgressSyncService>();
     final granted = await sync.claimLessonXpBoost(
       lessonKey: lessonKey,
@@ -209,6 +223,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                   if (_showBoostCard) ...[
                     _XpBoostCard(
                       boostAmount: widget.xpBoostAmount,
+                      isLoading: _boostLoading,
                       onBoost: _onBoostTap,
                     ),
                     SizedBox(height: AppSizes.spaceLg),
@@ -232,10 +247,12 @@ class _XpBoostCard extends StatelessWidget {
   const _XpBoostCard({
     required this.boostAmount,
     required this.onBoost,
+    this.isLoading = false,
   });
 
   final int boostAmount;
   final VoidCallback onBoost;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -303,18 +320,28 @@ class _XpBoostCard extends StatelessWidget {
             color: AppColors.white,
             borderRadius: BorderRadius.circular(AppSizes.w(10)),
             child: InkWell(
-              onTap: onBoost,
+              onTap: isLoading ? null : onBoost,
               borderRadius: BorderRadius.circular(AppSizes.w(28)),
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSizes.h(14)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(
-                      AppAssets.watchAdSvg,
-                      width: AppSizes.sp(20),
-                      height: AppSizes.sp(20),
-                    ),
+                    if (isLoading)
+                      SizedBox(
+                        width: AppSizes.sp(20),
+                        height: AppSizes.sp(20),
+                        child: const CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: AppColors.primaryColor,
+                        ),
+                      )
+                    else
+                      SvgPicture.asset(
+                        AppAssets.watchAdSvg,
+                        width: AppSizes.sp(20),
+                        height: AppSizes.sp(20),
+                      ),
                     SizedBox(width: AppSizes.w(15)),
                     Text(
                       l10n.boostXpButton(boostAmount),
