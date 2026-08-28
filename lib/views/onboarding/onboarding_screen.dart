@@ -4,7 +4,8 @@ import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/onboarding_view_model.dart';
-import 'package:fluentta_ai/widgets/common/ad_placeholder.dart';
+import 'package:fluentta_ai/core/ads/ad_placement.dart';
+import 'package:fluentta_ai/widgets/ads/ad_banner_widget.dart';
 import 'package:fluentta_ai/widgets/common/onboarding_text.dart';
 import 'package:fluentta_ai/widgets/common/page_indicator.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
@@ -49,7 +50,9 @@ class OnboardingScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
               child: Column(
                 children: [
-                  const AdPlaceholder(),
+                  const AdNativeWidget(
+                    placement: AdPlacement.onboardingNative,
+                  ),
                   SizedBox(height: AppSizes.spaceMd),
                   PrimaryButton(
                     text: l10n.next,

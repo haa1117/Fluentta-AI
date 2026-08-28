@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/app_navigator.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/navigation/password_reset_deep_link_handler.dart';
+import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/theme/app_theme.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
@@ -91,6 +92,8 @@ void main() async {
   await localNotificationService.initialize();
 
   if (!kIsWeb) {
+    await AdMobService.instance.initialize(localStorage: localStorage);
+
     final openedFromResetLink =
         await _handleLaunchPasswordResetLink(authRepository);
     if (!openedFromResetLink) {

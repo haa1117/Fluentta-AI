@@ -1,0 +1,41 @@
+{
+  "masterEnabled": true,
+  "hideForPremiumUsers": true,
+  "placements": {
+    "onboarding_native": {
+      "enabled": true,
+      "showRate": 1,
+      "minIntervalSeconds": 0
+    },
+    "home_banner": {
+      "enabled": false,
+      "showRate": 0.8,
+      "minIntervalSeconds": 60
+    },
+    "learn_banner": {
+      "enabled": false,
+      "showRate": 0.8,
+      "minIntervalSeconds": 60
+    },
+    "setup_banner": {
+      "enabled": false,
+      "showRate": 1,
+      "minIntervalSeconds": 0
+    },
+    "roleplay_banner": {
+      "enabled": false,
+      "showRate": 0.7,
+      "minIntervalSeconds": 120
+    },
+    "lesson_native": {
+      "enabled": false,
+      "showRate": 0.5,
+      "minIntervalSeconds": 300
+    },
+    "rewarded_xp_boost": {
+      "enabled": false,
+      "showRate": 1,
+      "minIntervalSeconds": 0
+    }
+  }
+}

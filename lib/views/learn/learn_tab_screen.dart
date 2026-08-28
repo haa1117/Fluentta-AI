@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -63,7 +64,7 @@ class LearnTabScreen extends StatelessWidget {
               },
             ),
             SizedBox(height: AppSizes.spaceXxl + AppSizes.spaceLg),
-            const HomeBannerAd(),
+            const HomeBannerAd(placement: AdPlacement.learnBanner),
           ],
         ),
       ),

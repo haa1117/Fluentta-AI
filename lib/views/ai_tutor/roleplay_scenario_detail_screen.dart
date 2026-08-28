@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -200,7 +201,7 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: AppSizes.h(180)),
-                  const HomeBannerAd(),
+                  const HomeBannerAd(placement: AdPlacement.roleplayBanner),
                 ],
               ),
             ),
