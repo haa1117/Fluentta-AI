@@ -24,6 +24,9 @@ class AdUnitIds {
   static const iosTestBanner = 'ca-app-pub-3940256099942544/2934735716';
   static const androidTestRewarded = 'ca-app-pub-3940256099942544/5224354917';
   static const iosTestRewarded = 'ca-app-pub-3940256099942544/1712485313';
+  static const androidTestInterstitial =
+      'ca-app-pub-3940256099942544/1033173712';
+  static const iosTestInterstitial = 'ca-app-pub-3940256099942544/4411468910';
 
   // TODO: Replace with your real AdMob unit IDs before release.
   static const androidProductionNative =
@@ -35,6 +38,10 @@ class AdUnitIds {
   static const androidProductionRewarded =
       'ca-app-pub-XXXXXXXXXXXXXXXX/REWARD0000';
   static const iosProductionRewarded = 'ca-app-pub-XXXXXXXXXXXXXXXX/REWARD0000';
+  static const androidProductionInterstitial =
+      'ca-app-pub-XXXXXXXXXXXXXXXX/INTER00000';
+  static const iosProductionInterstitial =
+      'ca-app-pub-XXXXXXXXXXXXXXXX/INTER00000';
 
   static bool get _productionConfigured =>
       !androidProductionAppId.contains('XXXXXXXX') &&
@@ -44,7 +51,9 @@ class AdUnitIds {
       !androidProductionBanner.contains('XXXXXXXX') &&
       !iosProductionBanner.contains('XXXXXXXX') &&
       !androidProductionRewarded.contains('XXXXXXXX') &&
-      !iosProductionRewarded.contains('XXXXXXXX');
+      !iosProductionRewarded.contains('XXXXXXXX') &&
+      !androidProductionInterstitial.contains('XXXXXXXX') &&
+      !iosProductionInterstitial.contains('XXXXXXXX');
 
   static bool get useTestIds => kDebugMode || !_productionConfigured;
 
@@ -54,6 +63,9 @@ class AdUnitIds {
   static String get iosAppId => useTestIds ? iosTestAppId : iosProductionAppId;
 
   static String unitId(AdPlacement placement) {
+    if (placement.isInterstitial) {
+      return _interstitialUnitId;
+    }
     if (placement.isRewarded) {
       return _rewardedUnitId;
     }
@@ -82,5 +94,14 @@ class AdUnitIds {
       return Platform.isIOS ? iosTestRewarded : androidTestRewarded;
     }
     return Platform.isIOS ? iosProductionRewarded : androidProductionRewarded;
+  }
+
+  static String get _interstitialUnitId {
+    if (useTestIds) {
+      return Platform.isIOS ? iosTestInterstitial : androidTestInterstitial;
+    }
+    return Platform.isIOS
+        ? iosProductionInterstitial
+        : androidProductionInterstitial;
   }
 }

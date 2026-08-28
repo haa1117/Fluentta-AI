@@ -12,6 +12,11 @@
       "showRate": 1,
       "minIntervalSeconds": 0
     },
+    "splash_interstitial": {
+      "enabled": true,
+      "showRate": 1,
+      "minIntervalSeconds": 0
+    },
     "home_banner": {
       "enabled": false,
       "showRate": 0.8,

@@ -2,6 +2,7 @@
 enum AdPlacement {
   onboardingNative('onboarding_native'),
   languageNative('language_native'),
+  splashInterstitial('splash_interstitial'),
   homeBanner('home_banner'),
   learnBanner('learn_banner'),
   setupBanner('setup_banner'),
@@ -25,6 +26,8 @@ enum AdPlacement {
       this == AdPlacement.onboardingNative ||
       this == AdPlacement.languageNative ||
       this == AdPlacement.lessonNative;
+
+  bool get isInterstitial => this == AdPlacement.splashInterstitial;
 
   bool get isRewarded => this == AdPlacement.rewardedXpBoost;
 }

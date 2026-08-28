@@ -29,11 +29,14 @@ class AdMobService extends ChangeNotifier {
   final Map<AdPlacement, List<BannerAd>> _bannerPool = {};
   final Map<AdPlacement, List<NativeAd>> _nativePool = {};
   final Map<AdPlacement, RewardedAd?> _rewardedCache = {};
+  final Map<AdPlacement, InterstitialAd?> _interstitialCache = {};
   final Map<AdPlacement, DateTime> _lastShownAt = {};
   final Map<AdPlacement, bool> _showRateDecisions = {};
   final Map<AdPlacement, bool> _loadingBanner = {};
   final Map<AdPlacement, bool> _loadingNative = {};
   final Map<AdPlacement, bool> _loadingRewarded = {};
+  final Map<AdPlacement, bool> _loadingInterstitial = {};
+  final Map<AdPlacement, Future<void>> _interstitialLoadTasks = {};
 
   AdsRemoteConfig get config => _config;
   bool get isInitialized => _initialized;
@@ -215,6 +218,61 @@ class AdMobService extends ChangeNotifier {
     return completer.future;
   }
 
+  /// Starts loading an interstitial if ads are allowed for this placement.
+  void preloadInterstitial(AdPlacement placement) {
+    if (!shouldDisplay(placement)) return;
+    unawaited(_preloadInterstitial(placement));
+  }
+
+  /// Waits until interstitial is cached or [timeout] elapses.
+  Future<bool> waitForInterstitial(
+    AdPlacement placement, {
+    required Duration timeout,
+  }) async {
+    if (!shouldDisplay(placement)) return false;
+    if (_interstitialCache[placement] != null) return true;
+
+    try {
+      await _preloadInterstitial(placement).timeout(timeout);
+    } on TimeoutException {
+      if (kDebugMode) {
+        debugPrint('Interstitial preload timeout [$placement]');
+      }
+    }
+
+    return _interstitialCache[placement] != null;
+  }
+
+  /// Shows a preloaded interstitial. Returns when dismissed or if show fails.
+  Future<bool> showInterstitial(AdPlacement placement) async {
+    if (!shouldDisplay(placement)) return false;
+
+    final ad = _interstitialCache.remove(placement);
+    if (ad == null) return false;
+
+    final completer = Completer<bool>();
+
+    ad.fullScreenContentCallback = FullScreenContentCallback(
+      onAdDismissedFullScreenContent: (ad) {
+        ad.dispose();
+        recordImpression(placement);
+        unawaited(_preloadInterstitial(placement));
+        if (!completer.isCompleted) completer.complete(true);
+      },
+      onAdFailedToShowFullScreenContent: (ad, error) {
+        if (kDebugMode) {
+          debugPrint('Interstitial show failed [$placement]: $error');
+        }
+        ad.dispose();
+        unawaited(_preloadInterstitial(placement));
+        if (!completer.isCompleted) completer.complete(false);
+      },
+    );
+
+    ad.show();
+    return completer.future;
+  }
+
   Future<void> _preloadEnabledPlacements() async {
     for (final placement in AdPlacement.values) {
       if (!_config.settingsFor(placement).enabled) continue;
@@ -226,6 +284,8 @@ class AdMobService extends ChangeNotifier {
         unawaited(_preloadNative(placement));
       } else if (placement.isRewarded) {
         unawaited(_preloadRewarded(placement));
+      } else if (placement.isInterstitial) {
+        unawaited(_preloadInterstitial(placement));
       }
     }
   }
@@ -274,6 +334,37 @@ class AdMobService extends ChangeNotifier {
     _loadingRewarded[placement] = false;
     if (ad != null) {
       _rewardedCache[placement] = ad;
+    }
+  }
+
+  Future<void> _preloadInterstitial(AdPlacement placement) async {
+    if (_interstitialCache[placement] != null) return;
+
+    final existing = _interstitialLoadTasks[placement];
+    if (existing != null) {
+      await existing;
+      return;
+    }
+
+    if (!_config.settingsFor(placement).enabled) return;
+
+    final task = _loadInterstitialIntoCache(placement);
+    _interstitialLoadTasks[placement] = task;
+    try {
+      await task;
+    } finally {
+      _interstitialLoadTasks.remove(placement);
+    }
+  }
+
+  Future<void> _loadInterstitialIntoCache(AdPlacement placement) async {
+    if (_interstitialCache[placement] != null) return;
+
+    _loadingInterstitial[placement] = true;
+    final ad = await _loadInterstitial(placement);
+    _loadingInterstitial[placement] = false;
+    if (ad != null) {
+      _interstitialCache[placement] = ad;
     }
   }
 
@@ -385,6 +476,40 @@ class AdMobService extends ChangeNotifier {
     );
   }
 
+  Future<InterstitialAd?> _loadInterstitial(AdPlacement placement) async {
+    final completer = Completer<InterstitialAd?>();
+
+    if (kDebugMode) {
+      debugPrint(
+        'Loading interstitial [$placement] unitId=${unitIdFor(placement)}',
+      );
+    }
+
+    await InterstitialAd.load(
+      adUnitId: unitIdFor(placement),
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          if (kDebugMode) {
+            debugPrint('Interstitial loaded [$placement]');
+          }
+          if (!completer.isCompleted) completer.complete(ad);
+        },
+        onAdFailedToLoad: (error) {
+          if (kDebugMode) {
+            debugPrint('Interstitial load failed [$placement]: $error');
+          }
+          if (!completer.isCompleted) completer.complete(null);
+        },
+      ),
+    );
+
+    return completer.future.timeout(
+      const Duration(seconds: 12),
+      onTimeout: () => null,
+    );
+  }
+
   bool _passesShowRate(double rate) {
     if (rate >= 1) return true;
     if (rate <= 0) return false;
@@ -417,5 +542,10 @@ class AdMobService extends ChangeNotifier {
       ad?.dispose();
     }
     _rewardedCache.clear();
+
+    for (final ad in _interstitialCache.values) {
+      ad?.dispose();
+    }
+    _interstitialCache.clear();
   }
 }

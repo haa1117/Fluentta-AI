@@ -52,7 +52,8 @@ class AdsRemoteConfig {
       placements: {
         for (final placement in AdPlacement.values)
           placement: AdPlacementSettings.defaults(
-            enabled: placement == AdPlacement.onboardingNative,
+            enabled: placement == AdPlacement.onboardingNative ||
+                placement == AdPlacement.splashInterstitial,
           ),
       },
     );
