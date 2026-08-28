@@ -79,7 +79,7 @@ class AiTutorScreen extends StatelessWidget {
             ),
             SizedBox(height: AppSizes.spaceMd),
             SizedBox(
-              height: AppSizes.w(130) + AppSizes.h(44),
+              height: RoleplayScenarioCard.listExtent(context),
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: AiTutorViewModel.scenarios.length,

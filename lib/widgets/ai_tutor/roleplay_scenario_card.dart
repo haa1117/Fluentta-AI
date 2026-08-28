@@ -18,32 +18,36 @@ class RoleplayScenarioCard extends StatelessWidget {
   final VoidCallback onTap;
   final bool isLocked;
 
+  /// Height for horizontal scenario lists — keeps cards from clipping.
+  static double listExtent(BuildContext context) {
+    AppSizes.init(context);
+    return AppSizes.w(150) +
+        AppSizes.h(8) +
+        AppSizes.sp(13) * 1.2 * 2 +
+        AppSizes.h(4);
+  }
+
   @override
   Widget build(BuildContext context) {
+    AppSizes.init(context);
+    final imageSize = AppSizes.w(160);
+
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: AppSizes.w(180),
+        width: imageSize,
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              width: AppSizes.w(160),
-              height: AppSizes.w(160),
+              width: imageSize,
+              height: imageSize,
               decoration: BoxDecoration(
-                color: Color(0xffFFFFFF),
+                color: const Color(0xffFFFFFF),
                 border: Border.all(
-                  color: AppColors.borderLight
+                  color: AppColors.borderLight,
                 ),
-                // color: AppColors.homeCardLavender,
                 borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                // border: Border.all(
-                //   color: isSelected
-                //       ? AppColors.primaryColor
-                //       : Colors.transparent,
-                //   width: 2,
-                // ),
               ),
               child: Stack(
                 children: [
@@ -51,8 +55,8 @@ class RoleplayScenarioCard extends StatelessWidget {
                     Center(
                       child: Image.asset(
                         scenario.imagePath!,
-                        width: AppSizes.sp(80),
-                        height: AppSizes.sp(80),
+                        width: AppSizes.sp(96),
+                        height: AppSizes.sp(96),
                         color: isLocked
                             ? Colors.grey.withValues(alpha: 0.35)
                             : null,
@@ -82,18 +86,23 @@ class RoleplayScenarioCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: AppSizes.h(10)),
-            Text(
-              scenario.title,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontFamily: AppFonts.plusJakartaSans,
-                fontSize: AppSizes.sp(14),
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
-                height: 1.2,
+            SizedBox(height: AppSizes.h(8)),
+            Expanded(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  scenario.title,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    fontSize: AppSizes.sp(13),
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.textPrimary,
+                    height: 1.2,
+                  ),
+                ),
               ),
             ),
           ],
