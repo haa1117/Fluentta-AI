@@ -125,6 +125,9 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
   bool get _showBoostCard {
     if (!widget.showXpBoost || widget.boostLessonKey == null) return false;
     if (!_boostChecked) return false;
+    if (!AdMobService.instance.shouldDisplay(AdPlacement.rewardedXpBoost)) {
+      return false;
+    }
     return !_boostClaimed;
   }
 

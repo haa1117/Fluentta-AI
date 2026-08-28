@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/iap/iap_product_ids.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/subscription_models.dart';
@@ -238,6 +239,7 @@ class IapService {
         active: true,
         productId: productId,
       );
+      AdMobService.instance.refreshAfterEntitlementsChange();
       return const PurchaseFlowResult(
         success: true,
         isPremium: true,

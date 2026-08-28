@@ -1,6 +1,7 @@
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/iap/iap_product_ids.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -376,6 +377,7 @@ class ProfileTabScreen extends StatelessWidget {
           active: true,
           productId: IapProductIds.lifetime,
         );
+    AdMobService.instance.refreshAfterEntitlementsChange();
     if (!context.mounted) return;
     context.read<ProfileViewModel>().refresh();
     context.read<HomeViewModel>().refresh();

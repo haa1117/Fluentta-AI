@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/constants/auth_deep_link_config.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
@@ -267,8 +268,15 @@ class AuthRepository {
       }
     }
 
-    await _localStorage.clearUserSession();
+    await _clearLocalSession();
     await _clearResetState();
+  }
+
+  Future<void> _clearLocalSession() async {
+    await _localStorage.clearUserSession();
+    if (!kIsWeb) {
+      AdMobService.instance.refreshAfterEntitlementsChange();
+    }
   }
 
   Future<void> _persistUser(
@@ -314,7 +322,7 @@ class AuthRepository {
         authProvider: _resolveAuthProvider(user),
       );
     } else {
-      await _localStorage.clearUserSession();
+      await _clearLocalSession();
     }
   }
 
@@ -437,7 +445,7 @@ class AuthRepository {
       }
     }
 
-    await _localStorage.clearUserSession();
+    await _clearLocalSession();
     await _clearResetState();
   }
 }

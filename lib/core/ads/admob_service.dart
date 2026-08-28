@@ -41,6 +41,8 @@ class AdMobService extends ChangeNotifier {
   AdsRemoteConfig get config => _config;
   bool get isInitialized => _initialized;
 
+  bool get _isPremiumUser => _localStorage?.isPremium ?? false;
+
   Future<void> initialize({required LocalStorage localStorage}) async {
     if (kIsWeb || _initialized) return;
 
@@ -78,7 +80,24 @@ class AdMobService extends ChangeNotifier {
 
     _initialized = true;
     notifyListeners();
-    unawaited(_preloadEnabledPlacements());
+    if (!_isPremiumUser) {
+      unawaited(_preloadEnabledPlacements());
+    }
+  }
+
+  /// Call when Pro status changes (purchase, restore, debug toggle, logout).
+  void refreshAfterEntitlementsChange() {
+    if (!_initialized) return;
+
+    if (_isPremiumUser) {
+      _disposeAllAds();
+    }
+    _showRateDecisions.clear();
+    notifyListeners();
+
+    if (!_isPremiumUser) {
+      unawaited(_preloadEnabledPlacements());
+    }
   }
 
   void disposeService() {
@@ -91,9 +110,7 @@ class AdMobService extends ChangeNotifier {
   bool shouldDisplay(AdPlacement placement) {
     if (kIsWeb || !_initialized) return false;
     if (!_config.masterEnabled) return false;
-    if (_config.hideForPremiumUsers && (_localStorage?.isPremium ?? false)) {
-      return false;
-    }
+    if (_isPremiumUser) return false;
 
     final settings = _config.settingsFor(placement);
     if (!settings.enabled) return false;
@@ -117,9 +134,7 @@ class AdMobService extends ChangeNotifier {
     if (kIsWeb) return 'web platform';
     if (!_initialized) return 'not initialized';
     if (!_config.masterEnabled) return 'masterEnabled=false';
-    if (_config.hideForPremiumUsers && (_localStorage?.isPremium ?? false)) {
-      return 'premium user';
-    }
+    if (_isPremiumUser) return 'premium user';
 
     final settings = _config.settingsFor(placement);
     if (!settings.enabled) return 'placement disabled in Firestore';
@@ -274,6 +289,8 @@ class AdMobService extends ChangeNotifier {
   }
 
   Future<void> _preloadEnabledPlacements() async {
+    if (_isPremiumUser) return;
+
     for (final placement in AdPlacement.values) {
       if (!_config.settingsFor(placement).enabled) continue;
       if (!_config.masterEnabled) continue;
