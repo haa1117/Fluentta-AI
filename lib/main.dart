@@ -287,6 +287,8 @@ class FluentaApp extends StatelessWidget {
             context.read<LocaleViewModel>(),
             context.read<SavedWordsRepository>(),
             context.read<SpacedRepetitionRepository>(),
+            context.read<LessonContentRepository>(),
+            context.read<ProgressRepository>(),
           ),
         ),
         ChangeNotifierProvider(

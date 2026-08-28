@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/cefr/lesson_type.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
 import 'package:fluentta_ai/core/entitlements/user_entitlements.dart';
-import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
@@ -46,10 +46,7 @@ class ReadingViewModel extends ChangeNotifier {
   List<ReadingLessonModel> get lessons => _lessons;
   bool get isLoading => _isLoading;
 
-  CefrLevel get _level => UserEntitlements.contentLevelForUser(
-        _localStorage.englishLevel,
-        _localStorage.isPremium,
-      );
+  CefrLevel get _level => UserEntitlements.learnBrowseLevel(_localStorage);
 
   int get completedLessonsCount =>
       _lessons.where((l) => l.status == LearningLessonStatus.completed).length;
@@ -69,8 +66,7 @@ class ReadingViewModel extends ChangeNotifier {
         totalLessons: totalLessonsCount,
       );
 
-  String get levelCode =>
-      LocalizedContent.levelCode(_l10n, _localStorage.englishLevel);
+  String get levelCode => CefrLevelProgress.levelCodeLabel(_l10n, _level);
 
   Future<void> reload() => _loadLessons();
 

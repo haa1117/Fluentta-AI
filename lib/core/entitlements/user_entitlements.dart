@@ -1,4 +1,6 @@
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
+import 'package:fluentta_ai/core/storage/local_storage.dart';
 
 /// Free vs Pro feature limits for Fluentta.
 class UserEntitlements {
@@ -38,6 +40,19 @@ class UserEntitlements {
   static bool canAccessCefrLevel(CefrLevel level, bool isPremium) {
     if (isPremium) return true;
     return level.index <= CefrLevel.b1.index;
+  }
+
+  /// Level selected on the Learn tab (falls back to highest XP-unlocked tab).
+  static CefrLevel learnBrowseLevel(LocalStorage storage) {
+    final code = storage.learnBrowseCefrLevelCode;
+    if (code != null) {
+      final level = CefrLevel.fromCode(code);
+      if (CefrLevelProgress.isLevelUnlocked(storage.xpEarned, level) &&
+          canAccessCefrLevel(level, storage.isPremium)) {
+        return level;
+      }
+    }
+    return CefrLevelProgress.highestUnlockedTab(storage.xpEarned);
   }
 
   static bool canAccessSetupLevel(String? setupLevelId, bool isPremium) {

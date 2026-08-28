@@ -44,6 +44,7 @@ class LocalStorage {
   static const String _lessonXpGrantedKey = 'lesson_xp_granted_v1';
   static const String _xpAwardedBackfillDoneKey = 'xp_awarded_backfill_done';
   static const String _lessonXpGrantMigrationV2Key = 'lesson_xp_grant_migration_v2';
+  static const String _learnBrowseCefrLevelKey = 'learn_browse_cefr_level';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -232,6 +233,7 @@ class LocalStorage {
     await _prefs!.remove(_lessonXpGrantedKey);
     await _prefs!.remove(_xpAwardedBackfillDoneKey);
     await _prefs!.remove(_lessonXpGrantMigrationV2Key);
+    await _prefs!.remove(_learnBrowseCefrLevelKey);
 
     const repositoryKeys = [
       'lesson_progress_v1',
@@ -297,6 +299,13 @@ class LocalStorage {
     final current = dailyProgressMinutes + minutes;
     final goal = dailyGoalMinutes ?? 10;
     await saveDailyProgressMinutes(current > goal ? goal : current);
+  }
+
+  String? get learnBrowseCefrLevelCode =>
+      _prefs!.getString(_learnBrowseCefrLevelKey);
+
+  Future<void> setLearnBrowseCefrLevelCode(String code) async {
+    await _prefs!.setString(_learnBrowseCefrLevelKey, code.toUpperCase());
   }
 
   Future<void> saveLives(int lives) async {
