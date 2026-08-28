@@ -73,6 +73,7 @@ class _SetupStepPage extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<SetupViewModel>();
+    final isPremium = LocalStorage.instance.isPremium;
     final options = LocalizedContent.setupOptions(l10n, stepIndex);
     final selectedId = viewModel.selectedIdForStep(stepIndex);
     final isLastStep = stepIndex == SetupViewModel.totalSteps - 1;
@@ -106,13 +107,13 @@ class _SetupStepPage extends StatelessWidget {
                       isLocked: stepIndex == 1 &&
                           !UserEntitlements.canAccessSetupLevel(
                             option.id,
-                            context.read<LocalStorage>().isPremium,
+                            isPremium,
                           ),
                       onTap: () {
                         if (stepIndex == 1 &&
                             !UserEntitlements.canAccessSetupLevel(
                               option.id,
-                              context.read<LocalStorage>().isPremium,
+                              isPremium,
                             )) {
                           showProFeatureSheet(
                             context,

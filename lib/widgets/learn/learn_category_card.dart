@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/learn_category_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,6 +18,7 @@ class LearnCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -69,6 +71,18 @@ class LearnCategoryCard extends StatelessWidget {
                 height: 1.2,
               ),
             ),
+            if (category.xpPerLesson != null) ...[
+              SizedBox(height: AppSizes.h(6)),
+              Text(
+                l10n.roleplayXpPerLesson(category.xpPerLesson!),
+                style: TextStyle(
+                  fontFamily: AppFonts.plusJakartaSans,
+                  fontSize: AppSizes.sp(11),
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.xpEarnedTextColor,
+                ),
+              ),
+            ],
           ],
         ),
       ),

@@ -17,9 +17,8 @@ class ReadingLessonCompleteScreen extends StatelessWidget {
     final l10n = context.l10n;
 
     return LessonCompleteLayout(
-      xpEarned: LessonXpRewards.coreLesson,
+      xpEarned: LessonXpRewards.readingLesson,
       subtitle: l10n.readingLessonCompleted(lesson.number),
-      boostLessonKey: lesson.lessonId,
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),

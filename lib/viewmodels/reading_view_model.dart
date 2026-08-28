@@ -7,6 +7,7 @@ import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
@@ -60,7 +61,10 @@ class ReadingViewModel extends ChangeNotifier {
 
   LearningPathData get pathData => LearningPathData(
         title: _l10n.readingPathTitle(levelCode),
-        subtitle: _l10n.readingPathSub,
+        subtitle: _l10n.learnPathEarnXp(
+          totalLessonsCount,
+          totalLessonsCount * LessonXpRewards.readingLesson,
+        ),
         completedLessons: completedLessonsCount,
         totalLessons: totalLessonsCount,
       );

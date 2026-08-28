@@ -206,6 +206,13 @@
   "changeLanguage": "Cambiar idioma",
   "vocabularyPathTitle": "Ruta de vocabulario {level}",
   "vocabularyPathSub": "Aprende 50 palabras básicas útiles\npaso a paso.",
+  "learnPathEarnXp": "Aprende {count} lecciones y gana +{xp} XP",
+  "@learnPathEarnXp": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "xp": {"type": "int"}
+    }
+  },
   "grammarPathTitle": "Ruta de gramática {level}",
   "grammarPathSub": "Aprende reglas gramaticales simples\npaso a paso.",
   "readingPathTitle": "Ruta de lectura {level}",

@@ -667,6 +667,11 @@ class AppLocalizationsEs extends AppLocalizations {
       'Aprende 50 palabras básicas útiles\npaso a paso.';
 
   @override
+  String learnPathEarnXp(int count, int xp) {
+    return 'Aprende $count lecciones y gana +$xp XP';
+  }
+
+  @override
   String grammarPathTitle(String level) {
     return 'Ruta de gramática $level';
   }

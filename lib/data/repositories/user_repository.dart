@@ -37,6 +37,7 @@ class UserRepository {
     if (!isNew) {
       await syncSetupFromFirestore(user.uid);
       await syncLivesFromFirestore(user.uid);
+      await syncLearningStatsFromFirestore(user.uid);
     }
 
     final localLanguage = _localStorage.selectedLanguage ?? 'en';
@@ -175,13 +176,40 @@ class UserRepository {
       payload['setupComplete'] = true;
     }
 
+    payload['xpEarned'] = _localStorage.xpEarned;
+    payload['lessonsCompletedCount'] = _localStorage.lessonsCompletedCount;
+    payload['wordsLearnedCount'] = _localStorage.wordsLearnedCount;
+    payload['correctionsCount'] = _localStorage.correctionsCount;
+
     await _userDoc(uid).set(payload, SetOptions(merge: true));
+  }
+
+  Future<void> syncLearningStatsFromLocal(String uid) async {
+    await updateLearningStats(
+      uid: uid,
+      xpEarned: _localStorage.xpEarned,
+      lessonsCompletedCount: _localStorage.lessonsCompletedCount,
+      wordsLearnedCount: _localStorage.wordsLearnedCount,
+      correctionsCount: _localStorage.correctionsCount,
+    );
   }
 
   Future<void> syncLivesFromFirestore(String uid) async {
     final user = await getUser(uid);
     if (user?.lives == null) return;
     await _localStorage.saveLives(user!.lives!);
+  }
+
+  Future<void> syncLearningStatsFromFirestore(String uid) async {
+    final stats = await fetchLearningStats(uid);
+    if (stats == null) return;
+
+    await _localStorage.saveStats(
+      xpEarned: stats['xpEarned'],
+      lessonsCompletedCount: stats['lessonsCompletedCount'],
+      wordsLearnedCount: stats['wordsLearnedCount'],
+      correctionsCount: stats['correctionsCount'],
+    );
   }
 
   Future<void> saveSetupPreferences({

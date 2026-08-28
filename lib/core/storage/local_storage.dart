@@ -41,7 +41,9 @@ class LocalStorage {
   static const String _roleplayLessonBonusKey = 'roleplay_lesson_bonus_v1';
   static const String _xpBoostClaimedKey = 'xp_boost_claimed_v1';
   static const String _lessonXpAwardedKey = 'lesson_xp_awarded_v1';
+  static const String _lessonXpGrantedKey = 'lesson_xp_granted_v1';
   static const String _xpAwardedBackfillDoneKey = 'xp_awarded_backfill_done';
+  static const String _lessonXpGrantMigrationV2Key = 'lesson_xp_grant_migration_v2';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -106,7 +108,7 @@ class LocalStorage {
       _prefs!.getBool(_dailyReminderEnabledKey) ?? true;
   int get reminderHour => _prefs!.getInt(_reminderHourKey) ?? 20;
   int get reminderMinute => _prefs!.getInt(_reminderMinuteKey) ?? 0;
-  int get xpEarned => _prefs!.getInt(_xpEarnedKey) ?? 320;
+  int get xpEarned => _prefs!.getInt(_xpEarnedKey) ?? 0;
   int get wordsLearnedCount => _prefs!.getInt(_wordsLearnedCountKey) ?? 0;
   int get lessonsCompletedCount =>
       _prefs!.getInt(_lessonsCompletedCountKey) ?? 0;
@@ -205,8 +207,44 @@ class LocalStorage {
     await _prefs!.remove(_userUidKey);
     await _prefs!.remove(_userEmailKey);
     await _prefs!.remove(_userDisplayNameKey);
+    await _clearUserLearningData();
+  }
+
+  /// Clears locally cached learning data (Firestore remains the source of truth).
+  Future<void> _clearUserLearningData() async {
     await clearSetupPreferences();
     await resetHomeProgress();
+    await clearPremiumStatus();
+
+    await _prefs!.remove(_xpEarnedKey);
+    await _prefs!.remove(_wordsLearnedCountKey);
+    await _prefs!.remove(_lessonsCompletedCountKey);
+    await _prefs!.remove(_correctionsCountKey);
+    await _prefs!.remove(_lastHeartResetDateKey);
+    await _prefs!.remove(_lastStreakActiveDateKey);
+    await _prefs!.remove(_streakFreezeWeekStartKey);
+    await _prefs!.remove(_streakFreezesUsedWeekKey);
+    await _prefs!.remove(_streakRepairMonthKey);
+    await _prefs!.remove(_streakBeforeBreakKey);
+    await _prefs!.remove(_roleplayLessonBonusKey);
+    await _prefs!.remove(_xpBoostClaimedKey);
+    await _prefs!.remove(_lessonXpAwardedKey);
+    await _prefs!.remove(_lessonXpGrantedKey);
+    await _prefs!.remove(_xpAwardedBackfillDoneKey);
+    await _prefs!.remove(_lessonXpGrantMigrationV2Key);
+
+    const repositoryKeys = [
+      'lesson_progress_v1',
+      'srs_words_v1',
+      'english_basics_step_v1',
+      'saved_words_v1',
+      'daily_lesson_v1',
+      'daily_vocab_v1',
+      'roleplay_content_cache_v1',
+    ];
+    for (final key in repositoryKeys) {
+      await _prefs!.remove(key);
+    }
   }
 
   Future<void> setPendingResetEmail(String email) async {
@@ -365,6 +403,30 @@ class LocalStorage {
         : raw.split('\n').where((k) => k.isNotEmpty).toList();
     keys.add(lessonId);
     await _prefs!.setString(_lessonXpAwardedKey, keys.join('\n'));
+  }
+
+  Future<bool> hasLessonXpGranted(String lessonId) async {
+    final raw = _prefs!.getString(_lessonXpGrantedKey);
+    if (raw == null || raw.isEmpty) return false;
+    return raw.split('\n').contains(lessonId);
+  }
+
+  Future<void> markLessonXpGranted(String lessonId) async {
+    if (await hasLessonXpGranted(lessonId)) return;
+    final raw = _prefs!.getString(_lessonXpGrantedKey);
+    final keys = raw == null || raw.isEmpty
+        ? <String>[]
+        : raw.split('\n').where((k) => k.isNotEmpty).toList();
+    keys.add(lessonId);
+    await _prefs!.setString(_lessonXpGrantedKey, keys.join('\n'));
+    await markLessonXpAwarded(lessonId);
+  }
+
+  bool get lessonXpGrantMigrationV2Done =>
+      _prefs!.getBool(_lessonXpGrantMigrationV2Key) ?? false;
+
+  Future<void> setLessonXpGrantMigrationV2Done() async {
+    await _prefs!.setBool(_lessonXpGrantMigrationV2Key, true);
   }
 
   bool get xpAwardedBackfillDone =>

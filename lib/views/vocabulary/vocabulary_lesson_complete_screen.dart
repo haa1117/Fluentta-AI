@@ -9,7 +9,7 @@ class VocabularyLessonCompleteScreen extends StatelessWidget {
     required this.lessonNumber,
     required this.learnedWords,
     this.lessonId,
-    this.xpEarned = LessonXpRewards.coreLesson,
+    this.xpEarned = LessonXpRewards.vocabularyLesson,
   });
 
   final int lessonNumber;
@@ -24,7 +24,6 @@ class VocabularyLessonCompleteScreen extends StatelessWidget {
     return LessonCompleteLayout(
       xpEarned: xpEarned,
       subtitle: l10n.lessonCompletedSuccess(lessonNumber),
-      boostLessonKey: lessonId,
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),

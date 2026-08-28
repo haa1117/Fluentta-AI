@@ -24,7 +24,7 @@ class GrammarLessonScreen extends StatelessWidget {
 
   final GrammarLessonModel lesson;
   final int initialStepIndex;
-  final ValueChanged<GrammarLessonModel> onLessonCompleted;
+  final Future<void> Function(GrammarLessonModel) onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
 
   @override

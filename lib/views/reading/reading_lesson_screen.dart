@@ -27,7 +27,7 @@ class ReadingLessonScreen extends StatelessWidget {
 
   final ReadingLessonModel lesson;
   final int initialPhaseIndex;
-  final ValueChanged<ReadingLessonModel> onLessonCompleted;
+  final Future<void> Function(ReadingLessonModel) onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
 
   @override

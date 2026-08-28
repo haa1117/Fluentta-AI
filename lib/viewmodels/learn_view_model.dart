@@ -1,4 +1,5 @@
 import 'package:fluentta_ai/core/constants/app_assets.dart';
+import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:flutter/material.dart';
@@ -44,18 +45,21 @@ class LearnViewModel extends ChangeNotifier {
             ? l10n.vocabularySubDynamic(_dueReviewCount)
             : l10n.vocabularySub,
         svgIcon: AppAssets.vocabulary,
+        xpPerLesson: LessonXpRewards.vocabularyLesson,
       ),
       LearnCategoryModel(
         id: 'grammar',
         title: l10n.grammar,
         subtitle: l10n.grammarSub,
         svgIcon: AppAssets.grammar,
+        xpPerLesson: LessonXpRewards.grammarLesson,
       ),
       LearnCategoryModel(
         id: 'reading',
         title: l10n.reading,
         subtitle: l10n.readingSub,
         svgIcon: AppAssets.reading,
+        xpPerLesson: LessonXpRewards.readingLesson,
       ),
       LearnCategoryModel(
         id: 'saved_words',

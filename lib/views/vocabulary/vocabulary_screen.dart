@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/learn_shared/learning_lesson_tile.dart';
@@ -36,7 +37,7 @@ class VocabularyScreen extends StatelessWidget {
         title: l10n.vocabulary,
         showBackButton: true,
         centerTitle: true,
-        showActionButton: false,
+        showActionButton: true,
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(
@@ -51,6 +52,7 @@ class VocabularyScreen extends StatelessWidget {
           ...viewModel.lessons.map(
             (lesson) => LearningLessonTile(
               lesson: lesson,
+              lessonXpReward: LessonXpRewards.vocabularyLesson,
               onTap: () => viewModel.openLesson(context, lesson),
             ),
           ),

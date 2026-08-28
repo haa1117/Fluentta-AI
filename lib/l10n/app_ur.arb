@@ -205,6 +205,13 @@
   "changeLanguage": "زبان تبدیل کریں",
   "vocabularyPathTitle": "{level} ذخیرہ الفاظ کا راستہ",
   "vocabularyPathSub": "50 مفید ابتدائی الفاظ\nمرحلہ وار سیکھیں۔",
+  "learnPathEarnXp": "Learn {count} lessons and earn +{xp} XP",
+  "@learnPathEarnXp": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "xp": {"type": "int"}
+    }
+  },
   "grammarPathTitle": "{level} گرامر کا راستہ",
   "grammarPathSub": "آسان گرامر قوانین\nمرحلہ وار سیکھیں۔",
   "readingPathTitle": "{level} پڑھنے کا راستہ",

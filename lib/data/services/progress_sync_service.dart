@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_practice_type.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
@@ -39,6 +39,7 @@ class ProgressSyncService {
 
   final List<LessonProgressModel> _pendingWrites = [];
   int? _pendingLivesWrite;
+  bool _pendingStatsSync = false;
   final List<VoidCallback> _mergeListeners = [];
 
   void addMergeListener(VoidCallback listener) {
@@ -72,11 +73,11 @@ class ProgressSyncService {
     await _progressRepository.initialize();
     final remote = await _syncRepository.fetchAll(uid);
     await _progressRepository.mergeRemoteProgress(remote);
-    await _backfillLessonXpAwardedFlags();
     await _flushPending(uid);
     await _pullLives(uid);
     await _pullStats(uid);
     await _learningStatsService.reconcileFromProgress();
+    await _syncStatsToFirestore(force: true);
     _notifyMerged();
   }
 
@@ -96,19 +97,21 @@ class ProgressSyncService {
   }) async {
     await _progressRepository.saveProgress(progress);
 
+    final xpAmount = LessonXpRewards.forLessonType(progress.type);
     final firstCompletion =
-        !await _localStorage.hasLessonXpAwarded(progress.lessonId);
+        !await _localStorage.hasLessonXpGranted(progress.lessonId);
     if (firstCompletion) {
-      await _localStorage.markLessonXpAwarded(progress.lessonId);
-      await _localStorage.addXp(LessonXpRewards.coreLesson);
+      await _localStorage.markLessonXpGranted(progress.lessonId);
+      await _localStorage.addXp(xpAmount);
       if (wordsLearned > 0) {
         await _localStorage.incrementWordsLearned(wordsLearned);
       }
       await _entitlementsService.recordLearningActivity();
+      _pendingStatsSync = true;
     }
 
     await _learningStatsService.reconcileFromProgress();
-    await _syncStatsToFirestore();
+    await _syncStatsToFirestore(force: true);
     await _pushProgress(progress);
     _notifyMerged();
   }
@@ -126,9 +129,9 @@ class ProgressSyncService {
 
     var totalGranted = 0;
     final firstCompletion =
-        !await _localStorage.hasLessonXpAwarded(progress.lessonId);
+        !await _localStorage.hasLessonXpGranted(progress.lessonId);
     if (firstCompletion) {
-      await _localStorage.markLessonXpAwarded(progress.lessonId);
+      await _localStorage.markLessonXpGranted(progress.lessonId);
       totalGranted = xpAmount;
       await _localStorage.addXp(xpAmount);
 
@@ -148,13 +151,39 @@ class ProgressSyncService {
 
     if (firstCompletion) {
       await _entitlementsService.recordLearningActivity();
+      _pendingStatsSync = true;
     }
 
     await _learningStatsService.reconcileFromProgress();
-    await _syncStatsToFirestore();
+    await _syncStatsToFirestore(force: true);
     await _pushProgress(progress);
     _notifyMerged();
     return totalGranted;
+  }
+
+  Future<void> _migrateBackfillLessonXpGrants() async {
+    if (_localStorage.lessonXpGrantMigrationV2Done) return;
+
+    await _progressRepository.initialize();
+
+    for (final entry in _progressRepository.allProgress.entries) {
+      final progress = entry.value;
+      if (progress.status != LearningLessonStatus.completed) continue;
+
+      final lessonId = entry.key;
+      if (await _localStorage.hasLessonXpGranted(lessonId)) continue;
+      if (!await _localStorage.hasLessonXpAwarded(lessonId)) continue;
+
+      final xpAmount = LessonXpRewards.forLessonType(progress.type);
+      await _localStorage.markLessonXpGranted(lessonId);
+      await _localStorage.addXp(xpAmount);
+    }
+
+    await _localStorage.setLessonXpGrantMigrationV2Done();
+    await _learningStatsService.reconcileFromProgress();
+    _pendingStatsSync = true;
+    await _syncStatsToFirestore(force: true);
+    _notifyMerged();
   }
 
   Future<void> _backfillLessonXpAwardedFlags() async {
@@ -222,6 +251,9 @@ class ProgressSyncService {
       await _syncRepository.upsert(uid, progress);
     }
     await _flushPendingLives(uid);
+    if (_pendingStatsSync) {
+      await _syncStatsToFirestore(force: true);
+    }
   }
 
   Future<void> _pushLives(int lives) async {
@@ -260,45 +292,48 @@ class ProgressSyncService {
   Future<void> ensureLessonXpBackfill() async {
     await _progressRepository.initialize();
     await _backfillLessonXpAwardedFlags();
+    await _migrateBackfillLessonXpGrants();
   }
 
   Future<void> syncOnConnectivityRestored() async {
     await pullAndMerge();
   }
 
-  Future<void> _syncStatsToFirestore() async {
+  Future<void> _syncStatsToFirestore({bool force = false}) async {
     final uid = _uid;
-    if (uid == null || !await _isOnline) return;
-    await _userRepository.updateLearningStats(
-      uid: uid,
-      xpEarned: _localStorage.xpEarned,
-      lessonsCompletedCount: _localStorage.lessonsCompletedCount,
-      wordsLearnedCount: _localStorage.wordsLearnedCount,
-      correctionsCount: _localStorage.correctionsCount,
-    );
+    if (uid == null) {
+      _pendingStatsSync = true;
+      return;
+    }
+    if (!await _isOnline) {
+      _pendingStatsSync = true;
+      return;
+    }
+    if (!force && !_pendingStatsSync) {
+      return;
+    }
+
+    try {
+      await _userRepository.syncLearningStatsFromLocal(uid);
+      _pendingStatsSync = false;
+      if (kDebugMode) {
+        debugPrint(
+          'Firestore: learning stats synced → users/$uid '
+          '(xpEarned=${_localStorage.xpEarned})',
+        );
+      }
+    } catch (e, stack) {
+      _pendingStatsSync = true;
+      if (kDebugMode) {
+        debugPrint('Firestore learning stats sync failed: $e\n$stack');
+      }
+    }
   }
 
   Future<void> syncStatsToFirestore() async {
-    await _syncStatsToFirestore();
+    _pendingStatsSync = true;
+    await _syncStatsToFirestore(force: true);
     _notifyMerged();
-  }
-
-  /// PRD 4.2.3 — one +5 XP boost per completed lesson (ad or Premium auto).
-  Future<bool> hasLessonXpBoostClaimed(String lessonKey) =>
-      _localStorage.hasXpBoostClaimed(lessonKey);
-
-  Future<bool> claimLessonXpBoost({
-    required String lessonKey,
-    int boostAmount = LessonXpRewards.rewardedBoost,
-  }) async {
-    if (await _localStorage.hasXpBoostClaimed(lessonKey)) return false;
-
-    await _localStorage.markXpBoostClaimed(lessonKey);
-    await _localStorage.addXp(boostAmount);
-    await _learningStatsService.reconcileFromProgress();
-    await _syncStatsToFirestore();
-    _notifyMerged();
-    return true;
   }
 
   Future<void> recordCorrections(int count) async {

@@ -20,7 +20,7 @@ class ReadingLessonViewModel extends ChangeNotifier {
 
   final ReadingLessonModel lesson;
   final int initialPhaseIndex;
-  final ValueChanged<ReadingLessonModel> onLessonCompleted;
+  final Future<void> Function(ReadingLessonModel) onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
   final TextToSpeechService textToSpeechService;
   final ProgressSyncService progressSyncService;
@@ -106,14 +106,15 @@ class ReadingLessonViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void nextPhase(BuildContext context) {
+  Future<void> nextPhase(BuildContext context) async {
     if (!canProceed) return;
 
     textToSpeechService.stop();
     _clearListening();
 
     if (isLastPhase) {
-      onLessonCompleted(lesson);
+      await onLessonCompleted(lesson);
+      if (!context.mounted) return;
       Navigator.of(context).pushReplacement<void, void>(
         MaterialPageRoute<void>(
           builder: (_) => ReadingLessonCompleteScreen(lesson: lesson),

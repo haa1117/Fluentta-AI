@@ -14,10 +14,12 @@ class LearningLessonTile extends StatelessWidget {
     super.key,
     required this.lesson,
     required this.onTap,
+    this.lessonXpReward,
   });
 
   final LearningLessonItem lesson;
   final VoidCallback onTap;
+  final int? lessonXpReward;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,18 @@ class LearningLessonTile extends StatelessWidget {
                         : AppColors.textPrimary,
                   ),
                 ),
-                if (_progressLabel(l10n, lesson).isNotEmpty) ...[
+                if (isCompleted && lessonXpReward != null) ...[
+                  SizedBox(height: AppSizes.h(2)),
+                  Text(
+                    l10n.xpEarnedCelebration(lessonXpReward!),
+                    style: TextStyle(
+                      fontFamily: AppFonts.plusJakartaSans,
+                      fontSize: AppSizes.sp(11),
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.xpEarnedTextColor,
+                    ),
+                  ),
+                ] else if (_progressLabel(l10n, lesson).isNotEmpty) ...[
                   SizedBox(height: AppSizes.h(2)),
                   Text(
                     _progressLabel(l10n, lesson),

@@ -1290,6 +1290,12 @@ abstract class AppLocalizations {
   /// **'Learn 50 useful beginner words\nstep by step.'**
   String get vocabularyPathSub;
 
+  /// No description provided for @learnPathEarnXp.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn {count} lessons and earn +{xp} XP'**
+  String learnPathEarnXp(int count, int xp);
+
   /// No description provided for @grammarPathTitle.
   ///
   /// In en, this message translates to:

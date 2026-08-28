@@ -22,12 +22,12 @@ class VocabularyLessonScreen extends StatelessWidget {
     required this.cefrLevel,
     this.onProgressChanged,
     this.onWordStudied,
-    this.completionXpEarned = LessonXpRewards.coreLesson,
+    this.completionXpEarned = LessonXpRewards.vocabularyLesson,
   });
 
   final VocabularyLessonModel lesson;
   final int initialWordIndex;
-  final ValueChanged<VocabularyLessonModel> onLessonCompleted;
+  final Future<void> Function(VocabularyLessonModel) onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
   final Future<void> Function(String word)? onWordStudied;
   final String cefrLevel;

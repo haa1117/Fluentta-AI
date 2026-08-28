@@ -22,7 +22,7 @@ class LearnTabScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBarWidget(
         title: l10n.learnAndGrow,
-        showActionButton: false,
+        showActionButton: true,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(

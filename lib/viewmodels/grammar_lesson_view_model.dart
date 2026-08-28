@@ -16,7 +16,7 @@ class GrammarLessonViewModel extends ChangeNotifier {
 
   final GrammarLessonModel lesson;
   final int initialStepIndex;
-  final ValueChanged<GrammarLessonModel> onLessonCompleted;
+  final Future<void> Function(GrammarLessonModel) onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
   final TextToSpeechService textToSpeechService;
 
@@ -87,12 +87,13 @@ class GrammarLessonViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void nextStep(BuildContext context) {
+  Future<void> nextStep(BuildContext context) async {
     textToSpeechService.stop();
     _clearListening();
 
     if (isLastStep) {
-      onLessonCompleted(lesson);
+      await onLessonCompleted(lesson);
+      if (!context.mounted) return;
       Navigator.of(context).pushReplacement<void, void>(
         MaterialPageRoute<void>(
           builder: (_) => GrammarLessonCompleteScreen(lesson: lesson),

@@ -18,14 +18,14 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     required this.cefrLevel,
     this.onProgressChanged,
     this.onWordStudied,
-    this.completionXpEarned = LessonXpRewards.coreLesson,
+    this.completionXpEarned = LessonXpRewards.vocabularyLesson,
   }) : _currentWordIndex = initialWordIndex {
     _loadSavedWords();
   }
 
   final VocabularyLessonModel lesson;
   final int initialWordIndex;
-  final ValueChanged<VocabularyLessonModel> onLessonCompleted;
+  final Future<void> Function(VocabularyLessonModel) onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
   final Future<void> Function(String word)? onWordStudied;
   final TextToSpeechService textToSpeechService;
@@ -141,7 +141,7 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     await onWordStudied?.call(studiedWord);
 
     if (isLastWord) {
-      onLessonCompleted(lesson);
+      await onLessonCompleted(lesson);
       if (!context.mounted) return;
       Navigator.of(context).pushReplacement<void, void>(
         MaterialPageRoute<void>(

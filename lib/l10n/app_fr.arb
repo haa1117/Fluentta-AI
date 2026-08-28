@@ -206,6 +206,13 @@
   "changeLanguage": "Changer de langue",
   "vocabularyPathTitle": "Parcours vocabulaire {level}",
   "vocabularyPathSub": "Apprenez 50 mots débutants utiles\nétape par étape.",
+  "learnPathEarnXp": "Apprenez {count} leçons et gagnez +{xp} XP",
+  "@learnPathEarnXp": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "xp": {"type": "int"}
+    }
+  },
   "grammarPathTitle": "Parcours grammaire {level}",
   "grammarPathSub": "Apprenez des règles simples\nétape par étape.",
   "readingPathTitle": "Parcours lecture {level}",

@@ -656,6 +656,11 @@ class AppLocalizationsUr extends AppLocalizations {
   String get vocabularyPathSub => '50 مفید ابتدائی الفاظ\nمرحلہ وار سیکھیں۔';
 
   @override
+  String learnPathEarnXp(int count, int xp) {
+    return 'Learn $count lessons and earn +$xp XP';
+  }
+
+  @override
   String grammarPathTitle(String level) {
     return '$level گرامر کا راستہ';
   }

@@ -268,6 +268,13 @@
     "placeholders": {"level": {"type": "String"}}
   },
   "vocabularyPathSub": "Learn 50 useful beginner words\nstep by step.",
+  "learnPathEarnXp": "Learn {count} lessons and earn +{xp} XP",
+  "@learnPathEarnXp": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "xp": {"type": "int"}
+    }
+  },
   "grammarPathTitle": "{level} Grammar Path",
   "@grammarPathTitle": {
     "placeholders": {"level": {"type": "String"}}
