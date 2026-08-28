@@ -128,8 +128,7 @@ class _SetupStepPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: AppSizes.spaceMd),
-                const SetupBannerAd(),
+
                 SizedBox(height: AppSizes.spaceMd),
               ],
             ),
@@ -142,25 +141,33 @@ class _SetupStepPage extends StatelessWidget {
             AppSizes.horizontalPadding,
             AppSizes.spaceMd,
           ),
-          child: PrimaryButton(
-            text: isLastStep
-                ? (isRetake ? l10n.savePreferences : l10n.getStarted)
-                : l10n.next,
-            isLoading: viewModel.isLoading,
-            onPressed: viewModel.isLoading
-                ? null
-                : () async {
-                    try {
-                      await viewModel.nextStep(onComplete);
-                    } catch (e) {
-                      if (context.mounted) {
-                        SnackbarHelper.showError(
-                          context,
-                          viewModel.getErrorMessage(e, l10n),
-                        );
-                      }
-                    }
-                  },
+          child: Column(
+            children: [
+              SizedBox(height: AppSizes.spaceMd),
+              const SetupBannerAd(),
+              SizedBox(height: AppSizes.spaceSm),
+
+              PrimaryButton(
+                text: isLastStep
+                    ? (isRetake ? l10n.savePreferences : l10n.getStarted)
+                    : l10n.next,
+                isLoading: viewModel.isLoading,
+                onPressed: viewModel.isLoading
+                    ? null
+                    : () async {
+                        try {
+                          await viewModel.nextStep(onComplete);
+                        } catch (e) {
+                          if (context.mounted) {
+                            SnackbarHelper.showError(
+                              context,
+                              viewModel.getErrorMessage(e, l10n),
+                            );
+                          }
+                        }
+                      },
+              ),
+            ],
           ),
         ),
       ],

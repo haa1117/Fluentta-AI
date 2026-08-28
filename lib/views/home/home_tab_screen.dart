@@ -59,7 +59,6 @@ class HomeTabScreen extends StatelessWidget {
             PracticeConversingCard(
               onStartChat: () => AiTutorScreen.open(context),
             ),
-            SizedBox(height: AppSizes.spaceMd),
             const HomeBannerAd(),
             SizedBox(height: AppSizes.spaceMd),
             TodaysLessonCard(

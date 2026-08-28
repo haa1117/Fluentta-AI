@@ -27,24 +27,12 @@ class HomeBannerAd extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
-        return Column(
-          children: [
-            Text(
-              'ADVERTISEMENT',
-              style: TextStyle(
-                fontFamily: AppFonts.plusJakartaSans,
-                fontSize: AppSizes.sp(10),
-                fontWeight: FontWeight.w500,
-                color: AppColors.textTertiary,
-                letterSpacing: 0.8,
-              ),
-            ),
-            SizedBox(height: AppSizes.spaceSm),
-            AdBannerWidget(
-              placement: placement,
-              fallbackHeight: AppSizes.h(50),
-            ),
-          ],
+        return Padding(
+          padding:  EdgeInsets.only(top:AppSizes.spaceMd ),
+          child: AdBannerWidget(
+            placement: placement,
+            fallbackHeight: AppSizes.h(50),
+          ),
         );
       },
     );
