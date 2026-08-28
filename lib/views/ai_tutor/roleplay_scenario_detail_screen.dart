@@ -4,7 +4,7 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/l10n/roleplay_scenario_l10n.dart';
-import 'package:fluentta_ai/core/roleplay/roleplay_cefr_progress.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
@@ -87,8 +87,8 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
           }
 
           final level = detailVm.selectedLevel;
-          final levelCode = RoleplayCefrProgress.levelCodeLabel(l10n, level);
-          final levelLabel = RoleplayCefrProgress.levelNameLabel(l10n, level);
+          final levelCode = CefrLevelProgress.levelCodeLabel(l10n, level);
+          final levelLabel = CefrLevelProgress.levelNameLabel(l10n, level);
 
           return Scaffold(
             backgroundColor: AppColors.scaffoldBackgroundColor,

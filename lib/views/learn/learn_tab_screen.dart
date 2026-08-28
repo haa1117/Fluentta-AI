@@ -5,6 +5,7 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/viewmodels/learn_view_model.dart';
 import 'package:fluentta_ai/widgets/home/todays_lesson_card.dart';
+import 'package:fluentta_ai/widgets/common/cefr_level_bar.dart';
 import 'package:fluentta_ai/widgets/learn/learn_category_card.dart';
 import 'package:fluentta_ai/widgets/learn/learn_level_card.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,12 @@ class LearnTabScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            CefrLevelBar(
+              totalXp: learnViewModel.totalXp,
+              selectedLevel: learnViewModel.selectedLevel,
+              onLevelSelected: learnViewModel.selectLevel,
+            ),
+            SizedBox(height: AppSizes.spaceMd),
             const LearnLevelCard(),
             SizedBox(height: AppSizes.spaceMd),
             GridView.builder(

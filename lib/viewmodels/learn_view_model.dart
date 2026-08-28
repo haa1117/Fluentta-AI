@@ -1,6 +1,7 @@
+import 'package:fluentta_ai/core/cefr/cefr_level.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
-import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
@@ -22,6 +23,8 @@ class LearnViewModel extends ChangeNotifier {
     _localeViewModel.addListener(notifyListeners);
     _savedWordsRepository.addListener(_onDataChanged);
     _srsRepository.addListener(_onDataChanged);
+    _selectedLevel =
+        CefrLevelProgress.highestUnlockedTab(_localStorage.xpEarned);
     refreshCounts();
   }
 
@@ -31,8 +34,11 @@ class LearnViewModel extends ChangeNotifier {
   final SpacedRepetitionRepository _srsRepository;
 
   int _dueReviewCount = 0;
+  CefrLevel _selectedLevel = CefrLevel.a1;
 
   int get dueReviewCount => _dueReviewCount;
+  CefrLevel get selectedLevel => _selectedLevel;
+  int get totalXp => _localStorage.xpEarned;
   int get savedWordsCount => _savedWordsRepository.count;
 
   List<LearnCategoryModel> get categories {
@@ -77,16 +83,15 @@ class LearnViewModel extends ChangeNotifier {
   int get levelProgressPercent => (levelProgress * 100).round();
 
   String get levelCode =>
-      LocalizedContent.levelCode(_localeViewModel.strings, _localStorage.englishLevel);
+      CefrLevelProgress.levelCodeLabel(_localeViewModel.strings, _selectedLevel);
 
-  String get levelName {
-    final l10n = _localeViewModel.strings;
-    return switch (_localStorage.englishLevel) {
-      'elementary' => l10n.levelElementary,
-      'intermediate' => l10n.levelIntermediate,
-      'advanced' => l10n.levelAdvanced,
-      _ => l10n.levelBeginner,
-    };
+  String get levelName =>
+      CefrLevelProgress.levelNameLabel(_localeViewModel.strings, _selectedLevel);
+
+  void selectLevel(CefrLevel level) {
+    if (_selectedLevel == level) return;
+    _selectedLevel = level;
+    notifyListeners();
   }
 
   Future<void> refreshCounts() async {

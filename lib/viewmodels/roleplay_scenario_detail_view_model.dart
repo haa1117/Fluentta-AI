@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
-import 'package:fluentta_ai/core/roleplay/roleplay_cefr_progress.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/repositories/roleplay_content_repository.dart';
 import 'package:fluentta_ai/data/services/learning_stats_service.dart';
@@ -58,7 +58,7 @@ class RoleplayScenarioDetailViewModel extends ChangeNotifier {
     );
 
     if (!_didSetInitialLevel) {
-      _selectedLevel = RoleplayCefrProgress.highestUnlockedTab(totalXp);
+      _selectedLevel = CefrLevelProgress.highestUnlockedTab(totalXp);
       _didSetInitialLevel = true;
     }
 
