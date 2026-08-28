@@ -18,6 +18,7 @@ class GrammarLessonCompleteScreen extends StatelessWidget {
 
     return LessonCompleteLayout(
       xpEarned: LessonXpRewards.grammarLesson,
+      boostLessonKey: lesson.lessonId,
       subtitle: l10n.grammarLessonCompleted(lesson.number),
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),

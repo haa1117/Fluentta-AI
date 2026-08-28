@@ -336,6 +336,24 @@ class ProgressSyncService {
     _notifyMerged();
   }
 
+  Future<bool> hasLessonXpBoostClaimed(String lessonKey) =>
+      _localStorage.hasXpBoostClaimed(lessonKey);
+
+  Future<bool> claimLessonXpBoost({
+    required String lessonKey,
+    int boostAmount = LessonXpRewards.rewardedBoost,
+  }) async {
+    if (await _localStorage.hasXpBoostClaimed(lessonKey)) return false;
+
+    await _localStorage.markXpBoostClaimed(lessonKey);
+    await _localStorage.addXp(boostAmount);
+    _pendingStatsSync = true;
+    await _learningStatsService.reconcileFromProgress();
+    await _syncStatsToFirestore(force: true);
+    _notifyMerged();
+    return true;
+  }
+
   Future<void> recordCorrections(int count) async {
     await _learningStatsService.recordCorrections(count);
     if (count <= 0) return;

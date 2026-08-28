@@ -11,6 +11,8 @@ class LessonXpRewards {
   /// Default for grammar/reading complete screens and legacy callers.
   static const int coreLesson = grammarLesson;
 
+  static const int rewardedBoost = 5;
+
   static int forLessonType(String type) {
     return switch (LessonType.fromId(type)) {
       LessonType.vocabulary => vocabularyLesson,

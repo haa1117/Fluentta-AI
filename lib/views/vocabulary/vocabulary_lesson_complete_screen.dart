@@ -23,6 +23,7 @@ class VocabularyLessonCompleteScreen extends StatelessWidget {
 
     return LessonCompleteLayout(
       xpEarned: xpEarned,
+      boostLessonKey: lessonId,
       subtitle: l10n.lessonCompletedSuccess(lessonNumber),
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),

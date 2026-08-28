@@ -18,6 +18,7 @@ class RoleplayDialogueCompleteScreen extends StatelessWidget {
 
     return LessonCompleteLayout(
       xpEarned: RoleplayXpRewards.dialogue,
+      boostLessonKey: lesson.lessonId,
       subtitle: l10n.roleplayLessonCompleted(lesson.number),
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),
