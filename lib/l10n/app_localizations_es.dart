@@ -491,7 +491,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navLearn => 'Aprender';
 
   @override
-  String get navSpeak => 'Hablar';
+  String get navSpeak => 'Role Play';
 
   @override
   String get navProfile => 'Perfil';
@@ -631,7 +631,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get beginnerLevel => 'Principiante';
 
   @override
-  String get speakTitle => 'Hablar';
+  String get speakTitle => 'Role Play';
+
+  @override
+  String get rolePlayTitle => 'Role Play';
 
   @override
   String get speakSubtitle => 'Practica hablar con tu tutor de IA';
@@ -1266,8 +1269,14 @@ class AppLocalizationsEs extends AppLocalizations {
   String get aiSpeakingTutor => 'Tutor de Conversación IA';
 
   @override
+  String get aiPronunciationTutor => 'Tutor de Pronunciación IA';
+
+  @override
   String get aiSpeakingTutorDesc =>
       'Habla por voz o texto y recibe correcciones al instante';
+
+  @override
+  String get startPractice => 'Comenzar práctica';
 
   @override
   String get tagVoice => 'Voz';
@@ -1395,7 +1404,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get practiceMore => 'Practicar Más';
 
   @override
-  String get backToSpeak => 'Volver a Hablar';
+  String get backToSpeak => 'Volver a Role Play';
 
   @override
   String get openChatPracticeTitle => 'Abrir Chat de Práctica';

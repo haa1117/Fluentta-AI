@@ -38,6 +38,7 @@ static const String pronunciationCheckingBird='assets/images/pronunciation_check
   static const String planSuccessBird='assets/images/plan_successfull_bird.png';
   static const String outOfHearthBird = 'assets/images/out_of_hearth_bird.png';
   static const String todayStartLessonBird='assets/images/today_lesson_start_bird.png';
+  static const String speakBirdWithCircle='assets/images/speak_bird.png';
 
   /// ---  SVG ICONS  ----///
 

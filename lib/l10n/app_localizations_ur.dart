@@ -481,7 +481,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get navLearn => 'سیکھیں';
 
   @override
-  String get navSpeak => 'بولیں';
+  String get navSpeak => 'رول پلے';
 
   @override
   String get navProfile => 'پروفائل';
@@ -621,7 +621,10 @@ class AppLocalizationsUr extends AppLocalizations {
   String get beginnerLevel => 'ابتدائی';
 
   @override
-  String get speakTitle => 'بولیں';
+  String get speakTitle => 'رول پلے';
+
+  @override
+  String get rolePlayTitle => 'رول پلے';
 
   @override
   String get speakSubtitle => 'AI ٹیوٹر کے ساتھ بولنے ki مشق';
@@ -1254,8 +1257,14 @@ class AppLocalizationsUr extends AppLocalizations {
   String get aiSpeakingTutor => 'AI Speaking Tutor';
 
   @override
+  String get aiPronunciationTutor => 'AI Pronunciation Tutor';
+
+  @override
   String get aiSpeakingTutorDesc =>
       'آواز یا ٹیکسٹ سے بات کریں اور فوری اصلاحات حاصل کریں';
+
+  @override
+  String get startPractice => 'مشق شروع کریں';
 
   @override
   String get tagVoice => 'آواز';
@@ -1384,7 +1393,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get practiceMore => 'مزید مشق';
 
   @override
-  String get backToSpeak => 'Speak پر واپس';
+  String get backToSpeak => 'رول پلے پر واپس';
 
   @override
   String get openChatPracticeTitle => 'چیٹ مشق کھولیں';

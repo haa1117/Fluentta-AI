@@ -486,7 +486,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navLearn => 'Learn';
 
   @override
-  String get navSpeak => 'Speak';
+  String get navSpeak => 'Role Play';
 
   @override
   String get navProfile => 'Profile';
@@ -626,7 +626,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get beginnerLevel => 'Beginner';
 
   @override
-  String get speakTitle => 'Speak';
+  String get speakTitle => 'Role Play';
+
+  @override
+  String get rolePlayTitle => 'Role Play';
 
   @override
   String get speakSubtitle => 'Practice speaking with your AI tutor';
@@ -1258,8 +1261,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiSpeakingTutor => 'AI Speaking Tutor';
 
   @override
+  String get aiPronunciationTutor => 'AI Pronunciation Tutor';
+
+  @override
   String get aiSpeakingTutorDesc =>
       'Talk by voice or text and get instant corrections';
+
+  @override
+  String get startPractice => 'Start Practice';
 
   @override
   String get tagVoice => 'Voice';
@@ -1387,7 +1396,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get practiceMore => 'Practice More';
 
   @override
-  String get backToSpeak => 'Back to Speak';
+  String get backToSpeak => 'Back to Role Play';
 
   @override
   String get openChatPracticeTitle => 'Open Chat Practice';

@@ -23,23 +23,27 @@ class RoleplayScenarioCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: AppSizes.w(140),
+        width: AppSizes.w(180),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              width: AppSizes.w(140),
-              height: AppSizes.w(140),
+              width: AppSizes.w(160),
+              height: AppSizes.w(160),
               decoration: BoxDecoration(
-                color: AppColors.homeCardLavender,
-                borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+                color: Color(0xffFFFFFF),
                 border: Border.all(
-                  color: isSelected
-                      ? AppColors.primaryColor
-                      : Colors.transparent,
-                  width: 2,
+                  color: AppColors.borderLight
                 ),
+                // color: AppColors.homeCardLavender,
+                borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+                // border: Border.all(
+                //   color: isSelected
+                //       ? AppColors.primaryColor
+                //       : Colors.transparent,
+                //   width: 2,
+                // ),
               ),
               child: Stack(
                 children: [

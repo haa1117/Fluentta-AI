@@ -981,7 +981,7 @@ abstract class AppLocalizations {
   /// No description provided for @navSpeak.
   ///
   /// In en, this message translates to:
-  /// **'Speak'**
+  /// **'Role Play'**
   String get navSpeak;
 
   /// No description provided for @navProfile.
@@ -1227,8 +1227,14 @@ abstract class AppLocalizations {
   /// No description provided for @speakTitle.
   ///
   /// In en, this message translates to:
-  /// **'Speak'**
+  /// **'Role Play'**
   String get speakTitle;
+
+  /// No description provided for @rolePlayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Role Play'**
+  String get rolePlayTitle;
 
   /// No description provided for @speakSubtitle.
   ///
@@ -2382,11 +2388,23 @@ abstract class AppLocalizations {
   /// **'AI Speaking Tutor'**
   String get aiSpeakingTutor;
 
+  /// No description provided for @aiPronunciationTutor.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Pronunciation Tutor'**
+  String get aiPronunciationTutor;
+
   /// No description provided for @aiSpeakingTutorDesc.
   ///
   /// In en, this message translates to:
   /// **'Talk by voice or text and get instant corrections'**
   String get aiSpeakingTutorDesc;
+
+  /// No description provided for @startPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Practice'**
+  String get startPractice;
 
   /// No description provided for @tagVoice.
   ///
@@ -2607,7 +2625,7 @@ abstract class AppLocalizations {
   /// No description provided for @backToSpeak.
   ///
   /// In en, this message translates to:
-  /// **'Back to Speak'**
+  /// **'Back to Role Play'**
   String get backToSpeak;
 
   /// No description provided for @openChatPracticeTitle.

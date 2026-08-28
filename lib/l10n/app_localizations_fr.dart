@@ -492,7 +492,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get navLearn => 'Apprendre';
 
   @override
-  String get navSpeak => 'Parler';
+  String get navSpeak => 'Jeu de rôle';
 
   @override
   String get navProfile => 'Profil';
@@ -633,7 +633,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get beginnerLevel => 'Débutant';
 
   @override
-  String get speakTitle => 'Parler';
+  String get speakTitle => 'Jeu de rôle';
+
+  @override
+  String get rolePlayTitle => 'Jeu de rôle';
 
   @override
   String get speakSubtitle => 'Pratiquez avec votre tuteur IA';
@@ -1273,8 +1276,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aiSpeakingTutor => 'Tuteur de Conversation IA';
 
   @override
+  String get aiPronunciationTutor => 'Tuteur de Prononciation IA';
+
+  @override
   String get aiSpeakingTutorDesc =>
       'Parlez par voix ou texte et obtenez des corrections instantanées';
+
+  @override
+  String get startPractice => 'Commencer la pratique';
 
   @override
   String get tagVoice => 'Voix';
@@ -1403,7 +1412,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get practiceMore => 'Pratiquer Plus';
 
   @override
-  String get backToSpeak => 'Retour à Parler';
+  String get backToSpeak => 'Retour au jeu de rôle';
 
   @override
   String get openChatPracticeTitle => 'Ouvrir le Chat de Pratique';
