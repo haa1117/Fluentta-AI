@@ -28,7 +28,7 @@ class SubscriptionScreen extends StatelessWidget {
 
   Future<void> _onClose(BuildContext context) async {
     Navigator.of(context).pop();
-    await DiscountPaywallScreen.open(context);
+    // await DiscountPaywallScreen.open(context);
   }
 
   Future<void> _onPrimaryAction(BuildContext context) async {
