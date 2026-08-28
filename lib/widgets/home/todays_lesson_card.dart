@@ -11,9 +11,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class HomeBannerAd extends StatelessWidget {
+  final double bottomPadding;
   const HomeBannerAd({
     super.key,
-    this.placement = AdPlacement.homeBanner,
+    this.placement = AdPlacement.homeBanner,  this.bottomPadding=0,
   });
 
   final AdPlacement placement;
@@ -28,7 +29,7 @@ class HomeBannerAd extends StatelessWidget {
         }
 
         return Padding(
-          padding:  EdgeInsets.only(top:AppSizes.spaceMd ),
+          padding:  EdgeInsets.only(top:AppSizes.spaceMd,bottom: bottomPadding ),
           child: AdBannerWidget(
             placement: placement,
             fallbackHeight: AppSizes.h(50),

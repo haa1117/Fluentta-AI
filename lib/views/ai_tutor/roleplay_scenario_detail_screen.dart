@@ -200,9 +200,15 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
                           .then((_) => detailVm.reload());
                     },
                   ),
-                  SizedBox(height: AppSizes.h(180)),
-                  const HomeBannerAd(placement: AdPlacement.roleplayBanner),
+                  SizedBox(height: AppSizes.spaceSm),
+
                 ],
+              ),
+            ),
+            bottomNavigationBar:   SafeArea(
+              child: HomeBannerAd(
+                placement: AdPlacement.roleplayDetailBanner,
+                bottomPadding: AppSizes.spaceSm,
               ),
             ),
           );

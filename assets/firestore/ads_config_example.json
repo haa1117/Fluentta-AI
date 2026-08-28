@@ -32,6 +32,11 @@
       "showRate": 0.7,
       "minIntervalSeconds": 120
     },
+    "roleplay_detail_banner": {
+      "enabled": true,
+      "showRate": 1,
+      "minIntervalSeconds": 0
+    },
     "lesson_native": {
       "enabled": false,
       "showRate": 0.5,

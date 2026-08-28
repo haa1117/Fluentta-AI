@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -13,11 +14,12 @@ import 'package:fluentta_ai/views/ai_tutor/roleplay_scenario_detail_screen.dart'
 import 'package:fluentta_ai/views/pronunciation/pronunciation_flow.dart';
 import 'package:fluentta_ai/widgets/ai_tutor/roleplay_scenario_card.dart';
 import 'package:fluentta_ai/widgets/common/pro_feature_sheet.dart';
+import 'package:fluentta_ai/widgets/home/todays_lesson_card.dart';
 import 'package:fluentta_ai/widgets/speak/speak_ai_tutor_card.dart';
 import 'package:provider/provider.dart';
 
-class SpeakTabScreen extends StatelessWidget {
-  const SpeakTabScreen({super.key});
+class RolePlayScreen extends StatelessWidget {
+  const RolePlayScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +45,7 @@ class _RolePlayTabBody extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
-      appBar: AppBarWidget(
-        title: l10n.rolePlayTitle,
-      ),
+      appBar: AppBarWidget(title: l10n.rolePlayTitle),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(
@@ -67,7 +67,8 @@ class _RolePlayTabBody extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(height: AppSizes.spaceXl),
+              SizedBox(height: AppSizes.spaceMd),
+
               Text(
                 l10n.roleplayScenarios,
                 style: TextStyle(
@@ -87,8 +88,10 @@ class _RolePlayTabBody extends StatelessWidget {
                       SizedBox(width: AppSizes.w(12)),
                   itemBuilder: (context, index) {
                     final scenario = AiTutorViewModel.scenarios[index];
-                    final title =
-                        RoleplayScenarioL10n.listTitle(l10n, scenario.id);
+                    final title = RoleplayScenarioL10n.listTitle(
+                      l10n,
+                      scenario.id,
+                    );
                     return RoleplayScenarioCard(
                       scenario: RoleplayScenarioModel(
                         id: scenario.id,
@@ -103,10 +106,11 @@ class _RolePlayTabBody extends StatelessWidget {
                           .read<EntitlementsService>()
                           .canAccessRoleplayScenario(scenario.id),
                       onTap: () {
-                        final entitlements =
-                            context.read<EntitlementsService>();
-                        if (!entitlements
-                            .canAccessRoleplayScenario(scenario.id)) {
+                        final entitlements = context
+                            .read<EntitlementsService>();
+                        if (!entitlements.canAccessRoleplayScenario(
+                          scenario.id,
+                        )) {
                           showProFeatureSheet(
                             context,
                             title: 'Advanced Roleplay',
@@ -132,6 +136,10 @@ class _RolePlayTabBody extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: HomeBannerAd(
+        placement: AdPlacement.roleplayBanner,
+        bottomPadding: AppSizes.spaceSm,
       ),
     );
   }

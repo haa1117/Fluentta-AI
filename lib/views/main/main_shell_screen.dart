@@ -65,7 +65,7 @@ class _MainShellBodyState extends State<_MainShellBody> {
           children: const [
             HomeTabScreen(),
             LearnTabScreen(),
-            SpeakTabScreen(),
+            RolePlayScreen(),
             ProfileTabScreen(),
           ],
         ),

@@ -63,10 +63,13 @@ class LearnTabScreen extends StatelessWidget {
                 );
               },
             ),
-            SizedBox(height: AppSizes.spaceLg),
-            const HomeBannerAd(placement: AdPlacement.learnBanner),
+            SizedBox(height: AppSizes.spaceSm),
+
           ],
         ),
+      ),
+      bottomNavigationBar:    HomeBannerAd(placement: AdPlacement.learnBanner,
+      bottomPadding: AppSizes.spaceSm,
       ),
     );
   }

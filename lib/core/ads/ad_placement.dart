@@ -6,6 +6,7 @@ enum AdPlacement {
   learnBanner('learn_banner'),
   setupBanner('setup_banner'),
   roleplayBanner('roleplay_banner'),
+  roleplayDetailBanner('roleplay_detail_banner'),
   lessonNative('lesson_native'),
   rewardedXpBoost('rewarded_xp_boost');
 
@@ -17,7 +18,8 @@ enum AdPlacement {
       this == AdPlacement.homeBanner ||
       this == AdPlacement.learnBanner ||
       this == AdPlacement.setupBanner ||
-      this == AdPlacement.roleplayBanner;
+      this == AdPlacement.roleplayBanner ||
+      this == AdPlacement.roleplayDetailBanner;
 
   bool get isNative =>
       this == AdPlacement.onboardingNative ||
