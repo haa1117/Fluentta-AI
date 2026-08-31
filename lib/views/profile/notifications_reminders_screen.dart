@@ -18,7 +18,7 @@ class NotificationsRemindersScreen extends StatelessWidget {
     final profile = context.watch<ProfileViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.notificationsReminders,
         showBackButton: true,

@@ -21,7 +21,7 @@ class ForgotPasswordScreen extends StatelessWidget {
     final viewModel = context.watch<ForgotPasswordViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: const AuthAppBar(showBack: true),
       body: SafeArea(
         child: SingleChildScrollView(

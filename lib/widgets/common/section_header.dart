@@ -3,7 +3,8 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class SectionHeader extends StatelessWidget {
-  const SectionHeader({super.key, required this.title});
+  final bool isDark;
+  const SectionHeader({super.key, required this.title,required this.isDark});
 
   final String title;
 
@@ -17,7 +18,7 @@ class SectionHeader extends StatelessWidget {
           fontFamily: 'PlusJakartaSans',
           fontSize: AppSizes.fontSubtitle,
           fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
+          color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
         ),
       ),
     );

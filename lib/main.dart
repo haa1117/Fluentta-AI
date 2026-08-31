@@ -8,6 +8,7 @@ import 'package:fluentta_ai/core/navigation/password_reset_deep_link_handler.dar
 import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/theme/app_theme.dart';
+import 'package:fluentta_ai/core/theme/theme_view_model.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/lesson_content_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
@@ -243,6 +244,9 @@ class FluentaApp extends StatelessWidget {
           create: (_) => LocaleViewModel(localStorage),
         ),
         ChangeNotifierProvider(
+          create: (_) => ThemeViewModel(localStorage),
+        ),
+        ChangeNotifierProvider(
           create: (_) => AuthViewModel(
             authRepository,
             userRepository,
@@ -338,12 +342,14 @@ class FluentaApp extends StatelessWidget {
           ),
         ),
       ],
-      child: Consumer<LocaleViewModel>(
-        builder: (context, localeViewModel, _) {
+      child: Consumer2<LocaleViewModel, ThemeViewModel>(
+        builder: (context, localeViewModel, themeViewModel, _) {
           return MaterialApp(
             title: 'Fluenta',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeViewModel.themeMode,
             locale: localeViewModel.locale,
             navigatorKey: rootNavigatorKey,
             localizationsDelegates: AppLocalizations.localizationsDelegates,

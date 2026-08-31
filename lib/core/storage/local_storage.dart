@@ -46,6 +46,7 @@ class LocalStorage {
   static const String _xpAwardedBackfillDoneKey = 'xp_awarded_backfill_done';
   static const String _lessonXpGrantMigrationV2Key = 'lesson_xp_grant_migration_v2';
   static const String _learnBrowseCefrLevelKey = 'learn_browse_cefr_level';
+  static const String _themeModeKey = 'app_theme_mode';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -329,6 +330,12 @@ class LocalStorage {
 
   String? get learnBrowseCefrLevelCode =>
       _prefs!.getString(_learnBrowseCefrLevelKey);
+
+  String? get themeMode => _prefs!.getString(_themeModeKey);
+
+  Future<void> setThemeMode(String mode) async {
+    await _prefs!.setString(_themeModeKey, mode);
+  }
 
   Future<void> setLearnBrowseCefrLevelCode(String code) async {
     await _prefs!.setString(_learnBrowseCefrLevelKey, code.toUpperCase());

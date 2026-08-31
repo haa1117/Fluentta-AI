@@ -1023,6 +1023,12 @@ class AppLocalizationsUr extends AppLocalizations {
   String get lightMode => 'لائٹ موڈ';
 
   @override
+  String get darkMode => 'ڈارک موڈ';
+
+  @override
+  String get systemDefault => 'سسٹم ڈیفالٹ';
+
+  @override
   String get restorePurchases => 'خریداری بحال کریں';
 
   @override

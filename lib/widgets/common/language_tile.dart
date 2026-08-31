@@ -10,6 +10,7 @@ class LanguageTile extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
     this.subtitle,
+   required this.isDark
   });
 
   final String flagEmoji;
@@ -17,6 +18,7 @@ class LanguageTile extends StatelessWidget {
   final String? subtitle;
   final bool isSelected;
   final VoidCallback onTap;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +30,10 @@ class LanguageTile extends StatelessWidget {
           vertical: AppSizes.h(14),
         ),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color:isDark ? AppColors.tileBackgroundDarkColor : AppColors.white,
           borderRadius: BorderRadius.circular(AppSizes.tileRadius),
           border: Border.all(
-            color: isSelected ? AppColors.borderSelected : AppColors.borderLight,
+            color: isSelected ? AppColors.borderSelected : isDark ? AppColors.borderDarkColor : AppColors.borderLight,
             width: isSelected ? 1.5 : 1,
           ),
         ),
@@ -60,7 +62,7 @@ class LanguageTile extends StatelessWidget {
                       fontFamily: 'PlusJakartaSans',
                       fontSize: AppSizes.fontSubtitle,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimary,
+                      color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                     ),
                   ),
                   if (subtitle != null) ...[
@@ -71,14 +73,16 @@ class LanguageTile extends StatelessWidget {
                         fontFamily: 'PlusJakartaSans',
                         fontSize: AppSizes.fontCaption,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.textSecondary,
+                        color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                       ),
                     ),
                   ],
                 ],
               ),
             ),
-            _RadioIndicator(isSelected: isSelected),
+            _RadioIndicator(isSelected: isSelected,
+            isDark: isDark,
+            ),
           ],
         ),
       ),
@@ -87,7 +91,8 @@ class LanguageTile extends StatelessWidget {
 }
 
 class _RadioIndicator extends StatelessWidget {
-  const _RadioIndicator({required this.isSelected});
+  final bool isDark;
+  const _RadioIndicator({required this.isSelected,required this.isDark});
 
   final bool isSelected;
 
@@ -99,7 +104,7 @@ class _RadioIndicator extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: isSelected ? AppColors.primaryColor : AppColors.radioUnselected,
+          color: isSelected ? AppColors.primaryColor :isDark ? AppColors.borderDarkColor : AppColors.radioUnselected,
           width: 2,
         ),
       ),

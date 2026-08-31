@@ -6,11 +6,12 @@ class OnboardingText extends StatelessWidget {
   const OnboardingText({
     super.key,
     required this.title,
-    required this.description,
+    required this.description, required this.isDark,
   });
 
   final String title;
   final String description;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class OnboardingText extends StatelessWidget {
               fontFamily: 'PlusJakartaSans',
               fontSize: AppSizes.fontHeadline,
               fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
+              color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
               height: 1.3,
             ),
           ),
@@ -37,7 +38,7 @@ class OnboardingText extends StatelessWidget {
               fontFamily: 'PlusJakartaSans',
               fontSize: AppSizes.sp(16),
               fontWeight: FontWeight.w400,
-              color: AppColors.textSecondary,
+              color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
               height: 1.5,
             ),
           ),

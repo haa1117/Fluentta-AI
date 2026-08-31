@@ -6,20 +6,21 @@ import 'package:fluentta_ai/l10n/app_localizations.dart';
 class LocalizedContent {
   LocalizedContent._();
 
-  static List<OnboardingPageModel> onboardingPages(AppLocalizations l10n) {
+  static List<OnboardingPageModel> onboardingPages(AppLocalizations l10n,bool isDark) {
     return [
       OnboardingPageModel(
         imagePath: AppAssets.onboarding1,
         title: l10n.onboardingTitle1,
         description: l10n.onboardingDesc1,
+
       ),
       OnboardingPageModel(
-        imagePath: AppAssets.onboarding2,
+        imagePath:isDark ? AppAssets.onboarding2Dark: AppAssets.onboarding2,
         title: l10n.onboardingTitle2,
         description: l10n.onboardingDesc2,
       ),
       OnboardingPageModel(
-        imagePath: AppAssets.onboarding3,
+        imagePath:isDark ? AppAssets.onboarding3Dark : AppAssets.onboarding3,
         title: l10n.onboardingTitle3,
         description: l10n.onboardingDesc3,
       ),

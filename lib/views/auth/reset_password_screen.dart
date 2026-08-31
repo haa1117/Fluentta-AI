@@ -28,7 +28,7 @@ class ResetPasswordScreen extends StatelessWidget {
     final viewModel = context.watch<ResetPasswordViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AuthAppBar(showBack: !isDeepLinkFlow),
       body: SafeArea(
         child: SingleChildScrollView(

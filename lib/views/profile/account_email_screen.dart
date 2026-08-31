@@ -36,7 +36,7 @@ class _AccountEmailScreenState extends State<AccountEmailScreen> {
     final l10n = context.l10n;
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AuthAppBar(
         showBack: true,
         title: l10n.emailScreenTitle,

@@ -15,7 +15,7 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
     final lesson = viewModel.lesson;
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
         child: Column(
           children: [

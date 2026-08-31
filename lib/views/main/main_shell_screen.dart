@@ -59,7 +59,7 @@ class _MainShellBodyState extends State<_MainShellBody> {
         showExitAppDialog(context);
       },
       child: Scaffold(
-        backgroundColor: AppColors.scaffoldBackgroundColor,
+        backgroundColor: AppColors.scaffoldBackground(context),
         body: IndexedStack(
           index: currentIndex,
           children: const [

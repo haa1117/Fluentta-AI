@@ -28,7 +28,7 @@ class UpdateNameScreen extends StatelessWidget {
         initialName,
       ),
       child: Scaffold(
-        backgroundColor: AppColors.scaffoldBackgroundColor,
+        backgroundColor: AppColors.scaffoldBackground(context),
         appBar: AuthAppBar(
           showBack: true,
           title: l10n.nameLabel,

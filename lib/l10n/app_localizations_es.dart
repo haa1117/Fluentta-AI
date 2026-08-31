@@ -1034,6 +1034,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get lightMode => 'Modo claro';
 
   @override
+  String get darkMode => 'Modo oscuro';
+
+  @override
+  String get systemDefault => 'Predeterminado del sistema';
+
+  @override
   String get restorePurchases => 'Restaurar compras';
 
   @override

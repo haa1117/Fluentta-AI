@@ -6,11 +6,12 @@ class SecondaryTextButton extends StatelessWidget {
   const SecondaryTextButton({
     super.key,
     required this.text,
-    required this.onPressed,
+    required this.onPressed, required this.isDark,
   });
 
   final String text;
   final VoidCallback onPressed;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class SecondaryTextButton extends StatelessWidget {
         text,
         style: TextStyle(
           fontFamily: 'PlusJakartaSans',
-          color: AppColors.textSecondary,
+          color:isDark ? AppColors.textSecondaryDark: AppColors.textSecondary,
           fontSize: AppSizes.fontSubtitle,
           fontWeight: FontWeight.w400,
         ),

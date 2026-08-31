@@ -22,7 +22,7 @@ class CreateAccountScreen extends StatelessWidget {
     final viewModel = context.watch<CreateAccountViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: const AuthAppBar(showBack: true),
       body: SafeArea(
         child: SingleChildScrollView(

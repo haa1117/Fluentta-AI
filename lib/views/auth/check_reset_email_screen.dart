@@ -135,7 +135,7 @@ class _CheckResetEmailScreenState extends State<CheckResetEmailScreen>
     final l10n = context.l10n;
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: const AuthAppBar(showBack: true),
       body: SafeArea(
         child: SingleChildScrollView(

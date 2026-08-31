@@ -37,7 +37,7 @@ class _OpenChatPracticeScreenState extends State<OpenChatPracticeScreen> {
     final l10n = context.l10n;
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.openChatPracticeTitle,
         showBackButton: true,

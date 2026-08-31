@@ -25,7 +25,7 @@ class VerifyOtpScreen extends StatelessWidget {
     final authRepository = context.read<AuthRepository>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: const AuthAppBar(showBack: true),
       body: SafeArea(
         child: SingleChildScrollView(

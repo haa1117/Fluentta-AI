@@ -44,7 +44,7 @@ class _RolePlayTabBody extends StatelessWidget {
         : '${homeViewModel.lives}';
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(title: l10n.rolePlayTitle),
       body: SafeArea(
         child: SingleChildScrollView(

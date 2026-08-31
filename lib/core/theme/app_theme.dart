@@ -56,4 +56,20 @@ class AppTheme {
       ),
     );
   }
+
+  static ThemeData get darkTheme {
+    return lightTheme.copyWith(
+      brightness: Brightness.dark,
+      scaffoldBackgroundColor: AppColors.darkScaffoldBackgroundColor,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.primaryColor,
+        primary: AppColors.primaryColor,
+        brightness: Brightness.dark,
+        surface: AppColors.darkScaffoldBackgroundColor,
+      ),
+      appBarTheme: lightTheme.appBarTheme.copyWith(
+        backgroundColor: AppColors.darkScaffoldBackgroundColor,
+      ),
+    );
+  }
 }

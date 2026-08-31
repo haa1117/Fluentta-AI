@@ -1027,6 +1027,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lightMode => 'Light mode';
 
   @override
+  String get darkMode => 'Dark mode';
+
+  @override
+  String get systemDefault => 'System default';
+
+  @override
   String get restorePurchases => 'Restore Purchases';
 
   @override

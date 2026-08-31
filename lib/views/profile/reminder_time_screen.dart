@@ -68,14 +68,14 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
     final l10n = context.l10n;
 
     if (!_initialized) {
-      return const Scaffold(
-        backgroundColor: AppColors.scaffoldBackgroundColor,
-        body: Center(child: CircularProgressIndicator()),
+      return Scaffold(
+        backgroundColor: AppColors.scaffoldBackground(context),
+        body: const Center(child: CircularProgressIndicator()),
       );
     }
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.reminderTimeTitle,
         showBackButton: true,

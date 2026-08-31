@@ -322,6 +322,8 @@
   "dailyReminderAt": "Recordatorio diario a las {time}",
   "appAppearance": "Apariencia de la app",
   "lightMode": "Modo claro",
+  "darkMode": "Modo oscuro",
+  "systemDefault": "Predeterminado del sistema",
   "restorePurchases": "Restaurar compras",
   "supportLegal": "SOPORTE Y LEGAL",
   "privacyPolicy": "Política de privacidad",

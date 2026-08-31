@@ -17,7 +17,7 @@ class WeeklyProgressReportScreen extends StatelessWidget {
     final profile = context.watch<ProfileViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: 'Weekly Progress Report',
         showBackButton: true,

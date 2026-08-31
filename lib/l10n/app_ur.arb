@@ -321,6 +321,8 @@
   "dailyReminderAt": "روزانہ یاد دہانی {time} بجے",
   "appAppearance": "ایپ کی ظاہری شکل",
   "lightMode": "لائٹ موڈ",
+  "darkMode": "ڈارک موڈ",
+  "systemDefault": "سسٹم ڈیفالٹ",
   "restorePurchases": "خریداری بحال کریں",
   "supportLegal": "مدد اور قانونی",
   "privacyPolicy": "رازداری کی پالیسی",

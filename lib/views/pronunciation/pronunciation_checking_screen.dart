@@ -49,7 +49,7 @@ class _PronunciationCheckingScreenState
     final l10n = context.l10n;
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.pronunciation,
         showBackButton: true,

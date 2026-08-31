@@ -77,7 +77,7 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
         builder: (context, detailVm, _) {
           if (detailVm.isLoading) {
             return Scaffold(
-              backgroundColor: AppColors.scaffoldBackgroundColor,
+              backgroundColor: AppColors.scaffoldBackground(context),
               appBar: AppBarWidget(
                 title: detailTitle,
                 showBackButton: true,
@@ -92,7 +92,7 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
           final levelLabel = CefrLevelProgress.levelNameLabel(l10n, level);
 
           return Scaffold(
-            backgroundColor: AppColors.scaffoldBackgroundColor,
+            backgroundColor: AppColors.scaffoldBackground(context),
             appBar: AppBarWidget(
               title: detailTitle,
               showBackButton: true,

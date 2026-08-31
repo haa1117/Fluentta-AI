@@ -55,7 +55,7 @@ class _GrammarLessonBody extends StatelessWidget {
     final step = viewModel.currentStep;
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.lessonTitle(lessonNumber),
         showBackButton: true,

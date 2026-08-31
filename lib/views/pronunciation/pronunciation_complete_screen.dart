@@ -22,10 +22,10 @@ class PronunciationCompleteScreen extends StatelessWidget {
     final vm = context.watch<PronunciationViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.pronunciation,
-        backGroundColor: AppColors.scaffoldBackgroundColor,
+        backGroundColor: AppColors.scaffoldBackground(context),
         showBackButton: true,
         centerTitle: true,
         showActionButton: false,

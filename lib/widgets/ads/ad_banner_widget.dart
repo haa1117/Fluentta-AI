@@ -278,10 +278,7 @@ class _AdNativeWidgetState extends State<AdNativeWidget> {
         return SizedBox(
           width: double.infinity,
           height: height,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(AppSizes.adRadius),
-            child: AdWidget(ad: ad),
-          ),
+          child: AdWidget(ad: ad),
         );
       },
     );

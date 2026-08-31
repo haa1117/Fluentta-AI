@@ -74,7 +74,7 @@ class _PronunciationRecordingScreenState
     final phrase = vm.currentPhraseText;
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.pronunciation,
         showBackButton: true,

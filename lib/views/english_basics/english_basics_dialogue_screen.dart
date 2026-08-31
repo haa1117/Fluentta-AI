@@ -20,7 +20,7 @@ class EnglishBasicsDialogueScreen extends StatelessWidget {
     final lesson = viewModel.lesson;
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: const AppBarWidget(
         title: "Today's Lesson",
         showBackButton: true,

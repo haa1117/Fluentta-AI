@@ -32,7 +32,7 @@ class RoleplayVocabularyPathScreen extends StatelessWidget {
         builder: (context, viewModel, _) {
           if (viewModel.isLoading) {
             return Scaffold(
-              backgroundColor: AppColors.scaffoldBackgroundColor,
+              backgroundColor: AppColors.scaffoldBackground(context),
               appBar: AppBarWidget(
                 title: l10n.vocabulary,
                 showBackButton: true,
@@ -44,7 +44,7 @@ class RoleplayVocabularyPathScreen extends StatelessWidget {
           }
 
           return Scaffold(
-            backgroundColor: AppColors.scaffoldBackgroundColor,
+            backgroundColor: AppColors.scaffoldBackground(context),
             appBar: AppBarWidget(
               title: l10n.vocabulary,
               showBackButton: true,

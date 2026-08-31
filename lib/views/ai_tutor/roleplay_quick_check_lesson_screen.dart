@@ -55,7 +55,7 @@ class _RoleplayQuickCheckLessonBody extends StatelessWidget {
     final viewModel = context.watch<RoleplayQuickCheckLessonViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.quickCheck,
         showBackButton: true,

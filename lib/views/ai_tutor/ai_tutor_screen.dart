@@ -26,7 +26,7 @@ class AiTutorScreen extends StatelessWidget {
     final viewModel = context.watch<AiTutorViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.aiTutor,
         showBackButton: true,

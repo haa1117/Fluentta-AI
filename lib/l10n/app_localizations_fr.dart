@@ -1039,6 +1039,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get lightMode => 'Mode clair';
 
   @override
+  String get darkMode => 'Mode sombre';
+
+  @override
+  String get systemDefault => 'Par défaut du système';
+
+  @override
   String get restorePurchases => 'Restaurer les achats';
 
   @override

@@ -177,6 +177,7 @@ class _AppNavigatorState extends State<AppNavigator> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -210,6 +211,7 @@ class _AppNavigatorState extends State<AppNavigator> {
           AppFlow.onboarding => OnboardingScreen(
               key: const ValueKey('onboarding'),
               onComplete: _goToLanguage,
+            isDark: isDark,
             ),
           AppFlow.language => LanguageSelectionScreen(
               key: const ValueKey('language'),

@@ -21,9 +21,9 @@ class LanguageSelectionScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<LanguageViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
         child: Column(
           children: [
@@ -36,14 +36,15 @@ class LanguageSelectionScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: AppSizes.spaceMd),
-                    const LanguageBanner(),
+                     LanguageBanner(isDark: isDark),
                     SizedBox(height: AppSizes.spaceLg),
-                    SectionHeader(title: l10n.suggestedForYou),
+                    SectionHeader(title: l10n.suggestedForYou, isDark: isDark),
                     SizedBox(height: AppSizes.spaceSm),
                     ...viewModel.suggestedLanguages(l10n).map(
                       (language) => Padding(
                         padding: EdgeInsets.only(bottom: AppSizes.spaceSm),
                         child: LanguageTile(
+                          isDark: isDark,
                           flagEmoji: language.flagEmoji,
                           languageName: language.name,
                           subtitle: language.subtitle,
@@ -54,12 +55,13 @@ class LanguageSelectionScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: AppSizes.spaceMd),
-                    SectionHeader(title: l10n.otherLanguages),
+                    SectionHeader(title: l10n.otherLanguages, isDark: isDark),
                     SizedBox(height: AppSizes.spaceSm),
                     ...viewModel.otherLanguages(l10n).map(
                       (language) => Padding(
                         padding: EdgeInsets.only(bottom: AppSizes.spaceSm),
                         child: LanguageTile(
+                          isDark: isDark,
                           flagEmoji: language.flagEmoji,
                           languageName: language.name,
                           isSelected:
@@ -88,6 +90,7 @@ class LanguageSelectionScreen extends StatelessWidget {
                     placement: AdPlacement.languageNative,
                   ),
 
+                  SizedBox(height: AppSizes.spaceSm),
 
                   PrimaryButton(
                     text: l10n.continueBtn,

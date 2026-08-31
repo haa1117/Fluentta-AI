@@ -22,7 +22,7 @@ class UpdatePasswordScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => UpdatePasswordViewModel(context.read<AuthRepository>()),
       child: Scaffold(
-        backgroundColor: AppColors.scaffoldBackgroundColor,
+        backgroundColor: AppColors.scaffoldBackground(context),
         appBar: AuthAppBar(
           showBack: true,
           title: l10n.passwordLabel,

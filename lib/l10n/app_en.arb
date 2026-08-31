@@ -438,6 +438,8 @@
   },
   "appAppearance": "App Appearance",
   "lightMode": "Light mode",
+  "darkMode": "Dark mode",
+  "systemDefault": "System default",
   "restorePurchases": "Restore Purchases",
   "supportLegal": "SUPPORT & LEGAL",
   "privacyPolicy": "Privacy Policy",

@@ -28,7 +28,7 @@ class DiscountPaywallScreen extends StatelessWidget {
     final vm = context.watch<SubscriptionViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
         child: Column(
           children: [

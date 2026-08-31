@@ -50,7 +50,7 @@ class SignInScreen extends StatelessWidget {
     final authRepository = context.read<AuthRepository>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),

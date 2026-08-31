@@ -1944,6 +1944,18 @@ abstract class AppLocalizations {
   /// **'Light mode'**
   String get lightMode;
 
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark mode'**
+  String get darkMode;
+
+  /// No description provided for @systemDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'System default'**
+  String get systemDefault;
+
   /// No description provided for @restorePurchases.
   ///
   /// In en, this message translates to:

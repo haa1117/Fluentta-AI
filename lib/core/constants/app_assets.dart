@@ -4,6 +4,8 @@ class AppAssets {
   static const String splashBird = 'assets/images/splash_bird.png';
   static const String onboarding1 = 'assets/images/onboarding_1.png';
   static const String onboarding2 = 'assets/images/onboarding_2.png';
+  static const String onboarding2Dark='assets/images/onboarding2_dark.png';
+  static const String onboarding3Dark = 'assets/images/onboarding3_dark.png';
   static const String onboarding3 = 'assets/images/onboarding_3.png';
   static const String languageBannerBird = 'assets/images/language_banner_bird.png';
   static const String accountCreated = 'assets/images/account_created.png';
@@ -39,6 +41,7 @@ static const String pronunciationCheckingBird='assets/images/pronunciation_check
   static const String outOfHearthBird = 'assets/images/out_of_hearth_bird.png';
   static const String todayStartLessonBird='assets/images/today_lesson_start_bird.png';
   static const String speakBirdWithCircle='assets/images/speak_bird.png';
+  static const String chooseLanguageBird='assets/images/choose_language_bird.png';
 
   /// ---  SVG ICONS  ----///
 

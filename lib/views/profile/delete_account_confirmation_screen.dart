@@ -79,7 +79,7 @@ class _DeleteAccountConfirmationScreenState
     final requiresPassword = context.watch<AuthViewModel>().canChangePassword;
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),

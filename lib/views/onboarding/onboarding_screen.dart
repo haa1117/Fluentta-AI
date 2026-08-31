@@ -13,19 +13,21 @@ import 'package:fluentta_ai/widgets/common/secondary_text_button.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({super.key, required this.onComplete});
+  final bool isDark;
+  const OnboardingScreen({super.key, required this.onComplete, required this.isDark});
 
   final VoidCallback onComplete;
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<OnboardingViewModel>();
-    final pages = LocalizedContent.onboardingPages(l10n);
+    final pages = LocalizedContent.onboardingPages(l10n,isDark);
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
         child: Column(
           children: [
@@ -61,6 +63,7 @@ class OnboardingScreen extends StatelessWidget {
                   SecondaryTextButton(
                     text: l10n.skip,
                     onPressed: () => viewModel.skipOnboarding(onComplete),
+                    isDark: isDark,
                   ),
                   SizedBox(height: AppSizes.spaceSm),
                 ],
@@ -90,7 +93,7 @@ class _OnboardingPageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -107,6 +110,7 @@ class _OnboardingPageContent extends StatelessWidget {
           OnboardingText(
             title: title,
             description: description,
+            isDark: isDark,
           ),
           SizedBox(height: AppSizes.spaceMd),
           PageIndicator(

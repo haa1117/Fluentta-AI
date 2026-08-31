@@ -20,7 +20,7 @@ class ReadingScreen extends StatelessWidget {
 
     if (viewModel.isLoading) {
       return Scaffold(
-        backgroundColor: AppColors.scaffoldBackgroundColor,
+        backgroundColor: AppColors.scaffoldBackground(context),
         appBar: AppBarWidget(
           title: l10n.reading,
           showBackButton: true,
@@ -32,7 +32,7 @@ class ReadingScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.reading,
         showBackButton: true,

@@ -7,6 +7,7 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/theme/theme_view_model.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
@@ -24,6 +25,7 @@ import 'package:fluentta_ai/viewmodels/subscription_view_model.dart';
 import 'package:fluentta_ai/views/language/language_selection_screen.dart';
 import 'package:fluentta_ai/views/profile/account_and_security_screen.dart';
 import 'package:fluentta_ai/views/profile/notifications_reminders_screen.dart';
+import 'package:fluentta_ai/widgets/profile/app_appearance_sheet.dart';
 import 'package:fluentta_ai/widgets/profile/profile_daily_goal_card.dart';
 import 'package:fluentta_ai/views/profile/weekly_progress_report_screen.dart';
 import 'package:fluentta_ai/widgets/common/pro_feature_sheet.dart';
@@ -44,10 +46,11 @@ class ProfileTabScreen extends StatelessWidget {
     final l10n = context.l10n;
     final authViewModel = context.watch<AuthViewModel>();
     final profile = context.watch<ProfileViewModel>();
+    final themeViewModel = context.watch<ThemeViewModel>();
     final languageCode = authViewModel.selectedLanguage ?? 'en';
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: 'Profile',
       ),
@@ -190,9 +193,8 @@ class ProfileTabScreen extends StatelessWidget {
                         ProfileSettingsTile(
                           svgIcon: 'assets/svg/theme.svg',
                           title: l10n.appAppearance,
-                          subtitle: l10n.lightMode,
-                          onTap: () => SnackbarHelper.showSuccess(
-                              context, l10n.openingSoon),
+                          subtitle: themeViewModel.modeLabel(l10n),
+                          onTap: () => showAppAppearanceSheet(context),
                         ),
                         ProfileSettingsTile(
                           svgIcon: 'assets/svg/restore_purchase.svg',

@@ -30,7 +30,7 @@ class AccountAndSecurityScreen extends StatelessWidget {
     final email = auth.email ?? '';
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AuthAppBar(
         showBack: true,
         title: l10n.accountAndSecurity,

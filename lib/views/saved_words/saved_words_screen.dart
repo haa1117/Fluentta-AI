@@ -35,7 +35,7 @@ class _SavedWordsBody extends StatelessWidget {
     final vm = context.watch<SavedWordsViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.savedWords,
         showBackButton: true,

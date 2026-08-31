@@ -31,7 +31,7 @@ class SetupFlowScreen extends StatelessWidget {
     final viewModel = context.watch<SetupViewModel>();
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
+      backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
         child: Column(
           children: [
