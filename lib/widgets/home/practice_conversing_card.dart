@@ -21,7 +21,7 @@ final bool isDark;
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(16)),
       decoration: BoxDecoration(
-        color: AppColors.homeCardLavender,
+        color:isDark ? AppColors.brandDarkSoftColor: AppColors.homeCardLavender,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
       ),
       child: Column(
@@ -49,7 +49,7 @@ final bool isDark;
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(20),
                         fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary,
+                        color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                       ),
                     ),
                     SizedBox(height: AppSizes.spaceSm),
@@ -59,7 +59,7 @@ final bool isDark;
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(12),
                         fontWeight: FontWeight.w500,
-                        color: AppColors.textSecondary,
+                        color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                         height: 1.45,
                       ),
                     ),
@@ -75,7 +75,7 @@ final bool isDark;
               SizedBox(
                 width: AppSizes.sp(15),
               ),
-              Image.asset("assets/images/chat_mic.png",
+              Image.asset(isDark ? "assets/images/chat_mic_dark.png":"assets/images/chat_mic.png",
               scale: AppSizes.sp(3),
               
               ),
@@ -87,7 +87,7 @@ final bool isDark;
                 onTap: onStartChat,
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: AppSizes.w(16),
+                    horizontal: AppSizes.w(30),
                     vertical: AppSizes.h(12),
                   ),
                   decoration: BoxDecoration(
