@@ -41,9 +41,11 @@ class HomeBannerAd extends StatelessWidget {
 }
 
 class TodaysLessonCard extends StatelessWidget {
+  final bool isDark;
   const TodaysLessonCard({
     super.key,
     required this.onStartLesson,
+    required this.isDark
   });
 
   final VoidCallback onStartLesson;
@@ -65,10 +67,10 @@ class TodaysLessonCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(16)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.appBarDarkBackgroundColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         border: Border.all(
-          color: AppColors.borderLight
+          color:isDark ? AppColors.borderDarkColor : AppColors.borderLight
         ),
         boxShadow: [
           BoxShadow(
@@ -94,7 +96,7 @@ class TodaysLessonCard extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(14),
                         fontWeight: FontWeight.w600,
-                        color: AppColors.textSecondary,
+                        color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                       ),
                     ),
                     SizedBox(height: AppSizes.spaceSm),
@@ -104,7 +106,7 @@ class TodaysLessonCard extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(20),
                         fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary,
+                        color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
                       ),
                     ),
 
@@ -115,7 +117,7 @@ class TodaysLessonCard extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(12),
                         fontWeight: FontWeight.w500,
-                        color: AppColors.textSecondary,
+                        color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                       ),
                     ),
                   ],
@@ -125,13 +127,13 @@ class TodaysLessonCard extends StatelessWidget {
                 width: AppSizes.w(62),
                 height: AppSizes.w(62),
                 decoration: BoxDecoration(
-                  color: AppColors.homeCardLavender,
+                  color:isDark? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
                   shape: BoxShape.circle,
                 ),
                 child: Center(
                   child: SvgPicture.asset(
                     AppAssets.hatSvgIcon,
-                    color: AppColors.primaryColor,
+                    color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                     width: AppSizes.iconLarge,
                   ),
                 ),
@@ -141,11 +143,11 @@ class TodaysLessonCard extends StatelessWidget {
           SizedBox(height: AppSizes.spaceMd),
           Row(
             children: [
-              _LessonTag(label: 'Words'),
+              _LessonTag(label: 'Words', isDark:isDark),
               SizedBox(width: AppSizes.w(12)),
-              _LessonTag(label: 'Sentence Practice'),
+              _LessonTag(label: 'Sentence Practice', isDark:isDark),
               SizedBox(width: AppSizes.w(12)),
-              _LessonTag(label: 'Dialogue'),
+              _LessonTag(label: 'Dialogue', isDark:isDark),
             ],
           ),
           SizedBox(height: AppSizes.spaceMd),
@@ -157,9 +159,9 @@ class TodaysLessonCard extends StatelessWidget {
                   child: LinearProgressIndicator(
                     value: lessonProgress,
                     minHeight: AppSizes.h(6),
-                    backgroundColor: Color(0xffF3E8FF),
-                    valueColor: const AlwaysStoppedAnimation<Color>(
-                      AppColors.primaryColor,
+                    backgroundColor:isDark ? AppColors.brandDarkSoftColor : Color(0xffF3E8FF),
+                    valueColor:  AlwaysStoppedAnimation<Color>(
+                     isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                     ),
                   ),
                 ),
@@ -174,8 +176,8 @@ class TodaysLessonCard extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: basicsViewModel.canStartOrResume
-                        ? AppColors.resumeButtonBg
-                        : AppColors.progressTrack,
+                        ?isDark ? AppColors.brandDarkSoftColor: AppColors.resumeButtonBg
+                        : isDark ? AppColors.brandDarkSoftColor : AppColors.progressTrack,
                     borderRadius: BorderRadius.circular(AppSizes.w(10)),
                   ),
                   child: Text(
@@ -187,7 +189,7 @@ class TodaysLessonCard extends StatelessWidget {
                       fontSize: AppSizes.sp(13),
                       fontWeight: FontWeight.w600,
                       color: basicsViewModel.canStartOrResume
-                          ? AppColors.primaryColor
+                          ?isDark ? AppColors.primaryDarkColor : AppColors.primaryColor
                           : AppColors.textTertiary,
                     ),
                   ),
@@ -202,7 +204,8 @@ class TodaysLessonCard extends StatelessWidget {
 }
 
 class _LessonTag extends StatelessWidget {
-  const _LessonTag({required this.label});
+  final bool isDark;
+  const _LessonTag({required this.label,required this.isDark});
 
   final String label;
 
@@ -214,8 +217,8 @@ class _LessonTag extends StatelessWidget {
         Container(
           width: AppSizes.w(8),
           height: AppSizes.w(8),
-          decoration: const BoxDecoration(
-            color: AppColors.primaryColor,
+          decoration:  BoxDecoration(
+            color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
             shape: BoxShape.circle,
           ),
         ),
@@ -226,7 +229,7 @@ class _LessonTag extends StatelessWidget {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(12),
             fontWeight: FontWeight.w500,
-            color: AppColors.textSecondary,
+            color:isDark? AppColors.textSecondaryDark : AppColors.textSecondary,
           ),
         ),
       ],

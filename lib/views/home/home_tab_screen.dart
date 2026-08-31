@@ -63,6 +63,7 @@ class HomeTabScreen extends StatelessWidget {
             const HomeBannerAd(),
             SizedBox(height: AppSizes.spaceMd),
             TodaysLessonCard(
+              isDark: isDark,
               onStartLesson: () async {
                 await context.read<EnglishBasicsViewModel>().openLessonFlow(
                       context,

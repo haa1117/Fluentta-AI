@@ -17,11 +17,11 @@ class AppBottomNavBar extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<MainShellViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.white,
-        boxShadow: [
+        color:isDark ? Color(0xff100D17): AppColors.white,
+        boxShadow: [ 
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 12,
