@@ -17,17 +17,21 @@ class LearningPathCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(16)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: AppColors.borderDarkPrimary),
+        border: Border.all(
+          color: isDark ? AppColors.borderDarkColor : AppColors.borderDarkPrimary,
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryColor.withValues(alpha: 0.06),
+            color: (isDark ? AppColors.primaryDarkColor : AppColors.primaryColor)
+                .withValues(alpha: 0.06),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),
@@ -49,7 +53,9 @@ class LearningPathCard extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(20),
                         fontWeight: FontWeight.w700,
-                        color: AppColors.primaryColor,
+                        color: isDark
+                            ? AppColors.primaryDarkColor
+                            : AppColors.primaryColor,
                       ),
                     ),
                     SizedBox(height: AppSizes.h(4)),
@@ -59,7 +65,9 @@ class LearningPathCard extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(13),
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xff4A4455),
+                        color: isDark
+                            ? AppColors.textSecondaryDark
+                            : const Color(0xff4A4455),
                         height: 1.8,
                       ),
                     ),
@@ -87,7 +95,9 @@ class LearningPathCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),
                   fontWeight: FontWeight.w600,
-                  color: AppColors.primaryColor,
+                  color: isDark
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryColor,
                 ),
               ),
               Text(
@@ -96,7 +106,9 @@ class LearningPathCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.primaryColor,
+                  color: isDark
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryColor,
                 ),
               ),
             ],
@@ -107,9 +119,11 @@ class LearningPathCard extends StatelessWidget {
             child: LinearProgressIndicator(
               value: pathData.progress,
               minHeight: AppSizes.h(6),
-              backgroundColor: AppColors.progressTrack,
-              valueColor: const AlwaysStoppedAnimation<Color>(
-                AppColors.primaryBlueColor,
+              backgroundColor: isDark
+                  ? AppColors.brandDarkSoftColor
+                  : AppColors.progressTrack,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                isDark ? AppColors.primaryDarkColor : AppColors.primaryBlueColor,
               ),
             ),
           ),
@@ -120,7 +134,9 @@ class LearningPathCard extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(11),
               fontStyle: FontStyle.italic,
-              color: AppColors.primaryColor,
+              color: isDark
+                  ? AppColors.textSecondaryDark
+                  : AppColors.primaryColor,
             ),
           ),
         ],

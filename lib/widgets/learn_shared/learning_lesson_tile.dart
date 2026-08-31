@@ -24,6 +24,7 @@ class LearningLessonTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final isLocked = lesson.status == LearningLessonStatus.locked;
     final isInProgress = lesson.status == LearningLessonStatus.inProgress;
     final isCompleted = lesson.status == LearningLessonStatus.completed;
@@ -34,18 +35,30 @@ class LearningLessonTile extends StatelessWidget {
       margin: EdgeInsets.only(bottom: AppSizes.spaceSm),
       padding: EdgeInsets.all(AppSizes.w(14)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: borderRadius,
         border: isLocked
             ? null
             : isInProgress
-                ? Border.all(color: AppColors.primaryColor, width: 1.5)
-                : Border.all(color: AppColors.borderDarkPrimary),
+                ? Border.all(
+                    color: isDark
+                        ? AppColors.tileBorderDarkColor
+                        : AppColors.primaryColor,
+                    width: 1.5,
+                  )
+                : Border.all(
+                    color: isDark
+                        ? AppColors.borderDarkColor
+                        : AppColors.borderDarkPrimary,
+                  ),
         boxShadow: isLocked
             ? null
             : [
                 BoxShadow(
-                  color: AppColors.primaryColor.withValues(alpha: 0.04),
+                  color: (isDark
+                          ? AppColors.primaryDarkColor
+                          : AppColors.primaryColor)
+                      .withValues(alpha: 0.04),
                   blurRadius: 10,
                   offset: const Offset(0, 2),
                 ),
@@ -55,14 +68,16 @@ class LearningLessonTile extends StatelessWidget {
           ? DottedDecoration(
               shape: Shape.box,
               borderRadius: borderRadius,
-              color: AppColors.borderDarkPrimary,
+              color: isDark
+                  ? AppColors.borderDarkColor
+                  : AppColors.borderDarkPrimary,
               strokeWidth: 1.5,
               dash: const [5, 4],
             )
           : null,
       child: Row(
         children: [
-          _LessonIcon(lesson: lesson),
+          _LessonIcon(lesson: lesson, isDark: isDark),
           SizedBox(width: AppSizes.w(12)),
           Expanded(
             child: Column(
@@ -75,8 +90,12 @@ class LearningLessonTile extends StatelessWidget {
                     fontSize: AppSizes.sp(14),
                     fontWeight: FontWeight.w700,
                     color: isLocked
-                        ? AppColors.textTertiary
-                        : AppColors.textPrimary,
+                        ? (isDark
+                            ? AppColors.iconColorDark
+                            : AppColors.textTertiary)
+                        : (isDark
+                            ? AppColors.textPrimaryDark
+                            : AppColors.textPrimary),
                   ),
                 ),
                 if (isCompleted && lessonXpReward != null) ...[
@@ -100,7 +119,9 @@ class LearningLessonTile extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: isCompleted
                           ? AppColors.learnSuccessGreen
-                          : Color(0xffD3C4DC),
+                          : (isDark
+                              ? AppColors.textSecondaryDark
+                              : const Color(0xffD3C4DC)),
                     ),
                   ),
                 ],
@@ -111,9 +132,13 @@ class LearningLessonTile extends StatelessWidget {
                     child: LinearProgressIndicator(
                       value: lesson.progressValue,
                       minHeight: AppSizes.h(4),
-                      backgroundColor: AppColors.progressTrack,
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        AppColors.primaryBlueColor,
+                      backgroundColor: isDark
+                          ? AppColors.brandDarkSoftColor
+                          : AppColors.progressTrack,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        isDark
+                            ? AppColors.primaryDarkColor
+                            : AppColors.primaryBlueColor,
                       ),
                     ),
                   ),
@@ -126,6 +151,7 @@ class LearningLessonTile extends StatelessWidget {
             status: lesson.status,
             onTap: isLocked ? null : onTap,
             l10n: l10n,
+            isDark: isDark,
           ),
         ],
       ),
@@ -150,9 +176,10 @@ class LearningLessonTile extends StatelessWidget {
 }
 
 class _LessonIcon extends StatelessWidget {
-  const _LessonIcon({required this.lesson});
+  const _LessonIcon({required this.lesson, required this.isDark});
 
   final LearningLessonItem lesson;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -160,20 +187,20 @@ class _LessonIcon extends StatelessWidget {
     final isLocked = lesson.status == LearningLessonStatus.locked;
 
     late final Color bgColor;
-    late final Color iconColor;
     late final String svgIcon;
 
     if (isCompleted) {
       bgColor = AppColors.learnSuccessGreen.withValues(alpha: 0.15);
-      iconColor = AppColors.learnSuccessGreen;
       svgIcon = 'assets/svg/check.svg';
     } else if (isLocked) {
-      bgColor = AppColors.homeCardLavender;
-      iconColor = AppColors.textTertiary;
+      bgColor = isDark
+          ? AppColors.brandDarkSoftColor
+          : AppColors.homeCardLavender;
       svgIcon = 'assets/svg/lock.svg';
     } else {
-      bgColor = AppColors.homeCardLavender;
-      iconColor = AppColors.primaryColor;
+      bgColor = isDark
+          ? AppColors.brandDarkSoftColor
+          : AppColors.homeCardLavender;
       svgIcon = switch (lesson.iconName) {
         'travel' => 'assets/svg/today.svg',
         'chat' => 'assets/svg/lesson.svg',
@@ -205,11 +232,13 @@ class _ActionButton extends StatelessWidget {
   const _ActionButton({
     required this.status,
     required this.l10n,
+    required this.isDark,
     this.onTap,
   });
 
   final LearningLessonStatus status;
   final AppLocalizations l10n;
+  final bool isDark;
   final VoidCallback? onTap;
 
   @override
@@ -266,12 +295,28 @@ class _ActionButton extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: isOpenStyle
-              ? const Color(0xffF7F1FF)
+              ? (isDark
+                  ? AppColors.brandDarkSoftColor
+                  : const Color(0xffF7F1FF))
               : (filled
-                  ? AppColors.primaryBlueColor
-                  : (enabled ? Colors.white : const Color(0xffF7F1FF))),
+                  ? (isDark
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryBlueColor)
+                  : (enabled
+                      ? (isDark
+                          ? AppColors.surfaceBgDarkColor
+                          : Colors.white)
+                      : (isDark
+                          ? AppColors.brandDarkSoftColor
+                          : const Color(0xffF7F1FF)))),
           borderRadius: BorderRadius.circular(AppSizes.w(10)),
-          border: enabled ? Border.all(color: const Color(0xffF7F1FF)) : null,
+          border: enabled
+              ? Border.all(
+                  color: isDark
+                      ? AppColors.borderDarkColor
+                      : const Color(0xffF7F1FF),
+                )
+              : null,
         ),
         child: Text(
           label,
@@ -282,8 +327,12 @@ class _ActionButton extends StatelessWidget {
             color: filled
                 ? AppColors.white
                 : (enabled
-                    ? AppColors.primaryBlueColor
-                    : AppColors.textTertiary),
+                    ? (isDark
+                        ? AppColors.primaryDarkColor
+                        : AppColors.primaryBlueColor)
+                    : (isDark
+                        ? AppColors.iconColorDark
+                        : AppColors.textTertiary)),
           ),
         ),
       ),
