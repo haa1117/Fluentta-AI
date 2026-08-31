@@ -14,22 +14,29 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.showBackButton = false,
     this.centerTitle = false,
     this.onBack,
-    this.showActionButton = true,  this.backGroundColor= AppColors.white
+    this.showActionButton = true,
+    this.showHearts = false,
+    this.backGroundColor = AppColors.white,
   });
 
   final String title;
   final bool showBackButton;
   final bool centerTitle;
   final VoidCallback? onBack;
-final bool showActionButton;
-final Color backGroundColor;
+  final bool showActionButton;
+  final bool showHearts;
+  final Color backGroundColor;
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
-    final xpEarned = context.watch<HomeViewModel>().xpEarned;
+    final homeViewModel = context.watch<HomeViewModel>();
+    final xpEarned = homeViewModel.xpEarned;
+    final heartsLabel = homeViewModel.hasUnlimitedHearts
+        ? '∞'
+        : '${homeViewModel.lives}';
 
     return AppBar(
       backgroundColor: backGroundColor,
@@ -46,38 +53,47 @@ final Color backGroundColor;
           color: AppColors.primaryColor,
         ),
       ),
-      actions:showActionButton ? [
-        Container(
-          margin: EdgeInsets.only(right: AppSizes.w(16)),
-          padding: EdgeInsets.symmetric(
-            horizontal: AppSizes.w(12),
-            vertical: AppSizes.h(6),
-          ),
-          decoration: BoxDecoration(
-            color: AppColors.homeCardLavender,
-            borderRadius: BorderRadius.circular(AppSizes.w(20)),
-          ),
-          child: Row(
-            children: [
-              Text(
-                '$xpEarned',
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(14),
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.primaryBlueColor,
+      actions: showActionButton
+          ? [
+              Container(
+                margin: EdgeInsets.only(right: AppSizes.w(16)),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.w(12),
+                  vertical: AppSizes.h(6),
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.homeCardLavender,
+                  borderRadius: BorderRadius.circular(AppSizes.w(20)),
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      showHearts ? heartsLabel : '$xpEarned',
+                      style: TextStyle(
+                        fontFamily: AppFonts.plusJakartaSans,
+                        fontSize: AppSizes.sp(14),
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.primaryBlueColor,
+                      ),
+                    ),
+                    SizedBox(width: AppSizes.w(4)),
+                    if (showHearts)
+                      Icon(
+                        Icons.favorite_rounded,
+                        size: AppSizes.sp(16),
+                        color: AppColors.heartRed,
+                      )
+                    else
+                      SvgPicture.asset(
+                        AppAssets.xpEarnIcon,
+                        width: AppSizes.sp(16),
+                        height: AppSizes.sp(16),
+                      ),
+                  ],
                 ),
               ),
-              SizedBox(width: AppSizes.w(4)),
-              SvgPicture.asset(
-AppAssets.xpEarnIcon,                // color: AppColors.heartRed,
-                width: AppSizes.sp(16),
-                height: AppSizes.sp(16),
-              ),
-            ],
-          ),
-        ),
-      ] : [],
+            ]
+          : [],
     );
   }
 }

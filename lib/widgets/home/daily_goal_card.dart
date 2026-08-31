@@ -1,11 +1,12 @@
 import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:provider/provider.dart';
+
+
 
 class DailyGoalCard extends StatelessWidget {
   const DailyGoalCard({super.key});

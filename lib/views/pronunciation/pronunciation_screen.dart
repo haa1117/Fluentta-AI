@@ -26,6 +26,7 @@ class PronunciationScreen extends StatelessWidget {
         title: l10n.pronunciation,
         showBackButton: true,
         centerTitle: true,
+        showHearts: true,
         onBack: () => PronunciationFlow.popOrExitFlow(context),
       ),
       body: SafeArea(

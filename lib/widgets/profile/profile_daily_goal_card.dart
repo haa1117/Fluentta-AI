@@ -3,12 +3,16 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:provider/provider.dart';
 
 class ProfileDailyGoalCard extends StatelessWidget {
-  const ProfileDailyGoalCard({super.key});
+  const ProfileDailyGoalCard({
+    super.key,
+    required this.onChangeGoal,
+  });
+
+  final VoidCallback onChangeGoal;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +44,7 @@ class ProfileDailyGoalCard extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () =>
-                    SnackbarHelper.showSuccess(context, l10n.openingSoon),
+                onTap: onChangeGoal,
                 child: Text(
                   l10n.changeGoal,
                   style: TextStyle(

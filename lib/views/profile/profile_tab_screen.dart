@@ -123,7 +123,9 @@ class ProfileTabScreen extends StatelessWidget {
                     ProfileSectionHeader(title: l10n.yourStats),
                     const ProfileStatsGrid(),
                     SizedBox(height: AppSizes.h(20)),
-                    const ProfileDailyGoalCard(),
+                    ProfileDailyGoalCard(
+                      onChangeGoal: () => _openLearningPreferences(context),
+                    ),
                     SizedBox(height: AppSizes.h(20)),
                     ProfileSectionHeader(title: l10n.accountSection),
                     ProfileSettingsGroup(
@@ -147,12 +149,12 @@ class ProfileTabScreen extends StatelessWidget {
                     ProfileSectionHeader(title: l10n.settingsSection),
                     ProfileSettingsGroup(
                       children: [
-                        ProfileSettingsTile(
-                          svgIcon: 'assets/svg/learn.svg',
-                          title: l10n.learningPreferences,
-                          subtitle: l10n.learningPreferencesSub,
-                          onTap: () => _openLearningPreferences(context),
-                        ),
+                        // ProfileSettingsTile(
+                        //   svgIcon: 'assets/svg/learn.svg',
+                        //   title: l10n.learningPreferences,
+                        //   subtitle: l10n.learningPreferencesSub,
+                        //   onTap: () => _openLearningPreferences(context),
+                        // ),
                         ProfileSettingsTile(
                           svgIcon: 'assets/svg/language.svg',
                           title: l10n.profileLanguage,
@@ -230,89 +232,89 @@ class ProfileTabScreen extends StatelessWidget {
                         ],
                       ),
                     ],
-                    SizedBox(height: AppSizes.h(20)),
-                    ProfileSectionHeader(title: 'PRO FEATURES'),
-                    ProfileSettingsGroup(
-                      children: [
-                        ProfileSettingsTile(
-                          svgIcon: 'assets/svg/learn.svg',
-                          title: 'Weekly Progress Report',
-                          subtitle: profile.canViewWeeklyReport
-                              ? 'View your learning summary'
-                              : 'Pro feature',
-                          onTap: () {
-                            if (profile.canViewWeeklyReport) {
-                              Navigator.of(context).push<void>(
-                                MaterialPageRoute<void>(
-                                  builder: (_) =>
-                                      const WeeklyProgressReportScreen(),
-                                ),
-                              );
-                              return;
-                            }
-                            showProFeatureSheet(
-                              context,
-                              title: 'Weekly Progress Report',
-                              message:
-                                  'Upgrade to Pro for weekly learning reports.',
-                            );
-                          },
-                        ),
-                        ProfileSettingsTile(
-                          svgIcon: 'assets/svg/restore_purchase.svg',
-                          title: profile.isPro
-                              ? 'Streak Repair'
-                              : 'Streak Freezes',
-                          subtitle: profile.isPro
-                              ? (profile.canRepairStreak
-                                  ? 'Restore streak once this month'
-                                  : 'Already used this month')
-                              : '${profile.streakFreezesRemaining} remaining this week',
-                          onTap: () async {
-                            if (profile.isPro) {
-                              final repaired = await context
-                                  .read<HomeViewModel>()
-                                  .repairStreak();
-                              if (!context.mounted) return;
-                              SnackbarHelper.showSuccess(
-                                context,
-                                repaired
-                                    ? 'Streak restored.'
-                                    : 'No streak available to repair.',
-                              );
-                              context.read<ProfileViewModel>().refresh();
-                              return;
-                            }
-                            SnackbarHelper.showSuccess(
-                              context,
-                              'Streak freezes apply automatically when you miss a day.',
-                            );
-                          },
-                        ),
-                        ProfileSettingsTile(
-                          svgIcon: 'assets/svg/theme.svg',
-                          title: 'Offline Mode',
-                          subtitle: profile.canUseOfflineMode
-                              ? 'Enabled for Pro'
-                              : 'Pro feature',
-                          onTap: () {
-                            if (profile.canUseOfflineMode) {
-                              SnackbarHelper.showSuccess(
-                                context,
-                                'Offline mode is active. Bundled lessons work without internet.',
-                              );
-                              return;
-                            }
-                            showProFeatureSheet(
-                              context,
-                              title: 'Offline Mode',
-                              message:
-                                  'Upgrade to Pro to keep learning without internet.',
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                    // SizedBox(height: AppSizes.h(20)),
+                    // ProfileSectionHeader(title: 'PRO FEATURES'),
+                    // ProfileSettingsGroup(
+                    //   children: [
+                    //     ProfileSettingsTile(
+                    //       svgIcon: 'assets/svg/learn.svg',
+                    //       title: 'Weekly Progress Report',
+                    //       subtitle: profile.canViewWeeklyReport
+                    //           ? 'View your learning summary'
+                    //           : 'Pro feature',
+                    //       onTap: () {
+                    //         if (profile.canViewWeeklyReport) {
+                    //           Navigator.of(context).push<void>(
+                    //             MaterialPageRoute<void>(
+                    //               builder: (_) =>
+                    //                   const WeeklyProgressReportScreen(),
+                    //             ),
+                    //           );
+                    //           return;
+                    //         }
+                    //         showProFeatureSheet(
+                    //           context,
+                    //           title: 'Weekly Progress Report',
+                    //           message:
+                    //               'Upgrade to Pro for weekly learning reports.',
+                    //         );
+                    //       },
+                    //     ),
+                    //     ProfileSettingsTile(
+                    //       svgIcon: 'assets/svg/restore_purchase.svg',
+                    //       title: profile.isPro
+                    //           ? 'Streak Repair'
+                    //           : 'Streak Freezes',
+                    //       subtitle: profile.isPro
+                    //           ? (profile.canRepairStreak
+                    //               ? 'Restore streak once this month'
+                    //               : 'Already used this month')
+                    //           : '${profile.streakFreezesRemaining} remaining this week',
+                    //       onTap: () async {
+                    //         if (profile.isPro) {
+                    //           final repaired = await context
+                    //               .read<HomeViewModel>()
+                    //               .repairStreak();
+                    //           if (!context.mounted) return;
+                    //           SnackbarHelper.showSuccess(
+                    //             context,
+                    //             repaired
+                    //                 ? 'Streak restored.'
+                    //                 : 'No streak available to repair.',
+                    //           );
+                    //           context.read<ProfileViewModel>().refresh();
+                    //           return;
+                    //         }
+                    //         SnackbarHelper.showSuccess(
+                    //           context,
+                    //           'Streak freezes apply automatically when you miss a day.',
+                    //         );
+                    //       },
+                    //     ),
+                    //     ProfileSettingsTile(
+                    //       svgIcon: 'assets/svg/theme.svg',
+                    //       title: 'Offline Mode',
+                    //       subtitle: profile.canUseOfflineMode
+                    //           ? 'Enabled for Pro'
+                    //           : 'Pro feature',
+                    //       onTap: () {
+                    //         if (profile.canUseOfflineMode) {
+                    //           SnackbarHelper.showSuccess(
+                    //             context,
+                    //             'Offline mode is active. Bundled lessons work without internet.',
+                    //           );
+                    //           return;
+                    //         }
+                    //         showProFeatureSheet(
+                    //           context,
+                    //           title: 'Offline Mode',
+                    //           message:
+                    //               'Upgrade to Pro to keep learning without internet.',
+                    //         );
+                    //       },
+                    //     ),
+                    //   ],
+                    // ),
                     SizedBox(height: AppSizes.h(20)),
                     ProfileSectionHeader(title: l10n.supportLegal),
                     ProfileSettingsGroup(
