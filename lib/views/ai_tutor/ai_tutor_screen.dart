@@ -24,7 +24,7 @@ class AiTutorScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<AiTutorViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
@@ -56,12 +56,13 @@ class AiTutorScreen extends StatelessWidget {
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(24),
                 fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
+                color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                 height: 1.3,
               ),
             ),
             SizedBox(height: AppSizes.spaceLg),
             _OpenAiChatCard(
+              isDark: isDark,
               onTap: () {},
             ),
             SizedBox(height: AppSizes.spaceXl),
@@ -73,7 +74,7 @@ class AiTutorScreen extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(18),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                 ),
               ),
             ),
@@ -123,7 +124,7 @@ class AiTutorScreen extends StatelessWidget {
                           ),
                         ),
                       );
-                    },
+                    }, isDark: isDark
                   );
                 },
               ),
@@ -150,7 +151,8 @@ class AiTutorScreen extends StatelessWidget {
 }
 
 class _OpenAiChatCard extends StatelessWidget {
-  const _OpenAiChatCard({required this.onTap});
+  final bool isDark;
+  const _OpenAiChatCard({required this.onTap, required this.isDark});
 
   final VoidCallback onTap;
 
@@ -164,14 +166,14 @@ class _OpenAiChatCard extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.all(AppSizes.w(16)),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color:isDark ? AppColors.surfaceBgDarkColor: AppColors.white,
           borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-          border: Border.all(color: AppColors.borderLight),
+          border: Border.all(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight),
         ),
         child: Row(
           children: [
             SvgPicture.asset(
-              'assets/svg/ai_chat.svg',
+             isDark ? 'assets/svg/ai_chat_dark.svg': 'assets/svg/ai_chat.svg',
               width: AppSizes.sp(48),
               height: AppSizes.sp(48),
             ),
@@ -186,7 +188,7 @@ class _OpenAiChatCard extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(16),
                       fontWeight: FontWeight.w700,
-                      color: const Color(0xff665D72),
+                      color:isDark? AppColors.textSecondaryDark : const Color(0xff665D72),
                     ),
                   ),
                   SizedBox(height: AppSizes.h(6)),
@@ -196,7 +198,7 @@ class _OpenAiChatCard extends StatelessWidget {
                       vertical: AppSizes.h(3),
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
+                      color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                       borderRadius: BorderRadius.circular(AppSizes.w(20)),
                     ),
                     child: Text(

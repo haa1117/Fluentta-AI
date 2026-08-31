@@ -42,7 +42,7 @@ class _RolePlayTabBody extends StatelessWidget {
     final livesLabel = homeViewModel.hasUnlimitedHearts
         ? '∞'
         : '${homeViewModel.lives}';
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(title: l10n.rolePlayTitle),
@@ -93,6 +93,7 @@ class _RolePlayTabBody extends StatelessWidget {
                       scenario.id,
                     );
                     return RoleplayScenarioCard(
+                      isDark: isDark,
                       scenario: RoleplayScenarioModel(
                         id: scenario.id,
                         title: title,

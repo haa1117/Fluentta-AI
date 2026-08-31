@@ -21,7 +21,7 @@ class AppBottomNavBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color:isDark ? Color(0xff100D17): AppColors.white,
-        boxShadow: [ 
+        boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 12,

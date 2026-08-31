@@ -10,13 +10,14 @@ class RoleplayScenarioCard extends StatelessWidget {
     required this.scenario,
     required this.isSelected,
     required this.onTap,
-    this.isLocked = false,
+    this.isLocked = false, required this.isDark,
   });
 
   final RoleplayScenarioModel scenario;
   final bool isSelected;
   final VoidCallback onTap;
   final bool isLocked;
+  final bool isDark;
 
   /// Height for horizontal scenario lists — keeps cards from clipping.
   static double listExtent(BuildContext context) {
@@ -43,9 +44,9 @@ class RoleplayScenarioCard extends StatelessWidget {
               width: imageSize,
               height: imageSize,
               decoration: BoxDecoration(
-                color: const Color(0xffFFFFFF),
+                color:isDark ? AppColors.surfaceBgDarkColor :const Color(0xffFFFFFF),
                 border: Border.all(
-                  color: AppColors.borderLight,
+                  color:isDark? AppColors.borderDarkColor : AppColors.borderLight,
                 ),
                 borderRadius: BorderRadius.circular(AppSizes.cardRadius),
               ),
@@ -66,23 +67,23 @@ class RoleplayScenarioCard extends StatelessWidget {
                     )
                   else
                     _ScenarioPlaceholder(icon: scenario.icon),
-                  if (isLocked)
-                    Positioned(
-                      top: AppSizes.h(8),
-                      right: AppSizes.w(8),
-                      child: Container(
-                        padding: EdgeInsets.all(AppSizes.w(6)),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.55),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.lock_rounded,
-                          color: AppColors.white,
-                          size: AppSizes.sp(14),
-                        ),
-                      ),
-                    ),
+                  // if (isLocked)
+                  //   Positioned(
+                  //     top: AppSizes.h(8),
+                  //     right: AppSizes.w(8),
+                  //     child: Container(
+                  //       padding: EdgeInsets.all(AppSizes.w(6)),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.black.withValues(alpha: 0.55),
+                  //         shape: BoxShape.circle,
+                  //       ),
+                  //       child: Icon(
+                  //         Icons.lock_rounded,
+                  //         color: AppColors.white,
+                  //         size: AppSizes.sp(14),
+                  //       ),
+                  //     ),
+                  //   ),
                 ],
               ),
             ),
