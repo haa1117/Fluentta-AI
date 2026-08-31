@@ -18,7 +18,7 @@ class UpdatePasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ChangeNotifierProvider(
       create: (_) => UpdatePasswordViewModel(context.read<AuthRepository>()),
       child: Scaffold(
@@ -71,10 +71,11 @@ class UpdatePasswordScreen extends StatelessWidget {
                                     viewModel.currentPasswordController,
                                 obscureText: true,
                                 showVisibilityToggle: true,
-                                isShowPrefixIcon: false,
+                                isShowPrefixIcon: false, isDark: isDark,
                               ),
                               SizedBox(height: AppSizes.spaceMd),
                               AuthTextField(
+                                isDark: isDark,
                                 label: l10n.newPassword,
                                 hint: l10n.enterNewPassword,
                                 controller: viewModel.newPasswordController,
@@ -84,6 +85,7 @@ class UpdatePasswordScreen extends StatelessWidget {
                               ),
                               SizedBox(height: AppSizes.spaceMd),
                               AuthTextField(
+                                isDark: isDark,
                                 label: l10n.confirmNewPassword,
                                 hint: l10n.repeatPassword,
                                 controller:

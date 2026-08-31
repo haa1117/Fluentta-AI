@@ -5,7 +5,8 @@ import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class AuthCard extends StatelessWidget {
-  const AuthCard({super.key, required this.child});
+  final bool isDark;
+  const AuthCard({super.key, required this.child, required this.isDark});
 
   final Widget child;
 
@@ -15,9 +16,9 @@ class AuthCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(20)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.authCardBackgroundDark : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.w(20)),
-        border: Border.all(color: AppColors.borderLight),
+        border: Border.all(color:isDark ? AppColors.borderDarkColor: AppColors.borderLight),
         boxShadow: [
           BoxShadow(
             color: AppColors.textPrimary.withValues(alpha: 0.04),
@@ -32,18 +33,20 @@ class AuthCard extends StatelessWidget {
 }
 
 class AuthHeader extends StatelessWidget {
+  final bool isDark;
+  final String title;
+  final String subtitle;
+  final String? imagePath;
+  final double? imageHeight;
   const AuthHeader({
     super.key,
     required this.title,
     required this.subtitle,
     this.imagePath,
-    this.imageHeight,
+    this.imageHeight, required this.isDark,
   });
 
-  final String title;
-  final String subtitle;
-  final String? imagePath;
-  final double? imageHeight;
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +66,7 @@ class AuthHeader extends StatelessWidget {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.fontHeadline,
             fontWeight: FontWeight.w700,
-            color: AppColors.textPrimary,
+            color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
           ),
         ),
         SizedBox(height: AppSizes.spaceSm),
@@ -74,7 +77,7 @@ class AuthHeader extends StatelessWidget {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(14),
             fontWeight: FontWeight.w400,
-            color: AppColors.textSecondary,
+            color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
           ),
         ),
       ],
@@ -132,7 +135,8 @@ class AuthFooterLink extends StatelessWidget {
 }
 
 class OrDivider extends StatelessWidget {
-  const OrDivider({super.key});
+  final bool isDark;
+  const OrDivider({super.key, required this.isDark});
 
   @override
   Widget build(BuildContext context) {
@@ -140,20 +144,22 @@ class OrDivider extends StatelessWidget {
 
     return Row(
       children: [
-        const Expanded(child: Divider(color: AppColors.borderLight)),
+         Expanded(child: Divider(color:
+
+       isDark ? AppColors.borderDarkColor : AppColors.borderLight)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: AppSizes.w(12)),
           child: Text(
             l10n.orLower,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
-              fontSize: AppSizes.sp(13),
-              color: const Color(0xff665D72),
+              fontSize: AppSizes.sp(12),
+              color:isDark ? AppColors.textSecondaryDark: const Color(0xff665D72),
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        const Expanded(child: Divider(color: AppColors.borderLight)),
+         Expanded(child: Divider(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight)),
       ],
     );
   }
@@ -177,9 +183,9 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final appTitle = title ?? context.l10n.appName;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      color: Colors.white,
+      color:isDark ? AppColors.appBarDarkBackgroundColor: Colors.white,
       child: SafeArea(
         bottom: false,
         child: Padding(
@@ -196,13 +202,13 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
                     width: AppSizes.w(40),
                     height: AppSizes.w(40),
                     decoration: BoxDecoration(
-                      color: AppColors.bannerGradientStart,
+                      color:isDark ? AppColors.brandDarkSoftColor: AppColors.bannerGradientStart,
                       borderRadius: BorderRadius.circular(AppSizes.w(10)),
                     ),
                     child: Icon(
                       Icons.arrow_back_ios_new,
                       size: AppSizes.w(16),
-                      color: AppColors.textPrimary,
+                      color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                     ),
                   ),
                 )
@@ -216,7 +222,7 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(18),
                     fontWeight: FontWeight.w600,
-                    color: AppColors.primaryColor,
+                    color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                   ),
                 ),
               ),

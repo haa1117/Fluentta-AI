@@ -19,7 +19,7 @@ class ForgotPasswordScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<ForgotPasswordViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: const AuthAppBar(showBack: true),
@@ -33,14 +33,17 @@ class ForgotPasswordScreen extends StatelessWidget {
               SizedBox(height: AppSizes.spaceMd),
               AuthHeader(
                 title: l10n.forgotPasswordTitle,
-                subtitle: l10n.forgotPasswordSubtitle,
+                subtitle: l10n.forgotPasswordSubtitle, isDark: isDark
               ),
               SizedBox(height: AppSizes.spaceLg),
               AuthCard(
+                isDark: isDark,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     AuthTextField(
+                      isDark: isDark,
+
                       label: l10n.emailAddress,
                       hint: 'name@example.com',
                       prefixIcon: Icons.email_outlined,

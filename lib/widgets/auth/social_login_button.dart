@@ -8,14 +8,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 enum SocialLoginType { google, apple }
 
 class SocialLoginButton extends StatelessWidget {
+  final bool isDark;
+  final SocialLoginType type;
+  final VoidCallback onPressed;
   const SocialLoginButton({
     super.key,
     required this.type,
-    required this.onPressed,
+    required this.onPressed, required this.isDark,
   });
 
-  final SocialLoginType type;
-  final VoidCallback onPressed;
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class SocialLoginButton extends StatelessWidget {
     final isGoogle = type == SocialLoginType.google;
 
     return Material(
-      color: AppColors.white,
+      color:isDark ? Colors.transparent : AppColors.white,
       borderRadius: BorderRadius.circular(AppSizes.w(12)),
       child: InkWell(
         onTap: onPressed,
@@ -34,12 +36,15 @@ class SocialLoginButton extends StatelessWidget {
           height: AppSizes.h(50),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppSizes.w(12)),
-            border: Border.all(color: AppColors.borderLight),
+            border: Border.all(color:
+
+            isDark ? AppColors.borderDarkColor:
+            AppColors.borderLight),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (isGoogle) const _GoogleIcon() else const _AppleIcon(),
+              if (isGoogle) const _GoogleIcon() else  _AppleIcon(isDark: isDark),
               SizedBox(width: AppSizes.w(10)),
               Text(
                 isGoogle ? l10n.continueWithGoogle : l10n.continueWithApple,
@@ -47,7 +52,7 @@ class SocialLoginButton extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(14),
                   fontWeight: FontWeight.w600,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                 ),
               ),
             ],
@@ -72,14 +77,18 @@ class _GoogleIcon extends StatelessWidget {
 }
 
 class _AppleIcon extends StatelessWidget {
-  const _AppleIcon();
+  final bool isDark;
+  const _AppleIcon({required this.isDark});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: AppSizes.w(20),
       height: AppSizes.w(20),
-      child: SvgPicture.asset('assets/svg/apple.svg'),
+      child: SvgPicture.asset('assets/svg/apple.svg',
+      color: isDark ? AppColors.white : null,
+
+      ),
     );
   }
 }

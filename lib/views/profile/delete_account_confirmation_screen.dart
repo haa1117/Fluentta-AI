@@ -77,7 +77,7 @@ class _DeleteAccountConfirmationScreenState
     AppSizes.init(context);
     final l10n = context.l10n;
     final requiresPassword = context.watch<AuthViewModel>().canChangePassword;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
@@ -255,6 +255,8 @@ class _DeleteAccountConfirmationScreenState
               if (requiresPassword) ...[
                 SizedBox(height: AppSizes.h(20)),
                 AuthTextField(
+                  isDark: isDark,
+
                   label: l10n.currentPassword,
                   hint: l10n.enterCurrentPassword,
                   controller: _passwordController,

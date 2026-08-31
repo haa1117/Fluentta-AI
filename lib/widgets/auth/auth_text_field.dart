@@ -15,7 +15,7 @@ class AuthTextField extends StatefulWidget {
     this.showVisibilityToggle = false,
     this.isShowPrefixIcon = false,
     this.readOnly = false,
-    this.enabled = true,
+    this.enabled = true, required this.isDark,
   });
 
   final String label;
@@ -28,12 +28,15 @@ class AuthTextField extends StatefulWidget {
   final bool isShowPrefixIcon;
   final bool readOnly;
   final bool enabled;
+  final bool isDark;
+
 
   @override
   State<AuthTextField> createState() => _AuthTextFieldState();
 }
 
 class _AuthTextFieldState extends State<AuthTextField> {
+
   late bool _obscure;
 
   @override
@@ -53,7 +56,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(14),
             fontWeight: FontWeight.w600,
-            color: AppColors.textPrimary,
+            color:widget.isDark? AppColors.textPrimaryDark : AppColors.textPrimary,
           ),
         ),
         SizedBox(height: AppSizes.h(8)),
@@ -67,18 +70,18 @@ class _AuthTextFieldState extends State<AuthTextField> {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(14),
             fontWeight: FontWeight.w400,
-            color: AppColors.textPrimary,
+            color:widget.isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
           ),
           decoration: InputDecoration(
             hintText: widget.hint,
             hintStyle: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(14),
-              color: AppColors.borderLight,
+              color:widget.isDark ? AppColors.iconColorDark: AppColors.borderLight,
             ),
             prefixIcon:widget.isShowPrefixIcon ? Icon(
               widget.prefixIcon,
-              color: AppColors.textPrimary,
+              color:widget.isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
               size: AppSizes.iconSmall,
             ):null,
             suffixIcon: widget.showVisibilityToggle
@@ -87,21 +90,21 @@ class _AuthTextFieldState extends State<AuthTextField> {
                       _obscure
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
-                      color: AppColors.borderLight,
+                      color:widget.isDark ? AppColors.iconColorDark: AppColors.borderLight,
                       size: AppSizes.iconSmall,
                     ),
                     onPressed: () => setState(() => _obscure = !_obscure),
                   )
                 : null,
             filled: true,
-            fillColor: AppColors.white,
+            fillColor:widget.isDark ?AppColors.authCardBackgroundDark : AppColors.white,
             contentPadding: EdgeInsets.symmetric(
               horizontal: AppSizes.w(16),
               vertical: AppSizes.h(14),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.w(12)),
-              borderSide: const BorderSide(color: AppColors.borderLight),
+              borderSide:  BorderSide(color:widget.isDark ? AppColors.borderDarkColor : AppColors.borderLight),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppSizes.w(12)),

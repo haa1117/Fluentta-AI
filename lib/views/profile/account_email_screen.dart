@@ -34,7 +34,7 @@ class _AccountEmailScreenState extends State<AccountEmailScreen> {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AuthAppBar(
@@ -69,10 +69,13 @@ class _AccountEmailScreenState extends State<AccountEmailScreen> {
               ),
               SizedBox(height: AppSizes.spaceLg),
               AuthCard(
+                isDark: isDark,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     AuthTextField(
+                      isDark: isDark,
+
                       label: l10n.currentEmailAddress,
                       hint: widget.email,
                       controller: _emailController,

@@ -133,7 +133,7 @@ class _CheckResetEmailScreenState extends State<CheckResetEmailScreen>
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: const AuthAppBar(showBack: true),
@@ -149,7 +149,7 @@ class _CheckResetEmailScreenState extends State<CheckResetEmailScreen>
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: AuthHeader(
                   title: l10n.checkYourEmail,
-                  subtitle: l10n.otpSentTo(widget.maskedEmail),
+                  subtitle: l10n.otpSentTo(widget.maskedEmail), isDark: isDark,
                 ),
               ),
               SizedBox(height: AppSizes.h(12)),

@@ -23,7 +23,7 @@ class VerifyOtpScreen extends StatelessWidget {
     final l10n = context.l10n;
     final viewModel = context.watch<VerifyOtpViewModel>();
     final authRepository = context.read<AuthRepository>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: const AuthAppBar(showBack: true),
@@ -39,11 +39,12 @@ class VerifyOtpScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: AuthHeader(
                   title: l10n.checkYourEmail,
-                  subtitle: l10n.otpSentTo(viewModel.maskedEmail),
+                  subtitle: l10n.otpSentTo(viewModel.maskedEmail), isDark: isDark,
                 ),
               ),
               SizedBox(height: AppSizes.spaceLg * 2),
               AuthCard(
+                isDark: isDark,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [

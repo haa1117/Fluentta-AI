@@ -26,7 +26,7 @@ class ResetPasswordScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<ResetPasswordViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AuthAppBar(showBack: !isDeepLinkFlow),
@@ -40,14 +40,17 @@ class ResetPasswordScreen extends StatelessWidget {
               SizedBox(height: AppSizes.spaceMd),
               AuthHeader(
                 title: l10n.createNewPasswordTitle,
-                subtitle: l10n.createNewPasswordSubtitle,
+                subtitle: l10n.createNewPasswordSubtitle, isDark: isDark,
               ),
               SizedBox(height: AppSizes.spaceLg),
               AuthCard(
+                isDark: isDark,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     AuthTextField(
+                      isDark: isDark,
+
                       label: l10n.newPassword,
                       hint: l10n.enterNewPassword,
                       prefixIcon: Icons.lock_outline,
@@ -58,6 +61,8 @@ class ResetPasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthTextField(
+                      isDark: isDark,
+
                       label: l10n.confirmNewPassword,
                       hint: l10n.repeatPassword,
                       prefixIcon: Icons.lock_outline,

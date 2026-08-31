@@ -21,7 +21,7 @@ class UpdateNameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ChangeNotifierProvider(
       create: (_) => UpdateNameViewModel(
         context.read<AuthRepository>(),
@@ -71,6 +71,7 @@ class UpdateNameScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               AuthTextField(
+                                isDark: isDark,
                                 label: l10n.firstName,
                                 hint: l10n.firstName,
                                 controller: viewModel.firstNameController,
@@ -81,7 +82,7 @@ class UpdateNameScreen extends StatelessWidget {
                                 label: l10n.lastName,
                                 hint: l10n.lastName,
                                 controller: viewModel.lastNameController,
-                                isShowPrefixIcon: false,
+                                isShowPrefixIcon: false, isDark: isDark,
                               ),
                             ],
                           );

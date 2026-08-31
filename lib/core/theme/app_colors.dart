@@ -4,11 +4,12 @@ class AppColors {
   AppColors._();
 
   static const Color primaryColor = Color(0xFF9B35F4);
+  static const Color primaryDarkColor=Color(0xffB65CFF);
   static const Color scaffoldBackgroundColor = Color(0xFFFCF7FF);
   static const Color darkScaffoldBackgroundColor = Color(0xFF100D17);
   static const Color primaryBlueColor=Color(0xff6D28D9);
   static const Color primarySecondaryColor=Color(0xff6E00C1);
-
+static const Color appBarDarkBackgroundColor=Color(0xff1A1624);
   static const Color primaryGradientStart = Color(0xFF8C31EF);
   static const Color primaryGradientEnd = Color(0xFFB247F3);
 
@@ -17,7 +18,7 @@ class AppColors {
   static const Color textSecondary = Color(0xFF665D72);
   static const Color textSecondaryDark=Color(0xffB8AEC4);
   static const Color textTertiary = Color(0xFF9CA3AF);
-
+static const Color authCardBackgroundDark=Color(0xff1A1624);
   static const Color borderLight = Color(0xFFE0D5E9);
   static const Color borderSelected = primaryColor;
   static const Color borderDarkPrimary=Color(0xffE9D8FD);
@@ -36,6 +37,7 @@ static const Color profileSubtitleColor=Color(0xff4C4354);
   static const Color splashDotPink = Color(0xFFE65BFF);
   static const Color xpEarnedTextColor = Color(0xffFD6901);
   static const Color bannerGradientStart = Color(0xFFF3E8FF);
+  static const Color brandDarkSoftColor=Color(0xff302241);
   static const Color bannerGradientEnd = Color(0xFFEDE9FE);
 static const Color tileBackgroundDarkColor=Color(0xff1A1624);
 static const Color tileBorderDarkColor=Color(0xffB65CFF);
@@ -48,7 +50,7 @@ static const Color inActiveTextColo=Color(0xffD3C4DC);
   static const Color navInactive = Color(0xFF9CA3AF);
   static const Color progressTrack = Color(0xFFE8D9F8);
   static const Color resumeButtonBg = Color(0xFFF3EBFF);
-
+static const Color iconColorDark=Color(0xff81768D);
   static Color scaffoldBackground(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark
         ? darkScaffoldBackgroundColor

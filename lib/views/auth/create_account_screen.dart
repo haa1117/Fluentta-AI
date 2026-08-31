@@ -20,7 +20,7 @@ class CreateAccountScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<CreateAccountViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: const AuthAppBar(showBack: true),
@@ -31,16 +31,19 @@ class CreateAccountScreen extends StatelessWidget {
             children: [
               SizedBox(height: AppSizes.spaceSm),
               AuthHeader(
-                imagePath: AppAssets.splashBird,
+                imagePath: AppAssets.createAccountBird,
                 title: l10n.createAccount,
                 subtitle: l10n.createAccountSubtitle,
+                isDark: isDark
               ),
               SizedBox(height: AppSizes.spaceLg),
               AuthCard(
+                isDark: isDark,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     AuthTextField(
+                      isDark: isDark,
                       label: l10n.fullName,
                       hint: l10n.enterYourName,
                       prefixIcon: Icons.person_outline,
@@ -49,6 +52,7 @@ class CreateAccountScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthTextField(
+                      isDark: isDark,
                       label: l10n.emailAddress,
                       hint: 'name@example.com',
                       prefixIcon: Icons.email_outlined,
@@ -57,7 +61,8 @@ class CreateAccountScreen extends StatelessWidget {
                       isShowPrefixIcon: true,
                     ),
                     SizedBox(height: AppSizes.spaceMd),
-                    AuthTextField(
+                    AuthTextField(                      isDark: isDark,
+
                       label: l10n.password,
                       hint: l10n.minEightChars,
                       prefixIcon: Icons.lock_outline,
@@ -96,7 +101,8 @@ class CreateAccountScreen extends StatelessWidget {
                       onTap: () => Navigator.of(context).pop(),
                     ),
                   ],
-                ),
+                )
+
               ),
               SizedBox(height: AppSizes.spaceXl),
             ],

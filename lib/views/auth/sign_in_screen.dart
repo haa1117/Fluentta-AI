@@ -48,7 +48,7 @@ class SignInScreen extends StatelessWidget {
     final l10n = context.l10n;
     final viewModel = context.watch<SignInViewModel>();
     final authRepository = context.read<AuthRepository>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
@@ -60,14 +60,17 @@ class SignInScreen extends StatelessWidget {
               AuthHeader(
                 imagePath: AppAssets.authBird,
                 title: l10n.signInWithEmail,
-                subtitle: l10n.signInSubtitle,
+                subtitle: l10n.signInSubtitle, isDark: isDark,
               ),
               SizedBox(height: AppSizes.spaceLg),
               AuthCard(
+                isDark: isDark,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     AuthTextField(
+                      isDark: isDark,
+
                       label: l10n.emailAddress,
                       hint: 'name@example.com',
                       prefixIcon: Icons.email_outlined,
@@ -76,6 +79,8 @@ class SignInScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthTextField(
+                      isDark: isDark,
+
                       label: l10n.password,
                       hint: '••••••••',
                       prefixIcon: Icons.lock_outline,
@@ -105,7 +110,7 @@ class SignInScreen extends StatelessWidget {
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(13),
                             fontWeight: FontWeight.w600,
-                            color: AppColors.primaryColor,
+                            color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                           ),
                         ),
                       ),
@@ -122,9 +127,10 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: AppSizes.spaceMd),
-                    const OrDivider(),
+                     OrDivider(isDark: isDark),
                     SizedBox(height: AppSizes.spaceMd),
                     SocialLoginButton(
+                      isDark: isDark,
                       type: SocialLoginType.google,
                       onPressed: () => _handleAuthAction(
                         context,
@@ -145,7 +151,7 @@ class SignInScreen extends StatelessWidget {
                           onNewUser: onAccountCreated,
                         ),
                         viewModel,
-                      ),
+                      ), isDark: isDark,
                     ),
                   ],
                 ),

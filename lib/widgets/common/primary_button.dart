@@ -21,7 +21,7 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isActive = enabled && !isLoading;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       height: AppSizes.buttonHeight,
@@ -75,7 +75,7 @@ class PrimaryButton extends StatelessWidget {
                     text,
                     style: TextStyle(
                       fontFamily: 'PlusJakartaSans',
-                      color: AppColors.white,
+                      color:isDark ?AppColors.textPrimary : AppColors.white,
                       fontSize: AppSizes.fontButton,
                       fontWeight: FontWeight.w700,
                     ),

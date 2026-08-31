@@ -15,7 +15,7 @@ class AccountCreatedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
@@ -40,7 +40,7 @@ class AccountCreatedScreen extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(28),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                 ),
               ),
               SizedBox(height: AppSizes.spaceSm / 2),
@@ -51,7 +51,7 @@ class AccountCreatedScreen extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(14),
                   fontWeight: FontWeight.w400,
-                  color: AppColors.textSecondary,
+                  color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                   height: 1.5,
                 ),
               ),
