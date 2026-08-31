@@ -16,7 +16,7 @@ class NotificationsRemindersScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final profile = context.watch<ProfileViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
@@ -46,9 +46,9 @@ class NotificationsRemindersScreen extends StatelessWidget {
               l10n.practiceReminders,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
-                fontSize: AppSizes.sp(11),
-                fontWeight: FontWeight.w600,
-                color: AppColors.textTertiary,
+                fontSize: AppSizes.sp(13),
+                fontWeight: FontWeight.w700,
+                color:isDark ? AppColors.textSecondaryDark : AppColors.textTertiary,
                 letterSpacing: 0.8,
               ),
             ),
@@ -56,9 +56,10 @@ class NotificationsRemindersScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: AppSizes.w(2),vertical: AppSizes.w(10)),
               decoration: BoxDecoration(
-                color: AppColors.white,
+               
+                color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
                 borderRadius: BorderRadius.circular(AppSizes.sp(20) ),
-                border: Border.all(color: AppColors.borderLight),
+                border: Border.all(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight),
               ),
               child: Column(
                 children: [
@@ -67,7 +68,7 @@ class NotificationsRemindersScreen extends StatelessWidget {
                     title: l10n.dailyReminder,
                     value: profile.dailyReminderEnabled,
                     enabled: profile.notificationsEnabled,
-                    onChanged: profile.setDailyReminderEnabled,
+                    onChanged: profile.setDailyReminderEnabled, isDark: isDark,
                   ),
                   // Divider(
                   //   height: 1,
@@ -79,6 +80,7 @@ class NotificationsRemindersScreen extends StatelessWidget {
                     height: AppSizes.spaceLg,
                   ),
                   _ReminderTimeRow(
+                    isDark: isDark,
                     title: l10n.reminderTime,
                     timeLabel: profile.formattedReminderTime(context),
                     enabled: profile.notificationsEnabled &&
@@ -94,8 +96,8 @@ class NotificationsRemindersScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: AppSizes.h(24)),
-            const _AdPlaceholder(),
+            // SizedBox(height: AppSizes.h(24)),
+            // const _AdPlaceholder(),
           ],
         ),
       ),
@@ -118,13 +120,14 @@ class _ToggleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(20)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.sp(20) ),
-        border: Border.all(color: AppColors.borderLight),
+        border: Border.all(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight),
       ),
       child: Row(
         children: [
@@ -138,7 +141,7 @@ class _ToggleCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(16),
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+                    color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                   ),
                 ),
                 SizedBox(height: AppSizes.h(4)),
@@ -148,7 +151,7 @@ class _ToggleCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(13),
                     fontWeight: FontWeight.w400,
-                    color: AppColors.textSecondary,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                   ),
                 ),
               ],
@@ -156,10 +159,10 @@ class _ToggleCard extends StatelessWidget {
           ),
           Switch.adaptive(
             value: value,
-            activeTrackColor: AppColors.primaryColor.withValues(alpha: 0.35),
+            activeTrackColor:isDark ? AppColors.primaryDarkColor: AppColors.primaryColor.withValues(alpha: 0.35),
             thumbColor: WidgetStateProperty.resolveWith(
               (states) => states.contains(WidgetState.selected)
-                  ? AppColors.primaryColor
+                  ? isDark ? AppColors.white : AppColors.primaryColor
                   : null,
             ),
             onChanged: onChanged,
@@ -171,12 +174,14 @@ class _ToggleCard extends StatelessWidget {
 }
 
 class _ReminderToggleRow extends StatelessWidget {
+  final bool isDark;
   const _ReminderToggleRow({
     required this.icon,
     required this.title,
     required this.value,
     required this.enabled,
     required this.onChanged,
+    required this.isDark
   });
 
   final IconData icon;
@@ -197,11 +202,11 @@ class _ReminderToggleRow extends StatelessWidget {
           Container(
             width: AppSizes.w(40),
             height: AppSizes.w(40),
-            decoration: const BoxDecoration(
-              color: AppColors.homeCardLavender,
+            decoration:  BoxDecoration(
+              color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: AppColors.primaryColor, size: AppSizes.sp(20)),
+            child: Icon(icon, color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor, size: AppSizes.sp(20)),
           ),
           SizedBox(width: AppSizes.w(12)),
           Expanded(
@@ -212,17 +217,17 @@ class _ReminderToggleRow extends StatelessWidget {
                 fontSize: AppSizes.sp(15),
                 fontWeight: FontWeight.w400,
                 color: enabled
-                    ? AppColors.textPrimary
-                    : AppColors.textTertiary,
+                    ? isDark ? AppColors.textPrimaryDark: AppColors.textPrimary
+                    : isDark ? AppColors.textSecondaryDark : AppColors.textTertiary,
               ),
             ),
           ),
           Switch.adaptive(
             value: value && enabled,
-            activeTrackColor: AppColors.primaryColor.withValues(alpha: 0.35),
+            activeTrackColor:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor.withValues(alpha: 0.35),
             thumbColor: WidgetStateProperty.resolveWith(
               (states) => states.contains(WidgetState.selected)
-                  ? AppColors.primaryColor
+                  ?isDark ? AppColors.white: AppColors.primaryColor
                   : null,
             ),
             onChanged: enabled ? onChanged : null,
@@ -234,11 +239,12 @@ class _ReminderToggleRow extends StatelessWidget {
 }
 
 class _ReminderTimeRow extends StatelessWidget {
+  final bool isDark;
   const _ReminderTimeRow({
     required this.title,
     required this.timeLabel,
     required this.enabled,
-    required this.onTap,
+    required this.onTap, required this.isDark,
   });
 
   final String title;
@@ -262,13 +268,13 @@ class _ReminderTimeRow extends StatelessWidget {
               Container(
                 width: AppSizes.w(40),
                 height: AppSizes.w(40),
-                decoration: const BoxDecoration(
-                  color: AppColors.homeCardLavender,
+                decoration:  BoxDecoration(
+                  color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.alarm_rounded,
-                  color: AppColors.primaryColor,
+                  color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                   size: AppSizes.sp(20),
                 ),
               ),
@@ -281,8 +287,8 @@ class _ReminderTimeRow extends StatelessWidget {
                     fontSize: AppSizes.sp(15),
                     fontWeight: FontWeight.w400,
                     color: enabled
-                        ? AppColors.textPrimary
-                        : AppColors.textTertiary,
+                        ?isDark ? AppColors.textPrimaryDark : AppColors.textPrimary
+                        : isDark ? AppColors.textSecondaryDark : AppColors.textTertiary,
                   ),
                 ),
               ),
@@ -293,13 +299,13 @@ class _ReminderTimeRow extends StatelessWidget {
                   fontSize: AppSizes.sp(14),
                   fontWeight: FontWeight.w600,
                   color: enabled
-                      ? AppColors.primaryColor
-                      : AppColors.textTertiary,
+                      ? isDark ? AppColors.primaryDarkColor : AppColors.primaryColor
+                      : isDark ? AppColors.textSecondaryDark : AppColors.textTertiary,
                 ),
               ),
               Icon(
                 Icons.chevron_right_rounded,
-                color: AppColors.textSecondary,
+                color:isDark ? AppColors.textSecondaryDark: AppColors.textSecondary,
                 size: AppSizes.sp(22),
               ),
             ],

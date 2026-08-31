@@ -6,7 +6,8 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class SubscriptionCloseButton extends StatelessWidget {
-  const SubscriptionCloseButton({super.key, required this.onPressed});
+  final bool isDark;
+  const SubscriptionCloseButton({super.key, required this.onPressed, required this.isDark});
 
   final VoidCallback onPressed;
 
@@ -24,13 +25,13 @@ class SubscriptionCloseButton extends StatelessWidget {
           child: Container(
             width: AppSizes.w(36),
             height: AppSizes.w(36),
-            decoration: const BoxDecoration(
-              color: AppColors.homeCardLavender,
+            decoration:  BoxDecoration(
+              color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.close_rounded,
-              color: AppColors.iconColor,
+              color:isDark ? AppColors.textSecondaryDark : AppColors.iconColor,
               size: AppSizes.sp(20),
             ),
           ),
@@ -41,7 +42,8 @@ class SubscriptionCloseButton extends StatelessWidget {
 }
 
 class SubscriptionOrDivider extends StatelessWidget {
-  const SubscriptionOrDivider({super.key, required this.label});
+  final bool isDark;
+  const SubscriptionOrDivider({super.key, required this.label, required this.isDark});
 
   final String label;
 
@@ -53,7 +55,7 @@ class SubscriptionOrDivider extends StatelessWidget {
       children: [
         Expanded(
           child: DottedLine(
-            dashColor:  Color(0xffD3C4DC),
+            dashColor:isDark ? Color(0xff81768D): Color(0xffD3C4DC),
 
             // height: 1,
             // color: AppColors.borderLight,
@@ -73,7 +75,7 @@ width: 40,
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(12),
                 fontWeight: FontWeight.w700,
-                color: AppColors.textSecondary,
+                color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
               ),
             ),
           ),
@@ -101,7 +103,7 @@ class SubscriptionLegalLinks extends StatelessWidget {
     required this.restoreLabel,
     this.onTerms,
     this.onPrivacy,
-    this.onRestore,
+    this.onRestore, required this.isDark,
   });
 
   final String termsLabel;
@@ -110,6 +112,7 @@ class SubscriptionLegalLinks extends StatelessWidget {
   final VoidCallback? onTerms;
   final VoidCallback? onPrivacy;
   final VoidCallback? onRestore;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -118,11 +121,11 @@ class SubscriptionLegalLinks extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _Link(text: termsLabel, onTap: onTerms),
+        _Link(text: termsLabel, onTap: onTerms, isDark: isDark,),
         _dot(),
-        _Link(text: privacyLabel, onTap: onPrivacy),
+        _Link(text: privacyLabel, onTap: onPrivacy,isDark: isDark,),
         _dot(),
-        _Link(text: restoreLabel, onTap: onRestore),
+        _Link(text: restoreLabel, onTap: onRestore,isDark: isDark,),
       ],
     );
   }
@@ -133,7 +136,7 @@ class SubscriptionLegalLinks extends StatelessWidget {
       child: Text(
         '•',
         style: TextStyle(
-          color: AppColors.primaryColor,
+          color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
           fontSize: AppSizes.sp(14),
         ),
       ),
@@ -142,7 +145,8 @@ class SubscriptionLegalLinks extends StatelessWidget {
 }
 
 class _Link extends StatelessWidget {
-  const _Link({required this.text, this.onTap});
+  final bool isDark;
+  const _Link({required this.text, this.onTap, required this.isDark});
 
   final String text;
   final VoidCallback? onTap;
@@ -157,7 +161,7 @@ class _Link extends StatelessWidget {
           fontFamily: AppFonts.plusJakartaSans,
           fontSize: AppSizes.sp(13),
           fontWeight: FontWeight.w600,
-          color: AppColors.primaryColor,
+          color:isDark ? AppColors.primaryDarkColor: AppColors.primaryColor,
         ),
       ),
     );
@@ -168,11 +172,12 @@ class SubscriptionFeatureList extends StatelessWidget {
   const SubscriptionFeatureList({
     super.key,
     required this.title,
-    required this.features,
+    required this.features, required this.isDark,
   });
 
   final String title;
   final List<String> features;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +192,7 @@ class SubscriptionFeatureList extends StatelessWidget {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(16),
             fontWeight: FontWeight.w700,
-            color: AppColors.textPrimary,
+            color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
           ),
         ),
         SizedBox(height: AppSizes.h(12)),
@@ -206,7 +211,7 @@ class SubscriptionFeatureList extends StatelessWidget {
                   ),
                   child: Icon(
                     Icons.check_rounded,
-                    color: AppColors.white,
+                    color:isDark ? AppColors.textPrimary : AppColors.white,
                     size: AppSizes.sp(14),
                   ),
                 ),
@@ -218,7 +223,7 @@ class SubscriptionFeatureList extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(14),
                       fontWeight: FontWeight.w500,
-                      color: AppColors.textPrimary,
+                      color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                       height: 1.35,
                     ),
                   ),
@@ -240,7 +245,7 @@ class SubscriptionPlanSummaryCard extends StatelessWidget {
     required this.dailyLabel,
     required this.goalTitle,
     required this.levelTitle,
-    required this.dailyTitle,
+    required this.dailyTitle, required this.isDark,
   });
 
   final String goalLabel;
@@ -249,6 +254,7 @@ class SubscriptionPlanSummaryCard extends StatelessWidget {
   final String goalTitle;
   final String levelTitle;
   final String dailyTitle;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -261,9 +267,9 @@ class SubscriptionPlanSummaryCard extends StatelessWidget {
         vertical: AppSizes.h(16),
       ),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: AppColors.borderLight),
+        border: Border.all(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight),
         // boxShadow: [
         //   BoxShadow(
         //     color: AppColors.primaryColor.withValues(alpha: 0.05),
@@ -276,15 +282,15 @@ class SubscriptionPlanSummaryCard extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: _SummaryColumn(label: goalLabel, value: goalTitle),
+              child: _SummaryColumn(label: goalLabel, value: goalTitle, isDark: isDark),
             ),
             _divider(),
             Expanded(
-              child: _SummaryColumn(label: levelLabel, value: levelTitle),
+              child: _SummaryColumn(label: levelLabel, value: levelTitle, isDark: isDark,),
             ),
             _divider(),
             Expanded(
-              child: _SummaryColumn(label: dailyLabel, value: dailyTitle),
+              child: _SummaryColumn(label: dailyLabel, value: dailyTitle,isDark: isDark),
             ),
           ],
         ),
@@ -296,16 +302,18 @@ class SubscriptionPlanSummaryCard extends StatelessWidget {
     return Container(
       width: 1,
       margin: EdgeInsets.symmetric(vertical: AppSizes.h(4)),
-      color: AppColors.borderLight,
+      color:isDark ? AppColors.borderDarkColor : AppColors.borderLight,
     );
   }
 }
 
 class _SummaryColumn extends StatelessWidget {
-  const _SummaryColumn({required this.label, required this.value});
+
+  const _SummaryColumn({required this.label, required this.value, required this.isDark});
 
   final String label;
   final String value;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -318,7 +326,7 @@ class _SummaryColumn extends StatelessWidget {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(10),
             fontWeight: FontWeight.w600,
-            color: AppColors.textSecondary,
+            color:isDark ? AppColors.textSecondaryDark: AppColors.textSecondary,
             letterSpacing: 0.6,
           ),
         ),
@@ -330,7 +338,7 @@ class _SummaryColumn extends StatelessWidget {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(15),
             fontWeight: FontWeight.w700,
-            color: AppColors.textPrimary,
+            color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
           ),
         ),
       ],

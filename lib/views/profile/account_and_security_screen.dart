@@ -48,7 +48,7 @@ class AccountAndSecurityScreen extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(24),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                 ),
               ),
               SizedBox(height: AppSizes.h(2)),
@@ -59,7 +59,7 @@ class AccountAndSecurityScreen extends StatelessWidget {
                   fontSize: AppSizes.sp(14),
                   fontWeight: FontWeight.w400,
                   height: 1.5,
-                  color: AppColors.textSecondary,
+                  color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                 ),
               ),
               SizedBox(height: AppSizes.h(24)),
@@ -67,13 +67,15 @@ class AccountAndSecurityScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: AppColors.white,
+                  color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
                   borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                  border: Border.all(color: AppColors.borderLight),
+                  border: Border.all(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight),
                 ),
                 child: Column(
                   children: [
                     AccountDetailTile(
+                      isDark: isDark,
+
                       label: l10n.nameLabel,
                       value: displayName,
                       onTap: () async {
@@ -92,9 +94,10 @@ class AccountAndSecurityScreen extends StatelessWidget {
                     Divider(
                       height: 1,
                       thickness: 1,
-                      color: AppColors.borderLight.withValues(alpha: 0.5),
+                      color:isDark ? AppColors.borderDarkColor : AppColors.borderLight.withValues(alpha: 0.5),
                     ),
                     AccountDetailTile(
+                      isDark: isDark,
                       label: l10n.emailLabel,
                       value: email,
                       onTap: () {
@@ -108,9 +111,11 @@ class AccountAndSecurityScreen extends StatelessWidget {
                     Divider(
                       height: 1,
                       thickness: 1,
-                      color: AppColors.borderLight.withValues(alpha: 0.5),
+                      color:isDark ? AppColors.borderDarkColor : AppColors.borderLight.withValues(alpha: 0.5),
                     ),
                     AccountDetailTile(
+                      isDark: isDark,
+
                       label: l10n.passwordLabel,
                       value: l10n.passwordMasked,
                       onTap: () {

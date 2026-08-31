@@ -64,6 +64,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     AppSizes.init(context);
     final l10n = context.l10n;
 
@@ -99,7 +100,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(24),
                 fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
+                color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
               ),
             ),
             SizedBox(height: AppSizes.h(8)),
@@ -111,7 +112,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(15),
-                  color: AppColors.textSecondary,
+                  color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                 ),
               ),
             ),
@@ -119,9 +120,9 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
             Container(
               height: AppSizes.h(280),
               decoration: BoxDecoration(
-                color: AppColors.white,
+                color:isDark? AppColors.surfaceBgDarkColor : AppColors.white,
                 borderRadius: BorderRadius.circular(AppSizes.w(20)),
-                border: Border.all(color: AppColors.borderLight),
+                border: Border.all(color:isDark ? AppColors.borderDarkColor: AppColors.borderLight),
               ),
               child: Stack(
                 alignment: Alignment.center,
@@ -130,7 +131,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                     height: AppSizes.h(44),
                     margin: EdgeInsets.symmetric(horizontal: AppSizes.w(16)),
                     decoration: BoxDecoration(
-                      color: Color(0xfff6eefd), 
+                      color:isDark ? AppColors.brandDarkSoftColor : Color(0xfff6eefd),
                       borderRadius: BorderRadius.circular(AppSizes.w(12)),
                     ),
                   ),
@@ -142,7 +143,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                         itemCount: 12,
                         labelBuilder: (i) =>
                             (i + 1).toString().padLeft(2, '0'),
-                        onSelected: (i) => setState(() => _selectedHour = i + 1),
+                        onSelected: (i) => setState(() => _selectedHour = i + 1), isDark: isDark
                       ),
                       Text(
                         ' : ',
@@ -150,7 +151,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(22),
                           fontWeight: FontWeight.w700,
-                          color: AppColors.primaryColor,
+                          color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                         ),
                       ),
                       _WheelPicker(
@@ -160,6 +161,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                             (i * 5).toString().padLeft(2, '0'),
                         onSelected: (i) =>
                             setState(() => _selectedMinute = i * 5),
+                          isDark: isDark
                       ),
                       SizedBox(width: AppSizes.w(8)),
                       _WheelPicker(
@@ -168,6 +170,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                         width: AppSizes.w(48),
                         labelBuilder: (i) => i == 0 ? 'AM' : 'PM',
                         onSelected: (i) => setState(() => _isPm = i == 1),
+                          isDark: isDark
                       ),
                     ],
                   ),
@@ -195,7 +198,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(15),
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textSecondary,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                   ),
                 ),
               ),
@@ -214,7 +217,7 @@ class _WheelPicker extends StatefulWidget {
     required this.itemCount,
     required this.labelBuilder,
     required this.onSelected,
-    this.width,
+    this.width, required this.isDark,
   });
 
   final FixedExtentScrollController controller;
@@ -222,6 +225,7 @@ class _WheelPicker extends StatefulWidget {
   final String Function(int index) labelBuilder;
   final ValueChanged<int> onSelected;
   final double? width;
+  final bool isDark;
 
   @override
   State<_WheelPicker> createState() => _WheelPickerState();
@@ -262,7 +266,7 @@ class _WheelPickerState extends State<_WheelPicker> {
         fontFamily: AppFonts.plusJakartaSans,
         fontSize: AppSizes.sp(22),
         fontWeight: FontWeight.w700,
-        color: AppColors.primaryColor,
+        color:widget.isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
       );
     }
 

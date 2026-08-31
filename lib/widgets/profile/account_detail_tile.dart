@@ -4,12 +4,13 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class AccountDetailTile extends StatelessWidget {
+  final bool isDark;
   const AccountDetailTile({
     super.key,
     required this.label,
     required this.value,
     this.onTap,
-    this.showChevron = true,
+    this.showChevron = true, required this.isDark,
   });
 
   final String label;
@@ -38,7 +39,7 @@ class AccountDetailTile extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(15),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                   ),
                 ),
               ),
@@ -53,7 +54,7 @@ class AccountDetailTile extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
                     fontWeight: FontWeight.w400,
-                    color: AppColors.textSecondary,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                   ),
                 ),
               ),
@@ -61,7 +62,7 @@ class AccountDetailTile extends StatelessWidget {
                 SizedBox(width: AppSizes.w(8)),
                 Icon(
                   Icons.chevron_right_rounded,
-                  color: AppColors.profileSubtitleColor,
+                  color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                   size: AppSizes.sp(22),
                 ),
               ],

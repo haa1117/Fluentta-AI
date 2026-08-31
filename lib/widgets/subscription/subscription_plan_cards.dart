@@ -12,7 +12,7 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
     required this.subtitle,
     required this.price,
     required this.perMonth,
-    required this.onTap,
+    required this.onTap, required this.isDark,
   });
 
   final bool isSelected;
@@ -22,6 +22,7 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
   final String price;
   final String perMonth;
   final VoidCallback onTap;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +45,12 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
                 AppSizes.h(16),
               ),
               decoration: BoxDecoration(
-                color: AppColors.white,
+                color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
                 borderRadius: BorderRadius.circular(AppSizes.cardRadius),
                 border: Border.all(
                   color: isSelected
-                      ? AppColors.primaryColor
-                      : AppColors.borderLight,
+                      ? isDark ? AppColors.primaryDarkColor : AppColors.primaryColor
+                      : isDark ? AppColors.borderDarkColor : AppColors.borderLight,
                   width: isSelected ? 2 : 1,
                 ),
               ),
@@ -65,7 +66,7 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(16),
                             fontWeight: FontWeight.w700,
-                            color: AppColors.textPrimary,
+                            color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                           ),
                         ),
                         SizedBox(height: AppSizes.h(4)),
@@ -75,7 +76,7 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(13),
                             fontWeight: FontWeight.w600,
-                            color: AppColors.primaryColor,
+                            color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                           ),
                         ),
                       ],
@@ -90,7 +91,7 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(20),
                           fontWeight: FontWeight.w700,
-                          color: AppColors.primaryColor,
+                          color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                         ),
                       ),
                       Text(
@@ -99,7 +100,7 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(11),
                           fontWeight: FontWeight.w500,
-                          color: AppColors.textSecondary,
+                          color:isDark ? AppColors.textSecondaryDark: AppColors.textSecondary,
                         ),
                       ),
                     ],
@@ -129,7 +130,7 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),
                   fontWeight: FontWeight.w800,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.white : AppColors.textPrimary,
                   letterSpacing: 0.4,
                 ),
               ),
@@ -142,13 +143,14 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
 }
 
 class SubscriptionCompactPlanCard extends StatelessWidget {
+  final bool isDark;
   const SubscriptionCompactPlanCard({
     super.key,
     required this.isSelected,
     required this.title,
     required this.price,
     required this.onTap,
-    this.extraLabel,
+    this.extraLabel, required this.isDark,
   });
 
   final bool isSelected;
@@ -174,11 +176,11 @@ class SubscriptionCompactPlanCard extends StatelessWidget {
               vertical: AppSizes.h(14),
             ),
             decoration: BoxDecoration(
-              color: AppColors.white,
+              color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
               borderRadius: BorderRadius.circular(AppSizes.cardRadius),
               border: Border.all(
                 color:
-                    isSelected ? AppColors.primaryColor : AppColors.borderLight,
+                    isSelected ? isDark ?AppColors.primaryDarkColor : AppColors.primaryColor : isDark ? AppColors.borderDarkColor:AppColors.borderLight,
                 width: isSelected ? 2 : 1,
               ),
             ),
@@ -192,7 +194,7 @@ class SubscriptionCompactPlanCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(12),
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textSecondary,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                   ),
                 ),
                 SizedBox(height: AppSizes.h(6)),
@@ -203,7 +205,7 @@ class SubscriptionCompactPlanCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(16),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                   ),
                 ),
                 if (extraLabel != null) ...[
@@ -215,7 +217,7 @@ class SubscriptionCompactPlanCard extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(10),
                       fontWeight: FontWeight.w500,
-                      color: AppColors.textTertiary,
+                      color:isDark ? AppColors.textSecondaryDark : AppColors.textTertiary,
                     ),
                   ),
                 ],
@@ -235,7 +237,7 @@ class SubscriptionHeartPackCard extends StatelessWidget {
     required this.title,
     required this.heartsLabel,
     required this.price,
-    required this.onTap,
+    required this.onTap, required this.isDark,
   });
 
   final bool isSelected;
@@ -243,6 +245,7 @@ class SubscriptionHeartPackCard extends StatelessWidget {
   final String heartsLabel;
   final String price;
   final VoidCallback onTap;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -259,11 +262,11 @@ class SubscriptionHeartPackCard extends StatelessWidget {
             vertical: AppSizes.h(14),
           ),
           decoration: BoxDecoration(
-            color: AppColors.white,
+            color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
             borderRadius: BorderRadius.circular(AppSizes.cardRadius),
             border: Border.all(
               color:
-                  isSelected ? AppColors.primaryColor : AppColors.borderLight,
+                  isSelected ? isDark ? AppColors.primaryDarkColor: AppColors.primaryColor :isDark? AppColors.borderDarkColor: AppColors.borderLight,
               width: isSelected ? 2 : 1,
             ),
           ),
@@ -282,7 +285,7 @@ class SubscriptionHeartPackCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(11),
                   fontWeight: FontWeight.w600,
-                  color: AppColors.textSecondary,
+                  color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                 ),
               ),
               SizedBox(height: AppSizes.h(4)),
@@ -293,7 +296,7 @@ class SubscriptionHeartPackCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(13),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.primaryColor,
+                  color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                 ),
               ),
               SizedBox(height: AppSizes.h(4)),
@@ -304,7 +307,7 @@ class SubscriptionHeartPackCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(15),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
                 ),
               ),
             ],

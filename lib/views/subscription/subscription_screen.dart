@@ -89,7 +89,7 @@ class SubscriptionScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final vm = context.watch<SubscriptionViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
@@ -103,6 +103,7 @@ class SubscriptionScreen extends StatelessWidget {
                 0,
               ),
               child: SubscriptionCloseButton(
+                isDark: isDark,
                 onPressed: () => _onClose(context),
               ),
             ),
@@ -129,7 +130,7 @@ class SubscriptionScreen extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(26),
                         fontWeight: FontWeight.w700,
-                        color: AppColors.textPrimary,
+                        color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                         height: 1.25,
                       ),
                     ),
@@ -143,7 +144,7 @@ class SubscriptionScreen extends StatelessWidget {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(15),
                           fontWeight: FontWeight.w500,
-                          color: AppColors.textSecondary,
+                          color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                           height: 1.4,
                         ),
                       ),
@@ -155,12 +156,12 @@ class SubscriptionScreen extends StatelessWidget {
                       dailyLabel: l10n.planDailyLabel,
                       goalTitle: vm.goalLabel(l10n),
                       levelTitle: vm.levelLabel(l10n),
-                      dailyTitle: l10n.dailyMinutesShort(vm.dailyMinutes),
+                      dailyTitle: l10n.dailyMinutesShort(vm.dailyMinutes), isDark: isDark,
                     ),
                     SizedBox(height: AppSizes.h(24)),
                     SubscriptionFeatureList(
                       title: l10n.includedInPlan,
-                      features: vm.planFeatures(l10n),
+                      features: vm.planFeatures(l10n), isDark: isDark,
                     ),
                     SizedBox(height: AppSizes.h(24)),
                     SubscriptionAnnualPlanCard(
@@ -170,7 +171,7 @@ class SubscriptionScreen extends StatelessWidget {
                       subtitle: l10n.threeDayFreeTrial,
                       price: vm.planPrice(SubscriptionSelection.annual, l10n),
                       perMonth: vm.planPricePerMonth(l10n),
-                      onTap: () => vm.select(SubscriptionSelection.annual),
+                      onTap: () => vm.select(SubscriptionSelection.annual), isDark: isDark,
                     ),
                     SizedBox(height: AppSizes.h(12)),
                     Row(
@@ -181,7 +182,7 @@ class SubscriptionScreen extends StatelessWidget {
                                 vm.selection == SubscriptionSelection.weekly,
                             title: l10n.weeklyPlan,
                             price: vm.planPrice(SubscriptionSelection.weekly, l10n),
-                            onTap: () => vm.select(SubscriptionSelection.weekly),
+                            onTap: () => vm.select(SubscriptionSelection.weekly), isDark: isDark,
                           ),
                         ),
                         SizedBox(width: AppSizes.w(10)),
@@ -191,12 +192,13 @@ class SubscriptionScreen extends StatelessWidget {
                                 vm.selection == SubscriptionSelection.monthly,
                             title: l10n.monthlyPlan,
                             price: vm.planPrice(SubscriptionSelection.monthly, l10n),
-                            onTap: () => vm.select(SubscriptionSelection.monthly),
+                            onTap: () => vm.select(SubscriptionSelection.monthly), isDark: isDark,
                           ),
                         ),
                         SizedBox(width: AppSizes.w(10)),
                         Expanded(
                           child: SubscriptionCompactPlanCard(
+                            isDark: isDark,
                             isSelected:
                                 vm.selection == SubscriptionSelection.lifetime,
                             title: l10n.lifetimePlan,
@@ -209,7 +211,7 @@ class SubscriptionScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: AppSizes.h(28)),
-                    SubscriptionOrDivider(label: l10n.orDivider),
+                    SubscriptionOrDivider(label: l10n.orDivider, isDark: isDark),
                     SizedBox(height: AppSizes.h(24)),
                     Row(
                       children: [
@@ -225,7 +227,7 @@ class SubscriptionScreen extends StatelessWidget {
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(16),
                             fontWeight: FontWeight.w700,
-                            color: AppColors.textPrimary,
+                            color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
                           ),
                         ),
                       ],
@@ -244,7 +246,7 @@ class SubscriptionScreen extends StatelessWidget {
                                   title: _heartPackLabel(l10n, pack),
                                   heartsLabel: l10n.heartsCount(pack.hearts),
                                   price: pack.price,
-                                  onTap: () => vm.select(pack.selection),
+                                  onTap: () => vm.select(pack.selection), isDark: isDark
                                 );
                               },
                             ),
@@ -281,7 +283,7 @@ class SubscriptionScreen extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(12),
                       fontWeight: FontWeight.w500,
-                      color: AppColors.textSecondary,
+                      color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                     ),
                   ),
                   SizedBox(height: AppSizes.h(12)),
@@ -289,7 +291,7 @@ class SubscriptionScreen extends StatelessWidget {
                     termsLabel: l10n.terms,
                     privacyLabel: l10n.privacy,
                     restoreLabel: l10n.restore,
-                    onRestore: () => _onRestore(context),
+                    onRestore: () => _onRestore(context), isDark: isDark,
                   ),
                 ],
               ),

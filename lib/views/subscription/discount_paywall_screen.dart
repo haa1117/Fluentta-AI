@@ -26,7 +26,7 @@ class DiscountPaywallScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final vm = context.watch<SubscriptionViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
@@ -40,7 +40,7 @@ class DiscountPaywallScreen extends StatelessWidget {
                 0,
               ),
               child: SubscriptionCloseButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => Navigator.of(context).pop(), isDark: isDark,
               ),
             ),
             Expanded(
@@ -226,6 +226,7 @@ class DiscountPaywallScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.h(24)),
                     SubscriptionFeatureList(
+                      isDark: isDark,
                       title: l10n.includedInPlan,
                       features:
                           context.read<SubscriptionViewModel>().planFeatures(l10n),
@@ -292,7 +293,7 @@ class DiscountPaywallScreen extends StatelessWidget {
                             ? (result.message ?? l10n.restorePurchases)
                             : (result.message ?? l10n.openingSoon),
                       );
-                    },
+                    }, isDark: isDark,
                   ),
                 ],
               ),
