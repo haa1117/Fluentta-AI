@@ -39,7 +39,6 @@ class LearnCategoryCard extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
               width: AppSizes.w(44),
@@ -59,30 +58,41 @@ class LearnCategoryCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: AppSizes.h(2)),
-            Text(
-              category.subtitle,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontFamily: AppFonts.plusJakartaSans,
-                fontSize: AppSizes.sp(11),
-                fontWeight: FontWeight.w500,
-                color: AppColors.textSecondary,
-                height: 1.2,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Text(
+                      category.subtitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: AppFonts.plusJakartaSans,
+                        fontSize: AppSizes.sp(11),
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.textSecondary,
+                        height: 1.2,
+                      ),
+                    ),
+                  ),
+                  if (category.xpPerLesson != null) ...[
+                    SizedBox(height: AppSizes.h(6)),
+                    Text(
+                      l10n.roleplayXpPerLesson(category.xpPerLesson!),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: AppFonts.plusJakartaSans,
+                        fontSize: AppSizes.sp(11),
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.xpEarnedTextColor,
+                      ),
+                    ),
+                  ],
+                ],
               ),
             ),
-            if (category.xpPerLesson != null) ...[
-              SizedBox(height: AppSizes.h(6)),
-              Text(
-                l10n.roleplayXpPerLesson(category.xpPerLesson!),
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(11),
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.xpEarnedTextColor,
-                ),
-              ),
-            ],
           ],
         ),
       ),
