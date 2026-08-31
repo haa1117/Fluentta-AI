@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/daily_goal/daily_goal_rewards.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
@@ -54,6 +55,7 @@ class HomeViewModel extends ChangeNotifier {
 
   Future<void> _bootstrap() async {
     await _entitlementsService.ensureDailyHeartsReset();
+    await _entitlementsService.ensureDailyGoalState();
     _loadFromStorage();
     notifyListeners();
   }
@@ -68,8 +70,9 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> startAiChat(VoidCallback onComplete) async {
-    await _localStorage.incrementDailyProgress(2);
-    await _entitlementsService.recordLearningActivity();
+    await _progressSyncService.recordDailyGoalProgress(
+      DailyGoalRewards.aiChatSession,
+    );
     _loadFromStorage();
     notifyListeners();
     onComplete();
@@ -93,7 +96,9 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> recordLearningActivity() async {
-    await _entitlementsService.recordLearningActivity();
+    await _progressSyncService.recordDailyGoalProgress(
+      DailyGoalRewards.coreLesson,
+    );
     _loadFromStorage();
     notifyListeners();
   }

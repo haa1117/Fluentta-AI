@@ -105,6 +105,7 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   Future<void> refreshStats() async {
+    await _entitlementsService.ensureDailyGoalState();
     await _learningStatsService.reconcileFromProgress();
     notifyListeners();
   }

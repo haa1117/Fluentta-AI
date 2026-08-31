@@ -195,7 +195,6 @@ class EnglishBasicsRepository {
     await _localStorage.setString(_stepKey, jsonEncode(map));
 
     await _localStorage.incrementWordsLearned(lesson.words.length);
-    await _localStorage.incrementDailyProgress(5);
     await _localStorage.saveLessonProgress(await trackProgress(goalId));
   }
 

@@ -116,6 +116,7 @@ void main() async {
     await authRepository.initializeGoogleSignIn();
     await authRepository.syncCurrentUser();
     await entitlementsService.ensureDailyHeartsReset();
+    await entitlementsService.ensureDailyGoalState();
     await progressSyncService.pullAndMerge();
   }
 

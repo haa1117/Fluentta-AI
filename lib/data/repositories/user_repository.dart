@@ -38,6 +38,7 @@ class UserRepository {
       await syncSetupFromFirestore(user.uid);
       await syncLivesFromFirestore(user.uid);
       await syncLearningStatsFromFirestore(user.uid);
+      await syncDailyGoalFromFirestore(user.uid);
     }
 
     final localLanguage = _localStorage.selectedLanguage ?? 'en';
@@ -361,6 +362,101 @@ class UserRepository {
     if (corrections != null) stats['correctionsCount'] = corrections;
 
     return stats.isEmpty ? null : stats;
+  }
+
+  Future<Map<String, Object?>?> fetchDailyGoal(String uid) async {
+    final snapshot = await _userDoc(uid).get();
+    if (!snapshot.exists) return null;
+    final data = snapshot.data();
+    if (data == null) return null;
+
+    int? readInt(Object? value) {
+      if (value is int) return value;
+      if (value is num) return value.toInt();
+      return null;
+    }
+
+    final progress = readInt(data['dailyProgressMinutes']);
+    final streak = readInt(data['streakDays']);
+    final progressDate = data['dailyProgressDate'] as String?;
+    final lastActive = data['lastStreakActiveDate'] as String?;
+
+    if (progress == null &&
+        streak == null &&
+        progressDate == null &&
+        lastActive == null) {
+      return null;
+    }
+
+    return {
+      'dailyProgressMinutes': progress,
+      'streakDays': streak,
+      'dailyProgressDate': progressDate,
+      'lastStreakActiveDate': lastActive,
+    };
+  }
+
+  Future<void> syncDailyGoalFromLocal(String uid) async {
+    await _userDoc(uid).set(
+      {
+        'dailyProgressMinutes': _localStorage.dailyProgressMinutes,
+        'dailyProgressDate':
+            _localStorage.lastDailyProgressDate ?? _todayIsoDate(),
+        'streakDays': _localStorage.streakDays,
+        if (_localStorage.lastStreakActiveDate != null)
+          'lastStreakActiveDate': _localStorage.lastStreakActiveDate,
+        'updatedAt': FieldValue.serverTimestamp(),
+      },
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<void> syncDailyGoalFromFirestore(String uid) async {
+    final remote = await fetchDailyGoal(uid);
+    if (remote == null) return;
+
+    final today = _todayIsoDate();
+    final remoteDate = remote['dailyProgressDate'] as String?;
+    final remoteProgress = remote['dailyProgressMinutes'] as int?;
+    final remoteStreak = remote['streakDays'] as int?;
+    final remoteLastActive = remote['lastStreakActiveDate'] as String?;
+
+    var progress = _localStorage.dailyProgressMinutes;
+    if (remoteDate == today && remoteProgress != null) {
+      if (_localStorage.lastDailyProgressDate != today) {
+        progress = remoteProgress;
+      } else {
+        progress = remoteProgress > progress ? remoteProgress : progress;
+      }
+    }
+
+    var streak = _localStorage.streakDays;
+    if (remoteStreak != null && remoteStreak > streak) {
+      streak = remoteStreak;
+    }
+
+    String? lastActive = _localStorage.lastStreakActiveDate;
+    if (remoteLastActive != null && remoteLastActive.isNotEmpty) {
+      if (lastActive == null || lastActive.isEmpty) {
+        lastActive = remoteLastActive;
+      } else if (remoteLastActive.compareTo(lastActive) >= 0) {
+        lastActive = remoteLastActive;
+      }
+    }
+
+    await _localStorage.saveDailyGoalState(
+      dailyProgressMinutes: progress,
+      dailyProgressDate: today,
+      streakDays: streak,
+      lastStreakActiveDate: lastActive,
+    );
+  }
+
+  String _todayIsoDate() {
+    final now = DateTime.now();
+    return '${now.year.toString().padLeft(4, '0')}-'
+        '${now.month.toString().padLeft(2, '0')}-'
+        '${now.day.toString().padLeft(2, '0')}';
   }
 
   Future<void> deleteUserAccount(String uid) async {

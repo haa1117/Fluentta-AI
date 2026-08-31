@@ -19,6 +19,7 @@ class LocalStorage {
   static const String _englishLevelKey = 'english_level';
   static const String _dailyGoalMinutesKey = 'daily_goal_minutes';
   static const String _dailyProgressMinutesKey = 'daily_progress_minutes';
+  static const String _lastDailyProgressDateKey = 'last_daily_progress_date';
   static const String _streakDaysKey = 'streak_days';
   static const String _livesKey = 'lives';
   static const String _lessonProgressKey = 'lesson_progress';
@@ -99,8 +100,10 @@ class LocalStorage {
   String? get englishGoal => _prefs!.getString(_englishGoalKey);
   String? get englishLevel => _prefs!.getString(_englishLevelKey);
   int? get dailyGoalMinutes => _prefs!.getInt(_dailyGoalMinutesKey);
-  int get dailyProgressMinutes => _prefs!.getInt(_dailyProgressMinutesKey) ?? 6;
-  int get streakDays => _prefs!.getInt(_streakDaysKey) ?? 1;
+  int get dailyProgressMinutes => _prefs!.getInt(_dailyProgressMinutesKey) ?? 0;
+  int get streakDays => _prefs!.getInt(_streakDaysKey) ?? 0;
+  String? get lastDailyProgressDate =>
+      _prefs!.getString(_lastDailyProgressDateKey);
   int get lives => _prefs!.getInt(_livesKey) ?? 5;
   double get lessonProgress => _prefs!.getDouble(_lessonProgressKey) ?? 0.35;
   bool get notificationsEnabled =>
@@ -291,6 +294,24 @@ class LocalStorage {
     await _prefs!.setInt(_dailyProgressMinutesKey, minutes);
   }
 
+  Future<void> setLastDailyProgressDate(String isoDate) async {
+    await _prefs!.setString(_lastDailyProgressDateKey, isoDate);
+  }
+
+  Future<void> saveDailyGoalState({
+    required int dailyProgressMinutes,
+    required String dailyProgressDate,
+    required int streakDays,
+    String? lastStreakActiveDate,
+  }) async {
+    await saveDailyProgressMinutes(dailyProgressMinutes);
+    await setLastDailyProgressDate(dailyProgressDate);
+    await setStreakDays(streakDays);
+    if (lastStreakActiveDate != null) {
+      await setLastStreakActiveDate(lastStreakActiveDate);
+    }
+  }
+
   Future<void> saveLessonProgress(double progress) async {
     await _prefs!.setDouble(_lessonProgressKey, progress.clamp(0, 1));
   }
@@ -299,6 +320,11 @@ class LocalStorage {
     final current = dailyProgressMinutes + minutes;
     final goal = dailyGoalMinutes ?? 10;
     await saveDailyProgressMinutes(current > goal ? goal : current);
+    await setLastDailyProgressDate(
+      '${DateTime.now().year.toString().padLeft(4, '0')}-'
+      '${DateTime.now().month.toString().padLeft(2, '0')}-'
+      '${DateTime.now().day.toString().padLeft(2, '0')}',
+    );
   }
 
   String? get learnBrowseCefrLevelCode =>
@@ -342,6 +368,7 @@ class LocalStorage {
 
   Future<void> resetHomeProgress() async {
     await _prefs!.remove(_dailyProgressMinutesKey);
+    await _prefs!.remove(_lastDailyProgressDateKey);
     await _prefs!.remove(_streakDaysKey);
     await _prefs!.remove(_livesKey);
     await _prefs!.remove(_lessonProgressKey);

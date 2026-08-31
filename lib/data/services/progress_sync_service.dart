@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fluentta_ai/core/daily_goal/daily_goal_rewards.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_practice_type.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
@@ -40,6 +41,7 @@ class ProgressSyncService {
   final List<LessonProgressModel> _pendingWrites = [];
   int? _pendingLivesWrite;
   bool _pendingStatsSync = false;
+  bool _pendingDailyGoalSync = false;
   final List<VoidCallback> _mergeListeners = [];
 
   void addMergeListener(VoidCallback listener) {
@@ -76,6 +78,7 @@ class ProgressSyncService {
     await _flushPending(uid);
     await _pullLives(uid);
     await _pullStats(uid);
+    await _pullDailyGoal(uid);
     await _learningStatsService.reconcileFromProgress();
     await _syncStatsToFirestore(force: true);
     _notifyMerged();
@@ -106,13 +109,22 @@ class ProgressSyncService {
       if (wordsLearned > 0) {
         await _localStorage.incrementWordsLearned(wordsLearned);
       }
-      await _entitlementsService.recordLearningActivity();
+      await recordDailyGoalProgress(
+        DailyGoalRewards.forLessonType(progress.type),
+      );
       _pendingStatsSync = true;
     }
 
     await _learningStatsService.reconcileFromProgress();
     await _syncStatsToFirestore(force: true);
     await _pushProgress(progress);
+    _notifyMerged();
+  }
+
+  Future<void> recordDailyGoalProgress(int minutes) async {
+    await _entitlementsService.recordDailyGoalProgress(minutes);
+    _pendingDailyGoalSync = true;
+    await _pushDailyGoal();
     _notifyMerged();
   }
 
@@ -150,7 +162,7 @@ class ProgressSyncService {
     totalGranted += bonus;
 
     if (firstCompletion) {
-      await _entitlementsService.recordLearningActivity();
+      await recordDailyGoalProgress(DailyGoalRewards.roleplayModule);
       _pendingStatsSync = true;
     }
 
@@ -243,7 +255,12 @@ class ProgressSyncService {
   }
 
   Future<void> _flushPending(String uid) async {
-    if (_pendingWrites.isEmpty && _pendingLivesWrite == null) return;
+    if (_pendingWrites.isEmpty &&
+        _pendingLivesWrite == null &&
+        !_pendingStatsSync &&
+        !_pendingDailyGoalSync) {
+      return;
+    }
     if (!await _isOnline) return;
     final pending = List<LessonProgressModel>.from(_pendingWrites);
     _pendingWrites.clear();
@@ -253,6 +270,9 @@ class ProgressSyncService {
     await _flushPendingLives(uid);
     if (_pendingStatsSync) {
       await _syncStatsToFirestore(force: true);
+    }
+    if (_pendingDailyGoalSync) {
+      await _pushDailyGoal();
     }
   }
 
@@ -358,6 +378,83 @@ class ProgressSyncService {
     await _learningStatsService.recordCorrections(count);
     if (count <= 0) return;
     await syncStatsToFirestore();
+  }
+
+  Future<void> _pullDailyGoal(String uid) async {
+    if (!await _isOnline) return;
+
+    await _entitlementsService.ensureDailyGoalState();
+    final remote = await _userRepository.fetchDailyGoal(uid);
+    if (remote == null) return;
+
+    final today = _entitlementsService.todayIso();
+    final remoteDate = remote['dailyProgressDate'] as String?;
+    final remoteProgress = remote['dailyProgressMinutes'] as int?;
+    final remoteStreak = remote['streakDays'] as int?;
+    final remoteLastActive = remote['lastStreakActiveDate'] as String?;
+
+    final localDate = _localStorage.lastDailyProgressDate;
+    final localProgress = _localStorage.dailyProgressMinutes;
+    final localStreak = _localStorage.streakDays;
+    final localLastActive = _localStorage.lastStreakActiveDate;
+
+    var mergedProgress = localProgress;
+    if (remoteDate == today && remoteProgress != null) {
+      if (localDate != today) {
+        mergedProgress = remoteProgress;
+      } else {
+        mergedProgress = remoteProgress > localProgress
+            ? remoteProgress
+            : localProgress;
+      }
+    }
+
+    var mergedStreak = localStreak;
+    if (remoteStreak != null) {
+      mergedStreak = remoteStreak > localStreak ? remoteStreak : localStreak;
+    }
+
+    String? mergedLastActive = localLastActive;
+    if (remoteLastActive != null && remoteLastActive.isNotEmpty) {
+      if (localLastActive == null || localLastActive.isEmpty) {
+        mergedLastActive = remoteLastActive;
+      } else {
+        mergedLastActive =
+            remoteLastActive.compareTo(localLastActive) >= 0
+                ? remoteLastActive
+                : localLastActive;
+      }
+    }
+
+    await _localStorage.saveDailyGoalState(
+      dailyProgressMinutes: mergedProgress,
+      dailyProgressDate: today,
+      streakDays: mergedStreak,
+      lastStreakActiveDate: mergedLastActive,
+    );
+    _notifyMerged();
+  }
+
+  Future<void> _pushDailyGoal() async {
+    final uid = _uid;
+    if (uid == null) {
+      _pendingDailyGoalSync = true;
+      return;
+    }
+    if (!await _isOnline) {
+      _pendingDailyGoalSync = true;
+      return;
+    }
+
+    try {
+      await _userRepository.syncDailyGoalFromLocal(uid);
+      _pendingDailyGoalSync = false;
+    } catch (e, stack) {
+      _pendingDailyGoalSync = true;
+      if (kDebugMode) {
+        debugPrint('Firestore daily goal sync failed: $e\n$stack');
+      }
+    }
   }
 
   Future<void> _pullStats(String uid) async {

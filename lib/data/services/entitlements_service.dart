@@ -48,6 +48,31 @@ class EntitlementsService {
 
   String todayIso() => _isoDate(DateTime.now());
 
+  /// Resets daily minutes at midnight and reconciles streak if days were missed.
+  Future<void> ensureDailyGoalState() async {
+    await ensureDailyProgressReset();
+    await _reconcileStreakOnOpen();
+  }
+
+  /// Clears today's progress counter when the calendar day changes.
+  Future<void> ensureDailyProgressReset() async {
+    final today = todayIso();
+    final lastDate = _localStorage.lastDailyProgressDate;
+    if (lastDate == today) return;
+
+    await _localStorage.saveDailyProgressMinutes(0);
+    await _localStorage.setLastDailyProgressDate(today);
+  }
+
+  /// Adds minutes toward the daily goal and updates the learning streak.
+  Future<void> recordDailyGoalProgress(int minutes) async {
+    if (minutes <= 0) return;
+
+    await ensureDailyProgressReset();
+    await _localStorage.incrementDailyProgress(minutes);
+    await recordLearningActivity();
+  }
+
   /// Refills free users to the daily heart allowance once per calendar day.
   Future<void> ensureDailyHeartsReset() async {
     if (hasUnlimitedHearts) return;
@@ -101,6 +126,30 @@ class EntitlementsService {
     }
 
     await _localStorage.setLastStreakActiveDate(todayIso);
+  }
+
+  Future<void> _reconcileStreakOnOpen() async {
+    await _resetStreakFreezeWeekIfNeeded();
+
+    final today = DateTime.now();
+    final todayIso = _isoDate(today);
+    final lastActive = _localStorage.lastStreakActiveDate;
+
+    if (lastActive == null || lastActive.isEmpty) return;
+    if (lastActive == todayIso) return;
+
+    final lastDate = DateTime.parse(lastActive);
+    final dayGap = today.difference(_dateOnly(lastDate)).inDays;
+
+    if (dayGap <= 1) return;
+
+    final preserved = await _tryAutoStreakFreeze(dayGap - 1);
+    if (preserved) return;
+
+    if (_localStorage.streakDays > 0) {
+      await _localStorage.setStreakBeforeBreak(_localStorage.streakDays);
+    }
+    await _localStorage.setStreakDays(0);
   }
 
   Future<bool> useStreakFreeze() async {
