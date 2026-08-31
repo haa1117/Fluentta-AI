@@ -1,4 +1,5 @@
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
+import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -20,8 +21,10 @@ class LearnTabScreen extends StatelessWidget {
     final l10n = context.l10n;
     final learnViewModel = context.watch<LearnViewModel>();
     context.watch<HomeViewModel>();
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
+      backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.learnAndGrow,
         showActionButton: true,
@@ -42,7 +45,7 @@ class LearnTabScreen extends StatelessWidget {
               onLevelSelected: learnViewModel.selectLevel,
             ),
             SizedBox(height: AppSizes.spaceMd),
-            const LearnLevelCard(),
+            LearnLevelCard(isDark: isDark),
             SizedBox(height: AppSizes.spaceMd),
             GridView.builder(
               shrinkWrap: true,
@@ -57,6 +60,7 @@ class LearnTabScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final category = learnViewModel.categories[index];
                 return LearnCategoryCard(
+                  isDark: isDark,
                   category: category,
                   onTap: () =>
                       learnViewModel.openCategory(context, category),

@@ -138,15 +138,20 @@ class CefrLevelTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final background = selected
-        ? (selectedBackgroundColor ?? AppColors.primaryColor)
-        : (unselectedBackgroundColor ?? const Color(0xffF3E8FF));
+        ? (selectedBackgroundColor ??
+            (isDark ? AppColors.primaryDarkColor : AppColors.primaryColor))
+        : (unselectedBackgroundColor ??
+            (isDark
+                ? AppColors.brandDarkSoftColor
+                : const Color(0xffF3E8FF)));
     final textColor = selected
         ? AppColors.white
         : locked
-            ? AppColors.inActiveTextColo
-            : AppColors.textPrimary;
+            ? (isDark ? AppColors.iconColorDark : AppColors.inActiveTextColo)
+            : (isDark ? AppColors.textPrimaryDark : AppColors.textPrimary);
 
     return Material(
       color: Colors.transparent,

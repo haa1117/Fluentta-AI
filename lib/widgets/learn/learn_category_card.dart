@@ -11,10 +11,12 @@ class LearnCategoryCard extends StatelessWidget {
     super.key,
     required this.category,
     required this.onTap,
+    required this.isDark,
   });
 
   final LearnCategoryModel category;
   final VoidCallback onTap;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +26,17 @@ class LearnCategoryCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(AppSizes.w(14)),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
           border: Border.all(
-            color: AppColors.borderLight
+            color: isDark ? AppColors.borderDarkColor : AppColors.borderLight,
           ),
           borderRadius: BorderRadius.circular(AppSizes.sp(24)),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primaryColor.withValues(alpha: 0.06),
+              color: (isDark
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryColor)
+                  .withValues(alpha: 0.06),
               blurRadius: 12,
               offset: const Offset(0, 3),
             ),
@@ -54,7 +59,9 @@ class LearnCategoryCard extends StatelessWidget {
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(15),
                 fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
+                color: isDark
+                    ? AppColors.textPrimaryDark
+                    : AppColors.textPrimary,
               ),
             ),
             SizedBox(height: AppSizes.h(2)),
@@ -71,7 +78,9 @@ class LearnCategoryCard extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(11),
                         fontWeight: FontWeight.w500,
-                        color: AppColors.textSecondary,
+                        color: isDark
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondary,
                         height: 1.2,
                       ),
                     ),

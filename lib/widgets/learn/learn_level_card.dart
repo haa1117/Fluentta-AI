@@ -10,7 +10,9 @@ import 'package:fluentta_ai/viewmodels/learn_view_model.dart';
 import 'package:provider/provider.dart';
 
 class LearnLevelCard extends StatelessWidget {
-  const LearnLevelCard({super.key});
+  const LearnLevelCard({super.key, required this.isDark});
+
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +23,15 @@ class LearnLevelCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(14)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         border: Border.all(
-          color: AppColors.borderLight
+          color: isDark ? AppColors.borderDarkColor : AppColors.borderLight,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryColor.withValues(alpha: 0.06),
+            color: (isDark ? AppColors.primaryDarkColor : AppColors.primaryColor)
+                .withValues(alpha: 0.06),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),
@@ -55,7 +58,9 @@ class LearnLevelCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
                     fontWeight: FontWeight.w700,
-                    color: Color(0xff630ED4),
+                    color: isDark
+                        ? AppColors.primaryDarkColor
+                        : const Color(0xff630ED4),
                     letterSpacing: 0.6,
                   ),
                 ),
@@ -66,7 +71,9 @@ class LearnLevelCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(28),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color: isDark
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimary,
                     height: 1,
                   ),
                 ),
@@ -76,7 +83,9 @@ class LearnLevelCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textSecondary,
+                    color: isDark
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondary,
                   ),
                 ),
               ],
@@ -88,6 +97,7 @@ class LearnLevelCard extends StatelessWidget {
             child: CustomPaint(
               painter: _LearnProgressPainter(
                 progress: viewModel.levelProgress,
+                isDark: isDark,
               ),
               child: Center(
                 child: Text(
@@ -96,7 +106,9 @@ class LearnLevelCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(13),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color: isDark
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimary,
                   ),
                 ),
               ),
@@ -109,9 +121,10 @@ class LearnLevelCard extends StatelessWidget {
 }
 
 class _LearnProgressPainter extends CustomPainter {
-  _LearnProgressPainter({required this.progress});
+  _LearnProgressPainter({required this.progress, required this.isDark});
 
   final double progress;
+  final bool isDark;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -120,13 +133,15 @@ class _LearnProgressPainter extends CustomPainter {
     const strokeWidth = 5.0;
 
     final trackPaint = Paint()
-      ..color = AppColors.progressTrack
+      ..color = isDark
+          ? AppColors.brandDarkSoftColor
+          : AppColors.progressTrack
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
 
     final progressPaint = Paint()
-      ..color = AppColors.primaryColor
+      ..color = isDark ? AppColors.primaryDarkColor : AppColors.primaryColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
@@ -143,6 +158,6 @@ class _LearnProgressPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _LearnProgressPainter oldDelegate) {
-    return oldDelegate.progress != progress;
+    return oldDelegate.progress != progress || oldDelegate.isDark != isDark;
   }
 }
