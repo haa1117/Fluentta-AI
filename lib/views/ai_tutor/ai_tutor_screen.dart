@@ -40,9 +40,11 @@ class AiTutorScreen extends StatelessWidget {
             Container(
               width: AppSizes.w(140),
               height: AppSizes.w(140),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.homeCardLavender,
+                color: isDark
+                    ? AppColors.brandDarkSoftColor
+                    : AppColors.homeCardLavender,
               ),
               child: ClipOval(
                 child: Image.asset(AppAssets.aiTutor, fit: BoxFit.contain),
@@ -188,7 +190,9 @@ class _OpenAiChatCard extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(16),
                       fontWeight: FontWeight.w700,
-                      color:isDark? AppColors.textSecondaryDark : const Color(0xff665D72),
+                      color: isDark
+                          ? AppColors.textPrimaryDark
+                          : const Color(0xff665D72),
                     ),
                   ),
                   SizedBox(height: AppSizes.h(6)),

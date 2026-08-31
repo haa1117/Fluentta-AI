@@ -42,7 +42,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor:isDark ? AppColors.appBarDarkBackgroundColor : backGroundColor,
       scrolledUnderElevation: 0,
       centerTitle: centerTitle,
-      leading: showBackButton ? _BackButton(onBack: onBack) : null,
+      leading: showBackButton
+          ? _BackButton(onBack: onBack, isDark: isDark)
+          : null,
       automaticallyImplyLeading: false,
       title: Text(
         title,
@@ -99,9 +101,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class _BackButton extends StatelessWidget {
-  const _BackButton({this.onBack});
+  const _BackButton({this.onBack, required this.isDark});
 
   final VoidCallback? onBack;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -114,17 +117,22 @@ class _BackButton extends StatelessWidget {
             width: AppSizes.w(40),
             height: AppSizes.w(40),
             decoration: BoxDecoration(
-              color: AppColors.homeCardLavender,
+              color: isDark
+                  ? AppColors.brandDarkSoftColor
+                  : AppColors.homeCardLavender,
               borderRadius: BorderRadius.circular(AppSizes.w(12)),
             ),
             child: Center(
               child: SvgPicture.asset(
                 'assets/svg/arrow_back_ios.svg',
-                color: Color(0xff1F1B2E),
+                colorFilter: ColorFilter.mode(
+                  isDark
+                      ? AppColors.textPrimaryDark
+                      : const Color(0xff1F1B2E),
+                  BlendMode.srcIn,
+                ),
                 width: AppSizes.sp(16),
                 height: AppSizes.sp(16),
-
-
               ),
             ),
           ),
