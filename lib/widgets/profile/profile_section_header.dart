@@ -4,7 +4,8 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class ProfileSectionHeader extends StatelessWidget {
-  const ProfileSectionHeader({super.key, required this.title});
+  final bool isDark;
+  const ProfileSectionHeader({super.key, required this.title, required this.isDark});
 
   final String title;
 
@@ -22,7 +23,7 @@ class ProfileSectionHeader extends StatelessWidget {
           fontFamily: AppFonts.plusJakartaSans,
           fontSize: AppSizes.sp(13),
           fontWeight: FontWeight.w600,
-          color: Color(0xff665D72),
+          color:isDark ? AppColors.textSecondaryDark : Color(0xff665D72),
           letterSpacing: 0.8,
         ),
       ),

@@ -99,12 +99,13 @@ class _SavedWordTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: EdgeInsets.all(AppSizes.w(16)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+    color: isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: AppColors.borderLight),
+        border: Border.all(color:isDark ? AppColors.borderDarkColor: AppColors.borderLight),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +122,7 @@ class _SavedWordTile extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(18),
                         fontWeight: FontWeight.w700,
-                        color: AppColors.primaryBlueColor,
+                        color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                       ),
                     ),
                     Text(
@@ -130,7 +131,7 @@ class _SavedWordTile extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(12),
                         fontStyle: FontStyle.italic,
-                        color: AppColors.textSecondary,
+                        color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                       ),
                     ),
                   ],
@@ -160,7 +161,7 @@ class _SavedWordTile extends StatelessWidget {
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(13),
-              color: AppColors.textPrimary,
+              color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
               height: 1.4,
             ),
           ),
@@ -169,15 +170,19 @@ class _SavedWordTile extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.all(AppSizes.w(12)),
             decoration: BoxDecoration(
-              color: AppColors.homeCardLavender,
+              color:isDark ? AppColors.surfaceBgDarkColor : AppColors.homeCardLavender,
               borderRadius: BorderRadius.circular(AppSizes.w(10)),
+            border: Border.all(
+              color: isDark ? AppColors.borderDarkColor : AppColors.borderLight
+            )
+
             ),
             child: Text(
               word.example,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(12),
-                color: AppColors.profileSubtitleColor,
+                color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                 height: 1.4,
               ),
             ),

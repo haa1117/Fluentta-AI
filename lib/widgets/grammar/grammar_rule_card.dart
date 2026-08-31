@@ -10,17 +10,18 @@ class GrammarRuleCard extends StatelessWidget {
   const GrammarRuleCard({super.key, required this.step});
 
   final GrammarStepModel step;
-
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
       padding: EdgeInsets.all(AppSizes.w(20)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ?  AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: Color(0xfff2f7ff)),
+        border: Border.all(color:isDark ? AppColors.borderDarkColor:AppColors.borderLight),
         boxShadow: [
           BoxShadow(
             color: AppColors.primaryColor.withValues(alpha: 0.06),
@@ -40,7 +41,7 @@ class GrammarRuleCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(22),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color:isDark? AppColors.textPrimaryDark : AppColors.textPrimary,
                 ),
               ),
               SizedBox(height: AppSizes.h(6)),
@@ -50,7 +51,7 @@ class GrammarRuleCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(14),
                   fontWeight: FontWeight.w500,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.textSecondaryDark :AppColors.textSecondary ,
                   height: 1.4,
                 ),
               ),
@@ -62,17 +63,17 @@ class GrammarRuleCard extends StatelessWidget {
                   vertical: AppSizes.h(12),
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xffEAF3FF),
+                  color:isDark ? AppColors.brandDarkSoftColor :AppColors.brandLightSoftColor,
                   borderRadius: BorderRadius.circular(AppSizes.w(12)),
                   
                 ),
-                foregroundDecoration: DottedDecoration(
-                  shape: Shape.box,
-                  borderRadius: BorderRadius.circular(AppSizes.w(12)),
-                  color: Color(0xffb6d2fd),
-                  strokeWidth: 1.5,
-                  dash: const [5, 4],
-                ),
+                // foregroundDecoration: DottedDecoration(
+                //   shape: Shape.box,
+                //   borderRadius: BorderRadius.circular(AppSizes.w(12)),
+                //   color: Color(0xffb6d2fd),
+                //   strokeWidth: 1.5,
+                //   dash: const [5, 4],
+                // ),
                 child: Text(
                   step.formula,
                   textAlign: TextAlign.center,
@@ -80,7 +81,7 @@ class GrammarRuleCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(15),
                     fontWeight: FontWeight.w700,
-                    color: const Color(0xFF00489E),
+                    color:isDark ? AppColors.white : const Color(0xFF00489E),
                   ),
                 ),
               ),

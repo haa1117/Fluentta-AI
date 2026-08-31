@@ -135,7 +135,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
@@ -170,13 +170,13 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                 child: Container(
                   width: AppSizes.w(36),
                   height: AppSizes.w(36),
-                  decoration: const BoxDecoration(
-                    color: AppColors.homeCardLavender,
+                  decoration:  BoxDecoration(
+                    color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.close_rounded,
-                    color: AppColors.iconColor,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.iconColor,
                     size: AppSizes.sp(20),
                   ),
                 ),
@@ -217,7 +217,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(16),
                         fontWeight: FontWeight.w400,
-                        color: AppColors.textPrimary,
+                        color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                         height: 1.4,
                       ),
                     ),
@@ -229,7 +229,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                       isLoading: _boostLoading,
                       onBoost: _onBoostTap,
                     ),
-                    SizedBox(height: AppSizes.spaceLg),
+                    SizedBox(height: AppSizes.spaceXxl),
                   ],
                   PrimaryButton(
                     text: widget.buttonText,
@@ -261,7 +261,7 @@ class _XpBoostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(20)),
@@ -320,7 +320,7 @@ class _XpBoostCard extends StatelessWidget {
           ),
           SizedBox(height: AppSizes.spaceMd),
           Material(
-            color: AppColors.white,
+            color:isDark ? AppColors.surfaceBgDarkColor: AppColors.white,
             borderRadius: BorderRadius.circular(AppSizes.w(10)),
             child: InkWell(
               onTap: isLoading ? null : onBoost,
@@ -341,7 +341,7 @@ class _XpBoostCard extends StatelessWidget {
                       )
                     else
                       SvgPicture.asset(
-                        AppAssets.watchAdSvg,
+                       isDark ? AppAssets.watchAdDarkSvg : AppAssets.watchAdSvg,
                         width: AppSizes.sp(20),
                         height: AppSizes.sp(20),
                       ),
@@ -352,7 +352,7 @@ class _XpBoostCard extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(15),
                         fontWeight: FontWeight.w700,
-                        color: AppColors.primaryColor,
+                        color:isDark ? AppColors.white : AppColors.primaryColor,
                       ),
                     ),
                   ],

@@ -49,6 +49,7 @@ class _RoleplayDialogueLessonBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<RoleplayDialogueLessonViewModel>();
@@ -73,7 +74,7 @@ class _RoleplayDialogueLessonBody extends StatelessWidget {
           ReadingPhaseHeader(
             phaseTitle: phase.phaseTitle,
             dialoguePartNumber: phase.dialoguePartNumber,
-            isTextPassage: phase.isTextPassage,
+            isTextPassage: phase.isTextPassage, isDark: isDark,
           ),
           SizedBox(height: AppSizes.spaceLg),
           Expanded(
@@ -95,7 +96,7 @@ class _RoleplayDialogueLessonBody extends StatelessWidget {
                       ),
                   if (phase.tip.isNotEmpty) ...[
                     SizedBox(height: AppSizes.spaceMd),
-                    ReadingFluentaTipBox(tip: phase.tip),
+                    ReadingFluentaTipBox(tip: phase.tip, isDark: isDark,),
                   ],
                   SizedBox(height: AppSizes.spaceLg),
                 ],

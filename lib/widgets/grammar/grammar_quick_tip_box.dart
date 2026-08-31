@@ -5,7 +5,8 @@ import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class GrammarQuickTipBox extends StatelessWidget {
-  const GrammarQuickTipBox({super.key, required this.tip});
+  final bool isDark;
+  const GrammarQuickTipBox({super.key, required this.tip, required this.isDark});
 
   final String tip;
 
@@ -16,9 +17,9 @@ class GrammarQuickTipBox extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
       padding: EdgeInsets.all(AppSizes.w(20)),
       decoration: BoxDecoration(
-        color: Color(0xfff0f1ff),
+        color:isDark ? AppColors.brandDarkSoftColor :AppColors.brandLightSoftColor,
         border: Border.all(
-          color: Color(0xffd3e4fe)
+          color:isDark ? AppColors.borderDarkColor :AppColors.borderLight
         ),
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
       ),
@@ -50,11 +51,15 @@ class GrammarQuickTipBox extends StatelessWidget {
                     style: TextStyle(
                       fontSize: AppSizes.sp(14),
                       fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
+                      fontFamily: AppFonts.plusJakartaSans,
+                      color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
                     ),
                   ),
 
-                  TextSpan(text: tip),
+                  TextSpan(text: tip,style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    color:isDark ? AppColors.textSecondaryDark: AppColors.textSecondary,
+                  )),
                 ],
               ),
             ),

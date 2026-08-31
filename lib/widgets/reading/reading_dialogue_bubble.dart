@@ -39,7 +39,7 @@ class ReadingDialogueBubble extends StatelessWidget {
         readingVm!.listenLine(context, line, lineIndex);
       }
     }
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: EdgeInsets.only(
         left: AppSizes.horizontalPadding,
@@ -64,7 +64,7 @@ class ReadingDialogueBubble extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(AppSizes.w(14)),
               decoration: BoxDecoration(
-                color: isUser ? const Color(0xffecfdf5) : AppColors.white,
+                color: isUser ? isDark? AppColors.surfaceBgDarkColor : const Color(0xffecfdf5) :isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(AppSizes.cardRadius),
                   topRight: Radius.circular(AppSizes.cardRadius),
@@ -77,8 +77,8 @@ class ReadingDialogueBubble extends StatelessWidget {
                 ),
                 border: Border.all(
                   color: isUser
-                      ? const Color(0xffc0efde)
-                      : Color(0xffd3e4fe),
+                      ? isDark ? Color(0xff183737): Color(0xffc0efde)
+                      :isDark ? AppColors.borderDarkColor: Color(0xffd3e4fe),
                 ),
                 boxShadow: isUser
                     ? null
@@ -100,8 +100,8 @@ class ReadingDialogueBubble extends StatelessWidget {
                       fontSize: AppSizes.sp(13),
                       fontWeight: FontWeight.w700,
                       color: isUser
-                          ? AppColors.readingUserGreen
-                          : AppColors.primaryColor,
+                          ? isDark ? Color(0xff65D17A) :AppColors.readingUserGreen
+                          : AppColors.brandDeepDarkColor,
                     ),
                   ),
                   SizedBox(height: AppSizes.h(4)),
@@ -111,7 +111,7 @@ class ReadingDialogueBubble extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(14),
                       fontWeight: FontWeight.w500,
-                      color: AppColors.textPrimary,
+                      color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
                       height: 1.4,
                     ),
                   ),

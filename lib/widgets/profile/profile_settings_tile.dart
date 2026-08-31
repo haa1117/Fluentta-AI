@@ -5,6 +5,7 @@ import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileSettingsTile extends StatelessWidget {
+  final bool isDark;
   const ProfileSettingsTile({
     super.key,
     required this.title,
@@ -15,7 +16,7 @@ class ProfileSettingsTile extends StatelessWidget {
     this.trailing,
     this.showChevron = true,
     this.onTap,
-    this.isDestructive = false,
+    this.isDestructive = false, required this.isDark,
   });
 
   final String title;
@@ -31,9 +32,9 @@ class ProfileSettingsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final effectiveTitleColor = titleColor ??
-        (isDestructive ? Color(0xffDC2626) : AppColors.textPrimary);
+        (isDestructive ? Color(0xffDC2626) : isDark ? AppColors.textPrimaryDark: AppColors.textPrimary);
     final effectiveIconColor =
-        iconColor ?? (isDestructive ? Color(0xffDC2626) : AppColors.primaryColor);
+        iconColor ?? (isDestructive ? Color(0xffDC2626) :isDark ? AppColors.primaryDarkColor : AppColors.primaryColor);
 
     return Material(
       color: Colors.transparent,
@@ -76,7 +77,7 @@ class ProfileSettingsTile extends StatelessWidget {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(12),
                           fontWeight: FontWeight.w400,
-                          color: AppColors.textSecondary,
+                          color:isDark ? AppColors.textSecondaryDark: AppColors.textSecondary,
                         ),
                       ),
                     ],
@@ -106,12 +107,13 @@ class ProfileSettingsGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        // border: Border.all(color: AppColors.borderLight),
+        border: Border.all(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight),
       ),
       child: Column(
         children: [

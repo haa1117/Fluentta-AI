@@ -27,7 +27,7 @@ class GrammarExampleTile extends StatelessWidget {
         : example.iconName == 'female'
             ? 'assets/svg/female_profile.svg'
             : 'assets/svg/profile.svg';
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       margin: EdgeInsets.only(
         left: AppSizes.horizontalPadding,
@@ -39,7 +39,7 @@ class GrammarExampleTile extends StatelessWidget {
         vertical: AppSizes.h(12),
       ),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ?  AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         // border: Border.all(color: AppColors.borderDarkPrimary),
         boxShadow: [
@@ -55,8 +55,9 @@ class GrammarExampleTile extends StatelessWidget {
           Container(
             width: AppSizes.w(36),
             height: AppSizes.w(36),
-            decoration: const BoxDecoration(
-              color: AppColors.homeCardLavender,
+            decoration:
+            BoxDecoration(
+              color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
               shape: BoxShape.circle,
             ),
             child: Center(
@@ -64,8 +65,8 @@ class GrammarExampleTile extends StatelessWidget {
                 iconPath,
                 width: AppSizes.sp(13),
                 height: AppSizes.sp(13),
-                colorFilter: const ColorFilter.mode(
-                  AppColors.primaryColor,
+                colorFilter:  ColorFilter.mode(
+                 isDark ? AppColors.brandDeepDarkColor : AppColors.primaryColor,
                   BlendMode.srcIn,
                 ),
               ),
@@ -79,7 +80,7 @@ class GrammarExampleTile extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(14),
                   fontWeight: FontWeight.w500,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                 ),
                 children: [
                   TextSpan(text: '${example.prefix} '),
@@ -99,7 +100,7 @@ class GrammarExampleTile extends StatelessWidget {
             onTap: () => viewModel.listenExample(context, example, exampleIndex),
             child: Icon(
               isListening ? Icons.volume_off_outlined : Icons.volume_up_outlined,
-              color: isListening ? AppColors.primaryColor : AppColors.iconColor,
+              color: isListening ? AppColors.primaryColor :isDark ? AppColors.textSecondaryDark : AppColors.iconColor,
               size: AppSizes.sp(20),
             ),
           ),

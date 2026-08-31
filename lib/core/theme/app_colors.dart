@@ -39,6 +39,7 @@ static const Color profileSubtitleColor=Color(0xff4C4354);
   static const Color xpEarnedTextColor = Color(0xffFD6901);
   static const Color bannerGradientStart = Color(0xFFF3E8FF);
   static const Color brandDarkSoftColor=Color(0xff302241);
+  static const Color brandLightSoftColor=Color(0xffF3E8FF);
   static const Color bannerGradientEnd = Color(0xFFEDE9FE);
 static const Color tileBackgroundDarkColor=Color(0xff1A1624);
 static const Color tileBorderDarkColor=Color(0xffB65CFF);

@@ -52,7 +52,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           fontFamily: AppFonts.plusJakartaSans,
           fontSize: AppSizes.sp(18),
           fontWeight: FontWeight.w700,
-          color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
+          color:isDark ? AppColors.brandDeepDarkColor : AppColors.primaryColor,
         ),
       ),
       actions: showActionButton

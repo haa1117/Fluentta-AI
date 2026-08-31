@@ -5,7 +5,8 @@ import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ReadingFluentaTipBox extends StatelessWidget {
-  const ReadingFluentaTipBox({super.key, required this.tip});
+  final bool isDark;
+  const ReadingFluentaTipBox({super.key, required this.tip, required this.isDark});
 
   final String tip;
 
@@ -20,7 +21,7 @@ class ReadingFluentaTipBox extends StatelessWidget {
       
 
       decoration: BoxDecoration(
-        color: const Color(0xFFF0F4FF),
+        color:isDark ? AppColors.brandDarkSoftColor : const Color(0xFFF0F4FF),
         // borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         borderRadius: BorderRadius.only(
             topRight: Radius.circular(AppSizes.cardRadius),
@@ -36,7 +37,7 @@ class ReadingFluentaTipBox extends StatelessWidget {
             Container(
               width: AppSizes.w(4),
               decoration: BoxDecoration(
-                color: AppColors.primaryColor,
+                color:isDark ? AppColors.brandDeepDarkColor : AppColors.primaryColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(AppSizes.cardRadius),
                   bottomLeft: Radius.circular(AppSizes.cardRadius),
@@ -53,7 +54,7 @@ class ReadingFluentaTipBox extends StatelessWidget {
                       'assets/svg/tip_outline.svg',
                       width: AppSizes.sp(22),
                       height: AppSizes.sp(22),
-                      colorFilter: const ColorFilter.mode(
+                      colorFilter:  ColorFilter.mode(
                         AppColors.primaryColor,
                         BlendMode.srcIn,
                       ),
@@ -66,7 +67,7 @@ class ReadingFluentaTipBox extends StatelessWidget {
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(13),
                             fontWeight: FontWeight.w500,
-                            color: AppColors.textSecondary,
+                            color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                             height: 1.4,
                           ),
                           children: [
@@ -75,7 +76,7 @@ class ReadingFluentaTipBox extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: AppSizes.sp(16),
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xff0B1C30),
+                                color:isDark ?AppColors.textPrimaryDark : Color(0xff0B1C30),
                               ),
                             ),
                             TextSpan(text: tip),

@@ -7,9 +7,10 @@ import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:provider/provider.dart';
 
 class ProfileDailyGoalCard extends StatelessWidget {
+  final bool isDark;
   const ProfileDailyGoalCard({
     super.key,
-    required this.onChangeGoal,
+    required this.onChangeGoal, required this.isDark,
   });
 
   final VoidCallback onChangeGoal;
@@ -23,7 +24,7 @@ class ProfileDailyGoalCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal:  AppSizes.w(20),vertical: AppSizes.h(25)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         // border: Border.all(color: AppColors.borderLight),
       ),
@@ -39,7 +40,7 @@ class ProfileDailyGoalCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(17),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                   ),
                 ),
               ),
@@ -51,7 +52,7 @@ class ProfileDailyGoalCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(15),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.primarySecondaryColor,
+                    color:isDark ? AppColors.primaryDarkColor : AppColors.primarySecondaryColor,
                   ),
                 ),
               ),
@@ -63,7 +64,7 @@ class ProfileDailyGoalCard extends StatelessWidget {
               Icon(
                 Icons.schedule_rounded,
                 size: AppSizes.sp(16),
-                color: AppColors.primarySecondaryColor,
+                color:isDark ? AppColors.primaryDarkColor: AppColors.primarySecondaryColor,
               ),
               SizedBox(width: AppSizes.w(6)),
               Flexible(
@@ -72,7 +73,7 @@ class ProfileDailyGoalCard extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(13),
-                    color: AppColors.profileSubtitleColor,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                   ),
                 ),
               ),
@@ -91,7 +92,7 @@ class ProfileDailyGoalCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(13),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.profileSubtitleColor,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                   ),
                 ),
               ),
@@ -101,7 +102,7 @@ class ProfileDailyGoalCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.profileSubtitleColor,
+                  color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                 ),
               ),
             ],
@@ -113,7 +114,7 @@ class ProfileDailyGoalCard extends StatelessWidget {
               value: profile.dailyGoalPercent,
               minHeight: AppSizes.h(8),
               backgroundColor: Color(0XFFE5EEFF),
-              color: AppColors.primarySecondaryColor,
+              color:isDark ? AppColors.primaryDarkColor : AppColors.primarySecondaryColor,
               borderRadius: BorderRadius.circular(10),
             ),
           ),

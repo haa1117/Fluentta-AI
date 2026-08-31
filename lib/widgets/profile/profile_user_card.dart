@@ -15,20 +15,20 @@ class ProfileUserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final profile = context.watch<ProfileViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(16)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: Color(0xfff1e6f9)),
+        border: Border.all(color:isDark ? AppColors.borderDarkColor : Color(0xfff1e6f9)),
       ),
       child: Row(
         children: [
           ClipOval(
             child: Image.asset(
-              AppAssets.profileBirdWithCircle,
+            isDark ? AppAssets.profileBirdWithCircleDark :  AppAssets.profileBirdWithCircle,
               width: AppSizes.w(70),
               height: AppSizes.w(70),
               fit: BoxFit.cover,
@@ -45,7 +45,7 @@ class ProfileUserCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(25),
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+                    color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                   ),
                 ),
                 Text(
@@ -54,7 +54,7 @@ class ProfileUserCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(15),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.primarySecondaryColor,
+                    color:isDark ? AppColors.primaryDarkColor: AppColors.primarySecondaryColor,
                   ),
                 ),
                 SizedBox(height: AppSizes.h(2)),
@@ -63,7 +63,7 @@ class ProfileUserCard extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(13),
-                    color: AppColors.profileSubtitleColor,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -111,7 +111,7 @@ class ProfileUserCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(10),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.profileSubtitleColor,
+                  color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                   letterSpacing: 0.5,
                 ),
               ),
@@ -121,7 +121,7 @@ class ProfileUserCard extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(16),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                 ),
               ),
             ],

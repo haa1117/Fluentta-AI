@@ -19,14 +19,14 @@ class SpeakAiTutorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(20)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.sp(20)),
-        border: Border.all(color: AppColors.borderLight),
+        border: Border.all(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight),
         boxShadow: [
           BoxShadow(
             color: AppColors.primaryColor.withValues(alpha: 0.06),
@@ -48,12 +48,12 @@ class SpeakAiTutorCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(22),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.primarySecondaryColor,
+                    color:isDark ? AppColors.brandDeepDarkColor : AppColors.primarySecondaryColor,
                     height: 1.2,
                   ),
                 ),
               ),
-              _HeartsBadge(label: livesLabel),
+              _HeartsBadge(label: livesLabel,isDark: isDark),
             ],
           ),
           SizedBox(height: AppSizes.h(12)),
@@ -69,7 +69,7 @@ class SpeakAiTutorCard extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(14),
-                        color: AppColors.profileSubtitleColor,
+                        color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                         fontWeight: FontWeight.w400,
                         height: 1.45,
                       ),
@@ -77,7 +77,7 @@ class SpeakAiTutorCard extends StatelessWidget {
                     SizedBox(height: AppSizes.h(20)),
                     _StartPracticeButton(
                       label: l10n.startPractice,
-                      onTap: onStartPractice,
+                      onTap: onStartPractice, isDark: isDark,
                     ),
                   ],
                 ),
@@ -98,7 +98,8 @@ class SpeakAiTutorCard extends StatelessWidget {
 }
 
 class _HeartsBadge extends StatelessWidget {
-  const _HeartsBadge({required this.label});
+  final bool isDark;
+  const _HeartsBadge({required this.label, required this.isDark});
 
   final String label;
 
@@ -110,7 +111,7 @@ class _HeartsBadge extends StatelessWidget {
         vertical: AppSizes.h(4),
       ),
       decoration: BoxDecoration(
-        color: AppColors.homeCardLavender,
+        color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
         borderRadius: BorderRadius.circular(AppSizes.w(20)),
       ),
       child: Row(
@@ -122,7 +123,7 @@ class _HeartsBadge extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(13),
               fontWeight: FontWeight.w700,
-              color: AppColors.primaryBlueColor,
+              color:isDark ? AppColors.brandDeepDarkColor : AppColors.primaryBlueColor,
             ),
           ),
           SizedBox(width: AppSizes.w(4)),
@@ -138,9 +139,10 @@ class _HeartsBadge extends StatelessWidget {
 }
 
 class _StartPracticeButton extends StatelessWidget {
+  final bool isDark;
   const _StartPracticeButton({
     required this.label,
-    required this.onTap,
+    required this.onTap, required this.isDark,
   });
 
   final String label;
@@ -157,7 +159,8 @@ class _StartPracticeButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
           child: Ink(
             decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
+              gradient:isDark ? null : AppColors.primaryGradient,
+              color: isDark ? Color(0xffb65dff) : null,
               borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
             ),
             padding: EdgeInsets.symmetric(
@@ -167,7 +170,7 @@ class _StartPracticeButton extends StatelessWidget {
             child: Row(
               children: [
                 Image.asset(
-                  AppAssets.speakBirdWithCircle,
+                 isDark ? AppAssets.speakBirdWithCircleDark : AppAssets.speakBirdWithCircle,
                   width: AppSizes.w(25),
                   height: AppSizes.w(25),
                   fit: BoxFit.contain,

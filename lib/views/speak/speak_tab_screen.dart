@@ -75,7 +75,7 @@ class _RolePlayTabBody extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(18),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                 ),
               ),
               SizedBox(height: AppSizes.spaceMd),

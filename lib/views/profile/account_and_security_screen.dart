@@ -28,7 +28,7 @@ class AccountAndSecurityScreen extends StatelessWidget {
         ? auth.displayName!.trim()
         : '—';
     final email = auth.email ?? '';
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AuthAppBar(
@@ -63,7 +63,7 @@ class AccountAndSecurityScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: AppSizes.h(24)),
-              ProfileSectionHeader(title: l10n.personalDetails),
+              ProfileSectionHeader(title: l10n.personalDetails, isDark: isDark),
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(

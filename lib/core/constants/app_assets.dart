@@ -26,6 +26,7 @@ class AppAssets {
   static const String yourLevelBird = 'assets/images/your_level.png';
   static const String lessonCompletedBird = 'assets/images/lesson_completed_bird.png';
   static const String profileBirdWithCircle = 'assets/images/profile_bird.png';
+  static const String profileBirdWithCircleDark = 'assets/images/profile_bird_with_circle_dark_mode.png';
   static const String logOutImage = 'assets/images/logout_bird.png';
   static const String exitAppBird = 'assets/images/exit_bird.png';
   static const String deleteAccountDialogImage = 'assets/images/delete_account_bird.png';
@@ -41,6 +42,7 @@ static const String pronunciationCheckingBird='assets/images/pronunciation_check
   static const String outOfHearthBird = 'assets/images/out_of_hearth_bird.png';
   static const String todayStartLessonBird='assets/images/today_lesson_start_bird.png';
   static const String speakBirdWithCircle='assets/images/speak_bird.png';
+  static const String speakBirdWithCircleDark='assets/images/speak_bird_dark_mode.png';
   static const String chooseLanguageBird='assets/images/choose_language_bird.png';
   static const String createAccountBird='assets/images/create_account_bird.png';
 
@@ -58,6 +60,7 @@ static const String pronunciationCheckingBird='assets/images/pronunciation_check
   static const String badgeIcon='assets/svg/badge.svg';
   static const String diamondSvg='assets/svg/diamond.svg';
   static const String watchAdSvg ='assets/svg/watch_ad.svg';
+  static const String watchAdDarkSvg='assets/svg/ad_watch_dark_icon.svg';
   static const String correctAnswer='assets/svg/correct_answer.svg';
   static const String wrongAnswer = 'assets/svg/wrong_answer.svg';
   static const String hatSvgIcon= 'assets/svg/hat.svg';

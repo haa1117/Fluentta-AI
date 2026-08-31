@@ -30,7 +30,7 @@ class LessonProgressBar extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(12),
               fontWeight: FontWeight.w600,
-              color: (isDark ? AppColors.primaryDarkColor : AppColors.primaryColor)
+              color: (isDark ? AppColors.brandDeepDarkColor : AppColors.primaryColor)
                   .withValues(alpha: 0.75),
               letterSpacing: 0.5,
             ),
@@ -45,7 +45,7 @@ class LessonProgressBar extends StatelessWidget {
                   ? AppColors.brandDarkSoftColor
                   : AppColors.progressTrack,
               valueColor: AlwaysStoppedAnimation<Color>(
-                isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
+                isDark ? AppColors.brandDeepDarkColor : AppColors.primaryColor,
               ),
             ),
           ),

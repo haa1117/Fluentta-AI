@@ -29,6 +29,7 @@ class GrammarLessonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ChangeNotifierProvider(
       create: (context) => GrammarLessonViewModel(
         lesson: lesson,
@@ -37,13 +38,14 @@ class GrammarLessonScreen extends StatelessWidget {
         onProgressChanged: onProgressChanged,
         textToSpeechService: context.read<TextToSpeechService>(),
       ),
-      child: _GrammarLessonBody(lessonNumber: lesson.number),
+      child: _GrammarLessonBody(lessonNumber: lesson.number, isDark: isDark,),
     );
   }
 }
 
 class _GrammarLessonBody extends StatelessWidget {
-  const _GrammarLessonBody({required this.lessonNumber});
+  final bool isDark;
+  const _GrammarLessonBody({required this.lessonNumber, required this.isDark});
 
   final int lessonNumber;
 
@@ -83,7 +85,9 @@ class _GrammarLessonBody extends StatelessWidget {
                         ),
                       ),
                   SizedBox(height: AppSizes.spaceMd),
-                  GrammarQuickTipBox(tip: step.quickTip),
+                  GrammarQuickTipBox(tip: step.quickTip,
+                  isDark: isDark,
+                  ),
                   SizedBox(height: AppSizes.spaceLg),
                 ],
               ),

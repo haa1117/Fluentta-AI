@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/iap/iap_product_ids.dart';
-import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
@@ -48,7 +47,7 @@ class ProfileTabScreen extends StatelessWidget {
     final profile = context.watch<ProfileViewModel>();
     final themeViewModel = context.watch<ThemeViewModel>();
     final languageCode = authViewModel.selectedLanguage ?? 'en';
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
@@ -123,17 +122,18 @@ class ProfileTabScreen extends StatelessWidget {
                     SizedBox(height: AppSizes.h(16)),
                     const ProfilePremiumCard(),
                     SizedBox(height: AppSizes.h(20)),
-                    ProfileSectionHeader(title: l10n.yourStats),
+                    ProfileSectionHeader(title: l10n.yourStats, isDark: isDark),
                     const ProfileStatsGrid(),
                     SizedBox(height: AppSizes.h(20)),
                     ProfileDailyGoalCard(
-                      onChangeGoal: () => _openLearningPreferences(context),
+                      onChangeGoal: () => _openLearningPreferences(context), isDark: isDark,
                     ),
                     SizedBox(height: AppSizes.h(20)),
-                    ProfileSectionHeader(title: l10n.accountSection),
+                    ProfileSectionHeader(title: l10n.accountSection, isDark: isDark),
                     ProfileSettingsGroup(
                       children: [
                         ProfileSettingsTile(
+                          isDark: isDark,
                           svgIcon: 'assets/svg/account_settings_icon.svg',
                           title: l10n.accountAndSecurity,
                           subtitle: l10n.accountAndSecuritySub,
@@ -149,7 +149,7 @@ class ProfileTabScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: AppSizes.h(20)),
-                    ProfileSectionHeader(title: l10n.settingsSection),
+                    ProfileSectionHeader(title: l10n.settingsSection, isDark: isDark),
                     ProfileSettingsGroup(
                       children: [
                         // ProfileSettingsTile(
@@ -159,6 +159,7 @@ class ProfileTabScreen extends StatelessWidget {
                         //   onTap: () => _openLearningPreferences(context),
                         // ),
                         ProfileSettingsTile(
+                       isDark: isDark,
                           svgIcon: 'assets/svg/language.svg',
                           title: l10n.profileLanguage,
                           subtitle: l10n.englishExplanationsIn(
@@ -176,6 +177,7 @@ class ProfileTabScreen extends StatelessWidget {
                           },
                         ),
                         ProfileSettingsTile(
+                          isDark: isDark,
                           svgIcon: 'assets/svg/notifaction.svg',
                           title: l10n.notificationsReminders,
                           subtitle: l10n.dailyReminderAt(
@@ -191,12 +193,14 @@ class ProfileTabScreen extends StatelessWidget {
                           },
                         ),
                         ProfileSettingsTile(
+                          isDark: isDark,
                           svgIcon: 'assets/svg/theme.svg',
                           title: l10n.appAppearance,
                           subtitle: themeViewModel.modeLabel(l10n),
                           onTap: () => showAppAppearanceSheet(context),
                         ),
                         ProfileSettingsTile(
+                          isDark: isDark,
                           svgIcon: 'assets/svg/restore_purchase.svg',
                           title: l10n.restorePurchases,
                           onTap: () async {
@@ -216,7 +220,7 @@ class ProfileTabScreen extends StatelessWidget {
                     ),
                     if (kDebugMode) ...[
                       SizedBox(height: AppSizes.h(20)),
-                      ProfileSectionHeader(title: 'Debug'),
+                      ProfileSectionHeader(title: 'Debug', isDark: isDark),
                       ProfileSettingsGroup(
                         children: [
                           ProfileSettingsTile(
@@ -224,8 +228,10 @@ class ProfileTabScreen extends StatelessWidget {
                             subtitle: 'Grant Pro subscription on this device',
                             svgIcon: null,
                             onTap: () => _debugEnablePro(context),
+                              isDark: isDark
                           ),
                           ProfileSettingsTile(
+    isDark: isDark,
                             title: 'Add hearts (debug)',
                             subtitle: 'Add 5 hearts instantly',
                             svgIcon: null,
@@ -318,28 +324,32 @@ class ProfileTabScreen extends StatelessWidget {
                     //   ],
                     // ),
                     SizedBox(height: AppSizes.h(20)),
-                    ProfileSectionHeader(title: l10n.supportLegal),
+                    ProfileSectionHeader(title: l10n.supportLegal, isDark: isDark),
                     ProfileSettingsGroup(
                       children: [
                         ProfileSettingsTile(
+                          isDark: isDark,
                           title: l10n.privacyPolicy,
                           svgIcon: null,
                           onTap: () => SnackbarHelper.showSuccess(
                               context, l10n.openingSoon),
                         ),
                         ProfileSettingsTile(
+                          isDark: isDark,
                           title: l10n.termsOfUse,
                           svgIcon: null,
                           onTap: () => SnackbarHelper.showSuccess(
                               context, l10n.openingSoon),
                         ),
                         ProfileSettingsTile(
+                          isDark: isDark,
                           title: l10n.contactSupport,
                           svgIcon: null,
                           onTap: () => SnackbarHelper.showSuccess(
                               context, l10n.openingSoon),
                         ),
                         ProfileSettingsTile(
+                          isDark: isDark,
                           title: l10n.rateApp,
                           svgIcon: null,
                           onTap: () => SnackbarHelper.showSuccess(
@@ -348,14 +358,14 @@ class ProfileTabScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: AppSizes.h(20)),
-                    ProfileSectionHeader(title: l10n.accountActions),
+                    ProfileSectionHeader(title: l10n.accountActions, isDark: isDark),
                     ProfileSettingsGroup(
                       children: [
                         ProfileSettingsTile(
                           svgIcon: 'assets/svg/signout.svg',
                           title: l10n.signOutTitle,
                           subtitle: l10n.signOutSub,
-                          onTap: () => showSignOutDialog(context),
+                          onTap: () => showSignOutDialog(context), isDark: isDark
                         ),
                         ProfileSettingsTile(
                           svgIcon: 'assets/svg/delete.svg',
@@ -363,6 +373,7 @@ class ProfileTabScreen extends StatelessWidget {
                           subtitle: l10n.deleteAccountSub,
                           isDestructive: true,
                           onTap: () => showDeleteAccountDialog(context),
+                             isDark: isDark
                         ),
                       ],
                     ),
