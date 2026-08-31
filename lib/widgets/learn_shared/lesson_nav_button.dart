@@ -25,13 +25,37 @@ class LessonNavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final activeColor = isPrimary ? AppColors.primaryColor : AppColors.white;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accentColor =
+        isDark ? AppColors.primaryDarkColor : AppColors.primaryColor;
+    final activeColor = isPrimary ? accentColor : AppColors.white;
     final textColor = outlined
-        ? (enabled ? AppColors.primaryColor : AppColors.white)
+        ? (enabled ? accentColor : AppColors.white)
         : (enabled ? AppColors.white : AppColors.textTertiary);
     final iconColor = outlined
-        ? (enabled ? AppColors.primaryColor : AppColors.white)
+        ? (enabled ? accentColor : AppColors.white)
         : (enabled ? AppColors.white : AppColors.textTertiary);
+
+    Color? backgroundColor;
+    Gradient? backgroundGradient;
+
+    if (outlined) {
+      backgroundColor = enabled
+          ? (isDark ? AppColors.surfaceBgDarkColor : AppColors.white)
+          : (isDark
+              ? AppColors.brandDarkSoftColor
+              : const Color(0xffe0d5e9));
+    } else if (isPrimary || enabled) {
+      if (isDark) {
+        backgroundColor = accentColor;
+      } else {
+        backgroundGradient = AppColors.primaryGradient;
+      }
+    } else {
+      backgroundColor = isDark
+          ? AppColors.brandDarkSoftColor
+          : AppColors.homeCardLavender;
+    }
 
     return Opacity(
       opacity: enabled ? 1 : 0.55,
@@ -40,20 +64,12 @@ class LessonNavButton extends StatelessWidget {
         child: Container(
           height: AppSizes.buttonHeight,
           decoration: BoxDecoration(
-            color: outlined
-                ? (enabled ? AppColors.white : Color(0xffe0d5e9))
-                : (isPrimary || enabled
-                    ? null
-                    : AppColors.homeCardLavender),
-            gradient: outlined
-                ? null
-                : (isPrimary || enabled ? AppColors.primaryGradient : null),
+            color: backgroundColor,
+            gradient: backgroundGradient,
             borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
             border: outlined
                 ? Border.all(
-                    color: enabled
-                        ? AppColors.primaryColor
-                        : Colors.transparent,
+                    color: enabled ? accentColor : Colors.transparent,
                   )
                 : null,
           ),
@@ -61,7 +77,11 @@ class LessonNavButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (!iconOnRight) ...[
-                Icon(icon, color: outlined ? iconColor : activeColor, size: AppSizes.sp(18)),
+                Icon(
+                  icon,
+                  color: outlined ? iconColor : activeColor,
+                  size: AppSizes.sp(18),
+                ),
                 SizedBox(width: AppSizes.w(6)),
               ],
               Flexible(
@@ -72,7 +92,9 @@ class LessonNavButton extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(13),
                     fontWeight: FontWeight.w600,
-                    color: outlined ? textColor : (enabled ? AppColors.white : textColor),
+                    color: outlined
+                        ? textColor
+                        : (enabled ? AppColors.white : textColor),
                   ),
                 ),
               ),
@@ -80,7 +102,9 @@ class LessonNavButton extends StatelessWidget {
                 SizedBox(width: AppSizes.w(6)),
                 Icon(
                   icon,
-                  color: outlined ? iconColor : (enabled ? AppColors.white : iconColor),
+                  color: outlined
+                      ? iconColor
+                      : (enabled ? AppColors.white : iconColor),
                   size: AppSizes.sp(18),
                 ),
               ],

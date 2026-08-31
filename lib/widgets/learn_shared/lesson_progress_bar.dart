@@ -17,6 +17,7 @@ class LessonProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
@@ -29,7 +30,8 @@ class LessonProgressBar extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(12),
               fontWeight: FontWeight.w600,
-              color: AppColors.primaryColor.withValues(alpha: 0.75),
+              color: (isDark ? AppColors.primaryDarkColor : AppColors.primaryColor)
+                  .withValues(alpha: 0.75),
               letterSpacing: 0.5,
             ),
           ),
@@ -39,9 +41,11 @@ class LessonProgressBar extends StatelessWidget {
             child: LinearProgressIndicator(
               value: progress,
               minHeight: AppSizes.h(6),
-              backgroundColor: AppColors.progressTrack,
-              valueColor: const AlwaysStoppedAnimation<Color>(
-                AppColors.primaryColor,
+              backgroundColor: isDark
+                  ? AppColors.brandDarkSoftColor
+                  : AppColors.progressTrack,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
               ),
             ),
           ),

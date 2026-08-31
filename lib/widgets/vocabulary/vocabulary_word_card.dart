@@ -12,6 +12,7 @@ class VocabularyWordCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final viewModel = context.watch<VocabularyLessonViewModel>();
     final word = viewModel.currentWord;
 
@@ -20,11 +21,15 @@ class VocabularyWordCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
       padding: EdgeInsets.all(AppSizes.w(20)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+        border: isDark
+            ? Border.all(color: AppColors.borderDarkColor)
+            : null,
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryColor.withValues(alpha: 0.08),
+            color: (isDark ? AppColors.primaryDarkColor : AppColors.primaryColor)
+                .withValues(alpha: 0.08),
             blurRadius: 24,
             offset: const Offset(0, 8),
           ),
@@ -38,7 +43,9 @@ class VocabularyWordCard extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(14),
               fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
+              color: isDark
+                  ? AppColors.textPrimaryDark
+                  : AppColors.textPrimary,
             ),
           ),
           SizedBox(height: AppSizes.spaceMd),
@@ -49,7 +56,9 @@ class VocabularyWordCard extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(36),
               fontWeight: FontWeight.w700,
-              color: AppColors.primaryBlueColor,
+              color: isDark
+                  ? AppColors.primaryDarkColor
+                  : AppColors.primaryBlueColor,
             ),
           ),
           SizedBox(height: AppSizes.h(4)),
@@ -60,7 +69,9 @@ class VocabularyWordCard extends StatelessWidget {
               fontSize: AppSizes.sp(15),
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.w500,
-              color: Color(0xff4A4455),
+              color: isDark
+                  ? AppColors.textSecondaryDark
+                  : const Color(0xff4A4455),
             ),
           ),
           SizedBox(height: AppSizes.spaceLg),
@@ -70,7 +81,9 @@ class VocabularyWordCard extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(11),
               fontWeight: FontWeight.w700,
-              color: AppColors.primaryBlueColor,
+              color: isDark
+                  ? AppColors.primaryDarkColor
+                  : AppColors.primaryBlueColor,
               letterSpacing: 0.6,
             ),
           ),
@@ -82,7 +95,9 @@ class VocabularyWordCard extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(14),
               fontWeight: FontWeight.w400,
-              color: Color(0xff1D192C),
+              color: isDark
+                  ? AppColors.textPrimaryDark
+                  : const Color(0xff1D192C),
               height: 1.4,
             ),
           ),
@@ -91,11 +106,15 @@ class VocabularyWordCard extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.all(AppSizes.w(14)),
             decoration: BoxDecoration(
-              color: AppColors.homeCardLavender,
+              color: isDark
+                  ? AppColors.brandDarkSoftColor
+                  : AppColors.homeCardLavender,
               borderRadius: BorderRadius.circular(AppSizes.w(12)),
               border: Border.all(
-                color: AppColors.borderDarkPrimary
-              )
+                color: isDark
+                    ? AppColors.borderDarkColor
+                    : AppColors.borderDarkPrimary,
+              ),
             ),
             child: Column(
               children: [
@@ -105,7 +124,9 @@ class VocabularyWordCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(11),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.primaryBlueColor,
+                    color: isDark
+                        ? AppColors.primaryDarkColor
+                        : AppColors.primaryBlueColor,
                     letterSpacing: 0.6,
                   ),
                 ),
@@ -117,7 +138,9 @@ class VocabularyWordCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff4A4455),
+                    color: isDark
+                        ? AppColors.textSecondaryDark
+                        : const Color(0xff4A4455),
                   ),
                 ),
               ],
@@ -134,6 +157,7 @@ class VocabularyWordCard extends StatelessWidget {
                     : Icons.volume_up_rounded,
                 filled: true,
                 isActive: viewModel.isListening,
+                isDark: isDark,
                 onTap: () => viewModel.listenWord(context),
               ),
               SizedBox(width: AppSizes.w(32)),
@@ -142,6 +166,7 @@ class VocabularyWordCard extends StatelessWidget {
                 icon: Icons.bookmark_outline_rounded,
                 filled: false,
                 isActive: viewModel.isWordSaved(word.word),
+                isDark: isDark,
                 onTap: () => viewModel.toggleSaveWord(context),
               ),
             ],
@@ -158,6 +183,7 @@ class _WordActionButton extends StatelessWidget {
     required this.icon,
     required this.filled,
     required this.onTap,
+    required this.isDark,
     this.isActive = false,
   });
 
@@ -165,10 +191,14 @@ class _WordActionButton extends StatelessWidget {
   final IconData icon;
   final bool filled;
   final bool isActive;
+  final bool isDark;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final accentColor =
+        isDark ? AppColors.primaryDarkColor : AppColors.primaryBlueColor;
+
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -177,20 +207,22 @@ class _WordActionButton extends StatelessWidget {
             width: AppSizes.w(52),
             height: AppSizes.w(52),
             decoration: BoxDecoration(
-              color: filled ? AppColors.primaryBlueColor : AppColors.white,
+              color: filled
+                  ? accentColor
+                  : (isDark
+                      ? AppColors.surfaceBgDarkColor
+                      : AppColors.white),
               shape: BoxShape.circle,
               border: filled
                   ? null
                   : Border.all(
-                      color: isActive
-                          ? AppColors.primaryBlueColor
-                          : AppColors.primaryBlueColor,
+                      color: accentColor,
                       width: 1.5,
                     ),
             ),
             child: Icon(
               isActive ? Icons.bookmark_rounded : icon,
-              color: filled ? AppColors.white : AppColors.primaryBlueColor,
+              color: filled ? AppColors.white : accentColor,
               size: AppSizes.iconMedium,
             ),
           ),
@@ -201,7 +233,9 @@ class _WordActionButton extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(12),
               fontWeight: FontWeight.w500,
-              color: AppColors.textSecondary,
+              color: isDark
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondary,
             ),
           ),
         ],
