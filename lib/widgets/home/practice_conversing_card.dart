@@ -6,12 +6,14 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class PracticeConversingCard extends StatelessWidget {
+  final VoidCallback onStartChat;
+final bool isDark;
   const PracticeConversingCard({
     super.key,
     required this.onStartChat,
+    required this.isDark
   });
 
-  final VoidCallback onStartChat;
 
   @override
   Widget build(BuildContext context) {

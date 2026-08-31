@@ -37,9 +37,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     final heartsLabel = homeViewModel.hasUnlimitedHearts
         ? '∞'
         : '${homeViewModel.lives}';
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return AppBar(
-      backgroundColor: backGroundColor,
+      backgroundColor:isDark ? AppColors.appBarDarkBackgroundColor : backGroundColor,
       scrolledUnderElevation: 0,
       centerTitle: centerTitle,
       leading: showBackButton ? _BackButton(onBack: onBack) : null,
@@ -50,7 +50,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           fontFamily: AppFonts.plusJakartaSans,
           fontSize: AppSizes.sp(18),
           fontWeight: FontWeight.w700,
-          color: AppColors.primaryColor,
+          color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
         ),
       ),
       actions: showActionButton
@@ -62,18 +62,18 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                   vertical: AppSizes.h(6),
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.homeCardLavender,
+                  color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
                   borderRadius: BorderRadius.circular(AppSizes.w(20)),
                 ),
                 child: Row(
                   children: [
                     Text(
-                      showHearts ? heartsLabel : '$xpEarned',
+                      showHearts ? heartsLabel : '$xpEarned ' + 'XP',
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(14),
+                        fontSize: AppSizes.sp(12),
                         fontWeight: FontWeight.w700,
-                        color: AppColors.primaryBlueColor,
+                        color:isDark ? AppColors.brandDeepDarkColor : AppColors.primaryBlueColor,
                       ),
                     ),
                     SizedBox(width: AppSizes.w(4)),

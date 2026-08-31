@@ -10,13 +10,14 @@ class SetupProgressHeader extends StatelessWidget {
     required this.currentStep,
     required this.totalSteps,
     required this.title,
-    required this.subtitle,
+    required this.subtitle, required this.isDark,
   });
 
   final int currentStep;
   final int totalSteps;
   final String title;
   final String subtitle;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class SetupProgressHeader extends StatelessWidget {
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(12),
             fontWeight: FontWeight.w400,
-            color: AppColors.primaryColor,
+            color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
             letterSpacing: 0.5,
           ),
         ),
@@ -42,9 +43,9 @@ class SetupProgressHeader extends StatelessWidget {
             value: progress,
 
             minHeight: AppSizes.h(6),
-            backgroundColor:Color(0xffF3E8FF),
-            valueColor: const AlwaysStoppedAnimation<Color>(
-              AppColors.primaryColor,
+            backgroundColor:isDark ? AppColors.brandDarkSoftColor: Color(0xffF3E8FF),
+            valueColor:  AlwaysStoppedAnimation<Color>(
+             isDark ? AppColors.primaryDarkColor: AppColors.primaryColor,
             ),
           ),
         ),
@@ -62,7 +63,7 @@ class SetupProgressHeader extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(24),
                       fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
+                      color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
                       height: 1.2,
                     ),
                   ),
@@ -73,7 +74,7 @@ class SetupProgressHeader extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(14),
                       fontWeight: FontWeight.w400,
-                      color: AppColors.textSecondary,
+                      color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                       height: 1.4,
                     ),
                   ),

@@ -77,7 +77,7 @@ class _SetupStepPage extends StatelessWidget {
     final options = LocalizedContent.setupOptions(l10n, stepIndex);
     final selectedId = viewModel.selectedIdForStep(stepIndex);
     final isLastStep = stepIndex == SetupViewModel.totalSteps - 1;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         Expanded(
@@ -93,7 +93,7 @@ class _SetupStepPage extends StatelessWidget {
                   currentStep: stepIndex + 1,
                   totalSteps: SetupViewModel.totalSteps,
                   title: LocalizedContent.setupTitle(l10n, stepIndex),
-                  subtitle: LocalizedContent.setupSubtitle(l10n, stepIndex),
+                  subtitle: LocalizedContent.setupSubtitle(l10n, stepIndex), isDark: isDark,
                 ),
                 SizedBox(height: AppSizes.spaceLg),
                 ...options.map(

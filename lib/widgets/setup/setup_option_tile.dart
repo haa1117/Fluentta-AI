@@ -24,6 +24,7 @@ class SetupOptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -33,10 +34,10 @@ class SetupOptionTile extends StatelessWidget {
           vertical: AppSizes.h(14),
         ),
         decoration: BoxDecoration(
-          color:isSelected ? AppColors.primaryColor.withValues(alpha: 0.1): AppColors.white,
+          color:isSelected ?isDark ? Color(0xff302241) :AppColors.primaryColor.withValues(alpha: 0.1): isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
           borderRadius: BorderRadius.circular(AppSizes.tileRadius),
           border: Border.all(
-            color: isSelected ? AppColors.borderSelected : AppColors.borderLight,
+            color: isSelected ?  isDark ? AppColors.primaryDarkColor : AppColors.borderSelected : isDark ? AppColors.borderDarkColor:AppColors.borderLight,
             width: isSelected ? 1.5 : 1,
           ),
         ),
@@ -46,13 +47,13 @@ class SetupOptionTile extends StatelessWidget {
               width: AppSizes.w(44),
               height: AppSizes.w(44),
               decoration: BoxDecoration(
-                color:isSelected ? Colors.white : AppColors.primaryColor.withValues(alpha: 0.1),
+                color:isSelected ? isDark ?AppColors.surfaceBgDarkColor :  Colors.white : isDark ? AppColors.brandDarkSoftColor : AppColors.primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppSizes.w(10)),
               ),
               child: Center(
                 child: SvgPicture.asset(
                   svgIcons,
-                  color: AppColors.primaryColor,
+                  color:isDark? AppColors.primaryDarkColor : AppColors.primaryColor,
                   width: AppSizes.iconMedium,
                   height: AppSizes.iconMedium,
                 ),
@@ -69,7 +70,7 @@ class SetupOptionTile extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.fontSubtitle,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimary,
+                      color: isDark ? AppColors.textPrimaryDark :  AppColors.textPrimary,
                     ),
                   ),
                   SizedBox(height: AppSizes.h(2)),
@@ -95,13 +96,13 @@ class SetupOptionTile extends StatelessWidget {
               Container(
                 width: AppSizes.w(24),
                 height: AppSizes.w(24),
-                decoration: const BoxDecoration(
-                  color: AppColors.primaryColor,
+                decoration:  BoxDecoration(
+                  color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.check,
-                  color: AppColors.white,
+                  color:isDark ? AppColors.textPrimary : AppColors.white,
                   size: AppSizes.w(16),
                 ),
               ),

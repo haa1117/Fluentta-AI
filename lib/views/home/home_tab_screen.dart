@@ -19,7 +19,7 @@ class HomeTabScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBarWidget(),
       body: SingleChildScrollView(
@@ -40,7 +40,7 @@ class HomeTabScreen extends StatelessWidget {
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(24),
                 fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
+                color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
               ),
             ),
             SizedBox(height: AppSizes.h(6)),
@@ -50,13 +50,14 @@ class HomeTabScreen extends StatelessWidget {
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(14),
                 fontWeight: FontWeight.w400,
-                color: AppColors.textSecondary,
+                color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
               ),
             ),
             SizedBox(height: AppSizes.spaceLg),
-            const DailyGoalCard(),
+             DailyGoalCard(isDark: isDark),
             SizedBox(height: AppSizes.spaceMd),
             PracticeConversingCard(
+              isDark: isDark,
               onStartChat: () => AiTutorScreen.open(context),
             ),
             const HomeBannerAd(),

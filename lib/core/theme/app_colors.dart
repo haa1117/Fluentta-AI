@@ -5,6 +5,7 @@ class AppColors {
 
   static const Color primaryColor = Color(0xFF9B35F4);
   static const Color primaryDarkColor=Color(0xffB65CFF);
+  static const Color brandDeepDarkColor=Color(0xff8B45E8);
   static const Color scaffoldBackgroundColor = Color(0xFFFCF7FF);
   static const Color darkScaffoldBackgroundColor = Color(0xFF100D17);
   static const Color primaryBlueColor=Color(0xff6D28D9);
@@ -12,7 +13,7 @@ class AppColors {
 static const Color appBarDarkBackgroundColor=Color(0xff1A1624);
   static const Color primaryGradientStart = Color(0xFF8C31EF);
   static const Color primaryGradientEnd = Color(0xFFB247F3);
-
+static const Color surfaceBgDarkColor=Color(0xff1A1624);
   static const Color textPrimary = Color(0xFF1A1A2E);
   static const Color textPrimaryDark=Color(0xffF7F2FC);
   static const Color textSecondary = Color(0xFF665D72);

@@ -9,7 +9,8 @@ import 'package:provider/provider.dart';
 
 
 class DailyGoalCard extends StatelessWidget {
-  const DailyGoalCard({super.key});
+  final bool isDark;
+  const DailyGoalCard({super.key,required this.isDark});
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +20,17 @@ class DailyGoalCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(20)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
+
         border: Border.all(
-            color: AppColors.borderLight,
-          width: 0.3
+            color:isDark ? AppColors.borderDarkColor : AppColors.borderLight,
+          width: 0.3,
+
         ),
-        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+        borderRadius: BorderRadius.circular(AppSizes.cardRadius * 1.6),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryColor.withValues(alpha: 0.06),
+            color:isDark ? AppColors.primaryDarkColor.withValues(alpha: 0.06): AppColors.primaryColor.withValues(alpha: 0.06),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),
@@ -45,7 +48,7 @@ class DailyGoalCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(12),
                     fontWeight: FontWeight.w500,
-                    color: AppColors.textSecondary,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                     letterSpacing: 0.6,
                   ),
                 ),
@@ -59,7 +62,7 @@ class DailyGoalCard extends StatelessWidget {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(24),
                           fontWeight: FontWeight.w600,
-                          color: AppColors.primaryColor,
+                          color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                         ),
                       ),
                       TextSpan(
@@ -68,7 +71,7 @@ class DailyGoalCard extends StatelessWidget {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(16),
                           fontWeight: FontWeight.w600,
-                          color: AppColors.textSecondary,
+                          color:isDark? AppColors.textSecondaryDark :  AppColors.textSecondary,
                         ),
                       ),
                     ],
@@ -89,7 +92,7 @@ class DailyGoalCard extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(14),
                         fontWeight: FontWeight.w700,
-                        color: AppColors.primaryColor,
+                        color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                       ),
                     ),
                   ],
@@ -102,7 +105,7 @@ class DailyGoalCard extends StatelessWidget {
             height: AppSizes.w(64),
             child: CustomPaint(
               painter: _CircularProgressPainter(
-                progress: viewModel.dailyGoalPercent,
+                progress: viewModel.dailyGoalPercent, isDark: isDark,
               ),
               child: Center(
                 child: Text(
@@ -111,7 +114,7 @@ class DailyGoalCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                   ),
                 ),
               ),
@@ -124,7 +127,8 @@ class DailyGoalCard extends StatelessWidget {
 }
 
 class _CircularProgressPainter extends CustomPainter {
-  _CircularProgressPainter({required this.progress});
+  final bool isDark;
+  _CircularProgressPainter({required this.progress, required this.isDark});
 
   final double progress;
 
@@ -135,13 +139,13 @@ class _CircularProgressPainter extends CustomPainter {
     const strokeWidth = 6.0;
 
     final trackPaint = Paint()
-      ..color = AppColors.progressTrack
+      ..color =isDark ? AppColors.brandDarkSoftColor: AppColors.progressTrack
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
 
     final progressPaint = Paint()
-      ..color = AppColors.primaryColor
+      ..color =isDark ? AppColors.primaryDarkColor : AppColors.primaryColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
