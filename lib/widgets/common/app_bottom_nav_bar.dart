@@ -40,24 +40,31 @@ class AppBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _NavItem(
+                isDark: isDark,
                 svgIcon: AppAssets.homeIcon,
                 label: l10n.navHome,
                 isSelected: viewModel.currentTab == MainTab.home,
                 onTap: () => viewModel.selectTab(MainTab.home),
               ),
               _NavItem(
+                isDark: isDark,
+
                 svgIcon: AppAssets.learnIcon,
                 label: l10n.navLearn,
                 isSelected: viewModel.currentTab == MainTab.learn,
                 onTap: () => viewModel.selectTab(MainTab.learn),
               ),
               _NavItem(
+                isDark: isDark,
+
                 svgIcon: AppAssets.rolePlayIcon,
                 label: l10n.navSpeak,
                 isSelected: viewModel.currentTab == MainTab.speak,
                 onTap: () => viewModel.selectTab(MainTab.speak),
               ),
               _NavItem(
+                isDark: isDark,
+
                 svgIcon: AppAssets.profileIcon,
                 label: l10n.navProfile,
                 isSelected: viewModel.currentTab == MainTab.profile,
@@ -75,11 +82,12 @@ class AppBottomNavBar extends StatelessWidget {
 }
 
 class _NavItem extends StatelessWidget {
+  final bool isDark;
   const _NavItem({
     required this.svgIcon,
     required this.label,
     required this.isSelected,
-    required this.onTap,
+    required this.onTap, required this.isDark,
   });
 
   final String svgIcon;
@@ -110,7 +118,7 @@ class _NavItem extends StatelessWidget {
                 svgIcon,
                 width: AppSizes.sp(16),
                 height: AppSizes.sp(16),
-                color: isSelected ? AppColors.white:Colors.red,
+                color: isSelected ? isDark ? AppColors.textPrimary : AppColors.white:Colors.red,
               ),
               SizedBox(height: AppSizes.h(2)),
               Text(
@@ -119,7 +127,7 @@ class _NavItem extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(11),
                   fontWeight: FontWeight.w600,
-                  color: AppColors.white,
+                  color:isSelected ? isDark ? AppColors.textPrimary : AppColors.white : Colors.red
                 ),
               ),
             ],
@@ -138,6 +146,7 @@ class _NavItem extends StatelessWidget {
             svgIcon,
             width: AppSizes.sp(16),
             height: AppSizes.sp(16),
+            color: isDark ? AppColors.textSecondaryDark :null,
           ),
           SizedBox(height: AppSizes.h(4)),
           Text(
@@ -146,7 +155,7 @@ class _NavItem extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(11),
               fontWeight: FontWeight.w500,
-              color: AppColors.navInactive,
+              color:isDark ? AppColors.textSecondaryDark : AppColors.navInactive,
             ),
           ),
         ],
