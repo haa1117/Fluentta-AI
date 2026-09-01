@@ -45,7 +45,7 @@ class _MainShellBodyState extends State<_MainShellBody> {
   Widget build(BuildContext context) {
     final currentIndex = context.watch<MainShellViewModel>().currentIndex;
     final shellViewModel = context.read<MainShellViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
@@ -56,7 +56,7 @@ class _MainShellBodyState extends State<_MainShellBody> {
           return;
         }
 
-        showExitAppDialog(context);
+        showExitAppDialog(context,isDark);
       },
       child: Scaffold(
         backgroundColor: AppColors.scaffoldBackground(context),

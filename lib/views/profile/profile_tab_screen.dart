@@ -365,14 +365,14 @@ class ProfileTabScreen extends StatelessWidget {
                           svgIcon: 'assets/svg/signout.svg',
                           title: l10n.signOutTitle,
                           subtitle: l10n.signOutSub,
-                          onTap: () => showSignOutDialog(context), isDark: isDark
+                          onTap: () => showSignOutDialog(context,isDark), isDark: isDark
                         ),
                         ProfileSettingsTile(
                           svgIcon: 'assets/svg/delete.svg',
                           title: l10n.deleteAccount,
                           subtitle: l10n.deleteAccountSub,
                           isDestructive: true,
-                          onTap: () => showDeleteAccountDialog(context),
+                          onTap: () => showDeleteAccountDialog(context,isDark),
                              isDark: isDark
                         ),
                       ],

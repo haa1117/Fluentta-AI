@@ -9,7 +9,7 @@ import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
 import 'package:fluentta_ai/views/profile/delete_account_confirmation_screen.dart';
 import 'package:provider/provider.dart';
 
-Future<void> showSignOutDialog(BuildContext context) {
+Future<void> showSignOutDialog(BuildContext context,bool isDark) {
   final l10n = context.l10n;
   final authViewModel = context.read<AuthViewModel>();
 
@@ -18,7 +18,7 @@ Future<void> showSignOutDialog(BuildContext context) {
     barrierColor: Colors.black.withValues(alpha: 0.45),
     builder: (dialogContext) {
       return Dialog(
-        backgroundColor: AppColors.white,
+        backgroundColor:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizes.w(25)),
         ),
@@ -27,7 +27,7 @@ Future<void> showSignOutDialog(BuildContext context) {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSizes.w(25)),
               border: Border.all(
-                  color: AppColors.borderLight,
+                  color:isDark ? AppColors.borderDarkColor : AppColors.borderLight,
                   width: 1.0
               )
           ),
@@ -49,7 +49,7 @@ Future<void> showSignOutDialog(BuildContext context) {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(22),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                   ),
                 ),
                 SizedBox(height: AppSizes.h(10)),
@@ -61,7 +61,7 @@ Future<void> showSignOutDialog(BuildContext context) {
                     fontSize: AppSizes.sp(14),
                     height: 1.45,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xff665D72),
+                    color:isDark ? AppColors.textSecondaryDark : Color(0xff665D72),
                   ),
                 ),
                 SizedBox(height: AppSizes.h(24)),
@@ -103,7 +103,7 @@ Future<void> showSignOutDialog(BuildContext context) {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(15),
                         fontWeight: FontWeight.w600,
-                        color: AppColors.redColor,
+                        color:isDark ? AppColors.redColorDark : AppColors.redColor,
                       ),
                     ),
                   ),
@@ -117,7 +117,7 @@ Future<void> showSignOutDialog(BuildContext context) {
   );
 }
 
-Future<void> showDeleteAccountDialog(BuildContext context) {
+Future<void> showDeleteAccountDialog(BuildContext context,bool isDark) {
   final l10n = context.l10n;
 
   return showDialog<void>(
@@ -125,7 +125,7 @@ Future<void> showDeleteAccountDialog(BuildContext context) {
     barrierColor: Colors.black.withValues(alpha: 0.45),
     builder: (dialogContext) {
       return Dialog(
-        backgroundColor: AppColors.white,
+        backgroundColor:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizes.w(25)),
         ),
@@ -135,7 +135,7 @@ Future<void> showDeleteAccountDialog(BuildContext context) {
               borderRadius: BorderRadius.circular(AppSizes.w(25)),
 
               border: Border.all(
-                  color: AppColors.borderLight,
+                  color:isDark ? AppColors.borderDarkColor : AppColors.borderLight,
                   width: 1.0
               )
           ),
@@ -157,7 +157,7 @@ Future<void> showDeleteAccountDialog(BuildContext context) {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(22),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                   ),
                 ),
                 SizedBox(height: AppSizes.h(10)),
@@ -168,7 +168,7 @@ Future<void> showDeleteAccountDialog(BuildContext context) {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
                     height: 1.45,
-                    color: AppColors.textSecondary,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                   ),
                 ),
                 SizedBox(height: AppSizes.h(24)),
@@ -186,7 +186,7 @@ Future<void> showDeleteAccountDialog(BuildContext context) {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.redColor,
+                      backgroundColor:isDark ? AppColors.redColorDark : AppColors.redColor,
                       foregroundColor: AppColors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
@@ -199,6 +199,7 @@ Future<void> showDeleteAccountDialog(BuildContext context) {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(16),
                         fontWeight: FontWeight.w700,
+
                       ),
                     ),
                   ),
@@ -214,7 +215,7 @@ Future<void> showDeleteAccountDialog(BuildContext context) {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(15),
                         fontWeight: FontWeight.w600,
-                        color: AppColors.textSecondary,
+                        color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                       ),
                     ),
                   ),

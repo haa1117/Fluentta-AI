@@ -25,6 +25,7 @@ static const Color authCardBackgroundDark=Color(0xff1A1624);
   static const Color borderDarkPrimary=Color(0xffE9D8FD);
   static const Color chipBorderColor = Color(0xffefe8f7);
 static const Color redColor= Color(0xffDC2626);
+static const Color redColorDark=Color(0xffFF6259);
   static const Color white = Color(0xFFFFFFFF);
   static const Color chipBackgroundColor=Color(0xffF7F1FF);
   static const Color adBackground = Color(0xFFF9FAFB);

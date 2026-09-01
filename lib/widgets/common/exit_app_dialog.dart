@@ -8,7 +8,7 @@ import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 
 /// Shows the reusable exit confirmation dialog used across the app.
-Future<void> showExitAppDialog(BuildContext context) {
+Future<void> showExitAppDialog(BuildContext context,bool isDark) {
   final l10n = context.l10n;
 
   return showDialog<void>(
@@ -19,7 +19,7 @@ Future<void> showExitAppDialog(BuildContext context) {
       AppSizes.init(dialogContext);
 
       return Dialog(
-        backgroundColor: AppColors.white,
+        backgroundColor:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizes.w(25)),
 
@@ -28,10 +28,9 @@ Future<void> showExitAppDialog(BuildContext context) {
         insetPadding: EdgeInsets.symmetric(horizontal: AppSizes.w(28)),
         child: Container(
           decoration: BoxDecoration(
-            // color: Colors.red,
             borderRadius: BorderRadius.circular(AppSizes.w(25)),
             border: Border.all(
-              color: AppColors.borderLight,
+              color:isDark ? AppColors.borderDarkColor : AppColors.borderLight,
               width: 1.0
             )
 
@@ -54,7 +53,7 @@ Future<void> showExitAppDialog(BuildContext context) {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(20),
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+                    color:isDark? AppColors.textPrimaryDark : AppColors.textPrimary,
                   ),
                 ),
                 SizedBox(height: AppSizes.h(10)),
@@ -66,7 +65,7 @@ Future<void> showExitAppDialog(BuildContext context) {
                     fontSize: AppSizes.sp(14),
                     height: 1.45,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.textSecondary,
+                    color:isDark ? AppColors.textSecondary : AppColors.textSecondary,
                   ),
                 ),
                 SizedBox(height: AppSizes.h(24)),
@@ -88,7 +87,7 @@ Future<void> showExitAppDialog(BuildContext context) {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(16),
                         fontWeight: FontWeight.w600,
-                        color: AppColors.redColor,
+                        color:isDark ? AppColors.redColorDark : AppColors.redColor,
                       ),
                     ),
                   ),
