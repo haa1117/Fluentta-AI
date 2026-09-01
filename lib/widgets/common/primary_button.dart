@@ -27,7 +27,14 @@ class PrimaryButton extends StatelessWidget {
       height: AppSizes.buttonHeight,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-        gradient: isActive ? AppColors.primaryGradient : null,
+        gradient: isActive ? isDark ?  const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF8C31EF),
+            Color(0xFFB247F3),
+          ],
+        ): AppColors.primaryGradient : null,
         color: isActive ? null : AppColors.primaryColor.withValues(alpha: 0.35),
         // boxShadow: isActive
         //     ? [
@@ -75,7 +82,7 @@ class PrimaryButton extends StatelessWidget {
                     text,
                     style: TextStyle(
                       fontFamily: 'PlusJakartaSans',
-                      color:isDark ?AppColors.textPrimary : AppColors.white,
+                      color:isDark ?AppColors.textPrimaryDark : AppColors.white,
                       fontSize: AppSizes.fontButton,
                       fontWeight: FontWeight.w700,
                     ),
