@@ -38,6 +38,7 @@ static const Color profileSubtitleColor=Color(0xff4C4354);
   static const Color splashDotPurple = Color(0xFF6934FF);
   static const Color splashDotPink = Color(0xFFE65BFF);
   static const Color xpEarnedTextColor = Color(0xffFD6901);
+  static const Color xpEarnedTextColorDark= Color(0xffFF9A3D);
   static const Color bannerGradientStart = Color(0xFFF3E8FF);
   static const Color brandDarkSoftColor=Color(0xff302241);
   static const Color brandLightSoftColor=Color(0xffF3E8FF);

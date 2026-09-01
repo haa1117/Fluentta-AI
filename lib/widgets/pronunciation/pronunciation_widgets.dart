@@ -6,7 +6,8 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class AudioWaveform extends StatefulWidget {
-  const AudioWaveform({super.key, this.isAnimating = true});
+  final bool isDark;
+  const AudioWaveform({super.key, this.isAnimating = true, required this.isDark});
 
   final bool isAnimating;
 
@@ -61,7 +62,7 @@ class _AudioWaveformState extends State<AudioWaveform>
               height: height,
               margin: EdgeInsets.symmetric(horizontal: AppSizes.w(3)),
               decoration: BoxDecoration(
-                color: AppColors.primaryColor,
+                color:widget.isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                 borderRadius: BorderRadius.circular(AppSizes.w(4)),
               ),
             );
@@ -73,10 +74,11 @@ class _AudioWaveformState extends State<AudioWaveform>
 }
 
 class PhraseProgressSegments extends StatelessWidget {
+  final bool isDark;
   const PhraseProgressSegments({
     super.key,
     required this.current,
-    required this.total,
+    required this.total, required this.isDark,
   });
 
   final int current;
@@ -93,8 +95,8 @@ class PhraseProgressSegments extends StatelessWidget {
             margin: EdgeInsets.only(left: index == 0 ? 0 : AppSizes.w(4)),
             decoration: BoxDecoration(
               color: isActive
-                  ? AppColors.primarySecondaryColor
-                  : Color(0xffD3E4FE),
+                  ? isDark ? AppColors.primaryDarkColor : AppColors.primarySecondaryColor
+                  : isDark ? Color(0xff81768D) :Color(0xffD3E4FE),
               borderRadius: BorderRadius.circular(AppSizes.w(4)),
             ),
           ),
@@ -105,7 +107,8 @@ class PhraseProgressSegments extends StatelessWidget {
 }
 
 class PronunciationScoreRing extends StatelessWidget {
-  const PronunciationScoreRing({super.key, required this.score});
+  final bool isDark;
+  const PronunciationScoreRing({super.key, required this.score, required this.isDark});
 
   final int score;
 
@@ -115,7 +118,7 @@ class PronunciationScoreRing extends StatelessWidget {
       width: AppSizes.w(120),
       height: AppSizes.w(120),
       child: CustomPaint(
-        painter: _ScoreRingPainter(score: score / 100),
+        painter: _ScoreRingPainter(score: score / 100, isDark: isDark),
         child: Center(
           child: Text(
             '$score%',
@@ -123,7 +126,7 @@ class PronunciationScoreRing extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(28),
               fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
+              color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
             ),
           ),
         ),
@@ -133,7 +136,8 @@ class PronunciationScoreRing extends StatelessWidget {
 }
 
 class _ScoreRingPainter extends CustomPainter {
-  _ScoreRingPainter({required this.score});
+  final bool isDark;
+  _ScoreRingPainter({required this.score, required this.isDark});
 
   final double score;
 
@@ -144,13 +148,13 @@ class _ScoreRingPainter extends CustomPainter {
     const stroke = 8.0;
 
     final track = Paint()
-      ..color = AppColors.progressTrack
+      ..color =isDark ? AppColors.brandDarkSoftColor : AppColors.progressTrack
       ..style = PaintingStyle.stroke
       ..strokeWidth = stroke
       ..strokeCap = StrokeCap.round;
 
     final progress = Paint()
-      ..color = AppColors.primaryColor
+      ..color =isDark ? AppColors.primaryDarkColor : AppColors.primaryColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = stroke
       ..strokeCap = StrokeCap.round;

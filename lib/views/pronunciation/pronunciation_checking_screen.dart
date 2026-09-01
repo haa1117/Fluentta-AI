@@ -47,7 +47,7 @@ class _PronunciationCheckingScreenState
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
@@ -67,9 +67,9 @@ class _PronunciationCheckingScreenState
               width: double.infinity,
               padding: EdgeInsets.all(AppSizes.w(23)),
               decoration: BoxDecoration(
-                color: AppColors.white,
+                color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
                 borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                // border: Border.all(color: AppColors.borderLight),
+                border: Border.all(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight),
                 boxShadow: [
                   BoxShadow(
                     color: AppColors.primaryColor.withValues(alpha: 0.06),
@@ -87,7 +87,7 @@ class _PronunciationCheckingScreenState
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(24),
                       fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
+                      color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                     ),
                   ),
                   SizedBox(height: AppSizes.h(10)),
@@ -97,7 +97,7 @@ class _PronunciationCheckingScreenState
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(15),
-                      color: AppColors.profileSubtitleColor,
+                      color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                       height: 1.45,
                     ),
                   ),
@@ -115,8 +115,8 @@ class _PronunciationCheckingScreenState
                     child: LinearProgressIndicator(
                       value: _progressController.value,
                       minHeight: AppSizes.h(8),
-                      backgroundColor: Color(0xffF3E8FF),
-                      color: AppColors.primaryColor,
+                      backgroundColor:isDark ? AppColors.brandDarkSoftColor : Color(0xffF3E8FF),
+                      color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   );
@@ -130,7 +130,7 @@ class _PronunciationCheckingScreenState
                 Icon(
                   Icons.refresh_rounded,
                   size: AppSizes.sp(16),
-                  color: AppColors.primaryColor,
+                  color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                 ),
                 SizedBox(width: AppSizes.w(6)),
                 Text(
@@ -139,7 +139,7 @@ class _PronunciationCheckingScreenState
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
                     fontWeight: FontWeight.w600,
-                    color: AppColors.primaryColor,
+                    color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                   ),
                 ),
               ],

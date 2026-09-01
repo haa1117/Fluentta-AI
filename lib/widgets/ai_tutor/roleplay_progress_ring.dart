@@ -6,9 +6,10 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class RoleplayProgressRing extends StatelessWidget {
+  final bool isDark;
   const RoleplayProgressRing({
     super.key,
-    required this.progress,
+    required this.progress, required this.isDark,
   });
 
   final double progress;
@@ -22,7 +23,9 @@ class RoleplayProgressRing extends StatelessWidget {
       width: AppSizes.w(56),
       height: AppSizes.w(56),
       child: CustomPaint(
-        painter: _RoleplayProgressRingPainter(progress: progress),
+        painter: _RoleplayProgressRingPainter(progress: progress,
+        isDark: isDark
+        ),
         child: Center(
           child: Text(
             '$percent%',
@@ -30,7 +33,7 @@ class RoleplayProgressRing extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(12),
               fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
+              color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
             ),
           ),
         ),
@@ -40,7 +43,8 @@ class RoleplayProgressRing extends StatelessWidget {
 }
 
 class _RoleplayProgressRingPainter extends CustomPainter {
-  _RoleplayProgressRingPainter({required this.progress});
+  final bool isDark;
+  _RoleplayProgressRingPainter({required this.progress, required this.isDark});
 
   final double progress;
 
@@ -51,13 +55,13 @@ class _RoleplayProgressRingPainter extends CustomPainter {
     const strokeWidth = 5.0;
 
     final track = Paint()
-      ..color = AppColors.progressTrack
+      ..color =isDark ? AppColors.brandDarkSoftColor : AppColors.progressTrack
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
 
     final arc = Paint()
-      ..color = AppColors.primaryColor
+      ..color =isDark ?AppColors.primaryDarkColor : AppColors.primaryColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;

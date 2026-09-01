@@ -19,7 +19,7 @@ class PronunciationScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final vm = context.watch<PronunciationViewModel>();
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
@@ -113,14 +113,14 @@ class PronunciationScreen extends StatelessWidget {
                               fontFamily: AppFonts.plusJakartaSans,
                               fontSize: AppSizes.sp(14),
                               fontWeight: FontWeight.w600,
-                              color: AppColors.profileSubtitleColor,
+                              color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                             ),
                           ),
                           SizedBox(width: AppSizes.w(60)),
                           Expanded(
                             child: PhraseProgressSegments(
                               current: vm.currentPhraseIndex + 1,
-                              total: vm.totalPhrases,
+                              total: vm.totalPhrases, isDark: isDark,
                             ),
                           ),
                         ],
@@ -136,9 +136,9 @@ class PronunciationScreen extends StatelessWidget {
                           vertical: AppSizes.h(32),
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.white,
+                          color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
                           borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                          // border: Border.all(color: AppColors.borderLight),
+                          border: Border.all(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight),
                           boxShadow: [
                             BoxShadow(
                               color: AppColors.primaryColor.withValues(alpha: 0.06),
@@ -156,7 +156,7 @@ class PronunciationScreen extends StatelessWidget {
                                 fontFamily: AppFonts.plusJakartaSans,
                                 fontSize: AppSizes.sp(23),
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.textPrimary,
+                                color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                                 height: 1.35,
                               ),
                             ),
@@ -181,9 +181,9 @@ class PronunciationScreen extends StatelessWidget {
                                fontWeight: FontWeight.w600
                               )),
                               style: OutlinedButton.styleFrom(
-                                foregroundColor: AppColors.primaryColor,
-                                backgroundColor: Color(0xfff8f4ff),
-                                side: BorderSide(color: AppColors.borderLight,
+                                foregroundColor:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
+                                backgroundColor:isDark ? AppColors.brandDarkSoftColor : Color(0xfff8f4ff),
+                                side: BorderSide(color:isDark ? AppColors.borderDarkColor : AppColors.borderLight,
                                 width: 1.5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(AppSizes.w(20)),
@@ -240,7 +240,7 @@ class PronunciationScreen extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),
                   fontWeight: FontWeight.w600,
-                  color: AppColors.textSecondary,
+                  color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                 ),
               ),
             ),

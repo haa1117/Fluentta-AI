@@ -39,7 +39,7 @@ class ActionOptionCard extends StatelessWidget {
 
     final lines = subtitleLines ?? subtitle.split('\n');
     final isGradient = gradient != null;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Material(
       color: Colors.transparent,
       child: InkWell(

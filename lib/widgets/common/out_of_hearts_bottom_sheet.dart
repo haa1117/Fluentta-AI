@@ -94,11 +94,11 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final bottomInset = MediaQuery.paddingOf(context).bottom;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(AppSizes.w(24)),
         ),
@@ -111,7 +111,7 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Padding(
               padding: EdgeInsets.only(right: AppSizes.w(16)),
-              child: _CloseButton(onTap: onClose),
+              child: _CloseButton(onTap: onClose, isDark: isDark),
             ),
           ),
           _SheetHeroImage(config: config),
@@ -125,7 +125,7 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(22),
                 fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
+                color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                 height: 1.25,
               ),
             ),
@@ -140,7 +140,7 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(14),
                 fontWeight: FontWeight.w400,
-                color: AppColors.profileSubtitleColor,
+                color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                 height: 1.45,
               ),
             ),
@@ -153,7 +153,7 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
               fontSize: AppSizes.sp(14),
               fontWeight: FontWeight.w600,
               letterSpacing: 0.8,
-              color: AppColors.textSecondary,
+              color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
             ),
           ),
           SizedBox(height: AppSizes.h(30)),
@@ -169,6 +169,8 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
                   chevronColor: AppColors.white,
                   onTap: onGoUnlimited,
                   leading: ActionOptionLeadingIcon(
+
+                    backgroundColor: isDark ? AppColors.surfaceBgDarkColor :AppColors.white,
                     child: SvgPicture.asset(
                       AppAssets.diamondSvg,
                       width: AppSizes.sp(22),
@@ -185,9 +187,10 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
                     titleColor: AppColors.textPrimary,
                     subtitleColor: AppColors.primaryColor,
                     chevronColor: AppColors.textSecondary,
+
                     onTap: onWatchAd,
                     leading: ActionOptionLeadingIcon(
-                      backgroundColor: const Color(0xfff7f1ff),
+                      backgroundColor:isDark ? AppColors.surfaceBgDarkColor : const Color(0xfff7f1ff),
                       child: SvgPicture.asset(
                         AppAssets.watchAdSvg,
                         width: AppSizes.sp(24),
@@ -228,7 +231,8 @@ class _SheetHeroImage extends StatelessWidget {
 }
 
 class _CloseButton extends StatelessWidget {
-  const _CloseButton({required this.onTap});
+  final bool isDark;
+  const _CloseButton({required this.onTap, required this.isDark});
 
   final VoidCallback onTap;
 
@@ -237,7 +241,7 @@ class _CloseButton extends StatelessWidget {
     AppSizes.init(context);
 
     return Material(
-      color: AppColors.homeCardLavender,
+      color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
       shape: const CircleBorder(),
       child: InkWell(
         onTap: onTap,
@@ -248,7 +252,7 @@ class _CloseButton extends StatelessWidget {
           child: Icon(
             Icons.close_rounded,
             size: AppSizes.sp(20),
-            color: AppColors.iconColor,
+            color:isDark ? AppColors.textSecondaryDark : AppColors.iconColor,
           ),
         ),
       ),

@@ -36,6 +36,7 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     AppSizes.init(context);
     final l10n = context.l10n;
     final vm = context.watch<PronunciationViewModel>();
@@ -68,7 +69,7 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                     width: double.infinity,
                     padding: EdgeInsets.all(AppSizes.w(20)),
                     decoration: BoxDecoration(
-                      color: AppColors.white,
+                      color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
                       borderRadius: BorderRadius.circular(AppSizes.cardRadius),
                       // border: Border.all(color: AppColors.borderLight),
                       boxShadow: [
@@ -87,11 +88,11 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(22),
                             fontWeight: FontWeight.w700,
-                            color: AppColors.textPrimary,
+                            color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
                           ),
                         ),
                         SizedBox(height: AppSizes.h(16)),
-                        PronunciationScoreRing(score: result.overallScore),
+                        PronunciationScoreRing(score: result.overallScore, isDark: isDark),
                         SizedBox(height: AppSizes.h(16)),
                         Text(
                           result.heardAnything
@@ -103,30 +104,30 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                           style: TextStyle(
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(14),
-                            color: AppColors.profileSubtitleColor,
+                            color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                             height: 1.45,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: AppSizes.h(20)),
-                  if (result.transcript.isNotEmpty) ...[
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        l10n.youSaid(result.transcript),
-                        style: TextStyle(
-                          fontFamily: AppFonts.plusJakartaSans,
-                          fontSize: AppSizes.sp(13),
-                          color: AppColors.profileSubtitleColor,
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: AppSizes.h(14)),
-                  ],
-                  PhraseWordHighlights(words: result.words),
+                  // SizedBox(height: AppSizes.h(20)),
+                  // if (result.transcript.isNotEmpty) ...[
+                  //   Align(
+                  //     alignment: Alignment.centerLeft,
+                  //     child: Text(
+                  //       l10n.youSaid(result.transcript),
+                  //       style: TextStyle(
+                  //         fontFamily: AppFonts.plusJakartaSans,
+                  //         fontSize: AppSizes.sp(13),
+                  //         color:isDark ?AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
+                  //         height: 1.4,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   SizedBox(height: AppSizes.h(14)),
+                  // ],
+                  // PhraseWordHighlights(words: result.words),
                   SizedBox(height: AppSizes.h(20)),
                   Align(
                     alignment: Alignment.centerLeft,
@@ -136,14 +137,14 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(12),
                         fontWeight: FontWeight.w600,
-                        color: AppColors.profileSubtitleColor,
+                        color:isDark ? AppColors.textSecondaryDark : AppColors.profileSubtitleColor,
                         letterSpacing: 0.8,
                       ),
                     ),
                   ),
                   SizedBox(height: AppSizes.h(10)),
                   ...result.words.map(
-                    (w) => WordFeedbackTile(feedback: w),
+                    (w) => WordFeedbackTile(feedback: w, isDark: isDark),
                   ),
                 ],
               ),

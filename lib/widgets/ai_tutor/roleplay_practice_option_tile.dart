@@ -27,7 +27,7 @@ class RoleplayPracticeOptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -36,9 +36,11 @@ class RoleplayPracticeOptionTile extends StatelessWidget {
         child: Ink(
           padding: EdgeInsets.all(AppSizes.w(14)),
           decoration: BoxDecoration(
-            color: AppColors.white,
+            color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
             borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-            border: Border.all(color: AppColors.borderLight),
+            border: Border.all(color:
+            isDark ? AppColors.borderDarkColor :
+            AppColors.borderLight),
           ),
           child: Row(
 
@@ -84,7 +86,7 @@ class RoleplayPracticeOptionTile extends StatelessWidget {
                               fontFamily: AppFonts.plusJakartaSans,
                               fontSize: AppSizes.sp(14),
                               fontWeight: FontWeight.w700,
-                              color: AppColors.textPrimary,
+                              color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                             ),
                           ),
                         ),
@@ -98,7 +100,7 @@ class RoleplayPracticeOptionTile extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(14),
                         fontWeight: FontWeight.w500,
-                        color: AppColors.textSecondary,
+                        color:isDark ? AppColors.textSecondaryDark: AppColors.textSecondary,
                         height: 1.3,
                       ),
                     ),
@@ -113,7 +115,7 @@ class RoleplayPracticeOptionTile extends StatelessWidget {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(12),
                           fontWeight: FontWeight.w700,
-                          color: AppColors.xpEarnedTextColor,
+                          color:isDark ? AppColors.xpEarnedTextColorDark: AppColors.xpEarnedTextColor,
                         ),
                       ),
                     ],

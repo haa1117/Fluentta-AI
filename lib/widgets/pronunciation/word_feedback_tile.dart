@@ -6,7 +6,8 @@ import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/pronunciation_phrase_model.dart';
 
 class WordFeedbackTile extends StatelessWidget {
-  const WordFeedbackTile({super.key, required this.feedback});
+  final bool isDark;
+  const WordFeedbackTile({super.key, required this.feedback, required this.isDark});
 
   final PronunciationWordFeedback feedback;
 
@@ -24,7 +25,7 @@ class WordFeedbackTile extends StatelessWidget {
         vertical: AppSizes.h(14),
       ),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         border: Border(
           left: BorderSide(color: accent, width: 4),
@@ -40,7 +41,7 @@ class WordFeedbackTile extends StatelessWidget {
                 _HighlightedWord(
                   word: feedback.word,
                   weakCharIndices: feedback.weakCharIndices,
-                  isHighConfidence: isHigh,
+                  isHighConfidence: isHigh, isDark: isDark,
                 ),
                 SizedBox(height: AppSizes.h(4)),
                 Text(
@@ -141,10 +142,11 @@ class PhraseWordHighlights extends StatelessWidget {
 }
 
 class _HighlightedWord extends StatelessWidget {
+  final bool isDark;
   const _HighlightedWord({
     required this.word,
     required this.weakCharIndices,
-    required this.isHighConfidence,
+    required this.isHighConfidence, required this.isDark,
   });
 
   final String word;
@@ -160,7 +162,7 @@ class _HighlightedWord extends StatelessWidget {
           fontFamily: AppFonts.plusJakartaSans,
           fontSize: AppSizes.sp(16),
           fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
+          color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
         ),
       );
     }
@@ -174,9 +176,10 @@ class _HighlightedWord extends StatelessWidget {
         TextSpan(
           text: word[i],
           style: TextStyle(
-            color: isWeak ? const Color(0xFFD97706) : AppColors.textPrimary,
-            backgroundColor:
-                isWeak ? const Color(0xFFFFF7ED) : Colors.transparent,
+            color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
+            // color: isWeak ? const Color(0xFFD97706) : AppColors.textPrimary,
+            // backgroundColor:
+            //     isWeak ? const Color(0xFFFFF7ED) : Colors.transparent,
             fontWeight: isWeak ? FontWeight.w800 : FontWeight.w700,
           ),
         ),
@@ -188,6 +191,7 @@ class _HighlightedWord extends StatelessWidget {
         style: TextStyle(
           fontFamily: AppFonts.plusJakartaSans,
           fontSize: AppSizes.sp(16),
+          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimary
         ),
         children: spans,
       ),

@@ -23,15 +23,16 @@ class RoleplayScenarioOverviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     AppSizes.init(context);
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(16)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color:isDark? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: AppColors.borderDarkPrimary),
+        border: Border.all(color:isDark ? AppColors.borderDarkColor :AppColors.borderDarkPrimary),
         boxShadow: [
           BoxShadow(
             color: AppColors.primaryColor.withValues(alpha: 0.06),
@@ -60,7 +61,7 @@ class RoleplayScenarioOverviewCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(15),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.primaryBlueColor,
+                    color:isDark ? AppColors.brandDeepDarkColor : AppColors.primaryBlueColor,
                     height: 1.3,
                   ),
                 ),
@@ -71,7 +72,7 @@ class RoleplayScenarioOverviewCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(28),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
                     height: 1,
                   ),
                 ),
@@ -81,13 +82,13 @@ class RoleplayScenarioOverviewCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(13),
                     fontWeight: FontWeight.w500,
-                    color: AppColors.textSecondary,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                   ),
                 ),
               ],
             ),
           ),
-          RoleplayProgressRing(progress: progress ?? scenario.progress),
+          RoleplayProgressRing(progress: progress ?? scenario.progress, isDark: isDark),
         ],
       ),
     );

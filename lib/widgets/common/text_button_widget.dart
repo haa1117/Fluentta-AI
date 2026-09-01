@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class TextButtonWidget extends StatelessWidget {
+
   final String btnText;
   final VoidCallback onTap;
   const TextButtonWidget({
@@ -15,6 +16,7 @@ class TextButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return TextButton(
       onPressed: onTap,
       child: Text(
@@ -23,7 +25,7 @@ class TextButtonWidget extends StatelessWidget {
           fontFamily: AppFonts.plusJakartaSans,
           fontSize: AppSizes.sp(15),
           fontWeight: FontWeight.w700,
-          color: AppColors.textSecondary,
+          color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
         ),
       ),
     );

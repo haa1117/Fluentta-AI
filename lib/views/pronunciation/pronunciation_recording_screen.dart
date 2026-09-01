@@ -72,7 +72,7 @@ class _PronunciationRecordingScreenState
     final l10n = context.l10n;
     final vm = context.watch<PronunciationViewModel>();
     final phrase = vm.currentPhraseText;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
@@ -112,7 +112,7 @@ class _PronunciationRecordingScreenState
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(28),
                         fontWeight: FontWeight.w700,
-                        color: AppColors.textSecondary,
+                        color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
                       ),
                     ),
                     SizedBox(height: AppSizes.h(64)),
@@ -123,8 +123,11 @@ class _PronunciationRecordingScreenState
                         vertical: AppSizes.h(28),
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.white,
+                        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
                         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+                        border: Border.all(
+                          color: isDark ? AppColors.borderDarkColor : AppColors.borderLight
+                        )
                       ),
                       child: Text(
                         '"$phrase"',
@@ -133,13 +136,13 @@ class _PronunciationRecordingScreenState
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(24),
                           fontWeight: FontWeight.w700,
-                          color: AppColors.textPrimary,
+                          color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
                         ),
                       ),
                     ),
                     SizedBox(height: AppSizes.h(42)),
                     AudioWaveform(
-                      isAnimating: vm.isRecording && !_isStarting,
+                      isAnimating: vm.isRecording && !_isStarting, isDark: isDark,
                     ),
                     SizedBox(height: AppSizes.h(16)),
                     if (vm.isRecording && !_isStarting)
@@ -161,8 +164,8 @@ class _PronunciationRecordingScreenState
                             Container(
                               width: AppSizes.w(8),
                               height: AppSizes.w(8),
-                              decoration: const BoxDecoration(
-                                color: AppColors.redColor,
+                              decoration:  BoxDecoration(
+                                color:isDark ? AppColors.redColorDark : AppColors.redColor,
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -173,7 +176,7 @@ class _PronunciationRecordingScreenState
                                 fontFamily: AppFonts.plusJakartaSans,
                                 fontSize: AppSizes.sp(14),
                                 fontWeight: FontWeight.w600,
-                                color: AppColors.redColor,
+                                color:isDark ? AppColors.redColorDark : AppColors.redColor,
                                 letterSpacing: 0.5,
                               ),
                             ),

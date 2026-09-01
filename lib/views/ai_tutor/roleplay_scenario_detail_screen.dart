@@ -90,7 +90,7 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
           final level = detailVm.selectedLevel;
           final levelCode = CefrLevelProgress.levelCodeLabel(l10n, level);
           final levelLabel = CefrLevelProgress.levelNameLabel(l10n, level);
-
+          final isDark = Theme.of(context).brightness == Brightness.dark;
           return Scaffold(
             backgroundColor: AppColors.scaffoldBackground(context),
             appBar: AppBarWidget(
@@ -131,7 +131,7 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(18),
                       fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
+                      color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                     ),
                   ),
                   SizedBox(height: AppSizes.h(12)),
