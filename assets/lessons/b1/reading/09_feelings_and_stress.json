@@ -1,0 +1,64 @@
+{
+  "id": "b1_reading_09",
+  "cefrLevel": "B1",
+  "number": 9,
+  "title": "Feelings and Stress",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "When I feel anxious before exams, I take short breaks and breathe slowly.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Talking to friends also helps.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "These habits have made me feel more confident.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "When does the writer feel anxious?",
+      "options": [
+        "Before exams",
+        "After holidays",
+        "During sports"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What helps the writer?",
+      "options": [
+        "Avoiding study",
+        "Breaks and talking to friends",
+        "Skipping exams"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Feelings and Stress Learned",
+  "completionSummary": "General feelings and stress conversation"
+}

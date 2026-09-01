@@ -1,0 +1,65 @@
+{
+  "id": "c1_grammar_10",
+  "cefrLevel": "C1",
+  "number": 10,
+  "title": "Rhetorical Devices",
+  "iconName": "grammar",
+  "rule": "Rhetorical devices persuade and emphasize in advanced discourse.",
+  "pattern": "anaphora, antithesis, rhetorical questions",
+  "examples": [
+    {
+      "text": "We want change. We want justice. We want progress.",
+      "highlight": "We want"
+    },
+    {
+      "text": "It was not failure, but preparation.",
+      "highlight": "not failure, but preparation"
+    },
+    {
+      "text": "Who could deny the urgency?",
+      "highlight": "Who could deny"
+    },
+    {
+      "text": "Ask not what your country can do for you.",
+      "highlight": "Ask not"
+    },
+    {
+      "text": "To err is human; to forgive, divine.",
+      "highlight": "To err is human"
+    }
+  ],
+  "practicePrompt": "Complete: A rhetorical question expects ___ answer.",
+  "practiceAnswer": "no",
+  "steps": [
+    {
+      "title": "Rhetorical devices persuade and emphasize in advanced discourse.",
+      "description": "anaphora, antithesis, rhetorical questions",
+      "formula": "anaphora, antithesis, rhetorical questions",
+      "examples": [
+        {
+          "text": "We want change. We want justice. We want progress.",
+          "highlight": "We want"
+        },
+        {
+          "text": "It was not failure, but preparation.",
+          "highlight": "not failure, but preparation"
+        },
+        {
+          "text": "Who could deny the urgency?",
+          "highlight": "Who could deny"
+        },
+        {
+          "text": "Ask not what your country can do for you.",
+          "highlight": "Ask not"
+        },
+        {
+          "text": "To err is human; to forgive, divine.",
+          "highlight": "To err is human"
+        }
+      ],
+      "quickTip": "Complete: A rhetorical question expects ___ answer. (no)"
+    }
+  ],
+  "completionTitle": "Rhetorical Devices Learned",
+  "completionSummary": "anaphora, antithesis, rhetorical questions"
+}

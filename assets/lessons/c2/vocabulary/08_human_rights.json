@@ -1,0 +1,44 @@
+{
+  "id": "c2_vocab_08",
+  "cefrLevel": "C2",
+  "number": 8,
+  "title": "Human Rights",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "jurisdiction",
+      "phonetic": "/ˌdʒʊərɪsˈdɪkʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Official power to make legal decisions.",
+      "example": "The court lacked jurisdiction."
+    },
+    {
+      "word": "persecution",
+      "phonetic": "/ˌpɜːrsɪˈkjuːʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Hostile treatment of a group.",
+      "example": "They fled religious persecution."
+    },
+    {
+      "word": "restitution",
+      "phonetic": "/ˌrɛstɪˈtuːʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Compensation for loss or harm.",
+      "example": "Restitution was ordered by the court."
+    },
+    {
+      "word": "impunity",
+      "phonetic": "/ɪmˈpjuːnɪti/",
+      "partOfSpeech": "noun",
+      "definition": "Freedom from punishment.",
+      "example": "Violations occurred with impunity."
+    },
+    {
+      "word": "ratification",
+      "phonetic": "/ˌrætɪfɪˈkeɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Formal approval of a treaty.",
+      "example": "Ratification took several years."
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "b1_grammar_03",
+  "cefrLevel": "B1",
+  "number": 3,
+  "title": "First Conditional",
+  "iconName": "grammar",
+  "rule": "Use the first conditional for real future possibilities.",
+  "pattern": "If + present simple, will + base verb",
+  "examples": [
+    {
+      "text": "If it rains, we will stay home.",
+      "highlight": "will stay"
+    },
+    {
+      "text": "If you study, you will pass.",
+      "highlight": "will pass"
+    },
+    {
+      "text": "She will call if she has time.",
+      "highlight": "will call"
+    },
+    {
+      "text": "If they arrive early, we'll start sooner.",
+      "highlight": "we'll start"
+    },
+    {
+      "text": "If I see him, I'll tell him.",
+      "highlight": "I'll tell"
+    }
+  ],
+  "practicePrompt": "Complete: If you ___ (help) me, I will finish faster.",
+  "practiceAnswer": "help",
+  "steps": [
+    {
+      "title": "Use the first conditional for real future possibilities.",
+      "description": "If + present simple, will + base verb",
+      "formula": "If + present simple, will + base verb",
+      "examples": [
+        {
+          "text": "If it rains, we will stay home.",
+          "highlight": "will stay"
+        },
+        {
+          "text": "If you study, you will pass.",
+          "highlight": "will pass"
+        },
+        {
+          "text": "She will call if she has time.",
+          "highlight": "will call"
+        },
+        {
+          "text": "If they arrive early, we'll start sooner.",
+          "highlight": "we'll start"
+        },
+        {
+          "text": "If I see him, I'll tell him.",
+          "highlight": "I'll tell"
+        }
+      ],
+      "quickTip": "Complete: If you ___ (help) me, I will finish faster. (help)"
+    }
+  ],
+  "completionTitle": "First Conditional Learned",
+  "completionSummary": "If + present simple, will + base verb"
+}

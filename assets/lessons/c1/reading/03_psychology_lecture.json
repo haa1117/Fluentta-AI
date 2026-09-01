@@ -1,0 +1,64 @@
+{
+  "id": "c1_reading_03",
+  "cefrLevel": "C1",
+  "number": 3,
+  "title": "Psychology Lecture",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The lecture explored how perception is influenced by prior experience.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Participants interpreted ambiguous images differently depending on their background, illustrating that cognition is not purely objective.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What influences perception according to the lecture?",
+      "options": [
+        "Prior experience",
+        "Shoe size",
+        "Favorite color only"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What did ambiguous images demonstrate?",
+      "options": [
+        "Cognition is not purely objective",
+        "Everyone sees identically",
+        "Memory is perfect"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Psychology Lecture Learned",
+  "completionSummary": "General psychology lecture conversation"
+}

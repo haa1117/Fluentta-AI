@@ -1,0 +1,44 @@
+{
+  "id": "b1_vocab_10",
+  "cefrLevel": "B1",
+  "number": 10,
+  "title": "Phone and Email",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "attachment",
+      "phonetic": "/əˈtætʃmənt/",
+      "partOfSpeech": "noun",
+      "definition": "A file sent with an email.",
+      "example": "I sent the report as an attachment."
+    },
+    {
+      "word": "voicemail",
+      "phonetic": "/ˈvɔɪsmeɪl/",
+      "partOfSpeech": "noun",
+      "definition": "A recorded phone message.",
+      "example": "Leave a voicemail if I don't answer."
+    },
+    {
+      "word": "reply",
+      "phonetic": "/rɪˈplaɪ/",
+      "partOfSpeech": "verb",
+      "definition": "To answer a message.",
+      "example": "Please reply by tomorrow."
+    },
+    {
+      "word": "forward",
+      "phonetic": "/fɔːrˈwɜːrd/",
+      "partOfSpeech": "verb",
+      "definition": "To send a message to another person.",
+      "example": "Can you forward the email?"
+    },
+    {
+      "word": "subject line",
+      "phonetic": "/ˈsʌbdʒɪkt laɪn/",
+      "partOfSpeech": "noun",
+      "definition": "The title of an email.",
+      "example": "Write a clear subject line."
+    }
+  ]
+}

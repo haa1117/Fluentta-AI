@@ -1,0 +1,44 @@
+{
+  "id": "b1_vocab_06",
+  "cefrLevel": "B1",
+  "number": 6,
+  "title": "Feelings",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "anxious",
+      "phonetic": "/ˈæŋkʃəs/",
+      "partOfSpeech": "adjective",
+      "definition": "Worried or nervous.",
+      "example": "I feel anxious before exams."
+    },
+    {
+      "word": "grateful",
+      "phonetic": "/ˈɡreɪtfəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Thankful.",
+      "example": "I am grateful for your support."
+    },
+    {
+      "word": "disappointed",
+      "phonetic": "/ˌdɪsəˈpɔɪntɪd/",
+      "partOfSpeech": "adjective",
+      "definition": "Sad because expectations were not met.",
+      "example": "She was disappointed by the result."
+    },
+    {
+      "word": "relieved",
+      "phonetic": "/rɪˈliːvd/",
+      "partOfSpeech": "adjective",
+      "definition": "Feeling less worry.",
+      "example": "I was relieved to hear the news."
+    },
+    {
+      "word": "embarrassed",
+      "phonetic": "/ɪmˈbærəst/",
+      "partOfSpeech": "adjective",
+      "definition": "Feeling shy or ashamed.",
+      "example": "He felt embarrassed after the mistake."
+    }
+  ]
+}

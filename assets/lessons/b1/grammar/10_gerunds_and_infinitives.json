@@ -1,0 +1,65 @@
+{
+  "id": "b1_grammar_10",
+  "cefrLevel": "B1",
+  "number": 10,
+  "title": "Gerunds and Infinitives",
+  "iconName": "grammar",
+  "rule": "Some verbs are followed by -ing; others by to + verb.",
+  "pattern": "verb + gerund / verb + to-infinitive",
+  "examples": [
+    {
+      "text": "I enjoy reading.",
+      "highlight": "reading"
+    },
+    {
+      "text": "She decided to leave.",
+      "highlight": "to leave"
+    },
+    {
+      "text": "He stopped smoking.",
+      "highlight": "smoking"
+    },
+    {
+      "text": "They hope to travel soon.",
+      "highlight": "to travel"
+    },
+    {
+      "text": "I avoid eating late at night.",
+      "highlight": "eating"
+    }
+  ],
+  "practicePrompt": "Complete: He promised ___ (call) me.",
+  "practiceAnswer": "to call",
+  "steps": [
+    {
+      "title": "Some verbs are followed by -ing; others by to + verb.",
+      "description": "verb + gerund / verb + to-infinitive",
+      "formula": "verb + gerund / verb + to-infinitive",
+      "examples": [
+        {
+          "text": "I enjoy reading.",
+          "highlight": "reading"
+        },
+        {
+          "text": "She decided to leave.",
+          "highlight": "to leave"
+        },
+        {
+          "text": "He stopped smoking.",
+          "highlight": "smoking"
+        },
+        {
+          "text": "They hope to travel soon.",
+          "highlight": "to travel"
+        },
+        {
+          "text": "I avoid eating late at night.",
+          "highlight": "eating"
+        }
+      ],
+      "quickTip": "Complete: He promised ___ (call) me. (to call)"
+    }
+  ],
+  "completionTitle": "Gerunds and Infinitives Learned",
+  "completionSummary": "verb + gerund / verb + to-infinitive"
+}

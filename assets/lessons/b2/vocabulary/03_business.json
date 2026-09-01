@@ -1,0 +1,44 @@
+{
+  "id": "b2_vocab_03",
+  "cefrLevel": "B2",
+  "number": 3,
+  "title": "Business",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "investment",
+      "phonetic": "/ɪnˈvɛstmənt/",
+      "partOfSpeech": "noun",
+      "definition": "Money put into a business.",
+      "example": "The investment paid off."
+    },
+    {
+      "word": "profit",
+      "phonetic": "/ˈprɒfɪt/",
+      "partOfSpeech": "noun",
+      "definition": "Money earned after costs.",
+      "example": "Profit increased last quarter."
+    },
+    {
+      "word": "negotiate",
+      "phonetic": "/nɪˈɡoʊʃieɪt/",
+      "partOfSpeech": "verb",
+      "definition": "To discuss to reach agreement.",
+      "example": "They negotiated a better contract."
+    },
+    {
+      "word": "entrepreneur",
+      "phonetic": "/ˌɒntrəprəˈnɜːr/",
+      "partOfSpeech": "noun",
+      "definition": "A person who starts businesses.",
+      "example": "She is a successful entrepreneur."
+    },
+    {
+      "word": "market share",
+      "phonetic": "/ˈmɑːrkɪt ʃɛər/",
+      "partOfSpeech": "noun",
+      "definition": "The portion of sales a company has.",
+      "example": "Our market share grew steadily."
+    }
+  ]
+}

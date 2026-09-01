@@ -1,0 +1,65 @@
+{
+  "id": "c1_grammar_05",
+  "cefrLevel": "C1",
+  "number": 5,
+  "title": "Cohesion Devices",
+  "iconName": "grammar",
+  "rule": "Cohesive devices link sentences into unified text.",
+  "pattern": "reference, substitution, conjunction, lexical chains",
+  "examples": [
+    {
+      "text": "The proposal was rejected. This outcome surprised many.",
+      "highlight": "This"
+    },
+    {
+      "text": "Some agreed; others did not.",
+      "highlight": "others"
+    },
+    {
+      "text": "First, we analyzed the data. Then, we interpreted it.",
+      "highlight": "Then"
+    },
+    {
+      "text": "The policy changed. Consequently, funding increased.",
+      "highlight": "Consequently"
+    },
+    {
+      "text": "Renewable energy remains a key theme throughout.",
+      "highlight": "theme"
+    }
+  ],
+  "practicePrompt": "Complete: The committee reviewed the plan. ___, it approved minor revisions.",
+  "practiceAnswer": "Subsequently",
+  "steps": [
+    {
+      "title": "Cohesive devices link sentences into unified text.",
+      "description": "reference, substitution, conjunction, lexical chains",
+      "formula": "reference, substitution, conjunction, lexical chains",
+      "examples": [
+        {
+          "text": "The proposal was rejected. This outcome surprised many.",
+          "highlight": "This"
+        },
+        {
+          "text": "Some agreed; others did not.",
+          "highlight": "others"
+        },
+        {
+          "text": "First, we analyzed the data. Then, we interpreted it.",
+          "highlight": "Then"
+        },
+        {
+          "text": "The policy changed. Consequently, funding increased.",
+          "highlight": "Consequently"
+        },
+        {
+          "text": "Renewable energy remains a key theme throughout.",
+          "highlight": "theme"
+        }
+      ],
+      "quickTip": "Complete: The committee reviewed the plan. ___, it approved minor revisions. (Subsequently)"
+    }
+  ],
+  "completionTitle": "Cohesion Devices Learned",
+  "completionSummary": "reference, substitution, conjunction, lexical chains"
+}

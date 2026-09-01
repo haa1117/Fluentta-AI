@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.futurewatch.fluenta",
+      "sha256_cert_fingerprints": [
+        "B4:DE:C0:29:8D:B8:2E:3E:56:D9:58:8F:1F:6B:13:6E:EC:1F:4F:B7:F3:B9:17:F2:84:30:B6:49:37:11:BD:4A"
+      ]
+    }
+  }
+]

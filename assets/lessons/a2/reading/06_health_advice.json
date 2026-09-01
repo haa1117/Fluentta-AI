@@ -1,0 +1,64 @@
+{
+  "id": "a2_reading_06",
+  "cefrLevel": "A2",
+  "number": 6,
+  "title": "Health Advice",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Doctor",
+      "text": "You should exercise three times a week.",
+      "isUser": false
+    },
+    {
+      "speaker": "Patient",
+      "text": "I feel too tired after work.",
+      "isUser": true
+    },
+    {
+      "speaker": "Doctor",
+      "text": "Try walking for twenty minutes.",
+      "isUser": false
+    },
+    {
+      "speaker": "Patient",
+      "text": "OK, I will try.",
+      "isUser": true
+    },
+    {
+      "speaker": "Doctor",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "How often should the patient exercise?",
+      "options": [
+        "Once a week",
+        "Three times a week",
+        "Every day"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What does the doctor suggest?",
+      "options": [
+        "Running a marathon",
+        "Walking twenty minutes",
+        "Sleeping more"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Health Advice Learned",
+  "completionSummary": "General health advice conversation"
+}

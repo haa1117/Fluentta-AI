@@ -1,0 +1,64 @@
+{
+  "id": "b2_reading_01",
+  "cefrLevel": "B2",
+  "number": 1,
+  "title": "Global Inequality",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Despite economic growth in many regions, inequality continues to widen.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Access to education and healthcare remains uneven.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Policymakers debate whether targeted subsidies or broader tax reform would be more effective.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What continues despite economic growth?",
+      "options": [
+        "Equality",
+        "Inequality",
+        "Unemployment only"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What remains uneven?",
+      "options": [
+        "Access to education and healthcare",
+        "Weather patterns",
+        "Sports funding"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Global Inequality Learned",
+  "completionSummary": "General global inequality conversation"
+}

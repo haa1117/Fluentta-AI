@@ -1,0 +1,64 @@
+{
+  "id": "a1_reading_06",
+  "cefrLevel": "A1",
+  "number": 6,
+  "title": "Shopping Clothes",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Shop assistant",
+      "text": "Can I help you?",
+      "isUser": false
+    },
+    {
+      "speaker": "Customer",
+      "text": "Yes, I need a new shirt.",
+      "isUser": true
+    },
+    {
+      "speaker": "Shop assistant",
+      "text": "What color do you like?",
+      "isUser": false
+    },
+    {
+      "speaker": "Customer",
+      "text": "Blue, please.",
+      "isUser": true
+    },
+    {
+      "speaker": "Shop assistant",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What does the customer want to buy?",
+      "options": [
+        "Shoes",
+        "A shirt",
+        "A hat"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What color does the customer choose?",
+      "options": [
+        "Red",
+        "Blue",
+        "Green"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Shopping Clothes Learned",
+  "completionSummary": "General shopping clothes conversation"
+}

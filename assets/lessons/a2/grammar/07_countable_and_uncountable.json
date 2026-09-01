@@ -1,0 +1,65 @@
+{
+  "id": "a2_grammar_07",
+  "cefrLevel": "A2",
+  "number": 7,
+  "title": "Countable and Uncountable",
+  "iconName": "grammar",
+  "rule": "Countable nouns have singular/plural forms; uncountable nouns do not.",
+  "pattern": "a/an + countable; some/much + uncountable",
+  "examples": [
+    {
+      "text": "I bought an apple.",
+      "highlight": "an apple"
+    },
+    {
+      "text": "There is some milk in the fridge.",
+      "highlight": "some milk"
+    },
+    {
+      "text": "How many chairs do we need?",
+      "highlight": "many"
+    },
+    {
+      "text": "How much sugar do you want?",
+      "highlight": "much"
+    },
+    {
+      "text": "She has three books.",
+      "highlight": "three books"
+    }
+  ],
+  "practicePrompt": "Complete: There isn't ___ water left.",
+  "practiceAnswer": "much",
+  "steps": [
+    {
+      "title": "Countable nouns have singular/plural forms; uncountable nouns do not.",
+      "description": "a/an + countable; some/much + uncountable",
+      "formula": "a/an + countable; some/much + uncountable",
+      "examples": [
+        {
+          "text": "I bought an apple.",
+          "highlight": "an apple"
+        },
+        {
+          "text": "There is some milk in the fridge.",
+          "highlight": "some milk"
+        },
+        {
+          "text": "How many chairs do we need?",
+          "highlight": "many"
+        },
+        {
+          "text": "How much sugar do you want?",
+          "highlight": "much"
+        },
+        {
+          "text": "She has three books.",
+          "highlight": "three books"
+        }
+      ],
+      "quickTip": "Complete: There isn't ___ water left. (much)"
+    }
+  ],
+  "completionTitle": "Countable and Uncountable Learned",
+  "completionSummary": "a/an + countable; some/much + uncountable"
+}

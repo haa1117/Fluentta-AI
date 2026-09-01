@@ -1,0 +1,44 @@
+{
+  "id": "c1_vocab_04",
+  "cefrLevel": "C1",
+  "number": 4,
+  "title": "Literature",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "protagonist",
+      "phonetic": "/proʊˈtæɡənɪst/",
+      "partOfSpeech": "noun",
+      "definition": "The main character.",
+      "example": "The protagonist faces a dilemma."
+    },
+    {
+      "word": "metaphor",
+      "phonetic": "/ˈmɛtəfər/",
+      "partOfSpeech": "noun",
+      "definition": "A figure of speech comparing things.",
+      "example": "The author uses a powerful metaphor."
+    },
+    {
+      "word": "narrative",
+      "phonetic": "/ˈnærətɪv/",
+      "partOfSpeech": "noun",
+      "definition": "A spoken or written account.",
+      "example": "The narrative shifts perspective."
+    },
+    {
+      "word": "symbolism",
+      "phonetic": "/ˈsɪmbəlɪzəm/",
+      "partOfSpeech": "noun",
+      "definition": "Use of symbols to represent ideas.",
+      "example": "Symbolism enriches the poem."
+    },
+    {
+      "word": "satire",
+      "phonetic": "/ˈsætaɪər/",
+      "partOfSpeech": "noun",
+      "definition": "Humor criticizing society.",
+      "example": "The novel is sharp social satire."
+    }
+  ]
+}

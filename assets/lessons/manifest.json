@@ -1,0 +1,1624 @@
+{
+  "lessons": [
+    {
+      "id": "a1_vocab_01",
+      "cefrLevel": "A1",
+      "type": "vocabulary",
+      "number": 1,
+      "title": "Greetings",
+      "assetPath": "assets/lessons/a1/vocabulary/01_greetings.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_vocab_02",
+      "cefrLevel": "A1",
+      "type": "vocabulary",
+      "number": 2,
+      "title": "Numbers",
+      "assetPath": "assets/lessons/a1/vocabulary/02_numbers.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_vocab_03",
+      "cefrLevel": "A1",
+      "type": "vocabulary",
+      "number": 3,
+      "title": "Family",
+      "assetPath": "assets/lessons/a1/vocabulary/03_family.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_vocab_04",
+      "cefrLevel": "A1",
+      "type": "vocabulary",
+      "number": 4,
+      "title": "Colors",
+      "assetPath": "assets/lessons/a1/vocabulary/04_colors.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_vocab_05",
+      "cefrLevel": "A1",
+      "type": "vocabulary",
+      "number": 5,
+      "title": "Days",
+      "assetPath": "assets/lessons/a1/vocabulary/05_days.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_vocab_06",
+      "cefrLevel": "A1",
+      "type": "vocabulary",
+      "number": 6,
+      "title": "Foods",
+      "assetPath": "assets/lessons/a1/vocabulary/06_foods.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_vocab_07",
+      "cefrLevel": "A1",
+      "type": "vocabulary",
+      "number": 7,
+      "title": "Body Parts",
+      "assetPath": "assets/lessons/a1/vocabulary/07_body_parts.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_vocab_08",
+      "cefrLevel": "A1",
+      "type": "vocabulary",
+      "number": 8,
+      "title": "House",
+      "assetPath": "assets/lessons/a1/vocabulary/08_house.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_vocab_09",
+      "cefrLevel": "A1",
+      "type": "vocabulary",
+      "number": 9,
+      "title": "Clothing",
+      "assetPath": "assets/lessons/a1/vocabulary/09_clothing.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_vocab_10",
+      "cefrLevel": "A1",
+      "type": "vocabulary",
+      "number": 10,
+      "title": "Weather",
+      "assetPath": "assets/lessons/a1/vocabulary/10_weather.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_grammar_01",
+      "cefrLevel": "A1",
+      "type": "grammar",
+      "number": 1,
+      "title": "Subject Pronouns",
+      "assetPath": "assets/lessons/a1/grammar/01_subject_pronouns.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a1_grammar_02",
+      "cefrLevel": "A1",
+      "type": "grammar",
+      "number": 2,
+      "title": "To Be",
+      "assetPath": "assets/lessons/a1/grammar/02_to_be.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a1_grammar_03",
+      "cefrLevel": "A1",
+      "type": "grammar",
+      "number": 3,
+      "title": "Simple Present",
+      "assetPath": "assets/lessons/a1/grammar/03_simple_present.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a1_grammar_04",
+      "cefrLevel": "A1",
+      "type": "grammar",
+      "number": 4,
+      "title": "Articles",
+      "assetPath": "assets/lessons/a1/grammar/04_articles.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a1_grammar_05",
+      "cefrLevel": "A1",
+      "type": "grammar",
+      "number": 5,
+      "title": "Plurals",
+      "assetPath": "assets/lessons/a1/grammar/05_plurals.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a1_grammar_06",
+      "cefrLevel": "A1",
+      "type": "grammar",
+      "number": 6,
+      "title": "Possessives",
+      "assetPath": "assets/lessons/a1/grammar/06_possessives.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a1_grammar_07",
+      "cefrLevel": "A1",
+      "type": "grammar",
+      "number": 7,
+      "title": "This and That",
+      "assetPath": "assets/lessons/a1/grammar/07_this_and_that.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a1_grammar_08",
+      "cefrLevel": "A1",
+      "type": "grammar",
+      "number": 8,
+      "title": "Have and Has",
+      "assetPath": "assets/lessons/a1/grammar/08_have_and_has.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a1_grammar_09",
+      "cefrLevel": "A1",
+      "type": "grammar",
+      "number": 9,
+      "title": "Can",
+      "assetPath": "assets/lessons/a1/grammar/09_can.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a1_grammar_10",
+      "cefrLevel": "A1",
+      "type": "grammar",
+      "number": 10,
+      "title": "Question Words",
+      "assetPath": "assets/lessons/a1/grammar/10_question_words.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a1_reading_01",
+      "cefrLevel": "A1",
+      "type": "reading",
+      "number": 1,
+      "title": "Meeting Someone",
+      "assetPath": "assets/lessons/a1/reading/01_meeting_someone.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_reading_02",
+      "cefrLevel": "A1",
+      "type": "reading",
+      "number": 2,
+      "title": "My Family",
+      "assetPath": "assets/lessons/a1/reading/02_my_family.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_reading_03",
+      "cefrLevel": "A1",
+      "type": "reading",
+      "number": 3,
+      "title": "At Café",
+      "assetPath": "assets/lessons/a1/reading/03_at_caf.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_reading_04",
+      "cefrLevel": "A1",
+      "type": "reading",
+      "number": 4,
+      "title": "Daily Routine",
+      "assetPath": "assets/lessons/a1/reading/04_daily_routine.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_reading_05",
+      "cefrLevel": "A1",
+      "type": "reading",
+      "number": 5,
+      "title": "My Home",
+      "assetPath": "assets/lessons/a1/reading/05_my_home.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_reading_06",
+      "cefrLevel": "A1",
+      "type": "reading",
+      "number": 6,
+      "title": "Shopping Clothes",
+      "assetPath": "assets/lessons/a1/reading/06_shopping_clothes.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_reading_07",
+      "cefrLevel": "A1",
+      "type": "reading",
+      "number": 7,
+      "title": "Directions",
+      "assetPath": "assets/lessons/a1/reading/07_directions.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "a1_reading_08",
+      "cefrLevel": "A1",
+      "type": "reading",
+      "number": 8,
+      "title": "Doctor",
+      "assetPath": "assets/lessons/a1/reading/08_doctor.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_reading_09",
+      "cefrLevel": "A1",
+      "type": "reading",
+      "number": 9,
+      "title": "Weekend Plans",
+      "assetPath": "assets/lessons/a1/reading/09_weekend_plans.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a1_reading_10",
+      "cefrLevel": "A1",
+      "type": "reading",
+      "number": 10,
+      "title": "Weather",
+      "assetPath": "assets/lessons/a1/reading/10_weather.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_vocab_01",
+      "cefrLevel": "A2",
+      "type": "vocabulary",
+      "number": 1,
+      "title": "Jobs",
+      "assetPath": "assets/lessons/a2/vocabulary/01_jobs.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_vocab_02",
+      "cefrLevel": "A2",
+      "type": "vocabulary",
+      "number": 2,
+      "title": "Transportation",
+      "assetPath": "assets/lessons/a2/vocabulary/02_transportation.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "a2_vocab_03",
+      "cefrLevel": "A2",
+      "type": "vocabulary",
+      "number": 3,
+      "title": "Hobbies",
+      "assetPath": "assets/lessons/a2/vocabulary/03_hobbies.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_vocab_04",
+      "cefrLevel": "A2",
+      "type": "vocabulary",
+      "number": 4,
+      "title": "Health and Fitness",
+      "assetPath": "assets/lessons/a2/vocabulary/04_health_and_fitness.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_vocab_05",
+      "cefrLevel": "A2",
+      "type": "vocabulary",
+      "number": 5,
+      "title": "Shopping",
+      "assetPath": "assets/lessons/a2/vocabulary/05_shopping.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_vocab_06",
+      "cefrLevel": "A2",
+      "type": "vocabulary",
+      "number": 6,
+      "title": "Restaurant",
+      "assetPath": "assets/lessons/a2/vocabulary/06_restaurant.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_vocab_07",
+      "cefrLevel": "A2",
+      "type": "vocabulary",
+      "number": 7,
+      "title": "Travel",
+      "assetPath": "assets/lessons/a2/vocabulary/07_travel.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "a2_vocab_08",
+      "cefrLevel": "A2",
+      "type": "vocabulary",
+      "number": 8,
+      "title": "Past Events",
+      "assetPath": "assets/lessons/a2/vocabulary/08_past_events.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_vocab_09",
+      "cefrLevel": "A2",
+      "type": "vocabulary",
+      "number": 9,
+      "title": "Comparisons",
+      "assetPath": "assets/lessons/a2/vocabulary/09_comparisons.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_vocab_10",
+      "cefrLevel": "A2",
+      "type": "vocabulary",
+      "number": 10,
+      "title": "Technology",
+      "assetPath": "assets/lessons/a2/vocabulary/10_technology.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_grammar_01",
+      "cefrLevel": "A2",
+      "type": "grammar",
+      "number": 1,
+      "title": "Past Simple",
+      "assetPath": "assets/lessons/a2/grammar/01_past_simple.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a2_grammar_02",
+      "cefrLevel": "A2",
+      "type": "grammar",
+      "number": 2,
+      "title": "Past Continuous",
+      "assetPath": "assets/lessons/a2/grammar/02_past_continuous.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a2_grammar_03",
+      "cefrLevel": "A2",
+      "type": "grammar",
+      "number": 3,
+      "title": "Future with Will",
+      "assetPath": "assets/lessons/a2/grammar/03_future_with_will.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a2_grammar_04",
+      "cefrLevel": "A2",
+      "type": "grammar",
+      "number": 4,
+      "title": "Going To",
+      "assetPath": "assets/lessons/a2/grammar/04_going_to.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a2_grammar_05",
+      "cefrLevel": "A2",
+      "type": "grammar",
+      "number": 5,
+      "title": "Comparatives and Superlatives",
+      "assetPath": "assets/lessons/a2/grammar/05_comparatives_and_superlatives.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a2_grammar_06",
+      "cefrLevel": "A2",
+      "type": "grammar",
+      "number": 6,
+      "title": "Adverbs of Frequency",
+      "assetPath": "assets/lessons/a2/grammar/06_adverbs_of_frequency.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a2_grammar_07",
+      "cefrLevel": "A2",
+      "type": "grammar",
+      "number": 7,
+      "title": "Countable and Uncountable",
+      "assetPath": "assets/lessons/a2/grammar/07_countable_and_uncountable.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a2_grammar_08",
+      "cefrLevel": "A2",
+      "type": "grammar",
+      "number": 8,
+      "title": "Some and Any",
+      "assetPath": "assets/lessons/a2/grammar/08_some_and_any.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a2_grammar_09",
+      "cefrLevel": "A2",
+      "type": "grammar",
+      "number": 9,
+      "title": "Prepositions of Time",
+      "assetPath": "assets/lessons/a2/grammar/09_prepositions_of_time.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a2_grammar_10",
+      "cefrLevel": "A2",
+      "type": "grammar",
+      "number": 10,
+      "title": "Should and Must",
+      "assetPath": "assets/lessons/a2/grammar/10_should_and_must.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "a2_reading_01",
+      "cefrLevel": "A2",
+      "type": "reading",
+      "number": 1,
+      "title": "Job Interview",
+      "assetPath": "assets/lessons/a2/reading/01_job_interview.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_reading_02",
+      "cefrLevel": "A2",
+      "type": "reading",
+      "number": 2,
+      "title": "Train Journey",
+      "assetPath": "assets/lessons/a2/reading/02_train_journey.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "a2_reading_03",
+      "cefrLevel": "A2",
+      "type": "reading",
+      "number": 3,
+      "title": "Restaurant Order",
+      "assetPath": "assets/lessons/a2/reading/03_restaurant_order.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_reading_04",
+      "cefrLevel": "A2",
+      "type": "reading",
+      "number": 4,
+      "title": "Lost Luggage",
+      "assetPath": "assets/lessons/a2/reading/04_lost_luggage.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "a2_reading_05",
+      "cefrLevel": "A2",
+      "type": "reading",
+      "number": 5,
+      "title": "Weekend Trip",
+      "assetPath": "assets/lessons/a2/reading/05_weekend_trip.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "a2_reading_06",
+      "cefrLevel": "A2",
+      "type": "reading",
+      "number": 6,
+      "title": "Health Advice",
+      "assetPath": "assets/lessons/a2/reading/06_health_advice.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_reading_07",
+      "cefrLevel": "A2",
+      "type": "reading",
+      "number": 7,
+      "title": "Online Shopping",
+      "assetPath": "assets/lessons/a2/reading/07_online_shopping.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_reading_08",
+      "cefrLevel": "A2",
+      "type": "reading",
+      "number": 8,
+      "title": "Birthday Party",
+      "assetPath": "assets/lessons/a2/reading/08_birthday_party.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_reading_09",
+      "cefrLevel": "A2",
+      "type": "reading",
+      "number": 9,
+      "title": "Technology Problem",
+      "assetPath": "assets/lessons/a2/reading/09_technology_problem.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "a2_reading_10",
+      "cefrLevel": "A2",
+      "type": "reading",
+      "number": 10,
+      "title": "Comparing Cities",
+      "assetPath": "assets/lessons/a2/reading/10_comparing_cities.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "b1_vocab_01",
+      "cefrLevel": "B1",
+      "type": "vocabulary",
+      "number": 1,
+      "title": "Work and Office",
+      "assetPath": "assets/lessons/b1/vocabulary/01_work_and_office.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_vocab_02",
+      "cefrLevel": "B1",
+      "type": "vocabulary",
+      "number": 2,
+      "title": "Education",
+      "assetPath": "assets/lessons/b1/vocabulary/02_education.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_vocab_03",
+      "cefrLevel": "B1",
+      "type": "vocabulary",
+      "number": 3,
+      "title": "Environment",
+      "assetPath": "assets/lessons/b1/vocabulary/03_environment.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_vocab_04",
+      "cefrLevel": "B1",
+      "type": "vocabulary",
+      "number": 4,
+      "title": "Media",
+      "assetPath": "assets/lessons/b1/vocabulary/04_media.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_vocab_05",
+      "cefrLevel": "B1",
+      "type": "vocabulary",
+      "number": 5,
+      "title": "Describing People",
+      "assetPath": "assets/lessons/b1/vocabulary/05_describing_people.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_vocab_06",
+      "cefrLevel": "B1",
+      "type": "vocabulary",
+      "number": 6,
+      "title": "Feelings",
+      "assetPath": "assets/lessons/b1/vocabulary/06_feelings.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_vocab_07",
+      "cefrLevel": "B1",
+      "type": "vocabulary",
+      "number": 7,
+      "title": "Cooking",
+      "assetPath": "assets/lessons/b1/vocabulary/07_cooking.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_vocab_08",
+      "cefrLevel": "B1",
+      "type": "vocabulary",
+      "number": 8,
+      "title": "Sports",
+      "assetPath": "assets/lessons/b1/vocabulary/08_sports.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_vocab_09",
+      "cefrLevel": "B1",
+      "type": "vocabulary",
+      "number": 9,
+      "title": "Holidays",
+      "assetPath": "assets/lessons/b1/vocabulary/09_holidays.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "b1_vocab_10",
+      "cefrLevel": "B1",
+      "type": "vocabulary",
+      "number": 10,
+      "title": "Phone and Email",
+      "assetPath": "assets/lessons/b1/vocabulary/10_phone_and_email.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_grammar_01",
+      "cefrLevel": "B1",
+      "type": "grammar",
+      "number": 1,
+      "title": "Present Perfect",
+      "assetPath": "assets/lessons/b1/grammar/01_present_perfect.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b1_grammar_02",
+      "cefrLevel": "B1",
+      "type": "grammar",
+      "number": 2,
+      "title": "Past Perfect",
+      "assetPath": "assets/lessons/b1/grammar/02_past_perfect.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b1_grammar_03",
+      "cefrLevel": "B1",
+      "type": "grammar",
+      "number": 3,
+      "title": "First Conditional",
+      "assetPath": "assets/lessons/b1/grammar/03_first_conditional.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b1_grammar_04",
+      "cefrLevel": "B1",
+      "type": "grammar",
+      "number": 4,
+      "title": "Second Conditional",
+      "assetPath": "assets/lessons/b1/grammar/04_second_conditional.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b1_grammar_05",
+      "cefrLevel": "B1",
+      "type": "grammar",
+      "number": 5,
+      "title": "Passive Voice Intro",
+      "assetPath": "assets/lessons/b1/grammar/05_passive_voice_intro.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b1_grammar_06",
+      "cefrLevel": "B1",
+      "type": "grammar",
+      "number": 6,
+      "title": "Relative Clauses",
+      "assetPath": "assets/lessons/b1/grammar/06_relative_clauses.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b1_grammar_07",
+      "cefrLevel": "B1",
+      "type": "grammar",
+      "number": 7,
+      "title": "Reported Speech Intro",
+      "assetPath": "assets/lessons/b1/grammar/07_reported_speech_intro.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b1_grammar_08",
+      "cefrLevel": "B1",
+      "type": "grammar",
+      "number": 8,
+      "title": "Modals of Deduction",
+      "assetPath": "assets/lessons/b1/grammar/08_modals_of_deduction.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b1_grammar_09",
+      "cefrLevel": "B1",
+      "type": "grammar",
+      "number": 9,
+      "title": "Phrasal Verbs 1",
+      "assetPath": "assets/lessons/b1/grammar/09_phrasal_verbs_1.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b1_grammar_10",
+      "cefrLevel": "B1",
+      "type": "grammar",
+      "number": 10,
+      "title": "Gerunds and Infinitives",
+      "assetPath": "assets/lessons/b1/grammar/10_gerunds_and_infinitives.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b1_reading_01",
+      "cefrLevel": "B1",
+      "type": "reading",
+      "number": 1,
+      "title": "Office Meeting",
+      "assetPath": "assets/lessons/b1/reading/01_office_meeting.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_reading_02",
+      "cefrLevel": "B1",
+      "type": "reading",
+      "number": 2,
+      "title": "University Life",
+      "assetPath": "assets/lessons/b1/reading/02_university_life.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_reading_03",
+      "cefrLevel": "B1",
+      "type": "reading",
+      "number": 3,
+      "title": "Environmental Action",
+      "assetPath": "assets/lessons/b1/reading/03_environmental_action.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_reading_04",
+      "cefrLevel": "B1",
+      "type": "reading",
+      "number": 4,
+      "title": "News Discussion",
+      "assetPath": "assets/lessons/b1/reading/04_news_discussion.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_reading_05",
+      "cefrLevel": "B1",
+      "type": "reading",
+      "number": 5,
+      "title": "Cooking Class",
+      "assetPath": "assets/lessons/b1/reading/05_cooking_class.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_reading_06",
+      "cefrLevel": "B1",
+      "type": "reading",
+      "number": 6,
+      "title": "Sports Competition",
+      "assetPath": "assets/lessons/b1/reading/06_sports_competition.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_reading_07",
+      "cefrLevel": "B1",
+      "type": "reading",
+      "number": 7,
+      "title": "Holiday Traditions",
+      "assetPath": "assets/lessons/b1/reading/07_holiday_traditions.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "b1_reading_08",
+      "cefrLevel": "B1",
+      "type": "reading",
+      "number": 8,
+      "title": "Email Misunderstanding",
+      "assetPath": "assets/lessons/b1/reading/08_email_misunderstanding.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_reading_09",
+      "cefrLevel": "B1",
+      "type": "reading",
+      "number": 9,
+      "title": "Feelings and Stress",
+      "assetPath": "assets/lessons/b1/reading/09_feelings_and_stress.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b1_reading_10",
+      "cefrLevel": "B1",
+      "type": "reading",
+      "number": 10,
+      "title": "Media Habits",
+      "assetPath": "assets/lessons/b1/reading/10_media_habits.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_vocab_01",
+      "cefrLevel": "B2",
+      "type": "vocabulary",
+      "number": 1,
+      "title": "Global Issues",
+      "assetPath": "assets/lessons/b2/vocabulary/01_global_issues.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_vocab_02",
+      "cefrLevel": "B2",
+      "type": "vocabulary",
+      "number": 2,
+      "title": "Politics",
+      "assetPath": "assets/lessons/b2/vocabulary/02_politics.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_vocab_03",
+      "cefrLevel": "B2",
+      "type": "vocabulary",
+      "number": 3,
+      "title": "Business",
+      "assetPath": "assets/lessons/b2/vocabulary/03_business.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_vocab_04",
+      "cefrLevel": "B2",
+      "type": "vocabulary",
+      "number": 4,
+      "title": "Science",
+      "assetPath": "assets/lessons/b2/vocabulary/04_science.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_vocab_05",
+      "cefrLevel": "B2",
+      "type": "vocabulary",
+      "number": 5,
+      "title": "Art and Culture",
+      "assetPath": "assets/lessons/b2/vocabulary/05_art_and_culture.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_vocab_06",
+      "cefrLevel": "B2",
+      "type": "vocabulary",
+      "number": 6,
+      "title": "Relationships",
+      "assetPath": "assets/lessons/b2/vocabulary/06_relationships.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_vocab_07",
+      "cefrLevel": "B2",
+      "type": "vocabulary",
+      "number": 7,
+      "title": "Housing",
+      "assetPath": "assets/lessons/b2/vocabulary/07_housing.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_vocab_08",
+      "cefrLevel": "B2",
+      "type": "vocabulary",
+      "number": 8,
+      "title": "Law and Rights",
+      "assetPath": "assets/lessons/b2/vocabulary/08_law_and_rights.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_vocab_09",
+      "cefrLevel": "B2",
+      "type": "vocabulary",
+      "number": 9,
+      "title": "Nutrition",
+      "assetPath": "assets/lessons/b2/vocabulary/09_nutrition.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_vocab_10",
+      "cefrLevel": "B2",
+      "type": "vocabulary",
+      "number": 10,
+      "title": "Career Development",
+      "assetPath": "assets/lessons/b2/vocabulary/10_career_development.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_grammar_01",
+      "cefrLevel": "B2",
+      "type": "grammar",
+      "number": 1,
+      "title": "Third Conditional",
+      "assetPath": "assets/lessons/b2/grammar/01_third_conditional.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b2_grammar_02",
+      "cefrLevel": "B2",
+      "type": "grammar",
+      "number": 2,
+      "title": "Mixed Conditionals",
+      "assetPath": "assets/lessons/b2/grammar/02_mixed_conditionals.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b2_grammar_03",
+      "cefrLevel": "B2",
+      "type": "grammar",
+      "number": 3,
+      "title": "Passive All Tenses",
+      "assetPath": "assets/lessons/b2/grammar/03_passive_all_tenses.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b2_grammar_04",
+      "cefrLevel": "B2",
+      "type": "grammar",
+      "number": 4,
+      "title": "Advanced Modals",
+      "assetPath": "assets/lessons/b2/grammar/04_advanced_modals.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b2_grammar_05",
+      "cefrLevel": "B2",
+      "type": "grammar",
+      "number": 5,
+      "title": "Subjunctive",
+      "assetPath": "assets/lessons/b2/grammar/05_subjunctive.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b2_grammar_06",
+      "cefrLevel": "B2",
+      "type": "grammar",
+      "number": 6,
+      "title": "Cleft Sentences",
+      "assetPath": "assets/lessons/b2/grammar/06_cleft_sentences.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b2_grammar_07",
+      "cefrLevel": "B2",
+      "type": "grammar",
+      "number": 7,
+      "title": "Inversion",
+      "assetPath": "assets/lessons/b2/grammar/07_inversion.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b2_grammar_08",
+      "cefrLevel": "B2",
+      "type": "grammar",
+      "number": 8,
+      "title": "Discourse Markers",
+      "assetPath": "assets/lessons/b2/grammar/08_discourse_markers.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b2_grammar_09",
+      "cefrLevel": "B2",
+      "type": "grammar",
+      "number": 9,
+      "title": "Nominalization",
+      "assetPath": "assets/lessons/b2/grammar/09_nominalization.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b2_grammar_10",
+      "cefrLevel": "B2",
+      "type": "grammar",
+      "number": 10,
+      "title": "Ellipsis",
+      "assetPath": "assets/lessons/b2/grammar/10_ellipsis.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "b2_reading_01",
+      "cefrLevel": "B2",
+      "type": "reading",
+      "number": 1,
+      "title": "Global Inequality",
+      "assetPath": "assets/lessons/b2/reading/01_global_inequality.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_reading_02",
+      "cefrLevel": "B2",
+      "type": "reading",
+      "number": 2,
+      "title": "Election Debate",
+      "assetPath": "assets/lessons/b2/reading/02_election_debate.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_reading_03",
+      "cefrLevel": "B2",
+      "type": "reading",
+      "number": 3,
+      "title": "Business Negotiation",
+      "assetPath": "assets/lessons/b2/reading/03_business_negotiation.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_reading_04",
+      "cefrLevel": "B2",
+      "type": "reading",
+      "number": 4,
+      "title": "Scientific Discovery",
+      "assetPath": "assets/lessons/b2/reading/04_scientific_discovery.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_reading_05",
+      "cefrLevel": "B2",
+      "type": "reading",
+      "number": 5,
+      "title": "Art Exhibition Review",
+      "assetPath": "assets/lessons/b2/reading/05_art_exhibition_review.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_reading_06",
+      "cefrLevel": "B2",
+      "type": "reading",
+      "number": 6,
+      "title": "Relationship Conflict",
+      "assetPath": "assets/lessons/b2/reading/06_relationship_conflict.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_reading_07",
+      "cefrLevel": "B2",
+      "type": "reading",
+      "number": 7,
+      "title": "Housing Market",
+      "assetPath": "assets/lessons/b2/reading/07_housing_market.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_reading_08",
+      "cefrLevel": "B2",
+      "type": "reading",
+      "number": 8,
+      "title": "Court Case Summary",
+      "assetPath": "assets/lessons/b2/reading/08_court_case_summary.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_reading_09",
+      "cefrLevel": "B2",
+      "type": "reading",
+      "number": 9,
+      "title": "Nutrition Research",
+      "assetPath": "assets/lessons/b2/reading/09_nutrition_research.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "b2_reading_10",
+      "cefrLevel": "B2",
+      "type": "reading",
+      "number": 10,
+      "title": "Career Coaching",
+      "assetPath": "assets/lessons/b2/reading/10_career_coaching.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_vocab_01",
+      "cefrLevel": "C1",
+      "type": "vocabulary",
+      "number": 1,
+      "title": "Philosophy",
+      "assetPath": "assets/lessons/c1/vocabulary/01_philosophy.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_vocab_02",
+      "cefrLevel": "C1",
+      "type": "vocabulary",
+      "number": 2,
+      "title": "Economics",
+      "assetPath": "assets/lessons/c1/vocabulary/02_economics.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_vocab_03",
+      "cefrLevel": "C1",
+      "type": "vocabulary",
+      "number": 3,
+      "title": "Psychology",
+      "assetPath": "assets/lessons/c1/vocabulary/03_psychology.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_vocab_04",
+      "cefrLevel": "C1",
+      "type": "vocabulary",
+      "number": 4,
+      "title": "Literature",
+      "assetPath": "assets/lessons/c1/vocabulary/04_literature.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_vocab_05",
+      "cefrLevel": "C1",
+      "type": "vocabulary",
+      "number": 5,
+      "title": "Academic Writing",
+      "assetPath": "assets/lessons/c1/vocabulary/05_academic_writing.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_vocab_06",
+      "cefrLevel": "C1",
+      "type": "vocabulary",
+      "number": 6,
+      "title": "Debate",
+      "assetPath": "assets/lessons/c1/vocabulary/06_debate.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_vocab_07",
+      "cefrLevel": "C1",
+      "type": "vocabulary",
+      "number": 7,
+      "title": "Ethics",
+      "assetPath": "assets/lessons/c1/vocabulary/07_ethics.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_vocab_08",
+      "cefrLevel": "C1",
+      "type": "vocabulary",
+      "number": 8,
+      "title": "Innovation",
+      "assetPath": "assets/lessons/c1/vocabulary/08_innovation.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_vocab_09",
+      "cefrLevel": "C1",
+      "type": "vocabulary",
+      "number": 9,
+      "title": "Social Media Impact",
+      "assetPath": "assets/lessons/c1/vocabulary/09_social_media_impact.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_vocab_10",
+      "cefrLevel": "C1",
+      "type": "vocabulary",
+      "number": 10,
+      "title": "Migration",
+      "assetPath": "assets/lessons/c1/vocabulary/10_migration.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "c1_grammar_01",
+      "cefrLevel": "C1",
+      "type": "grammar",
+      "number": 1,
+      "title": "Advanced Passive",
+      "assetPath": "assets/lessons/c1/grammar/01_advanced_passive.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c1_grammar_02",
+      "cefrLevel": "C1",
+      "type": "grammar",
+      "number": 2,
+      "title": "Subjunctive Mood",
+      "assetPath": "assets/lessons/c1/grammar/02_subjunctive_mood.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c1_grammar_03",
+      "cefrLevel": "C1",
+      "type": "grammar",
+      "number": 3,
+      "title": "Fronting",
+      "assetPath": "assets/lessons/c1/grammar/03_fronting.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c1_grammar_04",
+      "cefrLevel": "C1",
+      "type": "grammar",
+      "number": 4,
+      "title": "Hedging Language",
+      "assetPath": "assets/lessons/c1/grammar/04_hedging_language.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c1_grammar_05",
+      "cefrLevel": "C1",
+      "type": "grammar",
+      "number": 5,
+      "title": "Cohesion Devices",
+      "assetPath": "assets/lessons/c1/grammar/05_cohesion_devices.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c1_grammar_06",
+      "cefrLevel": "C1",
+      "type": "grammar",
+      "number": 6,
+      "title": "Register Shift",
+      "assetPath": "assets/lessons/c1/grammar/06_register_shift.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c1_grammar_07",
+      "cefrLevel": "C1",
+      "type": "grammar",
+      "number": 7,
+      "title": "Ellipsis and Substitution",
+      "assetPath": "assets/lessons/c1/grammar/07_ellipsis_and_substitution.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c1_grammar_08",
+      "cefrLevel": "C1",
+      "type": "grammar",
+      "number": 8,
+      "title": "Complex Noun Phrases",
+      "assetPath": "assets/lessons/c1/grammar/08_complex_noun_phrases.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c1_grammar_09",
+      "cefrLevel": "C1",
+      "type": "grammar",
+      "number": 9,
+      "title": "Distancing",
+      "assetPath": "assets/lessons/c1/grammar/09_distancing.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c1_grammar_10",
+      "cefrLevel": "C1",
+      "type": "grammar",
+      "number": 10,
+      "title": "Rhetorical Devices",
+      "assetPath": "assets/lessons/c1/grammar/10_rhetorical_devices.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c1_reading_01",
+      "cefrLevel": "C1",
+      "type": "reading",
+      "number": 1,
+      "title": "Philosophical Essay",
+      "assetPath": "assets/lessons/c1/reading/01_philosophical_essay.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_reading_02",
+      "cefrLevel": "C1",
+      "type": "reading",
+      "number": 2,
+      "title": "Economic Outlook",
+      "assetPath": "assets/lessons/c1/reading/02_economic_outlook.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_reading_03",
+      "cefrLevel": "C1",
+      "type": "reading",
+      "number": 3,
+      "title": "Psychology Lecture",
+      "assetPath": "assets/lessons/c1/reading/03_psychology_lecture.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_reading_04",
+      "cefrLevel": "C1",
+      "type": "reading",
+      "number": 4,
+      "title": "Literary Analysis",
+      "assetPath": "assets/lessons/c1/reading/04_literary_analysis.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_reading_05",
+      "cefrLevel": "C1",
+      "type": "reading",
+      "number": 5,
+      "title": "Academic Peer Review",
+      "assetPath": "assets/lessons/c1/reading/05_academic_peer_review.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_reading_06",
+      "cefrLevel": "C1",
+      "type": "reading",
+      "number": 6,
+      "title": "Ethics Panel",
+      "assetPath": "assets/lessons/c1/reading/06_ethics_panel.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_reading_07",
+      "cefrLevel": "C1",
+      "type": "reading",
+      "number": 7,
+      "title": "Innovation Strategy",
+      "assetPath": "assets/lessons/c1/reading/07_innovation_strategy.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_reading_08",
+      "cefrLevel": "C1",
+      "type": "reading",
+      "number": 8,
+      "title": "Social Media Ethics",
+      "assetPath": "assets/lessons/c1/reading/08_social_media_ethics.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c1_reading_09",
+      "cefrLevel": "C1",
+      "type": "reading",
+      "number": 9,
+      "title": "Migration Policy",
+      "assetPath": "assets/lessons/c1/reading/09_migration_policy.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "c1_reading_10",
+      "cefrLevel": "C1",
+      "type": "reading",
+      "number": 10,
+      "title": "Debate Closing Statement",
+      "assetPath": "assets/lessons/c1/reading/10_debate_closing_statement.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_vocab_01",
+      "cefrLevel": "C2",
+      "type": "vocabulary",
+      "number": 1,
+      "title": "Current Affairs",
+      "assetPath": "assets/lessons/c2/vocabulary/01_current_affairs.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_vocab_02",
+      "cefrLevel": "C2",
+      "type": "vocabulary",
+      "number": 2,
+      "title": "Climate Policy",
+      "assetPath": "assets/lessons/c2/vocabulary/02_climate_policy.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_vocab_03",
+      "cefrLevel": "C2",
+      "type": "vocabulary",
+      "number": 3,
+      "title": "Medical Ethics",
+      "assetPath": "assets/lessons/c2/vocabulary/03_medical_ethics.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_vocab_04",
+      "cefrLevel": "C2",
+      "type": "vocabulary",
+      "number": 4,
+      "title": "Corporate Strategy",
+      "assetPath": "assets/lessons/c2/vocabulary/04_corporate_strategy.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_vocab_05",
+      "cefrLevel": "C2",
+      "type": "vocabulary",
+      "number": 5,
+      "title": "International Relations",
+      "assetPath": "assets/lessons/c2/vocabulary/05_international_relations.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "c2_vocab_06",
+      "cefrLevel": "C2",
+      "type": "vocabulary",
+      "number": 6,
+      "title": "Cultural Identity",
+      "assetPath": "assets/lessons/c2/vocabulary/06_cultural_identity.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_vocab_07",
+      "cefrLevel": "C2",
+      "type": "vocabulary",
+      "number": 7,
+      "title": "Artificial Intelligence",
+      "assetPath": "assets/lessons/c2/vocabulary/07_artificial_intelligence.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_vocab_08",
+      "cefrLevel": "C2",
+      "type": "vocabulary",
+      "number": 8,
+      "title": "Human Rights",
+      "assetPath": "assets/lessons/c2/vocabulary/08_human_rights.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_vocab_09",
+      "cefrLevel": "C2",
+      "type": "vocabulary",
+      "number": 9,
+      "title": "Globalization",
+      "assetPath": "assets/lessons/c2/vocabulary/09_globalization.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_vocab_10",
+      "cefrLevel": "C2",
+      "type": "vocabulary",
+      "number": 10,
+      "title": "Leadership",
+      "assetPath": "assets/lessons/c2/vocabulary/10_leadership.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_grammar_01",
+      "cefrLevel": "C2",
+      "type": "grammar",
+      "number": 1,
+      "title": "Subtle Modals",
+      "assetPath": "assets/lessons/c2/grammar/01_subtle_modals.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c2_grammar_02",
+      "cefrLevel": "C2",
+      "type": "grammar",
+      "number": 2,
+      "title": "Mixed Conditionals Advanced",
+      "assetPath": "assets/lessons/c2/grammar/02_mixed_conditionals_advanced.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c2_grammar_03",
+      "cefrLevel": "C2",
+      "type": "grammar",
+      "number": 3,
+      "title": "Inversion for Emphasis",
+      "assetPath": "assets/lessons/c2/grammar/03_inversion_for_emphasis.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c2_grammar_04",
+      "cefrLevel": "C2",
+      "type": "grammar",
+      "number": 4,
+      "title": "Cleft and Pseudo-cleft",
+      "assetPath": "assets/lessons/c2/grammar/04_cleft_and_pseudo_cleft.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c2_grammar_05",
+      "cefrLevel": "C2",
+      "type": "grammar",
+      "number": 5,
+      "title": "Nominal Style",
+      "assetPath": "assets/lessons/c2/grammar/05_nominal_style.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c2_grammar_06",
+      "cefrLevel": "C2",
+      "type": "grammar",
+      "number": 6,
+      "title": "Ellipsis Advanced",
+      "assetPath": "assets/lessons/c2/grammar/06_ellipsis_advanced.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c2_grammar_07",
+      "cefrLevel": "C2",
+      "type": "grammar",
+      "number": 7,
+      "title": "Fronting and Topicalization",
+      "assetPath": "assets/lessons/c2/grammar/07_fronting_and_topicalization.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c2_grammar_08",
+      "cefrLevel": "C2",
+      "type": "grammar",
+      "number": 8,
+      "title": "Discourse Structure",
+      "assetPath": "assets/lessons/c2/grammar/08_discourse_structure.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c2_grammar_09",
+      "cefrLevel": "C2",
+      "type": "grammar",
+      "number": 9,
+      "title": "Register and Tone",
+      "assetPath": "assets/lessons/c2/grammar/09_register_and_tone.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c2_grammar_10",
+      "cefrLevel": "C2",
+      "type": "grammar",
+      "number": 10,
+      "title": "Precision in Modality",
+      "assetPath": "assets/lessons/c2/grammar/10_precision_in_modality.json",
+      "iconName": "grammar"
+    },
+    {
+      "id": "c2_reading_01",
+      "cefrLevel": "C2",
+      "type": "reading",
+      "number": 1,
+      "title": "Geopolitical Analysis",
+      "assetPath": "assets/lessons/c2/reading/01_geopolitical_analysis.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "c2_reading_02",
+      "cefrLevel": "C2",
+      "type": "reading",
+      "number": 2,
+      "title": "Climate Summit",
+      "assetPath": "assets/lessons/c2/reading/02_climate_summit.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_reading_03",
+      "cefrLevel": "C2",
+      "type": "reading",
+      "number": 3,
+      "title": "Medical Ethics Case",
+      "assetPath": "assets/lessons/c2/reading/03_medical_ethics_case.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_reading_04",
+      "cefrLevel": "C2",
+      "type": "reading",
+      "number": 4,
+      "title": "Corporate Merger",
+      "assetPath": "assets/lessons/c2/reading/04_corporate_merger.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_reading_05",
+      "cefrLevel": "C2",
+      "type": "reading",
+      "number": 5,
+      "title": "Diplomatic Cable",
+      "assetPath": "assets/lessons/c2/reading/05_diplomatic_cable.json",
+      "iconName": "travel"
+    },
+    {
+      "id": "c2_reading_06",
+      "cefrLevel": "C2",
+      "type": "reading",
+      "number": 6,
+      "title": "Cultural Identity Forum",
+      "assetPath": "assets/lessons/c2/reading/06_cultural_identity_forum.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_reading_07",
+      "cefrLevel": "C2",
+      "type": "reading",
+      "number": 7,
+      "title": "AI Governance",
+      "assetPath": "assets/lessons/c2/reading/07_ai_governance.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_reading_08",
+      "cefrLevel": "C2",
+      "type": "reading",
+      "number": 8,
+      "title": "Human Rights Tribunal",
+      "assetPath": "assets/lessons/c2/reading/08_human_rights_tribunal.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_reading_09",
+      "cefrLevel": "C2",
+      "type": "reading",
+      "number": 9,
+      "title": "Globalization Report",
+      "assetPath": "assets/lessons/c2/reading/09_globalization_report.json",
+      "iconName": "chat"
+    },
+    {
+      "id": "c2_reading_10",
+      "cefrLevel": "C2",
+      "type": "reading",
+      "number": 10,
+      "title": "Leadership Symposium",
+      "assetPath": "assets/lessons/c2/reading/10_leadership_symposium.json",
+      "iconName": "chat"
+    }
+  ]
+}

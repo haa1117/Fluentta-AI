@@ -1,0 +1,65 @@
+{
+  "id": "b1_grammar_04",
+  "cefrLevel": "B1",
+  "number": 4,
+  "title": "Second Conditional",
+  "iconName": "grammar",
+  "rule": "Use the second conditional for unreal or unlikely situations.",
+  "pattern": "If + past simple, would + base verb",
+  "examples": [
+    {
+      "text": "If I had money, I would travel.",
+      "highlight": "would travel"
+    },
+    {
+      "text": "If she knew, she would help.",
+      "highlight": "would help"
+    },
+    {
+      "text": "Would you move if you could?",
+      "highlight": "Would"
+    },
+    {
+      "text": "If we lived near the sea, we would swim daily.",
+      "highlight": "would swim"
+    },
+    {
+      "text": "He wouldn't buy it if it were expensive.",
+      "highlight": "wouldn't buy"
+    }
+  ],
+  "practicePrompt": "Complete: If I ___ (be) you, I would apologize.",
+  "practiceAnswer": "were",
+  "steps": [
+    {
+      "title": "Use the second conditional for unreal or unlikely situations.",
+      "description": "If + past simple, would + base verb",
+      "formula": "If + past simple, would + base verb",
+      "examples": [
+        {
+          "text": "If I had money, I would travel.",
+          "highlight": "would travel"
+        },
+        {
+          "text": "If she knew, she would help.",
+          "highlight": "would help"
+        },
+        {
+          "text": "Would you move if you could?",
+          "highlight": "Would"
+        },
+        {
+          "text": "If we lived near the sea, we would swim daily.",
+          "highlight": "would swim"
+        },
+        {
+          "text": "He wouldn't buy it if it were expensive.",
+          "highlight": "wouldn't buy"
+        }
+      ],
+      "quickTip": "Complete: If I ___ (be) you, I would apologize. (were)"
+    }
+  ],
+  "completionTitle": "Second Conditional Learned",
+  "completionSummary": "If + past simple, would + base verb"
+}

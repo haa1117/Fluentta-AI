@@ -1,0 +1,313 @@
+{
+  "scenarioId": "job_interviews",
+  "cefrLevel": "A2",
+  "pathTitle": "Job Interview Quick Check",
+  "pathSubtitle": "Practice the language of job interviews — from first impressions to tough questions and salary negotiation.",
+  "lessons": [
+    {
+      "id": "job_interviews_quick_01",
+      "number": 1,
+      "title": "First Impressions",
+      "cefrLevel": "A2",
+      "iconName": "chat",
+      "completionTitle": "Job Interview",
+      "completionSummary": "You have completed First Impressions successfully",
+      "questions": [
+        {
+          "prompt": "Why is Sam at the office?",
+          "options": [
+            "To deliver a package",
+            "For a job interview at ten",
+            "To meet a friend"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Sam is at the office for a job interview at ten."
+        },
+        {
+          "prompt": "What does the HR assistant offer Sam?",
+          "options": [
+            "Coffee",
+            "Water",
+            "A biscuit"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The HR assistant offers Sam water."
+        },
+        {
+          "prompt": "What does \"interview\" mean?",
+          "options": [
+            "to greet someone who has arrived",
+            "to sit down",
+            "a meeting where someone asks you questions for a job"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"interview\" means a meeting where someone asks you questions for a job."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"welcome\"?",
+          "options": [
+            "I have a job interview on Monday.",
+            "Please take a seat and wait.",
+            "Welcome to our office!"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"Welcome to our office!\" is a good example."
+        },
+        {
+          "prompt": "What does \"take a seat\" mean?",
+          "options": [
+            "a meeting where someone asks you questions for a job",
+            "to greet someone who has arrived",
+            "to sit down"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"take a seat\" means to sit down."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_quick_02",
+      "number": 2,
+      "title": "Tell Me About Yourself",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Job Interview",
+      "completionSummary": "You have completed Tell Me About Yourself successfully",
+      "questions": [
+        {
+          "prompt": "What did the candidate study?",
+          "options": [
+            "Marketing",
+            "Business Management",
+            "Computer Science"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate studied Business Management."
+        },
+        {
+          "prompt": "Why does the candidate's manager give them urgent tasks?",
+          "options": [
+            "They are slow",
+            "They are reliable and finish on time",
+            "They have nothing else to do"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The manager gives them urgent tasks because they are reliable and finish on time."
+        },
+        {
+          "prompt": "What does \"apply\" mean?",
+          "options": [
+            "a job or role in a company",
+            "a duty or task you are in charge of",
+            "to make a formal request for a job or course"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"apply\" means to make a formal request for a job or course."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"position\"?",
+          "options": [
+            "I applied for three jobs last week.",
+            "I want more responsibility in my next job.",
+            "She is applying for the manager position."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"She is applying for the manager position.\" is a good example."
+        },
+        {
+          "prompt": "What does \"responsibility\" mean?",
+          "options": [
+            "to make a formal request for a job or course",
+            "a job or role in a company",
+            "a duty or task you are in charge of"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"responsibility\" means a duty or task you are in charge of."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_quick_03",
+      "number": 3,
+      "title": "Handling Tough Questions",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Job Interview",
+      "completionSummary": "You have completed Handling Tough Questions successfully",
+      "questions": [
+        {
+          "prompt": "What mistake did the candidate make?",
+          "options": [
+            "Sent an email to a wrong address",
+            "Sent a report to the wrong client",
+            "Forgot a deadline"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate sent a report to the wrong client."
+        },
+        {
+          "prompt": "What is the candidate's weakness?",
+          "options": [
+            "Being too slow",
+            "Difficulty delegating tasks",
+            "Poor communication"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate's weakness is difficulty delegating tasks."
+        },
+        {
+          "prompt": "What does \"mistake\" mean?",
+          "options": [
+            "to say sorry for something you did wrong",
+            "to recognize and value something",
+            "something done incorrectly or wrongly"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"mistake\" means something done incorrectly or wrongly."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"apologize\"?",
+          "options": [
+            "Everyone makes mistakes — what matters is how you fix them.",
+            "She appreciated my honesty.",
+            "I apologized to the client immediately."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"I apologized to the client immediately.\" is a good example."
+        },
+        {
+          "prompt": "What does \"appreciate\" mean?",
+          "options": [
+            "something done incorrectly or wrongly",
+            "to say sorry for something you did wrong",
+            "to recognize and value something"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"appreciate\" means to recognize and value something."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_quick_04",
+      "number": 4,
+      "title": "Salary Negotiation",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "Job Interview",
+      "completionSummary": "You have completed Salary Negotiation successfully",
+      "questions": [
+        {
+          "prompt": "What salary range does the candidate request?",
+          "options": [
+            "$45,000–$50,000",
+            "$55,000–$60,000",
+            "$60,000–$65,000"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate requests $55,000–$60,000."
+        },
+        {
+          "prompt": "What does the candidate ask about when the salary is low?",
+          "options": [
+            "Company size",
+            "The full package and benefits",
+            "Working hours"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate asks about the full package and benefits."
+        },
+        {
+          "prompt": "What does \"salary expectations\" mean?",
+          "options": [
+            "planned a specific amount of money for something",
+            "the total set of pay and benefits offered",
+            "the amount of pay you hope to receive"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"salary expectations\" means the amount of pay you hope to receive."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"budgeted\"?",
+          "options": [
+            "What are your salary expectations for this role?",
+            "The full package includes salary, bonus, and health insurance.",
+            "We budgeted $50,000 for this position."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"We budgeted $50,000 for this position.\" is a good example."
+        },
+        {
+          "prompt": "What does \"package\" mean?",
+          "options": [
+            "the amount of pay you hope to receive",
+            "planned a specific amount of money for something",
+            "the total set of pay and benefits offered"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"package\" means the total set of pay and benefits offered."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_quick_05",
+      "number": 5,
+      "title": "Senior-Level Strategic Interview",
+      "cefrLevel": "C1",
+      "iconName": "chat",
+      "completionTitle": "Job Interview",
+      "completionSummary": "You have completed Senior-Level Strategic Interview successfully",
+      "questions": [
+        {
+          "prompt": "What did the candidate do first to tackle the customer service problem?",
+          "options": [
+            "Fired the team",
+            "Conducted a root-cause analysis",
+            "Hired more staff"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The candidate first conducted a root-cause analysis."
+        },
+        {
+          "prompt": "How did customer satisfaction scores change?",
+          "options": [
+            "From 58% to 81%",
+            "From 40% to 80%",
+            "From 70% to 90%"
+          ],
+          "correctIndex": 0,
+          "feedback": "Correct! Customer satisfaction scores rose from 58% to 81%."
+        },
+        {
+          "prompt": "What does \"transformation\" mean?",
+          "options": [
+            "a method of identifying the original cause of a problem",
+            "a point of congestion that slows down a process",
+            "a fundamental and thorough change in form or character"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"transformation\" means a fundamental and thorough change in form or character."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"root-cause analysis\"?",
+          "options": [
+            "The new CEO led a complete transformation of the company.",
+            "The approval process was a major bottleneck.",
+            "We carried out a root-cause analysis before proposing any solutions."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"We carried out a root-cause analysis before proposing any solutions.\" is a good example."
+        },
+        {
+          "prompt": "What does \"bottleneck\" mean?",
+          "options": [
+            "a fundamental and thorough change in form or character",
+            "a method of identifying the original cause of a problem",
+            "a point of congestion that slows down a process"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"bottleneck\" means a point of congestion that slows down a process."
+        }
+      ]
+    }
+  ]
+}

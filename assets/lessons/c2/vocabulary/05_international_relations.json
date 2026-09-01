@@ -1,0 +1,44 @@
+{
+  "id": "c2_vocab_05",
+  "cefrLevel": "C2",
+  "number": 5,
+  "title": "International Relations",
+  "iconName": "travel",
+  "words": [
+    {
+      "word": "hegemony",
+      "phonetic": "/hɪˈdʒɛməni/",
+      "partOfSpeech": "noun",
+      "definition": "Dominance of one state over others.",
+      "example": "Regional hegemony shifted gradually."
+    },
+    {
+      "word": "treaty",
+      "phonetic": "/ˈtriːti/",
+      "partOfSpeech": "noun",
+      "definition": "A formal agreement between states.",
+      "example": "The treaty ended hostilities."
+    },
+    {
+      "word": "embargo",
+      "phonetic": "/ɪmˈbɑːrɡoʊ/",
+      "partOfSpeech": "noun",
+      "definition": "A ban on trade with a country.",
+      "example": "The embargo disrupted supply chains."
+    },
+    {
+      "word": "asylum",
+      "phonetic": "/əˈsaɪləm/",
+      "partOfSpeech": "noun",
+      "definition": "Protection given to refugees.",
+      "example": "She sought political asylum."
+    },
+    {
+      "word": "unilateral",
+      "phonetic": "/ˌjuːnɪˈlætərəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Done by one party alone.",
+      "example": "The unilateral decision provoked criticism."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "b1_vocab_03",
+  "cefrLevel": "B1",
+  "number": 3,
+  "title": "Environment",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "pollution",
+      "phonetic": "/pəˈluːʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Harmful substances in air or water.",
+      "example": "Air pollution is a serious problem."
+    },
+    {
+      "word": "recycle",
+      "phonetic": "/riːˈsaɪkəl/",
+      "partOfSpeech": "verb",
+      "definition": "To use materials again.",
+      "example": "We recycle paper and plastic."
+    },
+    {
+      "word": "climate",
+      "phonetic": "/ˈklaɪmət/",
+      "partOfSpeech": "noun",
+      "definition": "Weather conditions over time.",
+      "example": "Climate change affects everyone."
+    },
+    {
+      "word": "energy",
+      "phonetic": "/ˈɛnərdʒi/",
+      "partOfSpeech": "noun",
+      "definition": "Power from fuel or natural sources.",
+      "example": "Solar energy is renewable."
+    },
+    {
+      "word": "wildlife",
+      "phonetic": "/ˈwaɪldlaɪf/",
+      "partOfSpeech": "noun",
+      "definition": "Animals living in nature.",
+      "example": "We must protect wildlife."
+    }
+  ]
+}

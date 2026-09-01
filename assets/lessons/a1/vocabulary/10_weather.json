@@ -1,0 +1,44 @@
+{
+  "id": "a1_vocab_10",
+  "cefrLevel": "A1",
+  "number": 10,
+  "title": "Weather",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "sun",
+      "phonetic": "/sʌn/",
+      "partOfSpeech": "noun",
+      "definition": "The star that gives light and heat.",
+      "example": "The sun is bright today."
+    },
+    {
+      "word": "rain",
+      "phonetic": "/reɪn/",
+      "partOfSpeech": "noun",
+      "definition": "Water falling from clouds.",
+      "example": "I don't like rain."
+    },
+    {
+      "word": "snow",
+      "phonetic": "/snoʊ/",
+      "partOfSpeech": "noun",
+      "definition": "Soft white frozen water.",
+      "example": "It snows in winter."
+    },
+    {
+      "word": "wind",
+      "phonetic": "/wɪnd/",
+      "partOfSpeech": "noun",
+      "definition": "Moving air.",
+      "example": "The wind is strong."
+    },
+    {
+      "word": "cloud",
+      "phonetic": "/klaʊd/",
+      "partOfSpeech": "noun",
+      "definition": "A white or gray mass in the sky.",
+      "example": "There are many clouds."
+    }
+  ]
+}

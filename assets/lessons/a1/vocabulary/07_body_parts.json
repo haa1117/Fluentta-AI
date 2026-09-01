@@ -1,0 +1,44 @@
+{
+  "id": "a1_vocab_07",
+  "cefrLevel": "A1",
+  "number": 7,
+  "title": "Body Parts",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "head",
+      "phonetic": "/hɛd/",
+      "partOfSpeech": "noun",
+      "definition": "The top part of the body.",
+      "example": "My head hurts."
+    },
+    {
+      "word": "hand",
+      "phonetic": "/hænd/",
+      "partOfSpeech": "noun",
+      "definition": "The part at the end of the arm.",
+      "example": "Wash your hands."
+    },
+    {
+      "word": "eye",
+      "phonetic": "/aɪ/",
+      "partOfSpeech": "noun",
+      "definition": "The organ used for seeing.",
+      "example": "She has blue eyes."
+    },
+    {
+      "word": "foot",
+      "phonetic": "/fʊt/",
+      "partOfSpeech": "noun",
+      "definition": "The part at the end of the leg.",
+      "example": "My foot is sore."
+    },
+    {
+      "word": "heart",
+      "phonetic": "/hɑːrt/",
+      "partOfSpeech": "noun",
+      "definition": "The organ that pumps blood.",
+      "example": "Exercise is good for your heart."
+    }
+  ]
+}

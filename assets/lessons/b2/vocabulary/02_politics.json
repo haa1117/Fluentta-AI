@@ -1,0 +1,44 @@
+{
+  "id": "b2_vocab_02",
+  "cefrLevel": "B2",
+  "number": 2,
+  "title": "Politics",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "democracy",
+      "phonetic": "/dɪˈmɒkrəsi/",
+      "partOfSpeech": "noun",
+      "definition": "Government by the people.",
+      "example": "Democracy requires active citizens."
+    },
+    {
+      "word": "election",
+      "phonetic": "/ɪˈlɛkʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A process of choosing leaders.",
+      "example": "The election is in November."
+    },
+    {
+      "word": "policy",
+      "phonetic": "/ˈpɒləsi/",
+      "partOfSpeech": "noun",
+      "definition": "A plan of action by a government.",
+      "example": "The new policy affects taxes."
+    },
+    {
+      "word": "legislation",
+      "phonetic": "/ˌlɛdʒɪsˈleɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Laws made by a government.",
+      "example": "Parliament passed the legislation."
+    },
+    {
+      "word": "campaign",
+      "phonetic": "/kæmˈpeɪn/",
+      "partOfSpeech": "noun",
+      "definition": "Organized efforts to achieve a goal.",
+      "example": "The campaign focused on education."
+    }
+  ]
+}

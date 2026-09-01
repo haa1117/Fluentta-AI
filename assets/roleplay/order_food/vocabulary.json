@@ -1,0 +1,428 @@
+{
+  "scenarioId": "order_food",
+  "cefrLevel": "A1",
+  "pathTitle": "Order Food Vocabulary",
+  "pathSubtitle": "Practice ordering at cafés, restaurants, and food stalls — from simple requests to handling dietary needs and complaints.",
+  "lessons": [
+    {
+      "id": "order_food_vocab_01",
+      "number": 1,
+      "title": "At a Café",
+      "cefrLevel": "A1",
+      "levelLabel": "Beginner",
+      "situation": "You walk into a small café and want to order a drink and something to eat.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Barista",
+          "text": "Hello! What can I get you?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Hi. Can I have a coffee, please?",
+          "isUser": true
+        },
+        {
+          "speaker": "Barista",
+          "text": "Of course. Hot or iced?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Hot, please.",
+          "isUser": true
+        },
+        {
+          "speaker": "Barista",
+          "text": "And anything to eat?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Yes. One chocolate muffin, please.",
+          "isUser": true
+        },
+        {
+          "speaker": "Barista",
+          "text": "That's $5.50. Pay here or at the table?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Here, please. Thank you.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "order",
+          "phonetic": "/ˈɔːrdər/",
+          "partOfSpeech": "verb/noun",
+          "definition": "to ask for food or drink in a café or restaurant",
+          "example": "Are you ready to order?"
+        },
+        {
+          "word": "menu",
+          "phonetic": "/ˈmɛnjuː/",
+          "partOfSpeech": "noun",
+          "definition": "a list of food and drinks available",
+          "example": "Can I see the menu, please?"
+        },
+        {
+          "word": "iced",
+          "phonetic": "/aɪst/",
+          "partOfSpeech": "adjective",
+          "definition": "served cold with ice",
+          "example": "I would like an iced coffee."
+        },
+        {
+          "word": "muffin",
+          "phonetic": "/ˈmʌfɪn/",
+          "partOfSpeech": "noun",
+          "definition": "a small sweet cake",
+          "example": "The blueberry muffin looks delicious."
+        },
+        {
+          "word": "pay",
+          "phonetic": "/peɪ/",
+          "partOfSpeech": "verb",
+          "definition": "to give money for something",
+          "example": "I will pay by card."
+        }
+      ]
+    },
+    {
+      "id": "order_food_vocab_02",
+      "number": 2,
+      "title": "At a Restaurant",
+      "cefrLevel": "A2",
+      "levelLabel": "Elementary",
+      "situation": "You are at a restaurant for dinner. The waiter comes to take your order.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Waiter",
+          "text": "Good evening. Are you ready to order?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Yes, I think so. What is the soup of the day?",
+          "isUser": true
+        },
+        {
+          "speaker": "Waiter",
+          "text": "It's tomato and basil. It's very popular.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Great. I'll start with the soup, and then I'd like the grilled chicken for my main course.",
+          "isUser": true
+        },
+        {
+          "speaker": "Waiter",
+          "text": "Excellent choice. And to drink?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "A glass of sparkling water, please.",
+          "isUser": true
+        },
+        {
+          "speaker": "Waiter",
+          "text": "Of course. I'll bring your soup shortly.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "starter",
+          "phonetic": "/ˈstɑːrtər/",
+          "partOfSpeech": "noun",
+          "definition": "the first course of a meal",
+          "example": "I'll have the salad as a starter."
+        },
+        {
+          "word": "main course",
+          "phonetic": "/meɪn kɔːrs/",
+          "partOfSpeech": "noun",
+          "definition": "the biggest and most important part of a meal",
+          "example": "For my main course, I'd like the pasta."
+        },
+        {
+          "word": "grilled",
+          "phonetic": "/ɡrɪld/",
+          "partOfSpeech": "adjective",
+          "definition": "cooked on a grill using direct heat",
+          "example": "I prefer grilled fish to fried."
+        },
+        {
+          "word": "sparkling water",
+          "phonetic": "/ˈspɑːrklɪŋ ˈwɔːtər/",
+          "partOfSpeech": "phrase",
+          "definition": "water with bubbles in it",
+          "example": "Still or sparkling water?"
+        },
+        {
+          "word": "shortly",
+          "phonetic": "/ˈʃɔːrtli/",
+          "partOfSpeech": "adverb",
+          "definition": "in a short time, very soon",
+          "example": "Your food will be ready shortly."
+        }
+      ]
+    },
+    {
+      "id": "order_food_vocab_03",
+      "number": 3,
+      "title": "Dietary Requirements",
+      "cefrLevel": "B1",
+      "levelLabel": "Intermediate",
+      "situation": "You have dietary restrictions and need to communicate them clearly to the waiter.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Waiter",
+          "text": "Are you ready to order?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Almost. Before I decide, I have a question. I'm vegetarian — does the risotto contain any meat or chicken stock?",
+          "isUser": true
+        },
+        {
+          "speaker": "Waiter",
+          "text": "Let me check with the kitchen. I'm pretty sure it's made with vegetable stock, but I want to confirm.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Thank you. Also, I'm allergic to nuts. Can you make sure there are no nuts in my dish?",
+          "isUser": true
+        },
+        {
+          "speaker": "Waiter",
+          "text": "Absolutely. I'll flag that with the chef as well. One moment, please.",
+          "isUser": false
+        },
+        {
+          "speaker": "Waiter",
+          "text": "Good news — the risotto is fully vegetarian and nut-free. Would you like that?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Perfect. Yes, I'll have the risotto, please.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "vegetarian",
+          "phonetic": "/ˌvɛʤɪˈtɛəriən/",
+          "partOfSpeech": "noun/adjective",
+          "definition": "a person who does not eat meat; food with no meat",
+          "example": "Is there a vegetarian option on the menu?"
+        },
+        {
+          "word": "allergic",
+          "phonetic": "/əˈlɜːrʤɪk/",
+          "partOfSpeech": "adjective",
+          "definition": "having a bad reaction to a particular food or substance",
+          "example": "I am allergic to shellfish."
+        },
+        {
+          "word": "stock",
+          "phonetic": "/stɒk/",
+          "partOfSpeech": "noun",
+          "definition": "a liquid base made by boiling meat or vegetables, used in cooking",
+          "example": "The soup is made with chicken stock."
+        },
+        {
+          "word": "confirm",
+          "phonetic": "/kənˈfɜːrm/",
+          "partOfSpeech": "verb",
+          "definition": "to say definitely that something is true",
+          "example": "Let me confirm your reservation."
+        },
+        {
+          "word": "flag",
+          "phonetic": "/flæɡ/",
+          "partOfSpeech": "verb",
+          "definition": "to mark or draw attention to something important",
+          "example": "I'll flag your allergy to the kitchen."
+        }
+      ]
+    },
+    {
+      "id": "order_food_vocab_04",
+      "number": 4,
+      "title": "Sending Food Back",
+      "cefrLevel": "B2",
+      "levelLabel": "Upper-Intermediate",
+      "situation": "Your food has arrived but there is a problem. You need to raise it politely but clearly.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Waiter",
+          "text": "Here is your steak. Enjoy your meal!",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Thank you. Actually, I'm sorry to stop you — I ordered the steak medium-rare, but this appears to be well-done. Could you take it back to the kitchen?",
+          "isUser": true
+        },
+        {
+          "speaker": "Waiter",
+          "text": "Oh, I'm so sorry about that. Of course. I'll have that corrected right away.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I appreciate that. Also, my side salad seems to be missing — I did order one.",
+          "isUser": true
+        },
+        {
+          "speaker": "Waiter",
+          "text": "You're absolutely right, I apologize. I'll bring the salad immediately and make sure the steak is done correctly this time.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Thank you. No rush — I just want it right.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "medium-rare",
+          "phonetic": "/ˈmiːdiəm ˈrɛər/",
+          "partOfSpeech": "adjective",
+          "definition": "a way of cooking meat — pink inside, slightly cooked outside",
+          "example": "I'd like my steak medium-rare, please."
+        },
+        {
+          "word": "well-done",
+          "phonetic": "/ˌwɛl ˈdʌn/",
+          "partOfSpeech": "adjective",
+          "definition": "meat that is cooked thoroughly with no pink inside",
+          "example": "She always orders her steak well-done."
+        },
+        {
+          "word": "side",
+          "phonetic": "/saɪd/",
+          "partOfSpeech": "noun",
+          "definition": "a small dish served alongside the main meal",
+          "example": "I ordered a side of fries."
+        },
+        {
+          "word": "corrected",
+          "phonetic": "/kəˈrɛktɪd/",
+          "partOfSpeech": "verb (past)",
+          "definition": "fixed or made right",
+          "example": "The mistake was corrected quickly."
+        },
+        {
+          "word": "no rush",
+          "phonetic": "/noʊ rʌʃ/",
+          "partOfSpeech": "phrase",
+          "definition": "used to say there is no hurry or urgency",
+          "example": "No rush — take your time."
+        }
+      ]
+    },
+    {
+      "id": "order_food_vocab_05",
+      "number": 5,
+      "title": "A Business Dinner",
+      "cefrLevel": "C1",
+      "levelLabel": "Advanced",
+      "situation": "You are hosting a client at a fine dining restaurant. The conversation blends food choices with professional small talk.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Client",
+          "text": "This is a lovely restaurant — excellent choice.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I'm glad you like it. They have a wonderful seasonal menu. Please, take your time.",
+          "isUser": true
+        },
+        {
+          "speaker": "Client",
+          "text": "I'm inclined towards the lamb — what do you recommend?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "The lamb here is exceptional. I'd also suggest the sea bass if you prefer something lighter. The chef sources it locally, which makes a real difference.",
+          "isUser": true
+        },
+        {
+          "speaker": "Sommelier",
+          "text": "Good evening. May I suggest a wine pairing? The 2019 Bordeaux complements the lamb beautifully.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "That sounds perfect. We'll go with that. And a sparkling water for the table as well, please.",
+          "isUser": true
+        },
+        {
+          "speaker": "Client",
+          "text": "You clearly know this restaurant well. Do you bring clients here often?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "When the occasion calls for it, yes. I find that a good meal sets the right tone for a productive conversation.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "seasonal menu",
+          "phonetic": "/ˈsiːzənəl ˈmɛnjuː/",
+          "partOfSpeech": "phrase",
+          "definition": "a menu that changes based on ingredients available in the current season",
+          "example": "The seasonal menu features fresh autumn vegetables."
+        },
+        {
+          "word": "inclined towards",
+          "phonetic": "/ɪnˈklaɪnd tʊˈwɔːrdz/",
+          "partOfSpeech": "phrase",
+          "definition": "feeling drawn to or favouring a particular option",
+          "example": "I'm inclined towards the fish tonight."
+        },
+        {
+          "word": "exceptional",
+          "phonetic": "/ɪkˈsɛpʃənəl/",
+          "partOfSpeech": "adjective",
+          "definition": "unusually good; outstanding",
+          "example": "The service was absolutely exceptional."
+        },
+        {
+          "word": "sommelier",
+          "phonetic": "/ˌsɒməlˈjeɪ/",
+          "partOfSpeech": "noun",
+          "definition": "a trained wine expert who works in a restaurant",
+          "example": "The sommelier recommended a full-bodied red."
+        },
+        {
+          "word": "complement",
+          "phonetic": "/ˈkɒmplɪmɛnt/",
+          "partOfSpeech": "verb",
+          "definition": "to go well with something and enhance it",
+          "example": "A crisp white wine complements the fish perfectly."
+        }
+      ]
+    }
+  ]
+}

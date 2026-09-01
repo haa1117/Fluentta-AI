@@ -1,0 +1,65 @@
+{
+  "id": "b1_grammar_02",
+  "cefrLevel": "B1",
+  "number": 2,
+  "title": "Past Perfect",
+  "iconName": "grammar",
+  "rule": "Use the past perfect for an action before another past action.",
+  "pattern": "Subject + had + past participle",
+  "examples": [
+    {
+      "text": "I had eaten before the meeting.",
+      "highlight": "had eaten"
+    },
+    {
+      "text": "She had left when I arrived.",
+      "highlight": "had left"
+    },
+    {
+      "text": "Had they finished the report?",
+      "highlight": "Had"
+    },
+    {
+      "text": "We hadn't met before.",
+      "highlight": "hadn't met"
+    },
+    {
+      "text": "He realized he had forgotten his wallet.",
+      "highlight": "had forgotten"
+    }
+  ],
+  "practicePrompt": "Complete: By 6 p.m., they ___ (close) the shop.",
+  "practiceAnswer": "had closed",
+  "steps": [
+    {
+      "title": "Use the past perfect for an action before another past action.",
+      "description": "Subject + had + past participle",
+      "formula": "Subject + had + past participle",
+      "examples": [
+        {
+          "text": "I had eaten before the meeting.",
+          "highlight": "had eaten"
+        },
+        {
+          "text": "She had left when I arrived.",
+          "highlight": "had left"
+        },
+        {
+          "text": "Had they finished the report?",
+          "highlight": "Had"
+        },
+        {
+          "text": "We hadn't met before.",
+          "highlight": "hadn't met"
+        },
+        {
+          "text": "He realized he had forgotten his wallet.",
+          "highlight": "had forgotten"
+        }
+      ],
+      "quickTip": "Complete: By 6 p.m., they ___ (close) the shop. (had closed)"
+    }
+  ],
+  "completionTitle": "Past Perfect Learned",
+  "completionSummary": "Subject + had + past participle"
+}

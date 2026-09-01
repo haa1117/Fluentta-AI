@@ -1,0 +1,64 @@
+{
+  "id": "b1_reading_04",
+  "cefrLevel": "B1",
+  "number": 4,
+  "title": "News Discussion",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Host",
+      "text": "Today's headline is about rising energy prices.",
+      "isUser": false
+    },
+    {
+      "speaker": "Guest",
+      "text": "Many families are worried about heating costs.",
+      "isUser": true
+    },
+    {
+      "speaker": "Host",
+      "text": "What solutions do you suggest?",
+      "isUser": false
+    },
+    {
+      "speaker": "Guest",
+      "text": "Investing in renewable energy is essential.",
+      "isUser": true
+    },
+    {
+      "speaker": "Host",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What is the main topic?",
+      "options": [
+        "Sports",
+        "Energy prices",
+        "Tourism"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What solution does the guest mention?",
+      "options": [
+        "Closing schools",
+        "Renewable energy",
+        "Higher taxes"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "News Discussion Learned",
+  "completionSummary": "General news discussion conversation"
+}

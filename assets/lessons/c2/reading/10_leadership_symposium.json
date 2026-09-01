@@ -1,0 +1,64 @@
+{
+  "id": "c2_reading_10",
+  "cefrLevel": "C2",
+  "number": 10,
+  "title": "Leadership Symposium",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Keynote",
+      "text": "Visionary leadership requires accountability, not charisma alone.",
+      "isUser": false
+    },
+    {
+      "speaker": "Attendee",
+      "text": "Succession planning is often neglected.",
+      "isUser": true
+    },
+    {
+      "speaker": "Keynote",
+      "text": "Delegation empowers teams when done thoughtfully.",
+      "isUser": false
+    },
+    {
+      "speaker": "Attendee",
+      "text": "That balance is difficult in crises.",
+      "isUser": true
+    },
+    {
+      "speaker": "Keynote",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What does the keynote say leadership requires?",
+      "options": [
+        "Accountability",
+        "Charisma alone",
+        "Secrecy"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What is often neglected according to the attendee?",
+      "options": [
+        "Succession planning",
+        "Office furniture",
+        "Coffee breaks"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Leadership Symposium Learned",
+  "completionSummary": "General leadership symposium conversation"
+}

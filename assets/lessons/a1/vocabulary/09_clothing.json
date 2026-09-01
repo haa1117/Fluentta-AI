@@ -1,0 +1,44 @@
+{
+  "id": "a1_vocab_09",
+  "cefrLevel": "A1",
+  "number": 9,
+  "title": "Clothing",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "shirt",
+      "phonetic": "/ʃɜːrt/",
+      "partOfSpeech": "noun",
+      "definition": "A piece of clothing for the upper body.",
+      "example": "He wears a white shirt."
+    },
+    {
+      "word": "pants",
+      "phonetic": "/pænts/",
+      "partOfSpeech": "noun",
+      "definition": "Clothing for the legs.",
+      "example": "These pants are too long."
+    },
+    {
+      "word": "shoes",
+      "phonetic": "/ʃuːz/",
+      "partOfSpeech": "noun",
+      "definition": "Footwear.",
+      "example": "I need new shoes."
+    },
+    {
+      "word": "hat",
+      "phonetic": "/hæt/",
+      "partOfSpeech": "noun",
+      "definition": "A covering for the head.",
+      "example": "Wear a hat in the sun."
+    },
+    {
+      "word": "coat",
+      "phonetic": "/koʊt/",
+      "partOfSpeech": "noun",
+      "definition": "A warm outer garment.",
+      "example": "Take your coat—it is cold."
+    }
+  ]
+}

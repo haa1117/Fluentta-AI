@@ -1,0 +1,44 @@
+{
+  "id": "a2_vocab_01",
+  "cefrLevel": "A2",
+  "number": 1,
+  "title": "Jobs",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "doctor",
+      "phonetic": "/ˈdɒktər/",
+      "partOfSpeech": "noun",
+      "definition": "A person who treats sick people.",
+      "example": "The doctor works at the hospital."
+    },
+    {
+      "word": "teacher",
+      "phonetic": "/ˈtiːtʃər/",
+      "partOfSpeech": "noun",
+      "definition": "A person who helps students learn.",
+      "example": "My teacher is very kind."
+    },
+    {
+      "word": "engineer",
+      "phonetic": "/ˌɛndʒɪˈnɪər/",
+      "partOfSpeech": "noun",
+      "definition": "A person who designs machines or buildings.",
+      "example": "He is a software engineer."
+    },
+    {
+      "word": "nurse",
+      "phonetic": "/nɜːrs/",
+      "partOfSpeech": "noun",
+      "definition": "A person who cares for patients.",
+      "example": "The nurse checked my temperature."
+    },
+    {
+      "word": "chef",
+      "phonetic": "/ʃɛf/",
+      "partOfSpeech": "noun",
+      "definition": "A professional cook.",
+      "example": "The chef makes excellent pasta."
+    }
+  ]
+}

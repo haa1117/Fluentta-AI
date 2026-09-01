@@ -1,0 +1,64 @@
+{
+  "id": "c2_reading_01",
+  "cefrLevel": "C2",
+  "number": 1,
+  "title": "Geopolitical Analysis",
+  "iconName": "travel",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The treaty represents a fragile compromise between rival blocs.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Diplomats acknowledge that enforcement mechanisms remain contentious, and any unilateral withdrawal could destabilize the region.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "How is the treaty described?",
+      "options": [
+        "As a fragile compromise",
+        "As irrelevant",
+        "As permanently binding without dispute"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What could destabilize the region?",
+      "options": [
+        "Unilateral withdrawal",
+        "Cultural festivals",
+        "Sports events"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Geopolitical Analysis Learned",
+  "completionSummary": "General geopolitical analysis conversation"
+}

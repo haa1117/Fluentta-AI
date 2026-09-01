@@ -1,0 +1,64 @@
+{
+  "id": "a1_reading_01",
+  "cefrLevel": "A1",
+  "number": 1,
+  "title": "Meeting Someone",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Anna",
+      "text": "Hello! My name is Anna.",
+      "isUser": false
+    },
+    {
+      "speaker": "Ben",
+      "text": "Hi Anna. I am Ben.",
+      "isUser": true
+    },
+    {
+      "speaker": "Anna",
+      "text": "Nice to meet you, Ben.",
+      "isUser": false
+    },
+    {
+      "speaker": "Ben",
+      "text": "Nice to meet you too.",
+      "isUser": true
+    },
+    {
+      "speaker": "Anna",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What is the woman's name?",
+      "options": [
+        "Anna",
+        "Ben",
+        "Tom"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "How does Ben feel about meeting Anna?",
+      "options": [
+        "Angry",
+        "Happy",
+        "Sad"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Meeting Someone Learned",
+  "completionSummary": "General meeting someone conversation"
+}

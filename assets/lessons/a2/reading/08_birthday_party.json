@@ -1,0 +1,64 @@
+{
+  "id": "a2_reading_08",
+  "cefrLevel": "A2",
+  "number": 8,
+  "title": "Birthday Party",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "We organized a surprise party for Maria's birthday.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Twelve friends came to her house with cake and gifts.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Maria was shocked but very happy.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What kind of party was it?",
+      "options": [
+        "A wedding",
+        "A surprise birthday party",
+        "A business meeting"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "How did Maria feel?",
+      "options": [
+        "Angry",
+        "Shocked but happy",
+        "Bored"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Birthday Party Learned",
+  "completionSummary": "General birthday party conversation"
+}

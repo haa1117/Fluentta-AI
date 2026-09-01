@@ -1,0 +1,44 @@
+{
+  "id": "a2_vocab_06",
+  "cefrLevel": "A2",
+  "number": 6,
+  "title": "Restaurant",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "menu",
+      "phonetic": "/ˈmɛnjuː/",
+      "partOfSpeech": "noun",
+      "definition": "A list of food and drinks.",
+      "example": "Can I see the menu, please?"
+    },
+    {
+      "word": "order",
+      "phonetic": "/ˈɔːrdər/",
+      "partOfSpeech": "verb",
+      "definition": "To ask for food or drink.",
+      "example": "Are you ready to order?"
+    },
+    {
+      "word": "bill",
+      "phonetic": "/bɪl/",
+      "partOfSpeech": "noun",
+      "definition": "The amount you must pay.",
+      "example": "Could we have the bill, please?"
+    },
+    {
+      "word": "delicious",
+      "phonetic": "/dɪˈlɪʃəs/",
+      "partOfSpeech": "adjective",
+      "definition": "Very tasty.",
+      "example": "This soup is delicious."
+    },
+    {
+      "word": "waiter",
+      "phonetic": "/ˈweɪtər/",
+      "partOfSpeech": "noun",
+      "definition": "A person who serves food.",
+      "example": "The waiter brought our drinks."
+    }
+  ]
+}

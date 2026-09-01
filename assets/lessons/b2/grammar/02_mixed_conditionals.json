@@ -1,0 +1,65 @@
+{
+  "id": "b2_grammar_02",
+  "cefrLevel": "B2",
+  "number": 2,
+  "title": "Mixed Conditionals",
+  "iconName": "grammar",
+  "rule": "Mixed conditionals combine different time references.",
+  "pattern": "If + past perfect, would + base verb (or reverse)",
+  "examples": [
+    {
+      "text": "If I had studied law, I would be a lawyer now.",
+      "highlight": "would be"
+    },
+    {
+      "text": "If she were more confident, she would have spoken up.",
+      "highlight": "would have spoken"
+    },
+    {
+      "text": "If they hadn't moved, we would still be neighbors.",
+      "highlight": "would still be"
+    },
+    {
+      "text": "If he were here, he would have fixed it.",
+      "highlight": "would have fixed"
+    },
+    {
+      "text": "If I had taken that job, I would live abroad.",
+      "highlight": "would live"
+    }
+  ],
+  "practicePrompt": "Complete: If I ___ (learn) Spanish, I would travel more in Latin America.",
+  "practiceAnswer": "had learned",
+  "steps": [
+    {
+      "title": "Mixed conditionals combine different time references.",
+      "description": "If + past perfect, would + base verb (or reverse)",
+      "formula": "If + past perfect, would + base verb (or reverse)",
+      "examples": [
+        {
+          "text": "If I had studied law, I would be a lawyer now.",
+          "highlight": "would be"
+        },
+        {
+          "text": "If she were more confident, she would have spoken up.",
+          "highlight": "would have spoken"
+        },
+        {
+          "text": "If they hadn't moved, we would still be neighbors.",
+          "highlight": "would still be"
+        },
+        {
+          "text": "If he were here, he would have fixed it.",
+          "highlight": "would have fixed"
+        },
+        {
+          "text": "If I had taken that job, I would live abroad.",
+          "highlight": "would live"
+        }
+      ],
+      "quickTip": "Complete: If I ___ (learn) Spanish, I would travel more in Latin America. (had learned)"
+    }
+  ],
+  "completionTitle": "Mixed Conditionals Learned",
+  "completionSummary": "If + past perfect, would + base verb (or reverse)"
+}

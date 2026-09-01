@@ -1,0 +1,44 @@
+{
+  "id": "c1_vocab_07",
+  "cefrLevel": "C1",
+  "number": 7,
+  "title": "Ethics",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "integrity",
+      "phonetic": "/ɪnˈtɛɡrɪti/",
+      "partOfSpeech": "noun",
+      "definition": "Honesty and strong principles.",
+      "example": "Integrity builds trust."
+    },
+    {
+      "word": "accountability",
+      "phonetic": "/əˌkaʊntəˈbɪlɪti/",
+      "partOfSpeech": "noun",
+      "definition": "Responsibility for actions.",
+      "example": "Leaders need accountability."
+    },
+    {
+      "word": "transparency",
+      "phonetic": "/trænsˈpærənsi/",
+      "partOfSpeech": "noun",
+      "definition": "Openness in actions.",
+      "example": "Transparency reduces suspicion."
+    },
+    {
+      "word": "dilemma",
+      "phonetic": "/dɪˈlɛmə/",
+      "partOfSpeech": "noun",
+      "definition": "A difficult choice.",
+      "example": "She faced an ethical dilemma."
+    },
+    {
+      "word": "whistleblower",
+      "phonetic": "/ˈwɪsəlˌbloʊər/",
+      "partOfSpeech": "noun",
+      "definition": "A person who reports wrongdoing.",
+      "example": "The whistleblower protected the public."
+    }
+  ]
+}

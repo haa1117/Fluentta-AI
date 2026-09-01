@@ -1,0 +1,64 @@
+{
+  "id": "a2_reading_01",
+  "cefrLevel": "A2",
+  "number": 1,
+  "title": "Job Interview",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Interviewer",
+      "text": "Tell me about your last job.",
+      "isUser": false
+    },
+    {
+      "speaker": "Applicant",
+      "text": "I worked as a shop assistant for two years.",
+      "isUser": true
+    },
+    {
+      "speaker": "Interviewer",
+      "text": "Why did you leave?",
+      "isUser": false
+    },
+    {
+      "speaker": "Applicant",
+      "text": "I wanted a new challenge.",
+      "isUser": true
+    },
+    {
+      "speaker": "Interviewer",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What was the applicant's last job?",
+      "options": [
+        "Teacher",
+        "Shop assistant",
+        "Chef"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "Why did the applicant leave?",
+      "options": [
+        "They moved abroad",
+        "They wanted a new challenge",
+        "They retired"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Job Interview Learned",
+  "completionSummary": "General job interview conversation"
+}

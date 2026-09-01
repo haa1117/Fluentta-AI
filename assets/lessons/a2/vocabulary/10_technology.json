@@ -1,0 +1,44 @@
+{
+  "id": "a2_vocab_10",
+  "cefrLevel": "A2",
+  "number": 10,
+  "title": "Technology",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "computer",
+      "phonetic": "/kəmˈpjuːtər/",
+      "partOfSpeech": "noun",
+      "definition": "An electronic machine for work.",
+      "example": "I use a computer at work."
+    },
+    {
+      "word": "internet",
+      "phonetic": "/ˈɪntərnɛt/",
+      "partOfSpeech": "noun",
+      "definition": "A global network of computers.",
+      "example": "I found the answer on the internet."
+    },
+    {
+      "word": "email",
+      "phonetic": "/ˈiːmeɪl/",
+      "partOfSpeech": "noun",
+      "definition": "A message sent electronically.",
+      "example": "Send me an email tomorrow."
+    },
+    {
+      "word": "password",
+      "phonetic": "/ˈpæswɜːrd/",
+      "partOfSpeech": "noun",
+      "definition": "A secret word for access.",
+      "example": "Choose a strong password."
+    },
+    {
+      "word": "website",
+      "phonetic": "/ˈwɛbsaɪt/",
+      "partOfSpeech": "noun",
+      "definition": "A location on the internet.",
+      "example": "Visit our website for details."
+    }
+  ]
+}

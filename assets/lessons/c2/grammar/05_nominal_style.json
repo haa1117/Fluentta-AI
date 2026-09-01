@@ -1,0 +1,65 @@
+{
+  "id": "c2_grammar_05",
+  "cefrLevel": "C2",
+  "number": 5,
+  "title": "Nominal Style",
+  "iconName": "grammar",
+  "rule": "Nominal style favors nouns over verbs in formal writing.",
+  "pattern": "verb → nominal phrase (conduct an analysis)",
+  "examples": [
+    {
+      "text": "We conducted an analysis of the data.",
+      "highlight": "conducted an analysis"
+    },
+    {
+      "text": "There was a deterioration in relations.",
+      "highlight": "deterioration"
+    },
+    {
+      "text": "The implementation of reforms proceeded slowly.",
+      "highlight": "implementation"
+    },
+    {
+      "text": "They expressed disagreement with the proposal.",
+      "highlight": "disagreement"
+    },
+    {
+      "text": "The accumulation of evidence was decisive.",
+      "highlight": "accumulation"
+    }
+  ],
+  "practicePrompt": "Complete: The ___ (evaluate) of the program took six months.",
+  "practiceAnswer": "evaluation",
+  "steps": [
+    {
+      "title": "Nominal style favors nouns over verbs in formal writing.",
+      "description": "verb → nominal phrase (conduct an analysis)",
+      "formula": "verb → nominal phrase (conduct an analysis)",
+      "examples": [
+        {
+          "text": "We conducted an analysis of the data.",
+          "highlight": "conducted an analysis"
+        },
+        {
+          "text": "There was a deterioration in relations.",
+          "highlight": "deterioration"
+        },
+        {
+          "text": "The implementation of reforms proceeded slowly.",
+          "highlight": "implementation"
+        },
+        {
+          "text": "They expressed disagreement with the proposal.",
+          "highlight": "disagreement"
+        },
+        {
+          "text": "The accumulation of evidence was decisive.",
+          "highlight": "accumulation"
+        }
+      ],
+      "quickTip": "Complete: The ___ (evaluate) of the program took six months. (evaluation)"
+    }
+  ],
+  "completionTitle": "Nominal Style Learned",
+  "completionSummary": "verb → nominal phrase (conduct an analysis)"
+}

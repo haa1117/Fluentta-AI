@@ -1,0 +1,64 @@
+{
+  "id": "a1_reading_03",
+  "cefrLevel": "A1",
+  "number": 3,
+  "title": "At Café",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Waiter",
+      "text": "Good morning. What would you like?",
+      "isUser": false
+    },
+    {
+      "speaker": "Customer",
+      "text": "A coffee and a sandwich, please.",
+      "isUser": true
+    },
+    {
+      "speaker": "Waiter",
+      "text": "Small or large coffee?",
+      "isUser": false
+    },
+    {
+      "speaker": "Customer",
+      "text": "Small, please.",
+      "isUser": true
+    },
+    {
+      "speaker": "Waiter",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "Where are they?",
+      "options": [
+        "At a café",
+        "At school",
+        "At home"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What size coffee does the customer want?",
+      "options": [
+        "Large",
+        "Small",
+        "Medium"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "At Café Learned",
+  "completionSummary": "General at café conversation"
+}

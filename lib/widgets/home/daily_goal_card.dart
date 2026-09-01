@@ -1,0 +1,168 @@
+import 'dart:math' as math;
+import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/constants/app_fonts.dart';
+import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/viewmodels/home_view_model.dart';
+import 'package:provider/provider.dart';
+
+
+
+class DailyGoalCard extends StatelessWidget {
+  final bool isDark;
+  const DailyGoalCard({super.key,required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.watch<HomeViewModel>();
+
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(AppSizes.w(20)),
+      decoration: BoxDecoration(
+        color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
+
+        border: Border.all(
+            color:isDark ? AppColors.borderDarkColor : AppColors.borderLight,
+          width: 0.3,
+
+        ),
+        borderRadius: BorderRadius.circular(AppSizes.cardRadius * 1.6),
+        boxShadow: [
+          BoxShadow(
+            color:isDark ? AppColors.primaryDarkColor.withValues(alpha: 0.06): AppColors.primaryColor.withValues(alpha: 0.06),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'DAILY GOAL',
+                  style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    fontSize: AppSizes.sp(12),
+                    fontWeight: FontWeight.w500,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+                    letterSpacing: 0.6,
+                  ),
+                ),
+                SizedBox(height: AppSizes.spaceSm),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '${viewModel.dailyProgressMinutes}',
+                        style: TextStyle(
+                          fontFamily: AppFonts.plusJakartaSans,
+                          fontSize: AppSizes.sp(24),
+                          fontWeight: FontWeight.w600,
+                          color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' / ${viewModel.dailyGoalMinutes} min',
+                        style: TextStyle(
+                          fontFamily: AppFonts.plusJakartaSans,
+                          fontSize: AppSizes.sp(16),
+                          fontWeight: FontWeight.w600,
+                          color:isDark? AppColors.textSecondaryDark :  AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: AppSizes.spaceSm),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.local_fire_department_rounded,
+                      color: AppColors.primaryColor,
+                      size: AppSizes.sp(18),
+                    ),
+                    SizedBox(width: AppSizes.w(4)),
+                    Text(
+                      'Day ${viewModel.streakDays} Streak',
+                      style: TextStyle(
+                        fontFamily: AppFonts.plusJakartaSans,
+                        fontSize: AppSizes.sp(14),
+                        fontWeight: FontWeight.w700,
+                        color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: AppSizes.w(64),
+            height: AppSizes.w(64),
+            child: CustomPaint(
+              painter: _CircularProgressPainter(
+                progress: viewModel.dailyGoalPercent, isDark: isDark,
+              ),
+              child: Center(
+                child: Text(
+                  '${viewModel.dailyGoalPercentLabel}%',
+                  style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    fontSize: AppSizes.sp(14),
+                    fontWeight: FontWeight.w700,
+                    color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CircularProgressPainter extends CustomPainter {
+  final bool isDark;
+  _CircularProgressPainter({required this.progress, required this.isDark});
+
+  final double progress;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2 - 4;
+    const strokeWidth = 6.0;
+
+    final trackPaint = Paint()
+      ..color =isDark ? AppColors.brandDarkSoftColor: AppColors.progressTrack
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+
+    final progressPaint = Paint()
+      ..color =isDark ? AppColors.primaryDarkColor : AppColors.primaryColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawCircle(center, radius, trackPaint);
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      -math.pi / 2,
+      2 * math.pi * progress,
+      false,
+      progressPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _CircularProgressPainter oldDelegate) {
+    return oldDelegate.progress != progress;
+  }
+}

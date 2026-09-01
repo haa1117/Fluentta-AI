@@ -1,0 +1,74 @@
+{
+  "id": "a2_reading_02",
+  "cefrLevel": "A2",
+  "number": 2,
+  "title": "Train Journey",
+  "iconName": "travel",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Last Saturday I took the train to the city.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "I bought my ticket online and arrived at the station early.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The journey took one hour.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "I read a magazine during the trip.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "How did the writer travel?",
+      "options": [
+        "By bus",
+        "By train",
+        "By plane"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What did the writer do on the train?",
+      "options": [
+        "Slept",
+        "Read a magazine",
+        "Worked"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Train Journey Learned",
+  "completionSummary": "General train journey conversation"
+}

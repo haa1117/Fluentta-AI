@@ -1,0 +1,313 @@
+{
+  "scenarioId": "doctor_visit",
+  "cefrLevel": "A2",
+  "pathTitle": "Doctor Visit Quick Check",
+  "pathSubtitle": "Communicate health concerns, describe symptoms, and understand medical advice clearly.",
+  "lessons": [
+    {
+      "id": "doctor_visit_quick_01",
+      "number": 1,
+      "title": "Describing Basic Symptoms",
+      "cefrLevel": "A2",
+      "iconName": "chat",
+      "completionTitle": "Doctor Visit",
+      "completionSummary": "You have completed Describing Basic Symptoms successfully",
+      "questions": [
+        {
+          "prompt": "How long has the patient had symptoms?",
+          "options": [
+            "One day",
+            "Three days",
+            "A week"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The patient has had symptoms for three days."
+        },
+        {
+          "prompt": "What does the doctor ask the patient to do?",
+          "options": [
+            "Lie down",
+            "Open their mouth",
+            "Breathe deeply"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The doctor asks the patient to open their mouth."
+        },
+        {
+          "prompt": "What does \"symptom\" mean?",
+          "options": [
+            "a painful or irritated feeling in the throat",
+            "a pain inside the head",
+            "a sign of illness felt by a patient"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"symptom\" means a sign of illness felt by a patient."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"sore throat\"?",
+          "options": [
+            "A sore throat is a common symptom of a cold.",
+            "I've had a headache all day.",
+            "I have a bad sore throat and can't swallow."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"I have a bad sore throat and can't swallow.\" is a good example."
+        },
+        {
+          "prompt": "What does \"headache\" mean?",
+          "options": [
+            "a sign of illness felt by a patient",
+            "a painful or irritated feeling in the throat",
+            "a pain inside the head"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"headache\" means a pain inside the head."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_quick_02",
+      "number": 2,
+      "title": "Getting a Prescription",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Doctor Visit",
+      "completionSummary": "You have completed Getting a Prescription successfully",
+      "questions": [
+        {
+          "prompt": "What type of infection does the patient have?",
+          "options": [
+            "Viral",
+            "Bacterial",
+            "Fungal"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The patient has a bacterial infection."
+        },
+        {
+          "prompt": "What should the patient do if they get a rash?",
+          "options": [
+            "Take more medicine",
+            "Stop and return to the doctor",
+            "Drink more water"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The patient should stop and return to the doctor."
+        },
+        {
+          "prompt": "What does \"prescribe\" mean?",
+          "options": [
+            "medicines that kill bacterial infections",
+            "an unwanted result of taking a medication",
+            "to officially tell a patient to take a medicine"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"prescribe\" means to officially tell a patient to take a medicine."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"antibiotics\"?",
+          "options": [
+            "The doctor prescribed antibiotics for the infection.",
+            "One side effect of this medicine is dizziness.",
+            "Always finish your course of antibiotics."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"Always finish your course of antibiotics.\" is a good example."
+        },
+        {
+          "prompt": "What does \"side effect\" mean?",
+          "options": [
+            "to officially tell a patient to take a medicine",
+            "medicines that kill bacterial infections",
+            "an unwanted result of taking a medication"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"side effect\" means an unwanted result of taking a medication."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_quick_03",
+      "number": 3,
+      "title": "Describing Pain",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Doctor Visit",
+      "completionSummary": "You have completed Describing Pain successfully",
+      "questions": [
+        {
+          "prompt": "What caused the back pain?",
+          "options": [
+            "A car accident",
+            "Moving heavy boxes",
+            "A sports injury"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The back pain started after moving heavy boxes."
+        },
+        {
+          "prompt": "Where does the tingling feeling go?",
+          "options": [
+            "Up the back",
+            "Down the right leg",
+            "Into the left arm"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The tingling goes down the right leg."
+        },
+        {
+          "prompt": "What does \"sharp\" mean?",
+          "options": [
+            "a continuous, low-level pain that is not intense",
+            "happening all the time without stopping",
+            "a sudden, intense pain (like a knife)"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"sharp\" means a sudden, intense pain (like a knife)."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"dull ache\"?",
+          "options": [
+            "I feel a sharp pain when I breathe in.",
+            "The pain is constant — it never goes away.",
+            "I have a dull ache in my shoulder."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"I have a dull ache in my shoulder.\" is a good example."
+        },
+        {
+          "prompt": "What does \"constant\" mean?",
+          "options": [
+            "a sudden, intense pain (like a knife)",
+            "a continuous, low-level pain that is not intense",
+            "happening all the time without stopping"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"constant\" means happening all the time without stopping."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_quick_04",
+      "number": 4,
+      "title": "Mental Health Consultation",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "Doctor Visit",
+      "completionSummary": "You have completed Mental Health Consultation successfully",
+      "questions": [
+        {
+          "prompt": "Which symptom does the patient NOT mention?",
+          "options": [
+            "Poor sleep",
+            "Chest pain",
+            "Loss of interest"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The patient does not mention chest pain."
+        },
+        {
+          "prompt": "What significant life change happened six months ago?",
+          "options": [
+            "They moved house",
+            "They changed jobs",
+            "They ended a relationship"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The patient changed jobs six months ago."
+        },
+        {
+          "prompt": "What does \"exhausted\" mean?",
+          "options": [
+            "continuing for a long time; not stopping",
+            "severe and sudden in onset (in medical terms)",
+            "extremely tired, with no energy left"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"exhausted\" means extremely tired, with no energy left."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"persistent\"?",
+          "options": [
+            "I feel completely exhausted, even after a full night's sleep.",
+            "The patient arrived with acute chest pain.",
+            "She has a persistent cough that won't go away."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"She has a persistent cough that won't go away.\" is a good example."
+        },
+        {
+          "prompt": "What does \"acute\" mean?",
+          "options": [
+            "extremely tired, with no energy left",
+            "continuing for a long time; not stopping",
+            "severe and sudden in onset (in medical terms)"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"acute\" means severe and sudden in onset (in medical terms)."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_quick_05",
+      "number": 5,
+      "title": "Specialist Referral & Second Opinion",
+      "cefrLevel": "C1",
+      "iconName": "chat",
+      "completionTitle": "Doctor Visit",
+      "completionSummary": "You have completed Specialist Referral & Second Opinion successfully",
+      "questions": [
+        {
+          "prompt": "Why is the doctor referring the patient?",
+          "options": [
+            "Broken bone",
+            "ECG irregularities",
+            "High blood pressure"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The doctor is referring the patient due to ECG irregularities."
+        },
+        {
+          "prompt": "What does the doctor say about seeking a second opinion?",
+          "options": [
+            "It's not advisable",
+            "It's the patient's right",
+            "It will delay treatment"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The doctor says a second opinion is the patient's right."
+        },
+        {
+          "prompt": "What does \"referral\" mean?",
+          "options": [
+            "a doctor who specialises in the heart",
+            "something that is irregular or unexpected",
+            "when a doctor sends a patient to see a specialist"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"referral\" means when a doctor sends a patient to see a specialist."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"cardiologist\"?",
+          "options": [
+            "I have a referral to see a specialist next month.",
+            "The scan revealed a small anomaly.",
+            "The cardiologist reviewed my ECG results."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"The cardiologist reviewed my ECG results.\" is a good example."
+        },
+        {
+          "prompt": "What does \"anomaly\" mean?",
+          "options": [
+            "when a doctor sends a patient to see a specialist",
+            "a doctor who specialises in the heart",
+            "something that is irregular or unexpected"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"anomaly\" means something that is irregular or unexpected."
+        }
+      ]
+    }
+  ]
+}

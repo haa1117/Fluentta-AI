@@ -1,0 +1,64 @@
+{
+  "id": "c1_reading_10",
+  "cefrLevel": "C1",
+  "number": 10,
+  "title": "Debate Closing Statement",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Speaker",
+      "text": "Our opponents overlook the evidence presented today.",
+      "isUser": false
+    },
+    {
+      "speaker": "Opponent",
+      "text": "We question the validity of that evidence.",
+      "isUser": true
+    },
+    {
+      "speaker": "Speaker",
+      "text": "Independent studies confirm the trend.",
+      "isUser": false
+    },
+    {
+      "speaker": "Moderator",
+      "text": "Time is up—thank you both.",
+      "isUser": true
+    },
+    {
+      "speaker": "Speaker",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What does the speaker claim opponents overlook?",
+      "options": [
+        "Evidence",
+        "Lunch break",
+        "Audience"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What supports the trend according to the speaker?",
+      "options": [
+        "Independent studies",
+        "Personal gossip",
+        "Anonymous rumors"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Debate Closing Statement Learned",
+  "completionSummary": "General debate closing statement conversation"
+}

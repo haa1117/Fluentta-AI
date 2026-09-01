@@ -1,0 +1,398 @@
+{
+  "scenarioId": "job_interviews",
+  "cefrLevel": "A2",
+  "pathTitle": "Job Interview Vocabulary",
+  "pathSubtitle": "Practice the language of job interviews — from first impressions to tough questions and salary negotiation.",
+  "lessons": [
+    {
+      "id": "job_interviews_vocab_01",
+      "number": 1,
+      "title": "First Impressions",
+      "cefrLevel": "A2",
+      "levelLabel": "Beginner",
+      "situation": "You arrive for a job interview at a small company. The HR assistant meets you at the door.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "HR Assistant",
+          "text": "Good morning! Welcome. Please come in.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Good morning. Thank you. My name is Sam. I have an interview at ten.",
+          "isUser": true
+        },
+        {
+          "speaker": "HR Assistant",
+          "text": "Yes, of course. Please take a seat. Can I get you some water?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Yes, please. Thank you very much.",
+          "isUser": true
+        },
+        {
+          "speaker": "HR Assistant",
+          "text": "The interviewer will be with you in a few minutes.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "No problem. I will wait here.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "interview",
+          "phonetic": "/ˈɪntəvjuː/",
+          "partOfSpeech": "noun",
+          "definition": "a meeting where someone asks you questions for a job",
+          "example": "I have a job interview on Monday."
+        },
+        {
+          "word": "welcome",
+          "phonetic": "/ˈwɛlkəm/",
+          "partOfSpeech": "verb/exclamation",
+          "definition": "to greet someone who has arrived",
+          "example": "Welcome to our office!"
+        },
+        {
+          "word": "take a seat",
+          "phonetic": "/teɪk ə siːt/",
+          "partOfSpeech": "phrase",
+          "definition": "to sit down",
+          "example": "Please take a seat and wait."
+        },
+        {
+          "word": "interviewer",
+          "phonetic": "/ˈɪntəvjuːər/",
+          "partOfSpeech": "noun",
+          "definition": "the person who asks the questions in an interview",
+          "example": "The interviewer smiled and shook my hand."
+        },
+        {
+          "word": "wait",
+          "phonetic": "/weɪt/",
+          "partOfSpeech": "verb",
+          "definition": "to stay in one place until something happens",
+          "example": "Please wait outside the room."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_vocab_02",
+      "number": 2,
+      "title": "Tell Me About Yourself",
+      "cefrLevel": "B1",
+      "levelLabel": "Intermediate",
+      "situation": "The interviewer begins the interview with the most common opening question.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Interviewer",
+          "text": "So, tell me a little about yourself.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Of course. I studied Business Management at university and graduated two years ago. Since then, I have been working as a sales assistant at a retail company.",
+          "isUser": true
+        },
+        {
+          "speaker": "Interviewer",
+          "text": "And what made you apply for this position?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I want to work in a bigger team and take on more responsibility. I feel this role is the right next step for my career.",
+          "isUser": true
+        },
+        {
+          "speaker": "Interviewer",
+          "text": "That's great. What would you say is your greatest strength?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I am very organized and I work well under pressure. My manager often gives me urgent tasks because she knows I will finish them on time.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "apply",
+          "phonetic": "/əˈplaɪ/",
+          "partOfSpeech": "verb",
+          "definition": "to make a formal request for a job or course",
+          "example": "I applied for three jobs last week."
+        },
+        {
+          "word": "position",
+          "phonetic": "/pəˈzɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "a job or role in a company",
+          "example": "She is applying for the manager position."
+        },
+        {
+          "word": "responsibility",
+          "phonetic": "/rɪˌspɒnsɪˈbɪləti/",
+          "partOfSpeech": "noun",
+          "definition": "a duty or task you are in charge of",
+          "example": "I want more responsibility in my next job."
+        },
+        {
+          "word": "strength",
+          "phonetic": "/strɛŋθ/",
+          "partOfSpeech": "noun",
+          "definition": "something you are very good at",
+          "example": "My main strength is communication."
+        },
+        {
+          "word": "under pressure",
+          "phonetic": "/ˈʌndər ˈprɛʃər/",
+          "partOfSpeech": "phrase",
+          "definition": "in a stressful situation with tight deadlines",
+          "example": "I work well under pressure."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_vocab_03",
+      "number": 3,
+      "title": "Handling Tough Questions",
+      "cefrLevel": "B1",
+      "levelLabel": "Intermediate",
+      "situation": "The interview continues with more challenging questions about weaknesses and past difficulties.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Interviewer",
+          "text": "Can you tell me about a time you made a mistake at work?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Yes. Last year, I sent a report to the wrong client by mistake. I realized immediately and told my manager. We contacted the client, apologized, and sent the correct report within an hour.",
+          "isUser": true
+        },
+        {
+          "speaker": "Interviewer",
+          "text": "How did your manager react?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "She was not happy at first, but she appreciated that I was honest and acted quickly to fix it.",
+          "isUser": true
+        },
+        {
+          "speaker": "Interviewer",
+          "text": "And what is your greatest weakness?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I sometimes find it difficult to delegate tasks because I like to make sure everything is done correctly. I am working on trusting my colleagues more.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "mistake",
+          "phonetic": "/mɪˈsteɪk/",
+          "partOfSpeech": "noun",
+          "definition": "something done incorrectly or wrongly",
+          "example": "Everyone makes mistakes — what matters is how you fix them."
+        },
+        {
+          "word": "apologize",
+          "phonetic": "/əˈpɒləʤaɪz/",
+          "partOfSpeech": "verb",
+          "definition": "to say sorry for something you did wrong",
+          "example": "I apologized to the client immediately."
+        },
+        {
+          "word": "appreciate",
+          "phonetic": "/əˈpriːʃieɪt/",
+          "partOfSpeech": "verb",
+          "definition": "to recognize and value something",
+          "example": "She appreciated my honesty."
+        },
+        {
+          "word": "delegate",
+          "phonetic": "/ˈdɛlɪɡeɪt/",
+          "partOfSpeech": "verb",
+          "definition": "to give a task to someone else to do",
+          "example": "A good manager knows how to delegate."
+        },
+        {
+          "word": "weakness",
+          "phonetic": "/ˈwiːknəs/",
+          "partOfSpeech": "noun",
+          "definition": "something you are not as good at",
+          "example": "My weakness is public speaking, but I am improving."
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_vocab_04",
+      "number": 4,
+      "title": "Salary Negotiation",
+      "cefrLevel": "B2",
+      "levelLabel": "Upper-Intermediate",
+      "situation": "The interview is going well. The conversation turns to compensation.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Interviewer",
+          "text": "We'd like to move forward with you. Before we do, can you share your salary expectations?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Thank you — I'm very pleased to hear that. Based on my research and my four years of experience, I was hoping for something in the range of $55,000 to $60,000.",
+          "isUser": true
+        },
+        {
+          "speaker": "Interviewer",
+          "text": "That's slightly above what we had budgeted. We were thinking closer to $50,000 to start.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I understand. Could you tell me more about the full package? I'd like to consider benefits, performance reviews, and any professional development opportunities.",
+          "isUser": true
+        },
+        {
+          "speaker": "Interviewer",
+          "text": "We offer annual reviews with performance bonuses, twenty-five days of holiday, and a training budget of $1,000 per year.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "That sounds like a strong package. I'm open to discussing the base salary further if there's some flexibility.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "salary expectations",
+          "phonetic": "/ˈsæləri ˌɛkspɛkˈteɪʃənz/",
+          "partOfSpeech": "phrase",
+          "definition": "the amount of pay you hope to receive",
+          "example": "What are your salary expectations for this role?"
+        },
+        {
+          "word": "budgeted",
+          "phonetic": "/ˈbʌʤɪtɪd/",
+          "partOfSpeech": "verb (past)",
+          "definition": "planned a specific amount of money for something",
+          "example": "We budgeted $50,000 for this position."
+        },
+        {
+          "word": "package",
+          "phonetic": "/ˈpækɪʤ/",
+          "partOfSpeech": "noun",
+          "definition": "the total set of pay and benefits offered",
+          "example": "The full package includes salary, bonus, and health insurance."
+        },
+        {
+          "word": "performance bonus",
+          "phonetic": "/pəˈfɔːrməns ˈboʊnəs/",
+          "partOfSpeech": "phrase",
+          "definition": "extra pay given for good work results",
+          "example": "She received a performance bonus at the end of the year."
+        },
+        {
+          "word": "flexibility",
+          "phonetic": "/ˌflɛksɪˈbɪləti/",
+          "partOfSpeech": "noun",
+          "definition": "willingness to change or adapt",
+          "example": "Is there flexibility on the start date?"
+        }
+      ]
+    },
+    {
+      "id": "job_interviews_vocab_05",
+      "number": 5,
+      "title": "Senior-Level Strategic Interview",
+      "cefrLevel": "C1",
+      "levelLabel": "Advanced",
+      "situation": "A final-round interview for a senior management role. The questions are strategic and demanding.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Director",
+          "text": "We're looking for someone who can drive transformation across departments. Can you walk me through how you've led change in a previous role?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Certainly. In my last position, I was tasked with overhauling the customer service function — it had a backlog of unresolved cases and poor satisfaction scores. I began by conducting a root-cause analysis, identified three systemic bottlenecks, and proposed a restructuring plan to the board.",
+          "isUser": true
+        },
+        {
+          "speaker": "Director",
+          "text": "How did you manage resistance from the existing team?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "That was the most challenging part. I prioritised one-to-one conversations early on to understand concerns, framed the changes around shared goals rather than top-down mandates, and ensured the team had visibility into milestones and outcomes throughout.",
+          "isUser": true
+        },
+        {
+          "speaker": "Director",
+          "text": "And what was the result?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Within six months, case resolution time fell by 40% and customer satisfaction scores rose from 58% to 81%. The restructuring became a model that was adopted by two other departments.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "transformation",
+          "phonetic": "/ˌtrænsfəˈmeɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "a fundamental and thorough change in form or character",
+          "example": "The new CEO led a complete transformation of the company."
+        },
+        {
+          "word": "root-cause analysis",
+          "phonetic": "/ruːt kɔːz əˈnæləsɪs/",
+          "partOfSpeech": "phrase",
+          "definition": "a method of identifying the original cause of a problem",
+          "example": "We carried out a root-cause analysis before proposing any solutions."
+        },
+        {
+          "word": "bottleneck",
+          "phonetic": "/ˈbɒtəlnɛk/",
+          "partOfSpeech": "noun",
+          "definition": "a point of congestion that slows down a process",
+          "example": "The approval process was a major bottleneck."
+        },
+        {
+          "word": "mandate",
+          "phonetic": "/ˈmændeɪt/",
+          "partOfSpeech": "noun",
+          "definition": "an official instruction or authority to act",
+          "example": "The board gave him a clear mandate to cut costs."
+        },
+        {
+          "word": "milestone",
+          "phonetic": "/ˈmaɪlstoʊn/",
+          "partOfSpeech": "noun",
+          "definition": "an important point in the progress of a project",
+          "example": "We hit every milestone on schedule."
+        }
+      ]
+    }
+  ]
+}

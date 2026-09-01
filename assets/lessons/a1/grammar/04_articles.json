@@ -1,0 +1,65 @@
+{
+  "id": "a1_grammar_04",
+  "cefrLevel": "A1",
+  "number": 4,
+  "title": "Articles",
+  "iconName": "grammar",
+  "rule": "Use a/an before singular countable nouns; use the for specific things.",
+  "pattern": "a/an + singular noun; the + specific noun",
+  "examples": [
+    {
+      "text": "I have a cat.",
+      "highlight": "a"
+    },
+    {
+      "text": "She is an engineer.",
+      "highlight": "an"
+    },
+    {
+      "text": "The book is on the table.",
+      "highlight": "The"
+    },
+    {
+      "text": "He wants a new phone.",
+      "highlight": "a"
+    },
+    {
+      "text": "Open the window, please.",
+      "highlight": "the"
+    }
+  ],
+  "practicePrompt": "Complete: I need ___ umbrella.",
+  "practiceAnswer": "an",
+  "steps": [
+    {
+      "title": "Use a/an before singular countable nouns; use the for specific things.",
+      "description": "a/an + singular noun; the + specific noun",
+      "formula": "a/an + singular noun; the + specific noun",
+      "examples": [
+        {
+          "text": "I have a cat.",
+          "highlight": "a"
+        },
+        {
+          "text": "She is an engineer.",
+          "highlight": "an"
+        },
+        {
+          "text": "The book is on the table.",
+          "highlight": "The"
+        },
+        {
+          "text": "He wants a new phone.",
+          "highlight": "a"
+        },
+        {
+          "text": "Open the window, please.",
+          "highlight": "the"
+        }
+      ],
+      "quickTip": "Complete: I need ___ umbrella. (an)"
+    }
+  ],
+  "completionTitle": "Articles Learned",
+  "completionSummary": "a, an, the"
+}

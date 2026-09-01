@@ -1,0 +1,44 @@
+{
+  "id": "a1_vocab_05",
+  "cefrLevel": "A1",
+  "number": 5,
+  "title": "Days",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "Monday",
+      "phonetic": "/ˈmʌndeɪ/",
+      "partOfSpeech": "noun",
+      "definition": "The first day of the work week.",
+      "example": "I start work on Monday."
+    },
+    {
+      "word": "Tuesday",
+      "phonetic": "/ˈtuːzdeɪ/",
+      "partOfSpeech": "noun",
+      "definition": "The day after Monday.",
+      "example": "We have a meeting on Tuesday."
+    },
+    {
+      "word": "Wednesday",
+      "phonetic": "/ˈwɛnzdeɪ/",
+      "partOfSpeech": "noun",
+      "definition": "The middle of the work week.",
+      "example": "She goes to the gym on Wednesday."
+    },
+    {
+      "word": "Thursday",
+      "phonetic": "/ˈθɜːrzdeɪ/",
+      "partOfSpeech": "noun",
+      "definition": "The day before Friday.",
+      "example": "He studies English on Thursday."
+    },
+    {
+      "word": "Friday",
+      "phonetic": "/ˈfraɪdeɪ/",
+      "partOfSpeech": "noun",
+      "definition": "The last day of the work week.",
+      "example": "We eat pizza on Friday."
+    }
+  ]
+}

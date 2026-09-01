@@ -1,0 +1,313 @@
+{
+  "scenarioId": "business_meeting",
+  "cefrLevel": "B1",
+  "pathTitle": "Business Meeting Quick Check",
+  "pathSubtitle": "Run and participate in meetings — from setting the agenda to handling disagreements and closing with action points.",
+  "lessons": [
+    {
+      "id": "business_meeting_quick_01",
+      "number": 1,
+      "title": "Starting a Meeting",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Business Meeting",
+      "completionSummary": "You have completed Starting a Meeting successfully",
+      "questions": [
+        {
+          "prompt": "How many original agenda items were there?",
+          "options": [
+            "Two",
+            "Three",
+            "Four"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! There were three original agenda items."
+        },
+        {
+          "prompt": "What is the blocker for phase two?",
+          "options": [
+            "Budget issue",
+            "Waiting for sign-off from legal",
+            "Missing team member"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The blocker is waiting for sign-off from legal."
+        },
+        {
+          "prompt": "What does \"agenda\" mean?",
+          "options": [
+            "progressing as planned",
+            "a problem that stops progress",
+            "a list of items to discuss at a meeting"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"agenda\" means a list of items to discuss at a meeting."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"on track\"?",
+          "options": [
+            "The agenda for today has five points.",
+            "We have one blocker — approval from management.",
+            "The project is on track for the October deadline."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"The project is on track for the October deadline.\" is a good example."
+        },
+        {
+          "prompt": "What does \"blocker\" mean?",
+          "options": [
+            "a list of items to discuss at a meeting",
+            "progressing as planned",
+            "a problem that stops progress"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"blocker\" means a problem that stops progress."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_quick_02",
+      "number": 2,
+      "title": "Presenting Data",
+      "cefrLevel": "B1",
+      "iconName": "chat",
+      "completionTitle": "Business Meeting",
+      "completionSummary": "You have completed Presenting Data successfully",
+      "questions": [
+        {
+          "prompt": "What was total revenue growth in Q3?",
+          "options": [
+            "4%",
+            "12%",
+            "15%"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Total revenue was up 12% in Q3."
+        },
+        {
+          "prompt": "Why are North America numbers flat?",
+          "options": [
+            "Price competition",
+            "Believed to be seasonal slowdown",
+            "Product issues"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The slowdown is believed to be seasonal."
+        },
+        {
+          "prompt": "What does \"revenue\" mean?",
+          "options": [
+            "doing better than predicted",
+            "not growing or declining; staying the same",
+            "income from business activity"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"revenue\" means income from business activity."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"performing above expectations\"?",
+          "options": [
+            "Revenue increased by 10% this quarter.",
+            "Sales were flat in the third quarter.",
+            "The new product is performing above expectations."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"The new product is performing above expectations.\" is a good example."
+        },
+        {
+          "prompt": "What does \"flat\" mean?",
+          "options": [
+            "income from business activity",
+            "doing better than predicted",
+            "not growing or declining; staying the same"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"flat\" means not growing or declining; staying the same."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_quick_03",
+      "number": 3,
+      "title": "Disagreeing Professionally",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "Business Meeting",
+      "completionSummary": "You have completed Disagreeing Professionally successfully",
+      "questions": [
+        {
+          "prompt": "What does the speaker use to support their argument?",
+          "options": [
+            "Personal opinion",
+            "Data from an engagement survey",
+            "External research"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The speaker uses data from an engagement survey."
+        },
+        {
+          "prompt": "What solution does the speaker propose?",
+          "options": [
+            "Fully remote",
+            "Fully in-office",
+            "Hybrid model"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! The speaker proposes a hybrid model."
+        },
+        {
+          "prompt": "What does \"push back\" mean?",
+          "options": [
+            "working together with others",
+            "a questionnaire measuring how committed and motivated employees feel",
+            "to express disagreement or resistance to an idea"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"push back\" means to express disagreement or resistance to an idea."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"collaboration\"?",
+          "options": [
+            "I need to push back on that suggestion.",
+            "The engagement survey results were concerning.",
+            "Good collaboration is key to project success."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"Good collaboration is key to project success.\" is a good example."
+        },
+        {
+          "prompt": "What does \"engagement survey\" mean?",
+          "options": [
+            "to express disagreement or resistance to an idea",
+            "working together with others",
+            "a questionnaire measuring how committed and motivated employees feel"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"engagement survey\" means a questionnaire measuring how committed and motivated employees feel."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_quick_04",
+      "number": 4,
+      "title": "Closing & Action Points",
+      "cefrLevel": "B2",
+      "iconName": "chat",
+      "completionTitle": "Business Meeting",
+      "completionSummary": "You have completed Closing & Action Points successfully",
+      "questions": [
+        {
+          "prompt": "Who is responsible for following up with the client?",
+          "options": [
+            "David",
+            "Maria",
+            "The speaker"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Maria is responsible for following up with the client."
+        },
+        {
+          "prompt": "When should Maria send an email to the client?",
+          "options": [
+            "Immediately",
+            "If the call fails by Tuesday afternoon",
+            "After the meeting minutes"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! Maria should email if the call fails by Tuesday afternoon."
+        },
+        {
+          "prompt": "What does \"summarise\" mean?",
+          "options": [
+            "a specific task someone must complete after a meeting",
+            "a reserve budget for unexpected costs",
+            "to give the main points briefly"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"summarise\" means to give the main points briefly."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"action point\"?",
+          "options": [
+            "Let me summarise what we discussed.",
+            "We always include a 10% contingency in project budgets.",
+            "You have three action points from today's meeting."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"You have three action points from today's meeting.\" is a good example."
+        },
+        {
+          "prompt": "What does \"contingency\" mean?",
+          "options": [
+            "to give the main points briefly",
+            "a specific task someone must complete after a meeting",
+            "a reserve budget for unexpected costs"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"contingency\" means a reserve budget for unexpected costs."
+        }
+      ]
+    },
+    {
+      "id": "business_meeting_quick_05",
+      "number": 5,
+      "title": "High-Stakes Executive Meeting",
+      "cefrLevel": "C1",
+      "iconName": "chat",
+      "completionTitle": "Business Meeting",
+      "completionSummary": "You have completed High-Stakes Executive Meeting successfully",
+      "questions": [
+        {
+          "prompt": "What are the two outstanding due diligence concerns?",
+          "options": [
+            "Revenue and profit",
+            "IP ownership and pending litigation",
+            "Market size and competition"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! The concerns are IP ownership and pending litigation."
+        },
+        {
+          "prompt": "What protects the company if the IP issue isn't resolved in 60 days?",
+          "options": [
+            "A penalty clause",
+            "A fallback clause in the term sheet",
+            "The CEO's decision"
+          ],
+          "correctIndex": 1,
+          "feedback": "Correct! A fallback clause in the term sheet protects the company."
+        },
+        {
+          "prompt": "What does \"due diligence\" mean?",
+          "options": [
+            "the process of taking legal action",
+            "an estimate of how much something is worth",
+            "a thorough investigation before completing a business deal"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"due diligence\" means a thorough investigation before completing a business deal."
+        },
+        {
+          "prompt": "Which sentence shows the correct use of \"litigation\"?",
+          "options": [
+            "We completed due diligence before signing the contract.",
+            "The startup's valuation was $500 million.",
+            "The company is involved in ongoing litigation."
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"The company is involved in ongoing litigation.\" is a good example."
+        },
+        {
+          "prompt": "What does \"valuation\" mean?",
+          "options": [
+            "a thorough investigation before completing a business deal",
+            "the process of taking legal action",
+            "an estimate of how much something is worth"
+          ],
+          "correctIndex": 2,
+          "feedback": "Correct! \"valuation\" means an estimate of how much something is worth."
+        }
+      ]
+    }
+  ]
+}

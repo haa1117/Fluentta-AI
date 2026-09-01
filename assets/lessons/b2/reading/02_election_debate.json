@@ -1,0 +1,64 @@
+{
+  "id": "b2_reading_02",
+  "cefrLevel": "B2",
+  "number": 2,
+  "title": "Election Debate",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Candidate A",
+      "text": "We must invest in public transport.",
+      "isUser": false
+    },
+    {
+      "speaker": "Candidate B",
+      "text": "Tax cuts will stimulate the economy.",
+      "isUser": true
+    },
+    {
+      "speaker": "Moderator",
+      "text": "How would each plan affect rural areas?",
+      "isUser": false
+    },
+    {
+      "speaker": "Candidate A",
+      "text": "Better buses would connect villages to jobs.",
+      "isUser": true
+    },
+    {
+      "speaker": "Candidate A",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What does Candidate A prioritize?",
+      "options": [
+        "Public transport",
+        "Space exploration",
+        "Fashion industry"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What does Candidate A say about rural areas?",
+      "options": [
+        "Nothing",
+        "Better buses would help",
+        "Schools should close"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Election Debate Learned",
+  "completionSummary": "General election debate conversation"
+}

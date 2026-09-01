@@ -1,0 +1,44 @@
+{
+  "id": "a2_vocab_05",
+  "cefrLevel": "A2",
+  "number": 5,
+  "title": "Shopping",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "price",
+      "phonetic": "/praɪs/",
+      "partOfSpeech": "noun",
+      "definition": "The amount of money something costs.",
+      "example": "What is the price of this bag?"
+    },
+    {
+      "word": "discount",
+      "phonetic": "/ˈdɪskaʊnt/",
+      "partOfSpeech": "noun",
+      "definition": "A reduction in price.",
+      "example": "There is a 20% discount today."
+    },
+    {
+      "word": "receipt",
+      "phonetic": "/rɪˈsiːt/",
+      "partOfSpeech": "noun",
+      "definition": "A paper showing payment.",
+      "example": "Keep your receipt."
+    },
+    {
+      "word": "cash",
+      "phonetic": "/kæʃ/",
+      "partOfSpeech": "noun",
+      "definition": "Money in coins or notes.",
+      "example": "Do you pay by cash or card?"
+    },
+    {
+      "word": "customer",
+      "phonetic": "/ˈkʌstəmər/",
+      "partOfSpeech": "noun",
+      "definition": "A person who buys something.",
+      "example": "The customer is waiting."
+    }
+  ]
+}

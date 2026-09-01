@@ -1,0 +1,65 @@
+{
+  "id": "b1_grammar_01",
+  "cefrLevel": "B1",
+  "number": 1,
+  "title": "Present Perfect",
+  "iconName": "grammar",
+  "rule": "Use the present perfect for past actions connected to now.",
+  "pattern": "Subject + have/has + past participle",
+  "examples": [
+    {
+      "text": "I have finished my homework.",
+      "highlight": "have finished"
+    },
+    {
+      "text": "She has lived here for five years.",
+      "highlight": "has lived"
+    },
+    {
+      "text": "Have you ever been to Japan?",
+      "highlight": "Have"
+    },
+    {
+      "text": "They haven't replied yet.",
+      "highlight": "haven't replied"
+    },
+    {
+      "text": "We have just arrived.",
+      "highlight": "have just arrived"
+    }
+  ],
+  "practicePrompt": "Complete: He ___ (see) that movie twice.",
+  "practiceAnswer": "has seen",
+  "steps": [
+    {
+      "title": "Use the present perfect for past actions connected to now.",
+      "description": "Subject + have/has + past participle",
+      "formula": "Subject + have/has + past participle",
+      "examples": [
+        {
+          "text": "I have finished my homework.",
+          "highlight": "have finished"
+        },
+        {
+          "text": "She has lived here for five years.",
+          "highlight": "has lived"
+        },
+        {
+          "text": "Have you ever been to Japan?",
+          "highlight": "Have"
+        },
+        {
+          "text": "They haven't replied yet.",
+          "highlight": "haven't replied"
+        },
+        {
+          "text": "We have just arrived.",
+          "highlight": "have just arrived"
+        }
+      ],
+      "quickTip": "Complete: He ___ (see) that movie twice. (has seen)"
+    }
+  ],
+  "completionTitle": "Present Perfect Learned",
+  "completionSummary": "Subject + have/has + past participle"
+}

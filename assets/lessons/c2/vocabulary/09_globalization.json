@@ -1,0 +1,44 @@
+{
+  "id": "c2_vocab_09",
+  "cefrLevel": "C2",
+  "number": 9,
+  "title": "Globalization",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "interdependence",
+      "phonetic": "/ˌɪntərdɪˈpɛndəns/",
+      "partOfSpeech": "noun",
+      "definition": "Mutual reliance between nations.",
+      "example": "Economic interdependence increased."
+    },
+    {
+      "word": "protectionism",
+      "phonetic": "/prəˈtɛkʃənɪzəm/",
+      "partOfSpeech": "noun",
+      "definition": "Shielding domestic industry from trade.",
+      "example": "Protectionism rose during the crisis."
+    },
+    {
+      "word": "outsourcing",
+      "phonetic": "/ˈaʊtsɔːrsɪŋ/",
+      "partOfSpeech": "noun",
+      "definition": "Hiring external companies for work.",
+      "example": "Outsourcing cut operational costs."
+    },
+    {
+      "word": "supply chain",
+      "phonetic": "/səˈplaɪ tʃeɪn/",
+      "partOfSpeech": "noun",
+      "definition": "The network producing and delivering goods.",
+      "example": "The supply chain broke down."
+    },
+    {
+      "word": "comparative advantage",
+      "phonetic": "/kəmˈpærətɪv ədˈvæntɪdʒ/",
+      "partOfSpeech": "noun",
+      "definition": "Ability to produce at lower cost.",
+      "example": "Comparative advantage drives trade."
+    }
+  ]
+}

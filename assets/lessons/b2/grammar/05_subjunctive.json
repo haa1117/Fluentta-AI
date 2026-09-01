@@ -1,0 +1,65 @@
+{
+  "id": "b2_grammar_05",
+  "cefrLevel": "B2",
+  "number": 5,
+  "title": "Subjunctive",
+  "iconName": "grammar",
+  "rule": "The subjunctive appears after certain verbs and fixed expressions.",
+  "pattern": "It is essential that + subject + base verb",
+  "examples": [
+    {
+      "text": "I suggest that he be present.",
+      "highlight": "be"
+    },
+    {
+      "text": "It is vital that she arrive on time.",
+      "highlight": "arrive"
+    },
+    {
+      "text": "They insisted that we stay.",
+      "highlight": "stay"
+    },
+    {
+      "text": "It is important that he not leave early.",
+      "highlight": "not leave"
+    },
+    {
+      "text": "We recommend that the plan be revised.",
+      "highlight": "be revised"
+    }
+  ],
+  "practicePrompt": "Complete: It is crucial that everyone ___ (be) informed.",
+  "practiceAnswer": "be",
+  "steps": [
+    {
+      "title": "The subjunctive appears after certain verbs and fixed expressions.",
+      "description": "It is essential that + subject + base verb",
+      "formula": "It is essential that + subject + base verb",
+      "examples": [
+        {
+          "text": "I suggest that he be present.",
+          "highlight": "be"
+        },
+        {
+          "text": "It is vital that she arrive on time.",
+          "highlight": "arrive"
+        },
+        {
+          "text": "They insisted that we stay.",
+          "highlight": "stay"
+        },
+        {
+          "text": "It is important that he not leave early.",
+          "highlight": "not leave"
+        },
+        {
+          "text": "We recommend that the plan be revised.",
+          "highlight": "be revised"
+        }
+      ],
+      "quickTip": "Complete: It is crucial that everyone ___ (be) informed. (be)"
+    }
+  ],
+  "completionTitle": "Subjunctive Learned",
+  "completionSummary": "It is essential that + subject + base verb"
+}

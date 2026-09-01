@@ -1,0 +1,64 @@
+{
+  "id": "a1_reading_07",
+  "cefrLevel": "A1",
+  "number": 7,
+  "title": "Directions",
+  "iconName": "travel",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Tourist",
+      "text": "Excuse me, where is the bank?",
+      "isUser": false
+    },
+    {
+      "speaker": "Local",
+      "text": "Go straight and turn left.",
+      "isUser": true
+    },
+    {
+      "speaker": "Tourist",
+      "text": "Is it far?",
+      "isUser": false
+    },
+    {
+      "speaker": "Local",
+      "text": "No, it is near the park.",
+      "isUser": true
+    },
+    {
+      "speaker": "Tourist",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What is the tourist looking for?",
+      "options": [
+        "A bank",
+        "A hotel",
+        "A school"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "Where is the bank?",
+      "options": [
+        "Near the park",
+        "At the airport",
+        "In the mountains"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Directions Learned",
+  "completionSummary": "General directions conversation"
+}

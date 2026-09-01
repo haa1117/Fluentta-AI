@@ -1,0 +1,64 @@
+{
+  "id": "b2_reading_10",
+  "cefrLevel": "B2",
+  "number": 10,
+  "title": "Career Coaching",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Coach",
+      "text": "What skills do you want to develop this year?",
+      "isUser": false
+    },
+    {
+      "speaker": "Client",
+      "text": "I'd like to improve public speaking.",
+      "isUser": true
+    },
+    {
+      "speaker": "Coach",
+      "text": "Let's set monthly practice goals.",
+      "isUser": false
+    },
+    {
+      "speaker": "Client",
+      "text": "That structure would help me.",
+      "isUser": true
+    },
+    {
+      "speaker": "Coach",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What skill does the client want to improve?",
+      "options": [
+        "Cooking",
+        "Public speaking",
+        "Driving"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What does the coach propose?",
+      "options": [
+        "Monthly practice goals",
+        "Immediate resignation",
+        "Avoiding meetings"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Career Coaching Learned",
+  "completionSummary": "General career coaching conversation"
+}

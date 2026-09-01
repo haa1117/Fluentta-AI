@@ -1,0 +1,44 @@
+{
+  "id": "a1_vocab_02",
+  "cefrLevel": "A1",
+  "number": 2,
+  "title": "Numbers",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "one",
+      "phonetic": "/wʌn/",
+      "partOfSpeech": "numeral",
+      "definition": "The number 1.",
+      "example": "I have one brother."
+    },
+    {
+      "word": "two",
+      "phonetic": "/tuː/",
+      "partOfSpeech": "numeral",
+      "definition": "The number 2.",
+      "example": "She has two cats."
+    },
+    {
+      "word": "three",
+      "phonetic": "/θriː/",
+      "partOfSpeech": "numeral",
+      "definition": "The number 3.",
+      "example": "We need three chairs."
+    },
+    {
+      "word": "four",
+      "phonetic": "/fɔːr/",
+      "partOfSpeech": "numeral",
+      "definition": "The number 4.",
+      "example": "There are four seasons."
+    },
+    {
+      "word": "five",
+      "phonetic": "/faɪv/",
+      "partOfSpeech": "numeral",
+      "definition": "The number 5.",
+      "example": "He works five days a week."
+    }
+  ]
+}

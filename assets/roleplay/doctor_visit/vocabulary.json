@@ -1,0 +1,423 @@
+{
+  "scenarioId": "doctor_visit",
+  "cefrLevel": "A2",
+  "pathTitle": "Doctor Visit Vocabulary",
+  "pathSubtitle": "Communicate health concerns, describe symptoms, and understand medical advice clearly.",
+  "lessons": [
+    {
+      "id": "doctor_visit_vocab_01",
+      "number": 1,
+      "title": "Describing Basic Symptoms",
+      "cefrLevel": "A2",
+      "levelLabel": "Elementary",
+      "situation": "You are not feeling well and visit a doctor for the first time.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Doctor",
+          "text": "Hello. Come in and have a seat. What brings you in today?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Hello. I don't feel well. I have a headache and a sore throat.",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "I see. How long have you had these symptoms?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "About three days.",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "Do you have a temperature?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Yes, a little. And I feel very tired.",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "Let me take a look. Open your mouth, please.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "symptom",
+          "phonetic": "/ˈsɪmptəm/",
+          "partOfSpeech": "noun",
+          "definition": "a sign of illness felt by a patient",
+          "example": "A sore throat is a common symptom of a cold."
+        },
+        {
+          "word": "sore throat",
+          "phonetic": "/sɔːr θroʊt/",
+          "partOfSpeech": "phrase",
+          "definition": "a painful or irritated feeling in the throat",
+          "example": "I have a bad sore throat and can't swallow."
+        },
+        {
+          "word": "headache",
+          "phonetic": "/ˈhɛdeɪk/",
+          "partOfSpeech": "noun",
+          "definition": "a pain inside the head",
+          "example": "I've had a headache all day."
+        },
+        {
+          "word": "temperature",
+          "phonetic": "/ˈtɛmpərɪʧər/",
+          "partOfSpeech": "noun",
+          "definition": "body heat; a fever when above normal",
+          "example": "The doctor checked my temperature."
+        },
+        {
+          "word": "tired",
+          "phonetic": "/ˈtaɪərd/",
+          "partOfSpeech": "adjective",
+          "definition": "feeling a need to rest or sleep",
+          "example": "I feel so tired I can barely stand."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_vocab_02",
+      "number": 2,
+      "title": "Getting a Prescription",
+      "cefrLevel": "B1",
+      "levelLabel": "Intermediate",
+      "situation": "The doctor has examined you and is explaining the diagnosis and treatment.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Doctor",
+          "text": "Based on my examination, you have a throat infection. It's bacterial, so I'm going to prescribe antibiotics.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "How many times a day should I take them?",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "Twice a day — morning and evening — with food. It's important to finish the full course even if you feel better before then.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Are there any side effects I should know about?",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "Some people feel nauseous in the first day or two. If you get a rash or have difficulty breathing, stop taking them and come back immediately.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Understood. Is there anything else I can do to help with the pain?",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "Paracetamol for the pain, plenty of water, and rest. You should feel much better within five days.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "prescribe",
+          "phonetic": "/prɪˈskraɪb/",
+          "partOfSpeech": "verb",
+          "definition": "to officially tell a patient to take a medicine",
+          "example": "The doctor prescribed antibiotics for the infection."
+        },
+        {
+          "word": "antibiotics",
+          "phonetic": "/ˌæntɪbaɪˈɒtɪks/",
+          "partOfSpeech": "noun",
+          "definition": "medicines that kill bacterial infections",
+          "example": "Always finish your course of antibiotics."
+        },
+        {
+          "word": "side effect",
+          "phonetic": "/ˈsaɪd ɪˌfɛkt/",
+          "partOfSpeech": "phrase",
+          "definition": "an unwanted result of taking a medication",
+          "example": "One side effect of this medicine is dizziness."
+        },
+        {
+          "word": "nauseous",
+          "phonetic": "/ˈnɔːziəs/",
+          "partOfSpeech": "adjective",
+          "definition": "feeling like you want to vomit",
+          "example": "The medicine made me feel nauseous."
+        },
+        {
+          "word": "course",
+          "phonetic": "/kɔːrs/",
+          "partOfSpeech": "noun",
+          "definition": "the full set of doses of a medicine",
+          "example": "Complete the full course of medication."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_vocab_03",
+      "number": 3,
+      "title": "Describing Pain",
+      "cefrLevel": "B1",
+      "levelLabel": "Intermediate",
+      "situation": "You are visiting a doctor for back pain and need to describe it accurately.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Doctor",
+          "text": "Where exactly does it hurt?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "In my lower back, on the right side. It started after I moved some heavy boxes last week.",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "And how would you describe the pain? Is it sharp, dull, burning?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "It's more of a dull, constant ache. But when I bend down, it becomes quite sharp.",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "On a scale of one to ten, how bad is the pain right now?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "About a five or six at rest, but an eight when I move.",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "Does it radiate anywhere — down your leg, for example?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Sometimes. I get a tingling feeling down the back of my right leg.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "sharp",
+          "phonetic": "/ʃɑːrp/",
+          "partOfSpeech": "adjective",
+          "definition": "a sudden, intense pain (like a knife)",
+          "example": "I feel a sharp pain when I breathe in."
+        },
+        {
+          "word": "dull ache",
+          "phonetic": "/dʌl eɪk/",
+          "partOfSpeech": "phrase",
+          "definition": "a continuous, low-level pain that is not intense",
+          "example": "I have a dull ache in my shoulder."
+        },
+        {
+          "word": "constant",
+          "phonetic": "/ˈkɒnstənt/",
+          "partOfSpeech": "adjective",
+          "definition": "happening all the time without stopping",
+          "example": "The pain is constant — it never goes away."
+        },
+        {
+          "word": "radiate",
+          "phonetic": "/ˈreɪdieɪt/",
+          "partOfSpeech": "verb",
+          "definition": "to spread out from a central point",
+          "example": "The pain radiates from my back to my leg."
+        },
+        {
+          "word": "tingling",
+          "phonetic": "/ˈtɪŋɡlɪŋ/",
+          "partOfSpeech": "adjective/noun",
+          "definition": "a light prickling sensation in the skin",
+          "example": "I have a tingling feeling in my fingers."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_vocab_04",
+      "number": 4,
+      "title": "Mental Health Consultation",
+      "cefrLevel": "B2",
+      "levelLabel": "Upper-Intermediate",
+      "situation": "You visit your GP to discuss how you have been feeling mentally and emotionally.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Doctor",
+          "text": "You mentioned on the form that you've been feeling low. Can you tell me more about that?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Over the past couple of months, I haven't been sleeping well, and I've lost interest in things I used to enjoy. I feel exhausted most of the time, even when I haven't done much.",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "Have you had any thoughts of harming yourself or feeling like life isn't worth living?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "No, nothing like that. It's more like a persistent grey feeling — not acute sadness, just flatness.",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "That sounds like it could be depression, though we'd want to rule out physical causes first. How is your appetite, and have you had any significant life changes recently?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "My appetite is down. And yes — I changed jobs six months ago and it's been more stressful than I expected.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "exhausted",
+          "phonetic": "/ɪɡˈzɔːstɪd/",
+          "partOfSpeech": "adjective",
+          "definition": "extremely tired, with no energy left",
+          "example": "I feel completely exhausted, even after a full night's sleep."
+        },
+        {
+          "word": "persistent",
+          "phonetic": "/pəˈsɪstənt/",
+          "partOfSpeech": "adjective",
+          "definition": "continuing for a long time; not stopping",
+          "example": "She has a persistent cough that won't go away."
+        },
+        {
+          "word": "acute",
+          "phonetic": "/əˈkjuːt/",
+          "partOfSpeech": "adjective",
+          "definition": "severe and sudden in onset (in medical terms)",
+          "example": "The patient arrived with acute chest pain."
+        },
+        {
+          "word": "rule out",
+          "phonetic": "/ruːl aʊt/",
+          "partOfSpeech": "phrasal verb",
+          "definition": "to eliminate something as a possibility",
+          "example": "We need to rule out any physical causes first."
+        },
+        {
+          "word": "appetite",
+          "phonetic": "/ˈæpɪtaɪt/",
+          "partOfSpeech": "noun",
+          "definition": "the natural desire to eat food",
+          "example": "I've had no appetite this week."
+        }
+      ]
+    },
+    {
+      "id": "doctor_visit_vocab_05",
+      "number": 5,
+      "title": "Specialist Referral & Second Opinion",
+      "cefrLevel": "C1",
+      "levelLabel": "Advanced",
+      "situation": "Your GP is referring you to a specialist. You ask informed questions about the referral process.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Doctor",
+          "text": "Based on your test results, I'd like to refer you to a cardiologist. Your ECG shows some irregularities that warrant further investigation.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I see. Can you explain what kind of irregularities we're talking about?",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "There are some anomalies in your heart rhythm — nothing that points definitively to a serious condition, but we shouldn't ignore them.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "How long is the waiting time for a referral, typically?",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "Under the NHS, it should be within 18 weeks. However, given the nature of the findings, I'll mark it as urgent, which should accelerate that considerably.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I'd also like to consider seeking a private second opinion. Is that something you'd advise against?",
+          "isUser": true
+        },
+        {
+          "speaker": "Doctor",
+          "text": "Not at all. A second opinion is your right, and for anything cardiac-related, it's entirely reasonable. I can provide you with a full summary of your results.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "referral",
+          "phonetic": "/rɪˈfɜːrəl/",
+          "partOfSpeech": "noun",
+          "definition": "when a doctor sends a patient to see a specialist",
+          "example": "I have a referral to see a specialist next month."
+        },
+        {
+          "word": "cardiologist",
+          "phonetic": "/ˌkɑːrdiˈɒləʤɪst/",
+          "partOfSpeech": "noun",
+          "definition": "a doctor who specialises in the heart",
+          "example": "The cardiologist reviewed my ECG results."
+        },
+        {
+          "word": "anomaly",
+          "phonetic": "/əˈnɒməli/",
+          "partOfSpeech": "noun",
+          "definition": "something that is irregular or unexpected",
+          "example": "The scan revealed a small anomaly."
+        },
+        {
+          "word": "second opinion",
+          "phonetic": "/ˈsɛkənd əˈpɪnjən/",
+          "partOfSpeech": "phrase",
+          "definition": "asking another doctor to confirm or review a diagnosis",
+          "example": "I decided to get a second opinion before the operation."
+        },
+        {
+          "word": "cardiac",
+          "phonetic": "/ˈkɑːrdiæk/",
+          "partOfSpeech": "adjective",
+          "definition": "relating to the heart",
+          "example": "He is in the cardiac care unit."
+        }
+      ]
+    }
+  ]
+}

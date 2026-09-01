@@ -1,0 +1,44 @@
+{
+  "id": "a2_vocab_08",
+  "cefrLevel": "A2",
+  "number": 8,
+  "title": "Past Events",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "yesterday",
+      "phonetic": "/ˈjɛstərdeɪ/",
+      "partOfSpeech": "adverb",
+      "definition": "On the day before today.",
+      "example": "I visited my friend yesterday."
+    },
+    {
+      "word": "ago",
+      "phonetic": "/əˈɡoʊ/",
+      "partOfSpeech": "adverb",
+      "definition": "Before the present time.",
+      "example": "She called me two hours ago."
+    },
+    {
+      "word": "last",
+      "phonetic": "/læst/",
+      "partOfSpeech": "adjective",
+      "definition": "Most recent.",
+      "example": "We met last week."
+    },
+    {
+      "word": "remember",
+      "phonetic": "/rɪˈmɛmbər/",
+      "partOfSpeech": "verb",
+      "definition": "To keep something in your mind.",
+      "example": "I remember my first day at school."
+    },
+    {
+      "word": "forget",
+      "phonetic": "/fərˈɡɛt/",
+      "partOfSpeech": "verb",
+      "definition": "To fail to remember.",
+      "example": "Don't forget your keys."
+    }
+  ]
+}

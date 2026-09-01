@@ -1,0 +1,65 @@
+{
+  "id": "c1_grammar_07",
+  "cefrLevel": "C1",
+  "number": 7,
+  "title": "Ellipsis and Substitution",
+  "iconName": "grammar",
+  "rule": "Substitution replaces phrases; ellipsis removes them.",
+  "pattern": "do so / one / ones / auxiliary ellipsis",
+  "examples": [
+    {
+      "text": "She finished early and he did too.",
+      "highlight": "did too"
+    },
+    {
+      "text": "I prefer the blue one.",
+      "highlight": "one"
+    },
+    {
+      "text": "They can help if you want them to.",
+      "highlight": "to"
+    },
+    {
+      "text": "A: Will it rain? B: I hope not.",
+      "highlight": "not"
+    },
+    {
+      "text": "She runs faster than he does.",
+      "highlight": "does"
+    }
+  ],
+  "practicePrompt": "Complete: I asked him to call, but he forgot ___.",
+  "practiceAnswer": "to",
+  "steps": [
+    {
+      "title": "Substitution replaces phrases; ellipsis removes them.",
+      "description": "do so / one / ones / auxiliary ellipsis",
+      "formula": "do so / one / ones / auxiliary ellipsis",
+      "examples": [
+        {
+          "text": "She finished early and he did too.",
+          "highlight": "did too"
+        },
+        {
+          "text": "I prefer the blue one.",
+          "highlight": "one"
+        },
+        {
+          "text": "They can help if you want them to.",
+          "highlight": "to"
+        },
+        {
+          "text": "A: Will it rain? B: I hope not.",
+          "highlight": "not"
+        },
+        {
+          "text": "She runs faster than he does.",
+          "highlight": "does"
+        }
+      ],
+      "quickTip": "Complete: I asked him to call, but he forgot ___. (to)"
+    }
+  ],
+  "completionTitle": "Ellipsis and Substitution Learned",
+  "completionSummary": "do so / one / ones / auxiliary ellipsis"
+}

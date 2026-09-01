@@ -1,0 +1,65 @@
+{
+  "id": "a1_grammar_05",
+  "cefrLevel": "A1",
+  "number": 5,
+  "title": "Plurals",
+  "iconName": "grammar",
+  "rule": "Most nouns add -s; nouns ending in -s, -sh, -ch, -x add -es.",
+  "pattern": "singular noun + s/es",
+  "examples": [
+    {
+      "text": "One book, two books.",
+      "highlight": "books"
+    },
+    {
+      "text": "A box and three boxes.",
+      "highlight": "boxes"
+    },
+    {
+      "text": "She has many friends.",
+      "highlight": "friends"
+    },
+    {
+      "text": "The buses are late.",
+      "highlight": "buses"
+    },
+    {
+      "text": "These watches are expensive.",
+      "highlight": "watches"
+    }
+  ],
+  "practicePrompt": "Complete: three ___ (child)",
+  "practiceAnswer": "children",
+  "steps": [
+    {
+      "title": "Most nouns add -s; nouns ending in -s, -sh, -ch, -x add -es.",
+      "description": "singular noun + s/es",
+      "formula": "singular noun + s/es",
+      "examples": [
+        {
+          "text": "One book, two books.",
+          "highlight": "books"
+        },
+        {
+          "text": "A box and three boxes.",
+          "highlight": "boxes"
+        },
+        {
+          "text": "She has many friends.",
+          "highlight": "friends"
+        },
+        {
+          "text": "The buses are late.",
+          "highlight": "buses"
+        },
+        {
+          "text": "These watches are expensive.",
+          "highlight": "watches"
+        }
+      ],
+      "quickTip": "Complete: three ___ (child) (children)"
+    }
+  ],
+  "completionTitle": "Plurals Learned",
+  "completionSummary": "singular noun + s/es"
+}

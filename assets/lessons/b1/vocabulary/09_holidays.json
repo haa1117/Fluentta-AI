@@ -1,0 +1,44 @@
+{
+  "id": "b1_vocab_09",
+  "cefrLevel": "B1",
+  "number": 9,
+  "title": "Holidays",
+  "iconName": "travel",
+  "words": [
+    {
+      "word": "celebration",
+      "phonetic": "/ˌsɛlɪˈbreɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A special enjoyable event.",
+      "example": "The celebration lasted all night."
+    },
+    {
+      "word": "tradition",
+      "phonetic": "/trəˈdɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A custom passed through generations.",
+      "example": "It is a family tradition."
+    },
+    {
+      "word": "fireworks",
+      "phonetic": "/ˈfaɪərwɜːrks/",
+      "partOfSpeech": "noun",
+      "definition": "Colorful explosions in the sky.",
+      "example": "We watched fireworks on New Year's Eve."
+    },
+    {
+      "word": "gift",
+      "phonetic": "/ɡɪft/",
+      "partOfSpeech": "noun",
+      "definition": "Something given to someone.",
+      "example": "She bought a gift for her mother."
+    },
+    {
+      "word": "festival",
+      "phonetic": "/ˈfɛstɪvəl/",
+      "partOfSpeech": "noun",
+      "definition": "A special public event.",
+      "example": "The music festival was amazing."
+    }
+  ]
+}

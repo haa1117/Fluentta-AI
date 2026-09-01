@@ -1,0 +1,44 @@
+{
+  "id": "c1_vocab_10",
+  "cefrLevel": "C1",
+  "number": 10,
+  "title": "Migration",
+  "iconName": "travel",
+  "words": [
+    {
+      "word": "diaspora",
+      "phonetic": "/daɪˈæspərə/",
+      "partOfSpeech": "noun",
+      "definition": "A community living outside its homeland.",
+      "example": "The diaspora maintained traditions."
+    },
+    {
+      "word": "assimilation",
+      "phonetic": "/əˌsɪmɪˈleɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Adopting a new culture.",
+      "example": "Assimilation can take generations."
+    },
+    {
+      "word": "xenophobia",
+      "phonetic": "/ˌzɛnəˈfoʊbiə/",
+      "partOfSpeech": "noun",
+      "definition": "Dislike of foreigners.",
+      "example": "Xenophobia fuels discrimination."
+    },
+    {
+      "word": "remittance",
+      "phonetic": "/rɪˈmɪtəns/",
+      "partOfSpeech": "noun",
+      "definition": "Money sent home by migrants.",
+      "example": "Remittances support families abroad."
+    },
+    {
+      "word": "integration",
+      "phonetic": "/ˌɪntɪˈɡreɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Becoming part of a society.",
+      "example": "Integration programs help newcomers."
+    }
+  ]
+}

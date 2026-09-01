@@ -1,0 +1,65 @@
+{
+  "id": "a1_grammar_02",
+  "cefrLevel": "A1",
+  "number": 2,
+  "title": "To Be",
+  "iconName": "grammar",
+  "rule": "Use am, is, or are to describe people, places, and feelings.",
+  "pattern": "Subject + am/is/are + complement",
+  "examples": [
+    {
+      "text": "I am tired.",
+      "highlight": "am"
+    },
+    {
+      "text": "She is a doctor.",
+      "highlight": "is"
+    },
+    {
+      "text": "They are at home.",
+      "highlight": "are"
+    },
+    {
+      "text": "It is cold today.",
+      "highlight": "is"
+    },
+    {
+      "text": "We are ready.",
+      "highlight": "are"
+    }
+  ],
+  "practicePrompt": "Complete: She ___ a teacher.",
+  "practiceAnswer": "is",
+  "steps": [
+    {
+      "title": "Use am, is, or are to describe people, places, and feelings.",
+      "description": "Subject + am/is/are + complement",
+      "formula": "Subject + am/is/are + complement",
+      "examples": [
+        {
+          "text": "I am tired.",
+          "highlight": "am"
+        },
+        {
+          "text": "She is a doctor.",
+          "highlight": "is"
+        },
+        {
+          "text": "They are at home.",
+          "highlight": "are"
+        },
+        {
+          "text": "It is cold today.",
+          "highlight": "is"
+        },
+        {
+          "text": "We are ready.",
+          "highlight": "are"
+        }
+      ],
+      "quickTip": "Complete: She ___ a teacher. (is)"
+    }
+  ],
+  "completionTitle": "To Be Learned",
+  "completionSummary": "am, is, are"
+}

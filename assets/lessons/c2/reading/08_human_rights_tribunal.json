@@ -1,0 +1,64 @@
+{
+  "id": "c2_reading_08",
+  "cefrLevel": "C2",
+  "number": 8,
+  "title": "Human Rights Tribunal",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The tribunal found evidence of systematic persecution and ordered restitution for victims.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The state contested jurisdiction, arguing that domestic courts had already adjudicated the matter.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What did the tribunal order?",
+      "options": [
+        "Restitution for victims",
+        "Closure of all schools",
+        "Cancellation of elections"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What did the state contest?",
+      "options": [
+        "Jurisdiction",
+        "The existence of courts",
+        "The concept of law"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Human Rights Tribunal Learned",
+  "completionSummary": "General human rights tribunal conversation"
+}

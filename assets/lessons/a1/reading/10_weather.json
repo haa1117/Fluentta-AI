@@ -1,0 +1,74 @@
+{
+  "id": "a1_reading_10",
+  "cefrLevel": "A1",
+  "number": 10,
+  "title": "Weather",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Today the weather is cold and windy.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "There are many clouds in the sky.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Yesterday it was sunny and warm.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Tomorrow may bring rain.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "How is the weather today?",
+      "options": [
+        "Hot and sunny",
+        "Cold and windy",
+        "Warm and dry"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What was the weather like yesterday?",
+      "options": [
+        "Rainy",
+        "Sunny",
+        "Snowy"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Weather Learned",
+  "completionSummary": "General weather conversation"
+}

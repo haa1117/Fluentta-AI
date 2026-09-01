@@ -1,0 +1,65 @@
+{
+  "id": "c2_grammar_07",
+  "cefrLevel": "C2",
+  "number": 7,
+  "title": "Fronting and Topicalization",
+  "iconName": "grammar",
+  "rule": "Topicalization places the topic first for focus and flow.",
+  "pattern": "Topic + comment structure",
+  "examples": [
+    {
+      "text": "This issue, we must address immediately.",
+      "highlight": "This issue"
+    },
+    {
+      "text": "No greater challenge exists today.",
+      "highlight": "No greater challenge"
+    },
+    {
+      "text": "Such proposals rarely succeed.",
+      "highlight": "Such proposals"
+    },
+    {
+      "text": "The report you requested, I have attached.",
+      "highlight": "The report you requested"
+    },
+    {
+      "text": "Only with cooperation can progress occur.",
+      "highlight": "Only with cooperation"
+    }
+  ],
+  "practicePrompt": "Complete: This proposal, the board ___ (reject) unanimously.",
+  "practiceAnswer": "rejected",
+  "steps": [
+    {
+      "title": "Topicalization places the topic first for focus and flow.",
+      "description": "Topic + comment structure",
+      "formula": "Topic + comment structure",
+      "examples": [
+        {
+          "text": "This issue, we must address immediately.",
+          "highlight": "This issue"
+        },
+        {
+          "text": "No greater challenge exists today.",
+          "highlight": "No greater challenge"
+        },
+        {
+          "text": "Such proposals rarely succeed.",
+          "highlight": "Such proposals"
+        },
+        {
+          "text": "The report you requested, I have attached.",
+          "highlight": "The report you requested"
+        },
+        {
+          "text": "Only with cooperation can progress occur.",
+          "highlight": "Only with cooperation"
+        }
+      ],
+      "quickTip": "Complete: This proposal, the board ___ (reject) unanimously. (rejected)"
+    }
+  ],
+  "completionTitle": "Fronting and Topicalization Learned",
+  "completionSummary": "Topic + comment structure"
+}

@@ -1,0 +1,64 @@
+{
+  "id": "c1_reading_08",
+  "cefrLevel": "C1",
+  "number": 8,
+  "title": "Social Media Ethics",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Platforms face scrutiny over algorithms that amplify sensational content.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Critics argue that engagement-driven design erodes public discourse, while companies contend they are improving moderation tools.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What do algorithms amplify according to critics?",
+      "options": [
+        "Sensational content",
+        "Only academic papers",
+        "Silent posts"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What do companies say they are improving?",
+      "options": [
+        "Moderation tools",
+        "Shipping speeds",
+        "Restaurant menus"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Social Media Ethics Learned",
+  "completionSummary": "General social media ethics conversation"
+}

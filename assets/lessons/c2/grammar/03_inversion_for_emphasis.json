@@ -1,0 +1,65 @@
+{
+  "id": "c2_grammar_03",
+  "cefrLevel": "C2",
+  "number": 3,
+  "title": "Inversion for Emphasis",
+  "iconName": "grammar",
+  "rule": "Inversion under negative or restrictive adverbs adds dramatic emphasis.",
+  "pattern": "Under no circumstances / Little / So + inversion",
+  "examples": [
+    {
+      "text": "Under no circumstances should data be shared.",
+      "highlight": "should data be"
+    },
+    {
+      "text": "Little did they know what awaited.",
+      "highlight": "did they know"
+    },
+    {
+      "text": "So intense was the debate that talks paused.",
+      "highlight": "was the debate"
+    },
+    {
+      "text": "Not for a moment did I believe him.",
+      "highlight": "did I believe"
+    },
+    {
+      "text": "Hardly had we arrived when it began to snow.",
+      "highlight": "had we arrived"
+    }
+  ],
+  "practicePrompt": "Complete: Rarely ___ such a compelling argument presented.",
+  "practiceAnswer": "has",
+  "steps": [
+    {
+      "title": "Inversion under negative or restrictive adverbs adds dramatic emphasis.",
+      "description": "Under no circumstances / Little / So + inversion",
+      "formula": "Under no circumstances / Little / So + inversion",
+      "examples": [
+        {
+          "text": "Under no circumstances should data be shared.",
+          "highlight": "should data be"
+        },
+        {
+          "text": "Little did they know what awaited.",
+          "highlight": "did they know"
+        },
+        {
+          "text": "So intense was the debate that talks paused.",
+          "highlight": "was the debate"
+        },
+        {
+          "text": "Not for a moment did I believe him.",
+          "highlight": "did I believe"
+        },
+        {
+          "text": "Hardly had we arrived when it began to snow.",
+          "highlight": "had we arrived"
+        }
+      ],
+      "quickTip": "Complete: Rarely ___ such a compelling argument presented. (has)"
+    }
+  ],
+  "completionTitle": "Inversion for Emphasis Learned",
+  "completionSummary": "Under no circumstances / Little / So + inversion"
+}

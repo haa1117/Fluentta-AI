@@ -1,0 +1,65 @@
+{
+  "id": "a2_grammar_02",
+  "cefrLevel": "A2",
+  "number": 2,
+  "title": "Past Continuous",
+  "iconName": "grammar",
+  "rule": "Use the past continuous for actions in progress at a past time.",
+  "pattern": "Subject + was/were + verb-ing",
+  "examples": [
+    {
+      "text": "I was reading at eight.",
+      "highlight": "was reading"
+    },
+    {
+      "text": "They were watching TV.",
+      "highlight": "were watching"
+    },
+    {
+      "text": "Was she working?",
+      "highlight": "Was"
+    },
+    {
+      "text": "It was raining all morning.",
+      "highlight": "was raining"
+    },
+    {
+      "text": "We weren't sleeping.",
+      "highlight": "weren't sleeping"
+    }
+  ],
+  "practicePrompt": "Complete: He ___ (study) when I called.",
+  "practiceAnswer": "was studying",
+  "steps": [
+    {
+      "title": "Use the past continuous for actions in progress at a past time.",
+      "description": "Subject + was/were + verb-ing",
+      "formula": "Subject + was/were + verb-ing",
+      "examples": [
+        {
+          "text": "I was reading at eight.",
+          "highlight": "was reading"
+        },
+        {
+          "text": "They were watching TV.",
+          "highlight": "were watching"
+        },
+        {
+          "text": "Was she working?",
+          "highlight": "Was"
+        },
+        {
+          "text": "It was raining all morning.",
+          "highlight": "was raining"
+        },
+        {
+          "text": "We weren't sleeping.",
+          "highlight": "weren't sleeping"
+        }
+      ],
+      "quickTip": "Complete: He ___ (study) when I called. (was studying)"
+    }
+  ],
+  "completionTitle": "Past Continuous Learned",
+  "completionSummary": "Subject + was/were + verb-ing"
+}

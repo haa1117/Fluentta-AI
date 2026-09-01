@@ -1,0 +1,64 @@
+{
+  "id": "a1_reading_09",
+  "cefrLevel": "A1",
+  "number": 9,
+  "title": "Weekend Plans",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Sara",
+      "text": "What are you doing this weekend?",
+      "isUser": false
+    },
+    {
+      "speaker": "Mike",
+      "text": "I am visiting my parents.",
+      "isUser": true
+    },
+    {
+      "speaker": "Sara",
+      "text": "That sounds nice!",
+      "isUser": false
+    },
+    {
+      "speaker": "Mike",
+      "text": "Yes, I am happy.",
+      "isUser": true
+    },
+    {
+      "speaker": "Sara",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "When are Mike's plans?",
+      "options": [
+        "This weekend",
+        "On Monday",
+        "Next month"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "Who is Mike visiting?",
+      "options": [
+        "Friends",
+        "Parents",
+        "Teachers"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Weekend Plans Learned",
+  "completionSummary": "General weekend plans conversation"
+}

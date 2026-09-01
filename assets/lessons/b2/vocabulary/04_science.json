@@ -1,0 +1,44 @@
+{
+  "id": "b2_vocab_04",
+  "cefrLevel": "B2",
+  "number": 4,
+  "title": "Science",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "hypothesis",
+      "phonetic": "/haɪˈpɒθəsɪs/",
+      "partOfSpeech": "noun",
+      "definition": "An idea tested by experiments.",
+      "example": "The hypothesis was confirmed."
+    },
+    {
+      "word": "experiment",
+      "phonetic": "/ɪkˈspɛrɪmənt/",
+      "partOfSpeech": "noun",
+      "definition": "A scientific test.",
+      "example": "The experiment lasted six months."
+    },
+    {
+      "word": "evidence",
+      "phonetic": "/ˈɛvɪdəns/",
+      "partOfSpeech": "noun",
+      "definition": "Facts that support a claim.",
+      "example": "There is strong evidence."
+    },
+    {
+      "word": "innovation",
+      "phonetic": "/ˌɪnəˈveɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A new method or idea.",
+      "example": "Innovation drives progress."
+    },
+    {
+      "word": "breakthrough",
+      "phonetic": "/ˈbreɪkθruː/",
+      "partOfSpeech": "noun",
+      "definition": "An important discovery.",
+      "example": "Scientists announced a breakthrough."
+    }
+  ]
+}

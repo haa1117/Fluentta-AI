@@ -1,0 +1,65 @@
+{
+  "id": "c2_grammar_08",
+  "cefrLevel": "C2",
+  "number": 8,
+  "title": "Discourse Structure",
+  "iconName": "grammar",
+  "rule": "Advanced texts organize argument through clear macro-structure.",
+  "pattern": "thesis → development → counterargument → conclusion",
+  "examples": [
+    {
+      "text": "To begin with, the premise requires scrutiny.",
+      "highlight": "To begin with"
+    },
+    {
+      "text": "Having established that, we turn to implications.",
+      "highlight": "Having established that"
+    },
+    {
+      "text": "Admittedly, the evidence is incomplete.",
+      "highlight": "Admittedly"
+    },
+    {
+      "text": "By contrast, alternative models perform better.",
+      "highlight": "By contrast"
+    },
+    {
+      "text": "In conclusion, reform remains necessary.",
+      "highlight": "In conclusion"
+    }
+  ],
+  "practicePrompt": "Complete: ___, the evidence supports cautious optimism.",
+  "practiceAnswer": "On balance",
+  "steps": [
+    {
+      "title": "Advanced texts organize argument through clear macro-structure.",
+      "description": "thesis → development → counterargument → conclusion",
+      "formula": "thesis → development → counterargument → conclusion",
+      "examples": [
+        {
+          "text": "To begin with, the premise requires scrutiny.",
+          "highlight": "To begin with"
+        },
+        {
+          "text": "Having established that, we turn to implications.",
+          "highlight": "Having established that"
+        },
+        {
+          "text": "Admittedly, the evidence is incomplete.",
+          "highlight": "Admittedly"
+        },
+        {
+          "text": "By contrast, alternative models perform better.",
+          "highlight": "By contrast"
+        },
+        {
+          "text": "In conclusion, reform remains necessary.",
+          "highlight": "In conclusion"
+        }
+      ],
+      "quickTip": "Complete: ___, the evidence supports cautious optimism. (On balance)"
+    }
+  ],
+  "completionTitle": "Discourse Structure Learned",
+  "completionSummary": "thesis → development → counterargument → conclusion"
+}

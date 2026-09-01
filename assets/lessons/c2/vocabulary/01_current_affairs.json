@@ -1,0 +1,44 @@
+{
+  "id": "c2_vocab_01",
+  "cefrLevel": "C2",
+  "number": 1,
+  "title": "Current Affairs",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "geopolitical",
+      "phonetic": "/ˌdʒiːoʊpəˈlɪtɪkəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Relating to politics and geography.",
+      "example": "Geopolitical tensions escalated."
+    },
+    {
+      "word": "sanction",
+      "phonetic": "/ˈsæŋkʃən/",
+      "partOfSpeech": "noun",
+      "definition": "A penalty imposed on a country.",
+      "example": "Sanctions affected trade."
+    },
+    {
+      "word": "diplomacy",
+      "phonetic": "/dɪˈploʊməsi/",
+      "partOfSpeech": "noun",
+      "definition": "Managing international relations.",
+      "example": "Diplomacy prevented conflict."
+    },
+    {
+      "word": "sovereignty",
+      "phonetic": "/ˈsɒvrɪnti/",
+      "partOfSpeech": "noun",
+      "definition": "Supreme authority of a state.",
+      "example": "Sovereignty was fiercely defended."
+    },
+    {
+      "word": "multilateral",
+      "phonetic": "/ˌmʌltiˈlætərəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Involving many countries.",
+      "example": "A multilateral agreement was signed."
+    }
+  ]
+}

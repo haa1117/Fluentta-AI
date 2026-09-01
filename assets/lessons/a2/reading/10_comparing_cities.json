@@ -1,0 +1,64 @@
+{
+  "id": "a2_reading_10",
+  "cefrLevel": "A2",
+  "number": 10,
+  "title": "Comparing Cities",
+  "iconName": "travel",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Barcelona is bigger than my hometown, but my hometown is quieter.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Barcelona has more museums and restaurants.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "However, life there is more expensive.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "Which city is bigger?",
+      "options": [
+        "The hometown",
+        "Barcelona",
+        "They are equal"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What is true about Barcelona?",
+      "options": [
+        "It is cheaper",
+        "It has more museums",
+        "It is quieter"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Comparing Cities Learned",
+  "completionSummary": "General comparing cities conversation"
+}

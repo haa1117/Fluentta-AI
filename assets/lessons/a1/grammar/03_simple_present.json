@@ -1,0 +1,65 @@
+{
+  "id": "a1_grammar_03",
+  "cefrLevel": "A1",
+  "number": 3,
+  "title": "Simple Present",
+  "iconName": "grammar",
+  "rule": "Use the simple present for habits, facts, and routines.",
+  "pattern": "Subject + base verb (+ s/es for he/she/it)",
+  "examples": [
+    {
+      "text": "I drink coffee every morning.",
+      "highlight": "drink"
+    },
+    {
+      "text": "He plays football on Sundays.",
+      "highlight": "plays"
+    },
+    {
+      "text": "They work near the station.",
+      "highlight": "work"
+    },
+    {
+      "text": "She reads before bed.",
+      "highlight": "reads"
+    },
+    {
+      "text": "We speak English in class.",
+      "highlight": "speak"
+    }
+  ],
+  "practicePrompt": "Complete: He ___ TV every evening.",
+  "practiceAnswer": "watches",
+  "steps": [
+    {
+      "title": "Use the simple present for habits, facts, and routines.",
+      "description": "Subject + base verb (+ s/es for he/she/it)",
+      "formula": "Subject + base verb (+ s/es for he/she/it)",
+      "examples": [
+        {
+          "text": "I drink coffee every morning.",
+          "highlight": "drink"
+        },
+        {
+          "text": "He plays football on Sundays.",
+          "highlight": "plays"
+        },
+        {
+          "text": "They work near the station.",
+          "highlight": "work"
+        },
+        {
+          "text": "She reads before bed.",
+          "highlight": "reads"
+        },
+        {
+          "text": "We speak English in class.",
+          "highlight": "speak"
+        }
+      ],
+      "quickTip": "Complete: He ___ TV every evening. (watches)"
+    }
+  ],
+  "completionTitle": "Simple Present Learned",
+  "completionSummary": "Subject + base verb (+ s/es for he/she/it)"
+}

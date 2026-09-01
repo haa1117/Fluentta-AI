@@ -1,0 +1,65 @@
+{
+  "id": "c1_grammar_03",
+  "cefrLevel": "C1",
+  "number": 3,
+  "title": "Fronting",
+  "iconName": "grammar",
+  "rule": "Fronting moves an element to the start for emphasis.",
+  "pattern": "Focused element + clause",
+  "examples": [
+    {
+      "text": "This problem we cannot ignore.",
+      "highlight": "This problem"
+    },
+    {
+      "text": "Such was the demand that stocks ran out.",
+      "highlight": "Such"
+    },
+    {
+      "text": "More important is long-term stability.",
+      "highlight": "More important"
+    },
+    {
+      "text": "Into the room walked the director.",
+      "highlight": "Into the room"
+    },
+    {
+      "text": "Particularly striking was her confidence.",
+      "highlight": "Particularly striking"
+    }
+  ],
+  "practicePrompt": "Complete: ___ I cannot accept.",
+  "practiceAnswer": "Such behavior",
+  "steps": [
+    {
+      "title": "Fronting moves an element to the start for emphasis.",
+      "description": "Focused element + clause",
+      "formula": "Focused element + clause",
+      "examples": [
+        {
+          "text": "This problem we cannot ignore.",
+          "highlight": "This problem"
+        },
+        {
+          "text": "Such was the demand that stocks ran out.",
+          "highlight": "Such"
+        },
+        {
+          "text": "More important is long-term stability.",
+          "highlight": "More important"
+        },
+        {
+          "text": "Into the room walked the director.",
+          "highlight": "Into the room"
+        },
+        {
+          "text": "Particularly striking was her confidence.",
+          "highlight": "Particularly striking"
+        }
+      ],
+      "quickTip": "Complete: ___ I cannot accept. (Such behavior)"
+    }
+  ],
+  "completionTitle": "Fronting Learned",
+  "completionSummary": "Focused element + clause"
+}

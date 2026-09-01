@@ -1,0 +1,44 @@
+{
+  "id": "c1_vocab_01",
+  "cefrLevel": "C1",
+  "number": 1,
+  "title": "Philosophy",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "ethics",
+      "phonetic": "/ˈɛθɪks/",
+      "partOfSpeech": "noun",
+      "definition": "Moral principles that guide behavior.",
+      "example": "Ethics shapes public debate."
+    },
+    {
+      "word": "paradox",
+      "phonetic": "/ˈpærədɒks/",
+      "partOfSpeech": "noun",
+      "definition": "A statement that seems contradictory.",
+      "example": "The paradox puzzled philosophers."
+    },
+    {
+      "word": "existential",
+      "phonetic": "/ˌɛɡzɪˈstɛnʃəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Related to human existence.",
+      "example": "She raised an existential question."
+    },
+    {
+      "word": "rational",
+      "phonetic": "/ˈræʃənəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Based on reason.",
+      "example": "We need a rational explanation."
+    },
+    {
+      "word": "ideology",
+      "phonetic": "/ˌaɪdiˈɒlədʒi/",
+      "partOfSpeech": "noun",
+      "definition": "A system of ideas.",
+      "example": "Ideology influenced the reform."
+    }
+  ]
+}

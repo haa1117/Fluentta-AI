@@ -1,0 +1,65 @@
+{
+  "id": "a1_grammar_08",
+  "cefrLevel": "A1",
+  "number": 8,
+  "title": "Have and Has",
+  "iconName": "grammar",
+  "rule": "Use have with I/you/we/they; use has with he/she/it.",
+  "pattern": "Subject + have/has + object",
+  "examples": [
+    {
+      "text": "I have a bike.",
+      "highlight": "have"
+    },
+    {
+      "text": "She has two brothers.",
+      "highlight": "has"
+    },
+    {
+      "text": "We have time.",
+      "highlight": "have"
+    },
+    {
+      "text": "He has a meeting.",
+      "highlight": "has"
+    },
+    {
+      "text": "They have a small garden.",
+      "highlight": "have"
+    }
+  ],
+  "practicePrompt": "Complete: He ___ a new job.",
+  "practiceAnswer": "has",
+  "steps": [
+    {
+      "title": "Use have with I/you/we/they; use has with he/she/it.",
+      "description": "Subject + have/has + object",
+      "formula": "Subject + have/has + object",
+      "examples": [
+        {
+          "text": "I have a bike.",
+          "highlight": "have"
+        },
+        {
+          "text": "She has two brothers.",
+          "highlight": "has"
+        },
+        {
+          "text": "We have time.",
+          "highlight": "have"
+        },
+        {
+          "text": "He has a meeting.",
+          "highlight": "has"
+        },
+        {
+          "text": "They have a small garden.",
+          "highlight": "have"
+        }
+      ],
+      "quickTip": "Complete: He ___ a new job. (has)"
+    }
+  ],
+  "completionTitle": "Have and Has Learned",
+  "completionSummary": "have, has"
+}

@@ -1,0 +1,64 @@
+{
+  "id": "c2_reading_02",
+  "cefrLevel": "C2",
+  "number": 2,
+  "title": "Climate Summit",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Friend",
+      "text": "Can you tell me about it?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "Delegates committed to accelerated decarbonization targets, yet disagreed over financing for developing nations.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Go on.",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "The final communique hedges on binding timelines, reflecting divergent national priorities.",
+      "isUser": true
+    },
+    {
+      "speaker": "Friend",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What did delegates commit to?",
+      "options": [
+        "Accelerated decarbonization targets",
+        "Increased coal use",
+        "Eliminating all science funding"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "prompt": "What does the communique hedge on?",
+      "options": [
+        "Binding timelines",
+        "Hotel locations",
+        "Menu choices"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Climate Summit Learned",
+  "completionSummary": "General climate summit conversation"
+}

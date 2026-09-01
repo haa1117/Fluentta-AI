@@ -1,0 +1,44 @@
+{
+  "id": "c2_vocab_10",
+  "cefrLevel": "C2",
+  "number": 10,
+  "title": "Leadership",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "visionary",
+      "phonetic": "/ˈvɪʒənəri/",
+      "partOfSpeech": "adjective",
+      "definition": "Thinking creatively about the future.",
+      "example": "A visionary leader inspires change."
+    },
+    {
+      "word": "delegation",
+      "phonetic": "/ˌdɛlɪˈɡeɪʃən/",
+      "partOfSpeech": "noun",
+      "definition": "Assigning tasks to others.",
+      "example": "Effective delegation empowers teams."
+    },
+    {
+      "word": "accountable",
+      "phonetic": "/əˈkaʊntəbəl/",
+      "partOfSpeech": "adjective",
+      "definition": "Responsible for decisions.",
+      "example": "Leaders must remain accountable."
+    },
+    {
+      "word": "charisma",
+      "phonetic": "/kəˈrɪzmə/",
+      "partOfSpeech": "noun",
+      "definition": "Compelling personal appeal.",
+      "example": "Her charisma united the organization."
+    },
+    {
+      "word": "succession",
+      "phonetic": "/səkˈsɛʃən/",
+      "partOfSpeech": "noun",
+      "definition": "The process of replacing a leader.",
+      "example": "Succession planning began early."
+    }
+  ]
+}

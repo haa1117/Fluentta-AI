@@ -1,0 +1,1764 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for English (`en`).
+class AppLocalizationsEn extends AppLocalizations {
+  AppLocalizationsEn([String locale = 'en']) : super(locale);
+
+  @override
+  String get appName => 'Fluenta';
+
+  @override
+  String get aiEnglishTutor => 'AI English Tutor';
+
+  @override
+  String get speakWithAiTutor => 'Speak English with your AI tutor.';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get continueBtn => 'Continue';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get open => 'Open';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get previous => 'Previous';
+
+  @override
+  String get finishLesson => 'Finish Lesson';
+
+  @override
+  String get startNextLesson => 'Start Next Lesson';
+
+  @override
+  String lessonProgress(int number) {
+    return 'LESSON $number PROGRESS';
+  }
+
+  @override
+  String lessonTitle(int number) {
+    return 'Lesson $number';
+  }
+
+  @override
+  String get lessonPhase => 'LESSON PHASE';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get inProgress => 'In progress';
+
+  @override
+  String get locked => 'Locked';
+
+  @override
+  String get notStarted => 'Not started';
+
+  @override
+  String wordsProgress(int done, int total, String status) {
+    return '$done/$total words • $status';
+  }
+
+  @override
+  String lessonsCompleted(int done, int total) {
+    return '$done / $total lessons completed';
+  }
+
+  @override
+  String get completedLessonsReview =>
+      'Completed lessons stay open for review.';
+
+  @override
+  String get lessonContentSoon => 'Lesson content coming soon';
+
+  @override
+  String openingCategory(String title) {
+    return 'Opening $title...';
+  }
+
+  @override
+  String get onboardingTitle1 => 'Meet Your AI English Tutor';
+
+  @override
+  String get onboardingDesc1 =>
+      'Practice English by chatting or speaking \n with your personal AI tutor';
+
+  @override
+  String get onboardingTitle2 => 'Get Instant Corrections';
+
+  @override
+  String get onboardingDesc2 =>
+      'Fix Grammar, word choice, and sentences while you practice';
+
+  @override
+  String get onboardingTitle3 => 'Improve Every Day';
+
+  @override
+  String get onboardingDesc3 =>
+      'Build your English with daily practice and simple progress tracking';
+
+  @override
+  String get chooseYourLanguage => 'Choose Your Language';
+
+  @override
+  String get personalizeExperience => 'We Personalize your learning Experience';
+
+  @override
+  String get suggestedForYou => 'Suggested For You';
+
+  @override
+  String get otherLanguages => 'Other Languages';
+
+  @override
+  String get recommendedRegion => 'Recommended based on your region';
+
+  @override
+  String get languageUrdu => 'Urdu';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get languageSpanish => 'Spanish';
+
+  @override
+  String get languageFrench => 'French';
+
+  @override
+  String get signInWithEmail => 'Sign in with Email';
+
+  @override
+  String get signInSubtitle => 'Continue your English learning journey.';
+
+  @override
+  String get createAccount => 'Create account';
+
+  @override
+  String get createAccountSubtitle =>
+      'Save your learning progress across devices';
+
+  @override
+  String get emailAddress => 'Email address';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get enterYourName => 'Enter your name';
+
+  @override
+  String get minEightChars => 'Min. 8 characters';
+
+  @override
+  String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get signIn => 'Sign in';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account? ';
+
+  @override
+  String get rememberPassword => 'Remember your password? ';
+
+  @override
+  String get forgotPasswordTitle => 'Forgot your password?';
+
+  @override
+  String get forgotPasswordSubtitle =>
+      'Enter the email linked to your account.\n We\'ll send you a reset link.';
+
+  @override
+  String get sendVerificationCode => 'Send Reset Link';
+
+  @override
+  String get verificationEmailSent => 'Reset link sent successfully.';
+
+  @override
+  String get checkYourEmail => 'Check your email';
+
+  @override
+  String otpSentTo(String email) {
+    return 'We sent a password reset link to $email';
+  }
+
+  @override
+  String get checkResetEmailInstructions =>
+      'Open your email and tap the reset link. The app will open so you can set a new password.';
+
+  @override
+  String get verifyCode => 'Verify Code';
+
+  @override
+  String get verificationCodeResent => 'Verification code resent.';
+
+  @override
+  String get didntReceiveCode => 'Didn\'t receive the code? ';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get passwordUpdated => 'Password Updated!';
+
+  @override
+  String get passwordUpdatedDesc =>
+      'Your password has been updated successfully.\nYou can now sign in with your new password';
+
+  @override
+  String get backToSignIn => 'Back to sign in';
+
+  @override
+  String get accountCreatedTitle => 'Account Created!';
+
+  @override
+  String get accountCreatedDesc =>
+      'Your account has been created successfully.\nLet\'s set up your learning preferences.';
+
+  @override
+  String get orContinueWith => 'Or continue with';
+
+  @override
+  String get dontHaveAccount => 'Don\'t have an account? ';
+
+  @override
+  String get newToFluenta => 'New to Fluenta? ';
+
+  @override
+  String get continueWithGoogle => 'Continue with Google';
+
+  @override
+  String get continueWithApple => 'Continue with Apple';
+
+  @override
+  String get orLower => 'or';
+
+  @override
+  String get createAccountButton => 'Create Account';
+
+  @override
+  String get createNewPasswordTitle => 'Create a new password';
+
+  @override
+  String get createNewPasswordSubtitle =>
+      'Choose a secure password you haven\'t used before';
+
+  @override
+  String get newPassword => 'New password';
+
+  @override
+  String get enterNewPassword => 'Enter new password';
+
+  @override
+  String get confirmNewPassword => 'Confirm new password';
+
+  @override
+  String get repeatPassword => 'Repeat your password';
+
+  @override
+  String get updatePassword => 'Update Password';
+
+  @override
+  String get accountCreatedSafeDesc =>
+      'Your progress and learning plan\nwill be saved safely.';
+
+  @override
+  String get resendCode => 'Resend code';
+
+  @override
+  String resendCodeIn(String time) {
+    return 'Resend code in $time';
+  }
+
+  @override
+  String get creatingAccountTitle => 'Creating your account...';
+
+  @override
+  String get creatingAccountSubtitle => 'Please wait a moment.';
+
+  @override
+  String get authErrorFillAllFields => 'Please fill in all fields.';
+
+  @override
+  String get authErrorPasswordMinEight =>
+      'Password must be at least 8 characters.';
+
+  @override
+  String get authErrorInvalidEmail => 'Please enter a valid email address.';
+
+  @override
+  String get authErrorUserDisabled => 'This account has been disabled.';
+
+  @override
+  String get authErrorUserNotFound => 'No account found with this email.';
+
+  @override
+  String get authErrorWrongPassword => 'Incorrect password. Please try again.';
+
+  @override
+  String get authErrorEmailInUse =>
+      'An account already exists with this email.';
+
+  @override
+  String get authErrorWeakPassword => 'Password must be at least 6 characters.';
+
+  @override
+  String get authErrorInvalidCredential => 'Invalid email or password.';
+
+  @override
+  String get authErrorTooManyRequests =>
+      'Too many attempts. Please try again later.';
+
+  @override
+  String get authErrorNetwork => 'Network error. Check your connection.';
+
+  @override
+  String get authErrorOperationNotAllowed =>
+      'This sign-in method is not enabled.';
+
+  @override
+  String get authErrorInvalidVerificationCode => 'Invalid verification code.';
+
+  @override
+  String get authErrorExpiredActionCode =>
+      'This reset link has expired. Request a new one.';
+
+  @override
+  String get authErrorInvalidActionCode =>
+      'Invalid reset code. Please request a new one.';
+
+  @override
+  String get authErrorRequiresRecentLogin =>
+      'Please sign in again to update your password.';
+
+  @override
+  String get authErrorGeneric => 'Something went wrong. Please try again.';
+
+  @override
+  String get authErrorPermissionDenied =>
+      'Could not save profile. Enable Firestore and deploy security rules in Firebase Console.';
+
+  @override
+  String get authErrorUnavailable =>
+      'Firestore is unavailable. Check your internet connection.';
+
+  @override
+  String get authErrorNotFound =>
+      'Firestore database not found. Create it in Firebase Console.';
+
+  @override
+  String get authErrorSaveFailed =>
+      'Failed to save user data. Please try again.';
+
+  @override
+  String get setupGoalTitle => 'What\'s Your English Goal?';
+
+  @override
+  String get setupGoalSubtitle =>
+      'Your tutor will create practice based on your goal.';
+
+  @override
+  String get setupLevelTitle => 'Start Your Starting Point';
+
+  @override
+  String get setupLevelSubtitle =>
+      'We\'ll personalize your lessons based on your level.';
+
+  @override
+  String get setupDailyTitle => 'Set Your Daily Goal';
+
+  @override
+  String get setupDailySubtitle =>
+      'Small daily practice builds real English fluency.';
+
+  @override
+  String get goalTravel => 'Travel';
+
+  @override
+  String get goalTravelSub => 'Easy Local Conversation';
+
+  @override
+  String get goalWork => 'Work';
+
+  @override
+  String get goalWorkSub => 'Master Workplace English';
+
+  @override
+  String get goalExam => 'Exam';
+
+  @override
+  String get goalExamSub => 'IELTS, TOEFL & Interviews';
+
+  @override
+  String get goalEveryday => 'Everyday English';
+
+  @override
+  String get goalEverydaySub => 'Practice natural conversation';
+
+  @override
+  String get levelBeginner => 'Beginner';
+
+  @override
+  String get levelBeginnerSub => 'A1 · New to English Basics';
+
+  @override
+  String get levelElementary => 'Elementary';
+
+  @override
+  String get levelElementarySub => 'A2 · Can use simple words';
+
+  @override
+  String get levelIntermediate => 'Intermediate';
+
+  @override
+  String get levelIntermediateSub => 'B1 · Can hold simple conversation';
+
+  @override
+  String get levelUpperIntermediate => 'Upper-Intermediate';
+
+  @override
+  String get levelUpperIntermediateSub => 'B2 · Can interact with fluency';
+
+  @override
+  String get levelAdvancedC1 => 'Advanced';
+
+  @override
+  String get levelAdvancedC1Sub => 'C1 · Can express ideas fluently';
+
+  @override
+  String get levelProficientC2 => 'Proficient';
+
+  @override
+  String get levelProficientC2Sub => 'C2 · Near-native mastery';
+
+  @override
+  String get levelAdvanced => 'Advanced';
+
+  @override
+  String get levelAdvancedSub => 'B2+ · Comfortable in most situations';
+
+  @override
+  String get daily5 => '5 minutes';
+
+  @override
+  String get daily5Sub => 'Perfect for busy days';
+
+  @override
+  String get daily10 => '10 Minutes';
+
+  @override
+  String get daily10Sub => 'Best for consistent progress';
+
+  @override
+  String get daily15 => '15 minutes';
+
+  @override
+  String get daily15Sub => 'Learn more with focused practice';
+
+  @override
+  String get daily20 => '20 minutes';
+
+  @override
+  String get daily20Sub => 'For faster improvement';
+
+  @override
+  String get navHome => 'Home';
+
+  @override
+  String get navLearn => 'Learn';
+
+  @override
+  String get navSpeak => 'Role Play';
+
+  @override
+  String get navProfile => 'Profile';
+
+  @override
+  String get readyToPractice => 'Ready to practice?';
+
+  @override
+  String get journeyContinues => 'Your English journey continues here.';
+
+  @override
+  String get learnAndGrow => 'Learn & grow';
+
+  @override
+  String get vocabulary => 'Vocabulary';
+
+  @override
+  String get vocabularySub => '5 words to review';
+
+  @override
+  String vocabularySubDynamic(int count) {
+    return '$count words due for review';
+  }
+
+  @override
+  String get grammar => 'Grammar';
+
+  @override
+  String get grammarSub => 'Quick practice';
+
+  @override
+  String get reading => 'Reading';
+
+  @override
+  String get readingSub => 'Short passage';
+
+  @override
+  String get savedWords => 'Saved Words';
+
+  @override
+  String get savedWordsSub => '12 words to review';
+
+  @override
+  String savedWordsSubDynamic(int count) {
+    return '$count saved words';
+  }
+
+  @override
+  String get dailyVocabulary => 'Daily Vocabulary';
+
+  @override
+  String dailyVocabularySub(int count) {
+    return '5 new words • $count to review';
+  }
+
+  @override
+  String dailyVocabularyDoneSub(int count) {
+    return 'Done for today • $count to review';
+  }
+
+  @override
+  String get freeAndUnlimited => 'Free & Unlimited';
+
+  @override
+  String get startDailyVocabulary => 'Start Daily Vocabulary';
+
+  @override
+  String get todaysWords => 'Today\'s Words';
+
+  @override
+  String todaysWordsDesc(int count) {
+    return 'Learn $count new words picked for you today.';
+  }
+
+  @override
+  String get dailyVocabularyComplete => 'Daily vocabulary complete!';
+
+  @override
+  String get learnTodaysWords => 'Learn Today\'s Words';
+
+  @override
+  String get reviewTodaysWordsAgain => 'Practice Today\'s Words Again';
+
+  @override
+  String get spacedRepetitionReview => 'Spaced Repetition Review';
+
+  @override
+  String spacedRepetitionReviewDesc(int count) {
+    return 'You have $count words ready to review.';
+  }
+
+  @override
+  String reviewWords(int count) {
+    return 'Review Words ($count)';
+  }
+
+  @override
+  String get reviewSession => 'Review Session';
+
+  @override
+  String get revealMeaning => 'Reveal Meaning';
+
+  @override
+  String get howWellDidYouKnow => 'How well did you know this word?';
+
+  @override
+  String get srsAgain => 'Again';
+
+  @override
+  String get srsGood => 'Good';
+
+  @override
+  String get srsEasy => 'Easy';
+
+  @override
+  String get reviewSessionComplete => 'Review session complete!';
+
+  @override
+  String get noSavedWords =>
+      'No saved words yet. Tap the bookmark icon while learning to save favorites.';
+
+  @override
+  String wordProgress(int current, int total) {
+    return 'Word $current of $total';
+  }
+
+  @override
+  String get meaningLabel => 'MEANING';
+
+  @override
+  String get exampleLabel => 'EXAMPLE';
+
+  @override
+  String get yourLevel => 'Your level';
+
+  @override
+  String get beginnerLevel => 'Beginner';
+
+  @override
+  String get speakTitle => 'Role Play';
+
+  @override
+  String get rolePlayTitle => 'Role Play';
+
+  @override
+  String get speakSubtitle => 'Practice speaking with your AI tutor';
+
+  @override
+  String get speakComingSoon => 'Speaking practice coming soon';
+
+  @override
+  String get profileLanguage => 'Language';
+
+  @override
+  String get profileSettings => 'Settings';
+
+  @override
+  String get profileSettingsSub => 'App preferences';
+
+  @override
+  String get signOut => 'Sign Out';
+
+  @override
+  String get user => 'User';
+
+  @override
+  String get changeLanguage => 'Change Language';
+
+  @override
+  String vocabularyPathTitle(String level) {
+    return '$level Vocabulary Path';
+  }
+
+  @override
+  String get vocabularyPathSub =>
+      'Learn 50 useful beginner words\nstep by step.';
+
+  @override
+  String learnPathEarnXp(int count, int xp) {
+    return 'Learn $count lessons and earn +$xp XP';
+  }
+
+  @override
+  String grammarPathTitle(String level) {
+    return '$level Grammar Path';
+  }
+
+  @override
+  String get grammarPathSub => 'Learn simple grammar rules\nstep by step.';
+
+  @override
+  String readingPathTitle(String level) {
+    return '$level Reading Path';
+  }
+
+  @override
+  String get readingPathSub => 'Read short English passages\nstep by step.';
+
+  @override
+  String get previousWord => 'Previous Word';
+
+  @override
+  String get nextWord => 'Next Word';
+
+  @override
+  String get listen => 'Listen';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get meaning => 'MEANING';
+
+  @override
+  String get example => 'EXAMPLE';
+
+  @override
+  String wordIndex(int index) {
+    return 'Word .$index';
+  }
+
+  @override
+  String wordsLearned(int count) {
+    return '$count Words Learned';
+  }
+
+  @override
+  String lessonCompletedSuccess(int number) {
+    return 'You have completed Lesson $number \n successfully';
+  }
+
+  @override
+  String grammarLessonCompleted(int number) {
+    return 'You have completed Grammar Lesson $number Successfully';
+  }
+
+  @override
+  String readingLessonCompleted(int number) {
+    return 'You have completed Reading Lesson $number Successfully';
+  }
+
+  @override
+  String get learnedUseOf => 'You have learned the use of';
+
+  @override
+  String get youHaveLearned => 'You have learned';
+
+  @override
+  String get quickTip => 'Quick Tip';
+
+  @override
+  String get fluentaTip => 'Fluenta Tip';
+
+  @override
+  String playingWord(String word) {
+    return 'Playing \"$word\"...';
+  }
+
+  @override
+  String get wordSaved => 'Word saved!';
+
+  @override
+  String get wordRemoved => 'Removed from saved words';
+
+  @override
+  String get listenUnavailable =>
+      'Audio playback is not available on this device.';
+
+  @override
+  String get aiTutor => 'AI Tutor';
+
+  @override
+  String get howToPracticeToday => 'How do you want to\npractice today?';
+
+  @override
+  String get openChatPractice => 'Open Chat Practice';
+
+  @override
+  String get openChatPracticeSub => 'Free conversation with instant feedback';
+
+  @override
+  String get startAiChat => 'Start AI Chat';
+
+  @override
+  String get roleplayScenarios => 'Roleplay Scenarios';
+
+  @override
+  String get openingChatPractice => 'Opening chat practice...';
+
+  @override
+  String selectedScenario(String title) {
+    return 'Selected: $title';
+  }
+
+  @override
+  String get lesson1DailyWords => 'Daily Words';
+
+  @override
+  String get lesson2WorkplaceWords => 'Workplace Words';
+
+  @override
+  String get lesson3TravelWords => 'Travel Words';
+
+  @override
+  String get lesson1DailyRoutine => 'Daily Routine';
+
+  @override
+  String get lesson2OfficeDialogue => 'Office Dialogue';
+
+  @override
+  String get lesson3TravelStory => 'Travel Story';
+
+  @override
+  String get lessonRestaurantTalk => 'Restaurant Talk';
+
+  @override
+  String get lessonFamilyStory => 'Family Story';
+
+  @override
+  String get lessonShoppingStory => 'Shopping Story';
+
+  @override
+  String get lessonDoctorVisit => 'Doctor Visit';
+
+  @override
+  String get lessonWorkEmail => 'Work Email';
+
+  @override
+  String get lessonWeekendPlan => 'Weekend Plan';
+
+  @override
+  String get lessonDirections => 'Directions';
+
+  @override
+  String get lesson1IAmYouAre => 'I am / you are';
+
+  @override
+  String get lesson2PresentSimple => 'Present Simple';
+
+  @override
+  String get lessonArticles => 'A / an / The';
+
+  @override
+  String get lessonThisThat => 'This / That';
+
+  @override
+  String get lessonHeSheThey => 'He / She / They';
+
+  @override
+  String get lessonThereIsAre => 'There is / There are';
+
+  @override
+  String get lessonCanCannot => 'Can / Cannot';
+
+  @override
+  String get lessonHaveHas => 'Have / Has';
+
+  @override
+  String get lessonWasWere => 'Was / Were';
+
+  @override
+  String get lessonWillGoingTo => 'Will / Going to';
+
+  @override
+  String get presentSimpleLearned => 'Present Simple Learned';
+
+  @override
+  String get officeDialogueLearned => 'Office Dialogue Learned';
+
+  @override
+  String get generalOfficeConversation => 'General office conversation';
+
+  @override
+  String get presentSimpleSummary => 'He, she, it, I, you, we';
+
+  @override
+  String get grammarStepIYouWe => 'I You We';
+
+  @override
+  String get grammarStepIYouWeDesc => 'Use the base verb with I, you, and we.';
+
+  @override
+  String get grammarStepIYouWeFormula => 'I / You / We + verb';
+
+  @override
+  String get grammarStepHeSheIt => 'He, She, It';
+
+  @override
+  String get grammarStepHeSheItDesc =>
+      'With he, she, and it, add \'s\' to the verb.';
+
+  @override
+  String get grammarStepHeSheItFormula => 'He / She / It + verb + s';
+
+  @override
+  String get grammarTipNoS => 'Do not use \'s\' with i, you, we or they.';
+
+  @override
+  String get grammarTipNeedS => 'He, she, and it usually need \'s\'.';
+
+  @override
+  String readingDialoguePart(int part) {
+    return 'Dialogue Part $part';
+  }
+
+  @override
+  String readingPassagePart(int part) {
+    return 'Reading Part $part';
+  }
+
+  @override
+  String get readingManager => 'Manager';
+
+  @override
+  String get readingYou => 'You';
+
+  @override
+  String get readingManagerLine => '\"Can you join the meeting at 10?\"';
+
+  @override
+  String get readingYouLine => '\"Yes, I can join the meeting.\"';
+
+  @override
+  String get readingFluentaTipText =>
+      'Try speaking the \'You\' response out loud to practice your office-ready pronunciation!';
+
+  @override
+  String get levelA1 => 'A1';
+
+  @override
+  String get levelA2 => 'A2';
+
+  @override
+  String get levelB1 => 'B1';
+
+  @override
+  String get levelB2 => 'B2';
+
+  @override
+  String get levelC1 => 'C1';
+
+  @override
+  String get levelC2 => 'C2';
+
+  @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get hi => 'Hi,';
+
+  @override
+  String get a1Beginner => 'A1 Beginner';
+
+  @override
+  String get learningWithFluenta => 'Learning English with Fluentta';
+
+  @override
+  String dayStreak(int days) {
+    return 'Day $days';
+  }
+
+  @override
+  String get progressLabel => 'PROGRESS';
+
+  @override
+  String get freePlan => 'Free Plan';
+
+  @override
+  String heartsDaily(int count) {
+    return '$count hearts daily';
+  }
+
+  @override
+  String get upgradePremiumDesc =>
+      'Upgrade for unlimited AI practice, pronunciation checks, full roleplays, and no ads.';
+
+  @override
+  String get upgradeToPremium => 'Upgrade to Premium';
+
+  @override
+  String get yourStats => 'YOUR STATS';
+
+  @override
+  String get xpEarned => 'XP earned';
+
+  @override
+  String get wordsStat => 'Words';
+
+  @override
+  String get lessonsStat => 'Lessons';
+
+  @override
+  String get correctionsStat => 'Corrections';
+
+  @override
+  String get dailyGoal => 'Daily Goal';
+
+  @override
+  String get changeGoal => 'Change Goal';
+
+  @override
+  String minPerDay(int minutes) {
+    return '$minutes min per day';
+  }
+
+  @override
+  String minToday(int done, int total) {
+    return '$done / $total min today';
+  }
+
+  @override
+  String get settingsSection => 'SETTINGS';
+
+  @override
+  String get learningPreferences => 'Learning Preferences';
+
+  @override
+  String get learningPreferencesSub => 'Retake goal, level & daily target';
+
+  @override
+  String get savePreferences => 'Save Preferences';
+
+  @override
+  String get setupSaved => 'Your preferences were updated';
+
+  @override
+  String get notificationsReminders => 'Notifications & reminders';
+
+  @override
+  String dailyReminderAt(String time) {
+    return 'Daily reminder at $time';
+  }
+
+  @override
+  String get appAppearance => 'App Appearance';
+
+  @override
+  String get lightMode => 'Light mode';
+
+  @override
+  String get darkMode => 'Dark mode';
+
+  @override
+  String get systemDefault => 'System default';
+
+  @override
+  String get restorePurchases => 'Restore Purchases';
+
+  @override
+  String get supportLegal => 'SUPPORT & LEGAL';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get termsOfUse => 'Terms of Use';
+
+  @override
+  String get contactSupport => 'Contact Support';
+
+  @override
+  String get rateApp => 'Rate App';
+
+  @override
+  String get accountActions => 'ACCOUNT ACTIONS';
+
+  @override
+  String get accountSection => 'ACCOUNT';
+
+  @override
+  String get accountAndSecurity => 'Account and Security';
+
+  @override
+  String get accountAndSecuritySub => 'Name, Email and Password settings';
+
+  @override
+  String get manageAccount => 'Manage Account';
+
+  @override
+  String get manageAccountDesc =>
+      'Manage the information associated with your Fluenta profile.';
+
+  @override
+  String get personalDetails => 'PERSONAL DETAILS';
+
+  @override
+  String get nameLabel => 'Name';
+
+  @override
+  String get emailLabel => 'Email';
+
+  @override
+  String get passwordLabel => 'Password';
+
+  @override
+  String get passwordMasked => '••••••••';
+
+  @override
+  String get yourNameTitle => 'Your Name';
+
+  @override
+  String get manageYourName => 'Manage your name';
+
+  @override
+  String get firstName => 'First Name';
+
+  @override
+  String get lastName => 'Last Name';
+
+  @override
+  String get saveChanges => 'Save Changes';
+
+  @override
+  String get nameUpdated => 'Name updated successfully';
+
+  @override
+  String get emailScreenTitle => 'Email';
+
+  @override
+  String get manageYourEmailAddress => 'Manage Your Email Address';
+
+  @override
+  String get emailCannotBeChanged => 'Your email address cannot be changed.';
+
+  @override
+  String get currentEmailAddress => 'Current email address';
+
+  @override
+  String get changePasswordTitle => 'Change Password';
+
+  @override
+  String get changePasswordSubtitle =>
+      'Enter your current password and choose a new one';
+
+  @override
+  String get currentPassword => 'Current password';
+
+  @override
+  String get enterCurrentPassword => 'Enter current password';
+
+  @override
+  String get passwordUpdatedSuccess => 'Password updated successfully';
+
+  @override
+  String get passwordChangeUnavailable =>
+      'Password change is not available for social sign-in accounts.';
+
+  @override
+  String get authErrorNameRequired => 'Please enter your first name.';
+
+  @override
+  String get signOutTitle => 'Sign out';
+
+  @override
+  String get signOutSub => 'Sign out from your account';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get deleteAccountSub => 'Delete account permanently';
+
+  @override
+  String get allowNotifications => 'Allow Notifications';
+
+  @override
+  String get allowNotificationsSub => 'Receive reminders and learning updates';
+
+  @override
+  String get practiceReminders => 'PRACTICE REMINDERS';
+
+  @override
+  String get dailyReminder => 'Daily Reminder';
+
+  @override
+  String get reminderTime => 'Reminder Time';
+
+  @override
+  String get reminderTimeTitle => 'Reminder Time';
+
+  @override
+  String get chooseReminderTime =>
+      'Choose when you\'d like to practice every day.';
+
+  @override
+  String get saveReminder => 'Save Reminder';
+
+  @override
+  String get cancelBtn => 'Cancel';
+
+  @override
+  String get signOutQuestion => 'Sign out?';
+
+  @override
+  String get signOutDialogMessage =>
+      'Your saved progress will stay safe. You will need to sign in again to sync and restore premium access';
+
+  @override
+  String get exitAppQuestion => 'Exit Fluenta?';
+
+  @override
+  String get exitAppMessage =>
+      'Your progress is saved. Come back anytime to continue learning.';
+
+  @override
+  String get keepLearning => 'Keep Learning';
+
+  @override
+  String get exitApp => 'Exit App';
+
+  @override
+  String get deleteAccountQuestion => 'Delete Account?';
+
+  @override
+  String get deleteAccountDialogMessage =>
+      'This will permanently delete your account, progress, saved words and learning history.';
+
+  @override
+  String get deleteAccountConfirmation => 'Delete Account Confirmation';
+
+  @override
+  String get warning => 'Warning';
+
+  @override
+  String get deleteWarningMessage =>
+      'This action will permanently remove all your progress, stats, and personal data. This cannot be undone.';
+
+  @override
+  String get understandPermanent => 'I understand this action is permanent.';
+
+  @override
+  String get deleteAccountBtn => 'Delete Account';
+
+  @override
+  String get deleteMarketingNote =>
+      'Deleting your account will also unsubscribe you from all marketing communications.';
+
+  @override
+  String get accountDeleted => 'Account Deleted';
+
+  @override
+  String get accountDeletedMessage =>
+      'Your account and learning data have been deleted.';
+
+  @override
+  String get sorryToSeeYouGo => 'We are sorry to see you go';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get createAccountAnytime => 'You can create your account anytime.';
+
+  @override
+  String englishExplanationsIn(String language) {
+    return 'English explanations in $language';
+  }
+
+  @override
+  String get lessonsQuickLink => 'Lessons';
+
+  @override
+  String get correctionsQuickLink => 'Corrections';
+
+  @override
+  String get openingSoon => 'Coming soon';
+
+  @override
+  String get upgradeComingSoon => 'Premium upgrade coming soon';
+
+  @override
+  String get restoringPurchases => 'Restoring purchases...';
+
+  @override
+  String get speakWithAiTutorTitle => 'Speak With AI Tutor';
+
+  @override
+  String get aiSpeakingTutor => 'AI Speaking Tutor';
+
+  @override
+  String get aiPronunciationTutor => 'AI Pronunciation Tutor';
+
+  @override
+  String get aiSpeakingTutorDesc =>
+      'Talk by voice or text and get instant corrections';
+
+  @override
+  String get startPractice => 'Start Practice';
+
+  @override
+  String get tagVoice => 'Voice';
+
+  @override
+  String get tagText => 'Text';
+
+  @override
+  String get tagCorrections => 'Corrections';
+
+  @override
+  String get pronunciationPractice => 'Pronunciation Practice';
+
+  @override
+  String get pronunciationPracticeSub => 'Record voice and get feedback';
+
+  @override
+  String get advertisement => 'ADVERTISEMENT';
+
+  @override
+  String get bannerAdPlaceholder => 'Banner Ad Placeholder';
+
+  @override
+  String get openAiChatPractice => 'Open AI Chat Practice';
+
+  @override
+  String get pronunciation => 'Pronunciation';
+
+  @override
+  String get pronunciationPracticeDesc =>
+      'Read a phrase, record your voice, and get feedback.';
+
+  @override
+  String phraseOf(int current, int total) {
+    return 'Phrase $current of $total';
+  }
+
+  @override
+  String get speakClearly => 'Speak clearly and naturally.';
+
+  @override
+  String get startRecording => 'Start Recording';
+
+  @override
+  String get heartPerPronunciation => '1 heart per Pronunciation';
+
+  @override
+  String get recording => 'RECORDING...';
+
+  @override
+  String get stopRecording => 'Stop Recording';
+
+  @override
+  String get checkingPronunciation => 'Checking your pronunciation...';
+
+  @override
+  String get checkingPronunciationSub =>
+      'We\'re listening for clarity, rhythm, and word accuracy to provide your personalized feedback.';
+
+  @override
+  String get onlyTakesMoment => 'This only takes a moment.';
+
+  @override
+  String get greatEffort => 'Great effort!';
+
+  @override
+  String pronunciationScoreMessage(int score) {
+    return 'Your pronunciation is clearer than $score% of learners at your level. Keep it up!';
+  }
+
+  @override
+  String get wordFeedback => 'WORD FEEDBACK';
+
+  @override
+  String confidencePercent(int percent) {
+    return '$percent% Confidence';
+  }
+
+  @override
+  String heardAs(String word) {
+    return 'Heard: \"$word\"';
+  }
+
+  @override
+  String focusOnSounds(String sounds) {
+    return 'Focus on: $sounds';
+  }
+
+  @override
+  String youSaid(String transcript) {
+    return 'You said: \"$transcript\"';
+  }
+
+  @override
+  String get noSpeechDetected =>
+      'We couldn\'t detect clear speech. Try speaking louder and try again.';
+
+  @override
+  String get tryAgain => 'Try Again';
+
+  @override
+  String get nextPhrase => 'Next Phrase';
+
+  @override
+  String get finish => 'Finish';
+
+  @override
+  String get practiceComplete => 'Practice Complete';
+
+  @override
+  String practicedPhrases(int count) {
+    return 'You Practiced $count pronunciation Phrases';
+  }
+
+  @override
+  String get averageScore => 'AVERAGE SCORE';
+
+  @override
+  String get phrasesLabel => 'Phrases';
+
+  @override
+  String get bestWord => 'Best word';
+
+  @override
+  String get practiceMore => 'Practice More';
+
+  @override
+  String get backToSpeak => 'Back to Role Play';
+
+  @override
+  String get openChatPracticeTitle => 'Open Chat Practice';
+
+  @override
+  String get textMode => 'Text Mode';
+
+  @override
+  String get chatGreeting => 'Hi! What would you like to practice today?';
+
+  @override
+  String get outOfHearts => 'You\'re out of Hearts';
+
+  @override
+  String get outOfHeartsSub =>
+      'Fix Grammar, word choice, and sentences while you practice';
+
+  @override
+  String get getMoreHearts => 'GET MORE HEARTS';
+
+  @override
+  String get goUnlimited => 'Go Unlimited';
+
+  @override
+  String get goUnlimitedSub =>
+      'Unlimited AI practice\nNo ads • Unlimited hearts';
+
+  @override
+  String get watchAd => 'Watch Ad';
+
+  @override
+  String get watchAdSub => 'Get +2 Hearts instantly';
+
+  @override
+  String get playingPhrase => 'Playing phrase...';
+
+  @override
+  String get pronunciationUnavailable =>
+      'Microphone or speech recognition is not available on this device.';
+
+  @override
+  String get microphonePermissionDenied =>
+      'Microphone permission is required for pronunciation practice.';
+
+  @override
+  String get scenarioJobInterviews => 'Job Interviews';
+
+  @override
+  String get scenarioOrderFood => 'Order Food';
+
+  @override
+  String get scenarioAtAirport => 'At Airport';
+
+  @override
+  String get scenarioDoctorVisit => 'Doctor\'s Visit';
+
+  @override
+  String get scenarioSmallTalk => 'Small Talk';
+
+  @override
+  String get scenarioBusinessMeeting => 'Business Meeting';
+
+  @override
+  String get learnAndPractice => 'Learn & Practice';
+
+  @override
+  String get quickCheck => 'Quick Check';
+
+  @override
+  String get quickCheckSub => 'Answer comprehension questions';
+
+  @override
+  String roleplayPracticeTitle(String title) {
+    return '$title Practice';
+  }
+
+  @override
+  String get scenarioJobInterviewDetail => 'Job Interview';
+
+  @override
+  String get scenarioJobInterviewVocabSub => 'Learn key interview words';
+
+  @override
+  String get scenarioOrderFoodDetail => 'Order Food';
+
+  @override
+  String get scenarioOrderFoodVocabSub => 'Learn key restaurant words';
+
+  @override
+  String get scenarioAtAirportDetail => 'At the Airport';
+
+  @override
+  String get scenarioAtAirportVocabSub => 'Learn key travel words';
+
+  @override
+  String get scenarioDoctorVisitDetail => 'Doctor Visit';
+
+  @override
+  String get scenarioDoctorVisitVocabSub => 'Learn key medical words';
+
+  @override
+  String get scenarioSmallTalkDetail => 'Small Talk';
+
+  @override
+  String get scenarioSmallTalkVocabSub => 'Learn key conversation words';
+
+  @override
+  String get scenarioBusinessMeetingDetail => 'Business Meeting';
+
+  @override
+  String get scenarioBusinessMeetingVocabSub => 'Learn key meeting words';
+
+  @override
+  String get scenarioJobInterviewQuickSub => 'Answer job interview questions';
+
+  @override
+  String get scenarioOrderFoodQuickSub => 'Answer restaurant questions';
+
+  @override
+  String get scenarioAtAirportQuickSub => 'Answer airport travel questions';
+
+  @override
+  String get scenarioDoctorVisitQuickSub => 'Answer doctor visit questions';
+
+  @override
+  String get scenarioSmallTalkQuickSub => 'Answer small talk questions';
+
+  @override
+  String get scenarioBusinessMeetingQuickSub =>
+      'Answer business meeting questions';
+
+  @override
+  String roleplayQuestionsLearned(int count) {
+    return '$count Questions Learned';
+  }
+
+  @override
+  String roleplayLessonCompleted(int lessonNumber) {
+    return 'You have completed Lesson $lessonNumber successfully';
+  }
+
+  @override
+  String get dialogue => 'Dialogue';
+
+  @override
+  String get comprehension => 'Comprehension';
+
+  @override
+  String get roleplayDialogueSub => 'Practice the conversation';
+
+  @override
+  String get roleplayComprehensionSub => 'Check your understanding';
+
+  @override
+  String roleplayXpPerLesson(int xp) {
+    return '+$xp XP/Lesson';
+  }
+
+  @override
+  String roleplayLevelLocked(int xp) {
+    return 'Reach $xp XP to unlock this level';
+  }
+
+  @override
+  String xpEarnedCelebration(int xp) {
+    return '+$xp XP Earned';
+  }
+
+  @override
+  String get boostYourXp => 'Boost Your XP';
+
+  @override
+  String get watchShortAd => 'Watch a short ad';
+
+  @override
+  String boostXpButton(int xp) {
+    return 'Boost +$xp XP';
+  }
+
+  @override
+  String xpBoostApplied(int xp) {
+    return '+$xp XP boost applied!';
+  }
+
+  @override
+  String get customPlanReady => 'Your Custom plan is Ready';
+
+  @override
+  String get customPlanReadySub =>
+      'Based on your goal level & daily practice time.';
+
+  @override
+  String get planGoalLabel => 'GOAL';
+
+  @override
+  String get planLevelLabel => 'LEVEL';
+
+  @override
+  String get planDailyLabel => 'DAILY';
+
+  @override
+  String dailyMinutesShort(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get includedInPlan => 'Included in your plan';
+
+  @override
+  String get featureUnlimitedConversation => 'Unlimited conversation';
+
+  @override
+  String get featureUnlimitedGrammar => 'Unlimited grammar corrections';
+
+  @override
+  String get featureAdvancedPronunciation => 'Advanced pronunciation feedback';
+
+  @override
+  String get featurePersonalizedLessons => 'Personalized work-English Lessons';
+
+  @override
+  String get featureOfflineMode => 'Offline mode';
+
+  @override
+  String get annualPlan => 'Annual Plan';
+
+  @override
+  String get threeDayFreeTrial => '3-Day Free Trial';
+
+  @override
+  String get annualPrice => '\$39.99/yr';
+
+  @override
+  String get annualPricePerMonth => 'That\'s \$3.33/mo';
+
+  @override
+  String get bestValue => 'BEST VALUE';
+
+  @override
+  String get weeklyPlan => 'Weekly';
+
+  @override
+  String get weeklyPrice => '\$4.99';
+
+  @override
+  String get monthlyPlan => 'Monthly';
+
+  @override
+  String get monthlyPrice => '\$12.99';
+
+  @override
+  String get lifetimePlan => 'Life Time';
+
+  @override
+  String get lifetimePrice => '\$79.99';
+
+  @override
+  String get oneTime => 'One Time';
+
+  @override
+  String get orDivider => 'OR';
+
+  @override
+  String get needExtraHearts => 'Need extra hearts?';
+
+  @override
+  String get smallPack => 'Small Pack';
+
+  @override
+  String get mediumPack => 'Medium Pack';
+
+  @override
+  String get largePack => 'Large Pack';
+
+  @override
+  String heartsCount(int count) {
+    return '$count Hearts';
+  }
+
+  @override
+  String startFreeTrialDays(int days) {
+    return 'Start $days-Day Free Trial';
+  }
+
+  @override
+  String get cancelAnytimeNoCharge => 'Cancel anytime. No charge today';
+
+  @override
+  String get terms => 'Terms';
+
+  @override
+  String get privacy => 'Privacy';
+
+  @override
+  String get restore => 'Restore';
+
+  @override
+  String buyHeartsCount(int count) {
+    return 'Buy $count Hearts';
+  }
+
+  @override
+  String get heartsOneTimePurchase =>
+      'One-time purchase. Hearts are added instantly.';
+
+  @override
+  String get tryProForLess => 'Try Pro for less';
+
+  @override
+  String get fiftyOffFirstYear =>
+      '50% off your first year- \$29 instead of \$59.99';
+
+  @override
+  String get fiftyPercentOff => '50% OFF';
+
+  @override
+  String get annualPro => 'Annual Pro';
+
+  @override
+  String get annualProPrice => '\$29.99/year';
+
+  @override
+  String get annualProPriceStrikethrough => '\$59.99/year';
+
+  @override
+  String get firstYearOnly => 'First year only';
+
+  @override
+  String get sevenDayFreeTrialIncluded => '7-day free trial included';
+
+  @override
+  String get specialOffer => 'SPECIAL OFFER';
+
+  @override
+  String get startSevenDayFreeTrial => 'Start 7-Days Free Trial';
+
+  @override
+  String heartsAddedTitle(int count) {
+    return '$count Hearts Added';
+  }
+
+  @override
+  String get heartsAddedMessage =>
+      'Your hearts have been added. You are ready for more AI chat, corrections, and practice.';
+
+  @override
+  String get currentBalance => 'Current Balance';
+
+  @override
+  String currentHeartsBalance(int count) {
+    return '$count Hearts';
+  }
+
+  @override
+  String get startPracticing => 'Start Practicing';
+
+  @override
+  String get oneHeartPerAiResponse => '1 heart per AI response';
+}

@@ -1,0 +1,418 @@
+{
+  "scenarioId": "small_talk",
+  "cefrLevel": "A1",
+  "pathTitle": "Small Talk Vocabulary",
+  "pathSubtitle": "Master casual conversation — from talking about the weather to connecting meaningfully at social events.",
+  "lessons": [
+    {
+      "id": "small_talk_vocab_01",
+      "number": 1,
+      "title": "The Weather",
+      "cefrLevel": "A1",
+      "levelLabel": "Beginner",
+      "situation": "You are waiting at a bus stop. You start a conversation with the person next to you.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "You",
+          "text": "What terrible weather today!",
+          "isUser": true
+        },
+        {
+          "speaker": "Stranger",
+          "text": "I know. It's been raining all morning.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Yes. I forgot my umbrella.",
+          "isUser": true
+        },
+        {
+          "speaker": "Stranger",
+          "text": "Oh no! Here, share mine.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "That's very kind. Thank you!",
+          "isUser": true
+        },
+        {
+          "speaker": "Stranger",
+          "text": "No problem. The forecast says it will stop by the afternoon.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "That's good to hear. I hope so.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "forecast",
+          "phonetic": "/ˈfɔːrkæst/",
+          "partOfSpeech": "noun",
+          "definition": "a prediction of future weather",
+          "example": "The forecast says sun tomorrow."
+        },
+        {
+          "word": "terrible",
+          "phonetic": "/ˈtɛrɪbəl/",
+          "partOfSpeech": "adjective",
+          "definition": "very bad",
+          "example": "It's terrible weather for a picnic."
+        },
+        {
+          "word": "umbrella",
+          "phonetic": "/ʌmˈbrɛlə/",
+          "partOfSpeech": "noun",
+          "definition": "a device you open to protect yourself from rain",
+          "example": "I always carry an umbrella in winter."
+        },
+        {
+          "word": "share",
+          "phonetic": "/ʃɛər/",
+          "partOfSpeech": "verb",
+          "definition": "to use something together with someone",
+          "example": "We shared a taxi to the station."
+        },
+        {
+          "word": "kind",
+          "phonetic": "/kaɪnd/",
+          "partOfSpeech": "adjective",
+          "definition": "warm and generous; caring",
+          "example": "That's very kind of you."
+        }
+      ]
+    },
+    {
+      "id": "small_talk_vocab_02",
+      "number": 2,
+      "title": "Talking About the Weekend",
+      "cefrLevel": "A2",
+      "levelLabel": "Elementary",
+      "situation": "You are chatting with a colleague at work on Monday morning.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Colleague",
+          "text": "Hey! How was your weekend?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "It was great, thanks. I went hiking with some friends on Saturday. What about you?",
+          "isUser": true
+        },
+        {
+          "speaker": "Colleague",
+          "text": "Nice! I mostly stayed in — watched a film and did some cooking.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Oh, what film did you watch?",
+          "isUser": true
+        },
+        {
+          "speaker": "Colleague",
+          "text": "That new thriller on Netflix. Have you seen it?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Not yet. Is it good?",
+          "isUser": true
+        },
+        {
+          "speaker": "Colleague",
+          "text": "Really good — a bit scary, but worth watching. I'd recommend it.",
+          "isUser": false
+        }
+      ],
+      "words": [
+        {
+          "word": "hiking",
+          "phonetic": "/ˈhaɪkɪŋ/",
+          "partOfSpeech": "noun",
+          "definition": "walking in nature for exercise or enjoyment",
+          "example": "We go hiking in the mountains every summer."
+        },
+        {
+          "word": "stayed in",
+          "phonetic": "/steɪd ɪn/",
+          "partOfSpeech": "phrase",
+          "definition": "stayed at home instead of going out",
+          "example": "I stayed in on Friday and watched TV."
+        },
+        {
+          "word": "thriller",
+          "phonetic": "/ˈθrɪlər/",
+          "partOfSpeech": "noun",
+          "definition": "a film or book with suspense and excitement",
+          "example": "I love a good thriller — they keep me guessing."
+        },
+        {
+          "word": "scary",
+          "phonetic": "/ˈskɛri/",
+          "partOfSpeech": "adjective",
+          "definition": "causing fear or fright",
+          "example": "That horror film was too scary for me."
+        },
+        {
+          "word": "recommend",
+          "phonetic": "/ˌrɛkəˈmɛnd/",
+          "partOfSpeech": "verb",
+          "definition": "to suggest something as being good",
+          "example": "I highly recommend this restaurant."
+        }
+      ]
+    },
+    {
+      "id": "small_talk_vocab_03",
+      "number": 3,
+      "title": "At a Party",
+      "cefrLevel": "B1",
+      "levelLabel": "Intermediate",
+      "situation": "You are at a friend's birthday party and meet someone you don't know.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "You",
+          "text": "Hi, I don't think we've met. I'm Alex.",
+          "isUser": true
+        },
+        {
+          "speaker": "Stranger",
+          "text": "Hi Alex, I'm Jamie. How do you know Sarah?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "We went to university together. We studied in the same class for three years. And you?",
+          "isUser": true
+        },
+        {
+          "speaker": "Jamie",
+          "text": "We worked together at her old company. We've stayed in touch ever since.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "That's great. What do you do now?",
+          "isUser": true
+        },
+        {
+          "speaker": "Jamie",
+          "text": "I'm a graphic designer — I work freelance mainly. It's a bit chaotic but I love the freedom.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Sounds interesting. I've always admired people who can work for themselves.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "stayed in touch",
+          "phonetic": "/steɪd ɪn tʌʧ/",
+          "partOfSpeech": "phrase",
+          "definition": "maintained contact with someone over time",
+          "example": "We stayed in touch after school through social media."
+        },
+        {
+          "word": "freelance",
+          "phonetic": "/ˈfriːlæns/",
+          "partOfSpeech": "adjective/adverb",
+          "definition": "working independently for different clients, not one employer",
+          "example": "She works freelance as a photographer."
+        },
+        {
+          "word": "chaotic",
+          "phonetic": "/keɪˈɒtɪk/",
+          "partOfSpeech": "adjective",
+          "definition": "completely disordered and unpredictable",
+          "example": "The office was chaotic on deadline day."
+        },
+        {
+          "word": "admire",
+          "phonetic": "/ədˈmaɪər/",
+          "partOfSpeech": "verb",
+          "definition": "to respect and have a positive opinion of someone",
+          "example": "I really admire her courage."
+        },
+        {
+          "word": "work for yourself",
+          "phonetic": "/wɜːrk fɔːr jɔːrsɛlf/",
+          "partOfSpeech": "phrase",
+          "definition": "to be self-employed rather than work for a company",
+          "example": "Working for yourself takes discipline."
+        }
+      ]
+    },
+    {
+      "id": "small_talk_vocab_04",
+      "number": 4,
+      "title": "Networking Event",
+      "cefrLevel": "B2",
+      "levelLabel": "Upper-Intermediate",
+      "situation": "You are at a professional networking event and strike up a conversation with someone in your industry.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "You",
+          "text": "Hi — I noticed you were at the panel discussion earlier. What did you make of it?",
+          "isUser": true
+        },
+        {
+          "speaker": "Contact",
+          "text": "Honestly, I found the second speaker more compelling — the first one was a bit light on specifics.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I agree. The point about AI in supply chains was the most thought-provoking part for me. I'm actually working in that space.",
+          "isUser": true
+        },
+        {
+          "speaker": "Contact",
+          "text": "Really? What kind of work are you doing?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I lead the digital transformation team at a mid-sized logistics firm. We're about halfway through a three-year overhaul.",
+          "isUser": true
+        },
+        {
+          "speaker": "Contact",
+          "text": "That sounds fascinating — and no doubt challenging. I'd love to hear more. Do you have a card?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "I do. And I'd be happy to connect on LinkedIn too. What's the best way to follow up?",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "panel discussion",
+          "phonetic": "/ˈpænəl dɪˈskʌʃən/",
+          "partOfSpeech": "phrase",
+          "definition": "a group of experts discussing a topic in public",
+          "example": "The panel discussion covered climate policy."
+        },
+        {
+          "word": "compelling",
+          "phonetic": "/kəmˈpɛlɪŋ/",
+          "partOfSpeech": "adjective",
+          "definition": "highly persuasive or interesting",
+          "example": "She made a compelling argument for change."
+        },
+        {
+          "word": "thought-provoking",
+          "phonetic": "/ˈθɔːt prəˌvoʊkɪŋ/",
+          "partOfSpeech": "adjective",
+          "definition": "causing you to think deeply",
+          "example": "That was a thought-provoking question."
+        },
+        {
+          "word": "overhaul",
+          "phonetic": "/ˈoʊvərˌhɔːl/",
+          "partOfSpeech": "noun",
+          "definition": "a complete review and rebuild of a system",
+          "example": "The IT system needs a complete overhaul."
+        },
+        {
+          "word": "follow up",
+          "phonetic": "/ˈfɒloʊ ʌp/",
+          "partOfSpeech": "phrasal verb",
+          "definition": "to make further contact after an initial meeting",
+          "example": "I'll follow up by email after the conference."
+        }
+      ]
+    },
+    {
+      "id": "small_talk_vocab_05",
+      "number": 5,
+      "title": "Deep Conversation — Life & Ambitions",
+      "cefrLevel": "C1",
+      "levelLabel": "Advanced",
+      "situation": "You are with a close friend you haven't seen in a year. The conversation moves beyond surface-level chat.",
+      "iconName": "chat",
+      "dialogue": [
+        {
+          "speaker": "Friend",
+          "text": "So honestly — are you happy with where things are going?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "That's a big question for a Tuesday evening. In a lot of ways, yes. But I've been thinking more and more about whether I'm building something that actually matters — or just keeping busy.",
+          "isUser": true
+        },
+        {
+          "speaker": "Friend",
+          "text": "That's something I struggle with too. I think it gets harder to ignore as you get older.",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Exactly. When I was twenty-five, ambition felt like its own answer. Now I want to know where the ambition is pointing.",
+          "isUser": true
+        },
+        {
+          "speaker": "Friend",
+          "text": "Do you think that's disillusionment, or is it wisdom?",
+          "isUser": false
+        },
+        {
+          "speaker": "You",
+          "text": "Possibly both. I hope it's the latter — but I suspect disillusionment plays a role when things get hard.",
+          "isUser": true
+        }
+      ],
+      "words": [
+        {
+          "word": "surface-level",
+          "phonetic": "/ˈsɜːrfɪs ˌlɛvəl/",
+          "partOfSpeech": "adjective",
+          "definition": "not going deep; only dealing with what is obvious",
+          "example": "We only had a surface-level conversation at the party."
+        },
+        {
+          "word": "ambition",
+          "phonetic": "/æmˈbɪʃən/",
+          "partOfSpeech": "noun",
+          "definition": "a strong desire to achieve something",
+          "example": "His ambition drove him to work eighteen-hour days."
+        },
+        {
+          "word": "disillusionment",
+          "phonetic": "/ˌdɪsɪˈluːʒənmənt/",
+          "partOfSpeech": "noun",
+          "definition": "disappointment from discovering something is not as good as believed",
+          "example": "There is a growing disillusionment with politics."
+        },
+        {
+          "word": "wisdom",
+          "phonetic": "/ˈwɪzdəm/",
+          "partOfSpeech": "noun",
+          "definition": "the ability to make good judgements based on experience",
+          "example": "With age comes wisdom — and also grey hair."
+        },
+        {
+          "word": "the latter",
+          "phonetic": "/ðə ˈlætər/",
+          "partOfSpeech": "phrase",
+          "definition": "the second of two things just mentioned",
+          "example": "Between wealth and health, I'd choose the latter."
+        }
+      ]
+    }
+  ]
+}

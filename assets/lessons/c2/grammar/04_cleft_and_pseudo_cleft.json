@@ -1,0 +1,65 @@
+{
+  "id": "c2_grammar_04",
+  "cefrLevel": "C2",
+  "number": 4,
+  "title": "Cleft and Pseudo-cleft",
+  "iconName": "grammar",
+  "rule": "Pseudo-cleft sentences (what-clauses) highlight information.",
+  "pattern": "What + clause + be + focus",
+  "examples": [
+    {
+      "text": "What we need is clearer communication.",
+      "highlight": "What we need is"
+    },
+    {
+      "text": "What surprised me was his calm response.",
+      "highlight": "What surprised me was"
+    },
+    {
+      "text": "It was the timing that caused problems.",
+      "highlight": "the timing"
+    },
+    {
+      "text": "What they did was unacceptable.",
+      "highlight": "What they did was"
+    },
+    {
+      "text": "All I want is a fair hearing.",
+      "highlight": "All I want is"
+    }
+  ],
+  "practicePrompt": "Complete: ___ matters most is transparency.",
+  "practiceAnswer": "What",
+  "steps": [
+    {
+      "title": "Pseudo-cleft sentences (what-clauses) highlight information.",
+      "description": "What + clause + be + focus",
+      "formula": "What + clause + be + focus",
+      "examples": [
+        {
+          "text": "What we need is clearer communication.",
+          "highlight": "What we need is"
+        },
+        {
+          "text": "What surprised me was his calm response.",
+          "highlight": "What surprised me was"
+        },
+        {
+          "text": "It was the timing that caused problems.",
+          "highlight": "the timing"
+        },
+        {
+          "text": "What they did was unacceptable.",
+          "highlight": "What they did was"
+        },
+        {
+          "text": "All I want is a fair hearing.",
+          "highlight": "All I want is"
+        }
+      ],
+      "quickTip": "Complete: ___ matters most is transparency. (What)"
+    }
+  ],
+  "completionTitle": "Cleft and Pseudo-cleft Learned",
+  "completionSummary": "What + clause + be + focus"
+}

@@ -1,0 +1,65 @@
+{
+  "id": "a2_grammar_05",
+  "cefrLevel": "A2",
+  "number": 5,
+  "title": "Comparatives and Superlatives",
+  "iconName": "grammar",
+  "rule": "Comparatives compare two things; superlatives show the highest degree.",
+  "pattern": "adj-er / more + adj; the adj-est / the most + adj",
+  "examples": [
+    {
+      "text": "This room is bigger than that one.",
+      "highlight": "bigger"
+    },
+    {
+      "text": "She is more careful than him.",
+      "highlight": "more careful"
+    },
+    {
+      "text": "It is the cheapest option.",
+      "highlight": "cheapest"
+    },
+    {
+      "text": "He is the most talented singer.",
+      "highlight": "most talented"
+    },
+    {
+      "text": "Today is worse than yesterday.",
+      "highlight": "worse"
+    }
+  ],
+  "practicePrompt": "Complete: Mount Everest is the ___ mountain in the world.",
+  "practiceAnswer": "highest",
+  "steps": [
+    {
+      "title": "Comparatives compare two things; superlatives show the highest degree.",
+      "description": "adj-er / more + adj; the adj-est / the most + adj",
+      "formula": "adj-er / more + adj; the adj-est / the most + adj",
+      "examples": [
+        {
+          "text": "This room is bigger than that one.",
+          "highlight": "bigger"
+        },
+        {
+          "text": "She is more careful than him.",
+          "highlight": "more careful"
+        },
+        {
+          "text": "It is the cheapest option.",
+          "highlight": "cheapest"
+        },
+        {
+          "text": "He is the most talented singer.",
+          "highlight": "most talented"
+        },
+        {
+          "text": "Today is worse than yesterday.",
+          "highlight": "worse"
+        }
+      ],
+      "quickTip": "Complete: Mount Everest is the ___ mountain in the world. (highest)"
+    }
+  ],
+  "completionTitle": "Comparatives and Superlatives Learned",
+  "completionSummary": "adj-er / more + adj; the adj-est / the most + adj"
+}

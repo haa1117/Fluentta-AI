@@ -1,0 +1,44 @@
+{
+  "id": "b2_vocab_06",
+  "cefrLevel": "B2",
+  "number": 6,
+  "title": "Relationships",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "commitment",
+      "phonetic": "/kəˈmɪtmənt/",
+      "partOfSpeech": "noun",
+      "definition": "A promise to do something.",
+      "example": "Marriage requires commitment."
+    },
+    {
+      "word": "trust",
+      "phonetic": "/trʌst/",
+      "partOfSpeech": "noun",
+      "definition": "Belief in someone's honesty.",
+      "example": "Trust is essential in friendship."
+    },
+    {
+      "word": "conflict",
+      "phonetic": "/ˈkɒnflɪkt/",
+      "partOfSpeech": "noun",
+      "definition": "A serious disagreement.",
+      "example": "They resolved the conflict peacefully."
+    },
+    {
+      "word": "empathy",
+      "phonetic": "/ˈɛmpəθi/",
+      "partOfSpeech": "noun",
+      "definition": "Understanding another person's feelings.",
+      "example": "Empathy improves communication."
+    },
+    {
+      "word": "boundaries",
+      "phonetic": "/ˈbaʊndəriz/",
+      "partOfSpeech": "noun",
+      "definition": "Limits in relationships.",
+      "example": "Healthy boundaries protect wellbeing."
+    }
+  ]
+}

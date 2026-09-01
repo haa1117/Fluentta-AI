@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opening Fluenta...</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #fcf7ff;
+      color: #1a1a2e;
+      text-align: center;
+      padding: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p id="status">Opening Fluenta app...</p>
+    <p id="fallback" style="display:none;color:#665d72;">
+      If the app did not open, return to your email and tap the link again after installing Fluenta.
+    </p>
+  </div>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var nestedLink = params.get("link");
+      if (nestedLink) {
+        try {
+          var nested = new URL(decodeURIComponent(nestedLink));
+          params = nested.searchParams;
+        } catch (error) {}
+      }
+
+      var mode = params.get("mode") || "resetPassword";
+      var oobCode = params.get("oobCode");
+      if (!oobCode) {
+        document.getElementById("status").textContent = "Invalid or expired reset link.";
+        return;
+      }
+
+      var appUrl =
+        "com.futurewatch.fluenta://reset" +
+        "?mode=" + encodeURIComponent(mode) +
+        "&oobCode=" + encodeURIComponent(oobCode);
+
+      window.location.replace(appUrl);
+
+      setTimeout(function () {
+        document.getElementById("fallback").style.display = "block";
+      }, 1800);
+    })();
+  </script>
+</body>
+</html>

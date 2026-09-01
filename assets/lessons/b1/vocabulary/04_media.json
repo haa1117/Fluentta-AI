@@ -1,0 +1,44 @@
+{
+  "id": "b1_vocab_04",
+  "cefrLevel": "B1",
+  "number": 4,
+  "title": "Media",
+  "iconName": "chat",
+  "words": [
+    {
+      "word": "headline",
+      "phonetic": "/ˈhɛdlaɪn/",
+      "partOfSpeech": "noun",
+      "definition": "The title of a news story.",
+      "example": "The headline shocked everyone."
+    },
+    {
+      "word": "journalist",
+      "phonetic": "/ˈdʒɜːrnəlɪst/",
+      "partOfSpeech": "noun",
+      "definition": "A person who writes news.",
+      "example": "The journalist interviewed the mayor."
+    },
+    {
+      "word": "broadcast",
+      "phonetic": "/ˈbrɔːdkæst/",
+      "partOfSpeech": "verb",
+      "definition": "To send out on TV or radio.",
+      "example": "They broadcast the game live."
+    },
+    {
+      "word": "advertisement",
+      "phonetic": "/ˌædvərˈtaɪzmənt/",
+      "partOfSpeech": "noun",
+      "definition": "A public notice to sell something.",
+      "example": "I saw an advertisement online."
+    },
+    {
+      "word": "audience",
+      "phonetic": "/ˈɔːdiəns/",
+      "partOfSpeech": "noun",
+      "definition": "People who watch or listen.",
+      "example": "The audience applauded loudly."
+    }
+  ]
+}

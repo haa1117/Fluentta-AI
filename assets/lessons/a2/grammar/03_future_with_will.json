@@ -1,0 +1,65 @@
+{
+  "id": "a2_grammar_03",
+  "cefrLevel": "A2",
+  "number": 3,
+  "title": "Future with Will",
+  "iconName": "grammar",
+  "rule": "Use will for predictions, promises, and instant decisions.",
+  "pattern": "Subject + will + base verb",
+  "examples": [
+    {
+      "text": "I will call you later.",
+      "highlight": "will"
+    },
+    {
+      "text": "It will rain tomorrow.",
+      "highlight": "will"
+    },
+    {
+      "text": "She won't be late.",
+      "highlight": "won't"
+    },
+    {
+      "text": "Will they join us?",
+      "highlight": "Will"
+    },
+    {
+      "text": "I'll help you.",
+      "highlight": "I'll"
+    }
+  ],
+  "practicePrompt": "Complete: I think it ___ be sunny.",
+  "practiceAnswer": "will",
+  "steps": [
+    {
+      "title": "Use will for predictions, promises, and instant decisions.",
+      "description": "Subject + will + base verb",
+      "formula": "Subject + will + base verb",
+      "examples": [
+        {
+          "text": "I will call you later.",
+          "highlight": "will"
+        },
+        {
+          "text": "It will rain tomorrow.",
+          "highlight": "will"
+        },
+        {
+          "text": "She won't be late.",
+          "highlight": "won't"
+        },
+        {
+          "text": "Will they join us?",
+          "highlight": "Will"
+        },
+        {
+          "text": "I'll help you.",
+          "highlight": "I'll"
+        }
+      ],
+      "quickTip": "Complete: I think it ___ be sunny. (will)"
+    }
+  ],
+  "completionTitle": "Future with Will Learned",
+  "completionSummary": "Subject + will + base verb"
+}

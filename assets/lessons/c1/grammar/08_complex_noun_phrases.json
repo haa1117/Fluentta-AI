@@ -1,0 +1,65 @@
+{
+  "id": "c1_grammar_08",
+  "cefrLevel": "C1",
+  "number": 8,
+  "title": "Complex Noun Phrases",
+  "iconName": "grammar",
+  "rule": "Complex noun phrases pack information densely.",
+  "pattern": "pre-modifiers + head noun + post-modifiers",
+  "examples": [
+    {
+      "text": "The recently published research findings",
+      "highlight": "recently published research findings"
+    },
+    {
+      "text": "A highly controversial policy decision",
+      "highlight": "highly controversial policy decision"
+    },
+    {
+      "text": "The government's long-term economic strategy",
+      "highlight": "long-term economic strategy"
+    },
+    {
+      "text": "An unexpectedly strong quarterly performance",
+      "highlight": "unexpectedly strong quarterly performance"
+    },
+    {
+      "text": "The rapidly evolving technological landscape",
+      "highlight": "rapidly evolving technological landscape"
+    }
+  ],
+  "practicePrompt": "Complete: The ___ (recent / market / analysis) shows growth.",
+  "practiceAnswer": "recent market analysis",
+  "steps": [
+    {
+      "title": "Complex noun phrases pack information densely.",
+      "description": "pre-modifiers + head noun + post-modifiers",
+      "formula": "pre-modifiers + head noun + post-modifiers",
+      "examples": [
+        {
+          "text": "The recently published research findings",
+          "highlight": "recently published research findings"
+        },
+        {
+          "text": "A highly controversial policy decision",
+          "highlight": "highly controversial policy decision"
+        },
+        {
+          "text": "The government's long-term economic strategy",
+          "highlight": "long-term economic strategy"
+        },
+        {
+          "text": "An unexpectedly strong quarterly performance",
+          "highlight": "unexpectedly strong quarterly performance"
+        },
+        {
+          "text": "The rapidly evolving technological landscape",
+          "highlight": "rapidly evolving technological landscape"
+        }
+      ],
+      "quickTip": "Complete: The ___ (recent / market / analysis) shows growth. (recent market analysis)"
+    }
+  ],
+  "completionTitle": "Complex Noun Phrases Learned",
+  "completionSummary": "pre-modifiers + head noun + post-modifiers"
+}

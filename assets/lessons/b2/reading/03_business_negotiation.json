@@ -1,0 +1,64 @@
+{
+  "id": "b2_reading_03",
+  "cefrLevel": "B2",
+  "number": 3,
+  "title": "Business Negotiation",
+  "iconName": "chat",
+  "contentType": "dialogue",
+  "passage": [
+    {
+      "speaker": "Buyer",
+      "text": "Your price is higher than we expected.",
+      "isUser": false
+    },
+    {
+      "speaker": "Seller",
+      "text": "We can offer a discount for a long contract.",
+      "isUser": true
+    },
+    {
+      "speaker": "Buyer",
+      "text": "We need delivery within thirty days.",
+      "isUser": false
+    },
+    {
+      "speaker": "Seller",
+      "text": "That timeline is acceptable.",
+      "isUser": true
+    },
+    {
+      "speaker": "Buyer",
+      "text": "Do you have any questions?",
+      "isUser": false
+    },
+    {
+      "speaker": "You",
+      "text": "No, I think I understand.",
+      "isUser": true
+    }
+  ],
+  "questions": [
+    {
+      "prompt": "What concern does the buyer raise first?",
+      "options": [
+        "Delivery time",
+        "Price",
+        "Product color"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "prompt": "What delivery timeline does the buyer need?",
+      "options": [
+        "Ten days",
+        "Thirty days",
+        "One year"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "dialoguePartCount": 5,
+  "tip": "Try speaking the 'You' response out loud to practice your pronunciation!",
+  "completionTitle": "Business Negotiation Learned",
+  "completionSummary": "General business negotiation conversation"
+}
