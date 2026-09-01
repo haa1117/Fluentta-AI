@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   fontFamily:AppFonts.plusJakartaSans ,
                   fontSize: AppSizes.fontDisplay,
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
                 ),
               ),
               SizedBox(height: AppSizes.spaceMd),
@@ -68,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   fontFamily: 'PlusJakartaSans',
                   fontSize: AppSizes.fontTitle,
                   fontWeight: FontWeight.w400,
-                  color: AppColors.primaryColor,
+                  color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
                 ),
               ),
               SizedBox(height: AppSizes.spaceMd),
@@ -81,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     fontFamily: 'PlusJakartaSans',
                     fontSize: AppSizes.fontBody,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.textSecondary,
+                    color:isDark ? AppColors.textSecondaryDark: AppColors.textSecondary,
                   ),
                 ),
               ),
