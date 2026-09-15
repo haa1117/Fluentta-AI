@@ -8,8 +8,11 @@ class SplashViewModel extends ChangeNotifier {
 
   final AuthRepository _authRepository;
 
-  static const _splashDuration = Duration(seconds: 3);
-  static const _interstitialPreloadTimeout = Duration(seconds: 3);
+  // Just enough time to register the brand, not a fixed stall.
+  static const _minSplash = Duration(milliseconds: 800);
+  // Don't let a slow network hold the app hostage — proceed with local state.
+  static const _syncTimeout = Duration(milliseconds: 2500);
+  static const _interstitialPreloadTimeout = Duration(milliseconds: 1200);
 
   bool _isNavigating = false;
   bool get isNavigating => _isNavigating;
@@ -22,8 +25,10 @@ class SplashViewModel extends ChangeNotifier {
     AdMobService.instance.preloadInterstitial(placement);
 
     final results = await Future.wait<dynamic>([
-      Future<void>.delayed(_splashDuration),
-      _authRepository.syncCurrentUser(),
+      Future<void>.delayed(_minSplash),
+      _authRepository
+          .syncCurrentUser()
+          .timeout(_syncTimeout, onTimeout: () {}),
       AdMobService.instance.waitForInterstitial(
         placement,
         timeout: _interstitialPreloadTimeout,

@@ -49,7 +49,7 @@ class _ProMemberCard extends StatelessWidget {
           ),
           SizedBox(height: AppSizes.h(6)),
           Text(
-            'Unlimited hearts, all roleplays, B2+ lessons, offline mode, and weekly reports.',
+            'Unlimited hearts, all roleplays, B2+ lessons, and weekly reports.',
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(13),

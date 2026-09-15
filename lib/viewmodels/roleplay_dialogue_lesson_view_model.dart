@@ -26,6 +26,11 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
   int _currentPhaseIndex;
   int? _listeningLineIndex;
   bool _isListening = false;
+  bool _isCompleting = false;
+
+  /// True once "Finish Lesson" has been tapped — guards against rapid extra
+  /// taps queuing up multiple pushes of the completion screen.
+  bool get isCompleting => _isCompleting;
 
   int get currentPhaseIndex => _currentPhaseIndex;
   int get totalPhases => lesson.phases.length;
@@ -93,6 +98,9 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
     _clearListening();
 
     if (isLastPhase) {
+      if (_isCompleting) return;
+      _isCompleting = true;
+      notifyListeners();
       onLessonCompleted(lesson);
       Navigator.of(context).pushReplacement<void, void>(
         MaterialPageRoute<void>(

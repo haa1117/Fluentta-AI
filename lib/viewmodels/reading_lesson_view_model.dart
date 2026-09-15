@@ -29,6 +29,12 @@ class ReadingLessonViewModel extends ChangeNotifier {
   int? _selectedOptionIndex;
   int? _listeningLineIndex;
   bool _isListening = false;
+  bool _isCompleting = false;
+
+  /// True once "Finish Lesson" has been tapped and the completion write is
+  /// in flight — guards against a slow await letting rapid extra taps queue
+  /// up multiple pushes of the completion screen.
+  bool get isCompleting => _isCompleting;
 
   int get currentPhaseIndex => _currentPhaseIndex;
   int get totalPhases => lesson.phases.length;
@@ -113,6 +119,9 @@ class ReadingLessonViewModel extends ChangeNotifier {
     _clearListening();
 
     if (isLastPhase) {
+      if (_isCompleting) return;
+      _isCompleting = true;
+      notifyListeners();
       await onLessonCompleted(lesson);
       if (!context.mounted) return;
       Navigator.of(context).pushReplacement<void, void>(

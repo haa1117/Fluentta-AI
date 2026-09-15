@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
-import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
+import 'package:fluentta_ai/core/roleplay/roleplay_xp_milestones.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/repositories/roleplay_content_repository.dart';
 import 'package:fluentta_ai/data/services/learning_stats_service.dart';
@@ -37,8 +37,16 @@ class RoleplayScenarioDetailViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   int get totalXp => _learningStatsService.xpEarned;
 
+  /// PRD 4.2.7 — this scenario's level opens at its cumulative XP milestone.
+  bool isLevelUnlocked(CefrLevel level) =>
+      RoleplayXpMilestones.isScenarioLevelUnlocked(scenarioId, level, totalXp);
+
+  int xpRequiredForLevel(CefrLevel level) =>
+      RoleplayXpMilestones.xpRequiredFor(scenarioId, level);
+
   void selectLevel(CefrLevel level) {
     if (_selectedLevel == level) return;
+    if (!isLevelUnlocked(level)) return;
     _selectedLevel = level;
     notifyListeners();
   }
@@ -58,7 +66,9 @@ class RoleplayScenarioDetailViewModel extends ChangeNotifier {
     );
 
     if (!_didSetInitialLevel) {
-      _selectedLevel = CefrLevelProgress.highestUnlockedTab(totalXp);
+      _selectedLevel =
+          RoleplayXpMilestones.highestUnlockedLevel(scenarioId, totalXp) ??
+              CefrLevel.a1;
       _didSetInitialLevel = true;
     }
 

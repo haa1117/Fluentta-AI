@@ -179,6 +179,8 @@ class RoleplayVocabularyViewModel extends ChangeNotifier {
       typeId: RoleplayPracticeType.vocabulary.id,
       scopeId: _scenarioId,
       completedLessonId: completedLesson.lessonId,
+      progressCefrLevel: _cefrLevel,
+      progressRepository: _progressRepository,
       nextUnlockLessonId: nextId,
     );
 

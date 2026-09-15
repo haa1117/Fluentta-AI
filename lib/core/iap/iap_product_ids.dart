@@ -1,36 +1,38 @@
 import 'package:fluentta_ai/data/models/subscription_models.dart';
 
-/// Google Play Console product IDs for Fluentta AI.
+/// Store product IDs for Fluenta. Must match exactly what is registered in
+/// App Store Connect and Google Play Console (kept identical across platforms).
 ///
-/// Subscriptions (Monetize → Subscriptions):
-/// - [annual]            Base plan + optional 3-day free trial offer
-/// - [annualDiscount]    Promotional annual plan (50% off first year)
-/// - [weekly]            Weekly base plan
-/// - [monthly]           Monthly base plan
+/// Auto-renewable subscriptions (one subscription group, `fluenta_premium`):
+/// - [weekly]   fluenta.premium.weekly
+/// - [monthly]  fluenta.premium.monthly
+/// - [annual]   fluenta.premium.annual — hero SKU, 7-day trial + optional
+///              "50% off first year" introductory offer (an offer on THIS
+///              product, not a separate SKU)
 ///
-/// In-app products (Monetize → In-app products):
-/// - [lifetime]          Managed product, non-consumable
-/// - [hearts20]          Consumable
-/// - [hearts60]          Consumable
-/// - [hearts150]         Consumable
+/// Non-consumable:
+/// - [lifetime] fluenta.premium.lifetime
+///
+/// Consumables (hearts):
+/// - [hearts20] fluenta.hearts.20
+/// - [hearts60] fluenta.hearts.60
+/// - [hearts150] fluenta.hearts.150
 class IapProductIds {
   IapProductIds._();
 
-  static const String annual = 'fluentta_sub_annual';
-  static const String annualDiscount = 'fluentta_sub_annual_discount';
-  static const String weekly = 'fluentta_sub_weekly';
-  static const String monthly = 'fluentta_sub_monthly';
-  static const String lifetime = 'fluentta_lifetime';
+  static const String weekly = 'fluenta.premium.weekly';
+  static const String monthly = 'fluenta.premium.monthly';
+  static const String annual = 'fluenta.premium.annual';
+  static const String lifetime = 'fluenta.premium.lifetime';
 
-  static const String hearts20 = 'fluentta_hearts_20';
-  static const String hearts60 = 'fluentta_hearts_60';
-  static const String hearts150 = 'fluentta_hearts_150';
+  static const String hearts20 = 'fluenta.hearts.20';
+  static const String hearts60 = 'fluenta.hearts.60';
+  static const String hearts150 = 'fluenta.hearts.150';
 
   static const Set<String> subscriptionIds = {
-    annual,
-    annualDiscount,
     weekly,
     monthly,
+    annual,
   };
 
   static const Set<String> nonConsumableIds = {lifetime};

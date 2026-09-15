@@ -2652,11 +2652,155 @@ abstract class AppLocalizations {
   /// **'Text Mode'**
   String get textMode;
 
+  /// No description provided for @chatTextMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Text Mode'**
+  String get chatTextMode;
+
+  /// No description provided for @chatVoiceMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Mode'**
+  String get chatVoiceMode;
+
   /// No description provided for @chatGreeting.
   ///
   /// In en, this message translates to:
-  /// **'Hi! What would you like to practice today?'**
+  /// **'Hi! I\'m your English tutor. We can just talk, or I can teach you step by step. What would you like to do?'**
   String get chatGreeting;
+
+  /// No description provided for @chatQuickStarterLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Teach me step by step'**
+  String get chatQuickStarterLesson;
+
+  /// No description provided for @chatQuickStarterGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise grammar'**
+  String get chatQuickStarterGrammar;
+
+  /// No description provided for @chatQuickStarterDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyday conversation'**
+  String get chatQuickStarterDaily;
+
+  /// No description provided for @chatQuickStarterWork.
+  ///
+  /// In en, this message translates to:
+  /// **'English for work'**
+  String get chatQuickStarterWork;
+
+  /// No description provided for @chatQuickStarterOpenTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Just chat'**
+  String get chatQuickStarterOpenTopic;
+
+  /// No description provided for @chatQuickStarterTravel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get chatQuickStarterTravel;
+
+  /// No description provided for @chatCorrectionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'CORRECTION'**
+  String get chatCorrectionLabel;
+
+  /// No description provided for @chatYourSentence.
+  ///
+  /// In en, this message translates to:
+  /// **'Your sentence:'**
+  String get chatYourSentence;
+
+  /// No description provided for @chatCorrectSentence.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct sentence:'**
+  String get chatCorrectSentence;
+
+  /// No description provided for @chatTipPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip:'**
+  String get chatTipPrefix;
+
+  /// No description provided for @chatTypeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your text here'**
+  String get chatTypeHint;
+
+  /// No description provided for @chatHoldToSpeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold to Speak'**
+  String get chatHoldToSpeak;
+
+  /// No description provided for @chatListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening...'**
+  String get chatListening;
+
+  /// No description provided for @chatReleaseToSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak freely, then release to send voice'**
+  String get chatReleaseToSend;
+
+  /// No description provided for @chatTapToSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak freely, then tap to send voice'**
+  String get chatTapToSend;
+
+  /// No description provided for @chatCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get chatCancel;
+
+  /// No description provided for @chatLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock'**
+  String get chatLock;
+
+  /// No description provided for @chatSpeechUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone unavailable. Please check permissions.'**
+  String get chatSpeechUnavailable;
+
+  /// No description provided for @chatNeedsInternet.
+  ///
+  /// In en, this message translates to:
+  /// **'AI chat needs an internet connection.'**
+  String get chatNeedsInternet;
+
+  /// No description provided for @chatReadRepliesAloud.
+  ///
+  /// In en, this message translates to:
+  /// **'Read replies aloud'**
+  String get chatReadRepliesAloud;
+
+  /// No description provided for @chatPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get chatPlay;
+
+  /// No description provided for @chatPlaying.
+  ///
+  /// In en, this message translates to:
+  /// **'Playing'**
+  String get chatPlaying;
 
   /// No description provided for @outOfHearts.
   ///
@@ -2699,6 +2843,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Get +2 Hearts instantly'**
   String get watchAdSub;
+
+  /// No description provided for @heartsRefilledMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} Hearts added. Keep practising!'**
+  String heartsRefilledMessage(int count);
+
+  /// No description provided for @heartRefillCapReached.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used all your ad refills today. Come back tomorrow or go unlimited.'**
+  String get heartRefillCapReached;
+
+  /// No description provided for @adNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No ad available right now. Please try again shortly.'**
+  String get adNotAvailable;
 
   /// No description provided for @playingPhrase.
   ///
@@ -2933,6 +3095,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reach {xp} XP to unlock this level'**
   String roleplayLevelLocked(int xp);
+
+  /// No description provided for @cefrLevelLockedLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish {count} more lessons in the level before to unlock this one'**
+  String cefrLevelLockedLessons(int count);
+
+  /// No description provided for @cefrLevelLockedXp.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach {xp} XP to unlock this level'**
+  String cefrLevelLockedXp(int xp);
 
   /// No description provided for @xpEarnedCelebration.
   ///
@@ -3281,6 +3455,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'1 heart per AI response'**
   String get oneHeartPerAiResponse;
+
+  /// No description provided for @todaysLessonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Lesson'**
+  String get todaysLessonTitle;
+
+  /// No description provided for @whatYouWillLearnToday.
+  ///
+  /// In en, this message translates to:
+  /// **'WHAT YOU WILL LEARN TODAY'**
+  String get whatYouWillLearnToday;
+
+  /// No description provided for @startLessonButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Lesson'**
+  String get startLessonButton;
+
+  /// No description provided for @whatYouHaveLearnedToday.
+  ///
+  /// In en, this message translates to:
+  /// **'WHAT YOU HAVE LEARNED TODAY'**
+  String get whatYouHaveLearnedToday;
+
+  /// No description provided for @lessonCompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson complete!'**
+  String get lessonCompleteTitle;
+
+  /// No description provided for @youLearnedLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'You learned {title}.'**
+  String youLearnedLesson(String title);
+
+  /// No description provided for @sentenceQuestionNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {number}'**
+  String sentenceQuestionNumber(int number);
 }
 
 class _AppLocalizationsDelegate

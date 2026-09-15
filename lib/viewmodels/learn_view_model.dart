@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
@@ -12,6 +14,7 @@ import 'package:fluentta_ai/data/repositories/lesson_content_repository.dart';
 import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
 import 'package:fluentta_ai/data/repositories/spaced_repetition_repository.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/viewmodels/grammar_view_model.dart';
 import 'package:fluentta_ai/viewmodels/reading_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
@@ -29,10 +32,15 @@ class LearnViewModel extends ChangeNotifier {
     this._srsRepository,
     this._contentRepository,
     this._progressRepository,
+    this._progressSyncService,
   ) {
     _localeViewModel.addListener(notifyListeners);
     _savedWordsRepository.addListener(_onDataChanged);
     _srsRepository.addListener(_onDataChanged);
+    // Lesson completion happens inside the Vocabulary/Grammar/Reading VMs
+    // (separate instances) — without this, the Learn tab's level card and
+    // "Total Progress" ring stay stuck at whatever they were on first load.
+    _progressSyncService.addMergeListener(_onProgressMerged);
     _bootstrap();
   }
 
@@ -42,6 +50,7 @@ class LearnViewModel extends ChangeNotifier {
   final SpacedRepetitionRepository _srsRepository;
   final LessonContentRepository _contentRepository;
   final ProgressRepository _progressRepository;
+  final ProgressSyncService _progressSyncService;
 
   int _dueReviewCount = 0;
   CefrLevel _selectedLevel = CefrLevel.a1;
@@ -100,14 +109,26 @@ class LearnViewModel extends ChangeNotifier {
       CefrLevelProgress.levelNameLabel(_localeViewModel.strings, _selectedLevel);
 
   Future<void> _bootstrap() async {
-    _selectedLevel = UserEntitlements.learnBrowseLevel(_localStorage);
+    _selectedLevel = UserEntitlements.learnBrowseLevel(_localStorage, _progressRepository);
     await _localStorage.setLearnBrowseCefrLevelCode(_selectedLevel.code);
     await refreshCounts();
     await _refreshLevelProgress();
   }
 
+  /// PRD 4.2.4 — level opens on the XP gate AND finishing the previous
+  /// level's 30 core lessons.
+  bool isLevelUnlocked(CefrLevel level) => UserEntitlements.isCefrLevelUnlocked(
+        _localStorage,
+        _progressRepository,
+        level,
+      );
+
+  int coreLessonsRemaining(CefrLevel level) =>
+      (30 - _progressRepository.completedCoreLessons(level)).clamp(0, 30);
+
   Future<void> selectLevel(CefrLevel level) async {
     if (_selectedLevel == level) return;
+    if (!isLevelUnlocked(level)) return;
     _selectedLevel = level;
     await _localStorage.setLearnBrowseCefrLevelCode(level.code);
     await _refreshLevelProgress();
@@ -183,11 +204,16 @@ class LearnViewModel extends ChangeNotifier {
     }
   }
 
+  void _onProgressMerged() {
+    unawaited(_refreshLevelProgress().then((_) => notifyListeners()));
+  }
+
   @override
   void dispose() {
     _localeViewModel.removeListener(notifyListeners);
     _savedWordsRepository.removeListener(_onDataChanged);
     _srsRepository.removeListener(_onDataChanged);
+    _progressSyncService.removeMergeListener(_onProgressMerged);
     super.dispose();
   }
 }

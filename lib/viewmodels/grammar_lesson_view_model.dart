@@ -23,6 +23,12 @@ class GrammarLessonViewModel extends ChangeNotifier {
   int _currentStepIndex;
   int? _listeningExampleIndex;
   bool _isListening = false;
+  bool _isCompleting = false;
+
+  /// True once "Finish Lesson" has been tapped and the completion write is
+  /// in flight — guards against rapid extra taps queuing up multiple pushes
+  /// of the completion screen.
+  bool get isCompleting => _isCompleting;
 
   int get currentStepIndex => _currentStepIndex;
   int get totalSteps => lesson.steps.length;
@@ -92,6 +98,9 @@ class GrammarLessonViewModel extends ChangeNotifier {
     _clearListening();
 
     if (isLastStep) {
+      if (_isCompleting) return;
+      _isCompleting = true;
+      notifyListeners();
       await onLessonCompleted(lesson);
       if (!context.mounted) return;
       Navigator.of(context).pushReplacement<void, void>(

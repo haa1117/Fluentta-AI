@@ -141,7 +141,7 @@ class _ReadingLessonBody extends StatelessWidget {
                     label: viewModel.isLastPhase ? l10n.finishLesson : l10n.next,
                     icon: Icons.arrow_forward_rounded,
                     isPrimary: true,
-                    enabled: viewModel.canProceed,
+                    enabled: viewModel.canProceed && !viewModel.isCompleting,
                     iconOnRight: true,
                     onTap: () => viewModel.nextPhase(context),
                   ),

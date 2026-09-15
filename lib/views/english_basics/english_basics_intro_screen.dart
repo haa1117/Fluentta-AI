@@ -6,6 +6,7 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/english_basics_flow_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:provider/provider.dart';
 
 class EnglishBasicsIntroScreen extends StatelessWidget {
@@ -16,11 +17,12 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
     AppSizes.init(context);
     final viewModel = context.watch<EnglishBasicsFlowViewModel>();
     final lesson = viewModel.lesson;
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
-      appBar: const AppBarWidget(
-        title: "Today's Lesson",
+      appBar: AppBarWidget(
+        title: l10n.todaysLessonTitle,
         showBackButton: true,
         centerTitle: true,
         showActionButton: false,
@@ -94,7 +96,7 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'WHAT YOU WILL LEARN TODAY',
+                          l10n.whatYouWillLearnToday,
                           style: TextStyle(
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(12),
@@ -157,7 +159,7 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
                   SizedBox(
                     height: AppSizes.spaceXl,
                   ),
-                  PrimaryButton(text: 'Start Lesson', onPressed: ()=>viewModel.startLesson()),
+                  PrimaryButton(text: l10n.startLessonButton, onPressed: ()=>viewModel.startLesson()),
                   SizedBox(
                     height: AppSizes.spaceSm,
                   ),

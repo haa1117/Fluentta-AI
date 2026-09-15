@@ -88,8 +88,10 @@ class IapService {
     return purchaseProduct(productId);
   }
 
+  /// The "50% off first year" promo is an introductory offer on the annual
+  /// subscription, so this buys the same product as [SubscriptionSelection.annual].
   Future<PurchaseFlowResult> purchaseDiscountAnnual() {
-    return purchaseProduct(IapProductIds.annualDiscount);
+    return purchaseProduct(IapProductIds.annual);
   }
 
   Future<PurchaseFlowResult> purchaseProduct(String productId) async {

@@ -10,13 +10,23 @@ class RoleplayScenarioCard extends StatelessWidget {
     required this.scenario,
     required this.isSelected,
     required this.onTap,
-    this.isLocked = false, required this.isDark,
+    this.isLocked = false,
+    this.isAdvanced = false,
+    this.xpRequired,
+    required this.isDark,
   });
 
   final RoleplayScenarioModel scenario;
   final bool isSelected;
   final VoidCallback onTap;
   final bool isLocked;
+
+  /// PRD 7.3 — advanced roleplays (Pro-only) get a distinct "ADVANCED" banner.
+  final bool isAdvanced;
+
+  /// PRD 4.2.7 — cumulative XP still needed to unlock this scenario. Null or
+  /// 0 when the scenario's XP milestone has already been reached.
+  final int? xpRequired;
   final bool isDark;
 
   /// Height for horizontal scenario lists — keeps cards from clipping.
@@ -67,23 +77,73 @@ class RoleplayScenarioCard extends StatelessWidget {
                     )
                   else
                     _ScenarioPlaceholder(icon: scenario.icon),
-                  // if (isLocked)
-                  //   Positioned(
-                  //     top: AppSizes.h(8),
-                  //     right: AppSizes.w(8),
-                  //     child: Container(
-                  //       padding: EdgeInsets.all(AppSizes.w(6)),
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.black.withValues(alpha: 0.55),
-                  //         shape: BoxShape.circle,
-                  //       ),
-                  //       child: Icon(
-                  //         Icons.lock_rounded,
-                  //         color: AppColors.white,
-                  //         size: AppSizes.sp(14),
-                  //       ),
-                  //     ),
-                  //   ),
+                  if (isAdvanced)
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(AppSizes.cardRadius),
+                          bottomRight: Radius.circular(AppSizes.cardRadius),
+                        ),
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                            vertical: AppSizes.h(3),
+                          ),
+                          color: AppColors.xpEarnedTextColor,
+                          child: Text(
+                            'ADVANCED',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: AppFonts.plusJakartaSans,
+                              fontSize: AppSizes.sp(9),
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 0.6,
+                              color: AppColors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (isLocked)
+                    Positioned(
+                      top: AppSizes.h(6),
+                      right: AppSizes.w(6),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppSizes.w(6),
+                          vertical: AppSizes.h(3),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.6),
+                          borderRadius: BorderRadius.circular(AppSizes.w(8)),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.lock_rounded,
+                              color: AppColors.white,
+                              size: AppSizes.sp(11),
+                            ),
+                            if (xpRequired != null && xpRequired! > 0) ...[
+                              SizedBox(width: AppSizes.w(3)),
+                              Text(
+                                '$xpRequired XP',
+                                style: TextStyle(
+                                  fontFamily: AppFonts.plusJakartaSans,
+                                  fontSize: AppSizes.sp(10),
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),

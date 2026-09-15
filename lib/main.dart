@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -26,6 +28,7 @@ import 'package:fluentta_ai/data/services/local_notification_service.dart';
 import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/learning_stats_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
+import 'package:fluentta_ai/data/services/ai_backend_service.dart';
 import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
@@ -90,11 +93,8 @@ void main() async {
   final textToSpeechService = TextToSpeechService();
   final pronunciationAssessmentService = PronunciationAssessmentService();
   final localNotificationService = LocalNotificationService();
-  await localNotificationService.initialize();
 
   if (!kIsWeb) {
-    await AdMobService.instance.initialize(localStorage: localStorage);
-
     final openedFromResetLink =
         await _handleLaunchPasswordResetLink(authRepository);
     if (!openedFromResetLink) {
@@ -108,18 +108,33 @@ void main() async {
   if (isPasswordResetLaunch) {
     await authRepository.initializeGoogleSignIn();
   } else {
-    await lessonContentRepository.initialize();
+    // Only fast, local work blocks the first frame. Everything that touches
+    // the network or a heavy plugin is started in the background while the
+    // splash screen is visible (see _warmUpInBackground).
     await progressRepository.initialize();
-    await progressSyncService.ensureLessonXpBackfill();
-    await savedWordsRepository.initialize();
-    await spacedRepetitionRepository.initialize();
-    await roleplayContentRepository.initialize();
-    await authRepository.initializeGoogleSignIn();
-    await authRepository.syncCurrentUser();
-    await entitlementsService.ensureDailyHeartsReset();
-    await entitlementsService.ensureDailyGoalState();
-    await progressSyncService.pullAndMerge();
+    await Future.wait<void>([
+      lessonContentRepository.initialize(),
+      progressSyncService.ensureLessonXpBackfill(),
+      savedWordsRepository.initialize(),
+      spacedRepetitionRepository.initialize(),
+      roleplayContentRepository.initialize(),
+      entitlementsService.ensureDailyHeartsReset(),
+      entitlementsService.ensureDailyGoalState(),
+    ]);
+
+    unawaited(
+      _warmUpInBackground(
+        authRepository: authRepository,
+        progressSyncService: progressSyncService,
+      ),
+    );
   }
+
+  // Ads and notifications must never delay launch.
+  if (!kIsWeb) {
+    unawaited(AdMobService.instance.initialize(localStorage: localStorage));
+  }
+  unawaited(localNotificationService.initialize());
 
   runApp(
     FluentaApp(
@@ -142,6 +157,25 @@ void main() async {
       localNotificationService: localNotificationService,
     ),
   );
+}
+
+/// Network + heavy-plugin work that doesn't need to finish before the app is
+/// interactive. Runs while the splash screen is shown; screens refresh
+/// themselves when the remote merge lands (ProgressSyncService merge listener).
+Future<void> _warmUpInBackground({
+  required AuthRepository authRepository,
+  required ProgressSyncService progressSyncService,
+}) async {
+  try {
+    await authRepository.initializeGoogleSignIn();
+    // syncCurrentUser() is driven by SplashViewModel (it gates first-screen
+    // resolution); here we only pull remote progress and merge it in.
+    await progressSyncService.pullAndMerge();
+  } catch (error) {
+    if (kDebugMode) {
+      debugPrint('Background warm-up failed: $error');
+    }
+  }
 }
 
 Future<bool> _handleLaunchPasswordResetLink(
@@ -208,6 +242,7 @@ class FluentaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider<LocalStorage>.value(value: localStorage),
         Provider<UserRepository>.value(value: userRepository),
         Provider<AuthRepository>.value(value: authRepository),
         Provider<LocalNotificationService>.value(
@@ -239,6 +274,9 @@ class FluentaApp extends StatelessWidget {
         Provider<TextToSpeechService>.value(value: textToSpeechService),
         Provider<PronunciationAssessmentService>.value(
           value: pronunciationAssessmentService,
+        ),
+        Provider<AiBackendService>(
+          create: (_) => AiBackendService(),
         ),
         ChangeNotifierProvider(
           create: (_) => LocaleViewModel(localStorage),
@@ -297,6 +335,7 @@ class FluentaApp extends StatelessWidget {
             context.read<SpacedRepetitionRepository>(),
             context.read<LessonContentRepository>(),
             context.read<ProgressRepository>(),
+            context.read<ProgressSyncService>(),
           ),
         ),
         ChangeNotifierProvider(

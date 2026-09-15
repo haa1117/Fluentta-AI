@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "254450330965-1iel3o1h04uasg04mjmads03umknaa9n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.futurewatch.fluenta",
+            "certificate_hash": "8fa4d41eeea0ddf87d4cca34a6c66688eac23bc6"
+          }
+        },
+        {
+          "client_id": "254450330965-m3o0a4lg30d3ftihs05jkj844qg2j79a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.futurewatch.fluenta",
+            "certificate_hash": "5ecafe39e1e205799801e4dbc010112b85df3960"
+          }
+        },
+        {
           "client_id": "254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +45,13 @@
             {
               "client_id": "254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "254450330965-igvsgejp20998j43ff1t8rcvdnc123po.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.futurewatch.fluenta"
+              }
             }
           ]
         }

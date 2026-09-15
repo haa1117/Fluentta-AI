@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/ads/ad_placement.dart';
+import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/daily_goal/daily_goal_rewards.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
+
+enum HeartRefillResult {
+  granted,
+  adUnavailable,
+  dailyCapReached,
+  notNeeded,
+}
 
 class HomeViewModel extends ChangeNotifier {
   HomeViewModel(
@@ -54,7 +63,8 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> _bootstrap() async {
-    await _entitlementsService.ensureDailyHeartsReset();
+    // Hearts: show last local value immediately. Firestore overwrite + daily
+    // refill run in pullAndMerge (merge listener calls [refresh]).
     await _entitlementsService.ensureDailyGoalState();
     _loadFromStorage();
     notifyListeners();
@@ -93,6 +103,39 @@ class HomeViewModel extends ChangeNotifier {
     _loadFromStorage();
     await _progressSyncService.onLivesChanged(_lives);
     notifyListeners();
+  }
+
+  // --- Rewarded heart refill (PRD 4.2.13) ---
+
+  int get heartRefillAdsRemaining =>
+      _entitlementsService.heartRefillAdsRemainingToday();
+
+  bool get canWatchHeartRefillAd => _entitlementsService.canWatchHeartRefillAd;
+
+  int get rewardedHeartRefillAmount =>
+      _entitlementsService.rewardedHeartRefillAmount;
+
+  /// Shows a real rewarded ad and only grants hearts if the user earns the
+  /// reward. Returns the outcome so the UI can message it.
+  Future<HeartRefillResult> watchAdForHearts() async {
+    if (_entitlementsService.hasUnlimitedHearts) {
+      return HeartRefillResult.notNeeded;
+    }
+    if (!_entitlementsService.canWatchHeartRefillAd) {
+      return HeartRefillResult.dailyCapReached;
+    }
+
+    var earned = false;
+    final shown = await AdMobService.instance.showRewarded(
+      AdPlacement.rewardedHeartRefill,
+      onReward: () => earned = true,
+    );
+
+    if (!shown || !earned) return HeartRefillResult.adUnavailable;
+
+    await _entitlementsService.recordHeartRefillAdWatched();
+    await addHearts(_entitlementsService.rewardedHeartRefillAmount);
+    return HeartRefillResult.granted;
   }
 
   Future<void> recordLearningActivity() async {

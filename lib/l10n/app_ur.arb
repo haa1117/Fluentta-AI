@@ -421,6 +421,7 @@
   "practiceMore": "مزید مشق",
   "backToSpeak": "رول پلے پر واپس",
   "openChatPracticeTitle": "چیٹ مشق کھولیں",
+  "chatNeedsInternet": "AI چیٹ کے لیے انٹرنیٹ کنکشن درکار ہے۔",
   "textMode": "ٹیکسٹ موڈ",
   "chatGreeting": "سلام! آج آپ کیا مشق کرنا چاہتے ہیں؟",
   "outOfHearts": "آپ کے دل ختم ہو گئے",
@@ -511,5 +512,19 @@
   "currentBalance": "Current Balance",
   "currentHeartsBalance": "{count} Hearts",
   "startPracticing": "Start Practicing",
-  "oneHeartPerAiResponse": "1 heart per AI response"
+  "oneHeartPerAiResponse": "1 heart per AI response",
+
+  "todaysLessonTitle": "آج کا سبق",
+  "whatYouWillLearnToday": "آج آپ کیا سیکھیں گے",
+  "startLessonButton": "سبق شروع کریں",
+  "whatYouHaveLearnedToday": "آج آپ نے کیا سیکھا",
+  "lessonCompleteTitle": "سبق مکمل ہوا!",
+  "youLearnedLesson": "آپ نے {title} سیکھا۔",
+  "@youLearnedLesson": {
+    "placeholders": {"title": {"type": "String"}}
+  },
+  "sentenceQuestionNumber": "سوال {number}",
+  "@sentenceQuestionNumber": {
+    "placeholders": {"number": {"type": "int"}}
+  }
 }

@@ -1419,7 +1419,81 @@ class AppLocalizationsEs extends AppLocalizations {
   String get textMode => 'Modo Texto';
 
   @override
+  String get chatTextMode => 'Text Mode';
+
+  @override
+  String get chatVoiceMode => 'Voice Mode';
+
+  @override
   String get chatGreeting => '¡Hola! ¿Qué te gustaría practicar hoy?';
+
+  @override
+  String get chatQuickStarterLesson => 'Teach me step by step';
+
+  @override
+  String get chatQuickStarterGrammar => 'Practise grammar';
+
+  @override
+  String get chatQuickStarterDaily => 'Everyday conversation';
+
+  @override
+  String get chatQuickStarterWork => 'English for work';
+
+  @override
+  String get chatQuickStarterOpenTopic => 'Just chat';
+
+  @override
+  String get chatQuickStarterTravel => 'Travel';
+
+  @override
+  String get chatCorrectionLabel => 'CORRECTION';
+
+  @override
+  String get chatYourSentence => 'Your sentence:';
+
+  @override
+  String get chatCorrectSentence => 'Correct sentence:';
+
+  @override
+  String get chatTipPrefix => 'Tip:';
+
+  @override
+  String get chatTypeHint => 'Type your text here';
+
+  @override
+  String get chatHoldToSpeak => 'Hold to Speak';
+
+  @override
+  String get chatListening => 'Listening...';
+
+  @override
+  String get chatReleaseToSend => 'Speak freely, then release to send voice';
+
+  @override
+  String get chatTapToSend => 'Speak freely, then tap to send voice';
+
+  @override
+  String get chatCancel => 'Cancel';
+
+  @override
+  String get chatLock => 'Lock';
+
+  @override
+  String get chatSpeechUnavailable =>
+      'Microphone unavailable. Please check permissions.';
+
+  @override
+  String get chatNeedsInternet =>
+      'El chat con IA necesita conexión a internet.';
+
+  @override
+  String get chatReadRepliesAloud => 'Read replies aloud';
+
+  @override
+  String get chatPlay => 'Play';
+
+  @override
+  String get chatPlaying => 'Playing';
 
   @override
   String get outOfHearts => 'Te quedaste sin corazones';
@@ -1443,6 +1517,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get watchAdSub => 'Obtén +2 corazones al instante';
+
+  @override
+  String heartsRefilledMessage(int count) {
+    return '+$count Hearts added. Keep practising!';
+  }
+
+  @override
+  String get heartRefillCapReached =>
+      'You\'ve used all your ad refills today. Come back tomorrow or go unlimited.';
+
+  @override
+  String get adNotAvailable =>
+      'No ad available right now. Please try again shortly.';
 
   @override
   String get playingPhrase => 'Reproduciendo frase...';
@@ -1575,6 +1662,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String roleplayLevelLocked(int xp) {
+    return 'Reach $xp XP to unlock this level';
+  }
+
+  @override
+  String cefrLevelLockedLessons(int count) {
+    return 'Finish $count more lessons in the level before to unlock this one';
+  }
+
+  @override
+  String cefrLevelLockedXp(int xp) {
     return 'Reach $xp XP to unlock this level';
   }
 
@@ -1775,4 +1872,29 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get oneHeartPerAiResponse => '1 corazón por respuesta AI';
+
+  @override
+  String get todaysLessonTitle => 'Lección de hoy';
+
+  @override
+  String get whatYouWillLearnToday => 'LO QUE APRENDERÁS HOY';
+
+  @override
+  String get startLessonButton => 'Iniciar lección';
+
+  @override
+  String get whatYouHaveLearnedToday => 'LO QUE HAS APRENDIDO HOY';
+
+  @override
+  String get lessonCompleteTitle => '¡Lección completada!';
+
+  @override
+  String youLearnedLesson(String title) {
+    return 'Aprendiste $title.';
+  }
+
+  @override
+  String sentenceQuestionNumber(int number) {
+    return 'Pregunta $number';
+  }
 }

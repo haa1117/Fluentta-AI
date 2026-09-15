@@ -58,7 +58,7 @@ class _PronunciationRecordingScreenState
 
   Future<void> _stopRecording() async {
     final vm = context.read<PronunciationViewModel>();
-    await vm.stopRecordingAndAssess();
+    await vm.finishRecording();
     if (!mounted) return;
 
     Navigator.of(context).pushReplacementNamed(

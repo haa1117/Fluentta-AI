@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:fluentta_ai/core/network/network_status.dart';
 import 'package:flutter/foundation.dart';
 
 class RoleplayContentSyncRepository {
@@ -15,7 +16,7 @@ class RoleplayContentSyncRepository {
 
   Future<bool> get _isOnline async {
     final result = await _connectivity.checkConnectivity();
-    return !result.contains(ConnectivityResult.none);
+    return NetworkStatus.hasConnection(result);
   }
 
   Future<Map<String, dynamic>?> fetchPath({

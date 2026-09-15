@@ -1,6 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/daily_goal/daily_goal_rewards.dart';
+import 'package:fluentta_ai/core/network/network_status.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_practice_type.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
@@ -60,7 +62,7 @@ class ProgressSyncService {
 
   Future<bool> get _isOnline async {
     final result = await _connectivity.checkConnectivity();
-    return !result.contains(ConnectivityResult.none);
+    return NetworkStatus.hasConnection(result);
   }
 
   String? get _uid => _localStorage.userUid;
@@ -68,11 +70,14 @@ class ProgressSyncService {
   Future<void> pullAndMerge() async {
     final uid = _uid;
     if (uid == null) return;
-    if (!await _isOnline) {
-      if (!_entitlementsService.canUseOfflineMode()) return;
-    }
 
     await _progressRepository.initialize();
+    if (!await _isOnline) {
+      await _reconcileDailyHearts();
+      _notifyMerged();
+      return;
+    }
+
     final remote = await _syncRepository.fetchAll(uid);
     await _progressRepository.mergeRemoteProgress(remote);
     await _flushPending(uid);
@@ -112,6 +117,8 @@ class ProgressSyncService {
       await recordDailyGoalProgress(
         DailyGoalRewards.forLessonType(progress.type),
       );
+      await _maybeAwardCoreModuleBonus(progress);
+      await _maybeAutoGrantPremiumXpBoost(progress.lessonId);
       _pendingStatsSync = true;
     }
 
@@ -119,6 +126,31 @@ class ProgressSyncService {
     await _syncStatsToFirestore(force: true);
     await _pushProgress(progress);
     _notifyMerged();
+  }
+
+  /// PRD 4.2.2 — +50 XP the first time all 10 lessons of a core module
+  /// (e.g. A1 vocabulary) are completed.
+  Future<void> _maybeAwardCoreModuleBonus(LessonProgressModel progress) async {
+    if (!LessonXpRewards.coreTypes.contains(progress.type)) return;
+    final level = CefrLevel.fromCode(progress.cefrLevel);
+    if (_progressRepository.completedCoreLessonsOfType(level, progress.type) <
+        10) {
+      return;
+    }
+    final moduleKey = '${level.code}|${progress.type}';
+    if (await _localStorage.hasModuleXpGranted(moduleKey)) return;
+    await _localStorage.markModuleXpGranted(moduleKey);
+    await _localStorage.addXp(LessonXpRewards.coreModuleComplete);
+  }
+
+  /// PRD 4.2.3 — Premium learners get the +5 lesson boost automatically,
+  /// without watching an ad. Shares the claimed-set with the rewarded boost
+  /// so a free→Premium user can never collect it twice.
+  Future<void> _maybeAutoGrantPremiumXpBoost(String lessonId) async {
+    if (!_entitlementsService.isPro) return;
+    if (await _localStorage.hasXpBoostClaimed(lessonId)) return;
+    await _localStorage.markXpBoostClaimed(lessonId);
+    await _localStorage.addXp(LessonXpRewards.rewardedBoost);
   }
 
   Future<void> recordDailyGoalProgress(int minutes) async {
@@ -163,6 +195,7 @@ class ProgressSyncService {
 
     if (firstCompletion) {
       await recordDailyGoalProgress(DailyGoalRewards.roleplayModule);
+      await _maybeAutoGrantPremiumXpBoost(progress.lessonId);
       _pendingStatsSync = true;
     }
 
@@ -299,14 +332,32 @@ class ProgressSyncService {
   }
 
   Future<void> _pullLives(String uid) async {
-    if (!await _isOnline) return;
-    if (_pendingLivesWrite != null) return;
+    if (await _isOnline && _pendingLivesWrite == null) {
+      final remote = await _userRepository.fetchHeartState(uid);
+      if (remote != null) {
+        await _localStorage.saveLives(remote.lives);
+        final resetDate = remote.lastHeartResetDate;
+        if (resetDate != null && resetDate.isNotEmpty) {
+          await _localStorage.setLastHeartResetDate(resetDate);
+        }
+      }
+    }
+    await _reconcileDailyHearts();
+  }
 
-    final remoteLives = await _userRepository.fetchLives(uid);
-    if (remoteLives == null) return;
+  /// Apply the local calendar refill, then write the result to Firestore so
+  /// sign-out / another device sees the same remaining hearts.
+  Future<void> _reconcileDailyHearts() async {
+    if (_entitlementsService.hasUnlimitedHearts) return;
 
-    await _localStorage.saveLives(remoteLives);
-    _notifyMerged();
+    final beforeLives = _localStorage.lives;
+    final beforeDate = _localStorage.lastHeartResetDate;
+    await _entitlementsService.ensureDailyHeartsReset();
+    if (_localStorage.lives == beforeLives &&
+        _localStorage.lastHeartResetDate == beforeDate) {
+      return;
+    }
+    await onLivesChanged(_localStorage.lives);
   }
 
   Future<void> ensureLessonXpBackfill() async {

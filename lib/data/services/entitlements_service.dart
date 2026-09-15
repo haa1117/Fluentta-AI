@@ -15,6 +15,29 @@ class EntitlementsService {
 
   int get dailyHeartAllowance => UserEntitlements.freeDailyHearts;
 
+  int get rewardedHeartRefillAmount => UserEntitlements.rewardedHeartRefillAmount;
+
+  // --- Rewarded heart-refill ad daily cap (PRD 4.2.13) ---
+
+  int heartRefillAdsUsedToday() {
+    if (_localStorage.heartRefillAdDate != todayIso()) return 0;
+    return _localStorage.heartRefillAdCount;
+  }
+
+  int heartRefillAdsRemainingToday() =>
+      (UserEntitlements.maxHeartRefillAdsPerDay - heartRefillAdsUsedToday())
+          .clamp(0, UserEntitlements.maxHeartRefillAdsPerDay);
+
+  bool get canWatchHeartRefillAd => heartRefillAdsRemainingToday() > 0;
+
+  Future<void> recordHeartRefillAdWatched() async {
+    final today = todayIso();
+    final used = _localStorage.heartRefillAdDate == today
+        ? _localStorage.heartRefillAdCount
+        : 0;
+    await _localStorage.saveHeartRefillAdUsage(today, used + 1);
+  }
+
   int get streakFreezesRemaining {
     final allowance = UserEntitlements.streakFreezesAllowance(isPro);
     return (allowance - _currentWeekFreezesUsed()).clamp(0, 999);
@@ -40,8 +63,13 @@ class EntitlementsService {
         _localStorage.isPremium,
       );
 
-  bool canUseOfflineMode() =>
-      UserEntitlements.canUseOfflineMode(_localStorage.isPremium);
+  /// Self-rated CEFR from setup — used for AI chat, not lesson unlocking.
+  CefrLevel setupLevel() =>
+      UserEntitlements.setupLevel(_localStorage.englishLevel);
+
+  bool canUseOfflineMode() => UserEntitlements.canUseOfflineMode(
+        _localStorage.isPremium,
+      );
 
   bool canViewWeeklyProgressReport() =>
       UserEntitlements.canViewWeeklyProgressReport(_localStorage.isPremium);

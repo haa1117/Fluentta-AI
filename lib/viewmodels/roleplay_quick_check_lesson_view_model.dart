@@ -27,6 +27,12 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
   int? _selectedIndex;
   bool _answered = false;
   int? _lastWrongIndex;
+  bool _isCompleting = false;
+
+  /// True once the final question's continue has been tapped — guards
+  /// against rapid extra taps queuing up multiple pushes of the completion
+  /// screen.
+  bool get isCompleting => _isCompleting;
 
   int get currentIndex => _currentIndex;
   int get totalQuestions => lesson.questions.length;
@@ -96,6 +102,9 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
     if (!_answered || !isSelectionCorrect) return;
 
     if (isLastQuestion) {
+      if (_isCompleting) return;
+      _isCompleting = true;
+      notifyListeners();
       onLessonCompleted(lesson);
       if (!context.mounted) return;
       Navigator.of(context).pushReplacement<void, void>(

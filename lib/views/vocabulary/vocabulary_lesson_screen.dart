@@ -107,7 +107,7 @@ class _VocabularyLessonBody extends StatelessWidget {
                     label: l10n.nextWord,
                     icon: Icons.arrow_forward_rounded,
                     isPrimary: true,
-                    enabled: true,
+                    enabled: !viewModel.isCompleting,
                     iconOnRight: true,
                     onTap: () => viewModel.nextWord(context),
                   ),

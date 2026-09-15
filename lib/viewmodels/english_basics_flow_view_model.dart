@@ -41,6 +41,7 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
   EnglishBasicsStep _step;
   final Map<int, int?> _sentenceSelections = {};
   final Map<int, bool> _sentenceAnswered = {};
+  final Set<int> _sentenceMistakeRecorded = {};
 
   EnglishBasicsStep get step => _step;
 
@@ -55,11 +56,14 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
         _ => '',
       };
 
+  /// Every question must be answered CORRECTLY before the learner can move
+  /// on — a wrong pick stays retry-able, it doesn't just tick the box.
   bool get canContinueFromSentences {
     if (_step != EnglishBasicsStep.sentences) return false;
     if (lesson.questions.isEmpty) return true;
     for (var i = 0; i < lesson.questions.length; i++) {
-      if (_sentenceSelections[i] == null) return false;
+      final selected = _sentenceSelections[i];
+      if (selected == null || !isSelectionCorrect(i, selected)) return false;
     }
     return true;
   }
@@ -114,12 +118,22 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
   }
 
   void selectSentenceOption(int questionIndex, int optionIndex) {
-    if (_sentenceAnswered[questionIndex] == true) return;
+    // Once the correct word has been found, that question is locked in.
+    // Until then, a wrong pick is retry-able — the learner can pick a
+    // different word instead of being stuck with a wrong answer forever.
+    final current = _sentenceSelections[questionIndex];
+    if (current != null && isSelectionCorrect(questionIndex, current)) {
+      return;
+    }
+
     _sentenceSelections[questionIndex] = optionIndex;
     _sentenceAnswered[questionIndex] = true;
     if (!isSelectionCorrect(questionIndex, optionIndex)) {
       HapticFeedback.heavyImpact();
-      unawaited(progressSyncService.recordCorrections(1));
+      // Count the mistake once per question, not once per retry.
+      if (_sentenceMistakeRecorded.add(questionIndex)) {
+        unawaited(progressSyncService.recordCorrections(1));
+      }
     }
     notifyListeners();
   }

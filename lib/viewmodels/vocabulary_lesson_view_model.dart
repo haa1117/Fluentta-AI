@@ -36,6 +36,12 @@ class VocabularyLessonViewModel extends ChangeNotifier {
   int _currentWordIndex;
   final Set<String> _savedWordIds = {};
   bool _isListening = false;
+  bool _isCompleting = false;
+
+  /// True once the final word's continue has been tapped and the completion
+  /// write is in flight — guards against rapid extra taps queuing up
+  /// multiple pushes of the completion screen.
+  bool get isCompleting => _isCompleting;
 
   int get currentWordIndex => _currentWordIndex;
   int get totalWords => lesson.words.length;
@@ -141,6 +147,9 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     await onWordStudied?.call(studiedWord);
 
     if (isLastWord) {
+      if (_isCompleting) return;
+      _isCompleting = true;
+      notifyListeners();
       await onLessonCompleted(lesson);
       if (!context.mounted) return;
       Navigator.of(context).pushReplacement<void, void>(

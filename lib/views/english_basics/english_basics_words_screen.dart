@@ -8,6 +8,7 @@ import 'package:fluentta_ai/data/models/english_basics_lesson_model.dart';
 import 'package:fluentta_ai/viewmodels/english_basics_flow_view_model.dart';
 import 'package:fluentta_ai/widgets/english_basics/english_basics_step_header.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:provider/provider.dart';
 
 class EnglishBasicsWordsScreen extends StatelessWidget {
@@ -18,11 +19,12 @@ class EnglishBasicsWordsScreen extends StatelessWidget {
     AppSizes.init(context);
     final viewModel = context.watch<EnglishBasicsFlowViewModel>();
     final lesson = viewModel.lesson;
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
-      appBar: const AppBarWidget(
-        title: "Today's Lesson",
+      appBar: AppBarWidget(
+        title: l10n.todaysLessonTitle,
         showBackButton: true,
         centerTitle: true,
         showActionButton: false,
@@ -82,7 +84,7 @@ class EnglishBasicsWordsScreen extends StatelessWidget {
               },
             ),
           ),
-          FooterWidget(child: PrimaryButton(text: 'Continue', onPressed: ()=>viewModel.goToSentences()))
+          FooterWidget(child: PrimaryButton(text: l10n.continueBtn, onPressed: ()=>viewModel.goToSentences()))
           // Padding(
           //   padding: EdgeInsets.fromLTRB(
           //     AppSizes.horizontalPadding,

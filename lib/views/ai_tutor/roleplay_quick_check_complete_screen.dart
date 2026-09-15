@@ -21,6 +21,7 @@ class RoleplayQuickCheckCompleteScreen extends StatelessWidget {
 
     return LessonCompleteLayout(
       xpEarned: RoleplayXpRewards.comprehension,
+      interstitialOnExit: false,
       boostLessonKey: lessonId,
       subtitle: completionSummary ??
           l10n.roleplayLessonCompleted(lessonNumber),

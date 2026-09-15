@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/core/l10n/roleplay_scenario_l10n.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
@@ -112,6 +113,13 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
                     totalXp: detailVm.totalXp,
                     selectedLevel: level,
                     onLevelSelected: detailVm.selectLevel,
+                    isLevelUnlocked: detailVm.isLevelUnlocked,
+                    onLockedLevelTap: (ctx, lvl) => SnackbarHelper.showError(
+                      ctx,
+                      ctx.l10n.roleplayLevelLocked(
+                        detailVm.xpRequiredForLevel(lvl),
+                      ),
+                    ),
                   ),
                   SizedBox(height: AppSizes.h(16)),
                   RoleplayScenarioOverviewCard(

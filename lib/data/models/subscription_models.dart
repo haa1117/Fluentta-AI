@@ -64,22 +64,24 @@ class SubscriptionContent {
 
   static List<HeartPackOption> heartPacks({Map<String, String>? livePrices}) {
     return [
+      // Fallback prices only — the store reports the real localized price.
+      // Aligned to PRD 4.3.
       HeartPackOption(
         selection: SubscriptionSelection.heartsSmall,
         hearts: 20,
-        price: livePrices?[IapProductIds.hearts20] ?? r'$1.99',
+        price: livePrices?[IapProductIds.hearts20] ?? r'$0.99',
         labelKey: 'small',
       ),
       HeartPackOption(
         selection: SubscriptionSelection.heartsMedium,
         hearts: 60,
-        price: livePrices?[IapProductIds.hearts60] ?? r'$4.99',
+        price: livePrices?[IapProductIds.hearts60] ?? r'$2.99',
         labelKey: 'medium',
       ),
       HeartPackOption(
         selection: SubscriptionSelection.heartsLarge,
         hearts: 150,
-        price: livePrices?[IapProductIds.hearts150] ?? r'$9.99',
+        price: livePrices?[IapProductIds.hearts150] ?? r'$6.99',
         labelKey: 'large',
       ),
     ];

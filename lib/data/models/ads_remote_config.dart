@@ -52,8 +52,13 @@ class AdsRemoteConfig {
       placements: {
         for (final placement in AdPlacement.values)
           placement: AdPlacementSettings.defaults(
+            // Revenue-critical placements default on so the app is monetised
+            // even before the Firestore ad config is set up.
             enabled: placement == AdPlacement.onboardingNative ||
-                placement == AdPlacement.splashInterstitial,
+                placement == AdPlacement.splashInterstitial ||
+                placement == AdPlacement.lessonInterstitial ||
+                placement == AdPlacement.rewardedXpBoost ||
+                placement == AdPlacement.rewardedHeartRefill,
           ),
       },
     );

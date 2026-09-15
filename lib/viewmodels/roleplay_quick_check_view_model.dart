@@ -195,6 +195,8 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
       typeId: RoleplayPracticeType.quickCheck.id,
       scopeId: _scenarioId,
       completedLessonId: completedLesson.lessonId,
+      progressCefrLevel: _cefrLevel,
+      progressRepository: _progressRepository,
       nextUnlockLessonId: nextId,
     );
 

@@ -190,6 +190,8 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
       typeId: RoleplayPracticeType.dialogue.id,
       scopeId: _scenarioId,
       completedLessonId: completedLesson.lessonId,
+      progressCefrLevel: _cefrLevel,
+      progressRepository: _progressRepository,
       nextUnlockLessonId: nextId,
     );
 

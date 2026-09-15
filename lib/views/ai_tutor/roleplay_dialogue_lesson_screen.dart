@@ -131,7 +131,7 @@ class _RoleplayDialogueLessonBody extends StatelessWidget {
                         : l10n.next,
                     icon: Icons.arrow_forward_rounded,
                     isPrimary: true,
-                    enabled: viewModel.canProceed,
+                    enabled: viewModel.canProceed && !viewModel.isCompleting,
                     iconOnRight: true,
                     onTap: () => viewModel.nextPhase(context),
                   ),

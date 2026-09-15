@@ -422,6 +422,7 @@
   "practiceMore": "Practicar Más",
   "backToSpeak": "Volver a Role Play",
   "openChatPracticeTitle": "Abrir Chat de Práctica",
+  "chatNeedsInternet": "El chat con IA necesita conexión a internet.",
   "textMode": "Modo Texto",
   "chatGreeting": "¡Hola! ¿Qué te gustaría practicar hoy?",
   "outOfHearts": "Te quedaste sin corazones",
@@ -512,5 +513,19 @@
   "currentBalance": "Saldo Actual",
   "currentHeartsBalance": "{count} Corazones",
   "startPracticing": "Empezar a Practicar",
-  "oneHeartPerAiResponse": "1 corazón por respuesta AI"
+  "oneHeartPerAiResponse": "1 corazón por respuesta AI",
+
+  "todaysLessonTitle": "Lección de hoy",
+  "whatYouWillLearnToday": "LO QUE APRENDERÁS HOY",
+  "startLessonButton": "Iniciar lección",
+  "whatYouHaveLearnedToday": "LO QUE HAS APRENDIDO HOY",
+  "lessonCompleteTitle": "¡Lección completada!",
+  "youLearnedLesson": "Aprendiste {title}.",
+  "@youLearnedLesson": {
+    "placeholders": {"title": {"type": "String"}}
+  },
+  "sentenceQuestionNumber": "Pregunta {number}",
+  "@sentenceQuestionNumber": {
+    "placeholders": {"number": {"type": "int"}}
+  }
 }

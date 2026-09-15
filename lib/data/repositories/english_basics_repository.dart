@@ -187,6 +187,8 @@ class EnglishBasicsRepository {
       typeId: _typeId,
       scopeId: goalId,
       completedLessonId: lesson.lessonId,
+      progressCefrLevel: goalId,
+      progressRepository: _progressRepository,
       nextUnlockLessonId: nextId,
     );
 

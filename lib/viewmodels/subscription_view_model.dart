@@ -94,7 +94,9 @@ class SubscriptionViewModel extends ChangeNotifier {
   }
 
   String discountAnnualPrice(AppLocalizations l10n) {
-    return _iapService.formattedPrice(IapProductIds.annualDiscount) ??
+    // The actual first-year discount is applied by the store's introductory
+    // offer at checkout; here we just show the annual plan's list price.
+    return _iapService.formattedPrice(IapProductIds.annual) ??
         l10n.annualProPrice;
   }
 

@@ -9,7 +9,9 @@ enum AdPlacement {
   roleplayBanner('roleplay_banner'),
   roleplayDetailBanner('roleplay_detail_banner'),
   lessonNative('lesson_native'),
-  rewardedXpBoost('rewarded_xp_boost');
+  lessonInterstitial('lesson_interstitial'),
+  rewardedXpBoost('rewarded_xp_boost'),
+  rewardedHeartRefill('rewarded_heart_refill');
 
   const AdPlacement(this.firestoreKey);
 
@@ -27,7 +29,11 @@ enum AdPlacement {
       this == AdPlacement.languageNative ||
       this == AdPlacement.lessonNative;
 
-  bool get isInterstitial => this == AdPlacement.splashInterstitial;
+  bool get isInterstitial =>
+      this == AdPlacement.splashInterstitial ||
+      this == AdPlacement.lessonInterstitial;
 
-  bool get isRewarded => this == AdPlacement.rewardedXpBoost;
+  bool get isRewarded =>
+      this == AdPlacement.rewardedXpBoost ||
+      this == AdPlacement.rewardedHeartRefill;
 }

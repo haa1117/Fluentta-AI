@@ -9,11 +9,15 @@ class RoleplayCefrLevelBar extends StatelessWidget {
     required this.totalXp,
     required this.selectedLevel,
     required this.onLevelSelected,
+    this.isLevelUnlocked,
+    this.onLockedLevelTap,
   });
 
   final int totalXp;
   final CefrLevel selectedLevel;
   final ValueChanged<CefrLevel> onLevelSelected;
+  final bool Function(CefrLevel level)? isLevelUnlocked;
+  final CefrLevelLockedTapHandler? onLockedLevelTap;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,8 @@ class RoleplayCefrLevelBar extends StatelessWidget {
       totalXp: totalXp,
       selectedLevel: selectedLevel,
       onLevelSelected: onLevelSelected,
+      isLevelUnlocked: isLevelUnlocked,
+      onLockedLevelTap: onLockedLevelTap,
     );
   }
 }

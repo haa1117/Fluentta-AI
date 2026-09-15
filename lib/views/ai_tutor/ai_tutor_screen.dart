@@ -4,7 +4,10 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/l10n/roleplay_scenario_l10n.dart';
+import 'package:fluentta_ai/core/entitlements/user_entitlements.dart';
+import 'package:fluentta_ai/core/network/network_status.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/models/roleplay_scenario_model.dart';
 import 'package:fluentta_ai/viewmodels/ai_tutor_view_model.dart';
 import 'package:fluentta_ai/data/services/entitlements_service.dart';
@@ -12,6 +15,7 @@ import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/widgets/common/pro_feature_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:fluentta_ai/views/ai_tutor/roleplay_scenario_detail_screen.dart';
+import 'package:fluentta_ai/views/chat/open_chat_practice_screen.dart';
 import 'package:fluentta_ai/widgets/ai_tutor/roleplay_scenario_card.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -65,7 +69,22 @@ class AiTutorScreen extends StatelessWidget {
             SizedBox(height: AppSizes.spaceLg),
             _OpenAiChatCard(
               isDark: isDark,
-              onTap: () {},
+              onTap: () async {
+                final online = await NetworkStatus.isOnline();
+                if (!context.mounted) return;
+                if (!online) {
+                  SnackbarHelper.showError(
+                    context,
+                    context.l10n.chatNeedsInternet,
+                  );
+                  return;
+                }
+                await Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const OpenChatPracticeScreen(),
+                  ),
+                );
+              },
             ),
             SizedBox(height: AppSizes.spaceXl),
             Align(
@@ -101,8 +120,14 @@ class AiTutorScreen extends StatelessWidget {
                     ),
                     isSelected: viewModel.selectedScenarioId == scenario.id,
                     isLocked: !context
-                        .read<EntitlementsService>()
-                        .canAccessRoleplayScenario(scenario.id),
+                            .read<EntitlementsService>()
+                            .canAccessRoleplayScenario(scenario.id) ||
+                        !viewModel.isScenarioXpUnlocked(scenario.id),
+                    isAdvanced: UserEntitlements.advancedRoleplayScenarioIds
+                        .contains(scenario.id),
+                    xpRequired: viewModel.isScenarioXpUnlocked(scenario.id)
+                        ? null
+                        : viewModel.scenarioUnlockXp(scenario.id),
                     onTap: () {
                       final entitlements =
                           context.read<EntitlementsService>();
@@ -115,6 +140,15 @@ class AiTutorScreen extends StatelessWidget {
                           showWatchAd: false,
                           message:
                               'Upgrade to Pro to unlock all roleplay scenarios.',
+                        );
+                        return;
+                      }
+                      if (!viewModel.isScenarioXpUnlocked(scenario.id)) {
+                        SnackbarHelper.showError(
+                          context,
+                          l10n.roleplayLevelLocked(
+                            viewModel.scenarioUnlockXp(scenario.id),
+                          ),
                         );
                         return;
                       }
@@ -196,23 +230,15 @@ class _OpenAiChatCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: AppSizes.h(6)),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: AppSizes.w(10),
-                      vertical: AppSizes.h(3),
-                    ),
-                    decoration: BoxDecoration(
-                      color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
-                      borderRadius: BorderRadius.circular(AppSizes.w(20)),
-                    ),
-                    child: Text(
-                      l10n.openingSoon,
-                      style: TextStyle(
-                        fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(12),
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.white,
-                      ),
+                  Text(
+                    l10n.aiSpeakingTutorDesc,
+                    style: TextStyle(
+                      fontFamily: AppFonts.plusJakartaSans,
+                      fontSize: AppSizes.sp(12),
+                      fontWeight: FontWeight.w400,
+                      color: isDark
+                          ? AppColors.textSecondaryDark
+                          : AppColors.textSecondary,
                     ),
                   ),
                 ],

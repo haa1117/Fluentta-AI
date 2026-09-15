@@ -258,6 +258,31 @@ class AdMobService extends ChangeNotifier {
     return _interstitialCache[placement] != null;
   }
 
+  /// PRD 4.4 / 8.2 — show an interstitial after every 3rd lesson completion
+  /// (free tier only). The min-interval gate on the placement still applies.
+  Future<void> maybeShowLessonInterstitial() async {
+    final storage = _localStorage;
+    if (storage == null || _isPremiumUser) return;
+
+    const lessonsPerInterstitial = 3;
+    final count = storage.lessonsSinceInterstitial + 1;
+    if (count < lessonsPerInterstitial) {
+      await storage.setLessonsSinceInterstitial(count);
+      return;
+    }
+
+    final ready = await waitForInterstitial(
+      AdPlacement.lessonInterstitial,
+      timeout: const Duration(seconds: 2),
+    );
+    if (ready && await showInterstitial(AdPlacement.lessonInterstitial)) {
+      await storage.setLessonsSinceInterstitial(0);
+    } else {
+      // Keep the tally so we retry after the next lesson.
+      await storage.setLessonsSinceInterstitial(count);
+    }
+  }
+
   /// Shows a preloaded interstitial. Returns when dismissed or if show fails.
   Future<bool> showInterstitial(AdPlacement placement) async {
     if (!shouldDisplay(placement)) return false;

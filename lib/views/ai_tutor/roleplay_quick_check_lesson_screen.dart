@@ -113,7 +113,9 @@ class _RoleplayQuickCheckLessonBody extends StatelessWidget {
                     label: viewModel.isLastQuestion ? l10n.finish : l10n.next,
                     icon: Icons.arrow_forward_rounded,
                     isPrimary: true,
-                    enabled: viewModel.answered && viewModel.isSelectionCorrect,
+                    enabled: viewModel.answered &&
+                        viewModel.isSelectionCorrect &&
+                        !viewModel.isCompleting,
                     iconOnRight: true,
                     onTap: () => viewModel.nextQuestion(context),
                   ),

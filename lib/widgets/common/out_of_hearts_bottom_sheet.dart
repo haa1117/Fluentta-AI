@@ -38,11 +38,23 @@ Future<void> showPremiumUpsellBottomSheet(
           },
           onWatchAd: () async {
             final l10n = sheetContext.l10n;
-            await sheetContext.read<HomeViewModel>().addHearts(2);
+            final home = sheetContext.read<HomeViewModel>();
+            final result = await home.watchAdForHearts();
             if (!sheetContext.mounted) return;
             Navigator.of(sheetContext).pop();
-            if (context.mounted) {
-              SnackbarHelper.showSuccess(context, l10n.watchAdSub);
+            if (!context.mounted) return;
+            switch (result) {
+              case HeartRefillResult.granted:
+                SnackbarHelper.showSuccess(
+                  context,
+                  l10n.heartsRefilledMessage(home.rewardedHeartRefillAmount),
+                );
+              case HeartRefillResult.dailyCapReached:
+                SnackbarHelper.showError(context, l10n.heartRefillCapReached);
+              case HeartRefillResult.adUnavailable:
+                SnackbarHelper.showError(context, l10n.adNotAvailable);
+              case HeartRefillResult.notNeeded:
+                break;
             }
           },
         ),
@@ -95,6 +107,15 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
     final l10n = context.l10n;
     final bottomInset = MediaQuery.paddingOf(context).bottom;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    // Only offer the rewarded refill while the learner has refills left today.
+    var canWatchAd = config.showWatchAd;
+    if (canWatchAd) {
+      try {
+        canWatchAd = context.watch<HomeViewModel>().canWatchHeartRefillAd;
+      } catch (_) {
+        canWatchAd = config.showWatchAd;
+      }
+    }
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -177,7 +198,7 @@ class OutOfHeartsBottomSheet extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (config.showWatchAd) ...[
+                if (canWatchAd) ...[
                   SizedBox(height: AppSizes.h(16)),
                   ActionOptionCard(
                     title: l10n.watchAd,

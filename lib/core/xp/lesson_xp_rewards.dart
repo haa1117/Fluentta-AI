@@ -11,7 +11,16 @@ class LessonXpRewards {
   /// Default for grammar/reading complete screens and legacy callers.
   static const int coreLesson = grammarLesson;
 
+  /// PRD 4.2.2 — bonus for finishing all 10 lessons in a core module.
+  static const int coreModuleComplete = 50;
+
   static const int rewardedBoost = 5;
+
+  static const Set<String> coreTypes = {
+    'vocabulary',
+    'grammar',
+    'reading',
+  };
 
   static int forLessonType(String type) {
     return switch (LessonType.fromId(type)) {

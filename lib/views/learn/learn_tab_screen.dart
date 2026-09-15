@@ -1,5 +1,7 @@
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -43,6 +45,21 @@ class LearnTabScreen extends StatelessWidget {
               totalXp: learnViewModel.totalXp,
               selectedLevel: learnViewModel.selectedLevel,
               onLevelSelected: learnViewModel.selectLevel,
+              isLevelUnlocked: learnViewModel.isLevelUnlocked,
+              onLockedLevelTap: (ctx, level) {
+                final prev = CefrLevelProgress.previousLevel(level);
+                final remaining = prev == null
+                    ? 0
+                    : learnViewModel.coreLessonsRemaining(prev);
+                SnackbarHelper.showError(
+                  ctx,
+                  remaining > 0
+                      ? ctx.l10n.cefrLevelLockedLessons(remaining)
+                      : ctx.l10n.cefrLevelLockedXp(
+                          CefrLevelProgress.xpRequiredFor(level),
+                        ),
+                );
+              },
             ),
             SizedBox(height: AppSizes.spaceMd),
             LearnLevelCard(isDark: isDark),

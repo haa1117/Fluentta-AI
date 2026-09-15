@@ -200,12 +200,15 @@ class DailyLessonRepository {
     required LessonType type,
     required String cefrLevel,
     required String completedLessonId,
+    required ProgressRepository progressRepository,
     String? nextUnlockLessonId,
   }) {
     return recordLessonCompletedPath(
       typeId: type.id,
       scopeId: cefrLevel,
       completedLessonId: completedLessonId,
+      progressCefrLevel: cefrLevel,
+      progressRepository: progressRepository,
       nextUnlockLessonId: nextUnlockLessonId,
     );
   }
@@ -214,6 +217,8 @@ class DailyLessonRepository {
     required String typeId,
     required String scopeId,
     required String completedLessonId,
+    required String progressCefrLevel,
+    required ProgressRepository progressRepository,
     String? nextUnlockLessonId,
   }) async {
     await initialize();
@@ -232,9 +237,20 @@ class DailyLessonRepository {
     _states[key] = state.copyWith(
       completedToday: true,
       clearActiveLessonId: true,
-      pendingUnlockLessonId: nextUnlockLessonId,
+      clearPendingUnlock: true,
     );
     await _persist();
+
+    // Unlock the very next lesson right away — the PRD's daily loop and XP
+    // economy (4.2.2 / 4.2.5) expect a learner to be able to complete several
+    // lessons of the same module in one sitting, not wait until tomorrow.
+    if (nextUnlockLessonId != null) {
+      await progressRepository.unlockLesson(
+        lessonId: nextUnlockLessonId,
+        type: typeId,
+        cefrLevel: progressCefrLevel,
+      );
+    }
   }
 
   String? allowedNotStartedLessonId<T>(
@@ -243,7 +259,11 @@ class DailyLessonRepository {
     required String Function(T lesson) lessonIdOf,
     required LearningLessonStatus Function(T lesson) statusOf,
   }) {
-    if (state.completedToday) return null;
+    // NOTE: this used to also `return null` once `state.completedToday` was
+    // true, capping a learner to one new lesson per module per calendar day.
+    // That silently blocked further XP/progress even though the lesson was
+    // already unlocked, which contradicts the PRD's daily loop (a learner can
+    // complete as many unlocked lessons as they want in one sitting).
 
     for (final lesson in lessons) {
       if (statusOf(lesson) == LearningLessonStatus.inProgress) {

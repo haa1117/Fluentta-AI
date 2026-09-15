@@ -15,6 +15,7 @@ class UserModel {
     this.dailyGoalMinutes,
     this.setupComplete = false,
     this.lives,
+    this.lastHeartResetDate,
     this.createdAt,
     this.updatedAt,
     this.lastLoginAt,
@@ -33,6 +34,7 @@ class UserModel {
   final int? dailyGoalMinutes;
   final bool setupComplete;
   final int? lives;
+  final String? lastHeartResetDate;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? lastLoginAt;
@@ -53,6 +55,7 @@ class UserModel {
       dailyGoalMinutes: data['dailyGoalMinutes'] as int?,
       setupComplete: data['setupComplete'] as bool? ?? false,
       lives: data['lives'] as int?,
+      lastHeartResetDate: data['lastHeartResetDate'] as String?,
       createdAt: (data['createdAt'] as Timestamp?)?.toDate(),
       updatedAt: (data['updatedAt'] as Timestamp?)?.toDate(),
       lastLoginAt: (data['lastLoginAt'] as Timestamp?)?.toDate(),
@@ -106,9 +109,21 @@ class UserModel {
       englishLevel: englishLevel ?? this.englishLevel,
       dailyGoalMinutes: dailyGoalMinutes ?? this.dailyGoalMinutes,
       setupComplete: setupComplete ?? this.setupComplete,
+      lives: lives,
+      lastHeartResetDate: lastHeartResetDate,
       createdAt: createdAt,
       updatedAt: updatedAt,
       lastLoginAt: lastLoginAt,
     );
   }
+}
+
+class UserHeartState {
+  const UserHeartState({
+    required this.lives,
+    this.lastHeartResetDate,
+  });
+
+  final int lives;
+  final String? lastHeartResetDate;
 }

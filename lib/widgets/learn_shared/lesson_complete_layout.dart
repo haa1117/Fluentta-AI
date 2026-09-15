@@ -10,6 +10,7 @@ import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
+import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class LessonCompleteLayout extends StatefulWidget {
     this.boostLessonKey,
     this.xpBoostAmount = LessonXpRewards.rewardedBoost,
     this.showXpBoost = true,
+    this.interstitialOnExit = true,
     this.summaryCard,
     this.chips,
   });
@@ -37,6 +39,10 @@ class LessonCompleteLayout extends StatefulWidget {
   final String? boostLessonKey;
   final int xpBoostAmount;
   final bool showXpBoost;
+
+  /// PRD 4.4 — count this completion toward the "every 3rd lesson" interstitial
+  /// and show one when due. Disabled for roleplay module screens.
+  final bool interstitialOnExit;
   final Widget? summaryCard;
   final List<Widget>? chips;
 
@@ -90,6 +96,21 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
     _confettiController.play();
   }
 
+  bool _exiting = false;
+
+  Future<void> _exitWith(VoidCallback action) async {
+    if (_exiting) return;
+    _exiting = true;
+    if (widget.interstitialOnExit) {
+      await AdMobService.instance.maybeShowLessonInterstitial();
+    }
+    if (!mounted) {
+      action();
+      return;
+    }
+    action();
+  }
+
   Future<void> _onBoostTap() async {
     final lessonKey = widget.boostLessonKey;
     if (lessonKey == null || _boostClaimed || _boostLoading) return;
@@ -122,9 +143,25 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
     }
   }
 
+  bool get _grantsBoost =>
+      widget.showXpBoost && widget.boostLessonKey != null;
+
+  bool get _isPremium {
+    try {
+      return context.read<HomeViewModel>().isPro;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// XP number shown in the celebration. Premium learners get the +5 boost
+  /// applied automatically (PRD 4.2.3), so fold it into the headline.
+  int get _displayXp =>
+      _grantsBoost && _isPremium ? widget.xpEarned + widget.xpBoostAmount : widget.xpEarned;
+
   bool get _showBoostCard {
-    if (!widget.showXpBoost || widget.boostLessonKey == null) return false;
-    if (!_boostChecked) return false;
+    if (!_grantsBoost || !_boostChecked) return false;
+    if (_isPremium) return false; // auto-applied, no ad
     if (!AdMobService.instance.shouldDisplay(AdPlacement.rewardedXpBoost)) {
       return false;
     }
@@ -162,26 +199,6 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                 ],
               ),
             ),
-            Positioned(
-              top: AppSizes.spaceSm,
-              right: AppSizes.horizontalPadding,
-              child: GestureDetector(
-                onTap: widget.onClose,
-                child: Container(
-                  width: AppSizes.w(36),
-                  height: AppSizes.w(36),
-                  decoration:  BoxDecoration(
-                    color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.close_rounded,
-                    color:isDark ? AppColors.textSecondaryDark : AppColors.iconColor,
-                    size: AppSizes.sp(20),
-                  ),
-                ),
-              ),
-            ),
             SingleChildScrollView(
               padding: EdgeInsets.symmetric(
                 horizontal: AppSizes.horizontalPadding,
@@ -196,7 +213,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                   ),
                   SizedBox(height: AppSizes.spaceLg),
                   Text(
-                    l10n.xpEarnedCelebration(widget.xpEarned),
+                    l10n.xpEarnedCelebration(_displayXp),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
@@ -233,10 +250,30 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                   ],
                   PrimaryButton(
                     text: widget.buttonText,
-                    onPressed: widget.onButtonPressed,
+                    onPressed: () => _exitWith(widget.onButtonPressed),
                   ),
                   SizedBox(height: AppSizes.spaceLg),
                 ],
+              ),
+            ),
+            Positioned(
+              top: AppSizes.spaceSm,
+              right: AppSizes.horizontalPadding,
+              child: GestureDetector(
+                onTap: () => _exitWith(widget.onClose),
+                child: Container(
+                  width: AppSizes.w(36),
+                  height: AppSizes.w(36),
+                  decoration:  BoxDecoration(
+                    color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.close_rounded,
+                    color:isDark ? AppColors.textSecondaryDark : AppColors.iconColor,
+                    size: AppSizes.sp(20),
+                  ),
+                ),
               ),
             ),
           ],

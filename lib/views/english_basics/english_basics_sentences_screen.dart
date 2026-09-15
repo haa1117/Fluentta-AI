@@ -9,6 +9,7 @@ import 'package:fluentta_ai/data/models/english_basics_lesson_model.dart';
 import 'package:fluentta_ai/viewmodels/english_basics_flow_view_model.dart';
 import 'package:fluentta_ai/widgets/english_basics/english_basics_step_header.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -20,11 +21,12 @@ class EnglishBasicsSentencesScreen extends StatelessWidget {
     AppSizes.init(context);
     final viewModel = context.watch<EnglishBasicsFlowViewModel>();
     final lesson = viewModel.lesson;
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
-      appBar: const AppBarWidget(
-        title: "Today's Lesson",
+      appBar: AppBarWidget(
+        title: l10n.todaysLessonTitle,
         showBackButton: true,
         centerTitle: true,
         showActionButton: false,
@@ -84,12 +86,13 @@ class EnglishBasicsSentencesScreen extends StatelessWidget {
                   onSelect: (optionIndex) =>
                       viewModel.selectSentenceOption(index, optionIndex),
                   isCorrect: viewModel.isSelectionCorrect,
+                  questionLabel: l10n.sentenceQuestionNumber(index + 1),
                 );
               },
             ),
           ),
           FooterWidget(
-            child: PrimaryButton(text: 'Continue',  onPressed: viewModel.canContinueFromSentences
+            child: PrimaryButton(text: l10n.continueBtn,  onPressed: viewModel.canContinueFromSentences
                 ? () => viewModel.goToDialogue()
                 : null,
               enabled: viewModel.canContinueFromSentences,
@@ -112,6 +115,7 @@ class _SentenceQuestionCard extends StatelessWidget {
     required this.answered,
     required this.onSelect,
     required this.isCorrect,
+    required this.questionLabel,
   });
 
   final int questionNumber;
@@ -121,6 +125,7 @@ class _SentenceQuestionCard extends StatelessWidget {
   final bool answered;
   final ValueChanged<int> onSelect;
   final bool Function(int questionIndex, int optionIndex) isCorrect;
+  final String questionLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +163,7 @@ class _SentenceQuestionCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppSizes.w(16)),
                 ),
                 child: Text(
-                  'Question $questionNumber',
+                  questionLabel,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(12),
@@ -221,8 +226,11 @@ class _SentenceQuestionCard extends StatelessWidget {
                 borderColor = AppColors.borderDarkPrimary;
               }
 
+              // Locked only once this question's correct word has been
+              // found — a wrong pick stays tappable so the learner can retry.
+              final locked = questionAnswered && selectionIsCorrect;
               return GestureDetector(
-                onTap: questionAnswered ? null : () => onSelect(index),
+                onTap: locked ? null : () => onSelect(index),
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: AppSizes.w(18),

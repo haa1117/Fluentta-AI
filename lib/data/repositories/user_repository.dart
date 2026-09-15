@@ -196,9 +196,13 @@ class UserRepository {
   }
 
   Future<void> syncLivesFromFirestore(String uid) async {
-    final user = await getUser(uid);
-    if (user?.lives == null) return;
-    await _localStorage.saveLives(user!.lives!);
+    final state = await fetchHeartState(uid);
+    if (state == null) return;
+    await _localStorage.saveLives(state.lives);
+    if (state.lastHeartResetDate != null &&
+        state.lastHeartResetDate!.isNotEmpty) {
+      await _localStorage.setLastHeartResetDate(state.lastHeartResetDate!);
+    }
   }
 
   Future<void> syncLearningStatsFromFirestore(String uid) async {
@@ -294,6 +298,8 @@ class UserRepository {
     await _userDoc(uid).set(
       {
         'lives': lives.clamp(0, 99),
+        if (_localStorage.lastHeartResetDate != null)
+          'lastHeartResetDate': _localStorage.lastHeartResetDate,
         'updatedAt': FieldValue.serverTimestamp(),
       },
       SetOptions(merge: true),
@@ -301,8 +307,17 @@ class UserRepository {
   }
 
   Future<int?> fetchLives(String uid) async {
+    final state = await fetchHeartState(uid);
+    return state?.lives;
+  }
+
+  Future<UserHeartState?> fetchHeartState(String uid) async {
     final user = await getUser(uid);
-    return user?.lives;
+    if (user?.lives == null) return null;
+    return UserHeartState(
+      lives: user!.lives!,
+      lastHeartResetDate: user.lastHeartResetDate,
+    );
   }
 
   Future<void> updateFullName({

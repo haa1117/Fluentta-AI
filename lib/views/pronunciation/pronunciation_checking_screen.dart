@@ -3,8 +3,10 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/viewmodels/pronunciation_view_model.dart';
 import 'package:fluentta_ai/views/pronunciation/pronunciation_flow.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:fluentta_ai/widgets/pronunciation/pronunciation_checking_hero.dart';
 
 class PronunciationCheckingScreen extends StatefulWidget {
@@ -26,15 +28,21 @@ class _PronunciationCheckingScreenState
     _progressController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1200),
-    )..forward();
+    );
 
-    _progressController.addStatusListener((status) {
-      if (status == AnimationStatus.completed && mounted) {
-        Navigator.of(context).pushReplacementNamed(
-          PronunciationFlow.routeResult,
-        );
-      }
-    });
+    _runCheck();
+  }
+
+  Future<void> _runCheck() async {
+    final vm = context.read<PronunciationViewModel>();
+    await Future.wait<void>([
+      _progressController.forward(),
+      vm.assessPendingTake().then((_) {}),
+    ]);
+    if (!mounted) return;
+    Navigator.of(context).pushReplacementNamed(
+      PronunciationFlow.routeResult,
+    );
   }
 
   @override

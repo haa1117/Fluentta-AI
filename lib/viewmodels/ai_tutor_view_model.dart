@@ -1,4 +1,6 @@
+import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
+import 'package:fluentta_ai/core/roleplay/roleplay_xp_milestones.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/data/models/roleplay_scenario_model.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
@@ -12,6 +14,13 @@ class AiTutorViewModel extends ChangeNotifier {
 
   int get lives => _homeViewModel.lives;
   String? get selectedScenarioId => _selectedScenarioId;
+
+  /// PRD 4.2.7 — the scenario's earliest (A1) version is XP-unlocked.
+  bool isScenarioXpUnlocked(String id) =>
+      RoleplayXpMilestones.isScenarioUnlocked(id, _homeViewModel.xpEarned);
+
+  int scenarioUnlockXp(String id) =>
+      RoleplayXpMilestones.xpRequiredFor(id, CefrLevel.a1);
 
   static final List<RoleplayScenarioModel> scenarios = [
     RoleplayScenarioModel(

@@ -47,6 +47,11 @@ class LocalStorage {
   static const String _lessonXpGrantMigrationV2Key = 'lesson_xp_grant_migration_v2';
   static const String _learnBrowseCefrLevelKey = 'learn_browse_cefr_level';
   static const String _themeModeKey = 'app_theme_mode';
+  static const String _chatSpeakRepliesKey = 'chat_speak_replies_enabled';
+  static const String _moduleXpGrantedKey = 'module_xp_granted_v1';
+  static const String _heartRefillAdDateKey = 'heart_refill_ad_date';
+  static const String _heartRefillAdCountKey = 'heart_refill_ad_count';
+  static const String _lessonsSinceInterstitialKey = 'lessons_since_interstitial';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -109,6 +114,14 @@ class LocalStorage {
   double get lessonProgress => _prefs!.getDouble(_lessonProgressKey) ?? 0.35;
   bool get notificationsEnabled =>
       _prefs!.getBool(_notificationsEnabledKey) ?? true;
+
+  /// Whether the AI tutor's replies are read aloud in Open Chat Practice.
+  bool get chatSpeakRepliesEnabled =>
+      _prefs!.getBool(_chatSpeakRepliesKey) ?? true;
+
+  Future<void> setChatSpeakRepliesEnabled(bool value) async {
+    await _prefs!.setBool(_chatSpeakRepliesKey, value);
+  }
   bool get dailyReminderEnabled =>
       _prefs!.getBool(_dailyReminderEnabledKey) ?? true;
   int get reminderHour => _prefs!.getInt(_reminderHourKey) ?? 20;
@@ -135,6 +148,45 @@ class LocalStorage {
 
   Future<void> setString(String key, String value) async {
     await _prefs!.setString(key, value);
+  }
+
+  int getInt(String key, [int fallback = 0]) =>
+      _prefs!.getInt(key) ?? fallback;
+
+  Future<void> setIntValue(String key, int value) async {
+    await _prefs!.setInt(key, value);
+  }
+
+  // --- Rewarded heart-refill ad daily cap (PRD 4.2.13) ---
+  String? get heartRefillAdDate => _prefs!.getString(_heartRefillAdDateKey);
+  int get heartRefillAdCount => _prefs!.getInt(_heartRefillAdCountKey) ?? 0;
+
+  Future<void> saveHeartRefillAdUsage(String isoDate, int count) async {
+    await _prefs!.setString(_heartRefillAdDateKey, isoDate);
+    await _prefs!.setInt(_heartRefillAdCountKey, count);
+  }
+
+  // --- Post-lesson interstitial cadence (PRD 4.4 — every 3rd lesson) ---
+  int get lessonsSinceInterstitial =>
+      _prefs!.getInt(_lessonsSinceInterstitialKey) ?? 0;
+
+  Future<void> setLessonsSinceInterstitial(int value) async {
+    await _prefs!.setInt(_lessonsSinceInterstitialKey, value.clamp(0, 999));
+  }
+
+  // --- Core module completion XP bonus (+50, PRD 4.2.2), one grant per module ---
+  Future<bool> hasModuleXpGranted(String moduleKey) async {
+    final raw = _prefs!.getString(_moduleXpGrantedKey);
+    if (raw == null || raw.isEmpty) return false;
+    return raw.split('\n').contains(moduleKey);
+  }
+
+  Future<void> markModuleXpGranted(String moduleKey) async {
+    if (await hasModuleXpGranted(moduleKey)) return;
+    final raw = _prefs!.getString(_moduleXpGrantedKey);
+    final keys = (raw == null || raw.isEmpty) ? <String>[] : raw.split('\n');
+    keys.add(moduleKey);
+    await _prefs!.setString(_moduleXpGrantedKey, keys.join('\n'));
   }
 
   Future<void> incrementLessonsCompleted() async {
@@ -237,6 +289,10 @@ class LocalStorage {
     await _prefs!.remove(_lessonXpGrantedKey);
     await _prefs!.remove(_xpAwardedBackfillDoneKey);
     await _prefs!.remove(_lessonXpGrantMigrationV2Key);
+    await _prefs!.remove(_moduleXpGrantedKey);
+    await _prefs!.remove(_heartRefillAdDateKey);
+    await _prefs!.remove(_heartRefillAdCountKey);
+    await _prefs!.remove(_lessonsSinceInterstitialKey);
     await _prefs!.remove(_learnBrowseCefrLevelKey);
 
     const repositoryKeys = [
@@ -318,9 +374,11 @@ class LocalStorage {
   }
 
   Future<void> incrementDailyProgress(int minutes) async {
-    final current = dailyProgressMinutes + minutes;
-    final goal = dailyGoalMinutes ?? 10;
-    await saveDailyProgressMinutes(current > goal ? goal : current);
+    // Don't clamp to the goal — the ring/percent display clamps for its own
+    // purposes, but the raw counter should keep reflecting real activity, or
+    // it silently freezes at "goal/goal 100%" the moment the goal is first
+    // hit and stops looking dynamic for the rest of the day.
+    await saveDailyProgressMinutes(dailyProgressMinutes + minutes);
     await setLastDailyProgressDate(
       '${DateTime.now().year.toString().padLeft(4, '0')}-'
       '${DateTime.now().month.toString().padLeft(2, '0')}-'

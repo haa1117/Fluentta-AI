@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
@@ -30,6 +31,39 @@ class ProgressRepository {
   }
 
   Map<String, LessonProgressModel> get allProgress => Map.unmodifiable(_cache);
+
+  static const Set<String> _coreLessonTypes = {
+    'vocabulary',
+    'grammar',
+    'reading',
+  };
+
+  /// Completed core lessons (vocab/grammar/reading) in a CEFR level.
+  int completedCoreLessons(CefrLevel level) {
+    final code = level.code;
+    return _cache.values
+        .where((p) =>
+            p.status == LearningLessonStatus.completed &&
+            _coreLessonTypes.contains(p.type) &&
+            p.cefrLevel.toUpperCase() == code)
+        .length;
+  }
+
+  /// Completed core lessons of one type (e.g. all A1 vocabulary).
+  int completedCoreLessonsOfType(CefrLevel level, String type) {
+    final code = level.code;
+    return _cache.values
+        .where((p) =>
+            p.status == LearningLessonStatus.completed &&
+            p.type == type &&
+            p.cefrLevel.toUpperCase() == code)
+        .length;
+  }
+
+  /// PRD 4.2.4 — all 30 required core lessons of [level] are done
+  /// (10 vocabulary + 10 grammar + 10 reading).
+  bool isCoreCurriculumComplete(CefrLevel level) =>
+      completedCoreLessons(level) >= 30;
 
   Future<LessonProgressModel?> getProgress(String lessonId) async {
     await initialize();

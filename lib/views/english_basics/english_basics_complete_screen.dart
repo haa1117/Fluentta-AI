@@ -3,6 +3,7 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/english_basics_flow_view_model.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:provider/provider.dart';
 
 class EnglishBasicsCompleteScreen extends StatelessWidget {
@@ -13,6 +14,7 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
     AppSizes.init(context);
     final viewModel = context.watch<EnglishBasicsFlowViewModel>();
     final lesson = viewModel.lesson;
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
@@ -48,7 +50,7 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceLg),
                     Text(
-                      'Lesson complete!',
+                      l10n.lessonCompleteTitle,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(28),
@@ -58,7 +60,7 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppSizes.spaceSm),
                     Text(
-                      'You learned ${lesson.title}.',
+                      l10n.youLearnedLesson(lesson.title),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
@@ -79,7 +81,7 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'WHAT YOU HAVE LEARNED TODAY',
+                            l10n.whatYouHaveLearnedToday,
                             style: TextStyle(
                               fontFamily: AppFonts.plusJakartaSans,
                               fontSize: AppSizes.sp(11),

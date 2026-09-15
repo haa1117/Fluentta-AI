@@ -581,7 +581,31 @@
   "backToSpeak": "Back to Role Play",
   "openChatPracticeTitle": "Open Chat Practice",
   "textMode": "Text Mode",
-  "chatGreeting": "Hi! What would you like to practice today?",
+  "chatTextMode": "Text Mode",
+  "chatVoiceMode": "Voice Mode",
+  "chatGreeting": "Hi! I'm your English tutor. We can just talk, or I can teach you step by step. What would you like to do?",
+  "chatQuickStarterLesson": "Teach me step by step",
+  "chatQuickStarterGrammar": "Practise grammar",
+  "chatQuickStarterDaily": "Everyday conversation",
+  "chatQuickStarterWork": "English for work",
+  "chatQuickStarterOpenTopic": "Just chat",
+  "chatQuickStarterTravel": "Travel",
+  "chatCorrectionLabel": "CORRECTION",
+  "chatYourSentence": "Your sentence:",
+  "chatCorrectSentence": "Correct sentence:",
+  "chatTipPrefix": "Tip:",
+  "chatTypeHint": "Type your text here",
+  "chatHoldToSpeak": "Hold to Speak",
+  "chatListening": "Listening...",
+  "chatReleaseToSend": "Speak freely, then release to send voice",
+  "chatTapToSend": "Speak freely, then tap to send voice",
+  "chatCancel": "Cancel",
+  "chatLock": "Lock",
+  "chatSpeechUnavailable": "Microphone unavailable. Please check permissions.",
+  "chatNeedsInternet": "AI chat needs an internet connection.",
+  "chatReadRepliesAloud": "Read replies aloud",
+  "chatPlay": "Play",
+  "chatPlaying": "Playing",
   "outOfHearts": "You're out of Hearts",
   "outOfHeartsSub": "Fix Grammar, word choice, and sentences while you practice",
   "getMoreHearts": "GET MORE HEARTS",
@@ -589,6 +613,12 @@
   "goUnlimitedSub": "Unlimited AI practice\nNo ads • Unlimited hearts",
   "watchAd": "Watch Ad",
   "watchAdSub": "Get +2 Hearts instantly",
+  "heartsRefilledMessage": "+{count} Hearts added. Keep practising!",
+  "@heartsRefilledMessage": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "heartRefillCapReached": "You've used all your ad refills today. Come back tomorrow or go unlimited.",
+  "adNotAvailable": "No ad available right now. Please try again shortly.",
   "playingPhrase": "Playing phrase...",
   "pronunciationUnavailable": "Microphone or speech recognition is not available on this device.",
   "microphonePermissionDenied": "Microphone permission is required for pronunciation practice.",
@@ -641,6 +671,14 @@
   },
   "roleplayLevelLocked": "Reach {xp} XP to unlock this level",
   "@roleplayLevelLocked": {
+    "placeholders": {"xp": {"type": "int"}}
+  },
+  "cefrLevelLockedLessons": "Finish {count} more lessons in the level before to unlock this one",
+  "@cefrLevelLockedLessons": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "cefrLevelLockedXp": "Reach {xp} XP to unlock this level",
+  "@cefrLevelLockedXp": {
     "placeholders": {"xp": {"type": "int"}}
   },
   "xpEarnedCelebration": "+{xp} XP Earned",
@@ -728,5 +766,19 @@
     "placeholders": {"count": {"type": "int"}}
   },
   "startPracticing": "Start Practicing",
-  "oneHeartPerAiResponse": "1 heart per AI response"
+  "oneHeartPerAiResponse": "1 heart per AI response",
+
+  "todaysLessonTitle": "Today's Lesson",
+  "whatYouWillLearnToday": "WHAT YOU WILL LEARN TODAY",
+  "startLessonButton": "Start Lesson",
+  "whatYouHaveLearnedToday": "WHAT YOU HAVE LEARNED TODAY",
+  "lessonCompleteTitle": "Lesson complete!",
+  "youLearnedLesson": "You learned {title}.",
+  "@youLearnedLesson": {
+    "placeholders": {"title": {"type": "String"}}
+  },
+  "sentenceQuestionNumber": "Question {number}",
+  "@sentenceQuestionNumber": {
+    "placeholders": {"number": {"type": "int"}}
+  }
 }

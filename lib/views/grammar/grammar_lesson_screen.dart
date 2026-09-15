@@ -119,7 +119,7 @@ class _GrammarLessonBody extends StatelessWidget {
                     label: viewModel.isLastStep ? l10n.finishLesson : l10n.next,
                     icon: Icons.arrow_forward_rounded,
                     isPrimary: true,
-                    enabled: true,
+                    enabled: !viewModel.isCompleting,
                     iconOnRight: true,
                     onTap: () => viewModel.nextStep(context),
                   ),

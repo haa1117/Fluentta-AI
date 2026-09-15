@@ -46,7 +46,7 @@ class ReadingViewModel extends ChangeNotifier {
   List<ReadingLessonModel> get lessons => _lessons;
   bool get isLoading => _isLoading;
 
-  CefrLevel get _level => UserEntitlements.learnBrowseLevel(_localStorage);
+  CefrLevel get _level => UserEntitlements.learnBrowseLevel(_localStorage, _progressRepository);
 
   int get completedLessonsCount =>
       _lessons.where((l) => l.status == LearningLessonStatus.completed).length;
@@ -172,6 +172,7 @@ class ReadingViewModel extends ChangeNotifier {
       type: LessonType.reading,
       cefrLevel: _level.code,
       completedLessonId: completedLesson.lessonId,
+      progressRepository: _progressRepository,
       nextUnlockLessonId: nextId,
     );
 

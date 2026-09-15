@@ -24,14 +24,38 @@ class CefrLevelProgress {
     };
   }
 
-  static bool isLevelUnlocked(int totalXp, CefrLevel level) {
-    return totalXp >= xpRequiredFor(level);
+  /// The level a learner must finish before [level] opens (null for A1).
+  static CefrLevel? previousLevel(CefrLevel level) {
+    if (level.index == 0) return null;
+    return CefrLevel.values[level.index - 1];
   }
 
-  static CefrLevel highestUnlockedTab(int totalXp) {
+  /// PRD 4.2.4 — a CEFR level unlocks only when BOTH the cumulative XP gate is
+  /// reached AND all 30 core lessons of the previous level are completed.
+  ///
+  /// [previousLevelCoreComplete] defaults to `true` so callers that only have
+  /// XP available still behave sensibly; pass the real value where progress
+  /// data is available (Learn tab, CEFR celebration).
+  static bool isLevelUnlocked(
+    int totalXp,
+    CefrLevel level, {
+    bool previousLevelCoreComplete = true,
+  }) {
+    if (level.index == 0) return true;
+    if (totalXp < xpRequiredFor(level)) return false;
+    return previousLevelCoreComplete;
+  }
+
+  static CefrLevel highestUnlockedTab(
+    int totalXp, {
+    bool Function(CefrLevel level)? isCoreComplete,
+  }) {
     CefrLevel result = CefrLevel.a1;
     for (final level in tabLevels) {
-      if (isLevelUnlocked(totalXp, level)) {
+      final prev = previousLevel(level);
+      final coreOk =
+          prev == null || (isCoreComplete?.call(prev) ?? true);
+      if (isLevelUnlocked(totalXp, level, previousLevelCoreComplete: coreOk)) {
         result = level;
       }
     }
