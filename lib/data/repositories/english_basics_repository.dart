@@ -105,9 +105,24 @@ class EnglishBasicsRepository {
 
   Future<EnglishBasicsLessonModel?> getTodaysLesson(String goalId) async {
     final lessons = await buildLessons(goalId);
+
     for (final lesson in lessons) {
       if (lesson.status == LearningLessonStatus.inProgress) return lesson;
     }
+
+    // "Today's Lesson" is a once-a-day ritual (words + sentences + dialogue
+    // as ONE lesson) — unlike the Vocabulary/Grammar/Reading paths, which
+    // deliberately allow finishing several lessons in one sitting. The next
+    // lesson unlocks immediately underneath (so it's ready tomorrow), but
+    // once one has been completed today we keep showing that one as
+    // completed instead of silently jumping ahead to fresh content.
+    final dailyState = _dailyLessonRepository.stateForPath(_typeId, goalId);
+    if (dailyState.completedToday) {
+      for (final lesson in lessons.reversed) {
+        if (lesson.status == LearningLessonStatus.completed) return lesson;
+      }
+    }
+
     for (final lesson in lessons) {
       if (lesson.status == LearningLessonStatus.notStarted) return lesson;
     }
