@@ -206,11 +206,17 @@ class EnglishBasicsRepository {
     );
   }
 
-  Future<void> markLessonCompleted({
+  /// Returns true the first time [lesson] is completed. Revisiting an
+  /// already-completed lesson (e.g. reopening today's already-done daily
+  /// lesson) still clears its in-progress step marker, but must not re-award
+  /// daily-goal minutes or words-learned a second time.
+  Future<bool> markLessonCompleted({
     required String goalId,
     required EnglishBasicsLessonModel lesson,
     required List<EnglishBasicsLessonModel> allLessons,
   }) async {
+    final firstCompletion = lesson.status != LearningLessonStatus.completed;
+
     final orderedIds = allLessons.map((l) => l.lessonId).toList();
     final nextId = LessonUnlockLogic.nextLessonIdToUnlock(
       completedLessonId: lesson.lessonId,
@@ -224,6 +230,13 @@ class EnglishBasicsRepository {
       finalIndex: EnglishBasicsStep.complete.stepIndex,
     );
 
+    final map = _readStepMap();
+    map.remove('${goalId}_${lesson.lessonId}');
+    await _localStorage.setString(_stepKey, jsonEncode(map));
+    await _localStorage.saveLessonProgress(await trackProgress(goalId));
+
+    if (!firstCompletion) return false;
+
     await _dailyLessonRepository.recordLessonCompletedPath(
       typeId: _typeId,
       scopeId: goalId,
@@ -233,12 +246,8 @@ class EnglishBasicsRepository {
       nextUnlockLessonId: nextId,
     );
 
-    final map = _readStepMap();
-    map.remove('${goalId}_${lesson.lessonId}');
-    await _localStorage.setString(_stepKey, jsonEncode(map));
-
     await _localStorage.incrementWordsLearned(lesson.words.length);
-    await _localStorage.saveLessonProgress(await trackProgress(goalId));
+    return true;
   }
 
   List<EnglishBasicsLessonModel> _applySequentialUnlock(

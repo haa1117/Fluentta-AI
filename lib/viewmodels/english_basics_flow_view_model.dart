@@ -109,14 +109,16 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
   Future<void> completeLesson() async {
     _step = EnglishBasicsStep.complete;
     notifyListeners();
-    await repository.markLessonCompleted(
+    final firstCompletion = await repository.markLessonCompleted(
       goalId: goalId,
       lesson: lesson,
       allLessons: allLessons,
     );
-    await progressSyncService.recordDailyGoalProgress(
-      DailyGoalRewards.englishBasicsLesson,
-    );
+    if (firstCompletion) {
+      await progressSyncService.recordDailyGoalProgress(
+        DailyGoalRewards.englishBasicsLesson,
+      );
+    }
     await onStatsUpdated?.call();
     onFinished();
   }
