@@ -24,6 +24,9 @@ class LanguageViewModel extends ChangeNotifier {
   String _selectedLanguageCode = 'en';
   String get selectedLanguageCode => _selectedLanguageCode;
 
+  bool _isContinuing = false;
+  bool get isContinuing => _isContinuing;
+
   List<LanguageModel> suggestedLanguages(AppLocalizations l10n) => [
         LanguageModel(
           code: 'ur',
@@ -58,9 +61,27 @@ class LanguageViewModel extends ChangeNotifier {
   }
 
   Future<void> continueWithLanguage(VoidCallback onComplete) async {
-    await _localeViewModel.setLocale(_selectedLanguageCode);
-    await _syncToFirestoreIfLoggedIn();
-    onComplete();
+    if (_isContinuing) return;
+
+    final localeChanged =
+        _localeViewModel.languageCode != _selectedLanguageCode;
+    _isContinuing = true;
+    notifyListeners();
+
+    try {
+      await _localeViewModel.setLocale(_selectedLanguageCode);
+      await _syncToFirestoreIfLoggedIn();
+      if (localeChanged) {
+        await WidgetsBinding.instance.endOfFrame;
+        await Future<void>.delayed(const Duration(milliseconds: 1000));
+      }
+      onComplete();
+      // Keep the spinner up while AnimatedSwitcher still paints this screen.
+      await Future<void>.delayed(const Duration(milliseconds: 400));
+    } finally {
+      _isContinuing = false;
+      notifyListeners();
+    }
   }
 
   Future<void> _syncToFirestoreIfLoggedIn() async {

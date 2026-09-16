@@ -94,7 +94,10 @@ class LanguageSelectionScreen extends StatelessWidget {
 
                   PrimaryButton(
                     text: l10n.continueBtn,
-                    onPressed: () => viewModel.continueWithLanguage(onComplete),
+                    isLoading: viewModel.isContinuing,
+                    onPressed: viewModel.isContinuing
+                        ? null
+                        : () => viewModel.continueWithLanguage(onComplete),
                   ),
                 ],
               ),

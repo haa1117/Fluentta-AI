@@ -14,61 +14,67 @@ class LanguageBanner extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: AppSizes.bannerHeight,
-      // padding: EdgeInsets.symmetric(
-      //   horizontal: AppSizes.w(20),
-      //   vertical: AppSizes.h(16),
-      // ),
+      constraints: BoxConstraints(minHeight: AppSizes.bannerHeight),
       decoration: BoxDecoration(
-        gradient:isDark ? null : AppColors.bannerGradient,
-        color: isDark ? Color(0xff302241):null,
+        gradient: isDark ? null : AppColors.bannerGradient,
+        color: isDark ? const Color(0xff302241) : null,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
             child: Padding(
-              padding:  EdgeInsets.symmetric(
-                  horizontal: AppSizes.w(20),
-                  vertical: AppSizes.h(16),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSizes.w(20),
+                vertical: AppSizes.h(16),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     l10n.chooseYourLanguage,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontFamily: 'PlusJakartaSans',
                       fontSize: AppSizes.fontTitle,
                       fontWeight: FontWeight.w700,
-                      color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
+                      height: 1.2,
+                      color: isDark
+                          ? AppColors.textPrimaryDark
+                          : AppColors.textPrimary,
                     ),
                   ),
                   SizedBox(height: AppSizes.h(4)),
                   Text(
                     l10n.personalizeExperience,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontFamily: 'PlusJakartaSans',
                       fontSize: AppSizes.fontCaption,
                       fontWeight: FontWeight.w400,
-                      color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+                      height: 1.3,
+                      color: isDark
+                          ? AppColors.textSecondaryDark
+                          : AppColors.textSecondary,
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
+          Padding(
+            padding: EdgeInsetsDirectional.only(end: AppSizes.w(8)),
+            child: Image.asset(
+              AppAssets.chooseLanguageBird,
+              height: AppSizes.h(120),
+              width: AppSizes.w(100),
+              fit: BoxFit.contain,
               alignment: Alignment.bottomCenter,
-              // color: Colors.green,
-              child: Image.asset(
-                AppAssets.chooseLanguageBird,
-                height: AppSizes.h(120),
-                fit: BoxFit.contain,
-              ),
             ),
           ),
         ],
