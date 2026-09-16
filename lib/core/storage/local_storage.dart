@@ -106,7 +106,15 @@ class LocalStorage {
   String? get englishGoal => _prefs!.getString(_englishGoalKey);
   String? get englishLevel => _prefs!.getString(_englishLevelKey);
   int? get dailyGoalMinutes => _prefs!.getInt(_dailyGoalMinutesKey);
-  int get dailyProgressMinutes => _prefs!.getInt(_dailyProgressMinutesKey) ?? 0;
+  // Clamped to the goal: activity that happens to add up to more than the
+  // goal in one day (several lessons, a couple of chat sessions, etc.) is
+  // real, but showing e.g. "35/10 min" reads as broken rather than "done for
+  // the day" — so the goal is the ceiling here, same as the 100% ring.
+  int get dailyProgressMinutes {
+    final raw = _prefs!.getInt(_dailyProgressMinutesKey) ?? 0;
+    final goal = dailyGoalMinutes ?? 10;
+    return raw < goal ? raw : goal;
+  }
   int get streakDays => _prefs!.getInt(_streakDaysKey) ?? 0;
   String? get lastDailyProgressDate =>
       _prefs!.getString(_lastDailyProgressDateKey);
