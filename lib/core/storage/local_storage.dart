@@ -51,6 +51,8 @@ class LocalStorage {
   static const String _moduleXpGrantedKey = 'module_xp_granted_v1';
   static const String _heartRefillAdDateKey = 'heart_refill_ad_date';
   static const String _heartRefillAdCountKey = 'heart_refill_ad_count';
+  static const String _xpBoostAdDateKey = 'xp_boost_ad_date';
+  static const String _xpBoostAdCountKey = 'xp_boost_ad_count';
   static const String _lessonsSinceInterstitialKey = 'lessons_since_interstitial';
 
   static Future<LocalStorage> getInstance() async {
@@ -172,6 +174,15 @@ class LocalStorage {
   Future<void> saveHeartRefillAdUsage(String isoDate, int count) async {
     await _prefs!.setString(_heartRefillAdDateKey, isoDate);
     await _prefs!.setInt(_heartRefillAdCountKey, count);
+  }
+
+  // --- Rewarded XP-boost ad daily cap (Profile "What's unlocked" popup) ---
+  String? get xpBoostAdDate => _prefs!.getString(_xpBoostAdDateKey);
+  int get xpBoostAdCount => _prefs!.getInt(_xpBoostAdCountKey) ?? 0;
+
+  Future<void> saveXpBoostAdUsage(String isoDate, int count) async {
+    await _prefs!.setString(_xpBoostAdDateKey, isoDate);
+    await _prefs!.setInt(_xpBoostAdCountKey, count);
   }
 
   // --- Post-lesson interstitial cadence (PRD 4.4 — every 3rd lesson) ---

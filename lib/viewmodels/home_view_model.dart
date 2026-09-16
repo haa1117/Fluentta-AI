@@ -3,6 +3,7 @@ import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/daily_goal/daily_goal_rewards.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 
@@ -11,6 +12,12 @@ enum HeartRefillResult {
   adUnavailable,
   dailyCapReached,
   notNeeded,
+}
+
+enum XpBoostResult {
+  granted,
+  adUnavailable,
+  dailyCapReached,
 }
 
 class HomeViewModel extends ChangeNotifier {
@@ -136,6 +143,34 @@ class HomeViewModel extends ChangeNotifier {
     await _entitlementsService.recordHeartRefillAdWatched();
     await addHearts(_entitlementsService.rewardedHeartRefillAmount);
     return HeartRefillResult.granted;
+  }
+
+  // --- Rewarded XP boost (Profile "What's unlocked" popup) ---
+
+  int get xpBoostAdsRemaining => _entitlementsService.xpBoostAdsRemainingToday();
+  bool get canWatchXpBoostAd => _entitlementsService.canWatchXpBoostAd;
+  static const int rewardedXpBoostAmount = LessonXpRewards.rewardedBoost;
+
+  /// Shows a real rewarded ad and only grants XP if the user earns the
+  /// reward. Not tied to any specific lesson — repeatable up to the daily cap.
+  Future<XpBoostResult> watchAdForXp() async {
+    if (!_entitlementsService.canWatchXpBoostAd) {
+      return XpBoostResult.dailyCapReached;
+    }
+
+    var earned = false;
+    final shown = await AdMobService.instance.showRewarded(
+      AdPlacement.rewardedXpBoost,
+      onReward: () => earned = true,
+    );
+
+    if (!shown || !earned) return XpBoostResult.adUnavailable;
+
+    await _entitlementsService.recordXpBoostAdWatched();
+    await _localStorage.addXp(rewardedXpBoostAmount);
+    _loadFromStorage();
+    notifyListeners();
+    return XpBoostResult.granted;
   }
 
   Future<void> recordLearningActivity() async {

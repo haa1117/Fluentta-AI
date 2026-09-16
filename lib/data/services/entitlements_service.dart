@@ -38,6 +38,27 @@ class EntitlementsService {
     await _localStorage.saveHeartRefillAdUsage(today, used + 1);
   }
 
+  // --- Rewarded XP-boost ad daily cap ---
+
+  int xpBoostAdsUsedToday() {
+    if (_localStorage.xpBoostAdDate != todayIso()) return 0;
+    return _localStorage.xpBoostAdCount;
+  }
+
+  int xpBoostAdsRemainingToday() =>
+      (UserEntitlements.maxXpBoostAdsPerDay - xpBoostAdsUsedToday())
+          .clamp(0, UserEntitlements.maxXpBoostAdsPerDay);
+
+  bool get canWatchXpBoostAd => xpBoostAdsRemainingToday() > 0;
+
+  Future<void> recordXpBoostAdWatched() async {
+    final today = todayIso();
+    final used = _localStorage.xpBoostAdDate == today
+        ? _localStorage.xpBoostAdCount
+        : 0;
+    await _localStorage.saveXpBoostAdUsage(today, used + 1);
+  }
+
   int get streakFreezesRemaining {
     final allowance = UserEntitlements.streakFreezesAllowance(isPro);
     return (allowance - _currentWeekFreezesUsed()).clamp(0, 999);

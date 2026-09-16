@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
+import 'package:fluentta_ai/widgets/profile/xp_unlocked_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,7 @@ class ProfileStatsGrid extends StatelessWidget {
 
         value: '${profile.xpEarned}',
         label: l10n.xpEarned,
+        onTap: () => showXpUnlockedDialog(context),
       ),
       _StatCard(
         svgIcon: 'assets/svg/stats_language_icon.svg',
@@ -75,16 +77,18 @@ class _StatCard extends StatelessWidget {
     required this.svgIcon,
     required this.value,
     required this.label,
+    this.onTap,
   });
 
   final String svgIcon;
   final String value;
   final String label;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Container(
+    final card = Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(14)),
       decoration: BoxDecoration(
@@ -134,5 +138,8 @@ class _StatCard extends StatelessWidget {
         ],
       ),
     );
+
+    if (onTap == null) return card;
+    return GestureDetector(onTap: onTap, child: card);
   }
 }

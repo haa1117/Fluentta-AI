@@ -15,6 +15,10 @@ class UserEntitlements {
   static const int rewardedHeartRefillAmount = 2;
   static const int maxHeartRefillAdsPerDay = 3;
 
+  /// Rewarded XP boost from the Profile "What's unlocked" popup — same per-
+  /// watch amount as the post-lesson boost card (LessonXpRewards.rewardedBoost).
+  static const int maxXpBoostAdsPerDay = 3;
+
   /// PRD 4.4 / 8.2 — post-lesson interstitial cadence (free tier).
   static const int lessonsPerInterstitial = 3;
 

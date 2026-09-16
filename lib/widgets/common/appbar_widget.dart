@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
+import 'package:fluentta_ai/widgets/profile/xp_unlocked_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -57,41 +58,46 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: showActionButton
           ? [
-              Container(
-                margin: EdgeInsets.only(right: AppSizes.w(16)),
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppSizes.w(12),
-                  vertical: AppSizes.h(6),
-                ),
-                decoration: BoxDecoration(
-                  color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
-                  borderRadius: BorderRadius.circular(AppSizes.w(20)),
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      showHearts ? heartsLabel : '$xpEarned ' + 'XP',
-                      style: TextStyle(
-                        fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(12),
-                        fontWeight: FontWeight.w700,
-                        color:isDark ? AppColors.brandDeepDarkColor : AppColors.primaryBlueColor,
+              GestureDetector(
+                onTap: showHearts
+                    ? null
+                    : () => showXpUnlockedDialog(context),
+                child: Container(
+                  margin: EdgeInsets.only(right: AppSizes.w(16)),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppSizes.w(12),
+                    vertical: AppSizes.h(6),
+                  ),
+                  decoration: BoxDecoration(
+                    color:isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
+                    borderRadius: BorderRadius.circular(AppSizes.w(20)),
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        showHearts ? heartsLabel : '$xpEarned ' + 'XP',
+                        style: TextStyle(
+                          fontFamily: AppFonts.plusJakartaSans,
+                          fontSize: AppSizes.sp(12),
+                          fontWeight: FontWeight.w700,
+                          color:isDark ? AppColors.brandDeepDarkColor : AppColors.primaryBlueColor,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: AppSizes.w(4)),
-                    if (showHearts)
-                      Icon(
-                        Icons.favorite_rounded,
-                        size: AppSizes.sp(16),
-                        color: AppColors.heartRed,
-                      )
-                    else
-                      SvgPicture.asset(
-                        AppAssets.xpEarnIcon,
-                        width: AppSizes.sp(16),
-                        height: AppSizes.sp(16),
-                      ),
-                  ],
+                      SizedBox(width: AppSizes.w(4)),
+                      if (showHearts)
+                        Icon(
+                          Icons.favorite_rounded,
+                          size: AppSizes.sp(16),
+                          color: AppColors.heartRed,
+                        )
+                      else
+                        SvgPicture.asset(
+                          AppAssets.xpEarnIcon,
+                          width: AppSizes.sp(16),
+                          height: AppSizes.sp(16),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ]
