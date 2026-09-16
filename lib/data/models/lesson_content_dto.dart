@@ -548,6 +548,19 @@ class ReadingLessonContentDto {
           tip: readingTip,
           isTextPassage: false,
         ),
+      // Comprehension questions were previously parsed into `questions` but
+      // never turned into phases, so `totalPhases`/`isLastPhase` never
+      // included them and the lesson jumped straight to completion after
+      // the last dialogue/text part — the questions were unreachable.
+      for (var i = 0; i < questions.length; i++)
+        ReadingPhaseModel(
+          phaseTitle: questions.length > 1
+              ? 'Comprehension Question ${i + 1}'
+              : 'Comprehension',
+          lines: const [],
+          tip: '',
+          question: questions[i].toModel(),
+        ),
     ];
   }
 

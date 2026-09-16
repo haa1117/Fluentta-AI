@@ -9,11 +9,11 @@ import 'package:fluentta_ai/viewmodels/reading_lesson_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_nav_button.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_progress_bar.dart';
-import 'package:fluentta_ai/widgets/reading/reading_comprehension_step.dart';
 import 'package:fluentta_ai/widgets/reading/reading_dialogue_bubble.dart';
 import 'package:fluentta_ai/widgets/reading/reading_fluenta_tip_box.dart';
 import 'package:fluentta_ai/widgets/reading/reading_phase_header.dart';
 import 'package:fluentta_ai/widgets/reading/reading_text_passage.dart';
+import 'package:fluentta_ai/widgets/roleplay/roleplay_quiz_card.dart';
 import 'package:provider/provider.dart';
 
 class ReadingLessonScreen extends StatelessWidget {
@@ -85,10 +85,15 @@ class _ReadingLessonBody extends StatelessWidget {
               child: Column(
                 children: [
                   if (phase.isQuestionPhase && phase.question != null)
-                    ReadingComprehensionStep(
+                    RoleplayQuizCard(
+                      questionNumber: viewModel.questionNumber,
                       question: phase.question!,
                       selectedIndex: viewModel.selectedOptionIndex,
+                      answered: viewModel.answered,
                       onSelect: viewModel.selectOption,
+                      correctionFeedback: viewModel.hasWrongSelection
+                          ? viewModel.correctionFeedbackForSelection(l10n)
+                          : null,
                     )
                   else if (phase.isTextPassage) ...[
                     ReadingTextPassage(
