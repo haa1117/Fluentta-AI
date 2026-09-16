@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
 import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
+import 'package:fluentta_ai/data/services/ai_backend_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_lesson_view_model.dart';
@@ -46,6 +47,8 @@ class VocabularyLessonScreen extends StatelessWidget {
         completionXpEarned: completionXpEarned,
         textToSpeechService: context.read<TextToSpeechService>(),
         savedWordsRepository: context.read<SavedWordsRepository>(),
+        aiBackendService: context.read<AiBackendService>(),
+        nativeLanguage: context.read<LocaleViewModel>().languageCode,
       ),
       child: _VocabularyLessonBody(lessonNumber: lesson.number),
     );

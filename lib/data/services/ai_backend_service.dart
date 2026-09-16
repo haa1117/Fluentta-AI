@@ -71,6 +71,7 @@ class AiBackendService {
     List<TutorChatTurn> history = const [],
     String? cefrLevel,
     String? goal,
+    String? nativeLanguage,
   }) async {
     final json = await _postJson(
       url: AiBackendConfig.tutorChatUrl,
@@ -79,9 +80,34 @@ class AiBackendService {
         'history': history.map((turn) => turn.toJson()).toList(),
         if (cefrLevel != null && cefrLevel.isNotEmpty) 'cefrLevel': cefrLevel,
         if (goal != null && goal.isNotEmpty) 'goal': goal,
+        if (nativeLanguage != null && nativeLanguage.isNotEmpty)
+          'nativeLanguage': nativeLanguage,
       },
     );
     return TutorChatResponse.fromJson(json);
+  }
+
+  /// Translates a vocabulary word's meaning/example into [targetLanguage]
+  /// (an app language code — "es"/"fr"/"ur"). Bundled lesson content is
+  /// English-only, so this is an on-demand per-word call, not cached
+  /// server-side.
+  Future<({String meaning, String example})> translateVocabulary({
+    required String meaning,
+    required String example,
+    required String targetLanguage,
+  }) async {
+    final json = await _postJson(
+      url: AiBackendConfig.translateVocabularyUrl,
+      body: {
+        'meaning': meaning,
+        'example': example,
+        'targetLanguage': targetLanguage,
+      },
+    );
+    return (
+      meaning: (json['meaning'] as String? ?? '').trim(),
+      example: (json['example'] as String? ?? '').trim(),
+    );
   }
 
   Future<String> transcribePronunciation({

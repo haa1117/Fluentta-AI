@@ -75,21 +75,30 @@ class VocabularyWordCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: AppSizes.spaceLg),
-          Text(
-            l10n.meaning,
-            style: TextStyle(
-              fontFamily: AppFonts.plusJakartaSans,
-              fontSize: AppSizes.sp(11),
-              fontWeight: FontWeight.w700,
-              color: isDark
-                  ? AppColors.primaryDarkColor
-                  : AppColors.primaryBlueColor,
-              letterSpacing: 0.6,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                l10n.meaning,
+                style: TextStyle(
+                  fontFamily: AppFonts.plusJakartaSans,
+                  fontSize: AppSizes.sp(11),
+                  fontWeight: FontWeight.w700,
+                  color: isDark
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryBlueColor,
+                  letterSpacing: 0.6,
+                ),
+              ),
+              if (viewModel.canTranslate) ...[
+                SizedBox(width: AppSizes.w(6)),
+                _TranslateButton(isDark: isDark),
+              ],
+            ],
           ),
           SizedBox(height: AppSizes.spaceSm),
           Text(
-            word.meaning,
+            viewModel.displayedMeaning,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
@@ -132,7 +141,7 @@ class VocabularyWordCard extends StatelessWidget {
                 ),
                 SizedBox(height: AppSizes.spaceSm),
                 Text(
-                  word.example,
+                  viewModel.displayedExample,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
@@ -239,6 +248,52 @@ class _WordActionButton extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Toggles the meaning/example between English and the learner's app
+/// language — bundled lesson content is English-only, so the translation is
+/// fetched on demand (and cached per word) rather than pre-authored.
+class _TranslateButton extends StatelessWidget {
+  const _TranslateButton({required this.isDark});
+
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.watch<VocabularyLessonViewModel>();
+    final accentColor =
+        isDark ? AppColors.primaryDarkColor : AppColors.primaryBlueColor;
+    final isActive = viewModel.isShowingTranslation;
+
+    return GestureDetector(
+      onTap: viewModel.isTranslating
+          ? null
+          : () => viewModel.toggleTranslation(context),
+      child: Container(
+        width: AppSizes.w(22),
+        height: AppSizes.w(22),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: isActive ? accentColor.withValues(alpha: 0.15) : null,
+        ),
+        child: viewModel.isTranslating
+            ? SizedBox(
+                width: AppSizes.sp(12),
+                height: AppSizes.sp(12),
+                child: CircularProgressIndicator(
+                  strokeWidth: 1.5,
+                  color: accentColor,
+                ),
+              )
+            : Icon(
+                Icons.translate_rounded,
+                size: AppSizes.sp(15),
+                color: accentColor,
+              ),
       ),
     );
   }

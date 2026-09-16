@@ -6,6 +6,7 @@ import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/data/models/vocabulary_word_entry.dart';
 import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/data/services/ai_backend_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/views/vocabulary/vocabulary_lesson_complete_screen.dart';
 
@@ -17,6 +18,8 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     required this.textToSpeechService,
     required this.savedWordsRepository,
     required this.cefrLevel,
+    required this.aiBackendService,
+    this.nativeLanguage,
     this.onProgressChanged,
     this.onWordStudied,
     this.completionXpEarned = LessonXpRewards.vocabularyLesson,
@@ -31,13 +34,21 @@ class VocabularyLessonViewModel extends ChangeNotifier {
   final Future<void> Function(String word)? onWordStudied;
   final TextToSpeechService textToSpeechService;
   final SavedWordsRepository savedWordsRepository;
+  final AiBackendService aiBackendService;
   final String cefrLevel;
   final int completionXpEarned;
+
+  /// App language code ("es"/"fr"/"ur") — null or "en" hides the translate
+  /// button entirely, since the content is already in English.
+  final String? nativeLanguage;
 
   int _currentWordIndex;
   final Set<String> _savedWordIds = {};
   bool _isListening = false;
   bool _isCompleting = false;
+  bool _showTranslation = false;
+  bool _isTranslating = false;
+  final Map<String, ({String meaning, String example})> _translationCache = {};
 
   /// True once the final word's continue has been tapped and the completion
   /// write is in flight — guards against rapid extra taps queuing up
@@ -59,6 +70,56 @@ class VocabularyLessonViewModel extends ChangeNotifier {
   bool isWordSaved(String word) => _savedWordIds.contains(
         VocabularyWordEntry.buildId(lesson.lessonId, word),
       );
+
+  bool get canTranslate => nativeLanguage != null && nativeLanguage != 'en';
+  bool get isShowingTranslation => _showTranslation;
+  bool get isTranslating => _isTranslating;
+
+  ({String meaning, String example})? get _cachedTranslation =>
+      _translationCache[currentWord.word];
+
+  String get displayedMeaning =>
+      (_showTranslation ? _cachedTranslation?.meaning : null) ??
+      currentWord.meaning;
+  String get displayedExample =>
+      (_showTranslation ? _cachedTranslation?.example : null) ??
+      currentWord.example;
+
+  Future<void> toggleTranslation(BuildContext context) async {
+    if (!canTranslate || _isTranslating) return;
+
+    if (_showTranslation) {
+      _showTranslation = false;
+      notifyListeners();
+      return;
+    }
+
+    if (_cachedTranslation != null) {
+      _showTranslation = true;
+      notifyListeners();
+      return;
+    }
+
+    _isTranslating = true;
+    notifyListeners();
+
+    try {
+      final result = await aiBackendService.translateVocabulary(
+        meaning: currentWord.meaning,
+        example: currentWord.example,
+        targetLanguage: nativeLanguage!,
+      );
+      _translationCache[currentWord.word] = result;
+      _showTranslation = true;
+    } on AiBackendException catch (_) {
+      if (context.mounted) {
+        SnackbarHelper.showError(context, context.l10n.translationFailed);
+      }
+    } finally {
+      _isTranslating = false;
+      notifyListeners();
+    }
+  }
 
   Future<void> _loadSavedWords() async {
     await savedWordsRepository.initialize();
@@ -135,6 +196,7 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     if (isFirstWord) return;
     textToSpeechService.stop();
     _isListening = false;
+    _showTranslation = false;
     _currentWordIndex--;
     onProgressChanged?.call(_currentWordIndex);
     notifyListeners();
@@ -168,6 +230,7 @@ class VocabularyLessonViewModel extends ChangeNotifier {
       );
       return;
     }
+    _showTranslation = false;
     _currentWordIndex++;
     onProgressChanged?.call(_currentWordIndex);
     notifyListeners();

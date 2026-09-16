@@ -10,4 +10,6 @@ class AiBackendConfig {
       'https://$region-$projectId.cloudfunctions.net/assessPronunciation';
   static const String transcribeUrl =
       'https://$region-$projectId.cloudfunctions.net/transcribe';
+  static const String translateVocabularyUrl =
+      'https://$region-$projectId.cloudfunctions.net/translateVocabulary';
 }
