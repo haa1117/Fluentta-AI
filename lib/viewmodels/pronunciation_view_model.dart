@@ -80,7 +80,18 @@ class PronunciationViewModel extends ChangeNotifier {
     return _extractWords(currentPhraseText).firstOrNull ?? '';
   }
 
+  /// Kicks off the mic permission check ahead of time (e.g. while the
+  /// recording screen is still transitioning in) so startRecording() on that
+  /// screen doesn't have to wait on it — that wait was the visible delay
+  /// before the recording UI could show.
+  void primeMicrophonePermission() {
+    unawaited(_recorder.hasPermission());
+  }
+
   Future<bool> deductHeartForCheck() async {
+    // Debug builds are for testing the flow repeatedly — don't burn through
+    // real hearts doing it (same exemption the out-of-hearts dialog uses).
+    if (kDebugMode) return true;
     if (_homeViewModel.hasUnlimitedHearts) return true;
     if (!canAffordCheck) return false;
     return _homeViewModel.useHeart();

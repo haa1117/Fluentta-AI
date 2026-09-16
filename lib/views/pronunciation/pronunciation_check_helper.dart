@@ -16,6 +16,11 @@ Future<bool> startPronunciationCheck(
   final home = context.read<HomeViewModel>();
   final l10n = context.l10n;
 
+  // Fire the mic permission check now, before the heart-deduction/navigation
+  // work below, so it's already resolved by the time the recording screen
+  // asks for it instead of making that screen sit on a blank spinner.
+  vm.primeMicrophonePermission();
+
   if (!home.hasUnlimitedHearts && !vm.canAffordCheck) {
     await showOutOfHeartsBottomSheet(context);
     return false;

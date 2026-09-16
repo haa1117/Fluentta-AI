@@ -84,6 +84,11 @@ class _PronunciationRecordingScreenState
           PronunciationFlow.popOrExitFlow(context);
         },
       ),
+      // Render the real layout immediately instead of a blank spinner while
+      // startRecording() is still resolving (permission check + recorder
+      // start) — the waveform/Stop button/recording pill below already
+      // react to _isStarting individually, so there's no need to hide the
+      // whole screen behind it.
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
         child: Column(
