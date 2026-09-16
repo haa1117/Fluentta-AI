@@ -161,6 +161,8 @@ class GrammarStepDto {
     required this.formula,
     required this.examples,
     required this.quickTip,
+    this.practicePrompt,
+    this.practiceAnswer,
   });
 
   final String title;
@@ -168,6 +170,8 @@ class GrammarStepDto {
   final String formula;
   final List<GrammarExampleDto> examples;
   final String quickTip;
+  final String? practicePrompt;
+  final String? practiceAnswer;
 
   factory GrammarStepDto.fromJson(Map<String, dynamic> json) {
     return GrammarStepDto(
@@ -181,6 +185,23 @@ class GrammarStepDto {
     );
   }
 
+  /// A synthetic step for the PRD's "🎯 Practice" fill-in-the-blank — not a
+  /// rule step, so it carries no examples/formula of its own.
+  factory GrammarStepDto.practice({
+    required String prompt,
+    required String answer,
+  }) {
+    return GrammarStepDto(
+      title: '',
+      description: '',
+      formula: '',
+      examples: const [],
+      quickTip: '',
+      practicePrompt: prompt,
+      practiceAnswer: answer,
+    );
+  }
+
   GrammarStepModel toModel() {
     return GrammarStepModel(
       title: title,
@@ -188,6 +209,8 @@ class GrammarStepDto {
       formula: formula,
       examples: examples.map((e) => e.toModel()).toList(),
       quickTip: quickTip,
+      practicePrompt: practicePrompt,
+      practiceAnswer: practiceAnswer,
     );
   }
 }
@@ -221,6 +244,36 @@ class GrammarLessonContentDto {
             .toList()
         : _stepsFromLegacyFields(json);
 
+    // The PRD's "🎯 Practice" fill-in-the-blank is a lesson-level field, not
+    // part of any rule step — append it as its own interactive step so the
+    // learner answers it instead of it being spoiled inline in a tip.
+    final practicePrompt = json['practicePrompt'] as String? ?? '';
+    final practiceAnswer = json['practiceAnswer'] as String? ?? '';
+    if (practicePrompt.isNotEmpty) {
+      // Older bundled content already baked "prompt (answer)" straight into
+      // a rule step's quickTip — strip that exact duplicate so the answer
+      // isn't given away before the learner reaches the practice step.
+      final spoiler = '$practicePrompt ($practiceAnswer)';
+      for (var i = 0; i < steps.length; i++) {
+        if (steps[i].quickTip == spoiler) {
+          steps[i] = GrammarStepDto(
+            title: steps[i].title,
+            description: steps[i].description,
+            formula: steps[i].formula,
+            examples: steps[i].examples,
+            quickTip: '',
+          );
+        }
+      }
+
+      steps.add(
+        GrammarStepDto.practice(
+          prompt: practicePrompt,
+          answer: practiceAnswer,
+        ),
+      );
+    }
+
     return GrammarLessonContentDto(
       id: json['id'] as String,
       cefrLevel: json['cefrLevel'] as String,
@@ -239,8 +292,6 @@ class GrammarLessonContentDto {
     final examples = (json['examples'] as List<dynamic>? ?? [])
         .map((e) => GrammarExampleDto.fromJson(e as Map<String, dynamic>))
         .toList();
-    final practicePrompt = json['practicePrompt'] as String? ?? '';
-    final practiceAnswer = json['practiceAnswer'] as String? ?? '';
 
     return [
       GrammarStepDto(
@@ -248,9 +299,7 @@ class GrammarLessonContentDto {
         description: pattern,
         formula: pattern,
         examples: examples,
-        quickTip: practicePrompt.isNotEmpty
-            ? '$practicePrompt ($practiceAnswer)'
-            : '',
+        quickTip: '',
       ),
     ];
   }

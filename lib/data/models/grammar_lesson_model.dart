@@ -23,6 +23,8 @@ class GrammarStepModel {
     required this.formula,
     required this.examples,
     required this.quickTip,
+    this.practicePrompt,
+    this.practiceAnswer,
   });
 
   final String title;
@@ -30,6 +32,14 @@ class GrammarStepModel {
   final String formula;
   final List<GrammarExampleModel> examples;
   final String quickTip;
+
+  /// PRD "🎯 Practice" fill-in-the-blank question shown after the lesson's
+  /// rule/examples — null/empty for a normal rule step.
+  final String? practicePrompt;
+  final String? practiceAnswer;
+
+  bool get isPracticeStep =>
+      practicePrompt != null && practicePrompt!.isNotEmpty;
 }
 
 class GrammarLessonModel with LearningLessonItem {

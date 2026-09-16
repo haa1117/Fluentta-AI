@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/grammar_lesson_model.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/viewmodels/grammar_lesson_view_model.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:fluentta_ai/widgets/grammar/grammar_example_tile.dart';
+import 'package:fluentta_ai/widgets/grammar/grammar_practice_card.dart';
 import 'package:fluentta_ai/widgets/grammar/grammar_quick_tip_box.dart';
 import 'package:fluentta_ai/widgets/grammar/grammar_rule_card.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_nav_button.dart';
@@ -37,6 +39,7 @@ class GrammarLessonScreen extends StatelessWidget {
         onLessonCompleted: onLessonCompleted,
         onProgressChanged: onProgressChanged,
         textToSpeechService: context.read<TextToSpeechService>(),
+        progressSyncService: context.read<ProgressSyncService>(),
       ),
       child: _GrammarLessonBody(lessonNumber: lesson.number, isDark: isDark,),
     );
@@ -76,18 +79,28 @@ class _GrammarLessonBody extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  GrammarRuleCard(step: step),
-                  SizedBox(height: AppSizes.spaceMd),
-                  ...step.examples.asMap().entries.map(
-                        (entry) => GrammarExampleTile(
-                          example: entry.value,
-                          exampleIndex: entry.key,
+                  if (step.isPracticeStep)
+                    GrammarPracticeCard(
+                      prompt: step.practicePrompt!,
+                      isAnswered: viewModel.practiceAnswered,
+                      wrongFeedback: viewModel.practiceWrongFeedback(l10n),
+                      onCheck: viewModel.checkPracticeAnswer,
+                      isDark: isDark,
+                    )
+                  else ...[
+                    GrammarRuleCard(step: step),
+                    SizedBox(height: AppSizes.spaceMd),
+                    ...step.examples.asMap().entries.map(
+                          (entry) => GrammarExampleTile(
+                            example: entry.value,
+                            exampleIndex: entry.key,
+                          ),
                         ),
-                      ),
-                  SizedBox(height: AppSizes.spaceMd),
-                  GrammarQuickTipBox(tip: step.quickTip,
-                  isDark: isDark,
-                  ),
+                    if (step.quickTip.isNotEmpty) ...[
+                      SizedBox(height: AppSizes.spaceMd),
+                      GrammarQuickTipBox(tip: step.quickTip, isDark: isDark),
+                    ],
+                  ],
                   SizedBox(height: AppSizes.spaceLg),
                 ],
               ),
@@ -119,7 +132,7 @@ class _GrammarLessonBody extends StatelessWidget {
                     label: viewModel.isLastStep ? l10n.finishLesson : l10n.next,
                     icon: Icons.arrow_forward_rounded,
                     isPrimary: true,
-                    enabled: !viewModel.isCompleting,
+                    enabled: viewModel.canProceed && !viewModel.isCompleting,
                     iconOnRight: true,
                     onTap: () => viewModel.nextStep(context),
                   ),
