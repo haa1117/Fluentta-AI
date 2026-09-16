@@ -48,6 +48,16 @@ const SETUP_ID_TO_CEFR = {
   proficient_c2: "C2",
 };
 
+// Fluenta's supported app languages (see lib/l10n/) — used to translate the
+// "explanation" field for corrections, per the "English explanations in
+// {language}" setting shown in the app's profile screen.
+const LANGUAGE_NAMES = {
+  en: "English",
+  es: "Spanish",
+  fr: "French",
+  ur: "Urdu",
+};
+
 const LEVEL_GUIDES = {
   A1:
     "The learner is a beginner. Use very short, simple sentences (5–9 words). " +
@@ -149,7 +159,9 @@ const BASE_SYSTEM_PROMPT = [
   "learner wrote exactly as it is.",
   "",
   "CONVERSATION STYLE:",
-  "- English only, even if they write in another language.",
+  "- tutorReply's LANGUAGE (English vs. the learner's own language) depends",
+  "  on their profile below — read that section before replying, it tells",
+  "  you exactly how to split each reply between the two languages.",
   "- Match your English to the learner's level (see profile). 1–3 short sentences.",
   "- End every reply with ONE question or a small task so they keep producing",
   "  English. Vary your prompts — don't reuse the structure of your last 2–3.",
@@ -217,6 +229,16 @@ const FEWSHOT_EXAMPLES = [
   '"can you teach me basic english"',
   '{"tutorReply":"Of course! Let\'s start with \\"am / is / are\\".\\nUse \\"am\\" with I, \\"is\\" with he/she/it, \\"are\\" with you/we/they.\\nNot: I is happy. Say: I am happy.\\nNow try: I ___ a student.","isCorrect":true,"correctedText":"","explanation":"","focus":"none","safety":"none"}',
   "",
+  "Bilingual — beginner (A1/A2) whose app language is Urdu, so tutorReply",
+  "is mostly Urdu with the English target quoted in English (see profile):",
+  '"مجھے انگلش نہیں آتی، کیا آپ مجھے سکھا سکتے ہیں؟"',
+  '{"tutorReply":"بالکل! آئیے \\"Hello, my name is...\\" سے شروع کرتے ہیں۔ یہ اپنا تعارف کرانے کا طریقہ ہے۔ اب آپ کوشش کریں: اپنا نام انگلش میں بتائیں۔","isCorrect":true,"correctedText":"","explanation":"","focus":"none","safety":"none"}',
+  "",
+  "Same learner, now attempting the English themselves with a mistake —",
+  "correct as usual, but the explanation is in their language, not English:",
+  '"I is Ahmed"',
+  '{"tutorReply":"قریب تھا، احمد! دیکھیں نیچے میں نے کیا ٹھیک کیا۔ اب بتائیں: آپ کہاں سے ہیں؟ (Where are you from?)","isCorrect":false,"correctedText":"I am Ahmed.","explanation":"\\"I\\" کے ساتھ ہمیشہ \\"am\\" آتا ہے، \\"is\\" نہیں۔","focus":"grammar","safety":"none"}',
+  "",
   "Off-topic — learner drifts away from English practice:",
   '"what do you think is the meaning of life?"',
   '{"tutorReply":"That\'s a big question for another time! I\'m here to help with your English — want to describe what gives YOUR life meaning, in English?","isCorrect":true,"correctedText":"","explanation":"","focus":"none","safety":"off_topic"}',
@@ -245,9 +267,15 @@ function normaliseGoal(value) {
   return GOAL_GUIDES[raw] ? raw : "";
 }
 
-function personalizationBlock({ cefrLevel, goal }) {
+function normaliseLanguage(value) {
+  const raw = String(value || "").trim().toLowerCase();
+  return LANGUAGE_NAMES[raw] || null;
+}
+
+function personalizationBlock({ cefrLevel, goal, nativeLanguage }) {
   const cefr = normaliseCefr(cefrLevel);
   const goalKey = normaliseGoal(goal);
+  const language = normaliseLanguage(nativeLanguage);
   const lines = ["Learner profile for this session:"];
 
   if (cefr) {
@@ -265,7 +293,58 @@ function personalizationBlock({ cefrLevel, goal }) {
       "steering the conversation toward their goal above.",
   );
 
+  if (language && language !== "English") {
+    lines.push(languageMixInstruction(cefr, language));
+  }
+
   return lines.join("\n");
+}
+
+/**
+ * How much of tutorReply should be in the learner's own language vs.
+ * English, based on level — like a real tutor: explain in the student's
+ * language early on, then gradually switch to the target language as they
+ * gain fluency, never abandoning the SAFETY rules above regardless of mix.
+ */
+function languageMixInstruction(cefr, language) {
+  if (cefr === "B2" || cefr === "C1" || cefr === "C2") {
+    return (
+      `- The learner's app language is ${language}, but at their level, ` +
+      `reply almost entirely in English — that's what they need at this ` +
+      `stage. Use a word or two of ${language} only if something would ` +
+      `otherwise be genuinely unclear. When isCorrect is false, write the ` +
+      `"explanation" field in ${language} instead of English (same one ` +
+      `short sentence, just in ${language}).`
+    );
+  }
+
+  if (cefr === "B1") {
+    return (
+      `- The learner's app language is ${language}. At this level, mix ` +
+      `the two: hold the conversation in a blend of English and ` +
+      `${language}, leaning more English than not, so they're stretched ` +
+      `but never lost. Always write the exact English word, phrase, or ` +
+      `sentence you want them to practise IN ENGLISH inside tutorReply — ` +
+      `never translate the target-language item itself. When isCorrect ` +
+      `is false, write the "explanation" field in ${language} instead of ` +
+      `English (same one short sentence, just in ${language}).`
+    );
+  }
+
+  // A1 / A2 / unknown — beginners need to be taught IN their own language,
+  // the way a real human tutor would, not immersed with nothing to hold on to.
+  return (
+    `- The learner's app language is ${language}. Communicate primarily ` +
+    `in ${language} — like a patient human tutor explaining a new ` +
+    `language to a beginner in their own tongue, NOT English immersion. ` +
+    `Always write the exact English word, phrase, or sentence you want ` +
+    `them to learn or practise IN ENGLISH inside tutorReply (e.g. quote ` +
+    `it), with the rest of your sentence in ${language} — so they see the ` +
+    `English target clearly instead of it being translated away. As they ` +
+    `move up through B1 and beyond in later sessions, you'll shift toward ` +
+    `more English automatically based on the level guidance above. When ` +
+    `isCorrect is false, write the "explanation" field in ${language} too.`
+  );
 }
 
 /**
@@ -276,15 +355,22 @@ function personalizationBlock({ cefrLevel, goal }) {
  * @param {Array}  [p.history]  [{role:"user"|"assistant", content:string}, ...]
  * @param {string} [p.cefrLevel] CEFR code (A1..C2) or Fluenta setup id
  * @param {string} [p.goal]     "work" | "travel" | "exam" | "everyday"
+ * @param {string} [p.nativeLanguage] app language code ("en"|"es"|"fr"|"ur")
  * @returns {Array<{role:string, content:string}>}
  */
-function buildTutorMessages({ userText, history = [], cefrLevel = "", goal = "" }) {
+function buildTutorMessages({
+  userText,
+  history = [],
+  cefrLevel = "",
+  goal = "",
+  nativeLanguage = "",
+}) {
   const messages = [
     { role: "system", content: BASE_SYSTEM_PROMPT },
     { role: "system", content: FEWSHOT_EXAMPLES },
     {
       role: "system",
-      content: personalizationBlock({ cefrLevel, goal }),
+      content: personalizationBlock({ cefrLevel, goal, nativeLanguage }),
     },
   ];
 
@@ -385,7 +471,9 @@ module.exports = {
   CHAT_MODEL,
   CHAT_TEMPERATURE,
   CHAT_MAX_TOKENS,
+  LANGUAGE_NAMES,
   buildTutorMessages,
   parseTutorResponse,
   extractJsonObject,
+  normaliseLanguage,
 };
