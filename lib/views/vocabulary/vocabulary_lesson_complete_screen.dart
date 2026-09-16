@@ -10,12 +10,14 @@ class VocabularyLessonCompleteScreen extends StatelessWidget {
     required this.learnedWords,
     this.lessonId,
     this.xpEarned = LessonXpRewards.vocabularyLesson,
+    this.newlyUnlocked,
   });
 
   final int lessonNumber;
   final List<String> learnedWords;
   final String? lessonId;
   final int xpEarned;
+  final List<String>? newlyUnlocked;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class VocabularyLessonCompleteScreen extends StatelessWidget {
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),
+      newlyUnlocked: newlyUnlocked,
       chips: learnedWords.map((word) => LessonCompleteChip(label: word)).toList(),
     );
   }

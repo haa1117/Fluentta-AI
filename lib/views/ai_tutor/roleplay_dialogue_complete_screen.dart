@@ -8,9 +8,14 @@ import 'package:fluentta_ai/data/models/roleplay_content_dto.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_complete_layout.dart';
 
 class RoleplayDialogueCompleteScreen extends StatelessWidget {
-  const RoleplayDialogueCompleteScreen({super.key, required this.lesson});
+  const RoleplayDialogueCompleteScreen({
+    super.key,
+    required this.lesson,
+    this.newlyUnlocked,
+  });
 
   final RoleplayDialogueLessonModel lesson;
+  final List<String>? newlyUnlocked;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +29,7 @@ class RoleplayDialogueCompleteScreen extends StatelessWidget {
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),
+      newlyUnlocked: newlyUnlocked,
       summaryCard: lesson.completionSummary == null
           ? null:SizedBox.shrink()
           // : Container(

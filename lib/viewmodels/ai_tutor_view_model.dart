@@ -22,6 +22,13 @@ class AiTutorViewModel extends ChangeNotifier {
   int scenarioUnlockXp(String id) =>
       RoleplayXpMilestones.xpRequiredFor(id, CefrLevel.a1);
 
+  /// How much more XP is needed to unlock [id] — the number to show the
+  /// learner so they know what's left, not just the flat total required.
+  int scenarioXpRemaining(String id) {
+    final remaining = scenarioUnlockXp(id) - _homeViewModel.xpEarned;
+    return remaining < 0 ? 0 : remaining;
+  }
+
   static final List<RoleplayScenarioModel> scenarios = [
     RoleplayScenarioModel(
       id: 'job_interviews',

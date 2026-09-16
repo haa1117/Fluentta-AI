@@ -9,11 +9,13 @@ class RoleplayQuickCheckCompleteScreen extends StatelessWidget {
     required this.lessonNumber,
     required this.lessonId,
     this.completionSummary,
+    this.newlyUnlocked,
   });
 
   final int lessonNumber;
   final String lessonId;
   final String? completionSummary;
+  final List<String>? newlyUnlocked;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class RoleplayQuickCheckCompleteScreen extends StatelessWidget {
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),
+      newlyUnlocked: newlyUnlocked,
     );
   }
 }

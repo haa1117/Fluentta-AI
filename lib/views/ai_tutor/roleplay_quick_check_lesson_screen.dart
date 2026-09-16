@@ -25,7 +25,8 @@ class RoleplayQuickCheckLessonScreen extends StatelessWidget {
   final int initialQuestionIndex;
   final String cefrLevel;
   final ProgressSyncService progressSyncService;
-  final ValueChanged<RoleplayQuickCheckLessonModel> onLessonCompleted;
+  final Future<List<String>> Function(RoleplayQuickCheckLessonModel)
+      onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
 
   @override

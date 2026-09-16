@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/core/xp/lesson_completion_nav.dart';
 import 'package:fluentta_ai/data/models/grammar_lesson_model.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/views/grammar/grammar_lesson_complete_screen.dart';
@@ -16,7 +17,7 @@ class GrammarLessonViewModel extends ChangeNotifier {
 
   final GrammarLessonModel lesson;
   final int initialStepIndex;
-  final Future<void> Function(GrammarLessonModel) onLessonCompleted;
+  final Future<List<String>> Function(GrammarLessonModel) onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
   final TextToSpeechService textToSpeechService;
 
@@ -101,12 +102,17 @@ class GrammarLessonViewModel extends ChangeNotifier {
       if (_isCompleting) return;
       _isCompleting = true;
       notifyListeners();
-      await onLessonCompleted(lesson);
-      if (!context.mounted) return;
-      Navigator.of(context).pushReplacement<void, void>(
-        MaterialPageRoute<void>(
-          builder: (_) => GrammarLessonCompleteScreen(lesson: lesson),
+      await completeLessonAndNavigate(
+        context: context,
+        complete: () => onLessonCompleted(lesson),
+        buildScreen: (unlocked) => GrammarLessonCompleteScreen(
+          lesson: lesson,
+          newlyUnlocked: unlocked,
         ),
+        onFailed: () {
+          _isCompleting = false;
+          notifyListeners();
+        },
       );
       return;
     }

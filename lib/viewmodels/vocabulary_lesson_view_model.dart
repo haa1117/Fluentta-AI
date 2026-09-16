@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/core/xp/lesson_completion_nav.dart';
 import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/data/models/vocabulary_word_entry.dart';
 import 'package:fluentta_ai/data/repositories/saved_words_repository.dart';
@@ -25,7 +26,7 @@ class VocabularyLessonViewModel extends ChangeNotifier {
 
   final VocabularyLessonModel lesson;
   final int initialWordIndex;
-  final Future<void> Function(VocabularyLessonModel) onLessonCompleted;
+  final Future<List<String>> Function(VocabularyLessonModel) onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
   final Future<void> Function(String word)? onWordStudied;
   final TextToSpeechService textToSpeechService;
@@ -150,17 +151,20 @@ class VocabularyLessonViewModel extends ChangeNotifier {
       if (_isCompleting) return;
       _isCompleting = true;
       notifyListeners();
-      await onLessonCompleted(lesson);
-      if (!context.mounted) return;
-      Navigator.of(context).pushReplacement<void, void>(
-        MaterialPageRoute<void>(
-          builder: (_) => VocabularyLessonCompleteScreen(
-            lessonNumber: lesson.number,
-            lessonId: lesson.lessonId,
-            xpEarned: completionXpEarned,
-            learnedWords: lesson.words.map((w) => w.word).toList(),
-          ),
+      await completeLessonAndNavigate(
+        context: context,
+        complete: () => onLessonCompleted(lesson),
+        buildScreen: (unlocked) => VocabularyLessonCompleteScreen(
+          lessonNumber: lesson.number,
+          lessonId: lesson.lessonId,
+          xpEarned: completionXpEarned,
+          learnedWords: lesson.words.map((w) => w.word).toList(),
+          newlyUnlocked: unlocked,
         ),
+        onFailed: () {
+          _isCompleting = false;
+          notifyListeners();
+        },
       );
       return;
     }

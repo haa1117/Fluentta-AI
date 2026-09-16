@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/roleplay_scenario_model.dart';
 
@@ -12,7 +13,7 @@ class RoleplayScenarioCard extends StatelessWidget {
     required this.onTap,
     this.isLocked = false,
     this.isAdvanced = false,
-    this.xpRequired,
+    this.xpRemaining,
     required this.isDark,
   });
 
@@ -24,9 +25,9 @@ class RoleplayScenarioCard extends StatelessWidget {
   /// PRD 7.3 — advanced roleplays (Pro-only) get a distinct "ADVANCED" banner.
   final bool isAdvanced;
 
-  /// PRD 4.2.7 — cumulative XP still needed to unlock this scenario. Null or
-  /// 0 when the scenario's XP milestone has already been reached.
-  final int? xpRequired;
+  /// PRD 4.2.7 — how much MORE XP the learner still needs to unlock this
+  /// scenario (not the flat total) — Null or 0 once it's already unlocked.
+  final int? xpRemaining;
   final bool isDark;
 
   /// Height for horizontal scenario lists — keeps cards from clipping.
@@ -94,7 +95,7 @@ class RoleplayScenarioCard extends StatelessWidget {
                           ),
                           color: AppColors.xpEarnedTextColor,
                           child: Text(
-                            'ADVANCED',
+                            context.l10n.advancedBadge,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: AppFonts.plusJakartaSans,
@@ -128,10 +129,10 @@ class RoleplayScenarioCard extends StatelessWidget {
                               color: AppColors.white,
                               size: AppSizes.sp(11),
                             ),
-                            if (xpRequired != null && xpRequired! > 0) ...[
+                            if (xpRemaining != null && xpRemaining! > 0) ...[
                               SizedBox(width: AppSizes.w(3)),
                               Text(
-                                '$xpRequired XP',
+                                context.l10n.xpToGoBadge(xpRemaining!),
                                 style: TextStyle(
                                   fontFamily: AppFonts.plusJakartaSans,
                                   fontSize: AppSizes.sp(10),

@@ -29,6 +29,7 @@ class LessonCompleteLayout extends StatefulWidget {
     this.interstitialOnExit = true,
     this.summaryCard,
     this.chips,
+    this.newlyUnlocked,
   });
 
   final int xpEarned;
@@ -45,6 +46,11 @@ class LessonCompleteLayout extends StatefulWidget {
   final bool interstitialOnExit;
   final Widget? summaryCard;
   final List<Widget>? chips;
+
+  /// PRD 4.2.4 / 4.2.7 — labels for anything (a CEFR level, a roleplay
+  /// scenario) whose XP threshold this lesson's completion just crossed.
+  /// Shown as its own "You've just unlocked" section when non-empty.
+  final List<String>? newlyUnlocked;
 
   @override
   State<LessonCompleteLayout> createState() => _LessonCompleteLayoutState();
@@ -199,62 +205,97 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                 ],
               ),
             ),
-            SingleChildScrollView(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppSizes.horizontalPadding,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: AppSizes.spaceXl * 2),
-                  Image.asset(
-                    AppAssets.lessonCompletedBird,
-                    height: AppSizes.h(200),
-                    fit: BoxFit.contain,
-                  ),
-                  SizedBox(height: AppSizes.spaceLg),
-                  Text(
-                    l10n.xpEarnedCelebration(_displayXp),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: AppFonts.plusJakartaSans,
-                      fontSize: AppSizes.sp(28),
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.xpEarnedTextColor,
-                    ),
-                  ),
-                  SizedBox(height: AppSizes.spaceXl),
-                  Padding(
+            // The button must always stay on screen — only the content above
+            // it (which can grow with a boost card + unlocked-items list)
+            // scrolls if it doesn't fit, instead of pushing the button off
+            // the bottom of a short device.
+            Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
                     padding: EdgeInsets.symmetric(
                       horizontal: AppSizes.horizontalPadding,
                     ),
-                    child: Text(
-                      widget.subtitle,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(16),
-                        fontWeight: FontWeight.w400,
-                        color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
-                        height: 1.4,
-                      ),
+                    child: Column(
+                      children: [
+                        SizedBox(height: AppSizes.spaceXl * 1.4),
+                        Image.asset(
+                          AppAssets.lessonCompletedBird,
+                          height: AppSizes.h(150),
+                          fit: BoxFit.contain,
+                        ),
+                        SizedBox(height: AppSizes.spaceMd),
+                        Text(
+                          l10n.xpEarnedCelebration(_displayXp),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: AppFonts.plusJakartaSans,
+                            fontSize: AppSizes.sp(26),
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.xpEarnedTextColor,
+                          ),
+                        ),
+                        SizedBox(height: AppSizes.spaceMd),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppSizes.horizontalPadding,
+                          ),
+                          child: Text(
+                            widget.subtitle,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: AppFonts.plusJakartaSans,
+                              fontSize: AppSizes.sp(16),
+                              fontWeight: FontWeight.w400,
+                              color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
+                              height: 1.4,
+                            ),
+                          ),
+                        ),
+                        if (widget.summaryCard != null) ...[
+                          SizedBox(height: AppSizes.spaceMd),
+                          widget.summaryCard!,
+                        ],
+                        if (widget.chips != null && widget.chips!.isNotEmpty) ...[
+                          SizedBox(height: AppSizes.spaceMd),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: AppSizes.w(8),
+                            runSpacing: AppSizes.h(8),
+                            children: widget.chips!,
+                          ),
+                        ],
+                        if (widget.newlyUnlocked != null &&
+                            widget.newlyUnlocked!.isNotEmpty) ...[
+                          SizedBox(height: AppSizes.spaceMd),
+                          _NewlyUnlockedSection(items: widget.newlyUnlocked!),
+                        ],
+                        if (_showBoostCard) ...[
+                          SizedBox(height: AppSizes.spaceMd),
+                          _XpBoostCard(
+                            boostAmount: widget.xpBoostAmount,
+                            isLoading: _boostLoading,
+                            onBoost: _onBoostTap,
+                          ),
+                        ],
+                        SizedBox(height: AppSizes.spaceMd),
+                      ],
                     ),
                   ),
-                  SizedBox(height: AppSizes.spaceLg),
-                  if (_showBoostCard) ...[
-                    _XpBoostCard(
-                      boostAmount: widget.xpBoostAmount,
-                      isLoading: _boostLoading,
-                      onBoost: _onBoostTap,
-                    ),
-                    SizedBox(height: AppSizes.spaceXxl),
-                  ],
-                  PrimaryButton(
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    AppSizes.horizontalPadding,
+                    AppSizes.spaceSm,
+                    AppSizes.horizontalPadding,
+                    AppSizes.spaceLg,
+                  ),
+                  child: PrimaryButton(
                     text: widget.buttonText,
                     onPressed: () => _exitWith(widget.onButtonPressed),
                   ),
-                  SizedBox(height: AppSizes.spaceLg),
-                ],
-              ),
+                ),
+              ],
             ),
             Positioned(
               top: AppSizes.spaceSm,
@@ -396,6 +437,87 @@ class _XpBoostCard extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NewlyUnlockedSection extends StatelessWidget {
+  const _NewlyUnlockedSection({required this.items});
+
+  final List<String> items;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(AppSizes.w(16)),
+      decoration: BoxDecoration(
+        gradient: AppColors.primaryGradient,
+        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primaryColor.withValues(alpha: 0.25),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.lock_open_rounded,
+                size: AppSizes.sp(18),
+                color: AppColors.white,
+              ),
+              SizedBox(width: AppSizes.w(8)),
+              Text(
+                l10n.newlyUnlockedHeading,
+                style: TextStyle(
+                  fontFamily: AppFonts.plusJakartaSans,
+                  fontSize: AppSizes.sp(14),
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.white,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: AppSizes.spaceMd),
+          Wrap(
+            spacing: AppSizes.w(8),
+            runSpacing: AppSizes.h(8),
+            children: items
+                .map(
+                  (label) => Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSizes.w(14),
+                      vertical: AppSizes.h(8),
+                    ),
+                    decoration: BoxDecoration(
+                      color: isDark
+                          ? AppColors.surfaceBgDarkColor
+                          : AppColors.white,
+                      borderRadius: BorderRadius.circular(AppSizes.w(20)),
+                    ),
+                    child: Text(
+                      label,
+                      style: TextStyle(
+                        fontFamily: AppFonts.plusJakartaSans,
+                        fontSize: AppSizes.sp(13),
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
           ),
         ],
       ),

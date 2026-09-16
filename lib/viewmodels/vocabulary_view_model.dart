@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/cefr/lesson_type.dart';
@@ -8,6 +10,7 @@ import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
+import 'package:fluentta_ai/core/xp/newly_unlocked_content.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
 import 'package:fluentta_ai/data/models/srs_record.dart';
@@ -233,7 +236,9 @@ class VocabularyViewModel extends ChangeNotifier {
     await _loadLessons();
   }
 
-  Future<void> _markLessonCompleted(VocabularyLessonModel completedLesson) async {
+  Future<List<String>> _markLessonCompleted(
+    VocabularyLessonModel completedLesson,
+  ) async {
     final orderedIds = await _contentRepository.orderedLessonIds(
       level,
       LessonType.vocabulary,
@@ -258,6 +263,7 @@ class VocabularyViewModel extends ChangeNotifier {
       nextUnlockLessonId: nextId,
     );
 
+    final xpBefore = _syncService.totalXp;
     await _syncService.onLessonCompleted(
       progress: LessonProgressModel(
         lessonId: completedLesson.lessonId,
@@ -271,7 +277,12 @@ class VocabularyViewModel extends ChangeNotifier {
       wordsLearned: completedLesson.totalWords,
     );
 
-    await _loadLessons();
+    unawaited(_loadLessons());
+    return NewlyUnlockedContent.compute(
+      l10n: _l10n,
+      xpBefore: xpBefore,
+      xpAfter: _syncService.totalXp,
+    );
   }
 
   @override

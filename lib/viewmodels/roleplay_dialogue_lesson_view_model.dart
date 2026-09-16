@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/core/xp/lesson_completion_nav.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
 import 'package:fluentta_ai/data/models/roleplay_content_dto.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
@@ -19,7 +20,8 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
 
   final RoleplayDialogueLessonModel lesson;
   final int initialPhaseIndex;
-  final ValueChanged<RoleplayDialogueLessonModel> onLessonCompleted;
+  final Future<List<String>> Function(RoleplayDialogueLessonModel)
+      onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
   final TextToSpeechService textToSpeechService;
 
@@ -91,7 +93,7 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void nextPhase(BuildContext context) {
+  Future<void> nextPhase(BuildContext context) async {
     if (!canProceed) return;
 
     textToSpeechService.stop();
@@ -101,11 +103,17 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
       if (_isCompleting) return;
       _isCompleting = true;
       notifyListeners();
-      onLessonCompleted(lesson);
-      Navigator.of(context).pushReplacement<void, void>(
-        MaterialPageRoute<void>(
-          builder: (_) => RoleplayDialogueCompleteScreen(lesson: lesson),
+      await completeLessonAndNavigate(
+        context: context,
+        complete: () => onLessonCompleted(lesson),
+        buildScreen: (unlocked) => RoleplayDialogueCompleteScreen(
+          lesson: lesson,
+          newlyUnlocked: unlocked,
         ),
+        onFailed: () {
+          _isCompleting = false;
+          notifyListeners();
+        },
       );
       return;
     }

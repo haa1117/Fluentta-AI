@@ -8,9 +8,14 @@ import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_complete_layout.dart';
 
 class ReadingLessonCompleteScreen extends StatelessWidget {
-  const ReadingLessonCompleteScreen({super.key, required this.lesson});
+  const ReadingLessonCompleteScreen({
+    super.key,
+    required this.lesson,
+    this.newlyUnlocked,
+  });
 
   final ReadingLessonModel lesson;
+  final List<String>? newlyUnlocked;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +28,7 @@ class ReadingLessonCompleteScreen extends StatelessWidget {
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),
+      newlyUnlocked: newlyUnlocked,
       summaryCard: lesson.completionSummary == null
           ? null
           : Container(

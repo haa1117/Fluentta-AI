@@ -27,7 +27,7 @@ class VocabularyLessonScreen extends StatelessWidget {
 
   final VocabularyLessonModel lesson;
   final int initialWordIndex;
-  final Future<void> Function(VocabularyLessonModel) onLessonCompleted;
+  final Future<List<String>> Function(VocabularyLessonModel) onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
   final Future<void> Function(String word)? onWordStudied;
   final String cefrLevel;

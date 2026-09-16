@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluentta_ai/core/xp/lesson_completion_nav.dart';
 import 'package:fluentta_ai/data/models/lesson_content_dto.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
 import 'package:fluentta_ai/data/models/roleplay_content_dto.dart';
@@ -19,7 +20,8 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
 
   final RoleplayQuickCheckLessonModel lesson;
   final int initialQuestionIndex;
-  final ValueChanged<RoleplayQuickCheckLessonModel> onLessonCompleted;
+  final Future<List<String>> Function(RoleplayQuickCheckLessonModel)
+      onLessonCompleted;
   final ProgressSyncService progressSyncService;
   final ValueChanged<int>? onProgressChanged;
 
@@ -105,16 +107,19 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
       if (_isCompleting) return;
       _isCompleting = true;
       notifyListeners();
-      onLessonCompleted(lesson);
-      if (!context.mounted) return;
-      Navigator.of(context).pushReplacement<void, void>(
-        MaterialPageRoute<void>(
-          builder: (_) => RoleplayQuickCheckCompleteScreen(
-            lessonNumber: lesson.number,
-            lessonId: lesson.lessonId,
-            completionSummary: lesson.completionSummary,
-          ),
+      await completeLessonAndNavigate(
+        context: context,
+        complete: () => onLessonCompleted(lesson),
+        buildScreen: (unlocked) => RoleplayQuickCheckCompleteScreen(
+          lessonNumber: lesson.number,
+          lessonId: lesson.lessonId,
+          completionSummary: lesson.completionSummary,
+          newlyUnlocked: unlocked,
         ),
+        onFailed: () {
+          _isCompleting = false;
+          notifyListeners();
+        },
       );
       return;
     }

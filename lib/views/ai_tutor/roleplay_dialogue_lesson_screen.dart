@@ -24,7 +24,8 @@ class RoleplayDialogueLessonScreen extends StatelessWidget {
 
   final RoleplayDialogueLessonModel lesson;
   final int initialPhaseIndex;
-  final ValueChanged<RoleplayDialogueLessonModel> onLessonCompleted;
+  final Future<List<String>> Function(RoleplayDialogueLessonModel)
+      onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
 
   @override

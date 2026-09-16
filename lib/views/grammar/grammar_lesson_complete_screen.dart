@@ -8,9 +8,14 @@ import 'package:fluentta_ai/data/models/grammar_lesson_model.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_complete_layout.dart';
 
 class GrammarLessonCompleteScreen extends StatelessWidget {
-  const GrammarLessonCompleteScreen({super.key, required this.lesson});
+  const GrammarLessonCompleteScreen({
+    super.key,
+    required this.lesson,
+    this.newlyUnlocked,
+  });
 
   final GrammarLessonModel lesson;
+  final List<String>? newlyUnlocked;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +28,7 @@ class GrammarLessonCompleteScreen extends StatelessWidget {
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),
+      newlyUnlocked: newlyUnlocked,
       summaryCard: Container(
         width: double.infinity,
         padding: EdgeInsets.all(AppSizes.w(16)),

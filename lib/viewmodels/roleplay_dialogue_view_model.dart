@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/core/l10n/roleplay_scenario_l10n.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_practice_type.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/core/xp/newly_unlocked_content.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/lesson_progress_model.dart';
 import 'package:fluentta_ai/data/models/roleplay_content_dto.dart';
@@ -54,7 +58,10 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
 
   LearningPathData get pathData => LearningPathData(
         title: _pathTitle,
-        subtitle: _pathSubtitle,
+        subtitle: _l10n.learnPathEarnXp(
+          totalLessonsCount,
+          totalLessonsCount * RoleplayXpRewards.dialogue,
+        ),
         completedLessons: completedLessonsCount,
         totalLessons: totalLessonsCount,
       );
@@ -70,7 +77,10 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
     await _dailyLessonRepository.initialize();
 
     final vocabPath = await _contentRepository.getVocabularyPath(_scenarioId);
-    _pathTitle = '${vocabPath.pathTitle.split(' ').first} Dialogue';
+    _pathTitle = _l10n.roleplayTrackTitle(
+      RoleplayScenarioL10n.detailTitle(_l10n, _scenarioId),
+      _l10n.dialogue,
+    );
     _pathSubtitle = vocabPath.pathSubtitle;
     _cefrLevel = vocabPath.cefrLevel;
 
@@ -162,7 +172,7 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
     await _loadLessons();
   }
 
-  Future<void> _markLessonCompleted(
+  Future<List<String>> _markLessonCompleted(
     RoleplayDialogueLessonModel completedLesson,
   ) async {
     await _progressRepository.initialize();
@@ -170,7 +180,7 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
         await _progressRepository.getProgress(completedLesson.lessonId);
     if (existing?.status == LearningLessonStatus.completed) {
       await _loadLessons();
-      return;
+      return [];
     }
 
     final orderedIds = _lessons.map((l) => l.lessonId).toList();
@@ -195,6 +205,7 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
       nextUnlockLessonId: nextId,
     );
 
+    final xpBefore = _syncService.totalXp;
     await _syncService.onRoleplayModuleCompleted(
       progress: LessonProgressModel(
         lessonId: completedLesson.lessonId,
@@ -210,7 +221,12 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
       lessonNumber: completedLesson.number,
     );
 
-    await _loadLessons();
+    unawaited(_loadLessons());
+    return NewlyUnlockedContent.compute(
+      l10n: _l10n,
+      xpBefore: xpBefore,
+      xpAfter: _syncService.totalXp,
+    );
   }
 
   @override

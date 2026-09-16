@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
@@ -45,6 +47,10 @@ class ProgressSyncService {
   bool _pendingStatsSync = false;
   bool _pendingDailyGoalSync = false;
   final List<VoidCallback> _mergeListeners = [];
+
+  /// Current cumulative XP — read before/after a completion to detect newly
+  /// crossed unlock thresholds (see NewlyUnlockedContent).
+  int get totalXp => _localStorage.xpEarned;
 
   void addMergeListener(VoidCallback listener) {
     _mergeListeners.add(listener);
@@ -103,29 +109,11 @@ class ProgressSyncService {
     required LessonProgressModel progress,
     int wordsLearned = 0,
   }) async {
-    await _progressRepository.saveProgress(progress);
-
-    final xpAmount = LessonXpRewards.forLessonType(progress.type);
-    final firstCompletion =
-        !await _localStorage.hasLessonXpGranted(progress.lessonId);
-    if (firstCompletion) {
-      await _localStorage.markLessonXpGranted(progress.lessonId);
-      await _localStorage.addXp(xpAmount);
-      if (wordsLearned > 0) {
-        await _localStorage.incrementWordsLearned(wordsLearned);
-      }
-      await recordDailyGoalProgress(
-        DailyGoalRewards.forLessonType(progress.type),
-      );
-      await _maybeAwardCoreModuleBonus(progress);
-      await _maybeAutoGrantPremiumXpBoost(progress.lessonId);
-      _pendingStatsSync = true;
-    }
-
-    await _learningStatsService.reconcileFromProgress();
-    await _syncStatsToFirestore(force: true);
-    await _pushProgress(progress);
-    _notifyMerged();
+    await _applyLocalLessonCompletion(
+      progress: progress,
+      wordsLearned: wordsLearned,
+    );
+    unawaited(_flushCompletionToRemote(progress));
   }
 
   /// PRD 4.2.2 — +50 XP the first time all 10 lessons of a core module
@@ -154,10 +142,55 @@ class ProgressSyncService {
   }
 
   Future<void> recordDailyGoalProgress(int minutes) async {
+    await _applyLocalDailyGoalProgress(minutes);
+    unawaited(_pushDailyGoal());
+  }
+
+  Future<void> _applyLocalDailyGoalProgress(int minutes) async {
     await _entitlementsService.recordDailyGoalProgress(minutes);
     _pendingDailyGoalSync = true;
-    await _pushDailyGoal();
     _notifyMerged();
+  }
+
+  /// Disk + XP first; Firestore is flushed by [_flushCompletionToRemote].
+  Future<void> _applyLocalLessonCompletion({
+    required LessonProgressModel progress,
+    int wordsLearned = 0,
+  }) async {
+    await _progressRepository.saveProgress(progress);
+
+    final xpAmount = LessonXpRewards.forLessonType(progress.type);
+    final firstCompletion =
+        !await _localStorage.hasLessonXpGranted(progress.lessonId);
+    if (firstCompletion) {
+      await _localStorage.markLessonXpGranted(progress.lessonId);
+      await _localStorage.addXp(xpAmount);
+      if (wordsLearned > 0) {
+        await _localStorage.incrementWordsLearned(wordsLearned);
+      }
+      await _applyLocalDailyGoalProgress(
+        DailyGoalRewards.forLessonType(progress.type),
+      );
+      await _maybeAwardCoreModuleBonus(progress);
+      await _maybeAutoGrantPremiumXpBoost(progress.lessonId);
+      _pendingStatsSync = true;
+    }
+
+    await _learningStatsService.reconcileFromProgress();
+    _pendingStatsSync = true;
+    _notifyMerged();
+  }
+
+  Future<void> _flushCompletionToRemote(LessonProgressModel progress) async {
+    try {
+      await _syncStatsToFirestore(force: true);
+      await _pushProgress(progress);
+      await _pushDailyGoal();
+    } catch (e, stack) {
+      if (kDebugMode) {
+        debugPrint('Background lesson sync failed: $e\n$stack');
+      }
+    }
   }
 
   /// Awards roleplay module XP once per lesson module; +2 bonus when all three complete.
@@ -194,15 +227,15 @@ class ProgressSyncService {
     totalGranted += bonus;
 
     if (firstCompletion) {
-      await recordDailyGoalProgress(DailyGoalRewards.roleplayModule);
+      await _applyLocalDailyGoalProgress(DailyGoalRewards.roleplayModule);
       await _maybeAutoGrantPremiumXpBoost(progress.lessonId);
       _pendingStatsSync = true;
     }
 
     await _learningStatsService.reconcileFromProgress();
-    await _syncStatsToFirestore(force: true);
-    await _pushProgress(progress);
+    _pendingStatsSync = true;
     _notifyMerged();
+    unawaited(_flushCompletionToRemote(progress));
     return totalGranted;
   }
 

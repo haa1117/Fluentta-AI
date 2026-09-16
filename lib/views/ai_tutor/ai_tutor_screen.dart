@@ -125,9 +125,9 @@ class AiTutorScreen extends StatelessWidget {
                         !viewModel.isScenarioXpUnlocked(scenario.id),
                     isAdvanced: UserEntitlements.advancedRoleplayScenarioIds
                         .contains(scenario.id),
-                    xpRequired: viewModel.isScenarioXpUnlocked(scenario.id)
+                    xpRemaining: viewModel.isScenarioXpUnlocked(scenario.id)
                         ? null
-                        : viewModel.scenarioUnlockXp(scenario.id),
+                        : viewModel.scenarioXpRemaining(scenario.id),
                     onTap: () {
                       final entitlements =
                           context.read<EntitlementsService>();
@@ -136,10 +136,9 @@ class AiTutorScreen extends StatelessWidget {
                           context,
 
 
-                          title: 'Advanced Roleplay',
+                          title: l10n.advancedRoleplay,
                           showWatchAd: false,
-                          message:
-                              'Upgrade to Pro to unlock all roleplay scenarios.',
+                          message: l10n.upgradeToUnlockRoleplays,
                         );
                         return;
                       }
