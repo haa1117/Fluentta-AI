@@ -828,5 +828,29 @@
   "xpToGoBadge": "{xp} XP to go",
   "@xpToGoBadge": {
     "placeholders": {"xp": {"type": "int"}}
-  }
+  },
+  "notQuiteCorrectAnswer": "Not quite. The correct answer is: {answer}",
+  "@notQuiteCorrectAnswer": {
+    "placeholders": {"answer": {"type": "String"}}
+  },
+  "practiceLabel": "Practice",
+  "yourAnswerHint": "Your answer",
+  "checkAnswerButton": "Check",
+  "practiceCorrectFeedback": "Correct!",
+  "translationFailed": "Couldn't translate that. Check your connection and try again.",
+  "whatsUnlockedTitle": "What You've Unlocked",
+  "xpTotalLabel": "{xp} XP total",
+  "@xpTotalLabel": {
+    "placeholders": {"xp": {"type": "int"}}
+  },
+  "nothingUnlockedYet": "Keep learning to unlock levels and roleplay scenarios!",
+  "nextUnlockLabel": "Next: {label} — {xp} XP to go",
+  "@nextUnlockLabel": {
+    "placeholders": {"label": {"type": "String"}, "xp": {"type": "int"}}
+  },
+  "watchAdForXpSub": "Get +{xp} XP instantly",
+  "@watchAdForXpSub": {
+    "placeholders": {"xp": {"type": "int"}}
+  },
+  "xpBoostCapReached": "You've used all your XP boosts for today. Come back tomorrow."
 }

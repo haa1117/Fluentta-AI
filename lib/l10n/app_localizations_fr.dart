@@ -1975,4 +1975,51 @@ class AppLocalizationsFr extends AppLocalizations {
   String xpToGoBadge(int xp) {
     return '$xp XP restants';
   }
+
+  @override
+  String notQuiteCorrectAnswer(String answer) {
+    return 'Pas tout à fait. La bonne réponse est : $answer';
+  }
+
+  @override
+  String get practiceLabel => 'Entraînement';
+
+  @override
+  String get yourAnswerHint => 'Votre réponse';
+
+  @override
+  String get checkAnswerButton => 'Vérifier';
+
+  @override
+  String get practiceCorrectFeedback => 'Correct !';
+
+  @override
+  String get translationFailed =>
+      'Impossible de traduire. Vérifiez votre connexion et réessayez.';
+
+  @override
+  String get whatsUnlockedTitle => 'Ce que vous avez débloqué';
+
+  @override
+  String xpTotalLabel(int xp) {
+    return '$xp XP au total';
+  }
+
+  @override
+  String get nothingUnlockedYet =>
+      'Continuez à apprendre pour débloquer des niveaux et des scénarios de jeu de rôle !';
+
+  @override
+  String nextUnlockLabel(String label, int xp) {
+    return 'Suivant : $label — $xp XP restants';
+  }
+
+  @override
+  String watchAdForXpSub(int xp) {
+    return 'Obtenez +$xp XP instantanément';
+  }
+
+  @override
+  String get xpBoostCapReached =>
+      'Vous avez utilisé tous vos boosts XP du jour. Revenez demain.';
 }

@@ -574,5 +574,29 @@
   "xpToGoBadge": "{xp} XP باقی",
   "@xpToGoBadge": {
     "placeholders": {"xp": {"type": "int"}}
-  }
+  },
+  "notQuiteCorrectAnswer": "بالکل نہیں۔ درست جواب یہ ہے: {answer}",
+  "@notQuiteCorrectAnswer": {
+    "placeholders": {"answer": {"type": "String"}}
+  },
+  "practiceLabel": "مشق",
+  "yourAnswerHint": "آپ کا جواب",
+  "checkAnswerButton": "چیک کریں",
+  "practiceCorrectFeedback": "درست!",
+  "translationFailed": "ترجمہ نہیں ہو سکا۔ اپنا انٹرنیٹ کنکشن چیک کریں اور دوبارہ کوشش کریں۔",
+  "whatsUnlockedTitle": "آپ نے کیا کھولا ہے",
+  "xpTotalLabel": "کل {xp} XP",
+  "@xpTotalLabel": {
+    "placeholders": {"xp": {"type": "int"}}
+  },
+  "nothingUnlockedYet": "لیول اور رول پلے منظرنامے کھولنے کے لیے سیکھتے رہیں!",
+  "nextUnlockLabel": "اگلا: {label} — {xp} XP باقی",
+  "@nextUnlockLabel": {
+    "placeholders": {"label": {"type": "String"}, "xp": {"type": "int"}}
+  },
+  "watchAdForXpSub": "فوری طور پر +{xp} XP حاصل کریں",
+  "@watchAdForXpSub": {
+    "placeholders": {"xp": {"type": "int"}}
+  },
+  "xpBoostCapReached": "آپ نے آج کے تمام XP بوسٹ استعمال کر لیے ہیں۔ کل واپس آئیں۔"
 }

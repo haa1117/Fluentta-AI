@@ -3599,6 +3599,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{xp} XP to go'**
   String xpToGoBadge(int xp);
+
+  /// No description provided for @notQuiteCorrectAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite. The correct answer is: {answer}'**
+  String notQuiteCorrectAnswer(String answer);
+
+  /// No description provided for @practiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice'**
+  String get practiceLabel;
+
+  /// No description provided for @yourAnswerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer'**
+  String get yourAnswerHint;
+
+  /// No description provided for @checkAnswerButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get checkAnswerButton;
+
+  /// No description provided for @practiceCorrectFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct!'**
+  String get practiceCorrectFeedback;
+
+  /// No description provided for @translationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t translate that. Check your connection and try again.'**
+  String get translationFailed;
+
+  /// No description provided for @whatsUnlockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What You\'ve Unlocked'**
+  String get whatsUnlockedTitle;
+
+  /// No description provided for @xpTotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP total'**
+  String xpTotalLabel(int xp);
+
+  /// No description provided for @nothingUnlockedYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep learning to unlock levels and roleplay scenarios!'**
+  String get nothingUnlockedYet;
+
+  /// No description provided for @nextUnlockLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {label} — {xp} XP to go'**
+  String nextUnlockLabel(String label, int xp);
+
+  /// No description provided for @watchAdForXpSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Get +{xp} XP instantly'**
+  String watchAdForXpSub(int xp);
+
+  /// No description provided for @xpBoostCapReached.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used all your XP boosts for today. Come back tomorrow.'**
+  String get xpBoostCapReached;
 }
 
 class _AppLocalizationsDelegate

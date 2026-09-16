@@ -1942,4 +1942,51 @@ class AppLocalizationsUr extends AppLocalizations {
   String xpToGoBadge(int xp) {
     return '$xp XP باقی';
   }
+
+  @override
+  String notQuiteCorrectAnswer(String answer) {
+    return 'بالکل نہیں۔ درست جواب یہ ہے: $answer';
+  }
+
+  @override
+  String get practiceLabel => 'مشق';
+
+  @override
+  String get yourAnswerHint => 'آپ کا جواب';
+
+  @override
+  String get checkAnswerButton => 'چیک کریں';
+
+  @override
+  String get practiceCorrectFeedback => 'درست!';
+
+  @override
+  String get translationFailed =>
+      'ترجمہ نہیں ہو سکا۔ اپنا انٹرنیٹ کنکشن چیک کریں اور دوبارہ کوشش کریں۔';
+
+  @override
+  String get whatsUnlockedTitle => 'آپ نے کیا کھولا ہے';
+
+  @override
+  String xpTotalLabel(int xp) {
+    return 'کل $xp XP';
+  }
+
+  @override
+  String get nothingUnlockedYet =>
+      'لیول اور رول پلے منظرنامے کھولنے کے لیے سیکھتے رہیں!';
+
+  @override
+  String nextUnlockLabel(String label, int xp) {
+    return 'اگلا: $label — $xp XP باقی';
+  }
+
+  @override
+  String watchAdForXpSub(int xp) {
+    return 'فوری طور پر +$xp XP حاصل کریں';
+  }
+
+  @override
+  String get xpBoostCapReached =>
+      'آپ نے آج کے تمام XP بوسٹ استعمال کر لیے ہیں۔ کل واپس آئیں۔';
 }
