@@ -43,6 +43,7 @@ class OpenChatViewModel extends ChangeNotifier {
     required String greeting,
     String? cefrLevel,
     String? goal,
+    String? nativeLanguage,
     Connectivity? connectivity,
   })  : _homeViewModel = homeViewModel,
         _aiBackendService = aiBackendService,
@@ -52,6 +53,7 @@ class OpenChatViewModel extends ChangeNotifier {
         _localStorage = localStorage,
         _cefrLevel = cefrLevel,
         _goal = goal,
+        _nativeLanguage = nativeLanguage,
         _connectivity = connectivity ?? Connectivity() {
     _speakReplies = _localStorage.chatSpeakRepliesEnabled;
     _messages.add(
@@ -76,6 +78,7 @@ class OpenChatViewModel extends ChangeNotifier {
   final AudioRecorder _recorder = AudioRecorder();
   final String? _cefrLevel;
   final String? _goal;
+  final String? _nativeLanguage;
   StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
 
   final List<OpenChatMessage> _messages = [];
@@ -130,6 +133,15 @@ class OpenChatViewModel extends ChangeNotifier {
     if (mode == ChatInputMode.text && _voiceState != VoiceCaptureState.idle) {
       unawaited(cancelVoiceCapture());
     }
+    if (mode == ChatInputMode.voice) {
+      // Ask for mic permission now, as soon as the voice panel appears —
+      // not on the first press. Requesting it inside beginVoiceCapture()
+      // raced with the hold-to-speak gesture: the OS permission dialog
+      // steals touch focus, the finger lift fires before the request
+      // resolves, and the panel is left stuck. Priming here means the OS
+      // dialog (if any) is long resolved before the user can press the mic.
+      unawaited(_recorder.hasPermission());
+    }
     notifyListeners();
   }
 
@@ -160,6 +172,7 @@ class OpenChatViewModel extends ChangeNotifier {
     notifyListeners();
     await _tts.speak(
       text,
+      languageCode: _nativeLanguage,
       onComplete: () {
         if (_speakingIndex == index) {
           _speakingIndex = null;
@@ -187,9 +200,16 @@ class OpenChatViewModel extends ChangeNotifier {
 
   // --- Voice capture -------------------------------------------------------
 
+  /// Bumped every time a capture starts/ends so a slow [beginVoiceCapture]
+  /// (e.g. still waiting on the OS permission dialog) can tell whether the
+  /// user already released/cancelled before it finished, instead of landing
+  /// the panel in "recording" with no press left to end it.
+  int _captureGeneration = 0;
+
   Future<void> beginVoiceCapture() async {
     if (_isSending || _voiceState != VoiceCaptureState.idle) return;
     if (!await _ensureOnline()) return;
+    final generation = ++_captureGeneration;
     // Don't let the tutor's voice bleed into the microphone.
     await _stopSpeaking();
     _sttFallbackActive = false;
@@ -198,6 +218,12 @@ class OpenChatViewModel extends ChangeNotifier {
     var started = false;
     try {
       if (await _recorder.hasPermission()) {
+        if (generation != _captureGeneration) {
+          // The user already released/cancelled while the permission
+          // prompt was up — don't start a recording nobody asked for.
+          unawaited(_recorder.stop());
+          return;
+        }
         final dir = await getTemporaryDirectory();
         _recordPath =
             '${dir.path}/fluenta_chat_${DateTime.now().millisecondsSinceEpoch}.m4a';
@@ -212,10 +238,32 @@ class OpenChatViewModel extends ChangeNotifier {
       _recordPath = null;
     }
 
+    if (generation != _captureGeneration) {
+      // Superseded while awaiting the recorder/STT — undo whatever just
+      // started so we don't leave the panel showing a phantom recording.
+      if (started) {
+        if (_sttFallbackActive) {
+          _speechService.cancelListening();
+        } else {
+          unawaited(_recorder.stop());
+        }
+        _deleteRecording(_recordPath);
+        _recordPath = null;
+      }
+      return;
+    }
+
     if (!started) {
       // No recorder — use the on-device recognizer for this capture only.
       started = await _speechService.startListening();
       _sttFallbackActive = started;
+    }
+
+    if (generation != _captureGeneration) {
+      if (started) {
+        _speechService.cancelListening();
+      }
+      return;
     }
 
     if (started) {
@@ -234,6 +282,10 @@ class OpenChatViewModel extends ChangeNotifier {
   }
 
   Future<void> cancelVoiceCapture() async {
+    // Bump even if we're still idle — a beginVoiceCapture() may still be
+    // awaiting mic permission or the recorder/STT start, and needs to see
+    // that it was cancelled once it comes back.
+    _captureGeneration++;
     if (_voiceState == VoiceCaptureState.idle) return;
     if (_sttFallbackActive) {
       _speechService.cancelListening();
@@ -250,7 +302,14 @@ class OpenChatViewModel extends ChangeNotifier {
   }
 
   Future<void> finishVoiceCapture() async {
-    if (_voiceState == VoiceCaptureState.idle) return;
+    if (_voiceState == VoiceCaptureState.idle) {
+      // Same race as cancelVoiceCapture(): the press may have already
+      // released while beginVoiceCapture() was still awaiting mic
+      // permission. Nothing to send yet — just make sure it doesn't
+      // silently start a recording after the finger is already gone.
+      _captureGeneration++;
+      return;
+    }
     if (!await _ensureOnline()) {
       await cancelVoiceCapture();
       _error = 'offline';
@@ -379,6 +438,7 @@ class OpenChatViewModel extends ChangeNotifier {
         history: history,
         cefrLevel: _cefrLevel,
         goal: _goal,
+        nativeLanguage: _nativeLanguage,
       );
 
       final replyText = reply.tutorReply.isEmpty

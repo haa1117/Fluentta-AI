@@ -33,6 +33,7 @@ class OpenChatPracticeScreen extends StatelessWidget {
     // Tutor uses the learner's setup CEFR. Lesson paths stay B1-capped for free.
     final cefrLevel = context.read<EntitlementsService>().setupLevel().code;
     final goal = context.read<LocalStorage>().englishGoal;
+    final nativeLanguage = context.read<LocaleViewModel>().languageCode;
     return ChangeNotifierProvider(
       create: (providerContext) => OpenChatViewModel(
         homeViewModel: providerContext.read<HomeViewModel>(),
@@ -44,6 +45,7 @@ class OpenChatPracticeScreen extends StatelessWidget {
         greeting: greeting,
         cefrLevel: cefrLevel,
         goal: goal,
+        nativeLanguage: nativeLanguage,
       ),
       child: const _OpenChatPracticeBody(),
     );
