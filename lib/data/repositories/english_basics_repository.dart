@@ -132,6 +132,32 @@ class EnglishBasicsRepository {
     return lessons.isNotEmpty ? lessons.first : null;
   }
 
+  /// Whether "Today's Lesson" was completed on each of the last 7 calendar
+  /// days, oldest first (index 6 is today) — powers a weekly streak strip
+  /// on the home card instead of a single-lesson progress bar that's only
+  /// ever ~empty or full.
+  List<bool> weeklyCompletion() {
+    final completedDays = _progressRepository.allProgress.values
+        .where(
+          (p) =>
+              p.type == _typeId &&
+              p.status == LearningLessonStatus.completed &&
+              p.completedAt != null,
+        )
+        .map((p) {
+          final d = p.completedAt!;
+          return DateTime(d.year, d.month, d.day);
+        })
+        .toSet();
+
+    final today = DateTime.now();
+    final todayAtMidnight = DateTime(today.year, today.month, today.day);
+    return List.generate(7, (i) {
+      final day = todayAtMidnight.subtract(Duration(days: 6 - i));
+      return completedDays.contains(day);
+    });
+  }
+
   Future<double> trackProgress(String goalId) async {
     final lessons = await buildLessons(goalId);
     if (lessons.isEmpty) return 0;

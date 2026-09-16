@@ -18,12 +18,17 @@ class EnglishBasicsViewModel extends ChangeNotifier {
   List<EnglishBasicsLessonModel> _lessons = [];
   EnglishBasicsLessonModel? _todaysLesson;
   double _trackProgress = 0;
+  List<bool> _weeklyCompletion = List.filled(7, false);
 
   bool get isLoading => _isLoading;
   String get pathTitle => _pathTitle;
   List<EnglishBasicsLessonModel> get lessons => _lessons;
   EnglishBasicsLessonModel? get todaysLesson => _todaysLesson;
   double get trackProgress => _trackProgress;
+
+  /// Last 7 days, oldest first (index 6 is today) — true where "Today's
+  /// Lesson" was completed that day.
+  List<bool> get weeklyCompletion => _weeklyCompletion;
 
   String get goalId => _localStorage.englishGoal ?? 'exam';
 
@@ -59,6 +64,7 @@ class EnglishBasicsViewModel extends ChangeNotifier {
     _lessons = await _repository.buildLessons(goalId);
     _todaysLesson = await _repository.getTodaysLesson(goalId);
     _trackProgress = await _repository.trackProgress(goalId);
+    _weeklyCompletion = _repository.weeklyCompletion();
 
     _isLoading = false;
     notifyListeners();
