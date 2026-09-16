@@ -24,9 +24,7 @@ class AdsConfigRepository {
       _cached = AdsRemoteConfig.fromFirestore(snapshot.data());
       return _cached;
     } catch (error, stack) {
-      if (kDebugMode) {
-        debugPrint('AdsConfigRepository.fetch failed: $error\n$stack');
-      }
+      debugPrint('AdsConfigRepository.fetch failed: $error\n$stack');
       return _cached;
     }
   }
@@ -54,9 +52,7 @@ class AdsConfigRepository {
         onChanged(_cached);
       },
       onError: (Object error) {
-        if (kDebugMode) {
-          debugPrint('AdsConfigRepository.listen failed: $error');
-        }
+        debugPrint('AdsConfigRepository.listen failed: $error');
       },
     );
   }

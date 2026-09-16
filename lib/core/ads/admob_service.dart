@@ -48,15 +48,25 @@ class AdMobService extends ChangeNotifier {
 
     _localStorage = localStorage;
 
-    if (kDebugMode) {
-      await MobileAds.instance.updateRequestConfiguration(
-        RequestConfiguration(
-          testDeviceIds: const <String>['EMULATOR'],
-        ),
-      );
+    try {
+      if (kDebugMode) {
+        await MobileAds.instance.updateRequestConfiguration(
+          RequestConfiguration(
+            testDeviceIds: const <String>['EMULATOR'],
+          ),
+        );
+      }
+
+      await MobileAds.instance.initialize();
+    } catch (error, stack) {
+      // main.dart calls initialize() with unawaited() — an exception here
+      // used to vanish into the unhandled-future void, leaving _initialized
+      // false forever (so shouldDisplay() silently returns false for the
+      // whole session) with no visible symptom at all. Always log it.
+      debugPrint('AdMobService.initialize: MobileAds init failed: $error\n$stack');
+      return;
     }
 
-    await MobileAds.instance.initialize();
     _config = await _configRepository.fetch();
 
     if (kDebugMode) {
@@ -437,9 +447,10 @@ class AdMobService extends ChangeNotifier {
           if (!completer.isCompleted) completer.complete(bannerAd);
         },
         onAdFailedToLoad: (ad, error) {
-          if (kDebugMode) {
-            debugPrint('Banner load failed [$placement]: $error');
-          }
+          // Always logged (not just kDebugMode) — a release-build ad
+          // failure is otherwise invisible, which is exactly what made the
+          // "ads stopped working" regression hard to diagnose.
+          debugPrint('Banner load failed [$placement]: $error');
           ad.dispose();
           if (!completer.isCompleted) completer.complete(null);
         },
@@ -475,9 +486,7 @@ class AdMobService extends ChangeNotifier {
           if (!completer.isCompleted) completer.complete(nativeAd);
         },
         onAdFailedToLoad: (ad, error) {
-          if (kDebugMode) {
-            debugPrint('Native load failed [$placement]: $error');
-          }
+          debugPrint('Native load failed [$placement]: $error');
           ad.dispose();
           if (!completer.isCompleted) completer.complete(null);
         },
@@ -504,9 +513,7 @@ class AdMobService extends ChangeNotifier {
           if (!completer.isCompleted) completer.complete(ad);
         },
         onAdFailedToLoad: (error) {
-          if (kDebugMode) {
-            debugPrint('Rewarded load failed [$placement]: $error');
-          }
+          debugPrint('Rewarded load failed [$placement]: $error');
           if (!completer.isCompleted) completer.complete(null);
         },
       ),
@@ -538,9 +545,7 @@ class AdMobService extends ChangeNotifier {
           if (!completer.isCompleted) completer.complete(ad);
         },
         onAdFailedToLoad: (error) {
-          if (kDebugMode) {
-            debugPrint('Interstitial load failed [$placement]: $error');
-          }
+          debugPrint('Interstitial load failed [$placement]: $error');
           if (!completer.isCompleted) completer.complete(null);
         },
       ),
