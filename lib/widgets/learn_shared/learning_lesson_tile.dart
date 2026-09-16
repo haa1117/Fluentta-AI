@@ -84,7 +84,7 @@ class LearningLessonTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  lesson.displayTitle,
+                  lesson.localizedDisplayTitle(l10n),
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),
@@ -159,9 +159,8 @@ class LearningLessonTile extends StatelessWidget {
   }
 
   String _progressLabel(AppLocalizations l10n, LearningLessonItem lesson) {
-    if (lesson.progressLabel.isNotEmpty) {
-      return lesson.progressLabel;
-    }
+    final localized = lesson.localizedProgressLabel(l10n);
+    if (localized.isNotEmpty) return localized;
     return _statusLabel(l10n, lesson.status);
   }
 

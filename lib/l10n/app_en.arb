@@ -25,6 +25,49 @@
       "number": {"type": "int"}
     }
   },
+  "lessonNamedTitle": "Lesson {number}: {title}",
+  "@lessonNamedTitle": {
+    "placeholders": {
+      "number": {"type": "int"},
+      "title": {"type": "String"}
+    }
+  },
+  "questionsProgress": "{done}/{total} questions • {status}",
+  "@questionsProgress": {
+    "placeholders": {
+      "done": {"type": "int"},
+      "total": {"type": "int"},
+      "status": {"type": "String"}
+    }
+  },
+  "learnUsefulPhrases": "Learn useful phrases with AI correction",
+  "sentencePractice": "Sentence Practice",
+  "practiceConversing": "Practice Conversing",
+  "practiceConversingSub": "Talk with your AI tutor by voice or text and get instant corrections",
+  "talkAboutAnyTopic": "Talk about any topic with AI Tutor",
+  "advancedRoleplay": "Advanced Roleplay",
+  "advancedBadge": "ADVANCED",
+  "upgradeToUnlockRoleplays": "Upgrade to Pro to unlock all roleplay scenarios.",
+  "upgradeToPro": "UPGRADE TO PRO",
+  "scenarioNotFound": "Scenario not found",
+  "roleplayTrackTitle": "{scenario} {track}",
+  "@roleplayTrackTitle": {
+    "placeholders": {
+      "scenario": {"type": "String"},
+      "track": {"type": "String"}
+    }
+  },
+  "dayStreakLabel": "Day {days} Streak",
+  "@dayStreakLabel": {
+    "placeholders": {"days": {"type": "int"}}
+  },
+  "englishBasicsStep": "{index} / {label}",
+  "@englishBasicsStep": {
+    "placeholders": {
+      "index": {"type": "int"},
+      "label": {"type": "String"}
+    }
+  },
   "lessonPhase": "LESSON PHASE",
   "completed": "Completed",
   "inProgress": "In progress",
@@ -780,5 +823,10 @@
   "sentenceQuestionNumber": "Question {number}",
   "@sentenceQuestionNumber": {
     "placeholders": {"number": {"type": "int"}}
+  },
+  "newlyUnlockedHeading": "You've just unlocked",
+  "xpToGoBadge": "{xp} XP to go",
+  "@xpToGoBadge": {
+    "placeholders": {"xp": {"type": "int"}}
   }
 }

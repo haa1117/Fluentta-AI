@@ -33,7 +33,7 @@ class EnglishBasicsDialogueScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: AppSizes.spaceMd),
-          EnglishBasicsStepHeader(label: viewModel.stepLabel, progress: 0.85),
+          EnglishBasicsStepHeader(label: viewModel.stepLabelFor(l10n), progress: 0.85),
           SizedBox(height: AppSizes.spaceLg),
           Padding(
             padding: EdgeInsets.symmetric(

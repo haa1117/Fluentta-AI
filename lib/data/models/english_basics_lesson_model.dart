@@ -112,7 +112,7 @@ class EnglishBasicsStepContent {
   final String subtitle;
 }
 
-class EnglishBasicsLessonModel implements LearningLessonItem {
+class EnglishBasicsLessonModel with LearningLessonItem {
   const EnglishBasicsLessonModel({
     required this.lessonId,
     required this.number,
@@ -160,6 +160,9 @@ class EnglishBasicsLessonModel implements LearningLessonItem {
 
   @override
   String get iconName => 'chat';
+
+  @override
+  bool get useLessonPrefix => false;
 
   @override
   String get displayTitle => title;

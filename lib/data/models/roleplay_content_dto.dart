@@ -3,6 +3,7 @@ import 'package:fluentta_ai/data/models/lesson_content_dto.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
 import 'package:fluentta_ai/data/models/vocabulary_lesson_model.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 
 class RoleplayScenarioManifestDto {
   const RoleplayScenarioManifestDto({
@@ -63,7 +64,7 @@ class RoleplayPathDto {
       };
 }
 
-class RoleplayQuickCheckLessonModel implements LearningLessonItem {
+class RoleplayQuickCheckLessonModel with LearningLessonItem {
   const RoleplayQuickCheckLessonModel({
     required this.lessonId,
     required this.id,
@@ -96,6 +97,19 @@ class RoleplayQuickCheckLessonModel implements LearningLessonItem {
 
   @override
   String get displayTitle => 'Lesson $number: $title';
+
+  @override
+  String localizedProgressLabel(AppLocalizations l10n) {
+    if (status == LearningLessonStatus.locked) return l10n.locked;
+    final done = status == LearningLessonStatus.notStarted
+        ? 0
+        : questionsCompleted;
+    return l10n.questionsProgress(
+      done,
+      totalQuestions,
+      localizedStatusLabel(l10n),
+    );
+  }
 
   @override
   String get progressLabel {
@@ -206,7 +220,7 @@ class RoleplayDialogueLineModel {
   }
 }
 
-class RoleplayDialogueLessonModel implements LearningLessonItem {
+class RoleplayDialogueLessonModel with LearningLessonItem {
   const RoleplayDialogueLessonModel({
     required this.lessonId,
     required this.id,

@@ -1,4 +1,5 @@
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 
 class VocabularyWordModel {
   const VocabularyWordModel({
@@ -16,7 +17,7 @@ class VocabularyWordModel {
   final String? partOfSpeech;
 }
 
-class VocabularyLessonModel implements LearningLessonItem {
+class VocabularyLessonModel with LearningLessonItem {
   const VocabularyLessonModel({
     required this.id,
     required this.number,
@@ -43,6 +44,14 @@ class VocabularyLessonModel implements LearningLessonItem {
 
   @override
   String get displayTitle => 'Lesson $number: $title';
+
+  @override
+  String localizedProgressLabel(AppLocalizations l10n) {
+    if (status == LearningLessonStatus.locked) return l10n.locked;
+    final done =
+        status == LearningLessonStatus.notStarted ? 0 : wordsCompleted;
+    return l10n.wordsProgress(done, totalWords, localizedStatusLabel(l10n));
+  }
 
   @override
   String get progressLabel {

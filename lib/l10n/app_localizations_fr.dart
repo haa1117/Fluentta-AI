@@ -55,6 +55,65 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String lessonNamedTitle(int number, String title) {
+    return 'Leçon $number : $title';
+  }
+
+  @override
+  String questionsProgress(int done, int total, String status) {
+    return '$done/$total questions • $status';
+  }
+
+  @override
+  String get learnUsefulPhrases =>
+      'Apprenez des phrases utiles avec correction IA';
+
+  @override
+  String get sentencePractice => 'Pratique des phrases';
+
+  @override
+  String get practiceConversing => 'Pratiquez la conversation';
+
+  @override
+  String get practiceConversingSub =>
+      'Parlez avec votre tuteur IA à l\'oral ou à l\'écrit et recevez des corrections instantanées';
+
+  @override
+  String get talkAboutAnyTopic =>
+      'Parlez de n\'importe quel sujet avec le tuteur IA';
+
+  @override
+  String get advancedRoleplay => 'Jeux de rôle avancés';
+
+  @override
+  String get advancedBadge => 'AVANCÉ';
+
+  @override
+  String get upgradeToUnlockRoleplays =>
+      'Passez à Pro pour débloquer tous les scénarios de jeux de rôle.';
+
+  @override
+  String get upgradeToPro => 'PASSER À PRO';
+
+  @override
+  String get scenarioNotFound => 'Scénario introuvable';
+
+  @override
+  String roleplayTrackTitle(String scenario, String track) {
+    return '$scenario $track';
+  }
+
+  @override
+  String dayStreakLabel(int days) {
+    return 'Série de $days jours';
+  }
+
+  @override
+  String englishBasicsStep(int index, String label) {
+    return '$index / $label';
+  }
+
+  @override
   String get lessonPhase => 'PHASE DE LA LEÇON';
 
   @override
@@ -1907,5 +1966,13 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String sentenceQuestionNumber(int number) {
     return 'Question $number';
+  }
+
+  @override
+  String get newlyUnlockedHeading => 'Vous venez de débloquer';
+
+  @override
+  String xpToGoBadge(int xp) {
+    return '$xp XP restants';
   }
 }

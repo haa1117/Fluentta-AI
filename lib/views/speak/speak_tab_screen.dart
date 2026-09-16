@@ -114,10 +114,9 @@ class _RolePlayTabBody extends StatelessWidget {
                         )) {
                           showProFeatureSheet(
                             context,
-                            title: 'Advanced Roleplay',
+                            title: l10n.advancedRoleplay,
                             showWatchAd: false,
-                            message:
-                                'Upgrade to Pro to unlock all roleplay scenarios.',
+                            message: l10n.upgradeToUnlockRoleplays,
                           );
                           return;
                         }

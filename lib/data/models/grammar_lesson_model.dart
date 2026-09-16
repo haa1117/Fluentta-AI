@@ -32,7 +32,7 @@ class GrammarStepModel {
   final String quickTip;
 }
 
-class GrammarLessonModel implements LearningLessonItem {
+class GrammarLessonModel with LearningLessonItem {
   const GrammarLessonModel({
     required this.id,
     required this.number,

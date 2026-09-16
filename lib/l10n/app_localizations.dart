@@ -186,6 +186,96 @@ abstract class AppLocalizations {
   /// **'Lesson {number}'**
   String lessonTitle(int number);
 
+  /// No description provided for @lessonNamedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson {number}: {title}'**
+  String lessonNamedTitle(int number, String title);
+
+  /// No description provided for @questionsProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total} questions • {status}'**
+  String questionsProgress(int done, int total, String status);
+
+  /// No description provided for @learnUsefulPhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn useful phrases with AI correction'**
+  String get learnUsefulPhrases;
+
+  /// No description provided for @sentencePractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Sentence Practice'**
+  String get sentencePractice;
+
+  /// No description provided for @practiceConversing.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice Conversing'**
+  String get practiceConversing;
+
+  /// No description provided for @practiceConversingSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk with your AI tutor by voice or text and get instant corrections'**
+  String get practiceConversingSub;
+
+  /// No description provided for @talkAboutAnyTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk about any topic with AI Tutor'**
+  String get talkAboutAnyTopic;
+
+  /// No description provided for @advancedRoleplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced Roleplay'**
+  String get advancedRoleplay;
+
+  /// No description provided for @advancedBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'ADVANCED'**
+  String get advancedBadge;
+
+  /// No description provided for @upgradeToUnlockRoleplays.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Pro to unlock all roleplay scenarios.'**
+  String get upgradeToUnlockRoleplays;
+
+  /// No description provided for @upgradeToPro.
+  ///
+  /// In en, this message translates to:
+  /// **'UPGRADE TO PRO'**
+  String get upgradeToPro;
+
+  /// No description provided for @scenarioNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Scenario not found'**
+  String get scenarioNotFound;
+
+  /// No description provided for @roleplayTrackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{scenario} {track}'**
+  String roleplayTrackTitle(String scenario, String track);
+
+  /// No description provided for @dayStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {days} Streak'**
+  String dayStreakLabel(int days);
+
+  /// No description provided for @englishBasicsStep.
+  ///
+  /// In en, this message translates to:
+  /// **'{index} / {label}'**
+  String englishBasicsStep(int index, String label);
+
   /// No description provided for @lessonPhase.
   ///
   /// In en, this message translates to:
@@ -3497,6 +3587,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Question {number}'**
   String sentenceQuestionNumber(int number);
+
+  /// No description provided for @newlyUnlockedHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve just unlocked'**
+  String get newlyUnlockedHeading;
+
+  /// No description provided for @xpToGoBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP to go'**
+  String xpToGoBadge(int xp);
 }
 
 class _AppLocalizationsDelegate

@@ -4,7 +4,9 @@ import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/viewmodels/english_basics_view_model.dart';
 import 'package:fluentta_ai/widgets/ads/ad_banner_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -53,6 +55,7 @@ class TodaysLessonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final basicsViewModel = context.watch<EnglishBasicsViewModel>();
+    final l10n = context.l10n;
 
     if (basicsViewModel.isLoading) {
       return const SizedBox(
@@ -91,7 +94,7 @@ class TodaysLessonCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Today\'s Lesson',
+                      l10n.todaysLessonTitle,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(14),
@@ -112,7 +115,7 @@ class TodaysLessonCard extends StatelessWidget {
 
                     SizedBox(height: AppSizes.h(4)),
                     Text(
-                      'Learn useful phrases with AI correction',
+                      l10n.learnUsefulPhrases,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(12),
@@ -143,11 +146,11 @@ class TodaysLessonCard extends StatelessWidget {
           SizedBox(height: AppSizes.spaceMd),
           Row(
             children: [
-              _LessonTag(label: 'Words', isDark:isDark),
+              _LessonTag(label: l10n.wordsStat, isDark:isDark),
               SizedBox(width: AppSizes.w(12)),
-              _LessonTag(label: 'Sentence Practice', isDark:isDark),
+              _LessonTag(label: l10n.sentencePractice, isDark:isDark),
               SizedBox(width: AppSizes.w(12)),
-              _LessonTag(label: 'Dialogue', isDark:isDark),
+              _LessonTag(label: l10n.dialogue, isDark:isDark),
             ],
           ),
           SizedBox(height: AppSizes.spaceMd),
@@ -182,8 +185,11 @@ class TodaysLessonCard extends StatelessWidget {
                   ),
                   child: Text(
                     basicsViewModel.hasCompletedToday
-                        ? 'Completed'
-                        : basicsViewModel.actionLabel,
+                        ? l10n.completed
+                        : basicsViewModel.todaysLesson?.status ==
+                                LearningLessonStatus.inProgress
+                            ? l10n.continueBtn
+                            : l10n.startLessonButton,
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(13),

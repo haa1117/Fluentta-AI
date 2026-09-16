@@ -55,6 +55,63 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
+  String lessonNamedTitle(int number, String title) {
+    return 'سبق $number: $title';
+  }
+
+  @override
+  String questionsProgress(int done, int total, String status) {
+    return '$done/$total سوالات • $status';
+  }
+
+  @override
+  String get learnUsefulPhrases => 'AI اصلاح کے ساتھ مفید جملے سیکھیں';
+
+  @override
+  String get sentencePractice => 'جملوں کی مشق';
+
+  @override
+  String get practiceConversing => 'گفتگو کی مشق';
+
+  @override
+  String get practiceConversingSub =>
+      'آواز یا متن سے اپنے AI ٹیوٹر سے بات کریں اور فوری اصلاح حاصل کریں';
+
+  @override
+  String get talkAboutAnyTopic => 'AI ٹیوٹر کے ساتھ کسی بھی موضوع پر بات کریں';
+
+  @override
+  String get advancedRoleplay => 'اعلیٰ رول پلے';
+
+  @override
+  String get advancedBadge => 'اعلیٰ';
+
+  @override
+  String get upgradeToUnlockRoleplays =>
+      'تمام رول پلے منظرنامے کھولنے کے لیے پرو حاصل کریں۔';
+
+  @override
+  String get upgradeToPro => 'پرو میں اپ گریڈ';
+
+  @override
+  String get scenarioNotFound => 'منظرنامہ نہیں ملا';
+
+  @override
+  String roleplayTrackTitle(String scenario, String track) {
+    return '$scenario $track';
+  }
+
+  @override
+  String dayStreakLabel(int days) {
+    return '$days دن کی سلسلہ وار مشق';
+  }
+
+  @override
+  String englishBasicsStep(int index, String label) {
+    return '$index / $label';
+  }
+
+  @override
   String get lessonPhase => 'سبق کا مرحلہ';
 
   @override
@@ -427,22 +484,22 @@ class AppLocalizationsUr extends AppLocalizations {
   String get levelIntermediateSub => 'B1 · سادہ گفتگو کر سکتے ہیں';
 
   @override
-  String get levelUpperIntermediate => 'Upper-Intermediate';
+  String get levelUpperIntermediate => 'اعلیٰ درمیانی';
 
   @override
   String get levelUpperIntermediateSub => 'B2 · روانی سے بات چیت';
 
   @override
-  String get levelAdvancedC1 => 'Advanced';
+  String get levelAdvancedC1 => 'اعلیٰ';
 
   @override
   String get levelAdvancedC1Sub => 'C1 · روانی سے خیالات';
 
   @override
-  String get levelProficientC2 => 'Proficient';
+  String get levelProficientC2 => 'ماہر';
 
   @override
-  String get levelProficientC2Sub => 'C2 · ماہر سطح';
+  String get levelProficientC2Sub => 'C2 · قریب native مہارت';
 
   @override
   String get levelAdvanced => 'اعلیٰ';
@@ -660,7 +717,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String learnPathEarnXp(int count, int xp) {
-    return 'Learn $count lessons and earn +$xp XP';
+    return '$count سبق سیکھیں اور +$xp XP حاصل کریں';
   }
 
   @override
@@ -1876,5 +1933,13 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String sentenceQuestionNumber(int number) {
     return 'سوال $number';
+  }
+
+  @override
+  String get newlyUnlockedHeading => 'آپ نے ابھی کھولا ہے';
+
+  @override
+  String xpToGoBadge(int xp) {
+    return '$xp XP باقی';
   }
 }

@@ -14,6 +14,49 @@
   "startNextLesson": "Commencer la leçon suivante",
   "lessonProgress": "PROGRESSION LEÇON {number}",
   "lessonTitle": "Leçon {number}",
+  "lessonNamedTitle": "Leçon {number} : {title}",
+  "@lessonNamedTitle": {
+    "placeholders": {
+      "number": {"type": "int"},
+      "title": {"type": "String"}
+    }
+  },
+  "questionsProgress": "{done}/{total} questions • {status}",
+  "@questionsProgress": {
+    "placeholders": {
+      "done": {"type": "int"},
+      "total": {"type": "int"},
+      "status": {"type": "String"}
+    }
+  },
+  "learnUsefulPhrases": "Apprenez des phrases utiles avec correction IA",
+  "sentencePractice": "Pratique des phrases",
+  "practiceConversing": "Pratiquez la conversation",
+  "practiceConversingSub": "Parlez avec votre tuteur IA à l'oral ou à l'écrit et recevez des corrections instantanées",
+  "talkAboutAnyTopic": "Parlez de n'importe quel sujet avec le tuteur IA",
+  "advancedRoleplay": "Jeux de rôle avancés",
+  "advancedBadge": "AVANCÉ",
+  "upgradeToUnlockRoleplays": "Passez à Pro pour débloquer tous les scénarios de jeux de rôle.",
+  "upgradeToPro": "PASSER À PRO",
+  "scenarioNotFound": "Scénario introuvable",
+  "roleplayTrackTitle": "{scenario} {track}",
+  "@roleplayTrackTitle": {
+    "placeholders": {
+      "scenario": {"type": "String"},
+      "track": {"type": "String"}
+    }
+  },
+  "dayStreakLabel": "Série de {days} jours",
+  "@dayStreakLabel": {
+    "placeholders": {"days": {"type": "int"}}
+  },
+  "englishBasicsStep": "{index} / {label}",
+  "@englishBasicsStep": {
+    "placeholders": {
+      "index": {"type": "int"},
+      "label": {"type": "String"}
+    }
+  },
   "lessonPhase": "PHASE DE LA LEÇON",
   "completed": "Terminé",
   "inProgress": "En cours",
@@ -527,5 +570,10 @@
   "sentenceQuestionNumber": "Question {number}",
   "@sentenceQuestionNumber": {
     "placeholders": {"number": {"type": "int"}}
+  },
+  "newlyUnlockedHeading": "Vous venez de débloquer",
+  "xpToGoBadge": "{xp} XP restants",
+  "@xpToGoBadge": {
+    "placeholders": {"xp": {"type": "int"}}
   }
 }

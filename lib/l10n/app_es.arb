@@ -14,6 +14,49 @@
   "startNextLesson": "Iniciar siguiente lección",
   "lessonProgress": "PROGRESO DE LA LECCIÓN {number}",
   "lessonTitle": "Lección {number}",
+  "lessonNamedTitle": "Lección {number}: {title}",
+  "@lessonNamedTitle": {
+    "placeholders": {
+      "number": {"type": "int"},
+      "title": {"type": "String"}
+    }
+  },
+  "questionsProgress": "{done}/{total} preguntas • {status}",
+  "@questionsProgress": {
+    "placeholders": {
+      "done": {"type": "int"},
+      "total": {"type": "int"},
+      "status": {"type": "String"}
+    }
+  },
+  "learnUsefulPhrases": "Aprende frases útiles con corrección de IA",
+  "sentencePractice": "Práctica de oraciones",
+  "practiceConversing": "Practica conversar",
+  "practiceConversingSub": "Habla con tu tutor de IA por voz o texto y recibe correcciones al instante",
+  "talkAboutAnyTopic": "Habla de cualquier tema con el tutor de IA",
+  "advancedRoleplay": "Roleplay avanzado",
+  "advancedBadge": "AVANZADO",
+  "upgradeToUnlockRoleplays": "Pásate a Pro para desbloquear todos los escenarios de roleplay.",
+  "upgradeToPro": "PASAR A PRO",
+  "scenarioNotFound": "Escenario no encontrado",
+  "roleplayTrackTitle": "{scenario} {track}",
+  "@roleplayTrackTitle": {
+    "placeholders": {
+      "scenario": {"type": "String"},
+      "track": {"type": "String"}
+    }
+  },
+  "dayStreakLabel": "Racha de {days} días",
+  "@dayStreakLabel": {
+    "placeholders": {"days": {"type": "int"}}
+  },
+  "englishBasicsStep": "{index} / {label}",
+  "@englishBasicsStep": {
+    "placeholders": {
+      "index": {"type": "int"},
+      "label": {"type": "String"}
+    }
+  },
   "lessonPhase": "FASE DE LA LECCIÓN",
   "completed": "Completado",
   "inProgress": "En progreso",
@@ -527,5 +570,10 @@
   "sentenceQuestionNumber": "Pregunta {number}",
   "@sentenceQuestionNumber": {
     "placeholders": {"number": {"type": "int"}}
+  },
+  "newlyUnlockedHeading": "Acabas de desbloquear",
+  "xpToGoBadge": "{xp} XP restantes",
+  "@xpToGoBadge": {
+    "placeholders": {"xp": {"type": "int"}}
   }
 }

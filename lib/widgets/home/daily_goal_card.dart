@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,7 @@ class DailyGoalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<HomeViewModel>();
+    final l10n = context.l10n;
 
     return Container(
       width: double.infinity,
@@ -43,7 +45,7 @@ class DailyGoalCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'DAILY GOAL',
+                  l10n.dailyGoal,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(12),
@@ -66,7 +68,7 @@ class DailyGoalCard extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: ' / ${viewModel.dailyGoalMinutes} min',
+                        text: ' / ${l10n.dailyMinutesShort(viewModel.dailyGoalMinutes)}',
                         style: TextStyle(
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(16),
@@ -87,7 +89,7 @@ class DailyGoalCard extends StatelessWidget {
                     ),
                     SizedBox(width: AppSizes.w(4)),
                     Text(
-                      'Day ${viewModel.streakDays} Streak',
+                      l10n.dayStreakLabel(viewModel.streakDays),
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(14),

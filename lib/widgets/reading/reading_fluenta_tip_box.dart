@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,6 +13,7 @@ class ReadingFluentaTipBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding,
@@ -72,7 +74,7 @@ class ReadingFluentaTipBox extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: 'Fluenta Tip\n',
+                              text: '${l10n.fluentaTip}\n',
                               style: TextStyle(
                                 fontSize: AppSizes.sp(16),
                                 fontWeight: FontWeight.w500,

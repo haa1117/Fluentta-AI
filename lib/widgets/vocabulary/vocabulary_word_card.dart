@@ -38,7 +38,7 @@ class VocabularyWordCard extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Word .${viewModel.currentWordIndex + 1}',
+            l10n.wordIndex(viewModel.currentWordIndex + 1),
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(14),
@@ -76,7 +76,7 @@ class VocabularyWordCard extends StatelessWidget {
           ),
           SizedBox(height: AppSizes.spaceLg),
           Text(
-            'MEANING',
+            l10n.meaning,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(11),
@@ -119,7 +119,7 @@ class VocabularyWordCard extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'EXAMPLE',
+                  l10n.example,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(11),

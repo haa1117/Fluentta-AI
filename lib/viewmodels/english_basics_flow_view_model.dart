@@ -8,6 +8,7 @@ import 'package:fluentta_ai/data/models/english_basics_lesson_model.dart';
 import 'package:fluentta_ai/data/repositories/english_basics_repository.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 
 class EnglishBasicsFlowViewModel extends ChangeNotifier {
   EnglishBasicsFlowViewModel({
@@ -47,14 +48,17 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
 
   double get progress => _step.stepIndex / 4;
 
-  String get stepLabel => switch (_step) {
-        EnglishBasicsStep.words => '1 / ${lesson.wordsStepLabel.toUpperCase()}',
-        EnglishBasicsStep.sentences =>
-          '2 / ${lesson.sentencesStepLabel.toUpperCase()}',
-        EnglishBasicsStep.dialogue =>
-          '3 / ${lesson.dialogueStepLabel.toUpperCase()}',
-        _ => '',
-      };
+  String stepLabelFor(AppLocalizations l10n) {
+    return switch (_step) {
+      EnglishBasicsStep.words =>
+        l10n.englishBasicsStep(1, l10n.wordsStat),
+      EnglishBasicsStep.sentences =>
+        l10n.englishBasicsStep(2, l10n.sentencePractice),
+      EnglishBasicsStep.dialogue =>
+        l10n.englishBasicsStep(3, l10n.dialogue),
+      _ => '',
+    };
+  }
 
   /// Every question must be answered CORRECTLY before the learner can move
   /// on — a wrong pick stays retry-able, it doesn't just tick the box.

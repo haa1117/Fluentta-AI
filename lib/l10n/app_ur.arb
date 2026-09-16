@@ -14,6 +14,49 @@
   "startNextLesson": "اگلا سبق شروع کریں",
   "lessonProgress": "سبق {number} کی پیش رفت",
   "lessonTitle": "سبق {number}",
+  "lessonNamedTitle": "سبق {number}: {title}",
+  "@lessonNamedTitle": {
+    "placeholders": {
+      "number": {"type": "int"},
+      "title": {"type": "String"}
+    }
+  },
+  "questionsProgress": "{done}/{total} سوالات • {status}",
+  "@questionsProgress": {
+    "placeholders": {
+      "done": {"type": "int"},
+      "total": {"type": "int"},
+      "status": {"type": "String"}
+    }
+  },
+  "learnUsefulPhrases": "AI اصلاح کے ساتھ مفید جملے سیکھیں",
+  "sentencePractice": "جملوں کی مشق",
+  "practiceConversing": "گفتگو کی مشق",
+  "practiceConversingSub": "آواز یا متن سے اپنے AI ٹیوٹر سے بات کریں اور فوری اصلاح حاصل کریں",
+  "talkAboutAnyTopic": "AI ٹیوٹر کے ساتھ کسی بھی موضوع پر بات کریں",
+  "advancedRoleplay": "اعلیٰ رول پلے",
+  "advancedBadge": "اعلیٰ",
+  "upgradeToUnlockRoleplays": "تمام رول پلے منظرنامے کھولنے کے لیے پرو حاصل کریں۔",
+  "upgradeToPro": "پرو میں اپ گریڈ",
+  "scenarioNotFound": "منظرنامہ نہیں ملا",
+  "roleplayTrackTitle": "{scenario} {track}",
+  "@roleplayTrackTitle": {
+    "placeholders": {
+      "scenario": {"type": "String"},
+      "track": {"type": "String"}
+    }
+  },
+  "dayStreakLabel": "{days} دن کی سلسلہ وار مشق",
+  "@dayStreakLabel": {
+    "placeholders": {"days": {"type": "int"}}
+  },
+  "englishBasicsStep": "{index} / {label}",
+  "@englishBasicsStep": {
+    "placeholders": {
+      "index": {"type": "int"},
+      "label": {"type": "String"}
+    }
+  },
   "lessonPhase": "سبق کا مرحلہ",
   "completed": "مکمل",
   "inProgress": "جاری ہے",
@@ -127,12 +170,12 @@
   "levelElementarySub": "A2 · سادہ الفاظ استعمال کر سکتے ہیں",
   "levelIntermediate": "درمیانہ",
   "levelIntermediateSub": "B1 · سادہ گفتگو کر سکتے ہیں",
-  "levelUpperIntermediate": "Upper-Intermediate",
+  "levelUpperIntermediate": "اعلیٰ درمیانی",
   "levelUpperIntermediateSub": "B2 · روانی سے بات چیت",
-  "levelAdvancedC1": "Advanced",
+  "levelAdvancedC1": "اعلیٰ",
   "levelAdvancedC1Sub": "C1 · روانی سے خیالات",
-  "levelProficientC2": "Proficient",
-  "levelProficientC2Sub": "C2 · ماہر سطح",
+  "levelProficientC2": "ماہر",
+  "levelProficientC2Sub": "C2 · قریب native مہارت",
   "levelAdvanced": "اعلیٰ",
   "levelAdvancedSub": "B2+ · زیادہ تر حالات میں آرام دہ",
   "daily5": "5 منٹ",
@@ -206,7 +249,7 @@
   "changeLanguage": "زبان تبدیل کریں",
   "vocabularyPathTitle": "{level} ذخیرہ الفاظ کا راستہ",
   "vocabularyPathSub": "50 مفید ابتدائی الفاظ\nمرحلہ وار سیکھیں۔",
-  "learnPathEarnXp": "Learn {count} lessons and earn +{xp} XP",
+  "learnPathEarnXp": "{count} سبق سیکھیں اور +{xp} XP حاصل کریں",
   "@learnPathEarnXp": {
     "placeholders": {
       "count": {"type": "int"},
@@ -526,5 +569,10 @@
   "sentenceQuestionNumber": "سوال {number}",
   "@sentenceQuestionNumber": {
     "placeholders": {"number": {"type": "int"}}
+  },
+  "newlyUnlockedHeading": "آپ نے ابھی کھولا ہے",
+  "xpToGoBadge": "{xp} XP باقی",
+  "@xpToGoBadge": {
+    "placeholders": {"xp": {"type": "int"}}
   }
 }

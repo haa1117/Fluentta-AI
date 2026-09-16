@@ -34,7 +34,7 @@ class EnglishBasicsWordsScreen extends StatelessWidget {
         children: [
           SizedBox(height: AppSizes.spaceMd),
           EnglishBasicsStepHeader(
-            label: viewModel.stepLabel,
+            label: viewModel.stepLabelFor(l10n),
             progress: 0.3,
           ),
           SizedBox(height: AppSizes.spaceLg),

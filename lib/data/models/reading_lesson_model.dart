@@ -45,7 +45,7 @@ class ReadingPhaseModel {
   bool get isDialoguePhase => !isQuestionPhase && !isTextPassage;
 }
 
-class ReadingLessonModel implements LearningLessonItem {
+class ReadingLessonModel with LearningLessonItem {
   const ReadingLessonModel({
     required this.id,
     required this.number,

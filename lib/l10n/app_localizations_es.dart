@@ -55,6 +55,63 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String lessonNamedTitle(int number, String title) {
+    return 'Lección $number: $title';
+  }
+
+  @override
+  String questionsProgress(int done, int total, String status) {
+    return '$done/$total preguntas • $status';
+  }
+
+  @override
+  String get learnUsefulPhrases => 'Aprende frases útiles con corrección de IA';
+
+  @override
+  String get sentencePractice => 'Práctica de oraciones';
+
+  @override
+  String get practiceConversing => 'Practica conversar';
+
+  @override
+  String get practiceConversingSub =>
+      'Habla con tu tutor de IA por voz o texto y recibe correcciones al instante';
+
+  @override
+  String get talkAboutAnyTopic => 'Habla de cualquier tema con el tutor de IA';
+
+  @override
+  String get advancedRoleplay => 'Roleplay avanzado';
+
+  @override
+  String get advancedBadge => 'AVANZADO';
+
+  @override
+  String get upgradeToUnlockRoleplays =>
+      'Pásate a Pro para desbloquear todos los escenarios de roleplay.';
+
+  @override
+  String get upgradeToPro => 'PASAR A PRO';
+
+  @override
+  String get scenarioNotFound => 'Escenario no encontrado';
+
+  @override
+  String roleplayTrackTitle(String scenario, String track) {
+    return '$scenario $track';
+  }
+
+  @override
+  String dayStreakLabel(int days) {
+    return 'Racha de $days días';
+  }
+
+  @override
+  String englishBasicsStep(int index, String label) {
+    return '$index / $label';
+  }
+
+  @override
   String get lessonPhase => 'FASE DE LA LECCIÓN';
 
   @override
@@ -1896,5 +1953,13 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String sentenceQuestionNumber(int number) {
     return 'Pregunta $number';
+  }
+
+  @override
+  String get newlyUnlockedHeading => 'Acabas de desbloquear';
+
+  @override
+  String xpToGoBadge(int xp) {
+    return '$xp XP restantes';
   }
 }

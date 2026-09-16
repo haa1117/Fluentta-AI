@@ -1,9 +1,10 @@
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
+import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/viewmodels/learn_view_model.dart';
@@ -18,6 +19,7 @@ class LearnLevelCard extends StatelessWidget {
   Widget build(BuildContext context) {
     context.watch<HomeViewModel>();
     final viewModel = context.watch<LearnViewModel>();
+    final l10n = context.l10n;
 
     return Container(
       width: double.infinity,
@@ -53,7 +55,7 @@ class LearnLevelCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'YOUR LEVEL',
+                  l10n.yourLevel,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(14),

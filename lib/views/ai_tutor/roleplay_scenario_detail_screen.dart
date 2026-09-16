@@ -46,8 +46,8 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
         if (!context.mounted) return;
         showProFeatureSheet(
           context,
-          title: 'Advanced Roleplay',
-          message: 'Upgrade to Pro to unlock all roleplay scenarios.',
+          title: l10n.advancedRoleplay,
+          message: l10n.upgradeToUnlockRoleplays,
         );
         Navigator.of(context).pop();
       });
@@ -60,7 +60,7 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
           showBackButton: true,
           centerTitle: true,
         ),
-        body: const Center(child: Text('Scenario not found')),
+        body: Center(child: Text(l10n.scenarioNotFound)),
       );
     }
 
