@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/core/entitlements/user_entitlements.dart';
 import 'package:fluentta_ai/core/l10n/roleplay_scenario_l10n.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/data/models/roleplay_scenario_model.dart';
@@ -106,6 +107,8 @@ class _RolePlayTabBody extends StatelessWidget {
                       isLocked: !context
                           .read<EntitlementsService>()
                           .canAccessRoleplayScenario(scenario.id),
+                      isAdvanced: UserEntitlements.advancedRoleplayScenarioIds
+                          .contains(scenario.id),
                       onTap: () {
                         final entitlements = context
                             .read<EntitlementsService>();
