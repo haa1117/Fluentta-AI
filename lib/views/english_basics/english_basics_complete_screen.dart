@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/english_basics_flow_view_model.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/widgets/common/confetti_burst.dart';
 import 'package:provider/provider.dart';
 
 class EnglishBasicsCompleteScreen extends StatelessWidget {
@@ -19,7 +20,11 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
-        child: Column(
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            const ConfettiBurst(),
+            Column(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -181,6 +186,8 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
             //     ),
             //   ),
             // ),
+          ],
+            ),
           ],
         ),
       ),

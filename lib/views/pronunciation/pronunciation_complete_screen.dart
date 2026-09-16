@@ -7,6 +7,7 @@ import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/pronunciation_view_model.dart';
 import 'package:fluentta_ai/views/pronunciation/pronunciation_flow.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
+import 'package:fluentta_ai/widgets/common/confetti_burst.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,11 @@ class PronunciationCompleteScreen extends StatelessWidget {
       ),
       body: SafeArea(
         top: false,
-        child: Column(
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            const ConfettiBurst(),
+            Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
@@ -150,6 +155,8 @@ class PronunciationCompleteScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+          ],
             ),
           ],
         ),
