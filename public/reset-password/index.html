@@ -44,8 +44,10 @@
         return;
       }
 
+      var isAndroid = /android/i.test(navigator.userAgent);
+      var scheme = isAndroid ? "co.fwglobal.fluenta" : "co.futurewatch.fluenta";
       var appUrl =
-        "com.futurewatch.fluenta://reset" +
+        scheme + "://reset" +
         "?mode=" + encodeURIComponent(mode) +
         "&oobCode=" + encodeURIComponent(oobCode);
 

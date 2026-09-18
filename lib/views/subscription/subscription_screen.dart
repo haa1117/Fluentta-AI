@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/constants/legal_urls.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -291,7 +292,10 @@ class SubscriptionScreen extends StatelessWidget {
                     termsLabel: l10n.terms,
                     privacyLabel: l10n.privacy,
                     restoreLabel: l10n.restore,
-                    onRestore: () => _onRestore(context), isDark: isDark,
+                    onRestore: () => _onRestore(context),
+                    onPrivacy: () => LegalUrls.openPrivacyPolicy(context),
+                    onTerms: () => LegalUrls.openTermsOfUse(context),
+                    isDark: isDark,
                   ),
                 ],
               ),

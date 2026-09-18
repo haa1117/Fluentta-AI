@@ -160,16 +160,16 @@ class _SpeakerButton extends StatelessWidget {
           height: AppSizes.w(40),
           child: Center(
             child: isListening
-                ? Icon(
-                    Icons.volume_off_rounded,
-                    color: color,
-                    size: AppSizes.sp(20),
-                  )
-                : SvgPicture.asset(
+                ? SvgPicture.asset(
                     'assets/svg/volume.svg',
                     width: AppSizes.sp(18),
                     height: AppSizes.sp(18),
                     colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+                  )
+                : Icon(
+                    Icons.volume_off_rounded,
+                    color: color,
+                    size: AppSizes.sp(20),
                   ),
           ),
         ),

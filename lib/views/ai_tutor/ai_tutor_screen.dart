@@ -29,6 +29,7 @@ class AiTutorScreen extends StatelessWidget {
     final l10n = context.l10n;
     final viewModel = context.watch<AiTutorViewModel>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final scenarios = viewModel.orderedScenarios;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
@@ -104,10 +105,10 @@ class AiTutorScreen extends StatelessWidget {
               height: RoleplayScenarioCard.listExtent(context),
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemCount: AiTutorViewModel.scenarios.length,
+                itemCount: scenarios.length,
                 separatorBuilder: (_, index) => SizedBox(width: AppSizes.w(12)),
                 itemBuilder: (context, index) {
-                  final scenario = AiTutorViewModel.scenarios[index];
+                  final scenario = scenarios[index];
                   final title =
                       RoleplayScenarioL10n.listTitle(l10n, scenario.id);
                   return RoleplayScenarioCard(
@@ -134,8 +135,6 @@ class AiTutorScreen extends StatelessWidget {
                       if (!entitlements.canAccessRoleplayScenario(scenario.id)) {
                         showProFeatureSheet(
                           context,
-
-
                           title: l10n.advancedRoleplay,
                           showWatchAd: false,
                           message: l10n.upgradeToUnlockRoleplays,
@@ -159,7 +158,8 @@ class AiTutorScreen extends StatelessWidget {
                           ),
                         ),
                       );
-                    }, isDark: isDark
+                    },
+                    isDark: isDark,
                   );
                 },
               ),

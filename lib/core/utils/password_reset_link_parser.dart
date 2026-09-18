@@ -14,7 +14,8 @@ class PasswordResetLinkParser {
   PasswordResetLinkParser._();
 
   static PasswordResetLinkData? parse(Uri uri) {
-    if (uri.scheme == AuthDeepLinkConfig.customScheme) {
+    if (uri.scheme == AuthDeepLinkConfig.customScheme ||
+        uri.scheme == AuthDeepLinkConfig.iOSCustomScheme) {
       final fromCustomScheme = _parseQuery(uri.queryParameters);
       if (fromCustomScheme != null) return fromCustomScheme;
     }

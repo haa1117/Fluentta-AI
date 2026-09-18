@@ -90,9 +90,7 @@ class LearnViewModel extends ChangeNotifier {
       LearnCategoryModel(
         id: 'saved_words',
         title: l10n.savedWords,
-        subtitle: _savedWordsRepository.count > 0
-            ? l10n.savedWordsSubDynamic(_savedWordsRepository.count)
-            : l10n.savedWordsSub,
+        subtitle: l10n.savedWordsSubDynamic(_savedWordsRepository.count),
         svgIcon: AppAssets.savedWords,
       ),
     ];

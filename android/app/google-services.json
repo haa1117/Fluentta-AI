@@ -7,6 +7,58 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:254450330965:android:6cfcfa2b0bc9d14b63d3dc",
+        "android_client_info": {
+          "package_name": "co.fwglobal.fluenta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254450330965-g3urj78gtn9g7vam0r1t4rnshipih9r7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.fwglobal.fluenta",
+            "certificate_hash": "8fa4d41eeea0ddf87d4cca34a6c66688eac23bc6"
+          }
+        },
+        {
+          "client_id": "254450330965-jm7rmpmqjii17g042m53n5kenbaou10d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.fwglobal.fluenta",
+            "certificate_hash": "5ecafe39e1e205799801e4dbc010112b85df3960"
+          }
+        },
+        {
+          "client_id": "254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANruyv6Xf7rmIq-rTLRFRNY15uFE-1KhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "254450330965-igvsgejp20998j43ff1t8rcvdnc123po.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.futurewatch.fluenta"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:254450330965:android:4d47e1ce246ce35263d3dc",
         "android_client_info": {
           "package_name": "com.futurewatch.fluenta"

@@ -1,5 +1,6 @@
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
+import 'package:fluentta_ai/core/entitlements/user_entitlements.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_xp_milestones.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/data/models/roleplay_scenario_model.dart';
@@ -28,6 +29,40 @@ class AiTutorViewModel extends ChangeNotifier {
     final remaining = scenarioUnlockXp(id) - _homeViewModel.xpEarned;
     return remaining < 0 ? 0 : remaining;
   }
+
+  bool isScenarioPlayable(String id) {
+    return UserEntitlements.canAccessRoleplayScenario(id, _homeViewModel.isPro) &&
+        isScenarioXpUnlocked(id);
+  }
+
+  /// Unlocked scenarios first, then locked ones with the smallest XP gap.
+  List<RoleplayScenarioModel> get orderedScenarios {
+    final list = List<RoleplayScenarioModel>.from(scenarios);
+    list.sort((a, b) {
+      final groupCmp = _lockGroup(a.id).compareTo(_lockGroup(b.id));
+      if (groupCmp != 0) return groupCmp;
+      if (_lockGroup(a.id) == 0) {
+        return _stageOffset(a.id).compareTo(_stageOffset(b.id));
+      }
+      final remainingCmp =
+          scenarioXpRemaining(a.id).compareTo(scenarioXpRemaining(b.id));
+      if (remainingCmp != 0) return remainingCmp;
+      return _stageOffset(a.id).compareTo(_stageOffset(b.id));
+    });
+    return list;
+  }
+
+  /// 0 = playable, 1 = XP-locked on the current plan, 2 = Pro-locked.
+  int _lockGroup(String id) {
+    if (isScenarioPlayable(id)) return 0;
+    if (UserEntitlements.canAccessRoleplayScenario(id, _homeViewModel.isPro)) {
+      return 1;
+    }
+    return 2;
+  }
+
+  int _stageOffset(String id) =>
+      RoleplayXpMilestones.stageOffset[id] ?? 1 << 30;
 
   static final List<RoleplayScenarioModel> scenarios = [
     RoleplayScenarioModel(

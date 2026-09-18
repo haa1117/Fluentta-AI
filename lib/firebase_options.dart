@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyANruyv6Xf7rmIq-rTLRFRNY15uFE-1KhE',
-    appId: '1:254450330965:android:4d47e1ce246ce35263d3dc',
+    appId: '1:254450330965:android:6cfcfa2b0bc9d14b63d3dc',
     messagingSenderId: '254450330965',
     projectId: 'fluenttaai',
     storageBucket: 'fluenttaai.firebasestorage.app',
@@ -64,6 +64,6 @@ class DefaultFirebaseOptions {
     projectId: 'fluenttaai',
     storageBucket: 'fluenttaai.firebasestorage.app',
     iosClientId: '254450330965-igvsgejp20998j43ff1t8rcvdnc123po.apps.googleusercontent.com',
-    iosBundleId: 'com.futurewatch.fluenta',
+    iosBundleId: 'co.futurewatch.fluenta',
   );
 }

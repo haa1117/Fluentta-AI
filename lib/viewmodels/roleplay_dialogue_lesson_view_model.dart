@@ -29,6 +29,7 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
   int? _listeningLineIndex;
   bool _isListening = false;
   bool _isCompleting = false;
+  int _autoSpeakToken = 0;
 
   /// True once "Finish Lesson" has been tapped — guards against rapid extra
   /// taps queuing up multiple pushes of the completion screen.
@@ -54,12 +55,14 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
     int lineIndex,
   ) async {
     if (isLineListening(lineIndex)) {
+      _autoSpeakToken++;
       await textToSpeechService.stop();
       _clearListening();
       return;
     }
 
     final l10n = context.l10n;
+    _autoSpeakToken++;
     await textToSpeechService.stop();
     _listeningLineIndex = lineIndex;
     _isListening = true;
@@ -86,8 +89,7 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
 
   void previousPhase() {
     if (isFirstPhase) return;
-    textToSpeechService.stop();
-    _clearListening();
+    _cancelAutoSpeak();
     _currentPhaseIndex--;
     onProgressChanged?.call(_currentPhaseIndex);
     notifyListeners();
@@ -96,8 +98,7 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
   Future<void> nextPhase(BuildContext context) async {
     if (!canProceed) return;
 
-    textToSpeechService.stop();
-    _clearListening();
+    _cancelAutoSpeak();
 
     if (isLastPhase) {
       if (_isCompleting) return;
@@ -117,13 +118,45 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
       );
       return;
     }
+    final previousLineCount = currentPhase.lines.length;
     _currentPhaseIndex++;
     onProgressChanged?.call(_currentPhaseIndex);
     notifyListeners();
+    unawaited(_speakUpcomingLines(fromIndex: previousLineCount));
+  }
+
+  void _cancelAutoSpeak() {
+    _autoSpeakToken++;
+    textToSpeechService.stop();
+    _clearListening();
+  }
+
+  Future<void> _speakUpcomingLines({required int fromIndex}) async {
+    final token = ++_autoSpeakToken;
+    final phaseIndex = _currentPhaseIndex;
+    final lines = currentPhase.lines;
+    final start = fromIndex.clamp(0, lines.length);
+    if (start >= lines.length) return;
+
+    for (var i = start; i < lines.length; i++) {
+      if (token != _autoSpeakToken || _currentPhaseIndex != phaseIndex) {
+        return;
+      }
+      _listeningLineIndex = i;
+      _isListening = true;
+      notifyListeners();
+      final didSpeak = await textToSpeechService.speak(lines[i].text);
+      if (!didSpeak) return;
+    }
+
+    if (token == _autoSpeakToken) {
+      _clearListening();
+    }
   }
 
   @override
   void dispose() {
+    _autoSpeakToken++;
     textToSpeechService.stop();
     super.dispose();
   }

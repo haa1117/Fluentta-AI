@@ -44,6 +44,7 @@ class _RolePlayTabBody extends StatelessWidget {
         ? '∞'
         : '${homeViewModel.lives}';
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final scenarios = aiTutorViewModel.orderedScenarios;
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(title: l10n.rolePlayTitle),
@@ -84,11 +85,11 @@ class _RolePlayTabBody extends StatelessWidget {
                 height: RoleplayScenarioCard.listExtent(context),
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemCount: AiTutorViewModel.scenarios.length,
+                  itemCount: scenarios.length,
                   separatorBuilder: (_, index) =>
                       SizedBox(width: AppSizes.w(12)),
                   itemBuilder: (context, index) {
-                    final scenario = AiTutorViewModel.scenarios[index];
+                    final scenario = scenarios[index];
                     final title = RoleplayScenarioL10n.listTitle(
                       l10n,
                       scenario.id,

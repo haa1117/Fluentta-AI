@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/constants/legal_urls.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -331,15 +332,13 @@ class ProfileTabScreen extends StatelessWidget {
                           isDark: isDark,
                           title: l10n.privacyPolicy,
                           svgIcon: null,
-                          onTap: () => SnackbarHelper.showSuccess(
-                              context, l10n.openingSoon),
+                          onTap: () => LegalUrls.openPrivacyPolicy(context),
                         ),
                         ProfileSettingsTile(
                           isDark: isDark,
                           title: l10n.termsOfUse,
                           svgIcon: null,
-                          onTap: () => SnackbarHelper.showSuccess(
-                              context, l10n.openingSoon),
+                          onTap: () => LegalUrls.openTermsOfUse(context),
                         ),
                         ProfileSettingsTile(
                           isDark: isDark,

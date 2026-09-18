@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/constants/legal_urls.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -293,7 +294,10 @@ class DiscountPaywallScreen extends StatelessWidget {
                             ? (result.message ?? l10n.restorePurchases)
                             : (result.message ?? l10n.openingSoon),
                       );
-                    }, isDark: isDark,
+                    },
+                    onPrivacy: () => LegalUrls.openPrivacyPolicy(context),
+                    onTerms: () => LegalUrls.openTermsOfUse(context),
+                    isDark: isDark,
                   ),
                 ],
               ),
