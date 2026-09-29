@@ -1,4 +1,7 @@
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -19,6 +22,8 @@ import 'package:fluentta_ai/widgets/home/todays_lesson_card.dart';
 import 'package:fluentta_ai/widgets/speak/speak_ai_tutor_card.dart';
 import 'package:provider/provider.dart';
 
+const String _kRolePlayScreenId = 'role_play';
+
 class RolePlayScreen extends StatelessWidget {
   const RolePlayScreen({super.key});
 
@@ -31,8 +36,46 @@ class RolePlayScreen extends StatelessWidget {
   }
 }
 
-class _RolePlayTabBody extends StatelessWidget {
+class _RolePlayTabBody extends StatefulWidget {
   const _RolePlayTabBody();
+
+  @override
+  State<_RolePlayTabBody> createState() => _RolePlayTabBodyState();
+}
+
+class _RolePlayTabBodyState extends State<_RolePlayTabBody> {
+  bool _loggedViewed = false;
+
+  void _showRoleplayLockSheet(
+    BuildContext context,
+    String sourceScreen,
+    String scenarioId,
+  ) {
+    final l10n = context.l10n;
+    void logUpsell(String event, {String? destinationScreen}) {
+      AnalyticsService.instance.log(event, {
+        AnalyticsParams.sourceScreen: sourceScreen,
+        AnalyticsParams.featureContext: 'advanced_roleplay_scenario',
+        AnalyticsParams.scenarioId: scenarioId,
+        if (destinationScreen != null)
+          AnalyticsParams.destinationScreen: destinationScreen,
+      });
+    }
+
+    showProFeatureSheet(
+      context,
+      title: l10n.advancedRoleplay,
+      showWatchAd: false,
+      message: l10n.upgradeToUnlockRoleplays,
+      onShown: () => logUpsell(AnalyticsEvents.premiumUpsellViewed),
+      onGoUnlimitedTapped: () => logUpsell(
+        AnalyticsEvents.premiumUpsellGoUnlimitedClicked,
+        destinationScreen: 'paywall',
+      ),
+      onDismissedWithoutAction: () =>
+          logUpsell(AnalyticsEvents.premiumUpsellDismissed),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +88,26 @@ class _RolePlayTabBody extends StatelessWidget {
         : '${homeViewModel.lives}';
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final scenarios = aiTutorViewModel.orderedScenarios;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView(_kRolePlayScreenId);
+      AnalyticsService.instance.log(AnalyticsEvents.rolePlayViewed, {
+        // Reached only via the bottom nav tab today; no internal-navigation
+        // or deep-link entry point exists yet for this screen.
+        AnalyticsParams.entrySource: 'bottom_nav',
+        AnalyticsParams.currentXp: homeViewModel.xpEarned,
+        AnalyticsParams.subscriptionTierAtEvent:
+            homeViewModel.isPro ? 'premium' : 'free',
+      });
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
-      appBar: AppBarWidget(title: l10n.rolePlayTitle),
+      appBar: AppBarWidget(
+        title: l10n.rolePlayTitle,
+        xpIconSourceScreen: _kRolePlayScreenId,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(
@@ -62,6 +122,14 @@ class _RolePlayTabBody extends StatelessWidget {
               SpeakAiTutorCard(
                 livesLabel: livesLabel,
                 onStartPractice: () {
+                  AnalyticsService.instance.log(
+                    AnalyticsEvents.pronunciationPracticeClicked,
+                    {
+                      AnalyticsParams.sourceScreen: _kRolePlayScreenId,
+                      AnalyticsParams.destinationScreen:
+                          'pronunciation_practice',
+                    },
+                  );
                   Navigator.of(context).push<void>(
                     MaterialPageRoute<void>(
                       builder: (_) => const PronunciationFlow(),
@@ -116,14 +184,36 @@ class _RolePlayTabBody extends StatelessWidget {
                         if (!entitlements.canAccessRoleplayScenario(
                           scenario.id,
                         )) {
-                          showProFeatureSheet(
+                          AnalyticsService.instance.log(
+                            AnalyticsEvents.roleplayScenarioLockedClicked,
+                            {
+                              AnalyticsParams.sourceScreen: _kRolePlayScreenId,
+                              AnalyticsParams.scenarioId: scenario.id,
+                              AnalyticsParams.lockReason: 'premium',
+                            },
+                          );
+                          _showRoleplayLockSheet(
                             context,
-                            title: l10n.advancedRoleplay,
-                            showWatchAd: false,
-                            message: l10n.upgradeToUnlockRoleplays,
+                            _kRolePlayScreenId,
+                            scenario.id,
                           );
                           return;
                         }
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.rolePlayScenarioClicked,
+                          {
+                            AnalyticsParams.scenarioId: scenario.id,
+                            AnalyticsParams.scenarioState:
+                                aiTutorViewModel.isScenarioXpUnlocked(
+                                  scenario.id,
+                                )
+                                    ? 'unlocked'
+                                    : 'locked',
+                            AnalyticsParams.sourceScreen: _kRolePlayScreenId,
+                            AnalyticsParams.destinationScreen:
+                                'role_play_scenario',
+                          },
+                        );
                         aiTutorViewModel.selectScenario(scenario.id);
                         Navigator.of(context).push<void>(
                           MaterialPageRoute<void>(

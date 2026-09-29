@@ -1,160 +1,178 @@
-import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class PracticeConversingCard extends StatelessWidget {
   final VoidCallback onStartChat;
-final bool isDark;
+  final bool isDark;
   const PracticeConversingCard({
     super.key,
     required this.onStartChat,
-    required this.isDark
+    required this.isDark,
   });
-
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final circleFill = isDark
+        ? AppColors.darkScaffoldBackgroundColor
+        : AppColors.scaffoldBackgroundColor;
+    final circleBorder =
+        isDark ? AppColors.borderDarkColor : AppColors.borderLight;
+
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(AppSizes.w(16)),
       decoration: BoxDecoration(
-        color:isDark ? AppColors.brandDarkSoftColor: AppColors.homeCardLavender,
-        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+        color: isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
+        borderRadius: BorderRadius.circular(AppSizes.w(12)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: AppSizes.w(120),
-                height: AppSizes.h(130),
-                child: Image.asset(
-                 'assets/images/start_chat.png',
+      clipBehavior: Clip.antiAlias,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          AppSizes.w(12),
+          AppSizes.h(12),
+          AppSizes.w(16),
+          AppSizes.h(16),
+        ),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  AppAssets.aiChatBird,
+                  width: AppSizes.w(142),
+                  height: AppSizes.w(142),
                   fit: BoxFit.contain,
                 ),
-              ),
-              SizedBox(width: AppSizes.w(15)),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l10n.practiceConversing,
-                      style: TextStyle(
-                        fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(20),
-                        fontWeight: FontWeight.w600,
-                        color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
-                      ),
-                    ),
-                    SizedBox(height: AppSizes.spaceSm),
-                    Text(
-                      l10n.practiceConversingSub,
-                      style: TextStyle(
-                        fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(12),
-                        fontWeight: FontWeight.w500,
-                        color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
-                        height: 1.45,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          // SizedBox(height: AppSizes.sp(1)),
-          Row(
-            children: [
-
-              SizedBox(
-                width: AppSizes.sp(15),
-              ),
-              Image.asset(isDark ? "assets/images/chat_mic_dark.png":"assets/images/chat_mic.png",
-              scale: AppSizes.sp(3),
-              
-              ),
-              // _CircleActionButton(icon: Icons.mic_none_rounded),
-              // SizedBox(width: AppSizes.w(8)),
-              // _CircleActionButton(icon: Icons.chat_bubble_outline_rounded),
-              const Spacer(),
-              GestureDetector(
-                onTap: onStartChat,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppSizes.w(30),
-                    vertical: AppSizes.h(12),
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-                    gradient: AppColors.primaryGradient ,
-                    color:  AppColors.primaryColor
-                    // boxShadow: isActive
-                    //     ? [
-                    //         BoxShadow(
-                    //           color: AppColors.primaryGradientStart.withValues(alpha: 0.35),
-                    //           blurRadius: 16,
-                    //           offset: Offset(0, AppSizes.h(8)),
-                    //         ),
-                    //       ]
-                    //     : null,
-                  ),
-
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        l10n.startAiChat,
-                        style: TextStyle(
-                          fontFamily: AppFonts.plusJakartaSans,
-                          fontSize: AppSizes.sp(13),
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.white,
+                SizedBox(width: AppSizes.w(12)),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: AppSizes.h(12)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.practiceConversing,
+                          style: TextStyle(
+                            fontFamily: AppFonts.plusJakartaSans,
+                            fontSize: AppSizes.sp(20),
+                            fontWeight: FontWeight.w600,
+                            color: isDark
+                                ? AppColors.textPrimaryDark
+                                : AppColors.textPrimary,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: AppSizes.w(6)),
-                      Icon(
-                        Icons.arrow_forward_rounded,
-                        color: AppColors.white,
-                        size: AppSizes.sp(16),
-                      ),
-                    ],
+                        SizedBox(height: AppSizes.spaceMd),
+                        Text(
+                          l10n.practiceConversingSub,
+                          style: TextStyle(
+                            fontFamily: AppFonts.plusJakartaSans,
+                            fontSize: AppSizes.sp(12),
+                            fontWeight: FontWeight.w500,
+                            color: isDark
+                                ? AppColors.textSecondaryDark
+                                : AppColors.textSecondary,
+                            height: 1.45,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(width: AppSizes.w(20)),
+                _FigmaCircleIcon(
+                  asset: AppAssets.chatMicIcon,
+                  size: Size(AppSizes.w(11.667), AppSizes.h(15.833)),
+                  fill: circleFill,
+                  border: circleBorder,
+                ),
+                Transform.translate(
+                  offset: Offset(-AppSizes.w(8), 0),
+                  child: _FigmaCircleIcon(
+                    asset: AppAssets.chatBubbleIcon,
+                    size: Size(AppSizes.w(16.667), AppSizes.w(16.667)),
+                    fill: circleFill,
+                    border: circleBorder,
+                  ),
+                ),
+                const Spacer(),
+                GestureDetector(
+                  onTap: onStartChat,
+                  child: Container(
+                    width: AppSizes.w(176),
+                    height: AppSizes.h(38),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(AppSizes.w(7)),
+                      gradient: AppColors.primaryGradient,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          l10n.startAiChat,
+                          style: TextStyle(
+                            fontFamily: AppFonts.plusJakartaSans,
+                            fontSize: AppSizes.sp(12),
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.white,
+                          ),
+                        ),
+                        SizedBox(width: AppSizes.w(6)),
+                        Icon(
+                          Icons.arrow_forward_rounded,
+                          color: AppColors.white,
+                          size: AppSizes.sp(18),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class _CircleActionButton extends StatelessWidget {
-  const _CircleActionButton({required this.icon});
+class _FigmaCircleIcon extends StatelessWidget {
+  const _FigmaCircleIcon({
+    required this.asset,
+    required this.size,
+    required this.fill,
+    required this.border,
+  });
 
-  final IconData icon;
+  final String asset;
+  final Size size;
+  final Color fill;
+  final Color border;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: AppSizes.w(40),
       height: AppSizes.w(40),
-      decoration: const BoxDecoration(
-        color: AppColors.white,
+      decoration: BoxDecoration(
+        color: fill,
         shape: BoxShape.circle,
+        border: Border.all(color: border, width: 0.5),
       ),
-      child: Icon(
-        icon,
-        color: AppColors.primaryColor,
-        size: AppSizes.iconSmall,
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: size.width,
+        height: size.height,
+        child: SvgPicture.asset(asset),
       ),
     );
   }

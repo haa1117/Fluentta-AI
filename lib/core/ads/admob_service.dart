@@ -6,6 +6,7 @@ import 'package:flutter/material.dart' show Color;
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/core/ads/ad_unit_ids.dart';
+import 'package:fluentta_ai/core/network/network_status.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/ads_remote_config.dart';
 import 'package:fluentta_ai/data/repositories/ads_config_repository.dart';
@@ -49,13 +50,16 @@ class AdMobService extends ChangeNotifier {
     _localStorage = localStorage;
 
     try {
-      if (kDebugMode) {
-        await MobileAds.instance.updateRequestConfiguration(
-          RequestConfiguration(
-            testDeviceIds: const <String>['EMULATOR'],
-          ),
-        );
-      }
+      // Apply in debug and release. Test devices still request ads, but AdMob
+      // returns labeled test creatives instead of live inventory.
+      await MobileAds.instance.updateRequestConfiguration(
+        RequestConfiguration(
+          testDeviceIds: const <String>[
+            'EMULATOR',
+            'B300AF3CDA6FE0FDE3392F71EA08A37E',
+          ],
+        ),
+      );
 
       await MobileAds.instance.initialize();
     } catch (error, stack) {
@@ -119,6 +123,7 @@ class AdMobService extends ChangeNotifier {
   /// Whether this placement should render an ad slot (Firestore + premium + rate).
   bool shouldDisplay(AdPlacement placement) {
     if (kIsWeb || !_initialized) return false;
+    if (!NetworkStatus.lastKnownOnline) return false;
     if (!_config.masterEnabled) return false;
     if (_isPremiumUser) return false;
 
@@ -143,6 +148,7 @@ class AdMobService extends ChangeNotifier {
   String displayBlockReason(AdPlacement placement) {
     if (kIsWeb) return 'web platform';
     if (!_initialized) return 'not initialized';
+    if (!NetworkStatus.lastKnownOnline) return 'offline';
     if (!_config.masterEnabled) return 'masterEnabled=false';
     if (_isPremiumUser) return 'premium user';
 
@@ -259,9 +265,9 @@ class AdMobService extends ChangeNotifier {
 
     try {
       await _preloadInterstitial(placement).timeout(timeout);
-    } on TimeoutException {
+    } catch (error) {
       if (kDebugMode) {
-        debugPrint('Interstitial preload timeout [$placement]');
+        debugPrint('Interstitial preload skipped [$placement]: $error');
       }
     }
 
@@ -320,7 +326,15 @@ class AdMobService extends ChangeNotifier {
     );
 
     ad.show();
-    return completer.future;
+    return completer.future.timeout(
+      const Duration(seconds: 5),
+      onTimeout: () {
+        if (kDebugMode) {
+          debugPrint('Interstitial show timed out [$placement]');
+        }
+        return false;
+      },
+    );
   }
 
   Future<void> _preloadEnabledPlacements() async {

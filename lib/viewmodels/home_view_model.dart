@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/core/ads/admob_service.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/daily_goal/daily_goal_rewards.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
+
+/// A learner blocked by the Out-of-Hearts modal, remembered for one session
+/// so a later successful retry of the *same* action can be recognized as a
+/// recovery once they've gone Premium.
+class _PendingHeartGateRecovery {
+  const _PendingHeartGateRecovery({
+    required this.featureContext,
+    required this.blockedAction,
+    required this.sourceScreen,
+    required this.recoveryJourneyId,
+  });
+
+  final String featureContext;
+  final String blockedAction;
+  final String sourceScreen;
+  final String recoveryJourneyId;
+}
 
 enum HeartRefillResult {
   granted,
@@ -86,13 +106,15 @@ class HomeViewModel extends ChangeNotifier {
     _lessonProgress = _localStorage.lessonProgress;
   }
 
-  Future<void> startAiChat(VoidCallback onComplete) async {
-    await _progressSyncService.recordDailyGoalProgress(
-      DailyGoalRewards.aiChatSession,
-    );
+  /// Credits actual time spent chatting (rounded to whole minutes) toward
+  /// the daily goal — replaces a flat per-session credit, which inflated
+  /// the total every time the chat screen was reopened regardless of how
+  /// long the learner was actually away.
+  Future<void> recordChatMinutes(int minutes) async {
+    if (minutes <= 0) return;
+    await _progressSyncService.recordDailyGoalProgress(minutes);
     _loadFromStorage();
     notifyListeners();
-    onComplete();
   }
 
   Future<bool> useHeart() async {
@@ -142,6 +164,7 @@ class HomeViewModel extends ChangeNotifier {
 
     await _entitlementsService.recordHeartRefillAdWatched();
     await addHearts(_entitlementsService.rewardedHeartRefillAmount);
+    await _progressSyncService.syncStatsToFirestore();
     return HeartRefillResult.granted;
   }
 
@@ -168,6 +191,7 @@ class HomeViewModel extends ChangeNotifier {
 
     await _entitlementsService.recordXpBoostAdWatched();
     await _localStorage.addXp(rewardedXpBoostAmount);
+    await _progressSyncService.syncStatsToFirestore();
     _loadFromStorage();
     notifyListeners();
     return XpBoostResult.granted;
@@ -203,6 +227,59 @@ class HomeViewModel extends ChangeNotifier {
   void refresh() {
     _loadFromStorage();
     notifyListeners();
+  }
+
+  // --- Out-of-Hearts recovery tracking (analytics only) -------------------
+
+  _PendingHeartGateRecovery? _pendingHeartGateRecovery;
+
+  /// Records that the learner was just blocked by the Out-of-Hearts modal,
+  /// so a later successful retry of the same action can fire
+  /// `heart_gated_action_resumed`. A simple per-session field on this
+  /// view model — there's no existing "pending recovery" state to hook into,
+  /// and a full persistent journey tracker is out of scope for this pass.
+  void recordHeartGateBlocked({
+    required String featureContext,
+    required String blockedAction,
+    required String sourceScreen,
+    required String recoveryJourneyId,
+  }) {
+    _pendingHeartGateRecovery = _PendingHeartGateRecovery(
+      featureContext: featureContext,
+      blockedAction: blockedAction,
+      sourceScreen: sourceScreen,
+      recoveryJourneyId: recoveryJourneyId,
+    );
+  }
+
+  /// Call right after a heart-gated action succeeds. Fires
+  /// `heart_gated_action_resumed` only if this exact feature/action was
+  /// blocked earlier in this session and the learner now has unlimited
+  /// hearts (i.e. went Premium in between).
+  ///
+  /// Simplification: `recovery_method` can't be told apart (fresh purchase
+  /// vs. restore) from here — that state lives in the paywall/IAP flow,
+  /// which is outside this instrumentation pass's scope — so it always
+  /// reports 'premium_purchase'.
+  void maybeLogHeartGateRecovery({
+    required String featureContext,
+    required String blockedAction,
+  }) {
+    final pending = _pendingHeartGateRecovery;
+    if (pending == null) return;
+    if (pending.featureContext != featureContext ||
+        pending.blockedAction != blockedAction) {
+      return;
+    }
+    if (!hasUnlimitedHearts) return;
+    _pendingHeartGateRecovery = null;
+    AnalyticsService.instance.log(AnalyticsEvents.heartGatedActionResumed, {
+      AnalyticsParams.sourceScreen: pending.sourceScreen,
+      AnalyticsParams.featureContext: featureContext,
+      AnalyticsParams.blockedAction: blockedAction,
+      AnalyticsParams.recoveryMethod: 'premium_purchase',
+      AnalyticsParams.recoveryJourneyId: pending.recoveryJourneyId,
+    });
   }
 
   @override

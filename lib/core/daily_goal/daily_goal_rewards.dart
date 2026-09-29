@@ -7,7 +7,6 @@ class DailyGoalRewards {
   static const int englishBasicsLesson = 5;
   static const int coreLesson = 5;
   static const int roleplayModule = 3;
-  static const int aiChatSession = 2;
 
   static int forLessonType(String type) {
     return switch (LessonType.fromId(type)) {

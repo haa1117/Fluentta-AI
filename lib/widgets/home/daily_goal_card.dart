@@ -45,7 +45,7 @@ class DailyGoalCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  l10n.dailyGoal,
+                  l10n.dailyGoal.toUpperCase(),
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(12),

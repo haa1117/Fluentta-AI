@@ -39,7 +39,9 @@ class LearningStatsService {
 
     await _localStorage.saveStats(
       wordsLearnedCount: mergedWords,
-      lessonsCompletedCount: lessonsCompleted,
+      lessonsCompletedCount: lessonsCompleted > _localStorage.lessonsCompletedCount
+          ? lessonsCompleted
+          : _localStorage.lessonsCompletedCount,
     );
   }
 

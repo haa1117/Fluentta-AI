@@ -96,9 +96,11 @@ class TodaysLessonCard extends StatelessWidget {
                       l10n.todaysLessonTitle,
                       style: TextStyle(
                         fontFamily: AppFonts.plusJakartaSans,
-                        fontSize: AppSizes.sp(14),
+                        fontSize: AppSizes.sp(16),
                         fontWeight: FontWeight.w600,
-                        color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+                        color: isDark
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondary,
                       ),
                     ),
                     SizedBox(height: AppSizes.spaceSm),
@@ -126,17 +128,25 @@ class TodaysLessonCard extends StatelessWidget {
                 ),
               ),
               Container(
-                width: AppSizes.w(62),
-                height: AppSizes.w(62),
+                width: AppSizes.w(72),
+                height: AppSizes.w(72),
                 decoration: BoxDecoration(
-                  color:isDark? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
+                  color: isDark
+                      ? AppColors.darkScaffoldBackgroundColor
+                      : AppColors.homeCardLavender,
                   shape: BoxShape.circle,
                 ),
                 child: Center(
                   child: SvgPicture.asset(
                     AppAssets.hatSvgIcon,
-                    color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
-                    width: AppSizes.iconLarge,
+                    colorFilter: ColorFilter.mode(
+                      isDark
+                          ? AppColors.primaryDarkColor
+                          : AppColors.primaryColor,
+                      BlendMode.srcIn,
+                    ),
+                    width: AppSizes.w(44),
+                    height: AppSizes.w(44),
                   ),
                 ),
               ),
@@ -153,42 +163,78 @@ class TodaysLessonCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: AppSizes.spaceMd),
-          _WeeklyProgressStrip(
-            completedDays: basicsViewModel.weeklyCompletion,
-            isDark: isDark,
-          ),
-          SizedBox(height: AppSizes.spaceMd),
-          GestureDetector(
-            onTap: basicsViewModel.canStartOrResume ? onStartLesson : null,
-            child: Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(
-                vertical: AppSizes.h(10),
-              ),
-              decoration: BoxDecoration(
-                color: basicsViewModel.canStartOrResume
-                    ?isDark ? AppColors.brandDarkSoftColor: AppColors.resumeButtonBg
-                    : isDark ? AppColors.brandDarkSoftColor : AppColors.progressTrack,
-                borderRadius: BorderRadius.circular(AppSizes.w(10)),
-              ),
-              child: Text(
-                basicsViewModel.hasCompletedToday
-                    ? l10n.completed
-                    : basicsViewModel.todaysLesson?.status ==
-                            LearningLessonStatus.inProgress
-                        ? l10n.continueBtn
-                        : l10n.startLessonButton,
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(13),
-                  fontWeight: FontWeight.w600,
-                  color: basicsViewModel.canStartOrResume
-                      ?isDark ? AppColors.primaryDarkColor : AppColors.primaryColor
-                      : AppColors.textTertiary,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(1000),
+                  child: LinearProgressIndicator(
+                    value: basicsViewModel.todayLessonProgress,
+                    minHeight: AppSizes.h(6),
+                    backgroundColor: isDark
+                        ? AppColors.darkScaffoldBackgroundColor
+                        : AppColors.brandLightSoftColor,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      isDark
+                          ? AppColors.primaryDarkColor
+                          : AppColors.primaryColor,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              SizedBox(width: AppSizes.w(12)),
+              GestureDetector(
+                onTap: basicsViewModel.canStartOrResume ? onStartLesson : null,
+                child: Container(
+                  width: AppSizes.w(122),
+                  height: AppSizes.h(36),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? AppColors.brandDeepDarkColor
+                        : AppColors.brandLightSoftColor,
+                    borderRadius: BorderRadius.circular(AppSizes.w(7)),
+                  ),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          basicsViewModel.hasCompletedToday
+                              ? l10n.completed
+                              : basicsViewModel.todaysLesson?.status ==
+                                      LearningLessonStatus.inProgress
+                                  ? l10n.resumeLessonButton
+                                  : l10n.startLessonButton,
+                          style: TextStyle(
+                            fontFamily: AppFonts.plusJakartaSans,
+                            fontSize: AppSizes.sp(12),
+                            fontWeight: FontWeight.w700,
+                            color: basicsViewModel.canStartOrResume
+                                ? (isDark
+                                    ? AppColors.white
+                                    : AppColors.primaryColor)
+                                : AppColors.textTertiary,
+                          ),
+                        ),
+                        if (basicsViewModel.canStartOrResume) ...[
+                          SizedBox(width: AppSizes.w(4)),
+                          Icon(
+                            Icons.arrow_forward_rounded,
+                            size: AppSizes.sp(16),
+                            color: isDark
+                                ? AppColors.white
+                                : AppColors.primaryColor,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -226,80 +272,6 @@ class _LessonTag extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-/// Last-7-days streak strip for "Today's Lesson" — a single lesson's own
-/// progress bar is only ever near-empty or full, so it says nothing useful
-/// once the day is done. This shows the habit instead: which of the last 7
-/// days had a lesson completed, with today called out.
-class _WeeklyProgressStrip extends StatelessWidget {
-  const _WeeklyProgressStrip({
-    required this.completedDays,
-    required this.isDark,
-  });
-
-  /// 7 entries, oldest first — index 6 is today.
-  final List<bool> completedDays;
-  final bool isDark;
-
-  static const _weekdayInitials = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-
-  @override
-  Widget build(BuildContext context) {
-    final today = DateTime.now();
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: List.generate(7, (i) {
-        final date = today.subtract(Duration(days: 6 - i));
-        final isToday = i == 6;
-        final isCompleted = i < completedDays.length && completedDays[i];
-        final dotColor = isCompleted
-            ? (isDark ? AppColors.primaryDarkColor : AppColors.primaryColor)
-            : (isDark ? AppColors.brandDarkSoftColor : const Color(0xffF3E8FF));
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: AppSizes.w(26),
-              height: AppSizes.w(26),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: dotColor,
-                shape: BoxShape.circle,
-                border: isToday
-                    ? Border.all(
-                        color: isDark
-                            ? AppColors.primaryDarkColor
-                            : AppColors.primaryColor,
-                        width: 1.5,
-                      )
-                    : null,
-              ),
-              child: isCompleted
-                  ? Icon(
-                      Icons.check_rounded,
-                      size: AppSizes.sp(14),
-                      color: AppColors.white,
-                    )
-                  : null,
-            ),
-            SizedBox(height: AppSizes.h(4)),
-            Text(
-              _weekdayInitials[date.weekday - 1],
-              style: TextStyle(
-                fontFamily: AppFonts.plusJakartaSans,
-                fontSize: AppSizes.sp(10),
-                fontWeight: isToday ? FontWeight.w700 : FontWeight.w500,
-                color: isDark
-                    ? AppColors.textSecondaryDark
-                    : AppColors.textSecondary,
-              ),
-            ),
-          ],
-        );
-      }),
     );
   }
 }
