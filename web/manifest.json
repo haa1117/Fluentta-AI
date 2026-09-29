@@ -1,6 +1,6 @@
 {
-    "name": "fluentta_ai",
-    "short_name": "fluentta_ai",
+    "name": "Fluenta AI",
+    "short_name": "Fluenta AI",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
