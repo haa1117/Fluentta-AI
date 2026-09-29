@@ -73,15 +73,15 @@ class ChatMessageBubble extends StatelessWidget {
                 ),
               ],
             ),
-            child: Text(
-              message.text,
-              style: TextStyle(
-                fontFamily: AppFonts.plusJakartaSans,
-                fontSize: AppSizes.sp(16),
-                height: 1.4,
-                color: _userInk,
-              ),
-            ),
+                child: SelectableText(
+                  message.text,
+                  style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    fontSize: AppSizes.sp(16),
+                    height: 1.4,
+                    color: _userInk,
+                  ),
+                ),
           ),
         ),
       ],
@@ -127,7 +127,7 @@ class ChatMessageBubble extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Text(
+                child: SelectableText(
                   message.text,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
@@ -212,7 +212,7 @@ class ChatMessageBubble extends StatelessWidget {
       alignment: Alignment.center,
       child: ClipOval(
         child: Image.asset(
-          AppAssets.aiTutor,
+          AppAssets.aiChatBird,
           width: AppSizes.w(36),
           height: AppSizes.w(36),
           fit: BoxFit.cover,

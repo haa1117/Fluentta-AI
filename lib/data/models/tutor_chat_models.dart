@@ -43,6 +43,7 @@ class OpenChatMessage {
     this.correctedText,
     this.explanation,
     this.isCorrect = true,
+    this.sequence,
   });
 
   final bool isUser;
@@ -50,4 +51,9 @@ class OpenChatMessage {
   final String? correctedText;
   final String? explanation;
   final bool isCorrect;
+
+  /// The `message_sequence` analytics id of the conversational turn this
+  /// message belongs to (same value on the user message and the AI reply it
+  /// produced). Null for the initial greeting, which isn't a real turn.
+  final int? sequence;
 }

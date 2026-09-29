@@ -79,7 +79,7 @@ class ChatCorrectionCard extends StatelessWidget {
             SizedBox(height: AppSizes.h(10)),
             _fieldLabel(yourSentenceLabel, isDark),
             SizedBox(height: AppSizes.h(2)),
-            Text(
+            SelectableText(
               '"$originalSentence"',
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
@@ -92,7 +92,7 @@ class ChatCorrectionCard extends StatelessWidget {
             SizedBox(height: AppSizes.h(8)),
             _fieldLabel(correctSentenceLabel, isDark),
             SizedBox(height: AppSizes.h(2)),
-            Text(
+            SelectableText(
               '"$correctedSentence"',
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
@@ -112,8 +112,8 @@ class ChatCorrectionCard extends StatelessWidget {
                       .withValues(alpha: isDark ? 0.06 : 0.5),
                   borderRadius: BorderRadius.circular(AppSizes.w(8)),
                 ),
-                child: RichText(
-                  text: TextSpan(
+                child: SelectableText.rich(
+                  TextSpan(
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(12),

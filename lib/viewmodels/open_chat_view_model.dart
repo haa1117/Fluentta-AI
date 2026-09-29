@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/network/network_status.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/tutor_chat_models.dart';
@@ -13,6 +17,17 @@ import 'package:fluentta_ai/data/services/text_to_speech_service.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
+
+/// Simple v4-shaped random id (no `uuid` package dependency) — stable for
+/// the lifetime of one Open Chat Practice session, used to correlate every
+/// analytics event fired during this conversation.
+String _generateConversationId() {
+  final random = Random();
+  const chars = '0123456789abcdef';
+  String hex(int length) =>
+      List.generate(length, (_) => chars[random.nextInt(chars.length)]).join();
+  return '${hex(8)}-${hex(4)}-4${hex(3)}-${chars[8 + random.nextInt(4)]}${hex(3)}-${hex(12)}';
+}
 
 /// Which input surface is currently shown at the bottom of the chat.
 enum ChatInputMode { text, voice }
@@ -81,6 +96,20 @@ class OpenChatViewModel extends ChangeNotifier {
   final String? _nativeLanguage;
   StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
 
+  /// Stable for this chat session — generated once, preserved across mode
+  /// switches, threaded through every AI Chat analytics event.
+  final String conversationId = _generateConversationId();
+
+  /// Per-conversation-turn counter (`message_sequence`), incremented once per
+  /// user-submitted message regardless of input method.
+  int _messageSequence = 0;
+
+  /// The topic of the next message to submit — set by a tapped quick
+  /// starter, otherwise 'open_topic' for free-form input.
+  String _pendingTopicType = 'open_topic';
+
+  bool _loggedExit = false;
+
   final List<OpenChatMessage> _messages = [];
   ChatInputMode _inputMode = ChatInputMode.text;
   VoiceCaptureState _voiceState = VoiceCaptureState.idle;
@@ -90,6 +119,11 @@ class OpenChatViewModel extends ChangeNotifier {
   bool _isOnline = true;
   int? _speakingIndex;
   String? _error;
+
+  // When the learner sent their first message this session — used to credit
+  // the daily goal with real elapsed time on dispose, instead of a flat
+  // per-open amount.
+  DateTime? _sessionStartedAt;
 
   // Voice capture: we record an audio file and send it to the transcription
   // service. The on-device recognizer is only a fallback when recording fails.
@@ -121,6 +155,14 @@ class OpenChatViewModel extends ChangeNotifier {
   bool get showQuickStarters =>
       !_messages.any((message) => message.isUser);
 
+  /// 'text'/'voice' — the catalogue's `communication_mode` value.
+  String get _communicationModeValue =>
+      _inputMode == ChatInputMode.text ? 'text' : 'voice';
+
+  /// 'metered'/'unlimited' — the catalogue's `heart_access_type` value.
+  String get _heartAccessTypeValue =>
+      _homeViewModel.hasUnlimitedHearts ? 'unlimited' : 'metered';
+
   void clearError() {
     if (_error == null) return;
     _error = null;
@@ -129,7 +171,14 @@ class OpenChatViewModel extends ChangeNotifier {
 
   void setInputMode(ChatInputMode mode) {
     if (_inputMode == mode) return;
+    final fromMode = _communicationModeValue;
     _inputMode = mode;
+    AnalyticsService.instance.log(AnalyticsEvents.aiChatModeChanged, {
+      AnalyticsParams.conversationId: conversationId,
+      AnalyticsParams.fromMode: fromMode,
+      AnalyticsParams.toMode: _communicationModeValue,
+      AnalyticsParams.messageCount: _messages.length,
+    });
     if (mode == ChatInputMode.text && _voiceState != VoiceCaptureState.idle) {
       unawaited(cancelVoiceCapture());
     }
@@ -145,32 +194,73 @@ class OpenChatViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Records the topic of a suggested-topic tap so the next
+  /// `ai_chat_message_submitted` reports it, and fires
+  /// `ai_chat_topic_selected` immediately.
+  void selectTopic(String topicType) {
+    _pendingTopicType = topicType;
+    AnalyticsService.instance.log(AnalyticsEvents.aiChatTopicSelected, {
+      AnalyticsParams.conversationId: conversationId,
+      AnalyticsParams.topicType: topicType,
+      AnalyticsParams.communicationMode: _communicationModeValue,
+    });
+  }
+
   // --- Speech output (tutor reads its replies aloud) ----------------------
 
   Future<void> toggleSpeakReplies() async {
+    final fromState = _speakReplies ? 'unmuted' : 'muted';
     _speakReplies = !_speakReplies;
     notifyListeners();
     await _localStorage.setChatSpeakRepliesEnabled(_speakReplies);
+    AnalyticsService.instance.log(AnalyticsEvents.aiResponseAudioToggled, {
+      AnalyticsParams.conversationId: conversationId,
+      AnalyticsParams.fromAudioState: fromState,
+      AnalyticsParams.toAudioState: _speakReplies ? 'unmuted' : 'muted',
+      AnalyticsParams.communicationMode: _communicationModeValue,
+    });
     if (!_speakReplies) {
       await _stopSpeaking();
     }
   }
 
-  /// Play, or stop if it is already playing, the bubble at [index].
+  /// Play, or stop if it is already playing, the bubble at [index]. This is
+  /// always a manual tap (the automatic post-reply playback calls [_speak]
+  /// directly), so it's the trigger for `ai_response_play_clicked`.
   Future<void> speakMessage(int index) async {
     if (index < 0 || index >= _messages.length) return;
     if (_speakingIndex == index) {
       await _stopSpeaking();
       return;
     }
-    await _speak(index, _messages[index].text);
+    final message = _messages[index];
+    AnalyticsService.instance.log(AnalyticsEvents.aiResponsePlayClicked, {
+      AnalyticsParams.conversationId: conversationId,
+      AnalyticsParams.messageSequence: message.sequence,
+      AnalyticsParams.communicationMode: _communicationModeValue,
+      AnalyticsParams.responseAudioState: _speakReplies ? 'unmuted' : 'muted',
+      AnalyticsParams.playbackSource: 'manual_play',
+    });
+    await _speak(index, message.text, playbackSource: 'manual_play');
   }
 
-  Future<void> _speak(int index, String text) async {
+  Future<void> _speak(
+    int index,
+    String text, {
+    String playbackSource = 'automatic',
+  }) async {
     if (text.trim().isEmpty) return;
     _speakingIndex = index;
     notifyListeners();
-    await _tts.speak(
+    final sequence = index >= 0 && index < _messages.length
+        ? _messages[index].sequence
+        : null;
+    // The TTS service's speak() only resolves once playback has finished (or
+    // failed) — there's no earlier "audio actually began" callback without
+    // changing TextToSpeechService itself (out of this pass's scope), so
+    // `ai_response_audio_started`/`_failed` are fired from that single
+    // result instead of from a true playback-start signal.
+    final played = await _tts.speak(
       text,
       languageCode: _nativeLanguage,
       onComplete: () {
@@ -180,6 +270,22 @@ class OpenChatViewModel extends ChangeNotifier {
         }
       },
     );
+    if (played) {
+      AnalyticsService.instance.log(AnalyticsEvents.aiResponseAudioStarted, {
+        AnalyticsParams.conversationId: conversationId,
+        AnalyticsParams.messageSequence: sequence,
+        AnalyticsParams.communicationMode: _communicationModeValue,
+        AnalyticsParams.playbackSource: playbackSource,
+      });
+    } else {
+      AnalyticsService.instance.log(AnalyticsEvents.aiResponseAudioFailed, {
+        AnalyticsParams.conversationId: conversationId,
+        AnalyticsParams.messageSequence: sequence,
+        AnalyticsParams.playbackSource: playbackSource,
+        AnalyticsParams.errorType: 'playback_error',
+        AnalyticsParams.errorCode: 'tts_failed',
+      });
+    }
   }
 
   Future<void> _stopSpeaking() async {
@@ -195,7 +301,7 @@ class OpenChatViewModel extends ChangeNotifier {
     final text = raw.trim();
     if (text.isEmpty || _isSending) return;
     if (!await _ensureOnline()) return;
-    await _sendUserText(text);
+    await _sendUserText(text, inputMethod: 'keyboard');
   }
 
   // --- Voice capture -------------------------------------------------------
@@ -205,6 +311,10 @@ class OpenChatViewModel extends ChangeNotifier {
   /// user already released/cancelled before it finished, instead of landing
   /// the panel in "recording" with no press left to end it.
   int _captureGeneration = 0;
+
+  /// When the current/most-recent voice capture began — used for
+  /// `capture_duration_ms` on completed/cancelled/failed events.
+  DateTime? _captureStartedAt;
 
   Future<void> beginVoiceCapture() async {
     if (_isSending || _voiceState != VoiceCaptureState.idle) return;
@@ -216,8 +326,10 @@ class OpenChatViewModel extends ChangeNotifier {
     _recordPath = null;
 
     var started = false;
+    var micPermissionGranted = false;
     try {
-      if (await _recorder.hasPermission()) {
+      micPermissionGranted = await _recorder.hasPermission();
+      if (micPermissionGranted) {
         if (generation != _captureGeneration) {
           // The user already released/cancelled while the permission
           // prompt was up — don't start a recording nobody asked for.
@@ -267,10 +379,26 @@ class OpenChatViewModel extends ChangeNotifier {
     }
 
     if (started) {
+      _captureStartedAt = DateTime.now();
       _voiceState = VoiceCaptureState.recording;
+      AnalyticsService.instance.log(AnalyticsEvents.voiceCaptureStarted, {
+        AnalyticsParams.conversationId: conversationId,
+        AnalyticsParams.messageSequence: _messageSequence + 1,
+        AnalyticsParams.microphonePermission:
+            micPermissionGranted ? 'granted' : 'denied',
+      });
     } else {
       _voiceState = VoiceCaptureState.idle;
       _error = 'speech_unavailable';
+      AnalyticsService.instance.log(AnalyticsEvents.voiceCaptureFailed, {
+        AnalyticsParams.conversationId: conversationId,
+        AnalyticsParams.messageSequence: _messageSequence + 1,
+        AnalyticsParams.failureStage: 'microphone_capture',
+        AnalyticsParams.errorType: 'capture_unavailable',
+        AnalyticsParams.errorCode: 'no_recorder_or_stt',
+        AnalyticsParams.microphonePermission:
+            micPermissionGranted ? 'granted' : 'denied',
+      });
     }
     notifyListeners();
   }
@@ -279,6 +407,12 @@ class OpenChatViewModel extends ChangeNotifier {
     if (_voiceState != VoiceCaptureState.recording) return;
     _voiceState = VoiceCaptureState.locked;
     notifyListeners();
+  }
+
+  int get _captureDurationMs {
+    final startedAt = _captureStartedAt;
+    if (startedAt == null) return 0;
+    return DateTime.now().difference(startedAt).inMilliseconds;
   }
 
   Future<void> cancelVoiceCapture() async {
@@ -298,6 +432,11 @@ class OpenChatViewModel extends ChangeNotifier {
     _recordPath = null;
     _sttFallbackActive = false;
     _voiceState = VoiceCaptureState.idle;
+    AnalyticsService.instance.log(AnalyticsEvents.voiceCaptureCancelled, {
+      AnalyticsParams.conversationId: conversationId,
+      AnalyticsParams.messageSequence: _messageSequence + 1,
+      AnalyticsParams.captureDurationMs: _captureDurationMs,
+    });
     notifyListeners();
   }
 
@@ -338,9 +477,22 @@ class OpenChatViewModel extends ChangeNotifier {
     }
 
     if (text.isNotEmpty) {
-      await _sendUserText(text);
+      AnalyticsService.instance.log(AnalyticsEvents.voiceCaptureCompleted, {
+        AnalyticsParams.conversationId: conversationId,
+        AnalyticsParams.messageSequence: _messageSequence + 1,
+        AnalyticsParams.captureDurationMs: _captureDurationMs,
+      });
+      await _sendUserText(text, inputMethod: 'microphone');
     } else {
       _error = 'speech_unavailable';
+      AnalyticsService.instance.log(AnalyticsEvents.voiceCaptureFailed, {
+        AnalyticsParams.conversationId: conversationId,
+        AnalyticsParams.messageSequence: _messageSequence + 1,
+        AnalyticsParams.failureStage: 'transcription',
+        AnalyticsParams.errorType: 'empty_transcription',
+        AnalyticsParams.errorCode: 'no_speech_detected',
+        AnalyticsParams.microphonePermission: 'granted',
+      });
       notifyListeners();
     }
   }
@@ -376,9 +528,10 @@ class OpenChatViewModel extends ChangeNotifier {
 
   // --- AI round trip -----------------------------------------------------
 
-  /// Debug builds don't spend hearts, so the chat can be tested before the
-  /// store products / subscriptions exist. Never true in a release build.
-  bool get _heartsBypassed => kDebugMode || _homeViewModel.hasUnlimitedHearts;
+  /// Only Pro (unlimited hearts) bypasses the heart cost. Debug builds
+  /// consume real hearts like a release build — use the Profile screen's
+  /// "Enable Pro (debug)" / "Add hearts (debug)" tools to test without them.
+  bool get _heartsBypassed => _homeViewModel.hasUnlimitedHearts;
 
   Future<bool> _refreshOnline() async {
     final online = await NetworkStatus.isOnline(_connectivity);
@@ -396,7 +549,7 @@ class OpenChatViewModel extends ChangeNotifier {
     return false;
   }
 
-  Future<void> _sendUserText(String text) async {
+  Future<void> _sendUserText(String text, {required String inputMethod}) async {
     if (!await _ensureOnline()) return;
     if (!_heartsBypassed && _homeViewModel.lives <= 0) {
       _error = 'out_of_hearts';
@@ -404,11 +557,34 @@ class OpenChatViewModel extends ChangeNotifier {
       return;
     }
 
+    final sequence = ++_messageSequence;
+    final topicType = _pendingTopicType;
+    // Only the message that actually triggered a topic tap should report
+    // it — later free-form turns in the same conversation fall back to
+    // open_topic instead of re-reporting the earlier topic forever.
+    _pendingTopicType = 'open_topic';
+
     await _stopSpeaking();
     _error = null;
     _isSending = true;
-    _messages.add(OpenChatMessage(isUser: true, text: text));
+    _messages.add(OpenChatMessage(isUser: true, text: text, sequence: sequence));
     notifyListeners();
+
+    final heartBalanceBefore = _homeViewModel.lives;
+    final heartAccessType = _heartAccessTypeValue;
+    final estimatedHeartCost = _heartsBypassed ? 0 : 1;
+    final communicationMode = _communicationModeValue;
+
+    AnalyticsService.instance.log(AnalyticsEvents.aiChatMessageSubmitted, {
+      AnalyticsParams.conversationId: conversationId,
+      AnalyticsParams.messageSequence: sequence,
+      AnalyticsParams.communicationMode: communicationMode,
+      AnalyticsParams.inputMethod: inputMethod,
+      AnalyticsParams.topicType: topicType,
+      AnalyticsParams.heartAccessType: heartAccessType,
+      AnalyticsParams.heartCost: estimatedHeartCost,
+      AnalyticsParams.heartBalanceBefore: heartBalanceBefore,
+    });
 
     var charged = false;
     if (!_heartsBypassed) {
@@ -420,7 +596,14 @@ class OpenChatViewModel extends ChangeNotifier {
         return;
       }
     }
+    // A previously heart-gated chat send just succeeded — if the learner
+    // went Premium in between, this reports the recovery.
+    _homeViewModel.maybeLogHeartGateRecovery(
+      featureContext: 'ai_chat',
+      blockedAction: 'submit_ai_chat_message',
+    );
 
+    final requestStartedAt = DateTime.now();
     try {
       final history = <TutorChatTurn>[];
       for (final message in _messages.take(_messages.length - 1)) {
@@ -452,8 +635,25 @@ class OpenChatViewModel extends ChangeNotifier {
           explanation:
               reply.explanation.isEmpty ? null : reply.explanation,
           isCorrect: reply.isCorrect,
+          sequence: sequence,
         ),
       );
+
+      final hasCorrection =
+          !reply.isCorrect && reply.correctedText.trim().isNotEmpty;
+      AnalyticsService.instance.log(AnalyticsEvents.aiChatResponseReceived, {
+        AnalyticsParams.conversationId: conversationId,
+        AnalyticsParams.messageSequence: sequence,
+        AnalyticsParams.communicationMode: communicationMode,
+        AnalyticsParams.latencyMs:
+            DateTime.now().difference(requestStartedAt).inMilliseconds,
+        AnalyticsParams.correctionState:
+            hasCorrection ? 'shown' : 'not_needed',
+        AnalyticsParams.heartCost: charged ? 1 : 0,
+        AnalyticsParams.heartBalanceAfter: _homeViewModel.lives,
+        AnalyticsParams.automaticAudioState:
+            _speakReplies ? 'played' : 'suppressed_muted',
+      });
 
       if (_speakReplies) {
         // Fire and forget — the bubble is already on screen.
@@ -463,22 +663,59 @@ class OpenChatViewModel extends ChangeNotifier {
       if (!reply.isCorrect) {
         await _progressSyncService.recordCorrections(1);
       }
-      if (_messages.where((message) => message.isUser).length == 1) {
-        await _homeViewModel.startAiChat(() {});
-      }
+      _sessionStartedAt ??= DateTime.now();
     } catch (error) {
       if (charged) {
         await _homeViewModel.addHearts(1);
       }
       _error = error.toString();
+      // The AI round trip here is a single try/catch, so every failure —
+      // network, backend, or parsing — is reported under the same stage.
+      // Distinguishing request_dispatch/model_response/response_render would
+      // need separate try blocks around each step, which is a larger change
+      // than this instrumentation pass.
+      AnalyticsService.instance.log(AnalyticsEvents.aiChatResponseFailed, {
+        AnalyticsParams.conversationId: conversationId,
+        AnalyticsParams.messageSequence: sequence,
+        AnalyticsParams.communicationMode: communicationMode,
+        AnalyticsParams.failureStage: 'model_response',
+        AnalyticsParams.errorType: error.runtimeType.toString(),
+        AnalyticsParams.errorCode: 'tutor_chat_request_failed',
+        AnalyticsParams.heartCharged: false,
+      });
     } finally {
       _isSending = false;
       notifyListeners();
     }
   }
 
+  /// Fires `ai_chat_exited` once per session (guarded), from whichever exit
+  /// path notices first — the appbar back button, a system back gesture, or
+  /// (as a fallback) the screen simply being disposed.
+  void logExit(String exitMethod) {
+    if (_loggedExit) return;
+    _loggedExit = true;
+    AnalyticsService.instance.log(AnalyticsEvents.aiChatExited, {
+      AnalyticsParams.conversationId: conversationId,
+      AnalyticsParams.exitMethod: exitMethod,
+      AnalyticsParams.messageCount: _messages.length,
+      AnalyticsParams.lastMode: _communicationModeValue,
+      AnalyticsParams.heartBalanceAfter: _homeViewModel.lives,
+    });
+  }
+
   @override
   void dispose() {
+    logExit('screen_closed');
+    final startedAt = _sessionStartedAt;
+    if (startedAt != null) {
+      // Round to the nearest minute rather than truncating, and credit at
+      // least 1 so a short-but-real exchange isn't recorded as 0 — closer
+      // to how it actually felt than a flat per-open amount.
+      final elapsedMinutes =
+          (DateTime.now().difference(startedAt).inSeconds / 60).round();
+      unawaited(_homeViewModel.recordChatMinutes(elapsedMinutes.clamp(1, 999)));
+    }
     _connectivitySub?.cancel();
     _speechService.cancelListening();
     _tts.stop();
