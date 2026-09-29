@@ -2,7 +2,7 @@ name: fluentta_ai
 description: "A new Flutter project."
 publish_to: 'none'
 
-version: 1.0.4+4
+version: 1.0.5+5
 
 environment:
   sdk: ^3.10.7
@@ -17,10 +17,10 @@ dependencies:
   provider: ^6.1.2
   shared_preferences: ^2.3.4
   flutter_svg: ^2.3.0
-  firebase_core: ^4.13.0
-  firebase_auth: ^6.5.7
+  firebase_core: ^4.14.0
+  firebase_auth: ^6.7.0
   google_sign_in: ^7.2.0
-  cloud_firestore: ^6.8.0
+  cloud_firestore: ^6.10.0
   connectivity_plus: ^6.1.4
   flutter_tts: ^4.2.2
   dotted_decoration: ^2.0.0
