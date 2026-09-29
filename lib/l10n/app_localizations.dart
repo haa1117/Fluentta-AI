@@ -105,7 +105,7 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'Fluenta'**
+  /// **'Fluenta AI'**
   String get appName;
 
   /// No description provided for @aiEnglishTutor.
@@ -489,8 +489,14 @@ abstract class AppLocalizations {
   /// No description provided for @signIn.
   ///
   /// In en, this message translates to:
-  /// **'Sign in'**
+  /// **'Sign In'**
   String get signIn;
+
+  /// No description provided for @signInLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get signInLink;
 
   /// No description provided for @alreadyHaveAccount.
   ///
@@ -591,7 +597,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountCreatedTitle.
   ///
   /// In en, this message translates to:
-  /// **'Account Created!'**
+  /// **'Account created'**
   String get accountCreatedTitle;
 
   /// No description provided for @accountCreatedDesc.
@@ -719,6 +725,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please fill in all fields.'**
   String get authErrorFillAllFields;
+
+  /// No description provided for @authErrorEnterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password.'**
+  String get authErrorEnterPassword;
 
   /// No description provided for @authErrorPasswordMinEight.
   ///
@@ -873,7 +885,7 @@ abstract class AppLocalizations {
   /// No description provided for @setupDailySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Small daily practice builds real English fluency.'**
+  /// **'Small daily practice builds real English fluency'**
   String get setupDailySubtitle;
 
   /// No description provided for @goalTravel.
@@ -1938,6 +1950,48 @@ abstract class AppLocalizations {
   /// **'XP earned'**
   String get xpEarned;
 
+  /// No description provided for @xpAbbrev.
+  ///
+  /// In en, this message translates to:
+  /// **'XP'**
+  String get xpAbbrev;
+
+  /// No description provided for @proMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro Member'**
+  String get proMember;
+
+  /// No description provided for @proMemberDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited hearts, all roleplays, B2+ lessons, and weekly reports.'**
+  String get proMemberDesc;
+
+  /// No description provided for @heartsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'{current}/{daily} hearts today'**
+  String heartsToday(int current, int daily);
+
+  /// No description provided for @weeklyProgressReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Progress Report'**
+  String get weeklyProgressReportTitle;
+
+  /// No description provided for @streakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get streakLabel;
+
+  /// No description provided for @streakDaysCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days'**
+  String streakDaysCount(int count);
+
   /// No description provided for @wordsStat.
   ///
   /// In en, this message translates to:
@@ -2760,6 +2814,12 @@ abstract class AppLocalizations {
   /// **'Hi! I\'m your English tutor. We can just talk, or I can teach you step by step. What would you like to do?'**
   String get chatGreeting;
 
+  /// No description provided for @chatGreetingNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi {name}! I\'m your English tutor. We can just talk, or I can teach you step by step. What would you like to do?'**
+  String chatGreetingNamed(String name);
+
   /// No description provided for @chatQuickStarterLesson.
   ///
   /// In en, this message translates to:
@@ -2769,7 +2829,7 @@ abstract class AppLocalizations {
   /// No description provided for @chatQuickStarterGrammar.
   ///
   /// In en, this message translates to:
-  /// **'Practise grammar'**
+  /// **'Practice grammar'**
   String get chatQuickStarterGrammar;
 
   /// No description provided for @chatQuickStarterDaily.
@@ -2892,6 +2952,12 @@ abstract class AppLocalizations {
   /// **'Playing'**
   String get chatPlaying;
 
+  /// No description provided for @chatAiDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Fluenta is AI and can make mistakes.'**
+  String get chatAiDisclaimer;
+
   /// No description provided for @outOfHearts.
   ///
   /// In en, this message translates to:
@@ -2937,7 +3003,7 @@ abstract class AppLocalizations {
   /// No description provided for @heartsRefilledMessage.
   ///
   /// In en, this message translates to:
-  /// **'+{count} Hearts added. Keep practising!'**
+  /// **'+{count} Hearts added. Keep practicing!'**
   String heartsRefilledMessage(int count);
 
   /// No description provided for @heartRefillCapReached.
@@ -3189,7 +3255,7 @@ abstract class AppLocalizations {
   /// No description provided for @cefrLevelLockedLessons.
   ///
   /// In en, this message translates to:
-  /// **'Finish {count} more lessons in the level before to unlock this one'**
+  /// **'{count, plural, =1{Complete 1 more lesson in the previous level to unlock this one.} other{Complete {count} more lessons in the previous level to unlock this one.}}'**
   String cefrLevelLockedLessons(int count);
 
   /// No description provided for @cefrLevelLockedXp.
@@ -3300,6 +3366,48 @@ abstract class AppLocalizations {
   /// **'Offline mode'**
   String get featureOfflineMode;
 
+  /// No description provided for @featureUnlimitedAiConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited AI conversation'**
+  String get featureUnlimitedAiConversation;
+
+  /// No description provided for @featureUnlimitedPronunciationPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited pronunciation practice'**
+  String get featureUnlimitedPronunciationPractice;
+
+  /// No description provided for @featureAllRoleplayScenarios.
+  ///
+  /// In en, this message translates to:
+  /// **'All roleplay scenarios'**
+  String get featureAllRoleplayScenarios;
+
+  /// No description provided for @featureB2PlusContent.
+  ///
+  /// In en, this message translates to:
+  /// **'B2+ lesson content'**
+  String get featureB2PlusContent;
+
+  /// No description provided for @featureWeeklyProgressReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly progress report'**
+  String get featureWeeklyProgressReport;
+
+  /// No description provided for @featureUnlimitedStreakFreezes.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited streak freezes'**
+  String get featureUnlimitedStreakFreezes;
+
+  /// No description provided for @featureStreakRepairPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'1 streak repair per month'**
+  String get featureStreakRepairPerMonth;
+
   /// No description provided for @annualPlan.
   ///
   /// In en, this message translates to:
@@ -3311,6 +3419,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'3-Day Free Trial'**
   String get threeDayFreeTrial;
+
+  /// No description provided for @sevenDayFreeTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'7-Day Free Trial'**
+  String get sevenDayFreeTrial;
 
   /// No description provided for @annualPrice.
   ///
@@ -3339,7 +3453,7 @@ abstract class AppLocalizations {
   /// No description provided for @weeklyPrice.
   ///
   /// In en, this message translates to:
-  /// **'\$4.99'**
+  /// **'\$2.49'**
   String get weeklyPrice;
 
   /// No description provided for @monthlyPlan.
@@ -3351,7 +3465,7 @@ abstract class AppLocalizations {
   /// No description provided for @monthlyPrice.
   ///
   /// In en, this message translates to:
-  /// **'\$12.99'**
+  /// **'\$6.99'**
   String get monthlyPrice;
 
   /// No description provided for @lifetimePlan.
@@ -3420,6 +3534,12 @@ abstract class AppLocalizations {
   /// **'Cancel anytime. No charge today'**
   String get cancelAnytimeNoCharge;
 
+  /// No description provided for @unlocksInstantly.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocks instantly.'**
+  String get unlocksInstantly;
+
   /// No description provided for @terms.
   ///
   /// In en, this message translates to:
@@ -3459,7 +3579,7 @@ abstract class AppLocalizations {
   /// No description provided for @fiftyOffFirstYear.
   ///
   /// In en, this message translates to:
-  /// **'50% off your first year- \$29 instead of \$59.99'**
+  /// **'50% off your first year- \$19.99 instead of \$39.99'**
   String get fiftyOffFirstYear;
 
   /// No description provided for @fiftyPercentOff.
@@ -3477,13 +3597,13 @@ abstract class AppLocalizations {
   /// No description provided for @annualProPrice.
   ///
   /// In en, this message translates to:
-  /// **'\$29.99/year'**
+  /// **'\$19.99/year'**
   String get annualProPrice;
 
   /// No description provided for @annualProPriceStrikethrough.
   ///
   /// In en, this message translates to:
-  /// **'\$59.99/year'**
+  /// **'\$39.99/year'**
   String get annualProPriceStrikethrough;
 
   /// No description provided for @firstYearOnly.
@@ -3546,6 +3666,18 @@ abstract class AppLocalizations {
   /// **'1 heart per AI response'**
   String get oneHeartPerAiResponse;
 
+  /// No description provided for @premiumUnlockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Unlocked'**
+  String get premiumUnlockedTitle;
+
+  /// No description provided for @premiumUnlockedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You now have unlimited AI practice, pronunciation checks, corrections, roleplays, and no ads.'**
+  String get premiumUnlockedMessage;
+
   /// No description provided for @todaysLessonTitle.
   ///
   /// In en, this message translates to:
@@ -3563,6 +3695,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start Lesson'**
   String get startLessonButton;
+
+  /// No description provided for @resumeLessonButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get resumeLessonButton;
 
   /// No description provided for @whatYouHaveLearnedToday.
   ///
@@ -3671,6 +3809,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You\'ve used all your XP boosts for today. Come back tomorrow.'**
   String get xpBoostCapReached;
+
+  /// No description provided for @youreOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re offline'**
+  String get youreOffline;
+
+  /// No description provided for @youreOfflineBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can still continue saved lessons offline. AI chat, pronunciation checks, sync and purchase need internet'**
+  String get youreOfflineBody;
+
+  /// No description provided for @retryConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry Connection'**
+  String get retryConnection;
+
+  /// No description provided for @continueOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue Offline'**
+  String get continueOffline;
+
+  /// No description provided for @featureNeedsInternet.
+  ///
+  /// In en, this message translates to:
+  /// **'This needs an internet connection.'**
+  String get featureNeedsInternet;
 }
 
 class _AppLocalizationsDelegate

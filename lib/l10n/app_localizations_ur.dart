@@ -9,7 +9,7 @@ class AppLocalizationsUr extends AppLocalizations {
   AppLocalizationsUr([String locale = 'ur']) : super(locale);
 
   @override
-  String get appName => 'فلوئینٹا';
+  String get appName => 'Fluenta AI';
 
   @override
   String get aiEnglishTutor => 'AI انگلش ٹیوٹر';
@@ -230,6 +230,9 @@ class AppLocalizationsUr extends AppLocalizations {
   String get signIn => 'سائن ان';
 
   @override
+  String get signInLink => 'سائن ان';
+
+  @override
   String get alreadyHaveAccount => 'پہلے سے اکاؤنٹ ہے؟ ';
 
   @override
@@ -352,6 +355,9 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get authErrorFillAllFields => 'براہ کرم تمام فیلڈز پُر کریں۔';
+
+  @override
+  String get authErrorEnterPassword => 'براہ کرم اپنا پاس ورڈ درج کریں۔';
 
   @override
   String get authErrorPasswordMinEight =>
@@ -1025,6 +1031,32 @@ class AppLocalizationsUr extends AppLocalizations {
   String get xpEarned => 'XP حاصل';
 
   @override
+  String get xpAbbrev => 'XP';
+
+  @override
+  String get proMember => 'پرو ممبر';
+
+  @override
+  String get proMemberDesc =>
+      'لامحدود ہارٹس، تمام رول پلے، B2+ اسباق، اور ہفتہ وار رپورٹس۔';
+
+  @override
+  String heartsToday(int current, int daily) {
+    return 'آج $current/$daily ہارٹس';
+  }
+
+  @override
+  String get weeklyProgressReportTitle => 'ہفتہ وار پیش رفت رپورٹ';
+
+  @override
+  String get streakLabel => 'سلسلہ';
+
+  @override
+  String streakDaysCount(int count) {
+    return '$count دن';
+  }
+
+  @override
   String get wordsStat => 'الفاظ';
 
   @override
@@ -1107,88 +1139,88 @@ class AppLocalizationsUr extends AppLocalizations {
   String get accountActions => 'اکاؤنٹ کے اقدامات';
 
   @override
-  String get accountSection => 'ACCOUNT';
+  String get accountSection => 'اکاؤنٹ';
 
   @override
-  String get accountAndSecurity => 'Account and Security';
+  String get accountAndSecurity => 'اکاؤنٹ اور سیکیورٹی';
 
   @override
-  String get accountAndSecuritySub => 'Name, Email and Password settings';
+  String get accountAndSecuritySub => 'نام، ای میل اور پاس ورڈ کی ترتیبات';
 
   @override
-  String get manageAccount => 'Manage Account';
+  String get manageAccount => 'اکاؤنٹ کا انتظام';
 
   @override
   String get manageAccountDesc =>
-      'Manage the information associated with your Fluenta profile.';
+      'اپنے Fluenta پروفائل سے منسلک معلومات کا انتظام کریں۔';
 
   @override
-  String get personalDetails => 'PERSONAL DETAILS';
+  String get personalDetails => 'ذاتی تفصیلات';
 
   @override
-  String get nameLabel => 'Name';
+  String get nameLabel => 'نام';
 
   @override
-  String get emailLabel => 'Email';
+  String get emailLabel => 'ای میل';
 
   @override
-  String get passwordLabel => 'Password';
+  String get passwordLabel => 'پاس ورڈ';
 
   @override
   String get passwordMasked => '••••••••';
 
   @override
-  String get yourNameTitle => 'Your Name';
+  String get yourNameTitle => 'آپ کا نام';
 
   @override
-  String get manageYourName => 'Manage your name';
+  String get manageYourName => 'اپنا نام منظم کریں';
 
   @override
-  String get firstName => 'First Name';
+  String get firstName => 'پہلا نام';
 
   @override
-  String get lastName => 'Last Name';
+  String get lastName => 'آخری نام';
 
   @override
-  String get saveChanges => 'Save Changes';
+  String get saveChanges => 'تبدیلیاں محفوظ کریں';
 
   @override
-  String get nameUpdated => 'Name updated successfully';
+  String get nameUpdated => 'نام کامیابی سے اپ ڈیٹ ہو گیا';
 
   @override
-  String get emailScreenTitle => 'Email';
+  String get emailScreenTitle => 'ای میل';
 
   @override
-  String get manageYourEmailAddress => 'Manage Your Email Address';
+  String get manageYourEmailAddress => 'اپنا ای میل پتہ منظم کریں';
 
   @override
-  String get emailCannotBeChanged => 'Your email address cannot be changed.';
+  String get emailCannotBeChanged => 'آپ کا ای میل پتہ تبدیل نہیں کیا جا سکتا۔';
 
   @override
-  String get currentEmailAddress => 'Current email address';
+  String get currentEmailAddress => 'موجودہ ای میل پتہ';
 
   @override
-  String get changePasswordTitle => 'Change Password';
+  String get changePasswordTitle => 'پاس ورڈ تبدیل کریں';
 
   @override
   String get changePasswordSubtitle =>
-      'Enter your current password and choose a new one';
+      'اپنا موجودہ پاس ورڈ درج کریں اور نیا منتخب کریں';
 
   @override
-  String get currentPassword => 'Current password';
+  String get currentPassword => 'موجودہ پاس ورڈ';
 
   @override
-  String get enterCurrentPassword => 'Enter current password';
+  String get enterCurrentPassword => 'موجودہ پاس ورڈ درج کریں';
 
   @override
-  String get passwordUpdatedSuccess => 'Password updated successfully';
+  String get passwordUpdatedSuccess => 'پاس ورڈ کامیابی سے اپ ڈیٹ ہو گیا';
 
   @override
   String get passwordChangeUnavailable =>
-      'Password change is not available for social sign-in accounts.';
+      'سوشل سائن ان اکاؤنٹس کے لیے پاس ورڈ تبدیل کرنا دستیاب نہیں ہے۔';
 
   @override
-  String get authErrorNameRequired => 'Please enter your first name.';
+  String get authErrorNameRequired => 'براہ کرم اپنا پہلا نام درج کریں۔';
 
   @override
   String get signOutTitle => 'سائن آؤٹ';
@@ -1474,10 +1506,15 @@ class AppLocalizationsUr extends AppLocalizations {
   String get chatGreeting => 'سلام! آج آپ کیا مشق کرنا چاہتے ہیں؟';
 
   @override
+  String chatGreetingNamed(String name) {
+    return 'سلام $name! آج آپ کیا مشق کرنا چاہتے ہیں؟';
+  }
+
+  @override
   String get chatQuickStarterLesson => 'Teach me step by step';
 
   @override
-  String get chatQuickStarterGrammar => 'Practise grammar';
+  String get chatQuickStarterGrammar => 'Practice grammar';
 
   @override
   String get chatQuickStarterDaily => 'Everyday conversation';
@@ -1541,6 +1578,9 @@ class AppLocalizationsUr extends AppLocalizations {
   String get chatPlaying => 'Playing';
 
   @override
+  String get chatAiDisclaimer => 'Fluenta AI ہے اور غلطیاں کر سکتی ہے۔';
+
+  @override
   String get outOfHearts => 'آپ کے دل ختم ہو گئے';
 
   @override
@@ -1563,7 +1603,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String heartsRefilledMessage(int count) {
-    return '+$count Hearts added. Keep practising!';
+    return '+$count Hearts added. Keep practicing!';
   }
 
   @override
@@ -1706,7 +1746,14 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String cefrLevelLockedLessons(int count) {
-    return 'Finish $count more lessons in the level before to unlock this one';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'اس لیول کو کھولنے کے لیے پچھلے لیول کی $count مزید اسباق مکمل کریں۔',
+      one: 'اس لیول کو کھولنے کے لیے پچھلے لیول کا 1 مزید سبق مکمل کریں۔',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1736,116 +1783,144 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get customPlanReady => 'آپ کا Custom plan تیار ہے';
+  String get customPlanReady => 'آپ کا ذاتی پلان تیار ہے';
 
   @override
   String get customPlanReadySub =>
-      'آپ کے goal، level اور روزانہ practice time کی بنیاد پر۔';
+      'آپ کے ہدف، سطح اور روزانہ مشق کے وقت کی بنیاد پر۔';
 
   @override
-  String get planGoalLabel => 'GOAL';
+  String get planGoalLabel => 'ہدف';
 
   @override
-  String get planLevelLabel => 'LEVEL';
+  String get planLevelLabel => 'سطح';
 
   @override
-  String get planDailyLabel => 'DAILY';
+  String get planDailyLabel => 'روزانہ';
 
   @override
   String dailyMinutesShort(int minutes) {
-    return '$minutes min';
+    return '$minutes منٹ';
   }
 
   @override
-  String get includedInPlan => 'آپ کے plan میں شامل';
+  String get includedInPlan => 'آپ کے پلان میں شامل';
 
   @override
-  String get featureUnlimitedConversation => 'لامحدود conversation';
+  String get featureUnlimitedConversation => 'لامحدود گفتگو';
 
   @override
-  String get featureUnlimitedGrammar => 'لامحدود grammar corrections';
+  String get featureUnlimitedGrammar => 'لامحدود گرامر تصحیح';
 
   @override
-  String get featureAdvancedPronunciation => 'Advanced pronunciation feedback';
+  String get featureAdvancedPronunciation => 'تلفظ پر تفصیلی رائے';
 
   @override
-  String get featurePersonalizedLessons => 'Personalized work-English Lessons';
+  String get featurePersonalizedLessons => 'کام کی انگریزی کے ذاتی اسباق';
 
   @override
-  String get featureOfflineMode => 'Offline mode';
+  String get featureOfflineMode => 'آف لائن موڈ';
 
   @override
-  String get annualPlan => 'Annual Plan';
+  String get featureUnlimitedAiConversation => 'لامحدود AI گفتگو';
 
   @override
-  String get threeDayFreeTrial => '3-Day Free Trial';
+  String get featureUnlimitedPronunciationPractice => 'لامحدود تلفظ کی مشق';
 
   @override
-  String get annualPrice => '\$39.99/yr';
+  String get featureAllRoleplayScenarios => 'تمام رول پلے منظرنامے';
 
   @override
-  String get annualPricePerMonth => 'That\'s \$3.33/mo';
+  String get featureB2PlusContent => 'B2+ اسباق کا مواد';
 
   @override
-  String get bestValue => 'BEST VALUE';
+  String get featureWeeklyProgressReport => 'ہفتہ وار پیش رفت رپورٹ';
 
   @override
-  String get weeklyPlan => 'Weekly';
+  String get featureUnlimitedStreakFreezes => 'لامحدود سلسلہ فریز';
 
   @override
-  String get weeklyPrice => '\$4.99';
+  String get featureStreakRepairPerMonth => 'ماہ میں 1 سلسلہ مرمت';
 
   @override
-  String get monthlyPlan => 'Monthly';
+  String get annualPlan => 'سالانہ پلان';
 
   @override
-  String get monthlyPrice => '\$12.99';
+  String get threeDayFreeTrial => '3 دن کی مفت آزمائش';
 
   @override
-  String get lifetimePlan => 'Life Time';
+  String get sevenDayFreeTrial => '7 دن کی مفت آزمائش';
+
+  @override
+  String get annualPrice => '\$39.99/سال';
+
+  @override
+  String get annualPricePerMonth => 'یعنی \$3.33/ماہ';
+
+  @override
+  String get bestValue => 'بہترین قیمت';
+
+  @override
+  String get weeklyPlan => 'ہفتہ وار';
+
+  @override
+  String get weeklyPrice => '\$2.49';
+
+  @override
+  String get monthlyPlan => 'ماہانہ';
+
+  @override
+  String get monthlyPrice => '\$6.99';
+
+  @override
+  String get lifetimePlan => 'لائف ٹائم';
 
   @override
   String get lifetimePrice => '\$79.99';
 
   @override
-  String get oneTime => 'One Time';
+  String get oneTime => 'ایک بار';
 
   @override
-  String get orDivider => 'OR';
+  String get orDivider => 'یا';
 
   @override
-  String get needExtraHearts => 'مزید hearts چاہیے؟';
+  String get needExtraHearts => 'مزید ہارٹس چاہیے؟';
 
   @override
-  String get smallPack => 'Small Pack';
+  String get smallPack => 'چھوٹا پیک';
 
   @override
-  String get mediumPack => 'Medium Pack';
+  String get mediumPack => 'درمیانہ پیک';
 
   @override
-  String get largePack => 'Large Pack';
+  String get largePack => 'بڑا پیک';
 
   @override
   String heartsCount(int count) {
-    return '$count Hearts';
+    return '$count ہارٹس';
   }
 
   @override
   String startFreeTrialDays(int days) {
-    return 'Start $days-Day Free Trial';
+    return '$days دن کی مفت آزمائش شروع کریں';
   }
 
   @override
-  String get cancelAnytimeNoCharge => 'Cancel anytime. No charge today';
+  String get cancelAnytimeNoCharge =>
+      'کسی بھی وقت منسوخ کریں۔ آج کوئی چارج نہیں';
 
   @override
-  String get terms => 'Terms';
+  String get unlocksInstantly => 'فوری طور پر اَن لاک ہوتا ہے۔';
 
   @override
-  String get privacy => 'Privacy';
+  String get terms => 'شرائط';
 
   @override
-  String get restore => 'Restore';
+  String get privacy => 'پرائیویسی';
+
+  @override
+  String get restore => 'بحال کریں';
 
   @override
   String buyHeartsCount(int count) {
@@ -1861,7 +1936,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get fiftyOffFirstYear =>
-      '50% off your first year- \$29 instead of \$59.99';
+      '50% off your first year- \$19.99 instead of \$39.99';
 
   @override
   String get fiftyPercentOff => '50% OFF';
@@ -1870,10 +1945,10 @@ class AppLocalizationsUr extends AppLocalizations {
   String get annualPro => 'Annual Pro';
 
   @override
-  String get annualProPrice => '\$29.99/year';
+  String get annualProPrice => '\$19.99/year';
 
   @override
-  String get annualProPriceStrikethrough => '\$59.99/year';
+  String get annualProPriceStrikethrough => '\$39.99/year';
 
   @override
   String get firstYearOnly => 'First year only';
@@ -1911,6 +1986,13 @@ class AppLocalizationsUr extends AppLocalizations {
   String get oneHeartPerAiResponse => '1 heart per AI response';
 
   @override
+  String get premiumUnlockedTitle => 'پریمیم اَن لاک ہو گیا';
+
+  @override
+  String get premiumUnlockedMessage =>
+      'اب آپ کو لامحدود AI پریکٹس، تلفظ چیک، تصحیحات، رول پلے اور اشتہارات سے آزادی مل گئی ہے۔';
+
+  @override
   String get todaysLessonTitle => 'آج کا سبق';
 
   @override
@@ -1918,6 +2000,9 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get startLessonButton => 'سبق شروع کریں';
+
+  @override
+  String get resumeLessonButton => 'جاری رکھیں';
 
   @override
   String get whatYouHaveLearnedToday => 'آج آپ نے کیا سیکھا';
@@ -1989,4 +2074,20 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get xpBoostCapReached =>
       'آپ نے آج کے تمام XP بوسٹ استعمال کر لیے ہیں۔ کل واپس آئیں۔';
+
+  @override
+  String get youreOffline => 'آپ آف لائن ہیں';
+
+  @override
+  String get youreOfflineBody =>
+      'آپ محفوظ اسباق آف لائن جاری رکھ سکتے ہیں۔ AI چیٹ، تلفظ کی جانچ، سنک اور خریداری کے لیے انٹرنیٹ درکار ہے';
+
+  @override
+  String get retryConnection => 'کنکشن دوبارہ کوشش کریں';
+
+  @override
+  String get continueOffline => 'آف لائن جاری رکھیں';
+
+  @override
+  String get featureNeedsInternet => 'اس کے لیے انٹرنیٹ کنکشن درکار ہے۔';
 }

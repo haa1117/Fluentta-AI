@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
 
-  "appName": "Fluenta",
+  "appName": "Fluenta AI",
   "aiEnglishTutor": "AI English Tutor",
   "speakWithAiTutor": "Speak English with your AI tutor.",
   "next": "Next",
@@ -124,7 +124,8 @@
   "enterYourName": "Enter your name",
   "minEightChars": "Min. 8 characters",
   "forgotPassword": "Forgot password?",
-  "signIn": "Sign in",
+  "signIn": "Sign In",
+  "signInLink": "Sign in",
   "alreadyHaveAccount": "Already have an account? ",
   "rememberPassword": "Remember your password? ",
   "forgotPasswordTitle": "Forgot your password?",
@@ -146,7 +147,7 @@
   "passwordUpdated": "Password Updated!",
   "passwordUpdatedDesc": "Your password has been updated successfully.\nYou can now sign in with your new password",
   "backToSignIn": "Back to sign in",
-  "accountCreatedTitle": "Account Created!",
+  "accountCreatedTitle": "Account created",
   "accountCreatedDesc": "Your account has been created successfully.\nLet's set up your learning preferences.",
   "orContinueWith": "Or continue with",
   "dontHaveAccount": "Don't have an account? ",
@@ -171,6 +172,7 @@
   "creatingAccountTitle": "Creating your account...",
   "creatingAccountSubtitle": "Please wait a moment.",
   "authErrorFillAllFields": "Please fill in all fields.",
+  "authErrorEnterPassword": "Please enter your password.",
   "authErrorPasswordMinEight": "Password must be at least 8 characters.",
   "authErrorInvalidEmail": "Please enter a valid email address.",
   "authErrorUserDisabled": "This account has been disabled.",
@@ -197,7 +199,7 @@
   "setupLevelTitle": "Start Your Starting Point",
   "setupLevelSubtitle": "We'll personalize your lessons based on your level.",
   "setupDailyTitle": "Set Your Daily Goal",
-  "setupDailySubtitle": "Small daily practice builds real English fluency.",
+  "setupDailySubtitle": "Small daily practice builds real English fluency",
   "goalTravel": "Travel",
   "goalTravelSub": "Easy Local Conversation",
   "goalWork": "Work",
@@ -456,6 +458,22 @@
   "upgradeToPremium": "Upgrade to Premium",
   "yourStats": "YOUR STATS",
   "xpEarned": "XP earned",
+  "xpAbbrev": "XP",
+  "proMember": "Pro Member",
+  "proMemberDesc": "Unlimited hearts, all roleplays, B2+ lessons, and weekly reports.",
+  "heartsToday": "{current}/{daily} hearts today",
+  "@heartsToday": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "daily": {"type": "int"}
+    }
+  },
+  "weeklyProgressReportTitle": "Weekly Progress Report",
+  "streakLabel": "Streak",
+  "streakDaysCount": "{count} days",
+  "@streakDaysCount": {
+    "placeholders": {"count": {"type": "int"}}
+  },
   "wordsStat": "Words",
   "lessonsStat": "Lessons",
   "correctionsStat": "Corrections",
@@ -627,8 +645,14 @@
   "chatTextMode": "Text Mode",
   "chatVoiceMode": "Voice Mode",
   "chatGreeting": "Hi! I'm your English tutor. We can just talk, or I can teach you step by step. What would you like to do?",
+  "chatGreetingNamed": "Hi {name}! I'm your English tutor. We can just talk, or I can teach you step by step. What would you like to do?",
+  "@chatGreetingNamed": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
   "chatQuickStarterLesson": "Teach me step by step",
-  "chatQuickStarterGrammar": "Practise grammar",
+  "chatQuickStarterGrammar": "Practice grammar",
   "chatQuickStarterDaily": "Everyday conversation",
   "chatQuickStarterWork": "English for work",
   "chatQuickStarterOpenTopic": "Just chat",
@@ -649,6 +673,7 @@
   "chatReadRepliesAloud": "Read replies aloud",
   "chatPlay": "Play",
   "chatPlaying": "Playing",
+  "chatAiDisclaimer": "Fluenta is AI and can make mistakes.",
   "outOfHearts": "You're out of Hearts",
   "outOfHeartsSub": "Fix Grammar, word choice, and sentences while you practice",
   "getMoreHearts": "GET MORE HEARTS",
@@ -656,7 +681,7 @@
   "goUnlimitedSub": "Unlimited AI practice\nNo ads • Unlimited hearts",
   "watchAd": "Watch Ad",
   "watchAdSub": "Get +2 Hearts instantly",
-  "heartsRefilledMessage": "+{count} Hearts added. Keep practising!",
+  "heartsRefilledMessage": "+{count} Hearts added. Keep practicing!",
   "@heartsRefilledMessage": {
     "placeholders": {"count": {"type": "int"}}
   },
@@ -716,7 +741,7 @@
   "@roleplayLevelLocked": {
     "placeholders": {"xp": {"type": "int"}}
   },
-  "cefrLevelLockedLessons": "Finish {count} more lessons in the level before to unlock this one",
+  "cefrLevelLockedLessons": "{count, plural, =1{Complete 1 more lesson in the previous level to unlock this one.} other{Complete {count} more lessons in the previous level to unlock this one.}}",
   "@cefrLevelLockedLessons": {
     "placeholders": {"count": {"type": "int"}}
   },
@@ -754,15 +779,23 @@
   "featureAdvancedPronunciation": "Advanced pronunciation feedback",
   "featurePersonalizedLessons": "Personalized work-English Lessons",
   "featureOfflineMode": "Offline mode",
+  "featureUnlimitedAiConversation": "Unlimited AI conversation",
+  "featureUnlimitedPronunciationPractice": "Unlimited pronunciation practice",
+  "featureAllRoleplayScenarios": "All roleplay scenarios",
+  "featureB2PlusContent": "B2+ lesson content",
+  "featureWeeklyProgressReport": "Weekly progress report",
+  "featureUnlimitedStreakFreezes": "Unlimited streak freezes",
+  "featureStreakRepairPerMonth": "1 streak repair per month",
   "annualPlan": "Annual Plan",
   "threeDayFreeTrial": "3-Day Free Trial",
+  "sevenDayFreeTrial": "7-Day Free Trial",
   "annualPrice": "$39.99/yr",
   "annualPricePerMonth": "That's $3.33/mo",
   "bestValue": "BEST VALUE",
   "weeklyPlan": "Weekly",
-  "weeklyPrice": "$4.99",
+  "weeklyPrice": "$2.49",
   "monthlyPlan": "Monthly",
-  "monthlyPrice": "$12.99",
+  "monthlyPrice": "$6.99",
   "lifetimePlan": "Life Time",
   "lifetimePrice": "$79.99",
   "oneTime": "One Time",
@@ -780,6 +813,7 @@
     "placeholders": {"days": {"type": "int"}}
   },
   "cancelAnytimeNoCharge": "Cancel anytime. No charge today",
+  "unlocksInstantly": "Unlocks instantly.",
   "terms": "Terms",
   "privacy": "Privacy",
   "restore": "Restore",
@@ -789,11 +823,11 @@
   },
   "heartsOneTimePurchase": "One-time purchase. Hearts are added instantly.",
   "tryProForLess": "Try Pro for less",
-  "fiftyOffFirstYear": "50% off your first year- $29 instead of $59.99",
+  "fiftyOffFirstYear": "50% off your first year- $19.99 instead of $39.99",
   "fiftyPercentOff": "50% OFF",
   "annualPro": "Annual Pro",
-  "annualProPrice": "$29.99/year",
-  "annualProPriceStrikethrough": "$59.99/year",
+  "annualProPrice": "$19.99/year",
+  "annualProPriceStrikethrough": "$39.99/year",
   "firstYearOnly": "First year only",
   "sevenDayFreeTrialIncluded": "7-day free trial included",
   "specialOffer": "SPECIAL OFFER",
@@ -810,10 +844,13 @@
   },
   "startPracticing": "Start Practicing",
   "oneHeartPerAiResponse": "1 heart per AI response",
+  "premiumUnlockedTitle": "Premium Unlocked",
+  "premiumUnlockedMessage": "You now have unlimited AI practice, pronunciation checks, corrections, roleplays, and no ads.",
 
   "todaysLessonTitle": "Today's Lesson",
   "whatYouWillLearnToday": "WHAT YOU WILL LEARN TODAY",
   "startLessonButton": "Start Lesson",
+  "resumeLessonButton": "Resume",
   "whatYouHaveLearnedToday": "WHAT YOU HAVE LEARNED TODAY",
   "lessonCompleteTitle": "Lesson complete!",
   "youLearnedLesson": "You learned {title}.",
@@ -852,5 +889,10 @@
   "@watchAdForXpSub": {
     "placeholders": {"xp": {"type": "int"}}
   },
-  "xpBoostCapReached": "You've used all your XP boosts for today. Come back tomorrow."
+  "xpBoostCapReached": "You've used all your XP boosts for today. Come back tomorrow.",
+  "youreOffline": "You're offline",
+  "youreOfflineBody": "You can still continue saved lessons offline. AI chat, pronunciation checks, sync and purchase need internet",
+  "retryConnection": "Retry Connection",
+  "continueOffline": "Continue Offline",
+  "featureNeedsInternet": "This needs an internet connection."
 }

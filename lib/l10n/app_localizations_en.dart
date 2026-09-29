@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'Fluenta';
+  String get appName => 'Fluenta AI';
 
   @override
   String get aiEnglishTutor => 'AI English Tutor';
@@ -228,7 +228,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgotPassword => 'Forgot password?';
 
   @override
-  String get signIn => 'Sign in';
+  String get signIn => 'Sign In';
+
+  @override
+  String get signInLink => 'Sign in';
 
   @override
   String get alreadyHaveAccount => 'Already have an account? ';
@@ -284,7 +287,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backToSignIn => 'Back to sign in';
 
   @override
-  String get accountCreatedTitle => 'Account Created!';
+  String get accountCreatedTitle => 'Account created';
 
   @override
   String get accountCreatedDesc =>
@@ -353,6 +356,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get authErrorFillAllFields => 'Please fill in all fields.';
+
+  @override
+  String get authErrorEnterPassword => 'Please enter your password.';
 
   @override
   String get authErrorPasswordMinEight =>
@@ -444,7 +450,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setupDailySubtitle =>
-      'Small daily practice builds real English fluency.';
+      'Small daily practice builds real English fluency';
 
   @override
   String get goalTravel => 'Travel';
@@ -1030,6 +1036,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get xpEarned => 'XP earned';
 
   @override
+  String get xpAbbrev => 'XP';
+
+  @override
+  String get proMember => 'Pro Member';
+
+  @override
+  String get proMemberDesc =>
+      'Unlimited hearts, all roleplays, B2+ lessons, and weekly reports.';
+
+  @override
+  String heartsToday(int current, int daily) {
+    return '$current/$daily hearts today';
+  }
+
+  @override
+  String get weeklyProgressReportTitle => 'Weekly Progress Report';
+
+  @override
+  String get streakLabel => 'Streak';
+
+  @override
+  String streakDaysCount(int count) {
+    return '$count days';
+  }
+
+  @override
   String get wordsStat => 'Words';
 
   @override
@@ -1478,10 +1510,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'Hi! I\'m your English tutor. We can just talk, or I can teach you step by step. What would you like to do?';
 
   @override
+  String chatGreetingNamed(String name) {
+    return 'Hi $name! I\'m your English tutor. We can just talk, or I can teach you step by step. What would you like to do?';
+  }
+
+  @override
   String get chatQuickStarterLesson => 'Teach me step by step';
 
   @override
-  String get chatQuickStarterGrammar => 'Practise grammar';
+  String get chatQuickStarterGrammar => 'Practice grammar';
 
   @override
   String get chatQuickStarterDaily => 'Everyday conversation';
@@ -1545,6 +1582,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chatPlaying => 'Playing';
 
   @override
+  String get chatAiDisclaimer => 'Fluenta is AI and can make mistakes.';
+
+  @override
   String get outOfHearts => 'You\'re out of Hearts';
 
   @override
@@ -1569,7 +1609,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String heartsRefilledMessage(int count) {
-    return '+$count Hearts added. Keep practising!';
+    return '+$count Hearts added. Keep practicing!';
   }
 
   @override
@@ -1712,7 +1752,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String cefrLevelLockedLessons(int count) {
-    return 'Finish $count more lessons in the level before to unlock this one';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Complete $count more lessons in the previous level to unlock this one.',
+      one: 'Complete 1 more lesson in the previous level to unlock this one.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1781,10 +1828,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get featureOfflineMode => 'Offline mode';
 
   @override
+  String get featureUnlimitedAiConversation => 'Unlimited AI conversation';
+
+  @override
+  String get featureUnlimitedPronunciationPractice =>
+      'Unlimited pronunciation practice';
+
+  @override
+  String get featureAllRoleplayScenarios => 'All roleplay scenarios';
+
+  @override
+  String get featureB2PlusContent => 'B2+ lesson content';
+
+  @override
+  String get featureWeeklyProgressReport => 'Weekly progress report';
+
+  @override
+  String get featureUnlimitedStreakFreezes => 'Unlimited streak freezes';
+
+  @override
+  String get featureStreakRepairPerMonth => '1 streak repair per month';
+
+  @override
   String get annualPlan => 'Annual Plan';
 
   @override
   String get threeDayFreeTrial => '3-Day Free Trial';
+
+  @override
+  String get sevenDayFreeTrial => '7-Day Free Trial';
 
   @override
   String get annualPrice => '\$39.99/yr';
@@ -1799,13 +1871,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weeklyPlan => 'Weekly';
 
   @override
-  String get weeklyPrice => '\$4.99';
+  String get weeklyPrice => '\$2.49';
 
   @override
   String get monthlyPlan => 'Monthly';
 
   @override
-  String get monthlyPrice => '\$12.99';
+  String get monthlyPrice => '\$6.99';
 
   @override
   String get lifetimePlan => 'Life Time';
@@ -1845,6 +1917,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelAnytimeNoCharge => 'Cancel anytime. No charge today';
 
   @override
+  String get unlocksInstantly => 'Unlocks instantly.';
+
+  @override
   String get terms => 'Terms';
 
   @override
@@ -1867,7 +1942,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fiftyOffFirstYear =>
-      '50% off your first year- \$29 instead of \$59.99';
+      '50% off your first year- \$19.99 instead of \$39.99';
 
   @override
   String get fiftyPercentOff => '50% OFF';
@@ -1876,10 +1951,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get annualPro => 'Annual Pro';
 
   @override
-  String get annualProPrice => '\$29.99/year';
+  String get annualProPrice => '\$19.99/year';
 
   @override
-  String get annualProPriceStrikethrough => '\$59.99/year';
+  String get annualProPriceStrikethrough => '\$39.99/year';
 
   @override
   String get firstYearOnly => 'First year only';
@@ -1917,6 +1992,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get oneHeartPerAiResponse => '1 heart per AI response';
 
   @override
+  String get premiumUnlockedTitle => 'Premium Unlocked';
+
+  @override
+  String get premiumUnlockedMessage =>
+      'You now have unlimited AI practice, pronunciation checks, corrections, roleplays, and no ads.';
+
+  @override
   String get todaysLessonTitle => 'Today\'s Lesson';
 
   @override
@@ -1924,6 +2006,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get startLessonButton => 'Start Lesson';
+
+  @override
+  String get resumeLessonButton => 'Resume';
 
   @override
   String get whatYouHaveLearnedToday => 'WHAT YOU HAVE LEARNED TODAY';
@@ -1995,4 +2080,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get xpBoostCapReached =>
       'You\'ve used all your XP boosts for today. Come back tomorrow.';
+
+  @override
+  String get youreOffline => 'You\'re offline';
+
+  @override
+  String get youreOfflineBody =>
+      'You can still continue saved lessons offline. AI chat, pronunciation checks, sync and purchase need internet';
+
+  @override
+  String get retryConnection => 'Retry Connection';
+
+  @override
+  String get continueOffline => 'Continue Offline';
+
+  @override
+  String get featureNeedsInternet => 'This needs an internet connection.';
 }

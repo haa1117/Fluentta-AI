@@ -9,7 +9,7 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get appName => 'Fluenta';
+  String get appName => 'Fluenta AI';
 
   @override
   String get aiEnglishTutor => 'Tuteur d\'anglais IA';
@@ -235,6 +235,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get signIn => 'Se connecter';
 
   @override
+  String get signInLink => 'Se connecter';
+
+  @override
   String get alreadyHaveAccount => 'Vous avez déjà un compte ? ';
 
   @override
@@ -358,6 +361,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get authErrorFillAllFields => 'Veuillez remplir tous les champs.';
+
+  @override
+  String get authErrorEnterPassword => 'Veuillez entrer votre mot de passe.';
 
   @override
   String get authErrorPasswordMinEight =>
@@ -1043,6 +1049,32 @@ class AppLocalizationsFr extends AppLocalizations {
   String get xpEarned => 'XP gagnés';
 
   @override
+  String get xpAbbrev => 'XP';
+
+  @override
+  String get proMember => 'Membre Pro';
+
+  @override
+  String get proMemberDesc =>
+      'Cœurs illimités, tous les jeux de rôle, leçons B2+ et rapports hebdomadaires.';
+
+  @override
+  String heartsToday(int current, int daily) {
+    return '$current/$daily cœurs aujourd\'hui';
+  }
+
+  @override
+  String get weeklyProgressReportTitle => 'Rapport de progression hebdomadaire';
+
+  @override
+  String get streakLabel => 'Série';
+
+  @override
+  String streakDaysCount(int count) {
+    return '$count jours';
+  }
+
+  @override
   String get wordsStat => 'Mots';
 
   @override
@@ -1125,88 +1157,89 @@ class AppLocalizationsFr extends AppLocalizations {
   String get accountActions => 'ACTIONS DU COMPTE';
 
   @override
-  String get accountSection => 'ACCOUNT';
+  String get accountSection => 'COMPTE';
 
   @override
-  String get accountAndSecurity => 'Account and Security';
+  String get accountAndSecurity => 'Compte et sécurité';
 
   @override
-  String get accountAndSecuritySub => 'Name, Email and Password settings';
+  String get accountAndSecuritySub => 'Nom, e-mail et mot de passe';
 
   @override
-  String get manageAccount => 'Manage Account';
+  String get manageAccount => 'Gérer le compte';
 
   @override
   String get manageAccountDesc =>
-      'Manage the information associated with your Fluenta profile.';
+      'Gérez les informations associées à votre profil Fluenta.';
 
   @override
-  String get personalDetails => 'PERSONAL DETAILS';
+  String get personalDetails => 'INFORMATIONS PERSONNELLES';
 
   @override
-  String get nameLabel => 'Name';
+  String get nameLabel => 'Nom';
 
   @override
-  String get emailLabel => 'Email';
+  String get emailLabel => 'E-mail';
 
   @override
-  String get passwordLabel => 'Password';
+  String get passwordLabel => 'Mot de passe';
 
   @override
   String get passwordMasked => '••••••••';
 
   @override
-  String get yourNameTitle => 'Your Name';
+  String get yourNameTitle => 'Votre nom';
 
   @override
-  String get manageYourName => 'Manage your name';
+  String get manageYourName => 'Gérer votre nom';
 
   @override
-  String get firstName => 'First Name';
+  String get firstName => 'Prénom';
 
   @override
-  String get lastName => 'Last Name';
+  String get lastName => 'Nom';
 
   @override
-  String get saveChanges => 'Save Changes';
+  String get saveChanges => 'Enregistrer';
 
   @override
-  String get nameUpdated => 'Name updated successfully';
+  String get nameUpdated => 'Nom mis à jour';
 
   @override
-  String get emailScreenTitle => 'Email';
+  String get emailScreenTitle => 'E-mail';
 
   @override
-  String get manageYourEmailAddress => 'Manage Your Email Address';
+  String get manageYourEmailAddress => 'Gérer votre adresse e-mail';
 
   @override
-  String get emailCannotBeChanged => 'Your email address cannot be changed.';
+  String get emailCannotBeChanged =>
+      'Votre adresse e-mail ne peut pas être modifiée.';
 
   @override
-  String get currentEmailAddress => 'Current email address';
+  String get currentEmailAddress => 'Adresse e-mail actuelle';
 
   @override
-  String get changePasswordTitle => 'Change Password';
+  String get changePasswordTitle => 'Changer le mot de passe';
 
   @override
   String get changePasswordSubtitle =>
-      'Enter your current password and choose a new one';
+      'Saisissez votre mot de passe actuel et choisissez-en un nouveau';
 
   @override
-  String get currentPassword => 'Current password';
+  String get currentPassword => 'Mot de passe actuel';
 
   @override
-  String get enterCurrentPassword => 'Enter current password';
+  String get enterCurrentPassword => 'Saisir le mot de passe actuel';
 
   @override
-  String get passwordUpdatedSuccess => 'Password updated successfully';
+  String get passwordUpdatedSuccess => 'Mot de passe mis à jour';
 
   @override
   String get passwordChangeUnavailable =>
-      'Password change is not available for social sign-in accounts.';
+      'Le changement de mot de passe n\'est pas disponible pour les comptes de connexion sociale.';
 
   @override
-  String get authErrorNameRequired => 'Please enter your first name.';
+  String get authErrorNameRequired => 'Veuillez saisir votre prénom.';
 
   @override
   String get signOutTitle => 'Se déconnecter';
@@ -1496,10 +1529,15 @@ class AppLocalizationsFr extends AppLocalizations {
       'Bonjour ! Que souhaitez-vous pratiquer aujourd\'hui ?';
 
   @override
+  String chatGreetingNamed(String name) {
+    return 'Bonjour $name ! Que souhaitez-vous pratiquer aujourd\'hui ?';
+  }
+
+  @override
   String get chatQuickStarterLesson => 'Teach me step by step';
 
   @override
-  String get chatQuickStarterGrammar => 'Practise grammar';
+  String get chatQuickStarterGrammar => 'Practice grammar';
 
   @override
   String get chatQuickStarterDaily => 'Everyday conversation';
@@ -1564,6 +1602,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get chatPlaying => 'Playing';
 
   @override
+  String get chatAiDisclaimer =>
+      'Fluenta est une IA et peut faire des erreurs.';
+
+  @override
   String get outOfHearts => 'Vous n\'avez plus de cœurs';
 
   @override
@@ -1588,7 +1630,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String heartsRefilledMessage(int count) {
-    return '+$count Hearts added. Keep practising!';
+    return '+$count Hearts added. Keep practicing!';
   }
 
   @override
@@ -1735,7 +1777,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String cefrLevelLockedLessons(int count) {
-    return 'Finish $count more lessons in the level before to unlock this one';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Termine encore $count leçons du niveau précédent pour débloquer celui-ci.',
+      one:
+          'Termine encore 1 leçon du niveau précédent pour débloquer celui-ci.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1806,10 +1856,36 @@ class AppLocalizationsFr extends AppLocalizations {
   String get featureOfflineMode => 'Mode hors ligne';
 
   @override
+  String get featureUnlimitedAiConversation => 'Conversation IA illimitée';
+
+  @override
+  String get featureUnlimitedPronunciationPractice =>
+      'Pratique de la prononciation illimitée';
+
+  @override
+  String get featureAllRoleplayScenarios => 'Tous les scénarios de jeu de rôle';
+
+  @override
+  String get featureB2PlusContent => 'Contenu des leçons B2+';
+
+  @override
+  String get featureWeeklyProgressReport =>
+      'Rapport de progression hebdomadaire';
+
+  @override
+  String get featureUnlimitedStreakFreezes => 'Gel de série illimité';
+
+  @override
+  String get featureStreakRepairPerMonth => '1 réparation de série par mois';
+
+  @override
   String get annualPlan => 'Plan Annuel';
 
   @override
   String get threeDayFreeTrial => 'Essai gratuit de 3 jours';
+
+  @override
+  String get sevenDayFreeTrial => 'Essai gratuit de 7 jours';
 
   @override
   String get annualPrice => '39,99 \$/an';
@@ -1824,13 +1900,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get weeklyPlan => 'Hebdomadaire';
 
   @override
-  String get weeklyPrice => '4,99 \$';
+  String get weeklyPrice => '2,49 \$';
 
   @override
   String get monthlyPlan => 'Mensuel';
 
   @override
-  String get monthlyPrice => '12,99 \$';
+  String get monthlyPrice => '6,99 \$';
 
   @override
   String get lifetimePlan => 'À vie';
@@ -1871,6 +1947,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Annulez à tout moment. Aucun frais aujourd\'hui';
 
   @override
+  String get unlocksInstantly => 'Déblocage immédiat.';
+
+  @override
   String get terms => 'Conditions';
 
   @override
@@ -1893,7 +1972,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get fiftyOffFirstYear =>
-      '50 % de réduction la première année — 29 \$ au lieu de 59,99 \$';
+      '50 % de réduction la première année — 19,99 \$ au lieu de 39,99 \$';
 
   @override
   String get fiftyPercentOff => '50 % OFF';
@@ -1902,10 +1981,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get annualPro => 'Pro Annuel';
 
   @override
-  String get annualProPrice => '29,99 \$/an';
+  String get annualProPrice => '19,99 \$/an';
 
   @override
-  String get annualProPriceStrikethrough => '59,99 \$/an';
+  String get annualProPriceStrikethrough => '39,99 \$/an';
 
   @override
   String get firstYearOnly => 'Première année seulement';
@@ -1943,6 +2022,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get oneHeartPerAiResponse => '1 cœur par réponse IA';
 
   @override
+  String get premiumUnlockedTitle => 'Premium débloqué';
+
+  @override
+  String get premiumUnlockedMessage =>
+      'Vous avez désormais une pratique IA illimitée, des vérifications de prononciation, des corrections, des jeux de rôle et aucune publicité.';
+
+  @override
   String get todaysLessonTitle => 'Leçon du jour';
 
   @override
@@ -1951,6 +2037,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get startLessonButton => 'Commencer la leçon';
+
+  @override
+  String get resumeLessonButton => 'Reprendre';
 
   @override
   String get whatYouHaveLearnedToday => 'CE QUE VOUS AVEZ APPRIS AUJOURD\'HUI';
@@ -2022,4 +2111,20 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get xpBoostCapReached =>
       'Vous avez utilisé tous vos boosts XP du jour. Revenez demain.';
+
+  @override
+  String get youreOffline => 'Vous êtes hors ligne';
+
+  @override
+  String get youreOfflineBody =>
+      'Vous pouvez continuer les leçons enregistrées hors ligne. Le chat IA, les contrôles de prononciation, la synchro et les achats nécessitent Internet';
+
+  @override
+  String get retryConnection => 'Réessayer la connexion';
+
+  @override
+  String get continueOffline => 'Continuer hors ligne';
+
+  @override
+  String get featureNeedsInternet => 'Ceci nécessite une connexion Internet.';
 }
