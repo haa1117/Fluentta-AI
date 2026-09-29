@@ -55,7 +55,8 @@ class AnalyticsUserProperties {
             : CefrLevel.fromSetupId(storage.englishLevel).name);
     if (cefr != null) {
       await analytics.setUserProperty('current_cefr_level', cefr);
-      await analytics.setUserProperty('highest_unlocked_cefr_level', cefr);
+      // GA4 user-property names are max 24 chars (alnum + underscore).
+      await analytics.setUserProperty('highest_cefr_level', cefr);
     }
 
     final minutes = storage.dailyGoalMinutes;
@@ -81,7 +82,7 @@ class AnalyticsUserProperties {
       premium ? 'unlimited' : _heartBand(storage.lives),
     );
     await analytics.setUserProperty(
-      'preferred_response_audio_state',
+      'response_audio_state',
       storage.chatSpeakRepliesEnabled ? 'unmuted' : 'muted',
     );
     await analytics.setUserProperty('xp_band', _xpBand(storage.xpEarned));
