@@ -21,6 +21,9 @@ class VocabularyLessonScreen extends StatelessWidget {
     required this.initialWordIndex,
     required this.onLessonCompleted,
     required this.cefrLevel,
+    required this.entryAction,
+    this.learningArea = 'cefr',
+    this.scenarioId,
     this.onProgressChanged,
     this.onWordStudied,
     this.completionXpEarned = LessonXpRewards.vocabularyLesson,
@@ -32,6 +35,9 @@ class VocabularyLessonScreen extends StatelessWidget {
   final ValueChanged<int>? onProgressChanged;
   final Future<void> Function(String word)? onWordStudied;
   final String cefrLevel;
+  final String entryAction;
+  final String learningArea;
+  final String? scenarioId;
   final int completionXpEarned;
 
   @override
@@ -44,6 +50,9 @@ class VocabularyLessonScreen extends StatelessWidget {
         onProgressChanged: onProgressChanged,
         onWordStudied: onWordStudied,
         cefrLevel: cefrLevel,
+        entryAction: entryAction,
+        learningArea: learningArea,
+        scenarioId: scenarioId,
         completionXpEarned: completionXpEarned,
         textToSpeechService: context.read<TextToSpeechService>(),
         savedWordsRepository: context.read<SavedWordsRepository>(),

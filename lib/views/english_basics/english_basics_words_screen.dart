@@ -20,6 +20,7 @@ class EnglishBasicsWordsScreen extends StatelessWidget {
     final viewModel = context.watch<EnglishBasicsFlowViewModel>();
     final lesson = viewModel.lesson;
     final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
@@ -47,23 +48,27 @@ class EnglishBasicsWordsScreen extends StatelessWidget {
                   lesson.wordsTitle,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(22),
+                    fontSize: AppSizes.sp(26),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color: isDark
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimary,
                   ),
                 ),
-                SizedBox(height: AppSizes.h(4)),
+                SizedBox(height: AppSizes.h(9)),
                 Text(
                   lesson.wordsSubtitle,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(13),
-                    color: AppColors.textSecondary,
+                    fontSize: AppSizes.sp(16),
+                    fontWeight: FontWeight.w400,
+                    color: isDark
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondary,
                   ),
                 ),
               ],
             ),
-
           ),
           SizedBox(height: AppSizes.spaceMd),
           Expanded(
@@ -129,13 +134,16 @@ class _WordCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.w(16)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: AppColors.borderDarkPrimary),
+        border: Border.all(
+          color: isDark ? AppColors.borderDarkColor : AppColors.borderLight,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +156,9 @@ class _WordCard extends StatelessWidget {
                   vertical: AppSizes.h(4),
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.homeCardLavender,
+                  color: isDark
+                      ? const Color(0x1AC084FC)
+                      : AppColors.brandLightSoftColor,
                   borderRadius: BorderRadius.circular(AppSizes.w(12)),
                 ),
                 child: Text(
@@ -157,16 +167,20 @@ class _WordCard extends StatelessWidget {
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(12),
                     fontWeight: FontWeight.w400,
-                    color: AppColors.primaryBlueColor,
+                    color: isDark
+                        ? AppColors.primaryDarkColor
+                        : AppColors.primaryBlueColor,
                   ),
                 ),
               ),
               const Spacer(),
               IconButton(
                 onPressed: onSpeak,
-                icon: const Icon(
+                icon: Icon(
                   Icons.volume_up_outlined,
-                  color: AppColors.primaryBlueColor,
+                  color: isDark
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryBlueColor,
                 ),
               ),
             ],
@@ -177,7 +191,9 @@ class _WordCard extends StatelessWidget {
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(28),
               fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
+              color: isDark
+                  ? AppColors.textPrimaryDark
+                  : AppColors.textPrimary,
             ),
           ),
           SizedBox(height: AppSizes.h(4)),
@@ -186,7 +202,9 @@ class _WordCard extends StatelessWidget {
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(14),
-              color: AppColors.textSecondary,
+              color: isDark
+                  ? AppColors.textSecondaryDark
+                  : AppColors.textSecondary,
               height: 1.4,
             ),
           ),
@@ -195,10 +213,17 @@ class _WordCard extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.all(AppSizes.w(12)),
             decoration: BoxDecoration(
-              color: AppColors.homeCardLavender,
+              color: isDark
+                  ? AppColors.brandDarkSoftColor
+                  : AppColors.brandLightSoftColor,
               borderRadius: BorderRadius.circular(AppSizes.w(12)),
-              border: const Border(
-                left: BorderSide(color: AppColors.primaryColor, width: 4),
+              border: Border(
+                left: BorderSide(
+                  color: isDark
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryColor,
+                  width: 4,
+                ),
               ),
             ),
             child: Text(
@@ -208,7 +233,9 @@ class _WordCard extends StatelessWidget {
                 fontSize: AppSizes.sp(13),
                 fontWeight: FontWeight.w500,
                 fontStyle: FontStyle.italic,
-                color: Color(0xff4A4455),
+                color: isDark
+                    ? AppColors.textSecondaryDark
+                    : const Color(0xff4A4455),
               ),
             ),
           ),

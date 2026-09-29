@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/lesson_completion_analytics.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_complete_layout.dart';
@@ -11,6 +12,7 @@ class VocabularyLessonCompleteScreen extends StatelessWidget {
     this.lessonId,
     this.xpEarned = LessonXpRewards.vocabularyLesson,
     this.newlyUnlocked,
+    this.completionAnalytics,
   });
 
   final int lessonNumber;
@@ -18,6 +20,7 @@ class VocabularyLessonCompleteScreen extends StatelessWidget {
   final String? lessonId;
   final int xpEarned;
   final List<String>? newlyUnlocked;
+  final LessonCompletionAnalytics? completionAnalytics;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class VocabularyLessonCompleteScreen extends StatelessWidget {
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),
       newlyUnlocked: newlyUnlocked,
+      completionAnalytics: completionAnalytics,
       chips: learnedWords.map((word) => LessonCompleteChip(label: word)).toList(),
     );
   }

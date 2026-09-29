@@ -15,6 +15,7 @@ class GrammarPracticeCard extends StatefulWidget {
     required this.wrongFeedback,
     required this.onCheck,
     required this.isDark,
+    this.initialAnswer,
   });
 
   final String prompt;
@@ -22,13 +23,29 @@ class GrammarPracticeCard extends StatefulWidget {
   final String? wrongFeedback;
   final ValueChanged<String> onCheck;
   final bool isDark;
+  final String? initialAnswer;
 
   @override
   State<GrammarPracticeCard> createState() => _GrammarPracticeCardState();
 }
 
 class _GrammarPracticeCardState extends State<GrammarPracticeCard> {
-  final _controller = TextEditingController();
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialAnswer ?? '');
+  }
+
+  @override
+  void didUpdateWidget(GrammarPracticeCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final next = widget.initialAnswer ?? '';
+    if (next.isNotEmpty && _controller.text != next) {
+      _controller.text = next;
+    }
+  }
 
   @override
   void dispose() {

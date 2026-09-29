@@ -30,6 +30,14 @@ class ProgressRepository {
     _loaded = true;
   }
 
+  /// Drop in-memory progress so the next [initialize] reads prefs again.
+  /// Used after logout / account switch so a sticky empty cache cannot hide
+  /// Firestore progress for the next user.
+  void reset() {
+    _cache = {};
+    _loaded = false;
+  }
+
   Map<String, LessonProgressModel> get allProgress => Map.unmodifiable(_cache);
 
   static const Set<String> _coreLessonTypes = {
@@ -38,12 +46,19 @@ class ProgressRepository {
     'reading',
   };
 
+  bool _countsAsCoreComplete(LessonProgressModel progress) {
+    if (progress.status == LearningLessonStatus.completed) return true;
+    // Replay can write inProgress; XP grant is the durable "already finished"
+    // flag and must still count toward unlocking the next CEFR level.
+    return _localStorage.isLessonXpGranted(progress.lessonId);
+  }
+
   /// Completed core lessons (vocab/grammar/reading) in a CEFR level.
   int completedCoreLessons(CefrLevel level) {
     final code = level.code;
     return _cache.values
         .where((p) =>
-            p.status == LearningLessonStatus.completed &&
+            _countsAsCoreComplete(p) &&
             _coreLessonTypes.contains(p.type) &&
             p.cefrLevel.toUpperCase() == code)
         .length;
@@ -54,7 +69,7 @@ class ProgressRepository {
     final code = level.code;
     return _cache.values
         .where((p) =>
-            p.status == LearningLessonStatus.completed &&
+            _countsAsCoreComplete(p) &&
             p.type == type &&
             p.cefrLevel.toUpperCase() == code)
         .length;
@@ -72,6 +87,18 @@ class ProgressRepository {
 
   Future<void> saveProgress(LessonProgressModel progress) async {
     await initialize();
+    final existing = _cache[progress.lessonId];
+    if (existing?.status == LearningLessonStatus.completed &&
+        progress.status != LearningLessonStatus.completed) {
+      // Replaying a lesson must not un-complete it (that locked the next CEFR
+      // tab even after every A1 lesson had already been finished).
+      _cache[progress.lessonId] = existing!.copyWith(
+        currentIndex: progress.currentIndex,
+        updatedAt: DateTime.now(),
+      );
+      await _persist();
+      return;
+    }
     _cache[progress.lessonId] = progress;
     await _persist();
   }
@@ -146,6 +173,10 @@ class ProgressRepository {
     await initialize();
     for (final entry in remote.entries) {
       final local = _cache[entry.key];
+      if (local?.status == LearningLessonStatus.completed &&
+          entry.value.status != LearningLessonStatus.completed) {
+        continue;
+      }
       if (local == null || entry.value.isNewerThan(local)) {
         _cache[entry.key] = entry.value;
       }

@@ -1,3 +1,7 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_first_frame.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -31,7 +35,18 @@ class ReadingScreen extends StatelessWidget {
       );
     }
 
-    return Scaffold(
+    return AnalyticsFirstFrame(
+      onFirstFrame: () {
+        AnalyticsService.instance.logScreenView('cefr_reading');
+        AnalyticsService.instance.log(AnalyticsEvents.cefrModuleViewed, {
+          AnalyticsParams.cefrLevel: viewModel.analyticsCefrLevel,
+          AnalyticsParams.moduleType: 'reading',
+          AnalyticsParams.completedLessonCount: viewModel.completedLessonsCount,
+          AnalyticsParams.moduleProgressPercent: viewModel.pathProgressPercent,
+          AnalyticsParams.currentXp: viewModel.currentXp,
+        });
+      },
+      child: Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.reading,
@@ -58,6 +73,7 @@ class ReadingScreen extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }

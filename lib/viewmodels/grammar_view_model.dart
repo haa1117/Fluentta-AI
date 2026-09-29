@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
+import 'package:fluentta_ai/core/analytics/cefr_lesson_analytics.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/cefr/lesson_type.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
@@ -51,6 +55,8 @@ class GrammarViewModel extends ChangeNotifier {
 
   CefrLevel get _level => UserEntitlements.learnBrowseLevel(_localStorage, _progressRepository);
 
+  String get analyticsCefrLevel => _level.name;
+
   int get completedLessonsCount =>
       _lessons.where((l) => l.status == LearningLessonStatus.completed).length;
 
@@ -58,6 +64,10 @@ class GrammarViewModel extends ChangeNotifier {
 
   double get pathProgress =>
       totalLessonsCount == 0 ? 0 : completedLessonsCount / totalLessonsCount;
+
+  int get pathProgressPercent => (pathProgress * 100).round();
+
+  int get currentXp => _localStorage.xpEarned;
 
   LearningPathData get pathData => LearningPathData(
         title: _l10n.grammarPathTitle(levelCode),
@@ -109,6 +119,17 @@ class GrammarViewModel extends ChangeNotifier {
       return;
     }
 
+    AnalyticsService.instance.log(AnalyticsEvents.cefrLessonClicked, {
+      AnalyticsParams.cefrLevel: _level.name,
+      AnalyticsParams.moduleType: 'grammar',
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.lessonNumber: lesson.number,
+      AnalyticsParams.lessonState: lessonStateFor(lesson.status),
+      AnalyticsParams.entryAction: entryActionFor(lesson.status),
+      AnalyticsParams.sourceScreen: 'cefr_grammar',
+      AnalyticsParams.destinationScreen: 'cefr_grammar_lesson',
+    });
+
     if (lesson.status == LearningLessonStatus.notStarted) {
       await _dailyLessonRepository.recordLessonStarted(
         type: LessonType.grammar,
@@ -127,6 +148,8 @@ class GrammarViewModel extends ChangeNotifier {
         builder: (_) => GrammarLessonScreen(
           lesson: lesson,
           initialStepIndex: startIndex,
+          cefrLevel: _level.name,
+          entryAction: entryActionFor(lesson.status),
           onLessonCompleted: _markLessonCompleted,
           onProgressChanged: (index) => _saveInProgress(lesson, index),
         ),
@@ -165,6 +188,20 @@ class GrammarViewModel extends ChangeNotifier {
       completedLessonId: completedLesson.lessonId,
       orderedLessonIds: orderedIds,
     );
+    GrammarLessonModel? nextLesson;
+    if (nextId != null) {
+      for (final candidate in _lessons) {
+        if (candidate.lessonId == nextId) {
+          nextLesson = candidate;
+          break;
+        }
+      }
+    }
+
+    final alreadyCompleted =
+        (await _progressRepository.getProgress(completedLesson.lessonId))
+                ?.status ==
+            LearningLessonStatus.completed;
 
     await _progressRepository.markCompleted(
       lessonId: completedLesson.lessonId,
@@ -192,6 +229,14 @@ class GrammarViewModel extends ChangeNotifier {
         updatedAt: DateTime.now(),
         completedAt: DateTime.now(),
       ),
+      skipXp: alreadyCompleted,
+    );
+
+    _syncService.rememberNextLesson(
+      nextLessonId: nextId,
+      nextLessonNumber: nextLesson?.number,
+      nextWasLocked: nextLesson?.status == LearningLessonStatus.locked,
+      alreadyCompleted: alreadyCompleted,
     );
 
     unawaited(_loadLessons());

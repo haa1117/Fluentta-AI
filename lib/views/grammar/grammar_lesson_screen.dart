@@ -13,6 +13,7 @@ import 'package:fluentta_ai/widgets/grammar/grammar_quick_tip_box.dart';
 import 'package:fluentta_ai/widgets/grammar/grammar_rule_card.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_nav_button.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_progress_bar.dart';
+import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:provider/provider.dart';
 
 class GrammarLessonScreen extends StatelessWidget {
@@ -21,12 +22,16 @@ class GrammarLessonScreen extends StatelessWidget {
     required this.lesson,
     required this.initialStepIndex,
     required this.onLessonCompleted,
+    required this.cefrLevel,
+    required this.entryAction,
     this.onProgressChanged,
   });
 
   final GrammarLessonModel lesson;
   final int initialStepIndex;
   final Future<List<String>> Function(GrammarLessonModel) onLessonCompleted;
+  final String cefrLevel;
+  final String entryAction;
   final ValueChanged<int>? onProgressChanged;
 
   @override
@@ -40,6 +45,9 @@ class GrammarLessonScreen extends StatelessWidget {
         onProgressChanged: onProgressChanged,
         textToSpeechService: context.read<TextToSpeechService>(),
         progressSyncService: context.read<ProgressSyncService>(),
+        homeViewModel: context.read<HomeViewModel>(),
+        cefrLevel: cefrLevel,
+        entryAction: entryAction,
       ),
       child: _GrammarLessonBody(lessonNumber: lesson.number, isDark: isDark,),
     );
@@ -81,8 +89,10 @@ class _GrammarLessonBody extends StatelessWidget {
                 children: [
                   if (step.isPracticeStep)
                     GrammarPracticeCard(
+                      key: ValueKey(viewModel.currentStepIndex),
                       prompt: step.practicePrompt!,
                       isAnswered: viewModel.practiceAnswered,
+                      initialAnswer: viewModel.practiceSubmittedAnswer,
                       wrongFeedback: viewModel.practiceWrongFeedback(l10n),
                       onCheck: viewModel.checkPracticeAnswer,
                       isDark: isDark,

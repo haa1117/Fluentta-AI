@@ -22,12 +22,16 @@ class ReadingLessonScreen extends StatelessWidget {
     required this.lesson,
     required this.initialPhaseIndex,
     required this.onLessonCompleted,
+    required this.cefrLevel,
+    required this.entryAction,
     this.onProgressChanged,
   });
 
   final ReadingLessonModel lesson;
   final int initialPhaseIndex;
   final Future<List<String>> Function(ReadingLessonModel) onLessonCompleted;
+  final String cefrLevel;
+  final String entryAction;
   final ValueChanged<int>? onProgressChanged;
 
   @override
@@ -40,6 +44,8 @@ class ReadingLessonScreen extends StatelessWidget {
         onProgressChanged: onProgressChanged,
         textToSpeechService: context.read<TextToSpeechService>(),
         progressSyncService: context.read<ProgressSyncService>(),
+        cefrLevel: cefrLevel,
+        entryAction: entryAction,
       ),
       child: _ReadingLessonBody(lessonNumber: lesson.number),
     );

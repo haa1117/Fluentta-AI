@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/daily_goal/daily_goal_rewards.dart';
@@ -71,12 +72,73 @@ class ProgressSyncService {
     return NetworkStatus.hasConnection(result);
   }
 
-  String? get _uid => _localStorage.userUid;
+  String? _lastPullUid;
 
-  Future<void> pullAndMerge() async {
+  String? get _uid =>
+      FirebaseAuth.instance.currentUser?.uid ?? _localStorage.userUid;
+
+  /// Clears in-memory progress and pending writes after sign-out so the next
+  /// account does not inherit a sticky empty (or previous-user) cache.
+  void resetLocalCaches() {
+    _pendingWrites.clear();
+    _pendingLivesWrite = null;
+    _pendingStatsSync = false;
+    _pendingDailyGoalSync = false;
+    _lastPullUid = null;
+    _progressRepository.reset();
+  }
+
+  /// XP granted by the most recent [onLessonCompleted] / roleplay completion.
+  /// 0 when the learner replayed a lesson that was already rewarded.
+  int lastCompletionXpGranted = 0;
+
+  /// PRD 4.2.2 core-module completion bonus (+50) granted by the most recent
+  /// [onLessonCompleted] call, if any. Exposed for analytics
+  /// (`module_completion_bonus_xp`) since it is awarded separately from
+  /// [lastCompletionXpGranted].
+  int lastModuleCompletionBonusXp = 0;
+
+  /// Snapshot of the lesson that just finished, for the shared completion
+  /// screen. [lastLessonCompletionIsNew] is false on review (no new XP).
+  bool lastLessonCompletionIsNew = false;
+  String lastNextLessonState = 'module_completed';
+  String? lastNextLessonId;
+  int? lastNextLessonNumber;
+
+  void rememberNextLesson({
+    required String? nextLessonId,
+    required int? nextLessonNumber,
+    required bool nextWasLocked,
+    required bool alreadyCompleted,
+  }) {
+    lastLessonCompletionIsNew = !alreadyCompleted;
+    lastNextLessonId = nextLessonId;
+    lastNextLessonNumber = nextLessonNumber;
+    if (nextLessonId == null) {
+      lastNextLessonState = 'module_completed';
+    } else if (alreadyCompleted || !nextWasLocked) {
+      lastNextLessonState = 'already_unlocked';
+    } else {
+      lastNextLessonState = 'unlocked';
+    }
+  }
+
+  Future<void>? _pullQueued;
+
+  Future<void> pullAndMerge() {
+    return _pullQueued ??= _doPullAndMerge().whenComplete(() {
+      _pullQueued = null;
+    });
+  }
+
+  Future<void> _doPullAndMerge() async {
     final uid = _uid;
     if (uid == null) return;
 
+    if (_lastPullUid != uid) {
+      _progressRepository.reset();
+      _lastPullUid = uid;
+    }
     await _progressRepository.initialize();
     if (!await _isOnline) {
       await _reconcileDailyHearts();
@@ -86,6 +148,8 @@ class ProgressSyncService {
 
     final remote = await _syncRepository.fetchAll(uid);
     await _progressRepository.mergeRemoteProgress(remote);
+    await _userRepository.restoreXpCapsFromFirestore(uid);
+    await _seedXpFlagsFromCompletedLessons();
     await _flushPending(uid);
     await _pullLives(uid);
     await _pullStats(uid);
@@ -101,6 +165,12 @@ class ProgressSyncService {
   }
 
   Future<void> onProgressChanged(LessonProgressModel progress) async {
+    final existing =
+        await _progressRepository.getProgress(progress.lessonId);
+    if (existing?.status == LearningLessonStatus.completed &&
+        progress.status != LearningLessonStatus.completed) {
+      return;
+    }
     await _progressRepository.saveProgress(progress);
     await _pushProgress(progress);
   }
@@ -108,7 +178,17 @@ class ProgressSyncService {
   Future<void> onLessonCompleted({
     required LessonProgressModel progress,
     int wordsLearned = 0,
+    bool skipXp = false,
   }) async {
+    if (skipXp) {
+      lastCompletionXpGranted = 0;
+      lastModuleCompletionBonusXp = 0;
+      await _localStorage.markLessonXpGranted(progress.lessonId);
+      await _progressRepository.saveProgress(progress);
+      unawaited(_flushCompletionToRemote(progress));
+      _notifyMerged();
+      return;
+    }
     await _applyLocalLessonCompletion(
       progress: progress,
       wordsLearned: wordsLearned,
@@ -129,6 +209,7 @@ class ProgressSyncService {
     if (await _localStorage.hasModuleXpGranted(moduleKey)) return;
     await _localStorage.markModuleXpGranted(moduleKey);
     await _localStorage.addXp(LessonXpRewards.coreModuleComplete);
+    lastModuleCompletionBonusXp = LessonXpRewards.coreModuleComplete;
   }
 
   /// PRD 4.2.3 — Premium learners get the +5 lesson boost automatically,
@@ -152,11 +233,23 @@ class ProgressSyncService {
     _notifyMerged();
   }
 
+  /// Marks completed lessons as already XP-rewarded without adding XP.
+  /// Survives logout: progress comes back from Firestore, local grant flags do not.
+  Future<void> _seedXpFlagsFromCompletedLessons() async {
+    await _progressRepository.initialize();
+    for (final entry in _progressRepository.allProgress.entries) {
+      if (entry.value.status != LearningLessonStatus.completed) continue;
+      await _localStorage.markLessonXpGranted(entry.key);
+    }
+  }
+
   /// Disk + XP first; Firestore is flushed by [_flushCompletionToRemote].
   Future<void> _applyLocalLessonCompletion({
     required LessonProgressModel progress,
     int wordsLearned = 0,
   }) async {
+    lastCompletionXpGranted = 0;
+    lastModuleCompletionBonusXp = 0;
     await _progressRepository.saveProgress(progress);
 
     final xpAmount = LessonXpRewards.forLessonType(progress.type);
@@ -165,6 +258,7 @@ class ProgressSyncService {
     if (firstCompletion) {
       await _localStorage.markLessonXpGranted(progress.lessonId);
       await _localStorage.addXp(xpAmount);
+      lastCompletionXpGranted = xpAmount;
       if (wordsLearned > 0) {
         await _localStorage.incrementWordsLearned(wordsLearned);
       }
@@ -204,6 +298,8 @@ class ProgressSyncService {
   }) async {
     await _progressRepository.saveProgress(progress);
 
+    lastCompletionXpGranted = 0;
+    lastModuleCompletionBonusXp = 0;
     var totalGranted = 0;
     final firstCompletion =
         !await _localStorage.hasLessonXpGranted(progress.lessonId);
@@ -225,6 +321,7 @@ class ProgressSyncService {
           )
         : 0;
     totalGranted += bonus;
+    lastCompletionXpGranted = totalGranted;
 
     if (firstCompletion) {
       await _applyLocalDailyGoalProgress(DailyGoalRewards.roleplayModule);
@@ -247,14 +344,7 @@ class ProgressSyncService {
     for (final entry in _progressRepository.allProgress.entries) {
       final progress = entry.value;
       if (progress.status != LearningLessonStatus.completed) continue;
-
-      final lessonId = entry.key;
-      if (await _localStorage.hasLessonXpGranted(lessonId)) continue;
-      if (!await _localStorage.hasLessonXpAwarded(lessonId)) continue;
-
-      final xpAmount = LessonXpRewards.forLessonType(progress.type);
-      await _localStorage.markLessonXpGranted(lessonId);
-      await _localStorage.addXp(xpAmount);
+      await _localStorage.markLessonXpGranted(entry.key);
     }
 
     await _localStorage.setLessonXpGrantMigrationV2Done();
@@ -395,6 +485,7 @@ class ProgressSyncService {
 
   Future<void> ensureLessonXpBackfill() async {
     await _progressRepository.initialize();
+    await _seedXpFlagsFromCompletedLessons();
     await _backfillLessonXpAwardedFlags();
     await _migrateBackfillLessonXpGrants();
   }
@@ -450,6 +541,7 @@ class ProgressSyncService {
     if (await _localStorage.hasXpBoostClaimed(lessonKey)) return false;
 
     await _localStorage.markXpBoostClaimed(lessonKey);
+    await _entitlementsService.recordXpBoostAdWatched();
     await _localStorage.addXp(boostAmount);
     _pendingStatsSync = true;
     await _learningStatsService.reconcileFromProgress();

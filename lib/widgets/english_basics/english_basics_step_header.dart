@@ -15,6 +15,7 @@ class EnglishBasicsStepHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
       child: Column(
@@ -24,10 +25,9 @@ class EnglishBasicsStepHeader extends StatelessWidget {
             label,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
-              fontSize: AppSizes.sp(12),
-              fontWeight: FontWeight.w600,
+              fontSize: AppSizes.sp(14),
+              fontWeight: FontWeight.w400,
               color: AppColors.primaryColor,
-              letterSpacing: 0.5,
             ),
           ),
           SizedBox(height: AppSizes.spaceSm),
@@ -35,8 +35,10 @@ class EnglishBasicsStepHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppSizes.h(4)),
             child: LinearProgressIndicator(
               value: progress,
-              minHeight: AppSizes.h(6),
-              backgroundColor: AppColors.progressTrack,
+              minHeight: AppSizes.h(8),
+              backgroundColor: isDark
+                  ? AppColors.brandDarkSoftColor
+                  : AppColors.borderLight,
               valueColor: const AlwaysStoppedAnimation<Color>(
                 AppColors.primaryColor,
               ),

@@ -22,6 +22,7 @@ class EnglishBasicsSentencesScreen extends StatelessWidget {
     final viewModel = context.watch<EnglishBasicsFlowViewModel>();
     final lesson = viewModel.lesson;
     final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
@@ -47,18 +48,23 @@ class EnglishBasicsSentencesScreen extends StatelessWidget {
                   lesson.sentencesTitle,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(22),
+                    fontSize: AppSizes.sp(26),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color: isDark
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimary,
                   ),
                 ),
-                SizedBox(height: AppSizes.h(4)),
+                SizedBox(height: AppSizes.h(9)),
                 Text(
                   lesson.sentencesSubtitle,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(13),
-                    color: AppColors.textSecondary,
+                    fontSize: AppSizes.sp(16),
+                    fontWeight: FontWeight.w400,
+                    color: isDark
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondary,
                   ),
                 ),
               ],
@@ -132,18 +138,24 @@ class _SentenceQuestionCard extends StatelessWidget {
     final questionAnswered = answered && selectedIndex != null;
     final selectionIsCorrect = questionAnswered &&
         isCorrect(questionIndex, selectedIndex!);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardBg = isDark ? AppColors.surfaceBgDarkColor : AppColors.white;
+    final cardBorder =
+        isDark ? AppColors.borderDarkColor : AppColors.borderLight;
+    final titleColor =
+        isDark ? AppColors.textPrimaryDark : AppColors.textPrimary;
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(AppSizes.w(16)),
+      padding: EdgeInsets.all(AppSizes.w(25)),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: cardBg,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-        border: Border.all(color: AppColors.borderDarkPrimary),
+        border: Border.all(color: cardBorder),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryColor.withValues(alpha: 0.06),
-            blurRadius: 12,
+            color: AppColors.primaryColor.withValues(alpha: 0.08),
+            blurRadius: 10,
             offset: const Offset(0, 4),
           ),
         ],
@@ -156,41 +168,34 @@ class _SentenceQuestionCard extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: AppSizes.w(12),
-                  vertical: AppSizes.h(5),
+                  vertical: AppSizes.h(4),
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.homeCardLavender,
+                  color: isDark
+                      ? const Color(0x1AC084FC)
+                      : AppColors.brandLightSoftColor,
                   borderRadius: BorderRadius.circular(AppSizes.w(16)),
                 ),
                 child: Text(
                   questionLabel,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(12),
+                    fontSize: AppSizes.sp(14),
                     fontWeight: FontWeight.w600,
-                    color: AppColors.primaryBlueColor,
+                    color: isDark
+                        ? AppColors.primaryDarkColor
+                        : AppColors.primaryBlueColor,
                   ),
                 ),
               ),
               const Spacer(),
               if (questionAnswered)
-                Container(
-                  width: AppSizes.w(20),
-                  height: AppSizes.w(20),
-                  decoration: BoxDecoration(
-                    // color: selectionIsCorrect
-                    //     ? AppColors.learnSuccessGreen
-                    //     : AppColors.redColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: SvgPicture.asset(
-                    selectionIsCorrect
-                        ? AppAssets.correctAnswer
-                        : AppAssets.wrongAnswer,
-                    // color: AppColors.white,
-                    width: AppSizes.sp(18),
-                    height: AppSizes.sp(18),
-                  ),
+                SvgPicture.asset(
+                  selectionIsCorrect
+                      ? AppAssets.correctAnswer
+                      : AppAssets.wrongAnswer,
+                  width: AppSizes.sp(20),
+                  height: AppSizes.sp(20),
                 ),
             ],
           ),
@@ -202,6 +207,7 @@ class _SentenceQuestionCard extends StatelessWidget {
                 : null,
             isCorrect: selectionIsCorrect,
             answered: questionAnswered,
+            textColor: titleColor,
           ),
           SizedBox(height: AppSizes.spaceMd),
           Wrap(
@@ -221,9 +227,14 @@ class _SentenceQuestionCard extends StatelessWidget {
                 textColor = AppColors.white;
                 borderColor = AppColors.primaryColor;
               } else {
-                bg = AppColors.homeCardLavender;
-                textColor = AppColors.textSecondary;
-                borderColor = AppColors.borderDarkPrimary;
+                bg = isDark
+                    ? AppColors.brandDarkSoftColor
+                    : AppColors.brandLightSoftColor;
+                textColor = isDark
+                    ? AppColors.textSecondaryDark
+                    : AppColors.textSecondary;
+                borderColor =
+                    isDark ? AppColors.borderDarkColor : AppColors.borderLight;
               }
 
               // Locked only once this question's correct word has been
@@ -233,8 +244,8 @@ class _SentenceQuestionCard extends StatelessWidget {
                 onTap: locked ? null : () => onSelect(index),
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: AppSizes.w(18),
-                    vertical: AppSizes.h(10),
+                    horizontal: AppSizes.w(24),
+                    vertical: AppSizes.h(9),
                   ),
                   decoration: BoxDecoration(
                     color: bg,
@@ -246,7 +257,7 @@ class _SentenceQuestionCard extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(14),
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w700,
                       color: textColor,
                     ),
                   ),
@@ -266,12 +277,14 @@ class _SentenceWithBlank extends StatelessWidget {
     required this.selectedWord,
     required this.isCorrect,
     required this.answered,
+    required this.textColor,
   });
 
   final String prompt;
   final String? selectedWord;
   final bool isCorrect;
   final bool answered;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -279,11 +292,11 @@ class _SentenceWithBlank extends StatelessWidget {
     final before = parts.first;
     final after = parts.length > 1 ? parts[1] : '';
 
-    const baseStyle = TextStyle(
+    final baseStyle = TextStyle(
       fontFamily: AppFonts.plusJakartaSans,
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      color: AppColors.textPrimary,
+      fontSize: AppSizes.sp(18),
+      fontWeight: FontWeight.w400,
+      color: textColor,
       height: 1.5,
     );
 
@@ -292,14 +305,7 @@ class _SentenceWithBlank extends StatelessWidget {
         text: TextSpan(
           style: baseStyle,
           children: [
-            TextSpan(text: before,
-            style: TextStyle(
-              color: AppColors.textPrimary,
-              fontWeight: FontWeight.w400,
-              fontSize: AppSizes.sp(16),
-              fontFamily: AppFonts.plusJakartaSans
-            )
-            ),
+            TextSpan(text: before),
             TextSpan(
               text: '                            ',
               style: baseStyle.copyWith(
@@ -307,53 +313,33 @@ class _SentenceWithBlank extends StatelessWidget {
                 decoration: TextDecoration.underline,
                 decorationColor: AppColors.primaryBlueColor,
                 decorationThickness: 2.8,
-
               ),
             ),
-            TextSpan(text: after,
-                style: TextStyle(
-                    color: AppColors.textPrimary,
-                    fontWeight: FontWeight.w400,
-                    fontSize: AppSizes.sp(16),
-                    fontFamily: AppFonts.plusJakartaSans
-                )),
+            TextSpan(text: after),
           ],
         ),
       );
     }
 
     final wordColor =
-        isCorrect ? AppColors.primaryBlueColor : AppColors.redColor;
+        isCorrect ? AppColors.primaryColor : AppColors.redColor;
 
     return RichText(
       text: TextSpan(
         style: baseStyle,
         children: [
-          TextSpan(text: before,
-              style: TextStyle(
-                  color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w400,
-                  fontSize: AppSizes.sp(16),
-                  fontFamily: AppFonts.plusJakartaSans
-              )
-          ),
+          TextSpan(text: before),
           TextSpan(
             text: selectedWord,
             style: baseStyle.copyWith(
+              fontWeight: FontWeight.w600,
               color: wordColor,
               decoration: TextDecoration.underline,
               decorationColor: wordColor,
               decorationThickness: 2.5,
             ),
           ),
-          TextSpan(text: after,
-              style: TextStyle(
-                  color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w400,
-                  fontSize: AppSizes.sp(16),
-                  fontFamily: AppFonts.plusJakartaSans
-              )
-          ),
+          TextSpan(text: after),
         ],
       ),
     );

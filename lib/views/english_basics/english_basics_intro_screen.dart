@@ -18,6 +18,7 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
     final viewModel = context.watch<EnglishBasicsFlowViewModel>();
     final lesson = viewModel.lesson;
     final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
@@ -43,10 +44,10 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
                     width: AppSizes.w(140),
                     height: AppSizes.w(140),
                     decoration: BoxDecoration(
-                      // borderRadius: BorderRadius.circular(100),
                       shape: BoxShape.circle,
-                      color: AppColors.homeCardLavender,
-                      // border: Border.all(color: AppColors.borderDarkPrimary),
+                      color: isDark
+                          ? AppColors.brandDarkSoftColor
+                          : AppColors.homeCardLavender,
                     ),
                     child: Center(
                       child: Image.asset(
@@ -65,7 +66,9 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(24),
                       fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
+                      color: isDark
+                          ? AppColors.textPrimaryDark
+                          : AppColors.textPrimary,
                     ),
                   ),
                   SizedBox(height: AppSizes.spaceSm),
@@ -78,7 +81,9 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
                         fontFamily: AppFonts.plusJakartaSans,
                         fontSize: AppSizes.sp(15),
                         fontWeight: FontWeight.w400,
-                        color: AppColors.textSecondary,
+                        color: isDark
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondary,
                         height: 1.5,
                       ),
                     ),
@@ -88,9 +93,15 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: EdgeInsets.all(AppSizes.w(16)),
                     decoration: BoxDecoration(
-                      color: AppColors.white,
+                      color: isDark
+                          ? AppColors.surfaceBgDarkColor
+                          : AppColors.white,
                       borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                      border: Border.all(color: AppColors.borderDarkPrimary),
+                      border: Border.all(
+                        color: isDark
+                            ? AppColors.borderDarkColor
+                            : AppColors.borderDarkPrimary,
+                      ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +112,9 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(12),
                             fontWeight: FontWeight.w700,
-                            color:Color(0xff7B7487),
+                            color: isDark
+                                ? AppColors.textSecondaryDark
+                                : const Color(0xff7B7487),
                             letterSpacing: 0.8,
                           ),
                         ),
@@ -133,7 +146,9 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
                                           fontFamily: AppFonts.plusJakartaSans,
                                           fontSize: AppSizes.sp(14),
                                           fontWeight: FontWeight.w700,
-                                          color: AppColors.textPrimary,
+                                          color: isDark
+                                              ? AppColors.textPrimaryDark
+                                              : AppColors.textPrimary,
                                         ),
                                       ),
                                       SizedBox(height: AppSizes.h(2)),
@@ -143,7 +158,9 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
                                           fontFamily: AppFonts.plusJakartaSans,
                                           fontSize: AppSizes.sp(12),
                                           fontWeight: FontWeight.w500,
-                                          color: AppColors.textSecondary,
+                                          color: isDark
+                                              ? AppColors.textSecondaryDark
+                                              : AppColors.textSecondary,
                                         ),
                                       ),
                                     ],
@@ -156,13 +173,12 @@ class EnglishBasicsIntroScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: AppSizes.spaceXl,
+                  SizedBox(height: AppSizes.spaceXl),
+                  PrimaryButton(
+                    text: l10n.startLessonButton,
+                    onPressed: () => viewModel.startLesson(),
                   ),
-                  PrimaryButton(text: l10n.startLessonButton, onPressed: ()=>viewModel.startLesson()),
-                  SizedBox(
-                    height: AppSizes.spaceSm,
-                  ),
+                  SizedBox(height: AppSizes.spaceSm),
                 ],
               ),
             ),

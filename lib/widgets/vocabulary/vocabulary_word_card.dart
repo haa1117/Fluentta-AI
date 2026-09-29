@@ -165,16 +165,16 @@ class VocabularyWordCard extends StatelessWidget {
                     ? Icons.volume_off_rounded
                     : Icons.volume_up_rounded,
                 filled: true,
-                isActive: viewModel.isListening,
                 isDark: isDark,
                 onTap: () => viewModel.listenWord(context),
               ),
               SizedBox(width: AppSizes.w(32)),
               _WordActionButton(
                 label: l10n.save,
-                icon: Icons.bookmark_outline_rounded,
+                icon: viewModel.isWordSaved(word.word)
+                    ? Icons.bookmark_rounded
+                    : Icons.bookmark_outline_rounded,
                 filled: false,
-                isActive: viewModel.isWordSaved(word.word),
                 isDark: isDark,
                 onTap: () => viewModel.toggleSaveWord(context),
               ),
@@ -193,13 +193,11 @@ class _WordActionButton extends StatelessWidget {
     required this.filled,
     required this.onTap,
     required this.isDark,
-    this.isActive = false,
   });
 
   final String label;
   final IconData icon;
   final bool filled;
-  final bool isActive;
   final bool isDark;
   final VoidCallback onTap;
 
@@ -230,7 +228,7 @@ class _WordActionButton extends StatelessWidget {
                     ),
             ),
             child: Icon(
-              isActive ? Icons.bookmark_rounded : icon,
+              icon,
               color: filled ? AppColors.white : accentColor,
               size: AppSizes.iconMedium,
             ),

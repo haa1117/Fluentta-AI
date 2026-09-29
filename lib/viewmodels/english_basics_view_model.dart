@@ -45,6 +45,17 @@ class EnglishBasicsViewModel extends ChangeNotifier {
         lesson.status != LearningLessonStatus.completed;
   }
 
+  /// In-lesson bar on the home card (Figma 781:10645), not the full path.
+  double get todayLessonProgress {
+    final lesson = _todaysLesson;
+    if (lesson == null) return 0;
+    return switch (lesson.status) {
+      LearningLessonStatus.completed => 1,
+      LearningLessonStatus.inProgress => 0.37,
+      _ => 0,
+    };
+  }
+
   String get actionLabel {
     final lesson = _todaysLesson;
     if (lesson == null) return 'Start Lesson';

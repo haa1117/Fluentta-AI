@@ -20,6 +20,7 @@ class EnglishBasicsDialogueScreen extends StatelessWidget {
     final viewModel = context.watch<EnglishBasicsFlowViewModel>();
     final lesson = viewModel.lesson;
     final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
@@ -46,18 +47,22 @@ class EnglishBasicsDialogueScreen extends StatelessWidget {
                   lesson.dialogueTitle,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(22),
+                    fontSize: AppSizes.sp(26),
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+                    color: isDark
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimary,
                   ),
                 ),
-                SizedBox(height: AppSizes.h(4)),
+                SizedBox(height: AppSizes.h(9)),
                 Text(
                   lesson.dialogueSubtitle,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(13),
-                    color: AppColors.textSecondary,
+                    fontSize: AppSizes.sp(16),
+                    color: isDark
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondary,
                   ),
                 ),
               ],
@@ -98,6 +103,18 @@ class _DialogueBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isUser = line.isUser;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final speakerColor =
+        isDark ? AppColors.textSecondaryDark : AppColors.textSecondary;
+    final speakerBubble = isDark
+        ? AppColors.surfaceBgDarkColor
+        : AppColors.white;
+    final speakerBorder =
+        isDark ? AppColors.borderDarkColor : AppColors.borderLight;
+    final speakerText =
+        isDark ? AppColors.textPrimaryDark : AppColors.textPrimary;
+    final volumeBg =
+        isDark ? AppColors.brandDarkSoftColor : const Color(0xffF3E8FF);
 
     return Padding(
       padding: EdgeInsets.only(bottom: AppSizes.spaceMd),
@@ -107,14 +124,14 @@ class _DialogueBubble extends StatelessWidget {
             : CrossAxisAlignment.start,
         children: [
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
               line.speaker,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(11),
                 fontWeight: FontWeight.w500,
-                color: AppColors.textSecondary,
+                color: speakerColor,
               ),
             ),
           ),
@@ -128,42 +145,33 @@ class _DialogueBubble extends StatelessWidget {
               if (isUser) ...[
                 IconButton(
                   style: IconButton.styleFrom(
-                    backgroundColor: Color(0xffF3E8FF),
+                    backgroundColor: volumeBg,
                   ),
                   onPressed: onSpeak,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.volume_up_outlined,
-                    color: AppColors.textSecondary,
+                    color: speakerColor,
                   ),
                 ),
               ],
-              SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               Flexible(
                 child: Container(
                   padding: EdgeInsets.all(AppSizes.w(14)),
                   decoration: BoxDecoration(
-                    color: isUser ? AppColors.primaryBlueColor : AppColors.white,
-
-                    // borderRadius: BorderRadius.circular(AppSizes.w(16)),
-                    borderRadius:isUser ? BorderRadius.only(
-
-                      bottomLeft: Radius.circular(AppSizes.w(16)),
-                      topLeft: Radius.circular(AppSizes.w(16)),
-                      bottomRight: Radius.circular(AppSizes.w(16)),
-
-                    ): BorderRadius.only(
-                      bottomLeft: Radius.circular(AppSizes.w(16)),
-                      topRight: Radius.circular(AppSizes.w(16)),
-                      bottomRight: Radius.circular(AppSizes.w(16)),
-                    ),
-                    // border: Border(
-                    //
-                    // )
-                    border: isUser
-                        ? null
-                        : Border.all(color: AppColors.borderDarkPrimary),
+                    color: isUser ? AppColors.primaryBlueColor : speakerBubble,
+                    borderRadius: isUser
+                        ? BorderRadius.only(
+                            bottomLeft: Radius.circular(AppSizes.w(16)),
+                            topLeft: Radius.circular(AppSizes.w(16)),
+                            bottomRight: Radius.circular(AppSizes.w(16)),
+                          )
+                        : BorderRadius.only(
+                            bottomLeft: Radius.circular(AppSizes.w(16)),
+                            topRight: Radius.circular(AppSizes.w(16)),
+                            bottomRight: Radius.circular(AppSizes.w(16)),
+                          ),
+                    border: isUser ? null : Border.all(color: speakerBorder),
                   ),
                   child: Text(
                     line.text,
@@ -171,24 +179,22 @@ class _DialogueBubble extends StatelessWidget {
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(14),
                       fontWeight: FontWeight.w500,
-                      color: isUser ? AppColors.white : AppColors.textPrimary,
+                      color: isUser ? AppColors.white : speakerText,
                       height: 1.4,
                     ),
                   ),
                 ),
               ),
               if (!isUser) ...[
-                SizedBox(
-                  width: 10,
-                ),
+                const SizedBox(width: 10),
                 IconButton(
                   style: IconButton.styleFrom(
-                    backgroundColor: Color(0xffF3E8FF),
+                    backgroundColor: volumeBg,
                   ),
                   onPressed: onSpeak,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.volume_up_outlined,
-                    color: AppColors.textSecondary,
+                    color: speakerColor,
                   ),
                 ),
               ],

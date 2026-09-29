@@ -1,4 +1,5 @@
 import 'package:confetti/confetti.dart';
+import 'package:fluentta_ai/core/analytics/lesson_completion_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/core/ads/admob_service.dart';
@@ -6,6 +7,8 @@ import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/core/network/network_status.dart';
+import 'package:fluentta_ai/core/network/connectivity_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
@@ -30,6 +33,7 @@ class LessonCompleteLayout extends StatefulWidget {
     this.summaryCard,
     this.chips,
     this.newlyUnlocked,
+    this.completionAnalytics,
   });
 
   final int xpEarned;
@@ -51,6 +55,7 @@ class LessonCompleteLayout extends StatefulWidget {
   /// scenario) whose XP threshold this lesson's completion just crossed.
   /// Shown as its own "You've just unlocked" section when non-empty.
   final List<String>? newlyUnlocked;
+  final LessonCompletionAnalytics? completionAnalytics;
 
   @override
   State<LessonCompleteLayout> createState() => _LessonCompleteLayoutState();
@@ -71,6 +76,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _confettiController.play();
       _checkBoostClaimed();
+      widget.completionAnalytics?.logViewed();
     });
   }
 
@@ -104,9 +110,14 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
 
   bool _exiting = false;
 
-  Future<void> _exitWith(VoidCallback action) async {
+  Future<void> _exitWith(VoidCallback action, {required bool startNext}) async {
     if (_exiting) return;
     _exiting = true;
+    if (startNext) {
+      widget.completionAnalytics?.logStartNext();
+    } else {
+      widget.completionAnalytics?.logClosed();
+    }
     if (widget.interstitialOnExit) {
       await AdMobService.instance.maybeShowLessonInterstitial();
     }
@@ -120,6 +131,11 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
   Future<void> _onBoostTap() async {
     final lessonKey = widget.boostLessonKey;
     if (lessonKey == null || _boostClaimed || _boostLoading) return;
+
+    if (!NetworkStatus.lastKnownOnline) {
+      SnackbarHelper.showError(context, context.l10n.featureNeedsInternet);
+      return;
+    }
 
     setState(() => _boostLoading = true);
 
@@ -150,7 +166,9 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
   }
 
   bool get _grantsBoost =>
-      widget.showXpBoost && widget.boostLessonKey != null;
+      widget.showXpBoost &&
+      widget.boostLessonKey != null &&
+      _completionXp > 0;
 
   bool get _isPremium {
     try {
@@ -160,10 +178,14 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
     }
   }
 
+  int get _completionXp => widget.xpEarned;
+
   /// XP number shown in the celebration. Premium learners get the +5 boost
   /// applied automatically (PRD 4.2.3), so fold it into the headline.
   int get _displayXp =>
-      _grantsBoost && _isPremium ? widget.xpEarned + widget.xpBoostAmount : widget.xpEarned;
+      _grantsBoost && _isPremium
+          ? _completionXp + widget.xpBoostAmount
+          : _completionXp;
 
   bool get _showBoostCard {
     if (!_grantsBoost || !_boostChecked) return false;
@@ -177,6 +199,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
+    context.watch<ConnectivityViewModel>();
     final l10n = context.l10n;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
@@ -225,17 +248,19 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                           fit: BoxFit.contain,
                         ),
                         SizedBox(height: AppSizes.spaceMd),
-                        Text(
-                          l10n.xpEarnedCelebration(_displayXp),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: AppFonts.plusJakartaSans,
-                            fontSize: AppSizes.sp(26),
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.xpEarnedTextColor,
+                        if (_displayXp > 0) ...[
+                          Text(
+                            l10n.xpEarnedCelebration(_displayXp),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: AppFonts.plusJakartaSans,
+                              fontSize: AppSizes.sp(26),
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.xpEarnedTextColor,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: AppSizes.spaceMd),
+                          SizedBox(height: AppSizes.spaceMd),
+                        ],
                         Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: AppSizes.horizontalPadding,
@@ -292,7 +317,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
                   ),
                   child: PrimaryButton(
                     text: widget.buttonText,
-                    onPressed: () => _exitWith(widget.onButtonPressed),
+                    onPressed: () => _exitWith(widget.onButtonPressed, startNext: true),
                   ),
                 ),
               ],
@@ -301,7 +326,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
               top: AppSizes.spaceSm,
               right: AppSizes.horizontalPadding,
               child: GestureDetector(
-                onTap: () => _exitWith(widget.onClose),
+                onTap: () => _exitWith(widget.onClose, startNext: false),
                 child: Container(
                   width: AppSizes.w(36),
                   height: AppSizes.w(36),

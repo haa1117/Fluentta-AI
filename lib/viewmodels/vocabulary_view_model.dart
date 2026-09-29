@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
+import 'package:fluentta_ai/core/analytics/cefr_lesson_analytics.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/cefr/lesson_type.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
@@ -70,6 +74,8 @@ class VocabularyViewModel extends ChangeNotifier {
       totalLessonsCount == 0 ? 0 : completedLessonsCount / totalLessonsCount;
 
   int get pathProgressPercent => (pathProgress * 100).round();
+
+  int get currentXp => _localStorage.xpEarned;
 
   LearningPathData get pathData => LearningPathData(
         title: _l10n.vocabularyPathTitle(levelCode),
@@ -187,6 +193,17 @@ class VocabularyViewModel extends ChangeNotifier {
       return;
     }
 
+    AnalyticsService.instance.log(AnalyticsEvents.cefrLessonClicked, {
+      AnalyticsParams.cefrLevel: level.name,
+      AnalyticsParams.moduleType: 'vocabulary',
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.lessonNumber: lesson.number,
+      AnalyticsParams.lessonState: lessonStateFor(lesson.status),
+      AnalyticsParams.entryAction: entryActionFor(lesson.status),
+      AnalyticsParams.sourceScreen: 'cefr_vocabulary',
+      AnalyticsParams.destinationScreen: 'cefr_vocabulary_lesson',
+    });
+
     if (lesson.status == LearningLessonStatus.notStarted) {
       await _dailyLessonRepository.recordLessonStarted(
         type: LessonType.vocabulary,
@@ -210,6 +227,7 @@ class VocabularyViewModel extends ChangeNotifier {
             word: word,
           ),
           cefrLevel: level.code,
+          entryAction: entryActionFor(lesson.status),
           completionXpEarned: LessonXpRewards.vocabularyLesson,
         ),
       ),
@@ -247,6 +265,20 @@ class VocabularyViewModel extends ChangeNotifier {
       completedLessonId: completedLesson.lessonId,
       orderedLessonIds: orderedIds,
     );
+    VocabularyLessonModel? nextLesson;
+    if (nextId != null) {
+      for (final candidate in _lessons) {
+        if (candidate.lessonId == nextId) {
+          nextLesson = candidate;
+          break;
+        }
+      }
+    }
+
+    final alreadyCompleted =
+        (await _progressRepository.getProgress(completedLesson.lessonId))
+                ?.status ==
+            LearningLessonStatus.completed;
 
     await _progressRepository.markCompleted(
       lessonId: completedLesson.lessonId,
@@ -274,7 +306,15 @@ class VocabularyViewModel extends ChangeNotifier {
         updatedAt: DateTime.now(),
         completedAt: DateTime.now(),
       ),
-      wordsLearned: completedLesson.totalWords,
+      wordsLearned: alreadyCompleted ? 0 : completedLesson.totalWords,
+      skipXp: alreadyCompleted,
+    );
+
+    _syncService.rememberNextLesson(
+      nextLessonId: nextId,
+      nextLessonNumber: nextLesson?.number,
+      nextWasLocked: nextLesson?.status == LearningLessonStatus.locked,
+      alreadyCompleted: alreadyCompleted,
     );
 
     unawaited(_loadLessons());

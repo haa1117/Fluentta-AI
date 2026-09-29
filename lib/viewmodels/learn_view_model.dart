@@ -61,6 +61,28 @@ class LearnViewModel extends ChangeNotifier {
   int get totalXp => _localStorage.xpEarned;
   int get savedWordsCount => _savedWordsRepository.count;
 
+  /// The learner's real progress level (highest tab their XP + completed
+  /// core curriculum has unlocked) — distinct from [selectedLevel], which is
+  /// just whichever tab they're currently browsing on this screen.
+  CefrLevel get currentProgressLevel => CefrLevelProgress.highestUnlockedTab(
+        totalXp,
+        isCoreComplete: _progressRepository.isCoreCurriculumComplete,
+      );
+
+  String get subscriptionTier => _localStorage.isPremium ? 'premium' : 'free';
+
+  /// Completion state of a core module (vocabulary/grammar/reading) at the
+  /// currently selected level, for the `cefr_module_clicked` event.
+  String moduleState(String typeId) {
+    final completed = _progressRepository.completedCoreLessonsOfType(
+      _selectedLevel,
+      typeId,
+    );
+    if (completed <= 0) return 'not_started';
+    if (completed >= 10) return 'completed';
+    return 'in_progress';
+  }
+
   List<LearnCategoryModel> get categories {
     final l10n = _localeViewModel.strings;
     return [

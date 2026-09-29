@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
+import 'package:fluentta_ai/core/analytics/lesson_completion_analytics.dart';
+import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
+import 'package:fluentta_ai/core/utils/simple_uuid.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/core/xp/lesson_completion_nav.dart';
@@ -19,12 +27,18 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     required this.savedWordsRepository,
     required this.cefrLevel,
     required this.aiBackendService,
+    required this.entryAction,
+    this.learningArea = 'cefr',
+    this.scenarioId,
     this.nativeLanguage,
     this.onProgressChanged,
     this.onWordStudied,
     this.completionXpEarned = LessonXpRewards.vocabularyLesson,
-  }) : _currentWordIndex = initialWordIndex {
+  }) : _currentWordIndex = initialWordIndex,
+       lessonAttemptId = generateUuidV4() {
     _loadSavedWords();
+    _logScreenAndStart();
+    _logStepViewed();
   }
 
   final VocabularyLessonModel lesson;
@@ -37,6 +51,95 @@ class VocabularyLessonViewModel extends ChangeNotifier {
   final AiBackendService aiBackendService;
   final String cefrLevel;
   final int completionXpEarned;
+
+  /// `cefr` or `role_play`. The vocabulary player is shared by both paths.
+  final String learningArea;
+  final String? scenarioId;
+
+  /// Generated once per lesson-screen entry; reused through completion or exit.
+  final String lessonAttemptId;
+  final String entryAction;
+
+  bool get _isRoleplay => learningArea == 'role_play';
+
+  void _logScreenAndStart() {
+    final cefr = cefrLevel.toLowerCase();
+    if (_isRoleplay) {
+      AnalyticsService.instance.logScreenView('role_play_vocabulary_lesson');
+      AnalyticsService.instance.log(AnalyticsEvents.rolePlayLessonStarted, {
+        AnalyticsParams.lessonAttemptId: lessonAttemptId,
+        AnalyticsParams.scenarioId: scenarioId,
+        AnalyticsParams.cefrLevel: cefr,
+        AnalyticsParams.moduleType: 'vocabulary',
+        AnalyticsParams.lessonId: lesson.lessonId,
+        AnalyticsParams.lessonNumber: lesson.number,
+        AnalyticsParams.entryAction: entryAction,
+        AnalyticsParams.contentStepCount: totalWords,
+      });
+      return;
+    }
+    AnalyticsService.instance.logScreenView('cefr_vocabulary_lesson');
+    AnalyticsService.instance.log(AnalyticsEvents.cefrLessonStarted, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.cefrLevel: cefr,
+      AnalyticsParams.moduleType: 'vocabulary',
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.lessonNumber: lesson.number,
+      AnalyticsParams.entryAction: entryAction,
+      AnalyticsParams.contentStepCount: totalWords,
+    });
+  }
+
+  LessonCompletionAnalytics _completionAnalytics(ProgressSyncService sync) {
+    return LessonCompletionAnalytics.fromOutcome(
+      sync: sync,
+      learningArea: learningArea,
+      lessonAttemptId: lessonAttemptId,
+      cefrLevel: cefrLevel,
+      moduleType: 'vocabulary',
+      lessonId: lesson.lessonId,
+      lessonNumber: lesson.number,
+      catalogueBaseXp: _isRoleplay
+          ? RoleplayXpRewards.vocabulary
+          : LessonXpRewards.vocabularyLesson,
+      menuScreen: _isRoleplay ? 'role_play_vocabulary' : 'cefr_vocabulary',
+      scenarioId: scenarioId,
+      nextLessonScreen: _isRoleplay
+          ? 'role_play_vocabulary_lesson'
+          : 'cefr_vocabulary_lesson',
+      includeModuleBonus: !_isRoleplay,
+    );
+  }
+
+  void _logCompleted(ProgressSyncService sync) {
+    if (!sync.lastLessonCompletionIsNew) return;
+    final cefr = cefrLevel.toLowerCase();
+    if (_isRoleplay) {
+      AnalyticsService.instance.log(AnalyticsEvents.rolePlayLessonCompleted, {
+        AnalyticsParams.lessonAttemptId: lessonAttemptId,
+        AnalyticsParams.scenarioId: scenarioId,
+        AnalyticsParams.cefrLevel: cefr,
+        AnalyticsParams.moduleType: 'vocabulary',
+        AnalyticsParams.lessonId: lesson.lessonId,
+        AnalyticsParams.lessonNumber: lesson.number,
+        AnalyticsParams.baseXpEarned: RoleplayXpRewards.vocabulary,
+        AnalyticsParams.nextLessonState: sync.lastNextLessonState,
+      });
+      return;
+    }
+    AnalyticsService.instance.log(AnalyticsEvents.cefrLessonCompleted, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.cefrLevel: cefr,
+      AnalyticsParams.moduleType: 'vocabulary',
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.lessonNumber: lesson.number,
+      AnalyticsParams.baseXpEarned: LessonXpRewards.vocabularyLesson,
+      AnalyticsParams.moduleCompletionBonusXp: sync.lastModuleCompletionBonusXp,
+      AnalyticsParams.nextLessonState: sync.lastNextLessonState,
+    });
+  }
+  bool _completed = false;
+  bool _exitLogged = false;
 
   /// App language code ("es"/"fr"/"ur") — null or "en" hides the translate
   /// button entirely, since the content is already in English.
@@ -121,6 +224,32 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     }
   }
 
+  void _logStepViewed() {
+    AnalyticsService.instance.log(AnalyticsEvents.lessonStepViewed, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.contentStepNumber: _currentWordIndex + 1,
+      AnalyticsParams.contentStepCount: totalWords,
+      AnalyticsParams.contentId:
+          VocabularyWordEntry.buildId(lesson.lessonId, currentWord.word),
+    });
+  }
+
+  void logExit(String exitMethod) {
+    if (_completed || _exitLogged) return;
+    _exitLogged = true;
+    AnalyticsService.instance.log(
+      _isRoleplay
+          ? AnalyticsEvents.rolePlayLessonExited
+          : AnalyticsEvents.cefrLessonExited,
+      {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.lastStepNumber: _currentWordIndex + 1,
+      AnalyticsParams.exitMethod: exitMethod,
+    });
+  }
+
   Future<void> _loadSavedWords() async {
     await savedWordsRepository.initialize();
     for (final word in lesson.words) {
@@ -151,6 +280,13 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     final l10n = context.l10n;
     _isListening = true;
     notifyListeners();
+    AnalyticsService.instance.log(AnalyticsEvents.vocabularyAudioPlayed, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.contentStepNumber: _currentWordIndex + 1,
+      AnalyticsParams.contentId:
+          VocabularyWordEntry.buildId(lesson.lessonId, currentWord.word),
+    });
 
     final didSpeak = await textToSpeechService.speak(
       currentWord.word,
@@ -178,6 +314,12 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     final l10n = context.l10n;
     final entry = _entryFor(currentWord);
     final saved = await savedWordsRepository.toggle(entry);
+    AnalyticsService.instance.log(AnalyticsEvents.vocabularySaveUpdated, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.contentId: entry.id,
+      AnalyticsParams.saveAction: saved ? 'saved' : 'removed',
+    });
     if (saved) {
       _savedWordIds.add(entry.id);
       if (context.mounted) {
@@ -199,6 +341,7 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     _showTranslation = false;
     _currentWordIndex--;
     onProgressChanged?.call(_currentWordIndex);
+    _logStepViewed();
     notifyListeners();
   }
 
@@ -207,24 +350,32 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     _isListening = false;
 
     final studiedWord = currentWord.word;
+    final sync = context.read<ProgressSyncService>();
     await onWordStudied?.call(studiedWord);
 
     if (isLastWord) {
       if (_isCompleting) return;
+      if (!context.mounted) return;
       _isCompleting = true;
       notifyListeners();
       await completeLessonAndNavigate(
         context: context,
         complete: () => onLessonCompleted(lesson),
-        buildScreen: (unlocked) => VocabularyLessonCompleteScreen(
-          lessonNumber: lesson.number,
-          lessonId: lesson.lessonId,
-          xpEarned: completionXpEarned,
-          learnedWords: lesson.words.map((w) => w.word).toList(),
-          newlyUnlocked: unlocked,
-        ),
+        buildScreen: (unlocked, xpGranted) {
+          _completed = true;
+          _logCompleted(sync);
+          return VocabularyLessonCompleteScreen(
+            lessonNumber: lesson.number,
+            lessonId: lesson.lessonId,
+            xpEarned: xpGranted,
+            learnedWords: lesson.words.map((w) => w.word).toList(),
+            newlyUnlocked: unlocked,
+            completionAnalytics: _completionAnalytics(sync),
+          );
+        },
         onFailed: () {
           _isCompleting = false;
+          _completed = false;
           notifyListeners();
         },
       );
@@ -233,11 +384,15 @@ class VocabularyLessonViewModel extends ChangeNotifier {
     _showTranslation = false;
     _currentWordIndex++;
     onProgressChanged?.call(_currentWordIndex);
+    _logStepViewed();
     notifyListeners();
   }
 
   @override
   void dispose() {
+    if (!_completed && !_exitLogged) {
+      logExit('screen_closed');
+    }
     textToSpeechService.stop();
     super.dispose();
   }

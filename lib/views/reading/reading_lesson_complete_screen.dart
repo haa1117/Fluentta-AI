@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/lesson_completion_analytics.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -12,23 +13,28 @@ class ReadingLessonCompleteScreen extends StatelessWidget {
     super.key,
     required this.lesson,
     this.newlyUnlocked,
+    this.xpEarned = LessonXpRewards.readingLesson,
+    this.completionAnalytics,
   });
 
   final ReadingLessonModel lesson;
   final List<String>? newlyUnlocked;
+  final int xpEarned;
+  final LessonCompletionAnalytics? completionAnalytics;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
     return LessonCompleteLayout(
-      xpEarned: LessonXpRewards.readingLesson,
+      xpEarned: xpEarned,
       boostLessonKey: lesson.lessonId,
       subtitle: l10n.readingLessonCompleted(lesson.number),
       buttonText: l10n.startNextLesson,
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),
       newlyUnlocked: newlyUnlocked,
+      completionAnalytics: completionAnalytics,
       summaryCard: lesson.completionSummary == null
           ? null
           : Container(
