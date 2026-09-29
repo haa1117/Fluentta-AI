@@ -54,6 +54,7 @@ class LocalStorage {
   static const String _xpBoostAdDateKey = 'xp_boost_ad_date';
   static const String _xpBoostAdCountKey = 'xp_boost_ad_count';
   static const String _lessonsSinceInterstitialKey = 'lessons_since_interstitial';
+  static const String _hasVisitedHomeKey = 'has_visited_home';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -185,6 +186,40 @@ class LocalStorage {
     await _prefs!.setInt(_xpBoostAdCountKey, count);
   }
 
+  String get lessonXpGrantedRaw =>
+      _prefs!.getString(_lessonXpGrantedKey) ?? '';
+
+  Future<void> restoreLessonXpGranted(String raw) async {
+    if (raw.trim().isEmpty) return;
+    final existing = lessonXpGrantedRaw;
+    if (existing.isEmpty) {
+      await _prefs!.setString(_lessonXpGrantedKey, raw);
+      return;
+    }
+    final merged = <String>{
+      ...existing.split('\n').where((id) => id.isNotEmpty),
+      ...raw.split('\n').where((id) => id.isNotEmpty),
+    };
+    await _prefs!.setString(_lessonXpGrantedKey, merged.join('\n'));
+  }
+
+  String get xpBoostClaimedRaw =>
+      _prefs!.getString(_xpBoostClaimedKey) ?? '';
+
+  Future<void> restoreXpBoostClaimed(String raw) async {
+    if (raw.trim().isEmpty) return;
+    final existing = xpBoostClaimedRaw;
+    if (existing.isEmpty) {
+      await _prefs!.setString(_xpBoostClaimedKey, raw);
+      return;
+    }
+    final merged = <String>{
+      ...existing.split('\n').where((id) => id.isNotEmpty),
+      ...raw.split('\n').where((id) => id.isNotEmpty),
+    };
+    await _prefs!.setString(_xpBoostClaimedKey, merged.join('\n'));
+  }
+
   // --- Post-lesson interstitial cadence (PRD 4.4 — every 3rd lesson) ---
   int get lessonsSinceInterstitial =>
       _prefs!.getInt(_lessonsSinceInterstitialKey) ?? 0;
@@ -311,6 +346,8 @@ class LocalStorage {
     await _prefs!.remove(_moduleXpGrantedKey);
     await _prefs!.remove(_heartRefillAdDateKey);
     await _prefs!.remove(_heartRefillAdCountKey);
+    await _prefs!.remove(_xpBoostAdDateKey);
+    await _prefs!.remove(_xpBoostAdCountKey);
     await _prefs!.remove(_lessonsSinceInterstitialKey);
     await _prefs!.remove(_learnBrowseCefrLevelKey);
 
@@ -525,10 +562,14 @@ class LocalStorage {
     await _prefs!.setString(_lessonXpAwardedKey, keys.join('\n'));
   }
 
-  Future<bool> hasLessonXpGranted(String lessonId) async {
+  bool isLessonXpGranted(String lessonId) {
     final raw = _prefs!.getString(_lessonXpGrantedKey);
     if (raw == null || raw.isEmpty) return false;
     return raw.split('\n').contains(lessonId);
+  }
+
+  Future<bool> hasLessonXpGranted(String lessonId) async {
+    return isLessonXpGranted(lessonId);
   }
 
   Future<void> markLessonXpGranted(String lessonId) async {
@@ -554,6 +595,13 @@ class LocalStorage {
 
   Future<void> setXpAwardedBackfillDone() async {
     await _prefs!.setBool(_xpAwardedBackfillDoneKey, true);
+  }
+
+  // --- Home analytics: has the learner ever landed on Home before? ---
+  bool get hasVisitedHome => _prefs!.getBool(_hasVisitedHomeKey) ?? false;
+
+  Future<void> setHasVisitedHome() async {
+    await _prefs!.setBool(_hasVisitedHomeKey, true);
   }
 
   bool get shouldShowOnboarding => !isOnboardingComplete;

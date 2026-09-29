@@ -1,3 +1,6 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -9,6 +12,14 @@ import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+/// Screen id (analytics) for each bottom nav destination.
+String _screenIdFor(MainTab tab) => switch (tab) {
+      MainTab.home => 'home',
+      MainTab.learn => 'learn',
+      MainTab.speak => 'role_play',
+      MainTab.profile => 'profile',
+    };
+
 class AppBottomNavBar extends StatelessWidget {
   const AppBottomNavBar({super.key});
 
@@ -18,6 +29,17 @@ class AppBottomNavBar extends StatelessWidget {
     final l10n = context.l10n;
     final viewModel = context.watch<MainShellViewModel>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final currentTab = viewModel.currentTab;
+
+    void logNavTap(MainTab tab) {
+      if (tab == currentTab) return;
+      AnalyticsService.instance.log(AnalyticsEvents.bottomNavClicked, {
+        AnalyticsParams.navItem: _screenIdFor(tab),
+        AnalyticsParams.sourceScreen: _screenIdFor(currentTab),
+        AnalyticsParams.destinationScreen: _screenIdFor(tab),
+      });
+    }
+
     return Container(
       decoration: BoxDecoration(
         color:isDark ? Color(0xff100D17): AppColors.white,
@@ -44,7 +66,10 @@ class AppBottomNavBar extends StatelessWidget {
                 svgIcon: AppAssets.homeIcon,
                 label: l10n.navHome,
                 isSelected: viewModel.currentTab == MainTab.home,
-                onTap: () => viewModel.selectTab(MainTab.home),
+                onTap: () {
+                  logNavTap(MainTab.home);
+                  viewModel.selectTab(MainTab.home);
+                },
               ),
               _NavItem(
                 isDark: isDark,
@@ -52,7 +77,10 @@ class AppBottomNavBar extends StatelessWidget {
                 svgIcon: AppAssets.learnIcon,
                 label: l10n.navLearn,
                 isSelected: viewModel.currentTab == MainTab.learn,
-                onTap: () => viewModel.selectTab(MainTab.learn),
+                onTap: () {
+                  logNavTap(MainTab.learn);
+                  viewModel.selectTab(MainTab.learn);
+                },
               ),
               _NavItem(
                 isDark: isDark,
@@ -60,7 +88,10 @@ class AppBottomNavBar extends StatelessWidget {
                 svgIcon: AppAssets.rolePlayIcon,
                 label: l10n.navSpeak,
                 isSelected: viewModel.currentTab == MainTab.speak,
-                onTap: () => viewModel.selectTab(MainTab.speak),
+                onTap: () {
+                  logNavTap(MainTab.speak);
+                  viewModel.selectTab(MainTab.speak);
+                },
               ),
               _NavItem(
                 isDark: isDark,
@@ -69,6 +100,7 @@ class AppBottomNavBar extends StatelessWidget {
                 label: l10n.navProfile,
                 isSelected: viewModel.currentTab == MainTab.profile,
                 onTap: () {
+                  logNavTap(MainTab.profile);
                   viewModel.selectTab(MainTab.profile);
                   context.read<ProfileViewModel>().refreshStats();
                 },

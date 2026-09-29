@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
@@ -50,6 +53,7 @@ class AppNavigator extends StatefulWidget {
 class _AppNavigatorState extends State<AppNavigator> {
   late AppFlow _currentFlow;
   StreamSubscription<User?>? _authSubscription;
+  String _signupMethod = 'email';
 
   @override
   void initState() {
@@ -115,8 +119,25 @@ class _AppNavigatorState extends State<AppNavigator> {
   }
 
   void _completeSplash() {
-    setState(() => _currentFlow = _resolvePostSplashFlow());
+    final flow = _resolvePostSplashFlow();
+    AnalyticsService.instance.log(AnalyticsEvents.splashCompleted, {
+      AnalyticsParams.durationMs: context.read<SplashViewModel>().elapsedMs,
+      AnalyticsParams.destinationScreen: _screenIdForFlow(flow),
+      AnalyticsParams.launchType: 'cold_start',
+    });
+    setState(() => _currentFlow = flow);
   }
+
+  String _screenIdForFlow(AppFlow flow) => switch (flow) {
+        AppFlow.home => 'home',
+        AppFlow.setup => 'personalization_goal',
+        AppFlow.onboarding => 'pre_login_1',
+        AppFlow.language => 'language_selection',
+        AppFlow.signIn => 'login_email',
+        AppFlow.accountCreated => 'account_created',
+        AppFlow.splash => 'splash',
+        AppFlow.passwordReset => 'password_update',
+      };
 
   void _completePasswordResetFlow() {
     widget.authRepository.completePasswordResetFlow();
@@ -130,7 +151,8 @@ class _AppNavigatorState extends State<AppNavigator> {
     setState(() => _currentFlow = AppFlow.signIn);
   }
 
-  void _goToAccountCreated() {
+  void _goToAccountCreated(String signupMethod) {
+    _signupMethod = signupMethod;
     setState(() => _currentFlow = AppFlow.accountCreated);
   }
 
@@ -225,6 +247,7 @@ class _AppNavigatorState extends State<AppNavigator> {
           AppFlow.accountCreated => AccountCreatedScreen(
               key: const ValueKey('accountCreated'),
               onContinue: _continueFromAccountCreated,
+              signupMethod: _signupMethod,
             ),
           AppFlow.setup => SetupFlowScreen(
               key: const ValueKey('setup'),

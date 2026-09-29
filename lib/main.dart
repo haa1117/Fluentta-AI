@@ -8,6 +8,7 @@ import 'package:fluentta_ai/app_navigator.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/navigation/password_reset_deep_link_handler.dart';
 import 'package:fluentta_ai/core/ads/admob_service.dart';
+import 'package:fluentta_ai/core/network/connectivity_view_model.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/theme/app_theme.dart';
 import 'package:fluentta_ai/core/theme/theme_view_model.dart';
@@ -45,6 +46,7 @@ import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
 import 'package:fluentta_ai/core/navigation/root_navigator_key.dart';
 import 'package:fluentta_ai/widgets/auth/password_reset_link_listener.dart';
 import 'package:fluentta_ai/widgets/common/notification_lifecycle_watcher.dart';
+import 'package:fluentta_ai/widgets/common/offline_mode_card.dart';
 import 'package:provider/provider.dart';
 import 'package:fluentta_ai/firebase_options.dart';
 
@@ -279,17 +281,23 @@ class FluentaApp extends StatelessWidget {
           create: (_) => AiBackendService(),
         ),
         ChangeNotifierProvider(
+          create: (context) => ConnectivityViewModel(
+            progressSyncService: context.read<ProgressSyncService>(),
+          ),
+        ),
+        ChangeNotifierProvider(
           create: (_) => LocaleViewModel(localStorage),
         ),
         ChangeNotifierProvider(
           create: (_) => ThemeViewModel(localStorage),
         ),
         ChangeNotifierProvider(
-          create: (_) => AuthViewModel(
+          create: (context) => AuthViewModel(
             authRepository,
             userRepository,
             localStorage,
             progressSyncService,
+            context.read<LocaleViewModel>(),
           ),
         ),
         ChangeNotifierProvider(
@@ -384,7 +392,7 @@ class FluentaApp extends StatelessWidget {
       child: Consumer2<LocaleViewModel, ThemeViewModel>(
         builder: (context, localeViewModel, themeViewModel, _) {
           return MaterialApp(
-            title: 'Fluenta',
+            title: 'Fluenta AI',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
@@ -393,6 +401,9 @@ class FluentaApp extends StatelessWidget {
             navigatorKey: rootNavigatorKey,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
+            builder: (context, child) {
+              return OfflineGate(child: child ?? const SizedBox.shrink());
+            },
             home: PasswordResetLinkListener(
               child: NotificationLifecycleWatcher(
                 child: AppNavigator(

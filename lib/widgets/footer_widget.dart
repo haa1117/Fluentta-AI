@@ -1,4 +1,5 @@
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class FooterWidget extends StatelessWidget {
@@ -7,11 +8,11 @@ class FooterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   Container(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-
-        boxShadow: [
+        color: isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
+        boxShadow: const [
           BoxShadow(
             color: Color(0x0D000000),
             offset: Offset(0, -2),
@@ -20,14 +21,17 @@ class FooterWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          AppSizes.horizontalPadding,
-          AppSizes.spaceLg,
-          AppSizes.horizontalPadding,
-          AppSizes.spaceLg,
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            AppSizes.horizontalPadding,
+            AppSizes.spaceLg,
+            AppSizes.horizontalPadding,
+            AppSizes.spaceLg,
+          ),
+          child: child,
         ),
-        child:child,
       ),
     );
   }

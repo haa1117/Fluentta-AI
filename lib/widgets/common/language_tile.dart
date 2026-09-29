@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LanguageTile extends StatelessWidget {
   const LanguageTile({
     super.key,
-    required this.flagEmoji,
+    required this.flagAsset,
     required this.languageName,
     required this.isSelected,
     required this.onTap,
     this.subtitle,
-   required this.isDark
+    required this.isDark,
   });
 
-  final String flagEmoji;
+  final String flagAsset;
   final String languageName;
   final String? subtitle;
   final bool isSelected;
@@ -30,26 +32,23 @@ class LanguageTile extends StatelessWidget {
           vertical: AppSizes.h(14),
         ),
         decoration: BoxDecoration(
-          color:isDark ? AppColors.tileBackgroundDarkColor : AppColors.white,
+          color: isDark ? AppColors.tileBackgroundDarkColor : AppColors.white,
           borderRadius: BorderRadius.circular(AppSizes.tileRadius),
           border: Border.all(
-            color: isSelected ? AppColors.borderSelected : isDark ? AppColors.borderDarkColor : AppColors.borderLight,
+            color: isSelected
+                ? AppColors.borderSelected
+                : isDark
+                    ? AppColors.borderDarkColor
+                    : AppColors.borderLight,
             width: isSelected ? 1.5 : 1,
           ),
         ),
         child: Row(
           children: [
-            Container(
-              width: AppSizes.flagSize,
-              height: AppSizes.flagSize,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                flagEmoji,
-                style: TextStyle(fontSize: AppSizes.sp(24)),
-              ),
+            _CircularFlag(
+              asset: flagAsset,
+              size: AppSizes.flagSize,
+              cropFromStart: flagAsset == AppAssets.flagEnglish,
             ),
             SizedBox(width: AppSizes.w(12)),
             Expanded(
@@ -62,7 +61,9 @@ class LanguageTile extends StatelessWidget {
                       fontFamily: 'PlusJakartaSans',
                       fontSize: AppSizes.fontSubtitle,
                       fontWeight: FontWeight.w600,
-                      color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
+                      color: isDark
+                          ? AppColors.textPrimaryDark
+                          : AppColors.textPrimary,
                     ),
                   ),
                   if (subtitle != null) ...[
@@ -73,15 +74,18 @@ class LanguageTile extends StatelessWidget {
                         fontFamily: 'PlusJakartaSans',
                         fontSize: AppSizes.fontCaption,
                         fontWeight: FontWeight.w400,
-                        color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+                        color: isDark
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondary,
                       ),
                     ),
                   ],
                 ],
               ),
             ),
-            _RadioIndicator(isSelected: isSelected,
-            isDark: isDark,
+            _RadioIndicator(
+              isSelected: isSelected,
+              isDark: isDark,
             ),
           ],
         ),
@@ -90,9 +94,47 @@ class LanguageTile extends StatelessWidget {
   }
 }
 
+class _CircularFlag extends StatelessWidget {
+  const _CircularFlag({
+    required this.asset,
+    required this.size,
+    this.cropFromStart = false,
+  });
+
+  final String asset;
+  final double size;
+  final bool cropFromStart;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipOval(
+      child: SizedBox(
+        width: size,
+        height: size,
+        child: cropFromStart
+            ? OverflowBox(
+                maxWidth: size * 1.9,
+                alignment: Alignment.centerLeft,
+                child: SvgPicture.asset(
+                  asset,
+                  width: size * 1.9,
+                  height: size,
+                  fit: BoxFit.fill,
+                  alignment: Alignment.centerLeft,
+                ),
+              )
+            : SvgPicture.asset(
+                asset,
+                fit: BoxFit.cover,
+              ),
+      ),
+    );
+  }
+}
+
 class _RadioIndicator extends StatelessWidget {
   final bool isDark;
-  const _RadioIndicator({required this.isSelected,required this.isDark});
+  const _RadioIndicator({required this.isSelected, required this.isDark});
 
   final bool isSelected;
 
@@ -104,7 +146,11 @@ class _RadioIndicator extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: isSelected ? AppColors.primaryColor :isDark ? AppColors.borderDarkColor : AppColors.radioUnselected,
+          color: isSelected
+              ? AppColors.primaryColor
+              : isDark
+                  ? AppColors.borderDarkColor
+                  : AppColors.radioUnselected,
           width: 2,
         ),
       ),

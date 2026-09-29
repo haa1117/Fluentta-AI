@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
@@ -22,71 +23,64 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isActive = enabled && !isLoading;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Container(
+    final radius = BorderRadius.circular(AppSizes.w(12));
+    return SizedBox(
       width: double.infinity,
-      height: AppSizes.buttonHeight,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-        gradient: isActive ? isDark ?  const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF8C31EF),
-            Color(0xFFB247F3),
-          ],
-        ): AppColors.primaryGradient : null,
-        color: isActive ? null : AppColors.primaryColor.withValues(alpha: 0.35),
-        // boxShadow: isActive
-        //     ? [
-        //         BoxShadow(
-        //           color: AppColors.primaryGradientStart.withValues(alpha: 0.35),
-        //           blurRadius: 16,
-        //           offset: Offset(0, AppSizes.h(8)),
-        //         ),
-        //       ]
-        //     : null,
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
-          onTap: isActive ? onPressed : null,
-          child: Center(
-            child: isLoading
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: AppSizes.w(20),
-                        height: AppSizes.w(20),
-                        child: const CircularProgressIndicator(
-                          color: AppColors.white,
-                          strokeWidth: 2,
-                        ),
-                      ),
-                      if (loadingText != null) ...[
-                        SizedBox(width: AppSizes.w(10)),
-                        Text(
-                          loadingText!,
-                          style: TextStyle(
-                            fontFamily: 'PlusJakartaSans',
+      height: AppSizes.h(60),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          gradient: isActive ? AppColors.primaryGradient : null,
+          color: isActive
+              ? null
+              : isDark
+                  ? AppColors.borderDarkColor
+                  : const Color(0xFFE2D9E9),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: radius,
+            onTap: isActive ? onPressed : null,
+            child: Center(
+              child: isLoading
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: AppSizes.w(20),
+                          height: AppSizes.w(20),
+                          child: const CircularProgressIndicator(
                             color: AppColors.white,
-                            fontSize: AppSizes.fontButton,
-                            fontWeight: FontWeight.w700,
+                            strokeWidth: 2,
                           ),
                         ),
+                        if (loadingText != null) ...[
+                          SizedBox(width: AppSizes.w(10)),
+                          Text(
+                            loadingText!,
+                            style: TextStyle(
+                              fontFamily: AppFonts.plusJakartaSans,
+                              color: AppColors.white,
+                              fontSize: AppSizes.sp(18),
+                              fontWeight: FontWeight.w700,
+                              height: 1,
+                            ),
+                          ),
+                        ],
                       ],
-                    ],
-                  )
-                : Text(
-                    text,
-                    style: TextStyle(
-                      fontFamily: 'PlusJakartaSans',
-                      color:isDark ?AppColors.textPrimaryDark : AppColors.white,
-                      fontSize: AppSizes.fontButton,
-                      fontWeight: FontWeight.w700,
+                    )
+                  : Text(
+                      text,
+                      style: TextStyle(
+                        fontFamily: AppFonts.plusJakartaSans,
+                        color: AppColors.white,
+                        fontSize: AppSizes.sp(18),
+                        fontWeight: FontWeight.w700,
+                        height: 1,
+                      ),
                     ),
-                  ),
+            ),
           ),
         ),
       ),

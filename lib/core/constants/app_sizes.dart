@@ -33,11 +33,11 @@ class AppSizes {
   static double get fontSubtitle => sp(16);
   static double get fontBody => sp(19);
   static double get fontCaption => sp(12);
-  static double get fontButton => sp(16);
+  static double get fontButton => sp(18);
   static double get fontSmall => sp(11);
 
   // Component Sizes
-  static double get buttonHeight => h(54);
+  static double get buttonHeight => h(56);
   static double get buttonRadius => w(12);
   static double get cardRadius => w(16);
   static double get tileRadius => w(12);
@@ -51,7 +51,7 @@ class AppSizes {
   static double get pageIndicatorInactiveSize => w(8);
   static double get pageIndicatorHeight => h(8);
 
-  static double get flagSize => w(40);
+  static double get flagSize => w(35);
   static double get radioSize => w(22);
 
   // Spacing
@@ -65,5 +65,8 @@ class AppSizes {
   static double get onboardingImageHeight => h(280);
   static double get splashImageHeight => h(320);
   static double get adPlaceholderHeight => h(180);
-  static double get bannerHeight => h(140);
+  static double get bannerHeight => h(185);
+  static double get languageBannerBirdSize => w(234);
+  static double get languageBannerHeartSize => w(30);
+  static double get languageBannerRadius => w(24);
 }

@@ -2,14 +2,10 @@ class LanguageModel {
   const LanguageModel({
     required this.code,
     required this.name,
-    required this.flagEmoji,
-    this.subtitle,
-    this.isSuggested = false,
+    required this.flagAsset,
   });
 
   final String code;
   final String name;
-  final String flagEmoji;
-  final String? subtitle;
-  final bool isSuggested;
+  final String flagAsset;
 }

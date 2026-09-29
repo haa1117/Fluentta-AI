@@ -69,9 +69,11 @@ static const Color iconColorDark=Color(0xff81768D);
   static const Color readingUserGreen = Color(0xFF22C55E);
   static const Color readingUserBubbleBg = Color(0xFFE8F8EF);
 
+  /// Figma `gradient primary` as rendered on Create Account (node 781:17220):
+  /// #8C31EF on the left to #B247F3 on the right, with a slight downward tilt.
   static const LinearGradient primaryGradient = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+    begin: Alignment(-1, -0.18),
+    end: Alignment(1, 0.18),
     colors: [
       primaryGradientStart,
       primaryGradientEnd,

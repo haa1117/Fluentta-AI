@@ -3,10 +3,14 @@ import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LanguageBanner extends StatelessWidget {
   final bool isDark;
   const LanguageBanner({super.key, required this.isDark});
+
+  static const _designWidth = 372.0;
+  static const _designHeight = 185.0;
 
   @override
   Widget build(BuildContext context) {
@@ -14,70 +18,80 @@ class LanguageBanner extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      constraints: BoxConstraints(minHeight: AppSizes.bannerHeight),
+      height: AppSizes.bannerHeight,
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         gradient: isDark ? null : AppColors.bannerGradient,
         color: isDark ? const Color(0xff302241) : null,
-        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+        borderRadius: BorderRadius.circular(AppSizes.languageBannerRadius),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppSizes.w(20),
-                vertical: AppSizes.h(16),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final sx = constraints.maxWidth / _designWidth;
+          final sy = constraints.maxHeight / _designHeight;
+          return Stack(
+            children: [
+              Positioned(
+                left: 160 * sx,
+                top: 0,
+                child: Image.asset(
+                  AppAssets.chooseLanguageBird,
+                  width: 234 * sx,
+                  height: 234 * sx,
+                  fit: BoxFit.contain,
+                  alignment: Alignment.topCenter,
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    l10n.chooseYourLanguage,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontFamily: 'PlusJakartaSans',
-                      fontSize: AppSizes.fontTitle,
-                      fontWeight: FontWeight.w700,
-                      height: 1.2,
-                      color: isDark
-                          ? AppColors.textPrimaryDark
-                          : AppColors.textPrimary,
-                    ),
-                  ),
-                  SizedBox(height: AppSizes.h(4)),
-                  Text(
-                    l10n.personalizeExperience,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontFamily: 'PlusJakartaSans',
-                      fontSize: AppSizes.fontCaption,
-                      fontWeight: FontWeight.w400,
-                      height: 1.3,
-                      color: isDark
-                          ? AppColors.textSecondaryDark
-                          : AppColors.textSecondary,
-                    ),
-                  ),
-                ],
+              Positioned(
+                left: 200 * sx,
+                top: 35 * sy,
+                child: SvgPicture.asset(
+                  isDark
+                      ? AppAssets.languageHeartDark
+                      : AppAssets.languageHeart,
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.only(end: AppSizes.w(8)),
-            child: Image.asset(
-              AppAssets.chooseLanguageBird,
-              height: AppSizes.h(120),
-              width: AppSizes.w(100),
-              fit: BoxFit.contain,
-              alignment: Alignment.bottomCenter,
-            ),
-          ),
-        ],
+              Positioned(
+                left: 15 * sx,
+                top: 36 * sy,
+                width: 175 * sx,
+                child: Text(
+                  l10n.chooseYourLanguage,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: 'PlusJakartaSans',
+                    fontSize: 26 * sx,
+                    fontWeight: FontWeight.w700,
+                    height: 1.15,
+                    color: isDark
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimary,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 15 * sx,
+                top: 119 * sy,
+                width: 175 * sx,
+                child: Text(
+                  l10n.personalizeExperience,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: 'PlusJakartaSans',
+                    fontSize: 12 * sx,
+                    fontWeight: FontWeight.w500,
+                    height: 1.25,
+                    color: isDark
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondary,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

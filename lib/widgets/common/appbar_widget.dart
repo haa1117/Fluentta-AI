@@ -1,7 +1,11 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/widgets/profile/xp_unlocked_dialog.dart';
@@ -18,6 +22,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.showActionButton = true,
     this.showHearts = false,
     this.backGroundColor = AppColors.white,
+    this.xpIconSourceScreen,
   });
 
   final String title;
@@ -27,6 +32,11 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final bool showActionButton;
   final bool showHearts;
   final Color backGroundColor;
+
+  /// When set, logs `xp_icon_clicked` (with this screen id) before opening
+  /// the XP dialog. Left null on call sites outside this analytics pass so
+  /// their behavior is unchanged.
+  final String? xpIconSourceScreen;
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
@@ -61,7 +71,22 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               GestureDetector(
                 onTap: showHearts
                     ? null
-                    : () => showXpUnlockedDialog(context),
+                    : () {
+                        final sourceScreen = xpIconSourceScreen;
+                        if (sourceScreen != null) {
+                          AnalyticsService.instance.log(
+                            AnalyticsEvents.xpIconClicked,
+                            {
+                              AnalyticsParams.sourceScreen: sourceScreen,
+                              AnalyticsParams.currentXp: xpEarned,
+                            },
+                          );
+                        }
+                        showXpUnlockedDialog(
+                          context,
+                          sourceScreen: sourceScreen ?? 'unknown',
+                        );
+                      },
                 child: Container(
                   margin: EdgeInsets.only(right: AppSizes.w(16)),
                   padding: EdgeInsets.symmetric(
@@ -75,7 +100,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                   child: Row(
                     children: [
                       Text(
-                        showHearts ? heartsLabel : '$xpEarned ' + 'XP',
+                        showHearts
+                            ? heartsLabel
+                            : '$xpEarned ${context.l10n.xpAbbrev}',
                         style: TextStyle(
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(12),
