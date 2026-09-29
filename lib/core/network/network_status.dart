@@ -5,6 +5,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 class NetworkStatus {
   NetworkStatus._();
 
+  /// Updated by [ConnectivityViewModel]. AdMob and other sync code can read
+  /// this without an extra plugin round-trip.
+  static bool lastKnownOnline = true;
+
   static bool hasConnection(List<ConnectivityResult> results) {
     return results.any((result) => result != ConnectivityResult.none);
   }
