@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 
-/// Checking hero: centered bird inside faint rings + left-side waveform
-/// matching the pronunciation checking design reference.
+/// Checking hero: centered bird inside faint rings.
+/// Waveform is already part of [AppAssets.pronunciationCheckingBird].
 class PronunciationCheckingHero extends StatefulWidget {
   const PronunciationCheckingHero({super.key});
 
@@ -18,7 +18,6 @@ class _PronunciationCheckingHeroState extends State<PronunciationCheckingHero>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
-  static const Color _waveColor = Color(0xFFC9A8F5);
   static const Color _ringColor = Color(0xFFE4D4F7);
 
   @override
@@ -70,14 +69,6 @@ class _PronunciationCheckingHeroState extends State<PronunciationCheckingHero>
                   width: birdSize,
                   height: birdSize,
                   fit: BoxFit.contain,
-                ),
-              ),
-              Positioned(
-                left: AppSizes.w(28),
-                top: outerSize * 0.34,
-                child: _CheckingSideWaveform(
-                  controller: _controller,
-                  barColor: _waveColor,
                 ),
               ),
             ],
@@ -144,63 +135,6 @@ class _SoftPulseRing extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _CheckingSideWaveform extends StatelessWidget {
-  const _CheckingSideWaveform({
-    required this.controller,
-    required this.barColor,
-  });
-
-  final AnimationController controller;
-  final Color barColor;
-
-  /// 7 bars — diamond shape: short → tall → short (design reference).
-  static const List<double> _baseHeights = [
-    0.38,
-    0.58,
-    0.82,
-    1.0,
-    0.82,
-    0.58,
-    0.38,
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (context, _) {
-        return SizedBox(
-          height: AppSizes.h(34),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: List.generate(_baseHeights.length, (index) {
-              final phase =
-                  controller.value * 2 * math.pi + index * 0.72;
-              final wave = 0.62 + 0.38 * math.sin(phase);
-              final height =
-                  AppSizes.h(8 + 20 * _baseHeights[index] * wave);
-
-              return Container(
-                width: AppSizes.w(3.5),
-                height: height,
-                margin: EdgeInsets.only(
-                  right: index < _baseHeights.length - 1
-                      ? AppSizes.w(2.5)
-                      : 0,
-                ),
-                decoration: BoxDecoration(
-                  color: barColor,
-                  borderRadius: BorderRadius.circular(AppSizes.w(2)),
-                ),
-              );
-            }),
-          ),
-        );
-      },
     );
   }
 }

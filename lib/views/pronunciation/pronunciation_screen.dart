@@ -1,3 +1,7 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_first_frame.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -20,7 +24,18 @@ class PronunciationScreen extends StatelessWidget {
     final l10n = context.l10n;
     final vm = context.watch<PronunciationViewModel>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Scaffold(
+    return AnalyticsFirstFrame(
+      onFirstFrame: () {
+        AnalyticsService.instance.logScreenView('pronunciation_practice');
+        AnalyticsService.instance.log(
+          AnalyticsEvents.pronunciationPracticeViewed,
+          {
+            ...vm.phraseAnalyticsParams(),
+            AnalyticsParams.sourceScreen: 'role_play',
+          },
+        );
+      },
+      child: Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.pronunciation,
@@ -249,6 +264,7 @@ class PronunciationScreen extends StatelessWidget {
           ],
         ),
       ),
+    ),
     );
   }
 }

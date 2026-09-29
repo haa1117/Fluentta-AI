@@ -1,3 +1,5 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -31,6 +33,14 @@ class _PronunciationCheckingScreenState
     );
 
     _runCheck();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      AnalyticsService.instance.logScreenView('pronunciation_checking');
+      AnalyticsService.instance.log(
+        AnalyticsEvents.pronunciationCheckingViewed,
+        context.read<PronunciationViewModel>().phraseAnalyticsParams(),
+      );
+    });
   }
 
   Future<void> _runCheck() async {

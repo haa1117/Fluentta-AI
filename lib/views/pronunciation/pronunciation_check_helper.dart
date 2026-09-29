@@ -1,3 +1,6 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -21,8 +24,20 @@ Future<bool> startPronunciationCheck(
   // asks for it instead of making that screen sit on a blank spinner.
   vm.primeMicrophonePermission();
 
+  // Source/feature screen id is a placeholder: pronunciation screens aren't
+  // in this instrumentation pass's scope, so there's no registry id to pull
+  // from here yet — 'pronunciation_check' is the PRD feature_context.
+  final blockedAction =
+      replaceCurrent ? 'retry_pronunciation_check' : 'start_pronunciation_check';
+  final checkEntry = replaceCurrent ? 'retry' : 'start';
+
   if (!home.hasUnlimitedHearts && !vm.canAffordCheck) {
-    await showOutOfHeartsBottomSheet(context);
+    await showOutOfHeartsBottomSheet(
+      context,
+      sourceScreen: 'pronunciation_practice',
+      featureContext: 'pronunciation_check',
+      blockedAction: blockedAction,
+    );
     return false;
   }
 
@@ -33,6 +48,19 @@ Future<bool> startPronunciationCheck(
     SnackbarHelper.showError(context, l10n.outOfHearts);
     return false;
   }
+
+  home.maybeLogHeartGateRecovery(
+    featureContext: 'pronunciation_check',
+    blockedAction: blockedAction,
+  );
+
+  AnalyticsService.instance.log(AnalyticsEvents.pronunciationCheckStarted, {
+    ...vm.phraseAnalyticsParams(),
+    AnalyticsParams.checkEntry: checkEntry,
+    AnalyticsParams.heartAccessType:
+        home.hasUnlimitedHearts ? 'unlimited' : 'metered',
+    AnalyticsParams.heartCost: home.hasUnlimitedHearts ? 0 : 1,
+  });
 
   if (replaceCurrent) {
     await Navigator.of(context).pushReplacementNamed(

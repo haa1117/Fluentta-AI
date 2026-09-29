@@ -1,3 +1,5 @@
+import 'package:fluentta_ai/core/analytics/analytics_first_frame.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/widgets/common/icon_background_container.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:fluentta_ai/widgets/common/text_button_widget.dart';
@@ -73,7 +75,11 @@ class _PronunciationRecordingScreenState
     final vm = context.watch<PronunciationViewModel>();
     final phrase = vm.currentPhraseText;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Scaffold(
+    return AnalyticsFirstFrame(
+      onFirstFrame: () {
+        AnalyticsService.instance.logScreenView('pronunciation_recording');
+      },
+      child: Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.pronunciation,
@@ -208,6 +214,7 @@ class _PronunciationRecordingScreenState
           ],
         ),
       ),
+    ),
     );
   }
 }

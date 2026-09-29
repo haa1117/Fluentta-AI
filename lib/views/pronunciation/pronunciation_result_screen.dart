@@ -1,3 +1,6 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -31,6 +34,13 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
         return;
       }
       vm.completeCurrentPhrase();
+      AnalyticsService.instance.logScreenView('pronunciation_result');
+      AnalyticsService.instance.log(AnalyticsEvents.pronunciationResultViewed, {
+        ...vm.phraseAnalyticsParams(),
+        AnalyticsParams.overallScore: vm.currentResult!.overallScore,
+        AnalyticsParams.speechDetected: vm.currentResult!.heardAnything,
+        AnalyticsParams.wordFeedbackCount: vm.currentResult!.words.length,
+      });
     });
   }
 
@@ -163,6 +173,10 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                 PrimaryButton(
                   text: l10n.tryAgain,
                   onPressed: () async {
+                    AnalyticsService.instance.log(
+                      AnalyticsEvents.pronunciationTryAgainClicked,
+                      vm.phraseAnalyticsParams(),
+                    );
                     vm.clearCurrentResult();
                     await startPronunciationCheck(
                       context,
@@ -205,10 +219,22 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                   child: OutlinedButton(
                     onPressed: () {
                       if (vm.isLastPhrase) {
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.pronunciationFinishClicked,
+                          vm.phraseAnalyticsParams(),
+                        );
                         Navigator.of(context).pushReplacementNamed(
                           PronunciationFlow.routeComplete,
                         );
                       } else {
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.pronunciationNextPhraseClicked,
+                          {
+                            ...vm.phraseAnalyticsParams(),
+                            AnalyticsParams.toStep: vm.currentPhraseNumber + 1,
+                          },
+                        );
+                        vm.nextPhrase();
                         vm.nextPhrase();
                         Navigator.of(context).popUntil(
                           (route) =>

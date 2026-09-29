@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
+import 'package:fluentta_ai/core/utils/simple_uuid.dart';
 import 'package:fluentta_ai/data/models/pronunciation_phrase_model.dart';
 import 'package:fluentta_ai/data/services/ai_backend_service.dart';
 import 'package:fluentta_ai/data/services/pronunciation_assessment_service.dart';
@@ -19,7 +22,7 @@ class PronunciationViewModel extends ChangeNotifier {
     this._assessmentService,
     this._progressSyncService,
     this._aiBackendService,
-  );
+  ) : practiceSessionId = generateUuidV4();
 
   final HomeViewModel _homeViewModel;
   final TextToSpeechService _textToSpeechService;
@@ -29,6 +32,9 @@ class PronunciationViewModel extends ChangeNotifier {
   final AudioRecorder _recorder = AudioRecorder();
   StreamSubscription<Amplitude>? _amplitudeSub;
   PronunciationStartFailure _startFailure = PronunciationStartFailure.none;
+  final String practiceSessionId;
+  DateTime? _recordingStartedAt;
+  final Map<int, int> _attemptsByPhrase = {};
 
   int _currentPhraseIndex = 0;
   final List<int> _completedScores = [];
@@ -56,6 +62,22 @@ class PronunciationViewModel extends ChangeNotifier {
 
   String get currentPhraseText =>
       PronunciationContent.phrases[_currentPhraseIndex].text;
+
+  int get currentPhraseNumber => _currentPhraseIndex + 1;
+
+  String get currentPhraseId => 'phrase_$currentPhraseNumber';
+
+  int get currentAttemptNumber =>
+      _attemptsByPhrase[_currentPhraseIndex] ?? 0;
+
+  Map<String, Object?> phraseAnalyticsParams({int? attemptNumber}) => {
+        AnalyticsParams.practiceSessionId: practiceSessionId,
+        AnalyticsParams.phraseId: currentPhraseId,
+        AnalyticsParams.phraseNumber: currentPhraseNumber,
+        AnalyticsParams.phraseCount: totalPhrases,
+        AnalyticsParams.pronunciationAttemptNumber:
+            attemptNumber ?? currentAttemptNumber,
+      };
 
   PronunciationAssessmentResult? get currentResult => _currentResult;
 
@@ -89,9 +111,9 @@ class PronunciationViewModel extends ChangeNotifier {
   }
 
   Future<bool> deductHeartForCheck() async {
-    // Debug builds are for testing the flow repeatedly — don't burn through
-    // real hearts doing it (same exemption the out-of-hearts dialog uses).
-    if (kDebugMode) return true;
+    // Pro (unlimited hearts) is the only bypass. Debug builds spend real
+    // hearts too — use the Profile screen's debug "Add hearts"/"Enable
+    // Pro" tools to test without running out.
     if (_homeViewModel.hasUnlimitedHearts) return true;
     if (!canAffordCheck) return false;
     return _homeViewModel.useHeart();
@@ -101,6 +123,10 @@ class PronunciationViewModel extends ChangeNotifier {
     await _textToSpeechService.stop();
     _isListeningPhrase = true;
     notifyListeners();
+    AnalyticsService.instance.log(
+      AnalyticsEvents.pronunciationPhraseAudioPlayed,
+      phraseAnalyticsParams(),
+    );
 
     final didSpeak = await _textToSpeechService.speak(
       currentPhraseText,
@@ -136,6 +162,16 @@ class PronunciationViewModel extends ChangeNotifier {
       _startFailure = PronunciationStartFailure.permissionDenied;
       _isRecording = false;
       notifyListeners();
+      AnalyticsService.instance.log(
+        AnalyticsEvents.pronunciationRecordingFailed,
+        {
+          ...phraseAnalyticsParams(),
+          AnalyticsParams.errorType: 'permission',
+          AnalyticsParams.errorCode: 'permission_denied',
+          AnalyticsParams.failureStage: 'microphone_capture',
+          AnalyticsParams.microphonePermission: 'denied',
+        },
+      );
       return false;
     }
 
@@ -154,6 +190,16 @@ class PronunciationViewModel extends ChangeNotifier {
         _soundLevel = ((amp.current + 50) / 50).clamp(0, 1);
         notifyListeners();
       });
+      _attemptsByPhrase[_currentPhraseIndex] =
+          (_attemptsByPhrase[_currentPhraseIndex] ?? 0) + 1;
+      _recordingStartedAt = DateTime.now();
+      AnalyticsService.instance.log(
+        AnalyticsEvents.pronunciationRecordingStarted,
+        {
+          ...phraseAnalyticsParams(),
+          AnalyticsParams.microphonePermission: 'granted',
+        },
+      );
       return true;
     } catch (e) {
       if (kDebugMode) {
@@ -168,12 +214,37 @@ class PronunciationViewModel extends ChangeNotifier {
       if (!started) {
         _isRecording = false;
         notifyListeners();
+        AnalyticsService.instance.log(
+          AnalyticsEvents.pronunciationRecordingFailed,
+          {
+            ...phraseAnalyticsParams(),
+            AnalyticsParams.errorType: 'configuration',
+            AnalyticsParams.errorCode: 'recorder_unavailable',
+            AnalyticsParams.failureStage: 'microphone_capture',
+            AnalyticsParams.microphonePermission: 'granted',
+          },
+        );
+      } else {
+        _attemptsByPhrase[_currentPhraseIndex] =
+            (_attemptsByPhrase[_currentPhraseIndex] ?? 0) + 1;
+        _recordingStartedAt = DateTime.now();
+        AnalyticsService.instance.log(
+          AnalyticsEvents.pronunciationRecordingStarted,
+          {
+            ...phraseAnalyticsParams(),
+            AnalyticsParams.microphonePermission: 'granted',
+          },
+        );
       }
       return started;
     }
   }
 
   Future<void> finishRecording() async {
+    final durationMs = _recordingStartedAt == null
+        ? 0
+        : DateTime.now().difference(_recordingStartedAt!).inMilliseconds;
+    _recordingStartedAt = null;
     await _amplitudeSub?.cancel();
     _amplitudeSub = null;
     _isRecording = false;
@@ -198,12 +269,20 @@ class PronunciationViewModel extends ChangeNotifier {
     if (_assessmentService.isListening) {
       _deviceTranscript = await _assessmentService.stopListening();
     }
+    AnalyticsService.instance.log(
+      AnalyticsEvents.pronunciationRecordingCompleted,
+      {
+        ...phraseAnalyticsParams(),
+        AnalyticsParams.captureDurationMs: durationMs < 0 ? 0 : durationMs,
+      },
+    );
   }
 
   Future<PronunciationAssessmentResult?> assessPendingTake() async {
     if (_currentResult != null || _isAssessing) return _currentResult;
     _isAssessing = true;
     notifyListeners();
+    final checkStartedAt = DateTime.now();
 
     var spokenText = _deviceTranscript.trim();
     final audio = _pendingAudio;
@@ -225,17 +304,37 @@ class PronunciationViewModel extends ChangeNotifier {
       }
     }
 
-    final result = _assessmentService.assess(
-      expectedPhrase: currentPhraseText,
-      spokenText: spokenText,
-    );
-    _currentResult = result;
-    _pendingAudio = null;
-    _isAssessing = false;
+    try {
+      final result = _assessmentService.assess(
+        expectedPhrase: currentPhraseText,
+        spokenText: spokenText,
+      );
+      _currentResult = result;
+      _pendingAudio = null;
+      _isAssessing = false;
 
-    await _progressSyncService.recordCorrections(result.correctionCount);
-    notifyListeners();
-    return result;
+      await _progressSyncService.recordCorrections(result.correctionCount);
+      notifyListeners();
+      AnalyticsService.instance.log(AnalyticsEvents.pronunciationCheckSucceeded, {
+        ...phraseAnalyticsParams(),
+        AnalyticsParams.overallScore: result.overallScore,
+        AnalyticsParams.speechDetected: result.heardAnything,
+        AnalyticsParams.wordFeedbackCount: result.words.length,
+        AnalyticsParams.latencyMs:
+            DateTime.now().difference(checkStartedAt).inMilliseconds,
+      });
+      return result;
+    } catch (e) {
+      _isAssessing = false;
+      notifyListeners();
+      AnalyticsService.instance.log(AnalyticsEvents.pronunciationCheckFailed, {
+        ...phraseAnalyticsParams(),
+        AnalyticsParams.errorType: 'unknown',
+        AnalyticsParams.errorCode: 'assessment_failed',
+        AnalyticsParams.failureStage: 'model_response',
+      });
+      rethrow;
+    }
   }
 
   Future<PronunciationAssessmentResult?> stopRecordingAndAssess() async {
@@ -244,6 +343,10 @@ class PronunciationViewModel extends ChangeNotifier {
   }
 
   void cancelRecording() {
+    final durationMs = _recordingStartedAt == null
+        ? 0
+        : DateTime.now().difference(_recordingStartedAt!).inMilliseconds;
+    _recordingStartedAt = null;
     _amplitudeSub?.cancel();
     _amplitudeSub = null;
     _assessmentService.cancelListening();
@@ -252,6 +355,13 @@ class PronunciationViewModel extends ChangeNotifier {
     _soundLevel = 0;
     _pendingAudio = null;
     notifyListeners();
+    AnalyticsService.instance.log(
+      AnalyticsEvents.pronunciationRecordingCancelled,
+      {
+        ...phraseAnalyticsParams(),
+        AnalyticsParams.captureDurationMs: durationMs < 0 ? 0 : durationMs,
+      },
+    );
   }
 
   void clearCurrentResult() {
@@ -295,6 +405,7 @@ class PronunciationViewModel extends ChangeNotifier {
     _pendingAudio = null;
     _assessmentService.cancelListening();
     _recorder.stop();
+    _attemptsByPhrase.clear();
     notifyListeners();
   }
 

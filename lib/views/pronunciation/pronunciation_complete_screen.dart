@@ -1,3 +1,7 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_first_frame.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -22,7 +26,19 @@ class PronunciationCompleteScreen extends StatelessWidget {
     final l10n = context.l10n;
     final vm = context.watch<PronunciationViewModel>();
 
-    return Scaffold(
+    return AnalyticsFirstFrame(
+      onFirstFrame: () {
+        AnalyticsService.instance.logScreenView('pronunciation_complete');
+        AnalyticsService.instance.log(
+          AnalyticsEvents.pronunciationSessionCompleted,
+          {
+            AnalyticsParams.practiceSessionId: vm.practiceSessionId,
+            AnalyticsParams.phraseCount: vm.totalPhrases,
+            AnalyticsParams.overallScore: vm.averageScore,
+          },
+        );
+      },
+      child: Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.pronunciation,
@@ -123,6 +139,13 @@ class PronunciationCompleteScreen extends StatelessWidget {
                   PrimaryButton(
                     text: l10n.practiceMore,
                     onPressed: () {
+                      AnalyticsService.instance.log(
+                        AnalyticsEvents.pronunciationPracticeMoreClicked,
+                        {
+                          AnalyticsParams.practiceSessionId:
+                              vm.practiceSessionId,
+                        },
+                      );
                       vm.resetSession();
                       Navigator.of(context).pushReplacementNamed(
                         PronunciationFlow.routeHome,
@@ -134,7 +157,17 @@ class PronunciationCompleteScreen extends StatelessWidget {
                     width: double.infinity,
                     height: AppSizes.buttonHeight,
                     child: OutlinedButton(
-                      onPressed: () => PronunciationFlow.popFlow(context),
+                      onPressed: () {
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.pronunciationBackToSpeakClicked,
+                          {
+                            AnalyticsParams.practiceSessionId:
+                                vm.practiceSessionId,
+                            AnalyticsParams.destinationScreen: 'role_play',
+                          },
+                        );
+                        PronunciationFlow.popFlow(context);
+                      },
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryColor,
                         side: const BorderSide(color: AppColors.primaryColor),
@@ -161,6 +194,7 @@ class PronunciationCompleteScreen extends StatelessWidget {
           ],
         ),
       ),
+    ),
     );
   }
 }
