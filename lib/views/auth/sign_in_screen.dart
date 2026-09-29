@@ -1,3 +1,6 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
@@ -17,7 +20,7 @@ import 'package:fluentta_ai/widgets/auth/social_login_button.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({
     super.key,
     required this.onSuccess,
@@ -25,7 +28,14 @@ class SignInScreen extends StatelessWidget {
   });
 
   final Future<void> Function() onSuccess;
-  final VoidCallback onAccountCreated;
+  final void Function(String signupMethod) onAccountCreated;
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  bool _loggedViewed = false;
 
   Future<void> _handleAuthAction(
     BuildContext context,
@@ -49,6 +59,14 @@ class SignInScreen extends StatelessWidget {
     final viewModel = context.watch<SignInViewModel>();
     final authRepository = context.read<AuthRepository>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final onSuccess = widget.onSuccess;
+    final onAccountCreated = widget.onAccountCreated;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('login_email');
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
@@ -76,6 +94,7 @@ class SignInScreen extends StatelessWidget {
                       prefixIcon: Icons.email_outlined,
                       controller: viewModel.emailController,
                       keyboardType: TextInputType.emailAddress,
+                      onTap: viewModel.logStarted,
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthTextField(
@@ -93,6 +112,14 @@ class SignInScreen extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         onTap: () {
+                          AnalyticsService.instance.log(
+                            AnalyticsEvents.forgotPasswordClicked,
+                            {
+                              AnalyticsParams.sourceScreen: 'login_email',
+                              AnalyticsParams.destinationScreen:
+                                  'reset_password_request',
+                            },
+                          );
                           Navigator.of(context).push(
                             MaterialPageRoute<void>(
                               builder: (_) => ChangeNotifierProvider(
@@ -160,7 +187,15 @@ class SignInScreen extends StatelessWidget {
               AuthFooterLink(
                 prefix: l10n.newToFluenta,
                 actionText: l10n.createAccount,
+                isDark: isDark,
                 onTap: () {
+                  AnalyticsService.instance.log(
+                    AnalyticsEvents.loginSignupClicked,
+                    {
+                      AnalyticsParams.sourceScreen: 'login_email',
+                      AnalyticsParams.destinationScreen: 'signup_email',
+                    },
+                  );
                   Navigator.of(context).push(
                     MaterialPageRoute<void>(
                       builder: (_) => ChangeNotifierProvider(

@@ -24,7 +24,19 @@ class OnboardingScreen extends StatelessWidget {
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<OnboardingViewModel>();
-    final pages = LocalizedContent.onboardingPages(l10n,isDark);
+
+    if (!viewModel.config.enabled) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        viewModel.skipOnboarding(onComplete);
+      });
+      return Scaffold(
+        backgroundColor: AppColors.scaffoldBackground(context),
+        body: const SizedBox.shrink(),
+      );
+    }
+
+    final pages = LocalizedContent.onboardingPages(l10n, isDark);
+    viewModel.logStepExposed(viewModel.currentPage);
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),

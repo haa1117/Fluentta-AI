@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -10,7 +11,9 @@ class SetupProgressHeader extends StatelessWidget {
     required this.currentStep,
     required this.totalSteps,
     required this.title,
-    required this.subtitle, required this.isDark,
+    required this.subtitle,
+    required this.isDark,
+    this.onBack,
   });
 
   final int currentStep;
@@ -18,6 +21,7 @@ class SetupProgressHeader extends StatelessWidget {
   final String title;
   final String subtitle;
   final bool isDark;
+  final VoidCallback? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -26,26 +30,64 @@ class SetupProgressHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'STEP $currentStep OF $totalSteps',
-          style: TextStyle(
-            fontFamily: AppFonts.plusJakartaSans,
-            fontSize: AppSizes.sp(12),
-            fontWeight: FontWeight.w400,
-            color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
-            letterSpacing: 0.5,
-          ),
+        Row(
+          children: [
+            if (onBack != null) ...[
+              GestureDetector(
+                onTap: onBack,
+                child: Container(
+                  width: AppSizes.w(40),
+                  height: AppSizes.w(40),
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? AppColors.brandDarkSoftColor
+                        : AppColors.homeCardLavender,
+                    borderRadius: BorderRadius.circular(AppSizes.w(12)),
+                  ),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/svg/arrow_back_ios.svg',
+                      colorFilter: ColorFilter.mode(
+                        isDark
+                            ? AppColors.textPrimaryDark
+                            : const Color(0xff1F1B2E),
+                        BlendMode.srcIn,
+                      ),
+                      width: AppSizes.sp(16),
+                      height: AppSizes.sp(16),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: AppSizes.w(12)),
+            ],
+            Expanded(
+              child: Text(
+                'STEP $currentStep OF $totalSteps',
+                style: TextStyle(
+                  fontFamily: AppFonts.plusJakartaSans,
+                  fontSize: AppSizes.sp(12),
+                  fontWeight: FontWeight.w400,
+                  color: isDark
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryColor,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ),
+          ],
         ),
         SizedBox(height: AppSizes.spaceSm),
         ClipRRect(
           borderRadius: BorderRadius.circular(AppSizes.h(4)),
           child: LinearProgressIndicator(
             value: progress,
-
             minHeight: AppSizes.h(6),
-            backgroundColor:isDark ? AppColors.brandDarkSoftColor: Color(0xffF3E8FF),
-            valueColor:  AlwaysStoppedAnimation<Color>(
-             isDark ? AppColors.primaryDarkColor: AppColors.primaryColor,
+            backgroundColor: isDark
+                ? AppColors.brandDarkSoftColor
+                : const Color(0xffF3E8FF),
+            valueColor: AlwaysStoppedAnimation<Color>(
+              isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
             ),
           ),
         ),

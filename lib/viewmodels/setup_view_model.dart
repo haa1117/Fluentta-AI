@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
+import 'package:fluentta_ai/core/analytics/analytics_user_properties.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
@@ -31,6 +35,8 @@ class SetupViewModel extends ChangeNotifier {
   late String _selectedLevel;
   late String _selectedDailyGoal;
 
+  final Set<int> _viewedSteps = {};
+
   int get currentStep => _currentStep + 1;
   bool get isLoading => _isLoading;
   String get selectedGoal => _selectedGoal;
@@ -50,6 +56,31 @@ class SetupViewModel extends ChangeNotifier {
   void selectDailyGoal(String id) {
     _selectedDailyGoal = id;
     notifyListeners();
+  }
+
+  static String screenIdForStep(int step) => switch (step) {
+        0 => 'personalization_goal',
+        1 => 'personalization_level',
+        _ => 'personalization_daily_goal',
+      };
+
+  static String personalizationStepKeyForStep(int step) => switch (step) {
+        0 => 'learning_goal',
+        1 => 'starting_level',
+        _ => 'daily_goal',
+      };
+
+  /// Fires once per step, and only for the onboarding flow (not a Profile
+  /// retake, which isn't a canonical screen in the analytics registry).
+  void logStepViewedIfNeeded(int step, {required bool isRetake}) {
+    if (isRetake || _viewedSteps.contains(step)) return;
+    _viewedSteps.add(step);
+    AnalyticsService.instance.logScreenView(screenIdForStep(step));
+    AnalyticsService.instance.log(AnalyticsEvents.personalizationStepViewed, {
+      AnalyticsParams.personalizationStep: personalizationStepKeyForStep(step),
+      AnalyticsParams.stepNumber: step + 1,
+      AnalyticsParams.totalSteps: totalSteps,
+    });
   }
 
   void resetForRetake() {
@@ -77,6 +108,17 @@ class SetupViewModel extends ChangeNotifier {
     await _completeSetup(onComplete);
   }
 
+  Future<void> previousStep() async {
+    if (_currentStep <= 0) return;
+    _currentStep--;
+    notifyListeners();
+    if (!pageController.hasClients) return;
+    await pageController.previousPage(
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.easeInOut,
+    );
+  }
+
   Future<void> _completeSetup(VoidCallback onComplete) async {
     if (_isLoading) return;
 
@@ -94,6 +136,10 @@ class SetupViewModel extends ChangeNotifier {
         englishGoal: _selectedGoal,
         englishLevel: _selectedLevel,
         dailyGoalMinutes: int.parse(_selectedDailyGoal),
+      );
+      await AnalyticsUserProperties.sync(
+        _localStorage,
+        user: _authRepository.currentUser,
       );
       onComplete();
     } finally {
@@ -118,7 +164,7 @@ class SetupViewModel extends ChangeNotifier {
     return switch (step) {
       0 => 'Your tutor will create practice based on your goal.',
       1 => 'We\'ll personalize your lessons based on your level.',
-      2 => 'Small daily practice builds real English fluency.',
+      2 => 'Small daily practice builds real English fluency',
       _ => '',
     };
   }

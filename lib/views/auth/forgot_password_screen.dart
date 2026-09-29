@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -11,8 +14,15 @@ import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
-class ForgotPasswordScreen extends StatelessWidget {
+class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
+
+  @override
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+}
+
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  bool _loggedViewed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +30,12 @@ class ForgotPasswordScreen extends StatelessWidget {
     final l10n = context.l10n;
     final viewModel = context.watch<ForgotPasswordViewModel>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('reset_password_request');
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: const AuthAppBar(showBack: true),
@@ -88,8 +104,18 @@ class ForgotPasswordScreen extends StatelessWidget {
               SizedBox(height: AppSizes.spaceLg * 4),
               AuthFooterLink(
                 prefix: l10n.rememberPassword,
-                actionText: l10n.signIn,
-                onTap: () => Navigator.of(context).pop(),
+                actionText: l10n.signInLink,
+                isDark: isDark,
+                onTap: () {
+                  AnalyticsService.instance.log(
+                    AnalyticsEvents.resetSigninClicked,
+                    {
+                      AnalyticsParams.sourceScreen: 'reset_password_request',
+                      AnalyticsParams.destinationScreen: 'login_email',
+                    },
+                  );
+                  Navigator.of(context).pop();
+                },
               ),
               SizedBox(height: AppSizes.spaceXl),
             ],

@@ -4,9 +4,13 @@ import 'package:fluentta_ai/l10n/app_localizations.dart';
 class AuthExceptionHandler {
   AuthExceptionHandler._();
 
-  static String getMessage(Object error, AppLocalizations l10n) {
+  static String getMessage(
+    Object error,
+    AppLocalizations l10n, {
+    bool passwordOnly = false,
+  }) {
     if (error is FirebaseAuthException) {
-      return _authMessage(error, l10n);
+      return _authMessage(error, l10n, passwordOnly: passwordOnly);
     }
     if (error is FirebaseException) {
       return _firestoreMessage(error, l10n);
@@ -27,15 +31,26 @@ class AuthExceptionHandler {
     }
   }
 
-  static String _authMessage(FirebaseAuthException error, AppLocalizations l10n) {
+  static String _authMessage(
+    FirebaseAuthException error,
+    AppLocalizations l10n, {
+    bool passwordOnly = false,
+  }) {
     if (error.message == 'Please fill in all fields.') {
       return l10n.authErrorFillAllFields;
+    }
+    if (error.message == 'Please enter your password.') {
+      return l10n.authErrorEnterPassword;
     }
     if (error.message == 'Password must be at least 8 characters.') {
       return l10n.authErrorPasswordMinEight;
     }
 
     switch (error.code) {
+      case 'missing-fields':
+        return l10n.authErrorFillAllFields;
+      case 'missing-password':
+        return l10n.authErrorEnterPassword;
       case 'invalid-email':
         return l10n.authErrorInvalidEmail;
       case 'invalid-name':
@@ -51,7 +66,9 @@ class AuthExceptionHandler {
       case 'weak-password':
         return l10n.authErrorWeakPassword;
       case 'invalid-credential':
-        return l10n.authErrorInvalidCredential;
+        return passwordOnly
+            ? l10n.authErrorWrongPassword
+            : l10n.authErrorInvalidCredential;
       case 'too-many-requests':
         return l10n.authErrorTooManyRequests;
       case 'network-request-failed':

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -10,10 +13,17 @@ import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
-class CreateAccountScreen extends StatelessWidget {
+class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({super.key, required this.onAccountCreated});
 
-  final VoidCallback onAccountCreated;
+  final void Function(String signupMethod) onAccountCreated;
+
+  @override
+  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+}
+
+class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  bool _loggedViewed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +31,15 @@ class CreateAccountScreen extends StatelessWidget {
     final l10n = context.l10n;
     final viewModel = context.watch<CreateAccountViewModel>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('signup_email');
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
-      appBar: const AuthAppBar(showBack: true),
+      appBar: const AuthAppBar(showBack: true, title: 'Fluenta'),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
@@ -59,6 +75,7 @@ class CreateAccountScreen extends StatelessWidget {
                       controller: viewModel.emailController,
                       keyboardType: TextInputType.emailAddress,
                       isShowPrefixIcon: true,
+                      onTap: viewModel.logStarted,
                     ),
                     SizedBox(height: AppSizes.spaceMd),
                     AuthTextField(                      isDark: isDark,
@@ -71,7 +88,7 @@ class CreateAccountScreen extends StatelessWidget {
                       obscureText: true,
                       showVisibilityToggle: true,
                     ),
-                    SizedBox(height: AppSizes.spaceLg),
+                    SizedBox(height: AppSizes.spaceMd),
                     PrimaryButton(
                       text: l10n.createAccountButton,
                       isLoading: viewModel.isLoading,
@@ -83,7 +100,7 @@ class CreateAccountScreen extends StatelessWidget {
                           );
                           if (!context.mounted || !created) return;
                           Navigator.of(context).pop();
-                          onAccountCreated();
+                          widget.onAccountCreated('email');
                         } catch (e) {
                           if (context.mounted) {
                             SnackbarHelper.showError(
@@ -94,11 +111,22 @@ class CreateAccountScreen extends StatelessWidget {
                         }
                       },
                     ),
-                    SizedBox(height: AppSizes.spaceMd),
+                    SizedBox(height: AppSizes.spaceLg),
                     AuthFooterLink(
                       prefix: l10n.alreadyHaveAccount,
-                      actionText: l10n.signIn,
-                      onTap: () => Navigator.of(context).pop(),
+                      actionText: l10n.signInLink,
+                      isDark: isDark,
+                      showTopDivider: true,
+                      onTap: () {
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.signupLoginClicked,
+                          {
+                            AnalyticsParams.sourceScreen: 'signup_email',
+                            AnalyticsParams.destinationScreen: 'login_email',
+                          },
+                        );
+                        Navigator.of(context).pop();
+                      },
                     ),
                   ],
                 )

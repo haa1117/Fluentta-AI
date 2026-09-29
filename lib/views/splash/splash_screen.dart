@@ -1,3 +1,8 @@
+import 'dart:async';
+
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/viewmodels/splash_view_model.dart';
@@ -6,6 +11,7 @@ import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/widgets/common/splash_dots.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key, required this.onComplete});
@@ -20,10 +26,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    AnalyticsService.instance.logScreenView('splash');
+    unawaited(_logSplashViewed());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<SplashViewModel>().initializeAndNavigate(
             widget.onComplete,
           );
+    });
+  }
+
+  Future<void> _logSplashViewed() async {
+    final info = await PackageInfo.fromPlatform();
+    await AnalyticsService.instance.log(AnalyticsEvents.splashViewed, {
+      AnalyticsParams.appVersion: info.version,
+      // Distinguishing cold/warm/first_open/app_update needs process-lifecycle
+      // tracking this app doesn't have yet; cold_start is the safe default.
+      AnalyticsParams.launchType: 'cold_start',
     });
   }
 

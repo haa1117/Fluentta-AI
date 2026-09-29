@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -11,7 +12,7 @@ import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
+class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({
     super.key,
     this.isDeepLinkFlow = false,
@@ -22,11 +23,26 @@ class ResetPasswordScreen extends StatelessWidget {
   final VoidCallback? onFlowComplete;
 
   @override
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+}
+
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  bool _loggedViewed = false;
+
+  @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
     final viewModel = context.watch<ResetPasswordViewModel>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDeepLinkFlow = widget.isDeepLinkFlow;
+    final onFlowComplete = widget.onFlowComplete;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('password_update');
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AuthAppBar(showBack: !isDeepLinkFlow),

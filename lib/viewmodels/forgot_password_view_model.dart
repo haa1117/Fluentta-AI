@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
@@ -17,6 +20,11 @@ class ForgotPasswordViewModel extends ChangeNotifier {
   Future<bool> sendVerificationCode(VoidCallback onSuccess) async {
     final email = emailController.text.trim();
     if (_isLoading || email.isEmpty) {
+      AnalyticsService.instance.log(AnalyticsEvents.passwordResetRequestFailed, {
+        AnalyticsParams.errorType: 'validation',
+        AnalyticsParams.errorCode: 'invalid-email',
+        AnalyticsParams.failureStage: 'validation',
+      });
       throw FirebaseAuthException(
         code: 'invalid-email',
         message: 'Please enter your email address.',
@@ -25,11 +33,27 @@ class ForgotPasswordViewModel extends ChangeNotifier {
 
     _isLoading = true;
     notifyListeners();
+    AnalyticsService.instance.log(AnalyticsEvents.passwordResetRequested, {
+      AnalyticsParams.requestMethod: 'email',
+    });
 
     try {
       await _authRepository.sendPasswordResetEmail(email);
+      AnalyticsService.instance.log(
+        AnalyticsEvents.passwordResetRequestSucceeded,
+        {AnalyticsParams.requestMethod: 'email'},
+      );
       onSuccess();
       return true;
+    } catch (error) {
+      final isAuthError = error is FirebaseAuthException;
+      AnalyticsService.instance.log(AnalyticsEvents.passwordResetRequestFailed, {
+        AnalyticsParams.errorType: 'authentication',
+        AnalyticsParams.errorCode: isAuthError ? error.code : 'unknown',
+        AnalyticsParams.failureStage:
+            isAuthError ? 'backend_response' : 'request_dispatch',
+      });
+      rethrow;
     } finally {
       _isLoading = false;
       notifyListeners();

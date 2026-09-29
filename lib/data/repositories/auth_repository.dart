@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/constants/auth_deep_link_config.dart';
+import 'package:fluentta_ai/core/network/network_status.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -309,20 +310,31 @@ class AuthRepository {
   }
 
   Future<void> syncCurrentUser() async {
-    final user = _auth.currentUser;
-    if (user != null) {
+    try {
+      final user = _auth.currentUser;
+      if (user == null) {
+        // Auth restore can lag on a cold start. Never wipe a persisted session
+        // just because currentUser is still null — sign-out already clears it.
+        return;
+      }
+
       await _localStorage.saveUserSession(
         uid: user.uid,
         email: user.email ?? '',
         displayName: user.displayName ?? '',
       );
+
+      if (!NetworkStatus.lastKnownOnline) return;
+
       await _userRepository.syncSetupFromFirestore(user.uid);
       await _userRepository.syncUserFromAuth(
         user: user,
         authProvider: _resolveAuthProvider(user),
       );
-    } else {
-      await _clearLocalSession();
+    } catch (error) {
+      if (kDebugMode) {
+        debugPrint('syncCurrentUser skipped: $error');
+      }
     }
   }
 

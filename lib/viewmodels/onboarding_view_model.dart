@@ -1,25 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/onboarding_page_model.dart';
+import 'package:fluentta_ai/data/models/onboarding_remote_config.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
+import 'package:fluentta_ai/data/repositories/onboarding_config_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 
 class OnboardingViewModel extends ChangeNotifier {
   OnboardingViewModel(
     this._localStorage,
     this._userRepository,
-    this._authRepository,
-  );
+    this._authRepository, {
+    OnboardingConfigRepository? configRepository,
+  }) : _configRepository = configRepository ?? OnboardingConfigRepository() {
+    _loadConfig();
+  }
 
   final LocalStorage _localStorage;
   final UserRepository _userRepository;
   final AuthRepository _authRepository;
+  final OnboardingConfigRepository _configRepository;
 
   final PageController pageController = PageController();
 
   int _currentPage = 0;
   int get currentPage => _currentPage;
+  final Set<int> _exposedSteps = {};
+
+  static const _stepIds = [
+    'meet_ai_tutor',
+    'instant_corrections',
+    'daily_practice',
+  ];
+
+  /// Once per step, after that step's content is on screen.
+  void logStepExposed(int index) {
+    if (index < 0 || index >= pages.length || _exposedSteps.contains(index)) {
+      return;
+    }
+    _exposedSteps.add(index);
+    final stepNumber = index + 1;
+    AnalyticsService.instance.logScreenView('pre_login_$stepNumber');
+    AnalyticsService.instance.log(AnalyticsEvents.preLoginStepViewed, {
+      AnalyticsParams.stepId: _stepIds[index],
+      AnalyticsParams.stepNumber: stepNumber,
+      AnalyticsParams.totalSteps: pages.length,
+      AnalyticsParams.onboardingFlowId: _config.onboardingFlowId,
+      AnalyticsParams.configSource: _config.configSource,
+      AnalyticsParams.experimentId: _config.experimentId,
+      AnalyticsParams.variantId: _config.variantId,
+    });
+  }
+
+  OnboardingRemoteConfig _config = OnboardingRemoteConfig.defaults();
+  OnboardingRemoteConfig get config => _config;
+
+  Future<void> _loadConfig() async {
+    _config = await _configRepository.fetch();
+    notifyListeners();
+    _configRepository.startListening((updated) {
+      _config = updated;
+      notifyListeners();
+    });
+  }
 
   static const List<OnboardingPageModel> pages = [
     OnboardingPageModel(
@@ -49,16 +96,38 @@ class OnboardingViewModel extends ChangeNotifier {
 
   void nextPage(VoidCallback onComplete) {
     if (_currentPage < pages.length - 1) {
+      final fromStep = _currentPage + 1;
+      AnalyticsService.instance.log(AnalyticsEvents.preLoginNextClicked, {
+        AnalyticsParams.fromStep: fromStep,
+        AnalyticsParams.toStep: fromStep + 1,
+        AnalyticsParams.stepId: _stepIds[_currentPage],
+        AnalyticsParams.onboardingFlowId: _config.onboardingFlowId,
+      });
       pageController.nextPage(
         duration: const Duration(milliseconds: 350),
         curve: Curves.easeInOut,
       );
     } else {
+      AnalyticsService.instance.log(AnalyticsEvents.preLoginCompleted, {
+        AnalyticsParams.fromStep: _currentPage + 1,
+        AnalyticsParams.totalSteps: pages.length,
+        AnalyticsParams.stepId: _stepIds[_currentPage],
+        AnalyticsParams.destinationScreen: 'language_selection',
+        AnalyticsParams.onboardingFlowId: _config.onboardingFlowId,
+      });
       completeOnboarding(onComplete);
     }
   }
 
   Future<void> skipOnboarding(VoidCallback onComplete) async {
+    if (_config.enabled && _currentPage < _stepIds.length) {
+      AnalyticsService.instance.log(AnalyticsEvents.preLoginSkipped, {
+        AnalyticsParams.fromStep: _currentPage + 1,
+        AnalyticsParams.stepId: _stepIds[_currentPage],
+        AnalyticsParams.destinationScreen: 'language_selection',
+        AnalyticsParams.onboardingFlowId: _config.onboardingFlowId,
+      });
+    }
     await completeOnboarding(onComplete);
   }
 
@@ -76,6 +145,7 @@ class OnboardingViewModel extends ChangeNotifier {
 
   @override
   void dispose() {
+    _configRepository.dispose();
     pageController.dispose();
     super.dispose();
   }

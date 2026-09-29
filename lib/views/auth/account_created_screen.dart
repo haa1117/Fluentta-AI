@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -6,16 +9,37 @@ import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 
-class AccountCreatedScreen extends StatelessWidget {
-  const AccountCreatedScreen({super.key, required this.onContinue});
+class AccountCreatedScreen extends StatefulWidget {
+  const AccountCreatedScreen({
+    super.key,
+    required this.onContinue,
+    required this.signupMethod,
+  });
 
   final VoidCallback onContinue;
+  final String signupMethod;
+
+  @override
+  State<AccountCreatedScreen> createState() => _AccountCreatedScreenState();
+}
+
+class _AccountCreatedScreenState extends State<AccountCreatedScreen> {
+  bool _loggedViewed = false;
 
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('account_created');
+      AnalyticsService.instance.log(AnalyticsEvents.accountCreatedViewed, {
+        AnalyticsParams.signupMethod: widget.signupMethod,
+      });
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
@@ -58,7 +82,16 @@ class AccountCreatedScreen extends StatelessWidget {
               SizedBox(height: AppSizes.spaceXl),
               PrimaryButton(
                 text: l10n.continueBtn,
-                onPressed: onContinue,
+                onPressed: () {
+                  AnalyticsService.instance.log(
+                    AnalyticsEvents.accountCreatedContinueClicked,
+                    {
+                      AnalyticsParams.sourceScreen: 'account_created',
+                      AnalyticsParams.destinationScreen: 'personalization_goal',
+                    },
+                  );
+                  widget.onContinue();
+                },
               ),
               SizedBox(height: AppSizes.spaceXxl),
             ],

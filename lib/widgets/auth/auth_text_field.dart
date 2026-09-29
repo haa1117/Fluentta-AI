@@ -16,6 +16,7 @@ class AuthTextField extends StatefulWidget {
     this.isShowPrefixIcon = false,
     this.readOnly = false,
     this.enabled = true, required this.isDark,
+    this.onTap,
   });
 
   final String label;
@@ -29,6 +30,7 @@ class AuthTextField extends StatefulWidget {
   final bool readOnly;
   final bool enabled;
   final bool isDark;
+  final VoidCallback? onTap;
 
 
   @override
@@ -66,6 +68,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
           keyboardType: widget.keyboardType,
           readOnly: widget.readOnly,
           enabled: widget.enabled,
+          onTap: widget.onTap,
           style: TextStyle(
             fontFamily: AppFonts.plusJakartaSans,
             fontSize: AppSizes.sp(14),
