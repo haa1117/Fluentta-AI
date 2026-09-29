@@ -118,14 +118,17 @@ class SubscriptionLegalLinks extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSizes.init(context);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: AppSizes.w(8),
+      runSpacing: AppSizes.h(4),
       children: [
-        _Link(text: termsLabel, onTap: onTerms, isDark: isDark,),
+        _Link(text: termsLabel, onTap: onTerms, isDark: isDark),
         _dot(),
-        _Link(text: privacyLabel, onTap: onPrivacy,isDark: isDark,),
+        _Link(text: privacyLabel, onTap: onPrivacy, isDark: isDark),
         _dot(),
-        _Link(text: restoreLabel, onTap: onRestore,isDark: isDark,),
+        _Link(text: restoreLabel, onTap: onRestore, isDark: isDark),
       ],
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/iap/iap_product_ids.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/core/utils/simple_uuid.dart';
 import 'package:fluentta_ai/data/models/subscription_models.dart';
 import 'package:fluentta_ai/data/services/iap_service.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
@@ -21,6 +22,21 @@ class SubscriptionViewModel extends ChangeNotifier {
 
   SubscriptionSelection _selection = SubscriptionSelection.annual;
   bool _isPurchasing = false;
+
+  String _conversionJourneyId = generateUuidV4();
+  String _paywallFeatureTrigger = 'other';
+
+  /// Correlates every analytics event fired during one paywall visit. This
+  /// view model is a single app-scoped instance (see main.dart), not
+  /// recreated per screen, so [startPaywallSession] regenerates the id each
+  /// time the paywall is opened.
+  String get conversionJourneyId => _conversionJourneyId;
+  String get paywallFeatureTrigger => _paywallFeatureTrigger;
+
+  void startPaywallSession({required String featureTrigger}) {
+    _conversionJourneyId = generateUuidV4();
+    _paywallFeatureTrigger = featureTrigger;
+  }
 
   SubscriptionSelection get selection => _selection;
   int get currentLives => _homeViewModel.lives;
@@ -93,6 +109,27 @@ class SubscriptionViewModel extends ChangeNotifier {
     return l10n.annualPricePerMonth;
   }
 
+  String primaryButtonText(AppLocalizations l10n) {
+    if (isHeartsSelection) {
+      return l10n.buyHeartsCount(selectedHeartCount);
+    }
+    return switch (_selection) {
+      SubscriptionSelection.annual => l10n.startFreeTrialDays(7),
+      SubscriptionSelection.monthly => l10n.startFreeTrialDays(3),
+      _ => l10n.continueBtn,
+    };
+  }
+
+  String primaryDisclaimer(AppLocalizations l10n) {
+    if (isHeartsSelection) return l10n.heartsOneTimePurchase;
+    return switch (_selection) {
+      SubscriptionSelection.annual ||
+      SubscriptionSelection.monthly =>
+        l10n.cancelAnytimeNoCharge,
+      _ => l10n.unlocksInstantly,
+    };
+  }
+
   String discountAnnualPrice(AppLocalizations l10n) {
     // The actual first-year discount is applied by the store's introductory
     // offer at checkout; here we just show the annual plan's list price.
@@ -131,15 +168,14 @@ class SubscriptionViewModel extends ChangeNotifier {
 
   List<String> planFeatures(AppLocalizations l10n) {
     return [
-      'Unlimited AI conversation',
-      'Unlimited pronunciation practice',
-      'Unlimited grammar corrections',
-      'All roleplay scenarios',
-      'B2+ lesson content',
-      l10n.featureOfflineMode,
-      'Weekly progress report',
-      'Unlimited streak freezes',
-      '1 streak repair per month',
+      l10n.featureUnlimitedAiConversation,
+      l10n.featureUnlimitedPronunciationPractice,
+      l10n.featureUnlimitedGrammar,
+      l10n.featureAllRoleplayScenarios,
+      l10n.featureB2PlusContent,
+      l10n.featureWeeklyProgressReport,
+      l10n.featureUnlimitedStreakFreezes,
+      l10n.featureStreakRepairPerMonth,
     ];
   }
 
@@ -154,7 +190,10 @@ class SubscriptionViewModel extends ChangeNotifier {
     _isPurchasing = true;
     notifyListeners();
 
-    final result = await _iapService.purchaseSelection(_selection);
+    final result = await _iapService.purchaseSelection(
+      _selection,
+      conversionJourneyId: _conversionJourneyId,
+    );
 
     _isPurchasing = false;
     notifyListeners();
@@ -180,7 +219,9 @@ class SubscriptionViewModel extends ChangeNotifier {
   }
 
   Future<PurchaseFlowResult> restorePurchases() async {
-    final result = await _iapService.restorePurchases();
+    final result = await _iapService.restorePurchases(
+      conversionJourneyId: _conversionJourneyId,
+    );
     notifyListeners();
     return result;
   }

@@ -82,28 +82,44 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        price,
-                        style: TextStyle(
-                          fontFamily: AppFonts.plusJakartaSans,
-                          fontSize: AppSizes.sp(20),
-                          fontWeight: FontWeight.w700,
-                          color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            price,
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontFamily: AppFonts.plusJakartaSans,
+                              fontSize: AppSizes.sp(20),
+                              fontWeight: FontWeight.w700,
+                              color: isDark
+                                  ? AppColors.primaryDarkColor
+                                  : AppColors.primaryColor,
+                            ),
+                          ),
                         ),
-                      ),
-                      Text(
-                        perMonth,
-                        style: TextStyle(
-                          fontFamily: AppFonts.plusJakartaSans,
-                          fontSize: AppSizes.sp(11),
-                          fontWeight: FontWeight.w500,
-                          color:isDark ? AppColors.textSecondaryDark: AppColors.textSecondary,
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            perMonth,
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontFamily: AppFonts.plusJakartaSans,
+                              fontSize: AppSizes.sp(11),
+                              fontWeight: FontWeight.w500,
+                              color: isDark
+                                  ? AppColors.textSecondaryDark
+                                  : AppColors.textSecondary,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -143,21 +159,20 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
 }
 
 class SubscriptionCompactPlanCard extends StatelessWidget {
-  final bool isDark;
   const SubscriptionCompactPlanCard({
     super.key,
     required this.isSelected,
     required this.title,
     required this.price,
     required this.onTap,
-    this.extraLabel, required this.isDark,
+    required this.isDark,
   });
 
+  final bool isDark;
   final bool isSelected;
   final String title;
   final String price;
   final VoidCallback onTap;
-  final String? extraLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -165,63 +180,67 @@ class SubscriptionCompactPlanCard extends StatelessWidget {
 
     return Material(
       color: Colors.transparent,
-      child: SizedBox(
-        height: 110,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-          child: Ink(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppSizes.w(8),
-              vertical: AppSizes.h(14),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+        child: Ink(
+          width: double.infinity,
+          padding: const EdgeInsets.fromLTRB(6, 10, 6, 10),
+          decoration: BoxDecoration(
+            color: isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
+            borderRadius: BorderRadius.circular(AppSizes.cardRadius),
+            border: Border.all(
+              color: isSelected
+                  ? isDark
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryColor
+                  : isDark
+                      ? AppColors.borderDarkColor
+                      : AppColors.borderLight,
+              width: 2,
             ),
-            decoration: BoxDecoration(
-              color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
-              borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-              border: Border.all(
-                color:
-                    isSelected ? isDark ?AppColors.primaryDarkColor : AppColors.primaryColor : isDark ? AppColors.borderDarkColor:AppColors.borderLight,
-                width: isSelected ? 2 : 1,
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(12),
-                    fontWeight: FontWeight.w600,
-                    color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
-                  ),
-                ),
-                SizedBox(height: AppSizes.h(6)),
-                Text(
-                  price,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(16),
-                    fontWeight: FontWeight.w700,
-                    color:isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
-                  ),
-                ),
-                if (extraLabel != null) ...[
-                  SizedBox(height: AppSizes.h(2)),
+          ),
+          child: Center(
+            child: MediaQuery.withClampedTextScaling(
+              maxScaleFactor: 1.1,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
                   Text(
-                    extraLabel!,
+                    title,
                     textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
-                      fontSize: AppSizes.sp(10),
-                      fontWeight: FontWeight.w500,
-                      color:isDark ? AppColors.textSecondaryDark : AppColors.textTertiary,
+                      fontSize: AppSizes.sp(12),
+                      height: 1.0,
+                      fontWeight: FontWeight.w600,
+                      color: isDark
+                          ? AppColors.textSecondaryDark
+                          : AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      price,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontFamily: AppFonts.plusJakartaSans,
+                        fontSize: AppSizes.sp(16),
+                        height: 1.0,
+                        fontWeight: FontWeight.w700,
+                        color: isDark
+                            ? AppColors.textPrimaryDark
+                            : AppColors.textPrimary,
+                      ),
                     ),
                   ),
                 ],
-              ],
+              ),
             ),
           ),
         ),
@@ -257,57 +276,80 @@ class SubscriptionHeartPackCard extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         child: Ink(
+          height: AppSizes.h(132),
           padding: EdgeInsets.symmetric(
-            horizontal: AppSizes.w(8),
-            vertical: AppSizes.h(14),
+            horizontal: AppSizes.w(6),
+            vertical: AppSizes.h(10),
           ),
           decoration: BoxDecoration(
-            color:isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
+            color: isDark ? AppColors.surfaceBgDarkColor : AppColors.white,
             borderRadius: BorderRadius.circular(AppSizes.cardRadius),
             border: Border.all(
-              color:
-                  isSelected ? isDark ? AppColors.primaryDarkColor: AppColors.primaryColor :isDark? AppColors.borderDarkColor: AppColors.borderLight,
+              color: isSelected
+                  ? isDark
+                      ? AppColors.primaryDarkColor
+                      : AppColors.primaryColor
+                  : isDark
+                      ? AppColors.borderDarkColor
+                      : AppColors.borderLight,
               width: isSelected ? 2 : 1,
             ),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.favorite_rounded,
                 color: AppColors.heartRed,
-                size: AppSizes.sp(22),
+                size: AppSizes.sp(18),
               ),
-              SizedBox(height: AppSizes.h(8)),
+              SizedBox(height: AppSizes.h(6)),
               Text(
                 title,
                 textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(11),
                   fontWeight: FontWeight.w600,
-                  color:isDark ? AppColors.textSecondaryDark : AppColors.textSecondary,
+                  color: isDark
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondary,
                 ),
               ),
-              SizedBox(height: AppSizes.h(4)),
-              Text(
-                heartsLabel,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(13),
-                  fontWeight: FontWeight.w700,
-                  color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
+              SizedBox(height: AppSizes.h(2)),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  heartsLabel,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    fontSize: AppSizes.sp(13),
+                    fontWeight: FontWeight.w700,
+                    color: isDark
+                        ? AppColors.primaryDarkColor
+                        : AppColors.primaryColor,
+                  ),
                 ),
               ),
-              SizedBox(height: AppSizes.h(4)),
-              Text(
-                price,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(15),
-                  fontWeight: FontWeight.w700,
-                  color:isDark ? AppColors.textPrimaryDark: AppColors.textPrimary,
+              SizedBox(height: AppSizes.h(2)),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  price,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontFamily: AppFonts.plusJakartaSans,
+                    fontSize: AppSizes.sp(14),
+                    fontWeight: FontWeight.w700,
+                    color: isDark
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimary,
+                  ),
                 ),
               ),
             ],

@@ -1,24 +1,23 @@
 import 'package:fluentta_ai/data/models/subscription_models.dart';
 
-/// Store product IDs for Fluenta. Must match exactly what is registered in
-/// App Store Connect and Google Play Console (kept identical across platforms).
+/// Store product IDs for Fluenta. Must match App Store Connect and Play Console.
 ///
-/// Auto-renewable subscriptions (one subscription group, `fluenta_premium`):
-/// - [weekly]   fluenta.premium.weekly
-/// - [monthly]  fluenta.premium.monthly
-/// - [annual]   fluenta.premium.annual — hero SKU, 7-day trial + optional
-///              "50% off first year" introductory offer (an offer on THIS
-///              product, not a separate SKU)
+/// Play: one subscription product [playSubscriptionProduct] with base plans
+/// [weekly], [monthly], [annual]. iOS: those three are auto-renewable SKUs
+/// in subscription group `fluenta.premium`.
 ///
 /// Non-consumable:
-/// - [lifetime] fluenta.premium.lifetime
+/// - [lifetime] fluenta.premium.lifetime — billed immediately
 ///
-/// Consumables (hearts):
+/// Consumables (hearts, billed immediately):
 /// - [hearts20] fluenta.hearts.20
 /// - [hearts60] fluenta.hearts.60
 /// - [hearts150] fluenta.hearts.150
 class IapProductIds {
   IapProductIds._();
+
+  /// Google Play subscription product (base plans live under this ID).
+  static const String playSubscriptionProduct = 'fluenta.premium';
 
   static const String weekly = 'fluenta.premium.weekly';
   static const String monthly = 'fluenta.premium.monthly';
@@ -44,10 +43,29 @@ class IapProductIds {
   };
 
   static Set<String> get allProductIds => {
+        playSubscriptionProduct,
         ...subscriptionIds,
         ...nonConsumableIds,
         ...consumableIds,
       };
+
+  /// Maps a Play Console base-plan ID onto our weekly/monthly/annual SKUs.
+  static String? idForPlayBasePlan(String basePlanId) {
+    final id = basePlanId.toLowerCase();
+    if (id == weekly || id == 'weekly' || id.endsWith('.weekly')) {
+      return weekly;
+    }
+    if (id == monthly || id == 'monthly' || id.endsWith('.monthly')) {
+      return monthly;
+    }
+    if (id == annual ||
+        id == 'annual' ||
+        id == 'yearly' ||
+        id.endsWith('.annual')) {
+      return annual;
+    }
+    return null;
+  }
 
   static String? idForSelection(SubscriptionSelection selection) {
     return switch (selection) {
@@ -65,7 +83,8 @@ class IapProductIds {
 
   static bool isPremiumProduct(String productId) {
     return subscriptionIds.contains(productId) ||
-        productId == lifetime;
+        productId == lifetime ||
+        productId == playSubscriptionProduct;
   }
 
   static bool isHeartsProduct(String productId) =>

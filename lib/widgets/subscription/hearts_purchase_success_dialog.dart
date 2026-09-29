@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -9,12 +12,17 @@ import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+/// The confirmation modal shown right after a heart pack purchase persists.
 Future<void> showHeartsPurchaseSuccessDialog(
   BuildContext context, {
   required int heartsAdded,
 }) {
   final l10n = context.l10n;
   final balance = context.read<HomeViewModel>().lives;
+
+  AnalyticsService.instance.log(AnalyticsEvents.heartPurchaseSuccessViewed, {
+    AnalyticsParams.heartBalance: balance,
+  });
 
   return showDialog<void>(
     context: context,
@@ -113,7 +121,12 @@ Future<void> showHeartsPurchaseSuccessDialog(
               SizedBox(height: AppSizes.h(20)),
               PrimaryButton(
                 text: l10n.startPracticing,
-                onPressed: () => Navigator.of(dialogContext).pop(),
+                onPressed: () {
+                  AnalyticsService.instance.log(
+                    AnalyticsEvents.heartPurchaseContinueClicked,
+                  );
+                  Navigator.of(dialogContext).pop();
+                },
               ),
               SizedBox(height: AppSizes.h(10)),
               Text(

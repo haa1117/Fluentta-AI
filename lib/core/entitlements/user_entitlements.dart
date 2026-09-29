@@ -116,8 +116,9 @@ class UserEntitlements {
 
   static bool canRepairStreak(bool isPremium) => isPremium;
 
-  /// Bundled lessons, roleplay, pronunciation, and local progress work
-  /// without internet for free and Pro. AI chat is gated separately.
+  /// Bundled vocab, grammar, reading, and roleplay work without internet
+  /// for Free and Pro. AI chat, pronunciation checks, sync, and IAP need a
+  /// connection on every plan.
   static bool canUseOfflineMode(bool isPremium) => true;
 
   static bool canViewWeeklyProgressReport(bool isPremium) => isPremium;

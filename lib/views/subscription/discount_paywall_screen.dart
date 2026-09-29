@@ -282,8 +282,8 @@ class DiscountPaywallScreen extends StatelessWidget {
                   ),
                   SizedBox(height: AppSizes.h(12)),
                   SubscriptionLegalLinks(
-                    termsLabel: l10n.terms,
-                    privacyLabel: l10n.privacy,
+                    termsLabel: l10n.termsOfUse,
+                    privacyLabel: l10n.privacyPolicy,
                     restoreLabel: l10n.restore,
                     onRestore: () async {
                       final result = await vm.restorePurchases();

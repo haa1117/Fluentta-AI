@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:fluentta_ai/core/ads/admob_service.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/iap/iap_product_ids.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/subscription_models.dart';
@@ -25,6 +28,38 @@ class IapService {
   bool get isLoadingProducts => _isLoadingProducts;
 
   Completer<PurchaseFlowResult>? _activePurchaseCompleter;
+  // Threaded from the paywall session (see SubscriptionViewModel) through the
+  // async purchase-stream callbacks, which don't otherwise have access to
+  // the originating call's arguments.
+  String? _activeConversionJourneyId;
+  int _heartBalanceBeforeActivePurchase = 0;
+
+  String _planTypeForProductId(String productId) {
+    if (productId == IapProductIds.annual) return 'annual';
+    if (productId == IapProductIds.weekly) return 'weekly';
+    if (productId == IapProductIds.monthly) return 'monthly';
+    if (productId == IapProductIds.lifetime) return 'lifetime';
+    return 'unknown';
+  }
+
+  void _logPurchaseLifecycleEvent(
+    String productId, {
+    required String heartsEvent,
+    required String subscriptionEvent,
+    Map<String, Object?> extraParams = const {},
+  }) {
+    final isHearts = IapProductIds.isHeartsProduct(productId);
+    AnalyticsService.instance.log(isHearts ? heartsEvent : subscriptionEvent, {
+      AnalyticsParams.conversionJourneyId: _activeConversionJourneyId,
+      AnalyticsParams.productId: productId,
+      if (isHearts)
+        AnalyticsParams.heartPackSize:
+            IapProductIds.heartsForProductId(productId)
+      else
+        AnalyticsParams.planType: _planTypeForProductId(productId),
+      ...extraParams,
+    });
+  }
 
   Future<void> initialize() async {
     _isAvailable = await _iap.isAvailable();
@@ -76,8 +111,9 @@ class IapService {
   }
 
   Future<PurchaseFlowResult> purchaseSelection(
-    SubscriptionSelection selection,
-  ) async {
+    SubscriptionSelection selection, {
+    String? conversionJourneyId,
+  }) async {
     final productId = IapProductIds.idForSelection(selection);
     if (productId == null) {
       return const PurchaseFlowResult(
@@ -85,7 +121,7 @@ class IapService {
         message: 'Invalid product selection.',
       );
     }
-    return purchaseProduct(productId);
+    return purchaseProduct(productId, conversionJourneyId: conversionJourneyId);
   }
 
   /// The "50% off first year" promo is an introductory offer on the annual
@@ -94,7 +130,10 @@ class IapService {
     return purchaseProduct(IapProductIds.annual);
   }
 
-  Future<PurchaseFlowResult> purchaseProduct(String productId) async {
+  Future<PurchaseFlowResult> purchaseProduct(
+    String productId, {
+    String? conversionJourneyId,
+  }) async {
     if (!_isAvailable) {
       return const PurchaseFlowResult(
         success: false,
@@ -122,9 +161,30 @@ class IapService {
     }
 
     _activePurchaseCompleter = Completer<PurchaseFlowResult>();
+    _activeConversionJourneyId = conversionJourneyId;
+    _heartBalanceBeforeActivePurchase = _homeViewModel.lives;
+
+    _logPurchaseLifecycleEvent(
+      productId,
+      heartsEvent: AnalyticsEvents.heartPurchaseStarted,
+      subscriptionEvent: AnalyticsEvents.purchaseStarted,
+      extraParams: {
+        if (IapProductIds.isHeartsProduct(productId))
+          AnalyticsParams.heartBalanceBefore: _heartBalanceBeforeActivePurchase,
+      },
+    );
 
     final started = await _startPurchase(product);
     if (!started) {
+      _logPurchaseLifecycleEvent(
+        productId,
+        heartsEvent: AnalyticsEvents.heartPurchaseFailed,
+        subscriptionEvent: AnalyticsEvents.purchaseFailed,
+        extraParams: {
+          AnalyticsParams.errorType: 'iap',
+          AnalyticsParams.errorCode: 'start_failed',
+        },
+      );
       _clearActivePurchase();
       return const PurchaseFlowResult(
         success: false,
@@ -135,6 +195,15 @@ class IapService {
     return _activePurchaseCompleter!.future.timeout(
       const Duration(minutes: 3),
       onTimeout: () {
+        _logPurchaseLifecycleEvent(
+          productId,
+          heartsEvent: AnalyticsEvents.heartPurchaseFailed,
+          subscriptionEvent: AnalyticsEvents.purchaseFailed,
+          extraParams: {
+            AnalyticsParams.errorType: 'iap',
+            AnalyticsParams.errorCode: 'timeout',
+          },
+        );
         _clearActivePurchase();
         return const PurchaseFlowResult(
           success: false,
@@ -162,7 +231,9 @@ class IapService {
     return PurchaseParam(productDetails: product);
   }
 
-  Future<PurchaseFlowResult> restorePurchases() async {
+  Future<PurchaseFlowResult> restorePurchases({
+    String? conversionJourneyId,
+  }) async {
     if (!_isAvailable) {
       return const PurchaseFlowResult(
         success: false,
@@ -174,6 +245,9 @@ class IapService {
     await Future<void>.delayed(const Duration(seconds: 2));
 
     if (_localStorage.isPremium) {
+      AnalyticsService.instance.log(AnalyticsEvents.restorePurchaseSucceeded, {
+        AnalyticsParams.conversionJourneyId: conversionJourneyId,
+      });
       return const PurchaseFlowResult(
         success: true,
         isPremium: true,
@@ -181,6 +255,11 @@ class IapService {
       );
     }
 
+    AnalyticsService.instance.log(AnalyticsEvents.restorePurchaseFailed, {
+      AnalyticsParams.conversionJourneyId: conversionJourneyId,
+      AnalyticsParams.errorType: 'restore',
+      AnalyticsParams.errorCode: 'no-active-subscription',
+    });
     return const PurchaseFlowResult(
       success: false,
       message: 'No active subscription found to restore.',
@@ -192,6 +271,15 @@ class IapService {
       if (purchase.status == PurchaseStatus.pending) continue;
 
       if (purchase.status == PurchaseStatus.error) {
+        _logPurchaseLifecycleEvent(
+          purchase.productID,
+          heartsEvent: AnalyticsEvents.heartPurchaseFailed,
+          subscriptionEvent: AnalyticsEvents.purchaseFailed,
+          extraParams: {
+            AnalyticsParams.errorType: 'iap',
+            AnalyticsParams.errorCode: purchase.error?.code ?? 'unknown',
+          },
+        );
         _completeActivePurchase(
           PurchaseFlowResult(
             success: false,
@@ -202,6 +290,11 @@ class IapService {
       }
 
       if (purchase.status == PurchaseStatus.canceled) {
+        _logPurchaseLifecycleEvent(
+          purchase.productID,
+          heartsEvent: AnalyticsEvents.heartPurchaseCancelled,
+          subscriptionEvent: AnalyticsEvents.purchaseCancelled,
+        );
         _completeActivePurchase(
           const PurchaseFlowResult(
             success: false,
@@ -228,7 +321,18 @@ class IapService {
 
     if (IapProductIds.isHeartsProduct(productId)) {
       final hearts = IapProductIds.heartsForProductId(productId);
+      // Persist the entitlement first — purchase_success must reflect a
+      // real, saved balance change, not just the store's callback.
       await _homeViewModel.addHearts(hearts);
+      _logPurchaseLifecycleEvent(
+        productId,
+        heartsEvent: AnalyticsEvents.heartPurchaseSuccess,
+        subscriptionEvent: AnalyticsEvents.purchaseSuccess,
+        extraParams: {
+          AnalyticsParams.heartBalanceBefore: _heartBalanceBeforeActivePurchase,
+          AnalyticsParams.heartBalanceAfter: _homeViewModel.lives,
+        },
+      );
       return PurchaseFlowResult(
         success: true,
         heartsAdded: hearts,
@@ -242,6 +346,11 @@ class IapService {
         productId: productId,
       );
       AdMobService.instance.refreshAfterEntitlementsChange();
+      _logPurchaseLifecycleEvent(
+        productId,
+        heartsEvent: AnalyticsEvents.heartPurchaseSuccess,
+        subscriptionEvent: AnalyticsEvents.purchaseSuccess,
+      );
       return const PurchaseFlowResult(
         success: true,
         isPremium: true,
@@ -265,6 +374,7 @@ class IapService {
 
   void _clearActivePurchase() {
     _activePurchaseCompleter = null;
+    _activeConversionJourneyId = null;
   }
 
   String _currencySymbol(String currencyCode) {
