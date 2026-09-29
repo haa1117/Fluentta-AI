@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/lesson_completion_analytics.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_complete_layout.dart';
@@ -10,19 +11,23 @@ class RoleplayQuickCheckCompleteScreen extends StatelessWidget {
     required this.lessonId,
     this.completionSummary,
     this.newlyUnlocked,
+    this.xpEarned = RoleplayXpRewards.comprehension,
+    this.completionAnalytics,
   });
 
   final int lessonNumber;
   final String lessonId;
   final String? completionSummary;
   final List<String>? newlyUnlocked;
+  final int xpEarned;
+  final LessonCompletionAnalytics? completionAnalytics;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
     return LessonCompleteLayout(
-      xpEarned: RoleplayXpRewards.comprehension,
+      xpEarned: xpEarned,
       interstitialOnExit: false,
       boostLessonKey: lessonId,
       subtitle: completionSummary ??
@@ -31,6 +36,7 @@ class RoleplayQuickCheckCompleteScreen extends StatelessWidget {
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),
       newlyUnlocked: newlyUnlocked,
+      completionAnalytics: completionAnalytics,
     );
   }
 }

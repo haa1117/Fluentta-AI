@@ -1,7 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
+import 'package:fluentta_ai/core/analytics/lesson_completion_analytics.dart';
+import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
+import 'package:fluentta_ai/data/services/progress_sync_service.dart';
+import 'package:provider/provider.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/core/utils/simple_uuid.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/core/xp/lesson_completion_nav.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
@@ -15,21 +23,46 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
     required this.initialPhaseIndex,
     required this.onLessonCompleted,
     required this.textToSpeechService,
+    required this.scenarioId,
+    required this.cefrLevel,
+    required this.entryAction,
     this.onProgressChanged,
-  }) : _currentPhaseIndex = initialPhaseIndex;
+  }) : _currentPhaseIndex = initialPhaseIndex,
+       lessonAttemptId = generateUuidV4() {
+    AnalyticsService.instance.log(AnalyticsEvents.rolePlayLessonStarted, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.scenarioId: scenarioId,
+      AnalyticsParams.cefrLevel: cefrLevel,
+      AnalyticsParams.moduleType: 'dialogue',
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.lessonNumber: lesson.number,
+      AnalyticsParams.entryAction: entryAction,
+      AnalyticsParams.contentStepCount: totalPhases,
+    });
+    _logStepViewed();
+  }
 
   final RoleplayDialogueLessonModel lesson;
   final int initialPhaseIndex;
-  final Future<List<String>> Function(RoleplayDialogueLessonModel)
+  final Future<List<String>> Function(RoleplayDialogueLessonModel, String)
       onLessonCompleted;
   final ValueChanged<int>? onProgressChanged;
   final TextToSpeechService textToSpeechService;
+  final String scenarioId;
+  final String cefrLevel;
+  final String entryAction;
+
+  /// Correlates every analytics event of this lesson attempt. A fresh retry
+  /// after exiting gets a new id (a new ViewModel instance is created).
+  final String lessonAttemptId;
 
   int _currentPhaseIndex;
   int? _listeningLineIndex;
   bool _isListening = false;
   bool _isCompleting = false;
   int _autoSpeakToken = 0;
+  bool _completed = false;
+  bool _exitLogged = false;
 
   /// True once "Finish Lesson" has been tapped — guards against rapid extra
   /// taps queuing up multiple pushes of the completion screen.
@@ -44,6 +77,29 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
   bool get isFirstPhase => _currentPhaseIndex == 0;
   bool get isLastPhase => _currentPhaseIndex >= totalPhases - 1;
   bool get canProceed => true;
+
+  void _logStepViewed() {
+    AnalyticsService.instance.log(AnalyticsEvents.lessonStepViewed, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.contentStepNumber: _currentPhaseIndex + 1,
+      AnalyticsParams.contentStepCount: totalPhases,
+    });
+  }
+
+  /// Logs `role_play_lesson_exited` once, unless the lesson already
+  /// completed. Safe to call multiple times (e.g. explicit back tap followed
+  /// by the PopScope callback for the same pop).
+  void logExit(String exitMethod) {
+    if (_completed || _exitLogged) return;
+    _exitLogged = true;
+    AnalyticsService.instance.log(AnalyticsEvents.rolePlayLessonExited, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.lastStepNumber: _currentPhaseIndex + 1,
+      AnalyticsParams.exitMethod: exitMethod,
+    });
+  }
 
   bool isLineListening(int lineIndex) {
     return _isListening && _listeningLineIndex == lineIndex;
@@ -67,6 +123,14 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
     _listeningLineIndex = lineIndex;
     _isListening = true;
     notifyListeners();
+
+    AnalyticsService.instance.log(AnalyticsEvents.dialogueAudioPlayed, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.contentStepNumber: _currentPhaseIndex + 1,
+      AnalyticsParams.speakerRole: line.isUser ? 'learner' : 'scenario_character',
+      AnalyticsParams.playbackSource: 'manual_play',
+    });
 
     final didSpeak = await textToSpeechService.speak(
       line.text,
@@ -92,6 +156,7 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
     _cancelAutoSpeak();
     _currentPhaseIndex--;
     onProgressChanged?.call(_currentPhaseIndex);
+    _logStepViewed();
     notifyListeners();
   }
 
@@ -106,11 +171,35 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
       notifyListeners();
       await completeLessonAndNavigate(
         context: context,
-        complete: () => onLessonCompleted(lesson),
-        buildScreen: (unlocked) => RoleplayDialogueCompleteScreen(
-          lesson: lesson,
-          newlyUnlocked: unlocked,
-        ),
+        complete: () async {
+          final unlocked = await onLessonCompleted(lesson, lessonAttemptId);
+          _completed = true;
+          return unlocked;
+        },
+        buildScreen: (unlocked, xpGranted) {
+          final sync = context.read<ProgressSyncService>();
+          return RoleplayDialogueCompleteScreen(
+            lesson: lesson,
+            newlyUnlocked: unlocked,
+            xpEarned: xpGranted,
+            scenarioId: scenarioId,
+            cefrLevel: cefrLevel,
+            completionAnalytics: LessonCompletionAnalytics.fromOutcome(
+              sync: sync,
+              learningArea: 'role_play',
+              lessonAttemptId: lessonAttemptId,
+              cefrLevel: cefrLevel,
+              moduleType: 'dialogue',
+              lessonId: lesson.lessonId,
+              lessonNumber: lesson.number,
+              catalogueBaseXp: RoleplayXpRewards.dialogue,
+              menuScreen: 'role_play_dialogue',
+              scenarioId: scenarioId,
+              nextLessonScreen: 'role_play_dialogue_lesson',
+              includeModuleBonus: false,
+            ),
+          );
+        },
         onFailed: () {
           _isCompleting = false;
           notifyListeners();
@@ -121,6 +210,7 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
     final previousLineCount = currentPhase.lines.length;
     _currentPhaseIndex++;
     onProgressChanged?.call(_currentPhaseIndex);
+    _logStepViewed();
     notifyListeners();
     unawaited(_speakUpcomingLines(fromIndex: previousLineCount));
   }
@@ -145,6 +235,14 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
       _listeningLineIndex = i;
       _isListening = true;
       notifyListeners();
+      AnalyticsService.instance.log(AnalyticsEvents.dialogueAudioPlayed, {
+        AnalyticsParams.lessonAttemptId: lessonAttemptId,
+        AnalyticsParams.lessonId: lesson.lessonId,
+        AnalyticsParams.contentStepNumber: _currentPhaseIndex + 1,
+        AnalyticsParams.speakerRole:
+            lines[i].isUser ? 'learner' : 'scenario_character',
+        AnalyticsParams.playbackSource: 'automatic',
+      });
       final didSpeak = await textToSpeechService.speak(lines[i].text);
       if (!didSpeak) return;
     }
@@ -156,6 +254,10 @@ class RoleplayDialogueLessonViewModel extends ChangeNotifier {
 
   @override
   void dispose() {
+    // Fallback for any disposal path that isn't the explicit back button or
+    // the PopScope system-pop callback (e.g. the route being removed some
+    // other way).
+    logExit('screen_closed');
     _autoSpeakToken++;
     textToSpeechService.stop();
     super.dispose();

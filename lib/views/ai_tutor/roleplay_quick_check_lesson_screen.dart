@@ -16,6 +16,8 @@ class RoleplayQuickCheckLessonScreen extends StatelessWidget {
     required this.lesson,
     required this.initialQuestionIndex,
     required this.cefrLevel,
+    required this.scenarioId,
+    required this.entryAction,
     required this.progressSyncService,
     required this.onLessonCompleted,
     this.onProgressChanged,
@@ -24,6 +26,8 @@ class RoleplayQuickCheckLessonScreen extends StatelessWidget {
   final RoleplayQuickCheckLessonModel lesson;
   final int initialQuestionIndex;
   final String cefrLevel;
+  final String scenarioId;
+  final String entryAction;
   final ProgressSyncService progressSyncService;
   final Future<List<String>> Function(RoleplayQuickCheckLessonModel)
       onLessonCompleted;
@@ -37,6 +41,9 @@ class RoleplayQuickCheckLessonScreen extends StatelessWidget {
         initialQuestionIndex: initialQuestionIndex,
         onLessonCompleted: onLessonCompleted,
         progressSyncService: progressSyncService,
+        scenarioId: scenarioId,
+        cefrLevel: cefrLevel,
+        entryAction: entryAction,
         onProgressChanged: onProgressChanged,
       ),
       child: _RoleplayQuickCheckLessonBody(lessonNumber: lesson.number),

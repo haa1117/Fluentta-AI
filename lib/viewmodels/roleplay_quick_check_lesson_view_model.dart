@@ -2,6 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
+import 'package:fluentta_ai/core/analytics/lesson_completion_analytics.dart';
+import 'package:fluentta_ai/core/roleplay/roleplay_xp_rewards.dart';
+import 'package:fluentta_ai/core/utils/simple_uuid.dart';
 import 'package:fluentta_ai/core/xp/lesson_completion_nav.dart';
 import 'package:fluentta_ai/data/models/lesson_content_dto.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
@@ -15,15 +22,40 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
     required this.initialQuestionIndex,
     required this.onLessonCompleted,
     required this.progressSyncService,
+    required this.scenarioId,
+    required this.cefrLevel,
+    required this.entryAction,
     this.onProgressChanged,
-  }) : _currentIndex = initialQuestionIndex;
+  }) : _currentIndex = initialQuestionIndex,
+       lessonAttemptId = generateUuidV4() {
+    AnalyticsService.instance.logScreenView('role_play_comprehension_lesson');
+    AnalyticsService.instance.log(AnalyticsEvents.rolePlayLessonStarted, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.scenarioId: scenarioId,
+      AnalyticsParams.cefrLevel: cefrLevel.toLowerCase(),
+      AnalyticsParams.moduleType: 'comprehension',
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.lessonNumber: lesson.number,
+      AnalyticsParams.entryAction: entryAction,
+      AnalyticsParams.contentStepCount: totalQuestions,
+    });
+    _logStepViewed();
+  }
 
   final RoleplayQuickCheckLessonModel lesson;
   final int initialQuestionIndex;
   final Future<List<String>> Function(RoleplayQuickCheckLessonModel)
       onLessonCompleted;
   final ProgressSyncService progressSyncService;
+  final String scenarioId;
+  final String cefrLevel;
+  final String entryAction;
+  final String lessonAttemptId;
   final ValueChanged<int>? onProgressChanged;
+  bool _completed = false;
+  bool _exitLogged = false;
+  int _incorrectAnswerCount = 0;
+  final Map<int, int> _attemptsByQuestion = {};
 
   int _currentIndex;
   int? _selectedIndex;
@@ -46,6 +78,30 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
   double get lessonProgress => (_currentIndex + 1) / totalQuestions;
 
   ReadingQuestionModel get currentQuestion => lesson.questions[_currentIndex];
+
+  String get _questionId => '${lesson.lessonId}_q_${_currentIndex + 1}';
+
+  void _logStepViewed() {
+    AnalyticsService.instance.log(AnalyticsEvents.lessonStepViewed, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.contentStepNumber: _currentIndex + 1,
+      AnalyticsParams.contentStepCount: totalQuestions,
+      AnalyticsParams.questionId: _questionId,
+    });
+  }
+
+  void logExit(String exitMethod) {
+    if (_completed || _exitLogged) return;
+    _exitLogged = true;
+    AnalyticsService.instance.log(AnalyticsEvents.rolePlayLessonExited, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.lastStepNumber: _currentIndex + 1,
+      AnalyticsParams.incorrectAnswerCount: _incorrectAnswerCount,
+      AnalyticsParams.exitMethod: exitMethod,
+    });
+  }
 
   String? get currentFeedback {
     if (_currentIndex >= lesson.feedbacks.length) return null;
@@ -84,10 +140,33 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
   void selectOption(int index) {
     if (_answered) return;
     _selectedIndex = index;
-    if (index == currentQuestion.correctIndex) {
+    final attempt = (_attemptsByQuestion[_currentIndex] ?? 0) + 1;
+    _attemptsByQuestion[_currentIndex] = attempt;
+    final correct = index == currentQuestion.correctIndex;
+    AnalyticsService.instance.log(AnalyticsEvents.comprehensionAnswerSubmitted, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.questionId: _questionId,
+      AnalyticsParams.contentStepNumber: _currentIndex + 1,
+      AnalyticsParams.answerOptionId: 'option_$index',
+      AnalyticsParams.answerResult: correct ? 'correct' : 'incorrect',
+      AnalyticsParams.attemptNumber: attempt,
+    });
+    if (correct) {
       _answered = true;
       _lastWrongIndex = null;
     } else {
+      _incorrectAnswerCount++;
+      AnalyticsService.instance.log(
+        AnalyticsEvents.comprehensionGuidanceViewed,
+        {
+          AnalyticsParams.lessonAttemptId: lessonAttemptId,
+          AnalyticsParams.lessonId: lesson.lessonId,
+          AnalyticsParams.questionId: _questionId,
+          AnalyticsParams.contentStepNumber: _currentIndex + 1,
+          AnalyticsParams.attemptNumber: attempt,
+        },
+      );
       unawaited(_recordWrongAnswer(index));
     }
     notifyListeners();
@@ -97,6 +176,7 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
     if (isFirstQuestion) return;
     _currentIndex--;
     _resetQuestionState();
+    _logStepViewed();
     notifyListeners();
   }
 
@@ -110,12 +190,47 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
       await completeLessonAndNavigate(
         context: context,
         complete: () => onLessonCompleted(lesson),
-        buildScreen: (unlocked) => RoleplayQuickCheckCompleteScreen(
-          lessonNumber: lesson.number,
-          lessonId: lesson.lessonId,
-          completionSummary: lesson.completionSummary,
-          newlyUnlocked: unlocked,
-        ),
+        buildScreen: (unlocked, xpGranted) {
+          _completed = true;
+          final sync = context.read<ProgressSyncService>();
+          if (sync.lastLessonCompletionIsNew) {
+            AnalyticsService.instance.log(
+              AnalyticsEvents.rolePlayLessonCompleted,
+              {
+                AnalyticsParams.lessonAttemptId: lessonAttemptId,
+                AnalyticsParams.scenarioId: scenarioId,
+                AnalyticsParams.cefrLevel: cefrLevel.toLowerCase(),
+                AnalyticsParams.moduleType: 'comprehension',
+                AnalyticsParams.lessonId: lesson.lessonId,
+                AnalyticsParams.lessonNumber: lesson.number,
+                AnalyticsParams.baseXpEarned: RoleplayXpRewards.comprehension,
+                AnalyticsParams.incorrectAnswerCount: _incorrectAnswerCount,
+                AnalyticsParams.nextLessonState: sync.lastNextLessonState,
+              },
+            );
+          }
+          return RoleplayQuickCheckCompleteScreen(
+            lessonNumber: lesson.number,
+            lessonId: lesson.lessonId,
+            completionSummary: lesson.completionSummary,
+            newlyUnlocked: unlocked,
+            xpEarned: xpGranted,
+            completionAnalytics: LessonCompletionAnalytics.fromOutcome(
+              sync: sync,
+              learningArea: 'role_play',
+              lessonAttemptId: lessonAttemptId,
+              cefrLevel: cefrLevel,
+              moduleType: 'comprehension',
+              lessonId: lesson.lessonId,
+              lessonNumber: lesson.number,
+              catalogueBaseXp: RoleplayXpRewards.comprehension,
+              menuScreen: 'role_play_comprehension',
+              scenarioId: scenarioId,
+              nextLessonScreen: 'role_play_comprehension_lesson',
+              includeModuleBonus: false,
+            ),
+          );
+        },
         onFailed: () {
           _isCompleting = false;
           notifyListeners();
@@ -127,6 +242,7 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
     _currentIndex++;
     onProgressChanged?.call(_currentIndex);
     _resetQuestionState();
+    _logStepViewed();
     notifyListeners();
   }
 
@@ -134,5 +250,11 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
     _selectedIndex = null;
     _answered = false;
     _lastWrongIndex = null;
+  }
+
+  @override
+  void dispose() {
+    logExit('screen_closed');
+    super.dispose();
   }
 }

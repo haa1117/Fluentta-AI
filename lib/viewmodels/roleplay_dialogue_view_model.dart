@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/l10n/roleplay_scenario_l10n.dart';
@@ -50,6 +53,7 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String get pathTitle => _pathTitle;
   String get pathSubtitle => _pathSubtitle;
+  String get cefrLevel => _cefrLevel;
 
   int get completedLessonsCount =>
       _lessons.where((l) => l.status == LearningLessonStatus.completed).length;
@@ -137,6 +141,12 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
         ? lesson.phasesCompleted.clamp(0, lesson.totalPhases - 1)
         : 0;
 
+    final entryAction = switch (lesson.status) {
+      LearningLessonStatus.completed => 'review',
+      LearningLessonStatus.inProgress => 'resume',
+      _ => 'start',
+    };
+
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(
         builder: (_) => RoleplayDialogueLessonScreen(
@@ -144,6 +154,9 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
           initialPhaseIndex: startIndex,
           onLessonCompleted: _markLessonCompleted,
           onProgressChanged: (index) => _saveInProgress(lesson, index),
+          scenarioId: _scenarioId,
+          cefrLevel: _cefrLevel,
+          entryAction: entryAction,
         ),
       ),
     );
@@ -174,11 +187,20 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
 
   Future<List<String>> _markLessonCompleted(
     RoleplayDialogueLessonModel completedLesson,
+    String lessonAttemptId,
   ) async {
     await _progressRepository.initialize();
     final existing =
         await _progressRepository.getProgress(completedLesson.lessonId);
     if (existing?.status == LearningLessonStatus.completed) {
+      _syncService.lastCompletionXpGranted = 0;
+      _syncService.lastModuleCompletionBonusXp = 0;
+      _syncService.rememberNextLesson(
+        nextLessonId: null,
+        nextLessonNumber: null,
+        nextWasLocked: false,
+        alreadyCompleted: true,
+      );
       await _loadLessons();
       return [];
     }
@@ -188,6 +210,21 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
       completedLessonId: completedLesson.lessonId,
       orderedLessonIds: orderedIds,
     );
+    // Snapshot the next lesson's pre-completion status (before this
+    // completion may unlock it) to tell `unlocked` from `already_unlocked`.
+    final nextLessonPriorStatus = nextId == null
+        ? null
+        : _lessons
+            .firstWhere(
+              (l) => l.lessonId == nextId,
+              orElse: () => completedLesson,
+            )
+            .status;
+    final nextLessonState = nextId == null
+        ? 'module_completed'
+        : nextLessonPriorStatus == LearningLessonStatus.locked
+            ? 'unlocked'
+            : 'already_unlocked';
 
     await _progressRepository.markCompleted(
       lessonId: completedLesson.lessonId,
@@ -220,6 +257,29 @@ class RoleplayDialogueViewModel extends ChangeNotifier {
       scenarioId: _scenarioId,
       lessonNumber: completedLesson.number,
     );
+
+    _syncService.rememberNextLesson(
+      nextLessonId: nextId,
+      nextLessonNumber: nextId == null
+          ? null
+          : _lessons
+              .where((lesson) => lesson.lessonId == nextId)
+              .map((lesson) => lesson.number)
+              .firstOrNull,
+      nextWasLocked: nextLessonPriorStatus == LearningLessonStatus.locked,
+      alreadyCompleted: false,
+    );
+
+    AnalyticsService.instance.log(AnalyticsEvents.rolePlayLessonCompleted, {
+      AnalyticsParams.lessonAttemptId: lessonAttemptId,
+      AnalyticsParams.scenarioId: _scenarioId,
+      AnalyticsParams.cefrLevel: _cefrLevel,
+      AnalyticsParams.moduleType: 'dialogue',
+      AnalyticsParams.lessonId: completedLesson.lessonId,
+      AnalyticsParams.lessonNumber: completedLesson.number,
+      AnalyticsParams.baseXpEarned: RoleplayXpRewards.dialogue,
+      AnalyticsParams.nextLessonState: nextLessonState,
+    });
 
     unawaited(_loadLessons());
     return NewlyUnlockedContent.compute(

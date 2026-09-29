@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/lesson_completion_analytics.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -12,17 +13,25 @@ class RoleplayDialogueCompleteScreen extends StatelessWidget {
     super.key,
     required this.lesson,
     this.newlyUnlocked,
+    this.xpEarned = RoleplayXpRewards.dialogue,
+    this.scenarioId,
+    this.cefrLevel,
+    this.completionAnalytics,
   });
 
   final RoleplayDialogueLessonModel lesson;
   final List<String>? newlyUnlocked;
+  final int xpEarned;
+  final String? scenarioId;
+  final String? cefrLevel;
+  final LessonCompletionAnalytics? completionAnalytics;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
     return LessonCompleteLayout(
-      xpEarned: RoleplayXpRewards.dialogue,
+      xpEarned: xpEarned,
       interstitialOnExit: false,
       boostLessonKey: lesson.lessonId,
       subtitle: l10n.roleplayLessonCompleted(lesson.number),
@@ -30,6 +39,7 @@ class RoleplayDialogueCompleteScreen extends StatelessWidget {
       onClose: () => Navigator.of(context).pop(),
       onButtonPressed: () => Navigator.of(context).pop(),
       newlyUnlocked: newlyUnlocked,
+      completionAnalytics: completionAnalytics,
       summaryCard: lesson.completionSummary == null
           ? null:SizedBox.shrink()
           // : Container(

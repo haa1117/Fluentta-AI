@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
+import 'package:fluentta_ai/core/analytics/cefr_lesson_analytics.dart';
 import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/l10n/roleplay_scenario_l10n.dart';
@@ -49,6 +53,8 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
 
   List<RoleplayQuickCheckLessonModel> get lessons => _lessons;
   bool get isLoading => _isLoading;
+  String get cefrLevel => _cefrLevel;
+  String get scenarioId => _scenarioId;
   String get pathTitle => _pathTitle;
   String get pathSubtitle => _pathSubtitle;
 
@@ -125,6 +131,17 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
       return;
     }
 
+    AnalyticsService.instance.log(AnalyticsEvents.rolePlayLessonClicked, {
+      AnalyticsParams.scenarioId: _scenarioId,
+      AnalyticsParams.cefrLevel: _cefrLevel.toLowerCase(),
+      AnalyticsParams.moduleType: 'comprehension',
+      AnalyticsParams.lessonId: lesson.lessonId,
+      AnalyticsParams.lessonNumber: lesson.number,
+      AnalyticsParams.lessonState: lessonStateFor(lesson.status),
+      AnalyticsParams.entryAction: entryActionFor(lesson.status),
+      AnalyticsParams.destinationScreen: 'role_play_comprehension_lesson',
+    });
+
     if (lesson.status == LearningLessonStatus.notStarted) {
       await _dailyLessonRepository.recordLessonStartedPath(
         typeId: RoleplayPracticeType.quickCheck.id,
@@ -146,6 +163,8 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
           lesson: lesson,
           initialQuestionIndex: startIndex,
           cefrLevel: _cefrLevel,
+          scenarioId: _scenarioId,
+          entryAction: entryActionFor(lesson.status),
           progressSyncService: progressSyncService,
           onLessonCompleted: _markLessonCompleted,
           onProgressChanged: (index) => _saveInProgress(lesson, index),
@@ -183,16 +202,35 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
     await _progressRepository.initialize();
     final existing =
         await _progressRepository.getProgress(completedLesson.lessonId);
-    if (existing?.status == LearningLessonStatus.completed) {
-      await _loadLessons();
-      return [];
-    }
-
     final orderedIds = _lessons.map((l) => l.lessonId).toList();
     final nextId = LessonUnlockLogic.nextLessonIdToUnlock(
       completedLessonId: completedLesson.lessonId,
       orderedLessonIds: orderedIds,
     );
+    RoleplayQuickCheckLessonModel? nextLesson;
+    if (nextId != null) {
+      for (final candidate in _lessons) {
+        if (candidate.lessonId == nextId) {
+          nextLesson = candidate;
+          break;
+        }
+      }
+    }
+    final alreadyCompleted =
+        existing?.status == LearningLessonStatus.completed;
+
+    if (alreadyCompleted) {
+      _syncService.lastCompletionXpGranted = 0;
+      _syncService.lastModuleCompletionBonusXp = 0;
+      _syncService.rememberNextLesson(
+        nextLessonId: nextId,
+        nextLessonNumber: nextLesson?.number,
+        nextWasLocked: false,
+        alreadyCompleted: true,
+      );
+      await _loadLessons();
+      return [];
+    }
 
     await _progressRepository.markCompleted(
       lessonId: completedLesson.lessonId,
@@ -224,6 +262,13 @@ class RoleplayQuickCheckViewModel extends ChangeNotifier {
       xpAmount: RoleplayXpRewards.comprehension,
       scenarioId: _scenarioId,
       lessonNumber: completedLesson.number,
+    );
+
+    _syncService.rememberNextLesson(
+      nextLessonId: nextId,
+      nextLessonNumber: nextLesson?.number,
+      nextWasLocked: nextLesson?.status == LearningLessonStatus.locked,
+      alreadyCompleted: false,
     );
 
     unawaited(_loadLessons());

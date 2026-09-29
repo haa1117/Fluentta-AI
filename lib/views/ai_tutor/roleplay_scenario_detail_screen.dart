@@ -1,4 +1,7 @@
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -27,27 +30,71 @@ import 'package:fluentta_ai/widgets/common/pro_feature_sheet.dart';
 import 'package:fluentta_ai/widgets/home/todays_lesson_card.dart';
 import 'package:provider/provider.dart';
 
-class RoleplayScenarioDetailScreen extends StatelessWidget {
+const String _kScenarioDetailScreenId = 'role_play_scenario';
+
+class RoleplayScenarioDetailScreen extends StatefulWidget {
   const RoleplayScenarioDetailScreen({super.key, required this.scenarioId});
 
   final String scenarioId;
 
   @override
+  State<RoleplayScenarioDetailScreen> createState() =>
+      _RoleplayScenarioDetailScreenState();
+}
+
+class _RoleplayScenarioDetailScreenState
+    extends State<RoleplayScenarioDetailScreen> {
+  bool _loggedViewed = false;
+  bool _loggedLockedClick = false;
+
+  void _logUpsell(String event, String scenarioId, {String? destinationScreen}) {
+    AnalyticsService.instance.log(event, {
+      AnalyticsParams.sourceScreen: _kScenarioDetailScreenId,
+      AnalyticsParams.featureContext: 'advanced_roleplay_scenario',
+      AnalyticsParams.scenarioId: scenarioId,
+      if (destinationScreen != null)
+        AnalyticsParams.destinationScreen: destinationScreen,
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
-    final scenario = AiTutorViewModel.scenarioById(scenarioId);
+    final scenario = AiTutorViewModel.scenarioById(widget.scenarioId);
 
     if (scenario != null &&
         !context.read<EntitlementsService>().canAccessRoleplayScenario(
           scenario.id,
         )) {
+      if (!_loggedLockedClick) {
+        _loggedLockedClick = true;
+        AnalyticsService.instance.log(
+          AnalyticsEvents.roleplayScenarioLockedClicked,
+          {
+            AnalyticsParams.sourceScreen: _kScenarioDetailScreenId,
+            AnalyticsParams.scenarioId: scenario.id,
+            AnalyticsParams.lockReason: 'premium',
+          },
+        );
+      }
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!context.mounted) return;
         showProFeatureSheet(
           context,
           title: l10n.advancedRoleplay,
           message: l10n.upgradeToUnlockRoleplays,
+          onShown: () =>
+              _logUpsell(AnalyticsEvents.premiumUpsellViewed, scenario.id),
+          onGoUnlimitedTapped: () => _logUpsell(
+            AnalyticsEvents.premiumUpsellGoUnlimitedClicked,
+            scenario.id,
+            destinationScreen: 'paywall',
+          ),
+          onDismissedWithoutAction: () => _logUpsell(
+            AnalyticsEvents.premiumUpsellDismissed,
+            scenario.id,
+          ),
         );
         Navigator.of(context).pop();
       });
@@ -92,12 +139,52 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
           final levelCode = CefrLevelProgress.levelCodeLabel(l10n, level);
           final levelLabel = CefrLevelProgress.levelNameLabel(l10n, level);
           final isDark = Theme.of(context).brightness == Brightness.dark;
+
+          if (!_loggedViewed) {
+            _loggedViewed = true;
+            AnalyticsService.instance.logScreenView(_kScenarioDetailScreenId);
+            AnalyticsService.instance.log(
+              AnalyticsEvents.rolePlayScenarioViewed,
+              {
+                AnalyticsParams.scenarioId: scenario.id,
+                AnalyticsParams.cefrLevel: levelCode,
+                AnalyticsParams.scenarioProgressPercent:
+                    (detailVm.moduleProgress * 100).round(),
+                AnalyticsParams.completedModuleCount:
+                    detailVm.completedModuleCount,
+              },
+            );
+          }
+
+          void openModule(
+            String moduleType,
+            String destinationScreen,
+            RoleplayModuleState moduleState,
+            WidgetBuilder builder,
+          ) {
+            AnalyticsService.instance.log(
+              AnalyticsEvents.rolePlayModuleClicked,
+              {
+                AnalyticsParams.scenarioId: scenario.id,
+                AnalyticsParams.cefrLevel: levelCode,
+                AnalyticsParams.moduleType: moduleType,
+                AnalyticsParams.moduleState: moduleState.analyticsValue,
+                AnalyticsParams.sourceScreen: _kScenarioDetailScreenId,
+                AnalyticsParams.destinationScreen: destinationScreen,
+              },
+            );
+            Navigator.of(context)
+                .push<void>(MaterialPageRoute<void>(builder: builder))
+                .then((_) => detailVm.reload());
+          }
+
           return Scaffold(
             backgroundColor: AppColors.scaffoldBackground(context),
             appBar: AppBarWidget(
               title: detailTitle,
               showBackButton: true,
               centerTitle: true,
+              xpIconSourceScreen: _kScenarioDetailScreenId,
             ),
             body: SingleChildScrollView(
               padding: EdgeInsets.fromLTRB(
@@ -151,17 +238,14 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
                     ),
                     iconAsset: AppAssets.roleDialog,
                     iconBackgroundColor: AppColors.primaryColor,
-                    onTap: () {
-                      Navigator.of(context)
-                          .push<void>(
-                            MaterialPageRoute<void>(
-                              builder: (_) => RoleplayDialoguePathScreen(
-                                scenarioId: scenario.id,
-                              ),
-                            ),
-                          )
-                          .then((_) => detailVm.reload());
-                    },
+                    onTap: () => openModule(
+                      'dialogue',
+                      'role_play_dialogue',
+                      detailVm.dialogueModuleState,
+                      (_) => RoleplayDialoguePathScreen(
+                        scenarioId: scenario.id,
+                      ),
+                    ),
                   ),
                   SizedBox(height: AppSizes.h(12)),
                   RoleplayPracticeOptionTile(
@@ -175,17 +259,14 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
                     ),
                     iconAsset: 'assets/svg/vocabulary_book.svg',
                     iconBackgroundColor: AppColors.primaryColor,
-                    onTap: () {
-                      Navigator.of(context)
-                          .push<void>(
-                            MaterialPageRoute<void>(
-                              builder: (_) => RoleplayVocabularyPathScreen(
-                                scenarioId: scenario.id,
-                              ),
-                            ),
-                          )
-                          .then((_) => detailVm.reload());
-                    },
+                    onTap: () => openModule(
+                      'vocabulary',
+                      'role_play_vocabulary',
+                      detailVm.vocabularyModuleState,
+                      (_) => RoleplayVocabularyPathScreen(
+                        scenarioId: scenario.id,
+                      ),
+                    ),
                   ),
                   SizedBox(height: AppSizes.h(12)),
                   RoleplayPracticeOptionTile(
@@ -196,17 +277,14 @@ class RoleplayScenarioDetailScreen extends StatelessWidget {
                     ),
                     iconBackgroundColor: AppColors.learnReadingOrange,
                     iconAsset: 'assets/svg/quick_che3ck.svg',
-                    onTap: () {
-                      Navigator.of(context)
-                          .push<void>(
-                            MaterialPageRoute<void>(
-                              builder: (_) => RoleplayQuickCheckPathScreen(
-                                scenarioId: scenario.id,
-                              ),
-                            ),
-                          )
-                          .then((_) => detailVm.reload());
-                    },
+                    onTap: () => openModule(
+                      'comprehension',
+                      'role_play_comprehension',
+                      detailVm.comprehensionModuleState,
+                      (_) => RoleplayQuickCheckPathScreen(
+                        scenarioId: scenario.id,
+                      ),
+                    ),
                   ),
                   SizedBox(height: AppSizes.spaceSm),
 

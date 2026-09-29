@@ -1,3 +1,7 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_first_frame.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -43,7 +47,26 @@ class RoleplayQuickCheckPathScreen extends StatelessWidget {
             );
           }
 
-          return Scaffold(
+          return AnalyticsFirstFrame(
+            onFirstFrame: () {
+              final total = viewModel.totalLessonsCount;
+              AnalyticsService.instance
+                  .logScreenView('role_play_comprehension');
+              AnalyticsService.instance.log(
+                AnalyticsEvents.rolePlayModuleViewed,
+                {
+                  AnalyticsParams.scenarioId: scenarioId,
+                  AnalyticsParams.cefrLevel: viewModel.cefrLevel.toLowerCase(),
+                  AnalyticsParams.moduleType: 'comprehension',
+                  AnalyticsParams.completedLessonCount:
+                      viewModel.completedLessonsCount,
+                  AnalyticsParams.moduleProgressPercent: total == 0
+                      ? 0
+                      : (viewModel.completedLessonsCount / total * 100).round(),
+                },
+              );
+            },
+            child: Scaffold(
             backgroundColor: AppColors.scaffoldBackground(context),
             appBar: AppBarWidget(
               title: l10n.quickCheck,
@@ -69,6 +92,7 @@ class RoleplayQuickCheckPathScreen extends StatelessWidget {
                 ),
               ],
             ),
+          ),
           );
         },
       ),
