@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
@@ -33,14 +37,30 @@ class UpdatePasswordViewModel extends ChangeNotifier {
 
     _isLoading = true;
     notifyListeners();
+    AnalyticsService.instance.log(
+      AnalyticsEvents.profilePasswordUpdateSubmitted,
+    );
 
     try {
       await _authRepository.updatePasswordWithCurrent(
         currentPassword: currentPasswordController.text,
         newPassword: newPasswordController.text,
       );
+      AnalyticsService.instance.log(
+        AnalyticsEvents.profilePasswordUpdateSucceeded,
+      );
       onSuccess();
       return true;
+    } catch (error) {
+      AnalyticsService.instance.log(
+        AnalyticsEvents.profilePasswordUpdateFailed,
+        {
+          AnalyticsParams.errorType: 'authentication',
+          AnalyticsParams.errorCode:
+              error is FirebaseAuthException ? error.code : 'unknown',
+        },
+      );
+      rethrow;
     } finally {
       _isLoading = false;
       notifyListeners();

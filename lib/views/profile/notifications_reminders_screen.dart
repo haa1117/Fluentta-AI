@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -8,8 +11,17 @@ import 'package:fluentta_ai/views/profile/reminder_time_screen.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:provider/provider.dart';
 
-class NotificationsRemindersScreen extends StatelessWidget {
+class NotificationsRemindersScreen extends StatefulWidget {
   const NotificationsRemindersScreen({super.key});
+
+  @override
+  State<NotificationsRemindersScreen> createState() =>
+      _NotificationsRemindersScreenState();
+}
+
+class _NotificationsRemindersScreenState
+    extends State<NotificationsRemindersScreen> {
+  bool _loggedViewed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +29,12 @@ class NotificationsRemindersScreen extends StatelessWidget {
     final l10n = context.l10n;
     final profile = context.watch<ProfileViewModel>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('notifications_reminders');
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
@@ -39,7 +57,13 @@ class NotificationsRemindersScreen extends StatelessWidget {
               title: l10n.allowNotifications,
               subtitle: l10n.allowNotificationsSub,
               value: profile.notificationsEnabled,
-              onChanged: profile.setNotificationsEnabled,
+              onChanged: (value) {
+                AnalyticsService.instance.log(
+                  AnalyticsEvents.notificationsToggled,
+                  {AnalyticsParams.toState: value ? 'on' : 'off'},
+                );
+                profile.setNotificationsEnabled(value);
+              },
             ),
             SizedBox(height: AppSizes.h(20)),
             Text(
@@ -68,7 +92,14 @@ class NotificationsRemindersScreen extends StatelessWidget {
                     title: l10n.dailyReminder,
                     value: profile.dailyReminderEnabled,
                     enabled: profile.notificationsEnabled,
-                    onChanged: profile.setDailyReminderEnabled, isDark: isDark,
+                    onChanged: (value) {
+                      AnalyticsService.instance.log(
+                        AnalyticsEvents.dailyReminderToggled,
+                        {AnalyticsParams.toState: value ? 'on' : 'off'},
+                      );
+                      profile.setDailyReminderEnabled(value);
+                    },
+                    isDark: isDark,
                   ),
                   // Divider(
                   //   height: 1,
@@ -86,6 +117,14 @@ class NotificationsRemindersScreen extends StatelessWidget {
                     enabled: profile.notificationsEnabled &&
                         profile.dailyReminderEnabled,
                     onTap: () {
+                      AnalyticsService.instance.log(
+                        AnalyticsEvents.reminderTimeClicked,
+                        {
+                          AnalyticsParams.sourceScreen:
+                              'notifications_reminders',
+                          AnalyticsParams.destinationScreen: 'reminder_time',
+                        },
+                      );
                       Navigator.of(context).push<void>(
                         MaterialPageRoute<void>(
                           builder: (_) => const ReminderTimeScreen(),

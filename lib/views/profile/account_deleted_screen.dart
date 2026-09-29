@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -6,13 +7,30 @@ import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 
-class AccountDeletedScreen extends StatelessWidget {
+class AccountDeletedScreen extends StatefulWidget {
   const AccountDeletedScreen({super.key});
+
+  @override
+  State<AccountDeletedScreen> createState() => _AccountDeletedScreenState();
+}
+
+class _AccountDeletedScreenState extends State<AccountDeletedScreen> {
+  bool _loggedViewed = false;
 
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final titleColor =
+        isDark ? AppColors.textPrimaryDark : AppColors.textPrimary;
+    final bodyColor =
+        isDark ? AppColors.textSecondaryDark : AppColors.textSecondary;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('account_deleted');
+    }
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
@@ -36,7 +54,7 @@ class AccountDeletedScreen extends StatelessWidget {
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(28),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color: titleColor,
                 ),
               ),
               SizedBox(height: AppSizes.h(24)),
@@ -48,7 +66,7 @@ class AccountDeletedScreen extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(15),
-                    color: AppColors.textSecondary,
+                    color: bodyColor,
                   ),
                 ),
               ),
@@ -59,8 +77,7 @@ class AccountDeletedScreen extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(16),
-
-                  color: AppColors.textPrimary,
+                  color: titleColor,
                 ),
               ),
 
@@ -79,7 +96,9 @@ class AccountDeletedScreen extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(13),
-                  color: Color(0xff665D72),
+                  color: isDark
+                      ? AppColors.textSecondaryDark
+                      : const Color(0xff665D72),
                 ),
               ),
               SizedBox(height: AppSizes.h(32)),

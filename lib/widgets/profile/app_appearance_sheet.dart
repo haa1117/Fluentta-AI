@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -74,23 +77,32 @@ class _AppAppearanceSheet extends StatelessWidget {
             _AppearanceOptionTile(
               label: l10n.systemDefault,
               isSelected: themeViewModel.mode == AppAppearanceMode.system,
-              onTap: () => themeViewModel.setMode(AppAppearanceMode.system),
+              onTap: () => _selectMode(themeViewModel, AppAppearanceMode.system),
             ),
             _AppearanceOptionTile(
               label: l10n.lightMode,
               isSelected: themeViewModel.mode == AppAppearanceMode.light,
-              onTap: () => themeViewModel.setMode(AppAppearanceMode.light),
+              onTap: () => _selectMode(themeViewModel, AppAppearanceMode.light),
             ),
             _AppearanceOptionTile(
               label: l10n.darkMode,
               isSelected: themeViewModel.mode == AppAppearanceMode.dark,
-              onTap: () => themeViewModel.setMode(AppAppearanceMode.dark),
+              onTap: () => _selectMode(themeViewModel, AppAppearanceMode.dark),
             ),
           ],
         ),
       ),
     );
   }
+}
+
+void _selectMode(ThemeViewModel themeViewModel, AppAppearanceMode mode) {
+  if (themeViewModel.mode == mode) return;
+  themeViewModel.setMode(mode);
+  AnalyticsService.instance.log(AnalyticsEvents.appearanceModeSelected, {
+    AnalyticsParams.sourceScreen: 'profile',
+    AnalyticsParams.appearanceMode: mode.storageValue,
+  });
 }
 
 class _AppearanceOptionTile extends StatelessWidget {

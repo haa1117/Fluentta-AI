@@ -177,11 +177,6 @@ class UserRepository {
       payload['setupComplete'] = true;
     }
 
-    payload['xpEarned'] = _localStorage.xpEarned;
-    payload['lessonsCompletedCount'] = _localStorage.lessonsCompletedCount;
-    payload['wordsLearnedCount'] = _localStorage.wordsLearnedCount;
-    payload['correctionsCount'] = _localStorage.correctionsCount;
-
     await _userDoc(uid).set(payload, SetOptions(merge: true));
   }
 
@@ -347,10 +342,91 @@ class UserRepository {
         'lessonsCompletedCount': lessonsCompletedCount,
         'wordsLearnedCount': wordsLearnedCount,
         'correctionsCount': correctionsCount,
+        if (_localStorage.xpBoostAdDate != null &&
+            _localStorage.xpBoostAdDate!.isNotEmpty) ...{
+          'xpBoostAdDate': _localStorage.xpBoostAdDate,
+          'xpBoostAdCount': _localStorage.xpBoostAdCount,
+        },
+        if (_localStorage.heartRefillAdDate != null &&
+            _localStorage.heartRefillAdDate!.isNotEmpty) ...{
+          'heartRefillAdDate': _localStorage.heartRefillAdDate,
+          'heartRefillAdCount': _localStorage.heartRefillAdCount,
+        },
+        'lessonXpGranted': _localStorage.lessonXpGrantedRaw,
+        'xpBoostClaimed': _localStorage.xpBoostClaimedRaw,
         'updatedAt': FieldValue.serverTimestamp(),
       },
       SetOptions(merge: true),
     );
+  }
+
+  Future<void> restoreXpCapsFromFirestore(String uid) async {
+    final snapshot = await _userDoc(uid).get();
+    if (!snapshot.exists) return;
+    final data = snapshot.data();
+    if (data == null) return;
+
+    int? readInt(Object? value) {
+      if (value is int) return value;
+      if (value is num) return value.toInt();
+      return null;
+    }
+
+    final remoteDate = data['xpBoostAdDate'] as String?;
+    final remoteCount = readInt(data['xpBoostAdCount']);
+    await _mergeDailyAdUsage(
+      remoteDate: remoteDate,
+      remoteCount: remoteCount,
+      localDate: _localStorage.xpBoostAdDate,
+      localCount: _localStorage.xpBoostAdCount,
+      save: _localStorage.saveXpBoostAdUsage,
+    );
+
+    final heartDate = data['heartRefillAdDate'] as String?;
+    final heartCount = readInt(data['heartRefillAdCount']);
+    await _mergeDailyAdUsage(
+      remoteDate: heartDate,
+      remoteCount: heartCount,
+      localDate: _localStorage.heartRefillAdDate,
+      localCount: _localStorage.heartRefillAdCount,
+      save: _localStorage.saveHeartRefillAdUsage,
+    );
+
+    final granted = data['lessonXpGranted'] as String?;
+    if (granted != null && granted.isNotEmpty) {
+      await _localStorage.restoreLessonXpGranted(granted);
+    }
+    final claimed = data['xpBoostClaimed'] as String?;
+    if (claimed != null && claimed.isNotEmpty) {
+      await _localStorage.restoreXpBoostClaimed(claimed);
+    }
+  }
+
+  Future<void> _mergeDailyAdUsage({
+    required String? remoteDate,
+    required int? remoteCount,
+    required String? localDate,
+    required int localCount,
+    required Future<void> Function(String isoDate, int count) save,
+  }) async {
+    final now = DateTime.now();
+    final today =
+        '${now.year.toString().padLeft(4, '0')}-'
+        '${now.month.toString().padLeft(2, '0')}-'
+        '${now.day.toString().padLeft(2, '0')}';
+    final remoteToday = remoteDate == today ? (remoteCount ?? 0) : 0;
+    final localToday = localDate == today ? localCount : 0;
+    final best = remoteToday > localToday ? remoteToday : localToday;
+    if (best > 0) {
+      await save(today, best);
+      return;
+    }
+    if (remoteDate != null &&
+        remoteDate.isNotEmpty &&
+        remoteCount != null &&
+        (localDate == null || localDate.isEmpty)) {
+      await save(remoteDate, remoteCount);
+    }
   }
 
   Future<Map<String, int>?> fetchLearningStats(String uid) async {

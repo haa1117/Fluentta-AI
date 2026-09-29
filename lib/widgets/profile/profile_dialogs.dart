@@ -1,5 +1,8 @@
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -94,6 +97,10 @@ Future<void> showSignOutDialog(BuildContext context,bool isDark) {
                   width: double.infinity,
                   child: TextButton(
                     onPressed: () async {
+                      AnalyticsService.instance.log(
+                        AnalyticsEvents.signOutClicked,
+                        {AnalyticsParams.sourceScreen: 'profile'},
+                      );
                       Navigator.of(dialogContext).pop();
                       await authViewModel.signOut();
                     },

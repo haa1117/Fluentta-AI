@@ -22,7 +22,7 @@ class ProfileStatsGrid extends StatelessWidget {
 
         value: '${profile.xpEarned}',
         label: l10n.xpEarned,
-        onTap: () => showXpUnlockedDialog(context),
+        onTap: () => showXpUnlockedDialog(context, sourceScreen: 'profile'),
       ),
       _StatCard(
         svgIcon: 'assets/svg/stats_language_icon.svg',

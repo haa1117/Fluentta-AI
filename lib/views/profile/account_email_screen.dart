@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -17,6 +18,7 @@ class AccountEmailScreen extends StatefulWidget {
 
 class _AccountEmailScreenState extends State<AccountEmailScreen> {
   late final TextEditingController _emailController;
+  bool _loggedViewed = false;
 
   @override
   void initState() {
@@ -35,6 +37,12 @@ class _AccountEmailScreenState extends State<AccountEmailScreen> {
     AppSizes.init(context);
     final l10n = context.l10n;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('account_email');
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AuthAppBar(

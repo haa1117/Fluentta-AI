@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -24,6 +27,14 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
   int _selectedMinute = 0;
   bool _isPm = true;
   bool _initialized = false;
+  bool _loggedViewed = false;
+  bool _resolved = false;
+
+  void _logCancelledIfUnresolved() {
+    if (_resolved) return;
+    _resolved = true;
+    AnalyticsService.instance.log(AnalyticsEvents.reminderTimeCancelled);
+  }
 
   void _initializeFromProfile() {
     if (_initialized) return;
@@ -75,7 +86,16 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
       );
     }
 
-    return Scaffold(
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('reminder_time');
+    }
+
+    return PopScope(
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) _logCancelledIfUnresolved();
+      },
+      child: Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
         title: l10n.reminderTimeTitle,
@@ -135,44 +155,61 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                       borderRadius: BorderRadius.circular(AppSizes.w(12)),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _WheelPicker(
-                        controller: _hourController!,
-                        itemCount: 12,
-                        labelBuilder: (i) =>
-                            (i + 1).toString().padLeft(2, '0'),
-                        onSelected: (i) => setState(() => _selectedHour = i + 1), isDark: isDark
-                      ),
-                      Text(
-                        ' : ',
-                        style: TextStyle(
-                          fontFamily: AppFonts.plusJakartaSans,
-                          fontSize: AppSizes.sp(22),
-                          fontWeight: FontWeight.w700,
-                          color:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor,
+                  Builder(
+                    builder: (context) {
+                      final pickers = [
+                        _WheelPicker(
+                          controller: _hourController!,
+                          itemCount: 12,
+                          labelBuilder: (i) =>
+                              (i + 1).toString().padLeft(2, '0'),
+                          onSelected: (i) =>
+                              setState(() => _selectedHour = i + 1),
+                          isDark: isDark,
                         ),
-                      ),
-                      _WheelPicker(
-                        controller: _minuteController!,
-                        itemCount: 12,
-                        labelBuilder: (i) =>
-                            (i * 5).toString().padLeft(2, '0'),
-                        onSelected: (i) =>
-                            setState(() => _selectedMinute = i * 5),
-                          isDark: isDark
-                      ),
-                      SizedBox(width: AppSizes.w(8)),
-                      _WheelPicker(
-                        controller: _periodController!,
-                        itemCount: 2,
-                        width: AppSizes.w(48),
-                        labelBuilder: (i) => i == 0 ? 'AM' : 'PM',
-                        onSelected: (i) => setState(() => _isPm = i == 1),
-                          isDark: isDark
-                      ),
-                    ],
+                        Text(
+                          ' : ',
+                          style: TextStyle(
+                            fontFamily: AppFonts.plusJakartaSans,
+                            fontSize: AppSizes.sp(22),
+                            fontWeight: FontWeight.w700,
+                            color: isDark
+                                ? AppColors.primaryDarkColor
+                                : AppColors.primaryColor,
+                          ),
+                        ),
+                        _WheelPicker(
+                          controller: _minuteController!,
+                          itemCount: 12,
+                          labelBuilder: (i) =>
+                              (i * 5).toString().padLeft(2, '0'),
+                          onSelected: (i) =>
+                              setState(() => _selectedMinute = i * 5),
+                          isDark: isDark,
+                        ),
+                        SizedBox(width: AppSizes.w(8)),
+                        _WheelPicker(
+                          controller: _periodController!,
+                          itemCount: 2,
+                          width: AppSizes.w(48),
+                          labelBuilder: (i) => i == 0 ? 'AM' : 'PM',
+                          onSelected: (i) => setState(() => _isPm = i == 1),
+                          isDark: isDark,
+                        ),
+                      ];
+                      // Explicitly reorder rather than relying on Row's own
+                      // ambient-Directionality mirroring, so the column
+                      // order (hour : minute period) is deterministic and
+                      // reads right-to-left for Urdu regardless of what
+                      // else in the tree might already be direction-aware.
+                      final isRtl =
+                          Directionality.of(context) == TextDirection.rtl;
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        textDirection: TextDirection.ltr,
+                        children: isRtl ? pickers.reversed.toList() : pickers,
+                      );
+                    },
                   ),
                 ],
               ),
@@ -181,9 +218,18 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
             PrimaryButton(
               text: l10n.saveReminder,
               onPressed: () async {
+                final time = _buildTime();
+                _resolved = true;
+                AnalyticsService.instance.log(
+                  AnalyticsEvents.reminderTimeSaved,
+                  {
+                    AnalyticsParams.reminderHour: time.hour,
+                    AnalyticsParams.reminderMinute: time.minute,
+                  },
+                );
                 await context
                     .read<ProfileViewModel>()
-                    .setReminderTime(_buildTime());
+                    .setReminderTime(time);
                 if (context.mounted) Navigator.of(context).pop();
               },
             ),
@@ -191,7 +237,10 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
             SizedBox(
               width: double.infinity,
               child: TextButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+                  _logCancelledIfUnresolved();
+                  Navigator.of(context).pop();
+                },
                 child: Text(
                   l10n.cancelBtn,
                   style: TextStyle(
@@ -206,6 +255,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
             SizedBox(height: AppSizes.h(24)),
           ],
         ),
+      ),
       ),
     );
   }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -14,8 +17,16 @@ import 'package:fluentta_ai/widgets/profile/account_detail_tile.dart';
 import 'package:fluentta_ai/widgets/profile/profile_section_header.dart';
 import 'package:provider/provider.dart';
 
-class AccountAndSecurityScreen extends StatelessWidget {
+class AccountAndSecurityScreen extends StatefulWidget {
   const AccountAndSecurityScreen({super.key});
+
+  @override
+  State<AccountAndSecurityScreen> createState() =>
+      _AccountAndSecurityScreenState();
+}
+
+class _AccountAndSecurityScreenState extends State<AccountAndSecurityScreen> {
+  bool _loggedViewed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +40,12 @@ class AccountAndSecurityScreen extends StatelessWidget {
         : '—';
     final email = auth.email ?? '';
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('account_and_security');
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AuthAppBar(
@@ -79,6 +96,13 @@ class AccountAndSecurityScreen extends StatelessWidget {
                       label: l10n.nameLabel,
                       value: displayName,
                       onTap: () async {
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.accountFieldClicked,
+                          {
+                            AnalyticsParams.field: 'name',
+                            AnalyticsParams.destinationScreen: 'update_name',
+                          },
+                        );
                         await Navigator.of(context).push<void>(
                           MaterialPageRoute<void>(
                             builder: (_) => UpdateNameScreen(
@@ -101,6 +125,13 @@ class AccountAndSecurityScreen extends StatelessWidget {
                       label: l10n.emailLabel,
                       value: email,
                       onTap: () {
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.accountFieldClicked,
+                          {
+                            AnalyticsParams.field: 'email',
+                            AnalyticsParams.destinationScreen: 'account_email',
+                          },
+                        );
                         Navigator.of(context).push<void>(
                           MaterialPageRoute<void>(
                             builder: (_) => AccountEmailScreen(email: email),
@@ -119,7 +150,22 @@ class AccountAndSecurityScreen extends StatelessWidget {
                       label: l10n.passwordLabel,
                       value: l10n.passwordMasked,
                       onTap: () {
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.accountFieldClicked,
+                          {
+                            AnalyticsParams.field: 'password',
+                            AnalyticsParams.destinationScreen:
+                                'update_password',
+                          },
+                        );
                         if (!authRepository.canChangePassword) {
+                          // Social sign-in accounts have no password to
+                          // change; we can't tell which provider from here,
+                          // so auth_method reports the broad category.
+                          AnalyticsService.instance.log(
+                            AnalyticsEvents.passwordChangeUnavailableShown,
+                            {AnalyticsParams.authMethod: 'social'},
+                          );
                           SnackbarHelper.showError(
                             context,
                             l10n.passwordChangeUnavailable,

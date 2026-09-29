@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -12,20 +13,33 @@ import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
-class UpdateNameScreen extends StatelessWidget {
+class UpdateNameScreen extends StatefulWidget {
   const UpdateNameScreen({super.key, this.initialName});
 
   final String? initialName;
+
+  @override
+  State<UpdateNameScreen> createState() => _UpdateNameScreenState();
+}
+
+class _UpdateNameScreenState extends State<UpdateNameScreen> {
+  bool _loggedViewed = false;
 
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('update_name');
+    }
+
     return ChangeNotifierProvider(
       create: (_) => UpdateNameViewModel(
         context.read<AuthRepository>(),
-        initialName,
+        widget.initialName,
       ),
       child: Scaffold(
         backgroundColor: AppColors.scaffoldBackground(context),

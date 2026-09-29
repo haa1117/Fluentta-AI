@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -24,7 +28,12 @@ class _DeleteAccountConfirmationScreenState
     extends State<DeleteAccountConfirmationScreen> {
   bool _confirmed = false;
   bool _isDeleting = false;
+  bool _loggedViewed = false;
   final TextEditingController _passwordController = TextEditingController();
+
+  // Only 'canChangePassword' is available here; the specific social provider
+  // (google/apple) isn't, so social sign-ins are reported under one bucket.
+  String get _authMethod => _requiresPassword ? 'email' : 'social';
 
   @override
   void initState() {
@@ -38,8 +47,7 @@ class _DeleteAccountConfirmationScreenState
     super.dispose();
   }
 
-  bool get _requiresPassword =>
-      context.read<AuthViewModel>().canChangePassword;
+  bool get _requiresPassword => context.read<AuthViewModel>().canChangePassword;
 
   bool get _canDelete {
     if (!_confirmed || _isDeleting) return false;
@@ -51,23 +59,37 @@ class _DeleteAccountConfirmationScreenState
 
   Future<void> _deleteAccount() async {
     if (!_canDelete) return;
+    final authMethod = _authMethod;
+    AnalyticsService.instance.log(AnalyticsEvents.deleteAccountConfirmed, {
+      AnalyticsParams.authMethod: authMethod,
+    });
     setState(() => _isDeleting = true);
     try {
       await context.read<AuthViewModel>().deleteAccount(
-            currentPassword: _requiresPassword
-                ? _passwordController.text
-                : null,
-          );
+        currentPassword: _requiresPassword ? _passwordController.text : null,
+      );
+      AnalyticsService.instance.log(AnalyticsEvents.deleteAccountSucceeded, {
+        AnalyticsParams.authMethod: authMethod,
+      });
       if (!mounted) return;
       await Navigator.of(context).pushReplacement<void, void>(
         MaterialPageRoute<void>(builder: (_) => const AccountDeletedScreen()),
       );
     } catch (error) {
+      AnalyticsService.instance.log(AnalyticsEvents.deleteAccountFailed, {
+        AnalyticsParams.errorType: 'authentication',
+        AnalyticsParams.errorCode:
+            error is FirebaseAuthException ? error.code : 'unknown',
+      });
       if (!mounted) return;
       setState(() => _isDeleting = false);
       SnackbarHelper.showError(
         context,
-        AuthExceptionHandler.getMessage(error, context.l10n),
+        AuthExceptionHandler.getMessage(
+          error,
+          context.l10n,
+          passwordOnly: true,
+        ),
       );
     }
   }
@@ -78,6 +100,12 @@ class _DeleteAccountConfirmationScreenState
     final l10n = context.l10n;
     final requiresPassword = context.watch<AuthViewModel>().canChangePassword;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('delete_account_confirmation');
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
@@ -99,7 +127,9 @@ class _DeleteAccountConfirmationScreenState
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(23),
                   fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
+                  color: isDark
+                      ? AppColors.textPrimaryDark
+                      : AppColors.textPrimary,
                   height: 1.25,
                 ),
               ),
@@ -108,7 +138,9 @@ class _DeleteAccountConfirmationScreenState
                 width: double.infinity,
                 padding: EdgeInsets.all(AppSizes.w(16)),
                 decoration: BoxDecoration(
-                  color:Color(0xffF3E8FF),
+                  color: isDark
+                      ? AppColors.brandDarkSoftColor
+                      : const Color(0xffF3E8FF),
                   borderRadius: BorderRadius.circular(AppSizes.cardRadius),
                   border: Border(
                     left: BorderSide(
@@ -125,7 +157,7 @@ class _DeleteAccountConfirmationScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SvgPicture.asset(
-                      AppAssets.warningIcon,
+                          AppAssets.warningIcon,
                           color: AppColors.heartRed,
                           width: AppSizes.sp(20),
                           height: AppSizes.sp(20),
@@ -158,11 +190,9 @@ class _DeleteAccountConfirmationScreenState
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
-
-
                   ],
                 ),
               ),
@@ -171,9 +201,15 @@ class _DeleteAccountConfirmationScreenState
                 width: double.infinity,
                 padding: EdgeInsets.all(AppSizes.w(16)),
                 decoration: BoxDecoration(
-                  color: AppColors.white,
+                  color: isDark
+                      ? AppColors.surfaceBgDarkColor
+                      : AppColors.white,
                   borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-                  border: Border.all(color: AppColors.borderLight),
+                  border: Border.all(
+                    color: isDark
+                        ? AppColors.borderDarkColor
+                        : AppColors.borderLight,
+                  ),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,48 +228,56 @@ class _DeleteAccountConfirmationScreenState
                           decoration: BoxDecoration(
                             color: Colors.transparent,
                             border: Border.all(
-                              color: AppColors.borderLight,
-                              width: 2
+                              color: isDark
+                                  ? AppColors.borderDarkColor
+                                  : AppColors.borderLight,
+                              width: 2,
                             ),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: _confirmed
-                              ?  Center(
-                            child: SvgPicture.asset(
-                              'assets/svg/delete_check_icon.svg',
-                              width: 12,
-                              height: 12,
-                            ),
-                          )
+                              ? Center(
+                                  child: SvgPicture.asset(
+                                    'assets/svg/delete_check_icon.svg',
+                                    width: 12,
+                                    height: 12,
+                                    colorFilter: ColorFilter.mode(
+                                      isDark
+                                          ? AppColors.textPrimaryDark
+                                          : const Color(0xff1E1E1E),
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                )
                               : const SizedBox.shrink(),
                         ),
                       ),
                     ),
-//                     SizedBox(
-//                       width: AppSizes.w(24),
-//                       height: AppSizes.w(24),
-//                       child: InkWell(
-//                         onFocusChange:(value) =>
-//                             setState(() => _confirmed = value ?? false) ,
-//                         child: Container(
-//                          decoration: BoxDecoration(
-// color: Colors.transparent,
-//                            border: Border.all(
-//                              color: AppColors.borderLight
-//                            ),
-//
-//                            shape: BoxShape.rectangle,
-//                            borderRadius: BorderRadius.circular(3)
-//                          ),
-//
-// child: _confirmed ? Center(
-//   child: Icon(
-//     Icons.check
-//   ),
-// ):SizedBox.shrink(),
-//                         ),
-//                       ),
-//                     ),
+                    //                     SizedBox(
+                    //                       width: AppSizes.w(24),
+                    //                       height: AppSizes.w(24),
+                    //                       child: InkWell(
+                    //                         onFocusChange:(value) =>
+                    //                             setState(() => _confirmed = value ?? false) ,
+                    //                         child: Container(
+                    //                          decoration: BoxDecoration(
+                    // color: Colors.transparent,
+                    //                            border: Border.all(
+                    //                              color: AppColors.borderLight
+                    //                            ),
+                    //
+                    //                            shape: BoxShape.rectangle,
+                    //                            borderRadius: BorderRadius.circular(3)
+                    //                          ),
+                    //
+                    // child: _confirmed ? Center(
+                    //   child: Icon(
+                    //     Icons.check
+                    //   ),
+                    // ):SizedBox.shrink(),
+                    //                         ),
+                    //                       ),
+                    //                     ),
                     SizedBox(width: AppSizes.w(12)),
                     Expanded(
                       child: GestureDetector(
@@ -244,7 +288,9 @@ class _DeleteAccountConfirmationScreenState
                             fontFamily: AppFonts.plusJakartaSans,
                             fontSize: AppSizes.sp(15),
                             fontWeight: FontWeight.w500,
-                            color: AppColors.textPrimary,
+                            color: isDark
+                                ? AppColors.textPrimaryDark
+                                : AppColors.textPrimary,
                           ),
                         ),
                       ),
@@ -273,13 +319,16 @@ class _DeleteAccountConfirmationScreenState
                   onPressed: _canDelete ? _deleteAccount : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.redColor,
-                    disabledBackgroundColor:
-                        AppColors.heartRed.withValues(alpha: 0.35),
+                    disabledBackgroundColor: AppColors.heartRed.withValues(
+                      alpha: 0.35,
+                    ),
                     foregroundColor: AppColors.white,
                     disabledForegroundColor: AppColors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
+                      borderRadius: BorderRadius.circular(
+                        AppSizes.buttonRadius,
+                      ),
                     ),
                   ),
                   child: _isDeleting
@@ -305,14 +354,21 @@ class _DeleteAccountConfirmationScreenState
               TextButton(
                 onPressed: _isDeleting
                     ? null
-                    : () => Navigator.of(context).pop(),
+                    : () {
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.deleteAccountCancelled,
+                        );
+                        Navigator.of(context).pop();
+                      },
                 child: Text(
                   l10n.cancelBtn,
                   style: TextStyle(
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(16),
                     fontWeight: FontWeight.w700,
-                    color: Color(0xff665D72),
+                    color: isDark
+                        ? AppColors.textSecondaryDark
+                        : const Color(0xff665D72),
                   ),
                 ),
               ),
@@ -326,7 +382,9 @@ class _DeleteAccountConfirmationScreenState
                     fontFamily: AppFonts.plusJakartaSans,
                     fontSize: AppSizes.sp(12),
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff7E7386),
+                    color: isDark
+                        ? AppColors.textSecondaryDark
+                        : const Color(0xff7E7386),
                     height: 1.4,
                   ),
                 ),

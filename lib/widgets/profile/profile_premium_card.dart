@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -39,7 +42,7 @@ class _ProMemberCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Pro Member',
+            l10n.proMember,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(20),
@@ -49,7 +52,7 @@ class _ProMemberCard extends StatelessWidget {
           ),
           SizedBox(height: AppSizes.h(6)),
           Text(
-            'Unlimited hearts, all roleplays, B2+ lessons, and weekly reports.',
+            l10n.proMemberDesc,
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
               fontSize: AppSizes.sp(13),
@@ -103,7 +106,10 @@ class _FreePlanCard extends StatelessWidget {
               ),
               SizedBox(height: AppSizes.h(4)),
               Text(
-                '${profile.lives}/${profile.dailyHeartAllowance} hearts today',
+                l10n.heartsToday(
+                  profile.lives,
+                  profile.dailyHeartAllowance,
+                ),
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),
@@ -132,7 +138,20 @@ class _FreePlanCard extends StatelessWidget {
                     child: InkWell(
                       borderRadius:
                           BorderRadius.circular(AppSizes.buttonRadius),
-                      onTap: () => SubscriptionScreen.open(context),
+                      onTap: () {
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.upgradeToPremiumClicked,
+                          {
+                            AnalyticsParams.sourceScreen: 'profile',
+                            AnalyticsParams.destinationScreen: 'paywall',
+                            AnalyticsParams.featureTrigger: 'profile_upsell',
+                          },
+                        );
+                        SubscriptionScreen.open(
+                          context,
+                          featureTrigger: 'profile_upsell',
+                        );
+                      },
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: AppSizes.w(24),

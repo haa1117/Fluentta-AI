@@ -1,3 +1,6 @@
+import 'package:fluentta_ai/core/analytics/analytics_events.dart';
+import 'package:fluentta_ai/core/analytics/analytics_params.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/legal_urls.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
 import 'package:flutter/foundation.dart';
@@ -35,25 +38,43 @@ import 'package:fluentta_ai/widgets/profile/profile_section_header.dart';
 import 'package:fluentta_ai/widgets/profile/profile_settings_tile.dart';
 import 'package:fluentta_ai/widgets/profile/profile_stats_grid.dart';
 import 'package:fluentta_ai/widgets/profile/profile_user_card.dart';
+import 'package:fluentta_ai/widgets/subscription/premium_unlocked_dialog.dart';
 import 'package:provider/provider.dart';
 
-class ProfileTabScreen extends StatelessWidget {
+class ProfileTabScreen extends StatefulWidget {
   const ProfileTabScreen({super.key});
+
+  @override
+  State<ProfileTabScreen> createState() => _ProfileTabScreenState();
+}
+
+class _ProfileTabScreenState extends State<ProfileTabScreen> {
+  bool _loggedViewed = false;
 
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
     final authViewModel = context.watch<AuthViewModel>();
+    context.watch<LocaleViewModel>();
     final profile = context.watch<ProfileViewModel>();
     final themeViewModel = context.watch<ThemeViewModel>();
     final languageCode = authViewModel.selectedLanguage ?? 'en';
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('profile');
+      AnalyticsService.instance.log(AnalyticsEvents.profileViewed, {
+        AnalyticsParams.subscriptionTierAtEvent: profile.isPro ? 'pro' : 'free',
+        AnalyticsParams.currentXp: profile.xpEarned,
+        AnalyticsParams.currentCefrLevel: profile.cefrLevelCode(l10n),
+      });
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
-      appBar: AppBarWidget(
-        title: 'Profile',
-      ),
+      appBar: AppBarWidget(title: l10n.profileTitle),
       body: SafeArea(
         child: Column(
           children: [
@@ -127,10 +148,24 @@ class ProfileTabScreen extends StatelessWidget {
                     const ProfileStatsGrid(),
                     SizedBox(height: AppSizes.h(20)),
                     ProfileDailyGoalCard(
-                      onChangeGoal: () => _openLearningPreferences(context), isDark: isDark,
+                      onChangeGoal: () {
+                        AnalyticsService.instance.log(
+                          AnalyticsEvents.changeDailyGoalClicked,
+                          {
+                            AnalyticsParams.sourceScreen: 'profile',
+                            AnalyticsParams.dailyGoalMinutes:
+                                profile.dailyGoalMinutes,
+                          },
+                        );
+                        _openLearningPreferences(context);
+                      },
+                      isDark: isDark,
                     ),
                     SizedBox(height: AppSizes.h(20)),
-                    ProfileSectionHeader(title: l10n.accountSection, isDark: isDark),
+                    ProfileSectionHeader(
+                      title: l10n.accountSection,
+                      isDark: isDark,
+                    ),
                     ProfileSettingsGroup(
                       children: [
                         ProfileSettingsTile(
@@ -139,6 +174,14 @@ class ProfileTabScreen extends StatelessWidget {
                           title: l10n.accountAndSecurity,
                           subtitle: l10n.accountAndSecuritySub,
                           onTap: () {
+                            AnalyticsService.instance.log(
+                              AnalyticsEvents.accountSecurityClicked,
+                              {
+                                AnalyticsParams.sourceScreen: 'profile',
+                                AnalyticsParams.destinationScreen:
+                                    'account_and_security',
+                              },
+                            );
                             Navigator.of(context).push<void>(
                               MaterialPageRoute<void>(
                                 builder: (_) =>
@@ -150,7 +193,10 @@ class ProfileTabScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: AppSizes.h(20)),
-                    ProfileSectionHeader(title: l10n.settingsSection, isDark: isDark),
+                    ProfileSectionHeader(
+                      title: l10n.settingsSection,
+                      isDark: isDark,
+                    ),
                     ProfileSettingsGroup(
                       children: [
                         // ProfileSettingsTile(
@@ -160,18 +206,25 @@ class ProfileTabScreen extends StatelessWidget {
                         //   onTap: () => _openLearningPreferences(context),
                         // ),
                         ProfileSettingsTile(
-                       isDark: isDark,
+                          isDark: isDark,
                           svgIcon: 'assets/svg/language.svg',
                           title: l10n.profileLanguage,
                           subtitle: l10n.englishExplanationsIn(
                             localizedLanguageName(l10n, languageCode),
                           ),
                           onTap: () {
+                            AnalyticsService.instance.log(
+                              AnalyticsEvents.profileLanguageClicked,
+                              {
+                                AnalyticsParams.sourceScreen: 'profile',
+                                AnalyticsParams.destinationScreen:
+                                    'language_selection',
+                              },
+                            );
                             Navigator.of(context).push<void>(
                               MaterialPageRoute<void>(
                                 builder: (_) => LanguageSelectionScreen(
-                                  onComplete: () =>
-                                      Navigator.of(context).pop(),
+                                  onComplete: () => Navigator.of(context).pop(),
                                 ),
                               ),
                             );
@@ -185,6 +238,14 @@ class ProfileTabScreen extends StatelessWidget {
                             profile.formattedReminderTime(context),
                           ),
                           onTap: () {
+                            AnalyticsService.instance.log(
+                              AnalyticsEvents.notificationsSettingsClicked,
+                              {
+                                AnalyticsParams.sourceScreen: 'profile',
+                                AnalyticsParams.destinationScreen:
+                                    'notifications_reminders',
+                              },
+                            );
                             Navigator.of(context).push<void>(
                               MaterialPageRoute<void>(
                                 builder: (_) =>
@@ -198,16 +259,36 @@ class ProfileTabScreen extends StatelessWidget {
                           svgIcon: 'assets/svg/theme.svg',
                           title: l10n.appAppearance,
                           subtitle: themeViewModel.modeLabel(l10n),
-                          onTap: () => showAppAppearanceSheet(context),
+                          onTap: () {
+                            AnalyticsService.instance.log(
+                              AnalyticsEvents.appAppearanceClicked,
+                              {
+                                AnalyticsParams.sourceScreen: 'profile',
+                                AnalyticsParams.currentThemeMode:
+                                    themeViewModel.mode.storageValue,
+                              },
+                            );
+                            showAppAppearanceSheet(context);
+                          },
                         ),
                         ProfileSettingsTile(
                           isDark: isDark,
                           svgIcon: 'assets/svg/restore_purchase.svg',
                           title: l10n.restorePurchases,
                           onTap: () async {
+                            AnalyticsService.instance.log(
+                              AnalyticsEvents.restorePurchaseClicked,
+                              {AnalyticsParams.sourceScreen: 'profile'},
+                            );
                             final result = await context
                                 .read<SubscriptionViewModel>()
                                 .restorePurchases();
+                            AnalyticsService.instance.log(
+                              result.success
+                                  ? AnalyticsEvents.restorePurchaseSucceeded
+                                  : AnalyticsEvents.restorePurchaseFailed,
+                              {AnalyticsParams.sourceScreen: 'profile'},
+                            );
                             if (!context.mounted) return;
                             SnackbarHelper.showSuccess(
                               context,
@@ -229,10 +310,10 @@ class ProfileTabScreen extends StatelessWidget {
                             subtitle: 'Grant Pro subscription on this device',
                             svgIcon: null,
                             onTap: () => _debugEnablePro(context),
-                              isDark: isDark
+                            isDark: isDark,
                           ),
                           ProfileSettingsTile(
-    isDark: isDark,
+                            isDark: isDark,
                             title: 'Add hearts (debug)',
                             subtitle: 'Add 5 hearts instantly',
                             svgIcon: null,
@@ -325,7 +406,10 @@ class ProfileTabScreen extends StatelessWidget {
                     //   ],
                     // ),
                     SizedBox(height: AppSizes.h(20)),
-                    ProfileSectionHeader(title: l10n.supportLegal, isDark: isDark),
+                    ProfileSectionHeader(
+                      title: l10n.supportLegal,
+                      isDark: isDark,
+                    ),
                     ProfileSettingsGroup(
                       children: [
                         ProfileSettingsTile(
@@ -344,35 +428,50 @@ class ProfileTabScreen extends StatelessWidget {
                           isDark: isDark,
                           title: l10n.contactSupport,
                           svgIcon: null,
-                          onTap: () => SnackbarHelper.showSuccess(
-                              context, l10n.openingSoon),
+                          onTap: () => LegalUrls.openContactSupport(context),
                         ),
                         ProfileSettingsTile(
                           isDark: isDark,
                           title: l10n.rateApp,
                           svgIcon: null,
                           onTap: () => SnackbarHelper.showSuccess(
-                              context, l10n.openingSoon),
+                            context,
+                            l10n.openingSoon,
+                          ),
                         ),
                       ],
                     ),
                     SizedBox(height: AppSizes.h(20)),
-                    ProfileSectionHeader(title: l10n.accountActions, isDark: isDark),
+                    ProfileSectionHeader(
+                      title: l10n.accountActions,
+                      isDark: isDark,
+                    ),
                     ProfileSettingsGroup(
                       children: [
                         ProfileSettingsTile(
                           svgIcon: 'assets/svg/signout.svg',
                           title: l10n.signOutTitle,
                           subtitle: l10n.signOutSub,
-                          onTap: () => showSignOutDialog(context,isDark), isDark: isDark
+                          onTap: () => showSignOutDialog(context, isDark),
+                          isDark: isDark,
                         ),
                         ProfileSettingsTile(
                           svgIcon: 'assets/svg/delete.svg',
                           title: l10n.deleteAccount,
                           subtitle: l10n.deleteAccountSub,
                           isDestructive: true,
-                          onTap: () => showDeleteAccountDialog(context,isDark),
-                             isDark: isDark
+                          onTap: () {
+                            AnalyticsService.instance.log(
+                              AnalyticsEvents.deleteAccountClicked,
+                              {
+                                AnalyticsParams.sourceScreen: 'profile',
+                                AnalyticsParams.destinationScreen:
+                                    'delete_account_confirmation',
+                              },
+                            );
+                            showDeleteAccountDialog(context, isDark);
+                          },
+                          isDark: isDark,
                         ),
                       ],
                     ),
@@ -388,23 +487,20 @@ class ProfileTabScreen extends StatelessWidget {
 
   Future<void> _debugEnablePro(BuildContext context) async {
     await LocalStorage.instance.setPremiumActive(
-          active: true,
-          productId: IapProductIds.lifetime,
-        );
+      active: true,
+      productId: IapProductIds.lifetime,
+    );
     AdMobService.instance.refreshAfterEntitlementsChange();
     if (!context.mounted) return;
     context.read<ProfileViewModel>().refresh();
     context.read<HomeViewModel>().refresh();
-    SnackbarHelper.showSuccess(context, 'Pro enabled (debug only).');
+    await showPremiumUnlockedDialog(context);
   }
 
   Future<void> _debugAddHearts(BuildContext context) async {
     final home = context.read<HomeViewModel>();
     if (home.hasUnlimitedHearts) {
-      SnackbarHelper.showSuccess(
-        context,
-        'Pro already has unlimited hearts.',
-      );
+      SnackbarHelper.showSuccess(context, 'Pro already has unlimited hearts.');
       return;
     }
 

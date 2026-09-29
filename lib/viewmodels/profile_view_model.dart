@@ -6,6 +6,7 @@ import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/learning_stats_service.dart';
 import 'package:fluentta_ai/data/services/local_notification_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class ProfileViewModel extends ChangeNotifier {
@@ -92,6 +93,11 @@ class ProfileViewModel extends ChangeNotifier {
     final date = DateTime(2024, 1, 1, _reminderHour, _reminderMinute);
     return DateFormat.jm(locale).format(date);
   }
+
+  /// CEFR level code (e.g. 'A1', 'B2') for analytics params — distinct from
+  /// [levelLabel], which also bundles the localized level name for display.
+  String cefrLevelCode(AppLocalizations l10n) =>
+      LocalizedContent.levelCode(l10n, _localStorage.englishLevel);
 
   void _loadFromStorage() {
     _notificationsEnabled = _localStorage.notificationsEnabled;

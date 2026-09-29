@@ -19,7 +19,7 @@ class WeeklyProgressReportScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBarWidget(
-        title: 'Weekly Progress Report',
+        title: l10n.weeklyProgressReportTitle,
         showBackButton: true,
         centerTitle: true,
       ),
@@ -27,8 +27,8 @@ class WeeklyProgressReportScreen extends StatelessWidget {
         padding: EdgeInsets.all(AppSizes.horizontalPadding),
         children: [
           _ReportCard(
-            title: 'Streak',
-            value: '${profile.streakDays} days',
+            title: l10n.streakLabel,
+            value: l10n.streakDaysCount(profile.streakDays),
             icon: Icons.local_fire_department_rounded,
           ),
           SizedBox(height: AppSizes.h(12)),

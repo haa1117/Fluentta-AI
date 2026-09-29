@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
@@ -11,14 +12,27 @@ import 'package:fluentta_ai/widgets/auth/auth_widgets.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:provider/provider.dart';
 
-class UpdatePasswordScreen extends StatelessWidget {
+class UpdatePasswordScreen extends StatefulWidget {
   const UpdatePasswordScreen({super.key});
+
+  @override
+  State<UpdatePasswordScreen> createState() => _UpdatePasswordScreenState();
+}
+
+class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
+  bool _loggedViewed = false;
 
   @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (!_loggedViewed) {
+      _loggedViewed = true;
+      AnalyticsService.instance.logScreenView('update_password');
+    }
+
     return ChangeNotifierProvider(
       create: (_) => UpdatePasswordViewModel(context.read<AuthRepository>()),
       child: Scaffold(
@@ -45,7 +59,9 @@ class UpdatePasswordScreen extends StatelessWidget {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(24),
                           fontWeight: FontWeight.w700,
-                          color: AppColors.textPrimary,
+                          color: isDark
+                              ? AppColors.textPrimaryDark
+                              : AppColors.textPrimary,
                         ),
                       ),
                       SizedBox(height: AppSizes.h(2)),
@@ -55,7 +71,9 @@ class UpdatePasswordScreen extends StatelessWidget {
                           fontFamily: AppFonts.plusJakartaSans,
                           fontSize: AppSizes.sp(14),
                           fontWeight: FontWeight.w400,
-                          color: AppColors.textSecondary,
+                          color: isDark
+                              ? AppColors.textSecondaryDark
+                              : AppColors.textSecondary,
                         ),
                       ),
                       SizedBox(height: AppSizes.spaceLg),
