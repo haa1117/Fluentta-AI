@@ -118,14 +118,17 @@ class _AppNavigatorState extends State<AppNavigator> {
     return AppFlow.signIn;
   }
 
-  void _completeSplash() {
+  void _completeSplash(int durationMs) {
+    if (!mounted) return;
     final flow = _resolvePostSplashFlow();
+    // Advance first: this State's context sits *above* the MultiProvider, so
+    // reading SplashViewModel here would throw and leave the user on splash.
+    setState(() => _currentFlow = flow);
     AnalyticsService.instance.log(AnalyticsEvents.splashCompleted, {
-      AnalyticsParams.durationMs: context.read<SplashViewModel>().elapsedMs,
+      AnalyticsParams.durationMs: durationMs,
       AnalyticsParams.destinationScreen: _screenIdForFlow(flow),
       AnalyticsParams.launchType: 'cold_start',
     });
-    setState(() => _currentFlow = flow);
   }
 
   String _screenIdForFlow(AppFlow flow) => switch (flow) {

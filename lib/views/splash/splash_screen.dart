@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key, required this.onComplete});
 
-  final VoidCallback onComplete;
+  final void Function(int durationMs) onComplete;
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -29,9 +29,11 @@ class _SplashScreenState extends State<SplashScreen> {
     AnalyticsService.instance.logScreenView('splash');
     unawaited(_logSplashViewed());
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<SplashViewModel>().initializeAndNavigate(
-            widget.onComplete,
-          );
+      final splash = context.read<SplashViewModel>();
+      splash.initializeAndNavigate(() {
+        if (!mounted) return;
+        widget.onComplete(splash.elapsedMs);
+      });
     });
   }
 
