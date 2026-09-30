@@ -60,6 +60,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/more_apps/
     - assets/svg/
     - assets/lessons/manifest.json
     - assets/lessons/a1/vocabulary/
