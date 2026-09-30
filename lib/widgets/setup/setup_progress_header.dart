@@ -1,3 +1,5 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
@@ -34,7 +36,7 @@ class SetupProgressHeader extends StatelessWidget {
           children: [
             if (onBack != null) ...[
               GestureDetector(
-                onTap: onBack,
+                onTap: HapticService.wrap(onBack),
                 child: Container(
                   width: AppSizes.w(40),
                   height: AppSizes.w(40),
@@ -63,7 +65,7 @@ class SetupProgressHeader extends StatelessWidget {
             ],
             Expanded(
               child: Text(
-                'STEP $currentStep OF $totalSteps',
+                context.l10n.setupStepOf(currentStep, totalSteps),
                 style: TextStyle(
                   fontFamily: AppFonts.plusJakartaSans,
                   fontSize: AppSizes.sp(12),

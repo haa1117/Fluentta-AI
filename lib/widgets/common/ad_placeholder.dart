@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
@@ -40,7 +41,7 @@ class AdPlaceholder extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppSizes.w(4)),
                 ),
                 child: Text(
-                  'Ad',
+                  context.l10n.adLabel,
                   style: TextStyle(
                     fontFamily: 'PlusJakartaSans',
                     fontSize: AppSizes.fontSmall,

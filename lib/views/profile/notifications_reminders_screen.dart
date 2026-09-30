@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -204,7 +205,7 @@ class _ToggleCard extends StatelessWidget {
                   ? isDark ? AppColors.white : AppColors.primaryColor
                   : null,
             ),
-            onChanged: onChanged,
+            onChanged: HapticService.wrapValue(onChanged),
           ),
         ],
       ),
@@ -269,7 +270,7 @@ class _ReminderToggleRow extends StatelessWidget {
                   ?isDark ? AppColors.white: AppColors.primaryColor
                   : null,
             ),
-            onChanged: enabled ? onChanged : null,
+            onChanged: HapticService.wrapValue(enabled ? onChanged : null),
           ),
         ],
       ),
@@ -296,7 +297,7 @@ class _ReminderTimeRow extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: enabled ? onTap : null,
+        onTap: HapticService.wrap(enabled ? onTap : null),
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: AppSizes.w(16),
@@ -381,7 +382,7 @@ class _AdPlaceholder extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
-              'Ad',
+              context.l10n.adLabel,
               style: TextStyle(
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(10),

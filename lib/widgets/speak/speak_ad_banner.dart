@@ -53,7 +53,7 @@ class SpeakAdBanner extends StatelessWidget {
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
-                    'Ad',
+                    context.l10n.adLabel,
                     style: TextStyle(
                       fontFamily: AppFonts.plusJakartaSans,
                       fontSize: AppSizes.sp(9),
