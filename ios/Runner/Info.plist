@@ -68,6 +68,8 @@
 	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-6089058405886012~5136109276</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This identifier is used to show you more relevant ads. You can change this anytime in Settings.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Fluenta AI needs microphone access to check your pronunciation.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
