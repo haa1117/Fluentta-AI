@@ -5,6 +5,7 @@ import 'package:fluentta_ai/core/analytics/analytics_params.dart';
 import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
+import 'package:fluentta_ai/core/utils/online_gate.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/widgets/auth/loading_dialog.dart';
@@ -46,6 +47,7 @@ class CreateAccountViewModel extends ChangeNotifier {
     required VoidCallback onSuccess,
   }) async {
     if (_isLoading) return false;
+    OnlineGate.throwIfOffline();
 
     final fullName = fullNameController.text.trim();
     final email = emailController.text.trim();

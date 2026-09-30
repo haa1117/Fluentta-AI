@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
 import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
+import 'package:fluentta_ai/core/utils/online_gate.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 
@@ -35,6 +36,7 @@ class ResetPasswordViewModel extends ChangeNotifier {
 
   Future<bool> updatePassword(VoidCallback onSuccess) async {
     if (_isLoading) return false;
+    OnlineGate.throwIfOffline();
 
     final password = newPasswordController.text;
     final confirm = confirmPasswordController.text;

@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
 import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
+import 'package:fluentta_ai/core/utils/online_gate.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 
@@ -31,6 +32,7 @@ class SignInViewModel extends ChangeNotifier {
 
   Future<bool> signIn({required Future<void> Function() onSuccess}) async {
     if (_isLoading) return false;
+    OnlineGate.throwIfOffline();
 
     final email = emailController.text.trim();
     final password = passwordController.text;
@@ -87,6 +89,7 @@ class SignInViewModel extends ChangeNotifier {
     required void Function(String signupMethod) onNewUser,
   }) async {
     if (_isLoading) return false;
+    OnlineGate.throwIfOffline();
     _isLoading = true;
     notifyListeners();
     AnalyticsService.instance.log(AnalyticsEvents.socialAuthStarted, {

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
@@ -9,6 +10,7 @@ import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/auth_exception_handler.dart';
+import 'package:fluentta_ai/core/utils/online_gate.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
 import 'package:fluentta_ai/views/profile/account_deleted_screen.dart';
@@ -59,6 +61,7 @@ class _DeleteAccountConfirmationScreenState
 
   Future<void> _deleteAccount() async {
     if (!_canDelete) return;
+    if (!OnlineGate.guard(context)) return;
     final authMethod = _authMethod;
     AnalyticsService.instance.log(AnalyticsEvents.deleteAccountConfirmed, {
       AnalyticsParams.authMethod: authMethod,
@@ -218,11 +221,11 @@ class _DeleteAccountConfirmationScreenState
                       width: AppSizes.w(24),
                       height: AppSizes.w(24),
                       child: InkWell(
-                        onTap: () {
+                        onTap: HapticService.wrap(() {
                           setState(() {
                             _confirmed = !_confirmed;
                           });
-                        },
+                        }),
                         borderRadius: BorderRadius.circular(3),
                         child: Container(
                           decoration: BoxDecoration(
@@ -281,7 +284,7 @@ class _DeleteAccountConfirmationScreenState
                     SizedBox(width: AppSizes.w(12)),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () => setState(() => _confirmed = !_confirmed),
+                        onTap: HapticService.wrap(() => setState(() => _confirmed = !_confirmed)),
                         child: Text(
                           l10n.understandPermanent,
                           style: TextStyle(
@@ -316,7 +319,7 @@ class _DeleteAccountConfirmationScreenState
                 width: double.infinity,
                 height: AppSizes.buttonHeight,
                 child: ElevatedButton(
-                  onPressed: _canDelete ? _deleteAccount : null,
+                  onPressed: HapticService.wrap(_canDelete ? _deleteAccount : null),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.redColor,
                     disabledBackgroundColor: AppColors.heartRed.withValues(
@@ -352,14 +355,14 @@ class _DeleteAccountConfirmationScreenState
               ),
               SizedBox(height: AppSizes.h(12)),
               TextButton(
-                onPressed: _isDeleting
+                onPressed: HapticService.wrap(_isDeleting
                     ? null
                     : () {
                         AnalyticsService.instance.log(
                           AnalyticsEvents.deleteAccountCancelled,
                         );
                         Navigator.of(context).pop();
-                      },
+                      }),
                 child: Text(
                   l10n.cancelBtn,
                   style: TextStyle(

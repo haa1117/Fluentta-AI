@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
@@ -8,6 +9,7 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/online_gate.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
 import 'package:fluentta_ai/views/profile/delete_account_confirmation_screen.dart';
 import 'package:provider/provider.dart';
@@ -96,14 +98,15 @@ Future<void> showSignOutDialog(BuildContext context,bool isDark) {
                 SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                    onPressed: () async {
+                    onPressed: HapticService.wrap(() async {
+                      if (!OnlineGate.guard(context)) return;
                       AnalyticsService.instance.log(
                         AnalyticsEvents.signOutClicked,
                         {AnalyticsParams.sourceScreen: 'profile'},
                       );
                       Navigator.of(dialogContext).pop();
                       await authViewModel.signOut();
-                    },
+                    }),
                     child: Text(
                       l10n.signOutTitle,
                       style: TextStyle(
@@ -183,7 +186,7 @@ Future<void> showDeleteAccountDialog(BuildContext context,bool isDark) {
                   width: double.infinity,
                   height: AppSizes.buttonHeight,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: HapticService.wrap(() {
                       Navigator.of(dialogContext).pop();
                       Navigator.of(context).push<void>(
                         MaterialPageRoute<void>(
@@ -191,7 +194,7 @@ Future<void> showDeleteAccountDialog(BuildContext context,bool isDark) {
                               const DeleteAccountConfirmationScreen(),
                         ),
                       );
-                    },
+                    }),
                     style: ElevatedButton.styleFrom(
                       backgroundColor:isDark ? AppColors.redColorDark : AppColors.redColor,
                       foregroundColor: AppColors.white,
@@ -215,7 +218,7 @@ Future<void> showDeleteAccountDialog(BuildContext context,bool isDark) {
                 SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                    onPressed: () => Navigator.of(dialogContext).pop(),
+                    onPressed: HapticService.wrap(() => Navigator.of(dialogContext).pop()),
                     child: Text(
                       l10n.cancelBtn,
                       style: TextStyle(
