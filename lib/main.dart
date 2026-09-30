@@ -2,13 +2,16 @@ import 'dart:async';
 
 import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/app_navigator.dart';
+import 'package:fluentta_ai/core/haptics/haptic_route_observer.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/navigation/password_reset_deep_link_handler.dart';
 import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/network/connectivity_view_model.dart';
+import 'package:fluentta_ai/core/remote_config/app_remote_config.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/theme/app_theme.dart';
 import 'package:fluentta_ai/core/theme/theme_view_model.dart';
@@ -26,6 +29,7 @@ import 'package:fluentta_ai/data/repositories/spaced_repetition_repository.dart'
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
 import 'package:fluentta_ai/data/services/iap_service.dart';
 import 'package:fluentta_ai/data/services/local_notification_service.dart';
+import 'package:fluentta_ai/data/services/push_notification_service.dart';
 import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/learning_stats_service.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
@@ -55,6 +59,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  if (!kIsWeb) {
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  }
 
   final localStorage = await LocalStorage.getInstance();
   final userRepository = UserRepository(localStorage);
@@ -134,7 +141,16 @@ void main() async {
 
   // Ads and notifications must never delay launch.
   if (!kIsWeb) {
-    unawaited(AdMobService.instance.initialize(localStorage: localStorage));
+    unawaited(() async {
+      await AppRemoteConfig.instance.initialize();
+      await AdMobService.instance.initialize(localStorage: localStorage);
+    }());
+    unawaited(
+      PushNotificationService.instance.initialize(
+        userRepository: userRepository,
+        localNotifications: localNotificationService,
+      ),
+    );
   }
   unawaited(localNotificationService.initialize());
 
@@ -399,6 +415,7 @@ class FluentaApp extends StatelessWidget {
             themeMode: themeViewModel.themeMode,
             locale: localeViewModel.locale,
             navigatorKey: rootNavigatorKey,
+            navigatorObservers: [HapticRouteObserver()],
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             builder: (context, child) {
