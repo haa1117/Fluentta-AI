@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
@@ -156,7 +157,7 @@ class CefrLevelTab extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: onTap,
+        onTap: HapticService.wrap(onTap),
         borderRadius: BorderRadius.circular(
           borderRadius ?? AppSizes.w(24),
         ),

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -97,7 +98,7 @@ class GrammarExampleTile extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => viewModel.listenExample(context, example, exampleIndex),
+            onTap: HapticService.wrap(() => viewModel.listenExample(context, example, exampleIndex)),
             child: Icon(
               isListening ? Icons.volume_off_outlined : Icons.volume_up_outlined,
               color: isListening ? AppColors.primaryColor :isDark ? AppColors.textSecondaryDark : AppColors.iconColor,

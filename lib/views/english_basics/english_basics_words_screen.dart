@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:fluentta_ai/widgets/footer_widget.dart';
 import 'package:flutter/material.dart';
@@ -175,7 +176,7 @@ class _WordCard extends StatelessWidget {
               ),
               const Spacer(),
               IconButton(
-                onPressed: onSpeak,
+                onPressed: HapticService.wrap(onSpeak),
                 icon: Icon(
                   Icons.volume_up_outlined,
                   color: isDark

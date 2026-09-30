@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:fluentta_ai/widgets/footer_widget.dart';
 import 'package:flutter/material.dart';
@@ -147,7 +148,7 @@ class _DialogueBubble extends StatelessWidget {
                   style: IconButton.styleFrom(
                     backgroundColor: volumeBg,
                   ),
-                  onPressed: onSpeak,
+                  onPressed: HapticService.wrap(onSpeak),
                   icon: Icon(
                     Icons.volume_up_outlined,
                     color: speakerColor,
@@ -191,7 +192,7 @@ class _DialogueBubble extends StatelessWidget {
                   style: IconButton.styleFrom(
                     backgroundColor: volumeBg,
                   ),
-                  onPressed: onSpeak,
+                  onPressed: HapticService.wrap(onSpeak),
                   icon: Icon(
                     Icons.volume_up_outlined,
                     color: speakerColor,

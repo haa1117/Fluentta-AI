@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -60,7 +61,7 @@ class LessonNavButton extends StatelessWidget {
     return Opacity(
       opacity: enabled ? 1 : 0.55,
       child: GestureDetector(
-        onTap: enabled ? onTap : null,
+        onTap: HapticService.wrap(enabled ? onTap : null),
         child: Container(
           height: AppSizes.buttonHeight,
           decoration: BoxDecoration(

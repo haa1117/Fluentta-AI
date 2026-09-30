@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -188,7 +189,7 @@ class EnglishBasicsCompleteScreen extends StatelessWidget {
               top: AppSizes.spaceSm,
               right: AppSizes.horizontalPadding,
               child: GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
+                onTap: HapticService.wrap(() => Navigator.of(context).pop()),
                 child: Container(
                   width: AppSizes.w(40),
                   height: AppSizes.w(40),

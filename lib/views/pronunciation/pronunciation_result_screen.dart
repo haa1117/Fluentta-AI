@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
 import 'package:fluentta_ai/core/analytics/analytics_service.dart';
@@ -217,7 +218,7 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                   width: double.infinity,
                   height: AppSizes.buttonHeight,
                   child: OutlinedButton(
-                    onPressed: () {
+                    onPressed: HapticService.wrap(() {
                       if (vm.isLastPhrase) {
                         AnalyticsService.instance.log(
                           AnalyticsEvents.pronunciationFinishClicked,
@@ -241,7 +242,7 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                               route.settings.name == PronunciationFlow.routeHome,
                         );
                       }
-                    },
+                    }),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryColor,
                       side: const BorderSide(color: AppColors.primaryColor),

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -22,7 +23,7 @@ class LearnCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return GestureDetector(
-      onTap: onTap,
+      onTap: HapticService.wrap(onTap),
       child: Container(
         padding: EdgeInsets.all(AppSizes.w(14)),
         decoration: BoxDecoration(

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -180,7 +181,7 @@ class _GrammarPracticeCardState extends State<GrammarPracticeCard> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _check,
+                onPressed: HapticService.wrap(_check),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,
                   foregroundColor: AppColors.white,

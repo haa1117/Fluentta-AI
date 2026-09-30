@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_first_frame.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -157,7 +158,7 @@ class PronunciationCompleteScreen extends StatelessWidget {
                     width: double.infinity,
                     height: AppSizes.buttonHeight,
                     child: OutlinedButton(
-                      onPressed: () {
+                      onPressed: HapticService.wrap(() {
                         AnalyticsService.instance.log(
                           AnalyticsEvents.pronunciationBackToSpeakClicked,
                           {
@@ -167,7 +168,7 @@ class PronunciationCompleteScreen extends StatelessWidget {
                           },
                         );
                         PronunciationFlow.popFlow(context);
-                      },
+                      }),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryColor,
                         side: const BorderSide(color: AppColors.primaryColor),

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/widgets/common/icon_background_container.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
@@ -19,7 +20,7 @@ class SpeakPronunciationTile extends StatelessWidget {
       color: AppColors.white,
       borderRadius: BorderRadius.circular(AppSizes.cardRadius),
       child: InkWell(
-        onTap: onTap,
+        onTap: HapticService.wrap(onTap),
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         child: Container(
           width: double.infinity,

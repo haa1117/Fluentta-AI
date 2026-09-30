@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -286,7 +287,7 @@ class _ActionButton extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     return GestureDetector(
-      onTap: enabled ? onTap : null,
+      onTap: HapticService.wrap(enabled ? onTap : null),
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: AppSizes.w(14),

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -207,7 +208,7 @@ class _WordActionButton extends StatelessWidget {
         isDark ? AppColors.primaryDarkColor : AppColors.primaryBlueColor;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: HapticService.wrap(onTap),
       child: Column(
         children: [
           Container(
@@ -267,9 +268,9 @@ class _TranslateButton extends StatelessWidget {
     final isActive = viewModel.isShowingTranslation;
 
     return GestureDetector(
-      onTap: viewModel.isTranslating
+      onTap: HapticService.wrap(viewModel.isTranslating
           ? null
-          : () => viewModel.toggleTranslation(context),
+          : () => viewModel.toggleTranslation(context)),
       child: Container(
         width: AppSizes.w(22),
         height: AppSizes.w(22),

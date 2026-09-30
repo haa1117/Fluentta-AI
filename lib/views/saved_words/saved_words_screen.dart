@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -138,7 +139,7 @@ class _SavedWordTile extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: onListen,
+                onPressed: HapticService.wrap(onListen),
                 icon: Icon(
                   isListening
                       ? Icons.volume_off_rounded
@@ -147,7 +148,7 @@ class _SavedWordTile extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: onRemove,
+                onPressed: HapticService.wrap(onRemove),
                 icon: const Icon(
                   Icons.bookmark_rounded,
                   color: AppColors.primaryColor,

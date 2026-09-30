@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/widgets/common/primary_button.dart';
 import 'package:fluentta_ai/widgets/footer_widget.dart';
@@ -241,7 +242,7 @@ class _SentenceQuestionCard extends StatelessWidget {
               // found — a wrong pick stays tappable so the learner can retry.
               final locked = questionAnswered && selectionIsCorrect;
               return GestureDetector(
-                onTap: locked ? null : () => onSelect(index),
+                onTap: HapticService.wrap(locked ? null : () => onSelect(index)),
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: AppSizes.w(24),
