@@ -6,7 +6,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
-import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/widgets/ads/ad_shimmer.dart';
 
 /// Standard banner slot — wire on Home, Learn, Setup, Role Play screens.
 class AdBannerWidget extends StatefulWidget {
@@ -26,6 +26,7 @@ class AdBannerWidget extends StatefulWidget {
 class _AdBannerWidgetState extends State<AdBannerWidget> {
   BannerAd? _bannerAd;
   bool _loading = false;
+  bool _gaveUp = false;
   int _retryCount = 0;
   Timer? _retryTimer;
 
@@ -55,12 +56,23 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
       return;
     }
     if (_bannerAd == null && !_loading) {
+      if (_gaveUp) {
+        _gaveUp = false;
+        _retryCount = 0;
+        if (mounted) setState(() {});
+      }
       _loadAd();
     }
   }
 
   void _scheduleRetry() {
-    if (_retryCount >= _maxRetries || !mounted) return;
+    if (!mounted) return;
+    if (_retryCount >= _maxRetries) {
+      // Stop showing the shimmer once loading has clearly failed — an empty
+      // box would look broken. A connectivity / config change retries again.
+      setState(() => _gaveUp = true);
+      return;
+    }
     _retryCount += 1;
     _retryTimer?.cancel();
     _retryTimer = Timer(Duration(seconds: _retryCount * 2), () {
@@ -109,6 +121,7 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
 
     if (ad != null) {
       _retryCount = 0;
+      _gaveUp = false;
       AdMobService.instance.recordImpression(widget.placement);
     } else {
       if (kDebugMode) {
@@ -138,24 +151,12 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
           );
         }
 
+        if (_gaveUp) return const SizedBox.shrink();
+
         return SizedBox(
           width: double.infinity,
           height: widget.fallbackHeight,
-          child: _loading
-              ? const Center(
-                  child: SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  ),
-                )
-              : DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: AppColors.adBackground,
-                    borderRadius: BorderRadius.circular(AppSizes.adRadius),
-                    border: Border.all(color: AppColors.adBorder),
-                  ),
-                ),
+          child: AdShimmer(height: widget.fallbackHeight),
         );
       },
     );
@@ -180,6 +181,7 @@ class AdNativeWidget extends StatefulWidget {
 class _AdNativeWidgetState extends State<AdNativeWidget> {
   NativeAd? _nativeAd;
   bool _loading = false;
+  bool _gaveUp = false;
   int _retryCount = 0;
   Timer? _retryTimer;
 
@@ -209,12 +211,23 @@ class _AdNativeWidgetState extends State<AdNativeWidget> {
       return;
     }
     if (_nativeAd == null && !_loading) {
+      if (_gaveUp) {
+        _gaveUp = false;
+        _retryCount = 0;
+        if (mounted) setState(() {});
+      }
       _loadAd();
     }
   }
 
   void _scheduleRetry() {
-    if (_retryCount >= _maxRetries || !mounted) return;
+    if (!mounted) return;
+    if (_retryCount >= _maxRetries) {
+      // Stop showing the shimmer once loading has clearly failed — an empty
+      // box would look broken. A connectivity / config change retries again.
+      setState(() => _gaveUp = true);
+      return;
+    }
     _retryCount += 1;
     _retryTimer?.cancel();
     _retryTimer = Timer(Duration(seconds: _retryCount * 2), () {
@@ -251,6 +264,7 @@ class _AdNativeWidgetState extends State<AdNativeWidget> {
 
     if (ad != null) {
       _retryCount = 0;
+      _gaveUp = false;
       AdMobService.instance.recordImpression(widget.placement);
     } else {
       _scheduleRetry();
@@ -272,7 +286,8 @@ class _AdNativeWidgetState extends State<AdNativeWidget> {
         final height = widget.height ?? AppSizes.adPlaceholderHeight;
 
         if (ad == null) {
-          return SizedBox(width: double.infinity, height: height);
+          if (_gaveUp) return const SizedBox.shrink();
+          return AdShimmer(height: height);
         }
 
         return SizedBox(
