@@ -213,4 +213,13 @@ class AnalyticsEvents {
   static const pronunciationSessionCompleted = 'pronunciation_session_completed';
   static const pronunciationPracticeMoreClicked = 'pronunciation_practice_more_clicked';
   static const pronunciationBackToSpeakClicked = 'pronunciation_back_to_speak_clicked';
+
+  // More apps
+  static const moreAppsClicked = 'more_apps_click';
+
+  // App tutorial
+  static const tutorialStarted = 'tutorial_started';
+  static const tutorialStepViewed = 'tutorial_step_viewed';
+  static const tutorialSkipped = 'tutorial_skipped';
+  static const tutorialCompleted = 'tutorial_completed';
 }

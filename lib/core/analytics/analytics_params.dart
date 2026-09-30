@@ -4,6 +4,9 @@ class AnalyticsParams {
   AnalyticsParams._();
 
   static const sourceScreen = 'source_screen';
+  static const appName = 'app_name';
+  static const tutorialStep = 'tutorial_step';
+  static const tutorialStepName = 'tutorial_step_name';
   static const destinationScreen = 'destination_screen';
   static const sourceModal = 'source_modal';
   static const learningArea = 'learning_area';
