@@ -124,7 +124,7 @@ class LocalStorage {
   String? get lastDailyProgressDate =>
       _prefs!.getString(_lastDailyProgressDateKey);
   int get lives => _prefs!.getInt(_livesKey) ?? 5;
-  double get lessonProgress => _prefs!.getDouble(_lessonProgressKey) ?? 0.35;
+  double get lessonProgress => _prefs!.getDouble(_lessonProgressKey) ?? 0;
   bool get notificationsEnabled =>
       _prefs!.getBool(_notificationsEnabledKey) ?? true;
 

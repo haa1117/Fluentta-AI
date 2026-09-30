@@ -28,6 +28,7 @@ class CefrLevelBar extends StatelessWidget {
     this.levels = CefrLevelProgress.tabLevels,
     this.isLevelUnlocked,
     this.onLockedLevelTap,
+    this.isLevelCompleted,
     this.labelBuilder,
     this.tabSpacing,
     this.tabHorizontalPadding,
@@ -44,6 +45,7 @@ class CefrLevelBar extends StatelessWidget {
   final List<CefrLevel> levels;
   final bool Function(CefrLevel level)? isLevelUnlocked;
   final CefrLevelLockedTapHandler? onLockedLevelTap;
+  final bool Function(CefrLevel level)? isLevelCompleted;
   final CefrLevelLabelBuilder? labelBuilder;
   final double? tabSpacing;
   final double? tabHorizontalPadding;
@@ -88,6 +90,7 @@ class CefrLevelBar extends StatelessWidget {
               label: _label(l10n, level),
               selected: level == selectedLevel,
               locked: !_levelUnlocked(level),
+              completed: isLevelCompleted?.call(level) ?? false,
               showLockIcon: showLockIcon,
               horizontalPadding: tabHorizontalPadding,
               verticalPadding: tabVerticalPadding,
@@ -116,6 +119,7 @@ class CefrLevelTab extends StatelessWidget {
     required this.label,
     required this.selected,
     required this.locked,
+    this.completed = false,
     required this.onTap,
     this.showLockIcon = true,
     this.horizontalPadding,
@@ -128,6 +132,7 @@ class CefrLevelTab extends StatelessWidget {
   final String label;
   final bool selected;
   final bool locked;
+  final bool completed;
   final VoidCallback onTap;
   final bool showLockIcon;
   final double? horizontalPadding;
@@ -192,6 +197,16 @@ class CefrLevelTab extends StatelessWidget {
                   color: textColor,
                 ),
               ),
+              if (completed && !locked) ...[
+                SizedBox(width: AppSizes.w(4)),
+                Icon(
+                  Icons.check_circle_rounded,
+                  size: AppSizes.sp(16),
+                  color: selected
+                      ? AppColors.white
+                      : AppColors.learnSuccessGreen,
+                ),
+              ],
             ],
           ),
         ),

@@ -1,4 +1,3 @@
-import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -15,6 +14,7 @@ class GrammarPracticeCard extends StatefulWidget {
     required this.isAnswered,
     required this.wrongFeedback,
     required this.onCheck,
+    required this.onDraftChanged,
     required this.isDark,
     this.initialAnswer,
   });
@@ -23,6 +23,7 @@ class GrammarPracticeCard extends StatefulWidget {
   final bool isAnswered;
   final String? wrongFeedback;
   final ValueChanged<String> onCheck;
+  final ValueChanged<String> onDraftChanged;
   final bool isDark;
   final String? initialAnswer;
 
@@ -37,6 +38,7 @@ class _GrammarPracticeCardState extends State<GrammarPracticeCard> {
   void initState() {
     super.initState();
     _controller = TextEditingController(text: widget.initialAnswer ?? '');
+    widget.onDraftChanged(_controller.text);
   }
 
   @override
@@ -123,6 +125,7 @@ class _GrammarPracticeCardState extends State<GrammarPracticeCard> {
             controller: _controller,
             enabled: !widget.isAnswered,
             textInputAction: TextInputAction.done,
+            onChanged: widget.onDraftChanged,
             onSubmitted: (_) => _check(),
             style: TextStyle(
               fontFamily: AppFonts.plusJakartaSans,
@@ -177,30 +180,7 @@ class _GrammarPracticeCardState extends State<GrammarPracticeCard> {
                 ],
               ),
             )
-          else ...[
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: HapticService.wrap(_check),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryColor,
-                  foregroundColor: AppColors.white,
-                  padding: EdgeInsets.symmetric(vertical: AppSizes.h(12)),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSizes.w(10)),
-                  ),
-                ),
-                child: Text(
-                  l10n.checkAnswerButton,
-                  style: TextStyle(
-                    fontFamily: AppFonts.plusJakartaSans,
-                    fontSize: AppSizes.sp(14),
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-            if (widget.wrongFeedback != null) ...[
+          else if (widget.wrongFeedback != null) ...[
               SizedBox(height: AppSizes.spaceSm),
               Container(
                 width: double.infinity,
@@ -224,7 +204,6 @@ class _GrammarPracticeCardState extends State<GrammarPracticeCard> {
                 ),
               ),
             ],
-          ],
         ],
       ),
     );

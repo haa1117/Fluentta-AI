@@ -179,7 +179,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
 
   int get _completionXp => widget.xpEarned;
 
-  /// XP number shown in the celebration. Premium learners get the +5 boost
+  /// XP number shown in the celebration. Premium learners get the ad boost
   /// applied automatically (PRD 4.2.3), so fold it into the headline.
   int get _displayXp =>
       _grantsBoost && _isPremium

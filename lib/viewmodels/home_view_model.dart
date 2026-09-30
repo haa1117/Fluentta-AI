@@ -55,14 +55,13 @@ class HomeViewModel extends ChangeNotifier {
   final EntitlementsService _entitlementsService;
 
   int _dailyProgressMinutes = 0;
-  int _dailyGoalMinutes = 10;
   int _streakDays = 1;
   int _lives = 5;
   int _xpEarned = 0;
-  double _lessonProgress = 0.35;
+  double _lessonProgress = 0;
 
   int get dailyProgressMinutes => _dailyProgressMinutes;
-  int get dailyGoalMinutes => _dailyGoalMinutes;
+  int get dailyGoalMinutes => _localStorage.dailyGoalMinutes ?? 10;
   int get streakDays => _streakDays;
   int get lives => _lives;
   int get xpEarned => _xpEarned;
@@ -73,8 +72,8 @@ class HomeViewModel extends ChangeNotifier {
   int get streakFreezesRemaining => _entitlementsService.streakFreezesRemaining;
 
   double get dailyGoalPercent {
-    if (_dailyGoalMinutes <= 0) return 0;
-    return (_dailyProgressMinutes / _dailyGoalMinutes).clamp(0.0, 1.0);
+    if (dailyGoalMinutes <= 0) return 0;
+    return (_dailyProgressMinutes / dailyGoalMinutes).clamp(0.0, 1.0);
   }
 
   int get dailyGoalPercentLabel => (dailyGoalPercent * 100).round();
@@ -98,7 +97,6 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void _loadFromStorage() {
-    _dailyGoalMinutes = _localStorage.dailyGoalMinutes ?? 10;
     _dailyProgressMinutes = _localStorage.dailyProgressMinutes;
     _streakDays = _localStorage.streakDays;
     _lives = _localStorage.lives;

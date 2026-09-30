@@ -95,6 +95,7 @@ class _GrammarLessonBody extends StatelessWidget {
                       initialAnswer: viewModel.practiceSubmittedAnswer,
                       wrongFeedback: viewModel.practiceWrongFeedback(l10n),
                       onCheck: viewModel.checkPracticeAnswer,
+                      onDraftChanged: viewModel.setPracticeDraft,
                       isDark: isDark,
                     )
                   else ...[
@@ -136,6 +137,23 @@ class _GrammarLessonBody extends StatelessWidget {
                     onTap: viewModel.previousStep,
                   ),
                 ),
+                if (viewModel.currentStep.isPracticeStep &&
+                    !viewModel.practiceAnswered) ...[
+                  SizedBox(width: AppSizes.w(12)),
+                  Expanded(
+                    child: LessonNavButton(
+                      label: l10n.checkAnswerButton,
+                      icon: Icons.check_rounded,
+                      isPrimary: true,
+                      enabled: true,
+                      iconOnRight: true,
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        viewModel.checkCurrentPractice();
+                      },
+                    ),
+                  ),
+                ],
                 SizedBox(width: AppSizes.w(12)),
                 Expanded(
                   child: LessonNavButton(

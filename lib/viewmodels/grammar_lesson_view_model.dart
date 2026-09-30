@@ -116,6 +116,18 @@ class GrammarLessonViewModel extends ChangeNotifier {
 
   String? get practiceSubmittedAnswer => _practiceAnswers[_currentStepIndex];
 
+  String _practiceDraft = '';
+
+  /// Latest text in the practice field. Updated without notifying so typing
+  /// does not rebuild the lesson and move the footer over the field.
+  void setPracticeDraft(String value) {
+    _practiceDraft = value;
+  }
+
+  void checkCurrentPractice() {
+    checkPracticeAnswer(_practiceDraft);
+  }
+
   String? practiceWrongFeedback(AppLocalizations l10n) {
     final wrong = _practiceWrongAnswers[_currentStepIndex];
     if (wrong == null) return null;
@@ -202,6 +214,7 @@ class GrammarLessonViewModel extends ChangeNotifier {
     if (isFirstStep) return;
     textToSpeechService.stop();
     _clearListening();
+    _practiceDraft = '';
     _currentStepIndex--;
     onProgressChanged?.call(_currentStepIndex);
     _logStepViewed();
@@ -213,6 +226,7 @@ class GrammarLessonViewModel extends ChangeNotifier {
 
     textToSpeechService.stop();
     _clearListening();
+    _practiceDraft = '';
 
     if (isLastStep) {
       if (_isCompleting) return;

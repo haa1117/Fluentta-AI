@@ -178,9 +178,13 @@ class PronunciationViewModel extends ChangeNotifier {
     try {
       final dir = await getTemporaryDirectory();
       final path =
-          '${dir.path}/fluenta_pronunciation_${DateTime.now().millisecondsSinceEpoch}.m4a';
+          '${dir.path}/fluenta_pronunciation_${DateTime.now().millisecondsSinceEpoch}.wav';
       await _recorder.start(
-        const RecordConfig(encoder: AudioEncoder.aacLc, numChannels: 1),
+        const RecordConfig(
+          encoder: AudioEncoder.wav,
+          sampleRate: 16000,
+          numChannels: 1,
+        ),
         path: path,
       );
       await _amplitudeSub?.cancel();
@@ -256,8 +260,9 @@ class PronunciationViewModel extends ChangeNotifier {
         final file = File(path);
         if (await file.exists()) {
           _pendingAudio = await file.readAsBytes();
-          _pendingMimeType = 'audio/mp4';
-          _pendingFilename = 'speech.m4a';
+          final isWav = path.toLowerCase().endsWith('.wav');
+          _pendingMimeType = isWav ? 'audio/wav' : 'audio/mp4';
+          _pendingFilename = isWav ? 'speech.wav' : 'speech.m4a';
         }
       }
     } catch (e) {
@@ -284,22 +289,32 @@ class PronunciationViewModel extends ChangeNotifier {
     notifyListeners();
     final checkStartedAt = DateTime.now();
 
-    var spokenText = _deviceTranscript.trim();
     final audio = _pendingAudio;
     if (audio != null && audio.isNotEmpty) {
       try {
-        final transcript = await _aiBackendService.transcribePronunciation(
+        final result = await _aiBackendService.assessPronunciation(
           audioBytes: audio,
           mimeType: _pendingMimeType,
           filename: _pendingFilename,
           expectedPhrase: currentPhraseText,
         );
-        if (transcript.isNotEmpty) {
-          spokenText = transcript;
-        }
+        _currentResult = result;
+        _pendingAudio = null;
+        _isAssessing = false;
+        await _progressSyncService.recordCorrections(result.correctionCount);
+        notifyListeners();
+        AnalyticsService.instance.log(AnalyticsEvents.pronunciationCheckSucceeded, {
+          ...phraseAnalyticsParams(),
+          AnalyticsParams.overallScore: result.overallScore,
+          AnalyticsParams.speechDetected: result.heardAnything,
+          AnalyticsParams.wordFeedbackCount: result.words.length,
+          AnalyticsParams.latencyMs:
+              DateTime.now().difference(checkStartedAt).inMilliseconds,
+        });
+        return result;
       } catch (e) {
         if (kDebugMode) {
-          debugPrint('Whisper assess failed, using on-device transcript: $e');
+          debugPrint('AI pronunciation failed, using on-device match: $e');
         }
       }
     }
@@ -307,7 +322,7 @@ class PronunciationViewModel extends ChangeNotifier {
     try {
       final result = _assessmentService.assess(
         expectedPhrase: currentPhraseText,
-        spokenText: spokenText,
+        spokenText: _deviceTranscript.trim(),
       );
       _currentResult = result;
       _pendingAudio = null;

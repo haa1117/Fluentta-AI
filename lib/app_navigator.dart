@@ -8,6 +8,7 @@ import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
+import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/viewmodels/onboarding_view_model.dart';
 import 'package:fluentta_ai/viewmodels/setup_view_model.dart';
 import 'package:fluentta_ai/viewmodels/sign_in_view_model.dart';
@@ -164,6 +165,9 @@ class _AppNavigatorState extends State<AppNavigator> {
   }
 
   void _goToHome() {
+    // Home is created at app start, before setup saves the daily goal.
+    // Reload so the dashboard shows the minutes just chosen.
+    context.read<HomeViewModel>().refresh();
     setState(() => _currentFlow = AppFlow.home);
   }
 

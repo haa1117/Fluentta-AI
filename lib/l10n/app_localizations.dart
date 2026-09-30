@@ -2934,6 +2934,12 @@ abstract class AppLocalizations {
   /// **'AI chat needs an internet connection.'**
   String get chatNeedsInternet;
 
+  /// No description provided for @chatTimedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'The AI took too long to reply. No heart was used. Please try again.'**
+  String get chatTimedOut;
+
   /// No description provided for @chatReadRepliesAloud.
   ///
   /// In en, this message translates to:
@@ -3713,6 +3719,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Lesson complete!'**
   String get lessonCompleteTitle;
+
+  /// No description provided for @levelCompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{level} complete!'**
+  String levelCompleteTitle(String level);
+
+  /// No description provided for @levelCompleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished every {level} lesson.'**
+  String levelCompleteBody(String level);
+
+  /// No description provided for @courseCompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You finished every lesson!'**
+  String get courseCompleteTitle;
+
+  /// No description provided for @courseCompleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every level from A1 to C2 is complete.'**
+  String get courseCompleteBody;
 
   /// No description provided for @youLearnedLesson.
   ///

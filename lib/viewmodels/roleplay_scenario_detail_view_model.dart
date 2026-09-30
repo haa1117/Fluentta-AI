@@ -49,6 +49,7 @@ class RoleplayScenarioDetailViewModel extends ChangeNotifier {
   RoleplayModuleState _vocabularyState = RoleplayModuleState.notStarted;
   RoleplayModuleState _comprehensionState = RoleplayModuleState.notStarted;
   int _completedModuleCount = 0;
+  Set<CefrLevel> _completedLevels = {};
 
   CefrLevel get selectedLevel => _selectedLevel;
   double get moduleProgress => _moduleProgress;
@@ -66,6 +67,8 @@ class RoleplayScenarioDetailViewModel extends ChangeNotifier {
   /// PRD 4.2.7 — this scenario's level opens at its cumulative XP milestone.
   bool isLevelUnlocked(CefrLevel level) =>
       RoleplayXpMilestones.isScenarioLevelUnlocked(scenarioId, level, totalXp);
+
+  bool isLevelCompleted(CefrLevel level) => _completedLevels.contains(level);
 
   int xpRequiredForLevel(CefrLevel level) =>
       RoleplayXpMilestones.xpRequiredFor(scenarioId, level);
@@ -87,6 +90,10 @@ class RoleplayScenarioDetailViewModel extends ChangeNotifier {
     await _progressRepository.initialize();
 
     _moduleProgress = await _contentRepository.scenarioModuleProgress(
+      scenarioId: scenarioId,
+      progressRepository: _progressRepository,
+    );
+    _completedLevels = await _contentRepository.completedLevels(
       scenarioId: scenarioId,
       progressRepository: _progressRepository,
     );

@@ -586,23 +586,9 @@ class OpenChatViewModel extends ChangeNotifier {
       AnalyticsParams.heartBalanceBefore: heartBalanceBefore,
     });
 
+    // A heart is spent only after a reply arrives. A timeout or any other
+    // failed request leaves the balance unchanged.
     var charged = false;
-    if (!_heartsBypassed) {
-      charged = await _homeViewModel.useHeart();
-      if (!charged) {
-        _isSending = false;
-        _error = 'out_of_hearts';
-        notifyListeners();
-        return;
-      }
-    }
-    // A previously heart-gated chat send just succeeded — if the learner
-    // went Premium in between, this reports the recovery.
-    _homeViewModel.maybeLogHeartGateRecovery(
-      featureContext: 'ai_chat',
-      blockedAction: 'submit_ai_chat_message',
-    );
-
     final requestStartedAt = DateTime.now();
     try {
       final history = <TutorChatTurn>[];
@@ -622,6 +608,18 @@ class OpenChatViewModel extends ChangeNotifier {
         cefrLevel: _cefrLevel,
         goal: _goal,
         nativeLanguage: _nativeLanguage,
+      );
+
+      if (!_heartsBypassed) {
+        charged = await _homeViewModel.useHeart();
+        if (!charged) {
+          _error = 'out_of_hearts';
+          return;
+        }
+      }
+      _homeViewModel.maybeLogHeartGateRecovery(
+        featureContext: 'ai_chat',
+        blockedAction: 'submit_ai_chat_message',
       );
 
       final replyText = reply.tutorReply.isEmpty
@@ -667,8 +665,9 @@ class OpenChatViewModel extends ChangeNotifier {
     } catch (error) {
       if (charged) {
         await _homeViewModel.addHearts(1);
+        charged = false;
       }
-      _error = error.toString();
+      _error = error is TimeoutException ? 'timeout' : error.toString();
       // The AI round trip here is a single try/catch, so every failure —
       // network, backend, or parsing — is reported under the same stage.
       // Distinguishing request_dispatch/model_response/response_render would
@@ -681,7 +680,7 @@ class OpenChatViewModel extends ChangeNotifier {
         AnalyticsParams.failureStage: 'model_response',
         AnalyticsParams.errorType: error.runtimeType.toString(),
         AnalyticsParams.errorCode: 'tutor_chat_request_failed',
-        AnalyticsParams.heartCharged: false,
+        AnalyticsParams.heartCharged: charged,
       });
     } finally {
       _isSending = false;

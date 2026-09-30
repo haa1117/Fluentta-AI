@@ -1595,6 +1595,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Le chat IA nécessite une connexion Internet.';
 
   @override
+  String get chatTimedOut =>
+      'L\'IA a mis trop de temps à répondre. Aucun cœur n\'a été utilisé. Réessayez.';
+
+  @override
   String get chatReadRepliesAloud => 'Lire les réponses à voix haute';
 
   @override
@@ -2053,6 +2057,23 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get lessonCompleteTitle => 'Leçon terminée !';
+
+  @override
+  String levelCompleteTitle(String level) {
+    return '$level terminé !';
+  }
+
+  @override
+  String levelCompleteBody(String level) {
+    return 'Tu as terminé toutes les leçons $level.';
+  }
+
+  @override
+  String get courseCompleteTitle => 'Tu as terminé toutes les leçons !';
+
+  @override
+  String get courseCompleteBody =>
+      'Tous les niveaux, de A1 à C2, sont terminés.';
 
   @override
   String youLearnedLesson(String title) {

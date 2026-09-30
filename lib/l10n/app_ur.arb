@@ -589,6 +589,7 @@
   "openChatPracticeTitle": "چیٹ مشق کھولیں",
   "chatAiDisclaimer": "Fluenta AI ہے اور غلطیاں کر سکتی ہے۔",
   "chatNeedsInternet": "AI چیٹ کے لیے انٹرنیٹ کنکشن درکار ہے۔",
+  "chatTimedOut": "AI کو جواب دینے میں بہت دیر ہو گئی۔ کوئی دل استعمال نہیں ہوا۔ دوبارہ کوشش کریں۔",
   "textMode": "ٹیکسٹ موڈ",
   "chatGreeting": "سلام! آج آپ کیا مشق کرنا چاہتے ہیں؟",
   "chatGreetingNamed": "سلام {name}! آج آپ کیا مشق کرنا چاہتے ہیں؟",
@@ -701,6 +702,10 @@
   "resumeLessonButton": "جاری رکھیں",
   "whatYouHaveLearnedToday": "آج آپ نے کیا سیکھا",
   "lessonCompleteTitle": "سبق مکمل ہوا!",
+  "levelCompleteTitle": "{level} مکمل!",
+  "levelCompleteBody": "آپ نے {level} کے تمام سبق مکمل کر لیے۔",
+  "courseCompleteTitle": "آپ نے تمام سبق مکمل کر لیے!",
+  "courseCompleteBody": "A1 سے C2 تک ہر سطح مکمل ہو گئی۔",
   "youLearnedLesson": "آپ نے {title} سیکھا۔",
   "@youLearnedLesson": {
     "placeholders": {

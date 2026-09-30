@@ -44,17 +44,6 @@ class AdLoadingOverlay {
                       color: AppColors.white,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    l10n.reportingApp.toUpperCase(),
-                    style: const TextStyle(
-                      fontFamily: AppFonts.plusJakartaSans,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.6,
-                      color: Color(0xCCFFFFFF),
-                    ),
-                  ),
                 ],
               ),
             ),

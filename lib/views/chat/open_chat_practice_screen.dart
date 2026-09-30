@@ -226,6 +226,13 @@ class _OpenChatPracticeBodyState extends State<_OpenChatPracticeBody> {
       );
       return;
     }
+    if (error == 'timeout') {
+      SnackbarHelper.showError(
+        context,
+        AppLocalizations.of(context).chatTimedOut,
+      );
+      return;
+    }
     SnackbarHelper.showError(context, error);
   }
 

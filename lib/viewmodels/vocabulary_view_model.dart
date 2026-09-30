@@ -310,6 +310,10 @@ class VocabularyViewModel extends ChangeNotifier {
       skipXp: alreadyCompleted,
     );
 
+    _syncService.noteCurriculumCompletion(
+      level: level,
+      alreadyCompleted: alreadyCompleted,
+    );
     _syncService.rememberNextLesson(
       nextLessonId: nextId,
       nextLessonNumber: nextLesson?.number,

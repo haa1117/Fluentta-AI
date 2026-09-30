@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/cefr/lesson_unlock_logic.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_practice_type.dart';
 import 'package:fluentta_ai/core/reading/dialogue_phase_builder.dart';
@@ -217,6 +218,47 @@ class RoleplayContentRepository {
     }).toList();
 
     return _applyDialogueUnlock(lessons, progress);
+  }
+
+  /// Levels whose dialogue, vocabulary, and comprehension lessons are all done.
+  Future<Set<CefrLevel>> completedLevels({
+    required String scenarioId,
+    required ProgressRepository progressRepository,
+  }) async {
+    final vocabPath = await getVocabularyPath(scenarioId);
+    final quickPath = await getQuickCheckPath(scenarioId);
+    await progressRepository.initialize();
+    final progress = progressRepository.allProgress;
+
+    final doneByLevel = <String, List<bool>>{};
+
+    void record(String? code, String lessonId) {
+      final level = (code ?? 'A1').toUpperCase();
+      final done =
+          progress[lessonId]?.status == LearningLessonStatus.completed;
+      doneByLevel.putIfAbsent(level, () => []).add(done);
+    }
+
+    for (final lesson in vocabPath.lessons) {
+      final number = lesson['number'] as int;
+      final code = lesson['cefrLevel'] as String?;
+      record(code, lesson['id'] as String);
+      record(
+        code,
+        '${scenarioId}_dialogue_${number.toString().padLeft(2, '0')}',
+      );
+    }
+    for (final lesson in quickPath.lessons) {
+      record(lesson['cefrLevel'] as String?, lesson['id'] as String);
+    }
+
+    final completed = <CefrLevel>{};
+    for (final entry in doneByLevel.entries) {
+      if (entry.value.isNotEmpty && entry.value.every((done) => done)) {
+        completed.add(CefrLevel.fromCode(entry.key));
+      }
+    }
+    return completed;
   }
 
   Future<double> scenarioModuleProgress({

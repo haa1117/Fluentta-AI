@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentta_ai/core/constants/ai_backend_config.dart';
+import 'package:fluentta_ai/data/models/pronunciation_phrase_model.dart';
 import 'package:fluentta_ai/data/models/tutor_chat_models.dart';
 import 'package:http/http.dart' as http;
 
@@ -110,7 +111,8 @@ class AiBackendService {
     );
   }
 
-  Future<String> transcribePronunciation({
+  /// Sends the recording to the pronunciation model and returns per-word scores.
+  Future<PronunciationAssessmentResult> assessPronunciation({
     required Uint8List audioBytes,
     required String mimeType,
     required String filename,
@@ -125,7 +127,10 @@ class AiBackendService {
         'expectedPhrase': expectedPhrase,
       },
     );
-    return (json['transcript'] as String? ?? '').trim();
+    if (json['scoredBy'] != 'ai') {
+      throw AiBackendException('Pronunciation score missing');
+    }
+    return PronunciationAssessmentResult.fromJson(json);
   }
 
   /// Free-form speech-to-text for the chat's voice mode. Uses a

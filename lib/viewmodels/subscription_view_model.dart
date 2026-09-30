@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
 import 'package:fluentta_ai/core/iap/iap_product_ids.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/utils/simple_uuid.dart';
@@ -157,12 +159,8 @@ class SubscriptionViewModel extends ChangeNotifier {
   }
 
   String levelLabel(AppLocalizations l10n) {
-    return switch (_localStorage.englishLevel) {
-      'elementary' => l10n.levelElementary,
-      'intermediate' => l10n.levelIntermediate,
-      'advanced' => l10n.levelAdvanced,
-      _ => l10n.levelBeginner,
-    };
+    final level = CefrLevel.fromSetupId(_localStorage.englishLevel);
+    return CefrLevelProgress.levelNameLabel(l10n, level);
   }
 
   int get dailyMinutes => _localStorage.dailyGoalMinutes ?? 10;

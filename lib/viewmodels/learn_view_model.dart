@@ -133,6 +133,7 @@ class LearnViewModel extends ChangeNotifier {
     await _localStorage.setLearnBrowseCefrLevelCode(_selectedLevel.code);
     await refreshCounts();
     await _refreshLevelProgress();
+    notifyListeners();
   }
 
   /// PRD 4.2.4 — level opens on the XP gate AND finishing the previous
@@ -142,6 +143,10 @@ class LearnViewModel extends ChangeNotifier {
         _progressRepository,
         level,
       );
+
+  /// True when all 30 vocabulary, grammar, and reading lessons of [level] are done.
+  bool isLevelCompleted(CefrLevel level) =>
+      _progressRepository.isCoreCurriculumComplete(level);
 
   int coreLessonsRemaining(CefrLevel level) =>
       (30 - _progressRepository.completedCoreLessons(level)).clamp(0, 30);

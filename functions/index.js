@@ -20,6 +20,10 @@ setGlobalOptions({
 // Literal model for pronunciation — we want the raw phonetic transcription,
 // warts and all, not a "helpful" auto-corrected one.
 const WHISPER_MODEL = process.env.OPENAI_WHISPER_MODEL || "whisper-1";
+// Listens to the recording and scores pronunciation. Override if OpenAI
+// renames the audio model.
+const PRONUNCIATION_MODEL =
+  process.env.OPENAI_PRONUNCIATION_MODEL || "gpt-4o-mini-audio-preview";
 // Conversational speech (chat voice mode) — newer model, much better on
 // accented / non-native English, and it may tidy small disfluencies (fine here).
 const TRANSCRIBE_MODEL =
@@ -364,6 +368,165 @@ exports.transcribe = onRequest(requestOptions, async (req, res) => {
   }
 });
 
+function audioInputFormat(mimeType, filename) {
+  const mime = String(mimeType || "").toLowerCase();
+  const name = String(filename || "").toLowerCase();
+  if (mime.includes("wav") || name.endsWith(".wav")) return "wav";
+  if (mime.includes("mpeg") || mime.includes("mp3") || name.endsWith(".mp3")) {
+    return "mp3";
+  }
+  return null;
+}
+
+function clampScore(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 0;
+  return Math.max(0, Math.min(100, Math.round(n)));
+}
+
+function expectedWords(phrase) {
+  return String(phrase || "")
+    .split(/\s+/)
+    .map((word) => word.trim())
+    .filter(Boolean);
+}
+
+function sanitiseAssessment(parsed, phrase) {
+  const targets = expectedWords(phrase);
+  const rawWords = Array.isArray(parsed.words) ? parsed.words : [];
+  const words = targets.map((word, index) => {
+    const raw =
+      rawWords.find(
+        (item) =>
+          String(item.word || "")
+            .toLowerCase()
+            .replace(/[^a-z']/g, "") === word.toLowerCase().replace(/[^a-z']/g, ""),
+      ) || rawWords[index] || {};
+    const weakSounds = Array.isArray(raw.weakSounds)
+      ? raw.weakSounds.map((sound) => String(sound)).filter(Boolean).slice(0, 4)
+      : [];
+    const weakCharIndices = Array.isArray(raw.weakCharIndices)
+      ? raw.weakCharIndices
+          .map((i) => Number(i))
+          .filter((i) => Number.isInteger(i) && i >= 0 && i < word.length)
+          .slice(0, word.length)
+      : [];
+    const spoken = String(raw.spokenWord || "").trim();
+    return {
+      word,
+      confidence: clampScore(raw.confidence),
+      spokenWord: spoken || null,
+      weakSounds,
+      weakCharIndices,
+    };
+  });
+
+  const heardAnything =
+    parsed.heardAnything !== false &&
+    words.some((word) => word.spokenWord || word.confidence > 0);
+  const averaged = words.length
+    ? Math.round(words.reduce((sum, word) => sum + word.confidence, 0) / words.length)
+    : 0;
+  const overallScore = heardAnything ? clampScore(parsed.overallScore ?? averaged) : 0;
+
+  return {
+    transcript: String(parsed.transcript || "").trim(),
+    expectedPhrase: phrase,
+    heardAnything,
+    overallScore,
+    words: heardAnything ? words : [],
+    scoredBy: "ai",
+  };
+}
+
+function pronunciationPrompt(phrase) {
+  return [
+    "You are an English pronunciation coach for a language learner.",
+    `They were asked to say exactly: "${phrase}"`,
+    "Listen to the audio. Score how clearly each word was pronounced, not whether a transcript could be guessed.",
+    "A word said with the wrong sound (th as s, v as w, missing ending, wrong vowel, wrong stress) must score below 85.",
+    "A word that was skipped must have confidence 0, spokenWord null, and weakSounds listing the main sound.",
+    "Return JSON only with this shape:",
+    '{"transcript":"what you heard","heardAnything":true,"overallScore":0,"words":[{"word":"expected word","confidence":0,"spokenWord":"what they said or null","weakSounds":["/th/"],"weakCharIndices":[0]}]}',
+    "words must list every expected word in order. weakCharIndices are 0-based indexes in that expected word. overallScore is 0-100.",
+    "If the audio is silence or noise, heardAnything is false, overallScore is 0, and words is empty.",
+  ].join(" ");
+}
+
+async function scoreTranscriptWithChat({ transcript, expectedPhrase }) {
+  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${openaiKey()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: CHAT_MODEL,
+      temperature: 0.2,
+      max_tokens: 900,
+      response_format: { type: "json_object" },
+      messages: [
+        {
+          role: "user",
+          content: [
+            pronunciationPrompt(expectedPhrase),
+            `You could not hear the audio. A speech-to-text transcript is: "${transcript}".`,
+            "Score from that transcript only. Do not invent sounds that the transcript does not show.",
+          ].join(" "),
+        },
+      ],
+    }),
+  });
+  const openaiJson = await openaiRes.json();
+  if (!openaiRes.ok) {
+    const error = new Error(openaiJson.error?.message || "Pronunciation scoring failed");
+    error.status = openaiRes.status;
+    throw error;
+  }
+  const content = openaiJson.choices?.[0]?.message?.content || "";
+  const assessment = sanitiseAssessment(extractJsonObject(content), expectedPhrase);
+  if (!assessment.transcript) assessment.transcript = transcript;
+  return assessment;
+}
+
+async function assessAudioWithModel({ audioBase64, format, expectedPhrase }) {
+  const body = {
+    model: PRONUNCIATION_MODEL,
+    modalities: ["text"],
+    temperature: 0.2,
+    max_tokens: 900,
+    messages: [
+      {
+        role: "user",
+        content: [
+          { type: "text", text: pronunciationPrompt(expectedPhrase) },
+          {
+            type: "input_audio",
+            input_audio: { data: audioBase64, format },
+          },
+        ],
+      },
+    ],
+  };
+
+  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${openaiKey()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  const openaiJson = await openaiRes.json();
+  if (!openaiRes.ok) {
+    const error = new Error(openaiJson.error?.message || "Pronunciation model failed");
+    error.status = openaiRes.status;
+    throw error;
+  }
+  const content = openaiJson.choices?.[0]?.message?.content || "";
+  return sanitiseAssessment(extractJsonObject(content), expectedPhrase);
+}
+
 exports.assessPronunciation = onRequest(
   {
     ...requestOptions,
@@ -382,22 +545,43 @@ exports.assessPronunciation = onRequest(
     try {
       await requireUser(req);
       const body = readJsonBody(req);
-      if (!String(body.audioBase64 || "").trim()) {
+      const audioBase64 = String(body.audioBase64 || "").trim();
+      const expectedPhrase = String(body.expectedPhrase || "").trim();
+      if (!audioBase64) {
         json(res, 400, { error: "audioBase64 is required" });
         return;
       }
+      if (!expectedPhrase) {
+        json(res, 400, { error: "expectedPhrase is required" });
+        return;
+      }
 
-      const transcript = await transcribeAudio({
-        audioBase64: body.audioBase64,
-        mimeType: body.mimeType,
-        filename: body.filename,
-        model: WHISPER_MODEL,
-      });
+      const format = audioInputFormat(body.mimeType, body.filename);
+      if (!format) {
+        json(res, 400, { error: "Pronunciation audio must be wav or mp3" });
+        return;
+      }
 
-      json(res, 200, {
-        transcript,
-        expectedPhrase: String(body.expectedPhrase || "").trim(),
-      });
+      let assessment;
+      try {
+        assessment = await assessAudioWithModel({
+          audioBase64,
+          format,
+          expectedPhrase,
+        });
+      } catch (modelError) {
+        const transcript = await transcribeAudio({
+          audioBase64,
+          mimeType: body.mimeType,
+          filename: body.filename,
+          model: WHISPER_MODEL,
+        });
+        assessment = await scoreTranscriptWithChat({
+          transcript,
+          expectedPhrase,
+        });
+      }
+      json(res, 200, assessment);
     } catch (error) {
       json(res, error.status || 500, {
         error: error.message || "assessPronunciation failed",

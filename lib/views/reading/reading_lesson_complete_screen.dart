@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/xp/lesson_completion_nav.dart';
 import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
 import 'package:fluentta_ai/data/models/reading_lesson_model.dart';
 import 'package:fluentta_ai/widgets/learn_shared/lesson_complete_layout.dart';
@@ -31,8 +32,8 @@ class ReadingLessonCompleteScreen extends StatelessWidget {
       boostLessonKey: lesson.lessonId,
       subtitle: l10n.readingLessonCompleted(lesson.number),
       buttonText: l10n.startNextLesson,
-      onClose: () => Navigator.of(context).pop(),
-      onButtonPressed: () => Navigator.of(context).pop(),
+      onClose: () => leaveLessonCompleteScreen(context),
+      onButtonPressed: () => leaveLessonCompleteScreen(context),
       newlyUnlocked: newlyUnlocked,
       completionAnalytics: completionAnalytics,
       summaryCard: lesson.completionSummary == null

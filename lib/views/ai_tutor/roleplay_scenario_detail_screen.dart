@@ -201,6 +201,7 @@ class _RoleplayScenarioDetailScreenState
                     selectedLevel: level,
                     onLevelSelected: detailVm.selectLevel,
                     isLevelUnlocked: detailVm.isLevelUnlocked,
+                    isLevelCompleted: detailVm.isLevelCompleted,
                     onLockedLevelTap: (ctx, lvl) => SnackbarHelper.showError(
                       ctx,
                       ctx.l10n.roleplayLevelLocked(

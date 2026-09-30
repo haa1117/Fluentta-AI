@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level.dart';
+import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
+import 'package:fluentta_ai/core/entitlements/user_entitlements.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/l10n/localized_content.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
+import 'package:fluentta_ai/data/repositories/progress_repository.dart';
 import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/data/services/learning_stats_service.dart';
 import 'package:fluentta_ai/data/services/local_notification_service.dart';
@@ -17,6 +21,7 @@ class ProfileViewModel extends ChangeNotifier {
     this._learningStatsService,
     this._progressSyncService,
     this._entitlementsService,
+    this._progressRepository,
   ) {
     _localeViewModel.addListener(notifyListeners);
     _progressSyncService.addMergeListener(_onProgressMerged);
@@ -30,6 +35,7 @@ class ProfileViewModel extends ChangeNotifier {
   final LearningStatsService _learningStatsService;
   final ProgressSyncService _progressSyncService;
   final EntitlementsService _entitlementsService;
+  final ProgressRepository _progressRepository;
 
   bool get isPro => _entitlementsService.isPro;
   bool get hasUnlimitedHearts => _entitlementsService.hasUnlimitedHearts;
@@ -60,7 +66,18 @@ class ProfileViewModel extends ChangeNotifier {
   int get lives => _localStorage.lives;
   int get dailyHeartAllowance => _entitlementsService.dailyHeartAllowance;
 
-  double get lessonProgress => _localStorage.lessonProgress;
+  /// Share of the full A1–C2 core curriculum (30 lessons per level).
+  double get lessonProgress {
+    final total =
+        CefrLevel.values.length * UserEntitlements.coreLessonsPerLevel;
+    if (total <= 0) return 0;
+    final completed = CefrLevel.values.fold<int>(
+      0,
+      (sum, level) => sum + _progressRepository.completedCoreLessons(level),
+    );
+    return (completed / total).clamp(0.0, 1.0);
+  }
+
   int get progressPercent => (lessonProgress * 100).round();
 
   double get dailyGoalPercent {
@@ -72,16 +89,9 @@ class ProfileViewModel extends ChangeNotifier {
 
   String get levelLabel {
     final l10n = _localeViewModel.strings;
-    final code = LocalizedContent.levelCode(
-      l10n,
-      _localStorage.englishLevel,
-    );
-    final name = switch (_localStorage.englishLevel) {
-      'elementary' => l10n.levelElementary,
-      'intermediate' => l10n.levelIntermediate,
-      'advanced' => l10n.levelAdvanced,
-      _ => l10n.levelBeginner,
-    };
+    final level = CefrLevel.fromSetupId(_localStorage.englishLevel);
+    final code = CefrLevelProgress.levelCodeLabel(l10n, level);
+    final name = CefrLevelProgress.levelNameLabel(l10n, level);
     return '$code $name';
   }
 
@@ -112,6 +122,7 @@ class ProfileViewModel extends ChangeNotifier {
 
   Future<void> refreshStats() async {
     await _entitlementsService.ensureDailyGoalState();
+    await _progressRepository.initialize();
     await _learningStatsService.reconcileFromProgress();
     notifyListeners();
   }

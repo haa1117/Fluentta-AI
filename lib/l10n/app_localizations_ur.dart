@@ -1570,6 +1570,10 @@ class AppLocalizationsUr extends AppLocalizations {
   String get chatNeedsInternet => 'AI چیٹ کے لیے انٹرنیٹ کنکشن درکار ہے۔';
 
   @override
+  String get chatTimedOut =>
+      'AI کو جواب دینے میں بہت دیر ہو گئی۔ کوئی دل استعمال نہیں ہوا۔ دوبارہ کوشش کریں۔';
+
+  @override
   String get chatReadRepliesAloud => 'جوابات بلند آواز میں پڑھیں';
 
   @override
@@ -2012,6 +2016,22 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get lessonCompleteTitle => 'سبق مکمل ہوا!';
+
+  @override
+  String levelCompleteTitle(String level) {
+    return '$level مکمل!';
+  }
+
+  @override
+  String levelCompleteBody(String level) {
+    return 'آپ نے $level کے تمام سبق مکمل کر لیے۔';
+  }
+
+  @override
+  String get courseCompleteTitle => 'آپ نے تمام سبق مکمل کر لیے!';
+
+  @override
+  String get courseCompleteBody => 'A1 سے C2 تک ہر سطح مکمل ہو گئی۔';
 
   @override
   String youLearnedLesson(String title) {

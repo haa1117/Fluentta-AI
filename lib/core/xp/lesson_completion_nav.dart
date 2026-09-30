@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/data/services/progress_sync_service.dart';
+import 'package:fluentta_ai/views/learn/curriculum_complete_screen.dart';
 import 'package:provider/provider.dart';
 
 /// Runs [complete], then replaces the lesson route with [buildScreen].
@@ -35,4 +36,26 @@ Future<void> completeLessonAndNavigate({
       SnackbarHelper.showError(context, context.l10n.authErrorGeneric);
     }
   }
+}
+
+/// Leaves the per-lesson completion screen. When that lesson finished a CEFR
+/// level (or the whole course), replaces it with the celebration screen.
+void leaveLessonCompleteScreen(BuildContext context) {
+  final sync = context.read<ProgressSyncService>();
+  final levelCode = sync.lastCompletedLevelCode;
+  final celebrate = sync.lastLevelJustCompleted && levelCode != null;
+  final entireCourse = sync.lastCourseJustCompleted;
+  if (!celebrate) {
+    Navigator.of(context).pop();
+    return;
+  }
+  sync.clearCurriculumCelebration();
+  Navigator.of(context).pushReplacement<void, void>(
+    MaterialPageRoute<void>(
+      builder: (_) => CurriculumCompleteScreen(
+        levelCode: levelCode,
+        entireCourse: entireCourse,
+      ),
+    ),
+  );
 }

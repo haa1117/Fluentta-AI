@@ -115,6 +115,7 @@ class _LearnTabScreenState extends State<LearnTabScreen> {
                 learnViewModel.selectLevel(level);
               },
               isLevelUnlocked: learnViewModel.isLevelUnlocked,
+              isLevelCompleted: learnViewModel.isLevelCompleted,
               onLockedLevelTap: (ctx, level) {
                 _logCefrLevelClicked(
                   learnViewModel,

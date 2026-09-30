@@ -23,6 +23,8 @@ class IapService {
 
   StreamSubscription<List<PurchaseDetails>>? _purchaseSubscription;
   final Map<String, ProductDetails> _products = {};
+  /// Free-trial offer tokens keyed by our weekly/monthly/annual SKU.
+  final Map<String, String> _trialOfferTokens = {};
 
   AppLocalizations get _l10n =>
       l10nFor(_localStorage.selectedLanguage ?? 'en');
@@ -91,14 +93,54 @@ class IapService {
 
     _isLoadingProducts = true;
     final response = await _iap.queryProductDetails(IapProductIds.allProductIds);
-    _products
-      ..clear()
-      ..addEntries(response.productDetails.map((p) => MapEntry(p.id, p)));
+    _products.clear();
+    _trialOfferTokens.clear();
+    for (final product in response.productDetails) {
+      _indexProduct(product);
+    }
     _isLoadingProducts = false;
 
     if (response.notFoundIDs.isNotEmpty) {
       // Products not configured in Play Console yet — fallbacks still work.
     }
+  }
+
+  /// Play returns one [ProductDetails] per subscription offer, all sharing
+  /// the product id `fluenta.premium`. Index the base plan under the SKU the
+  /// paywall asks for, and keep a free-trial token when that offer exists.
+  void _indexProduct(ProductDetails product) {
+    if (product is GooglePlayProductDetails) {
+      final offer = _subscriptionOffer(product);
+      if (offer != null) {
+        final sku = IapProductIds.idForPlayBasePlan(offer.basePlanId);
+        if (sku != null) {
+          final offerId = offer.offerId?.toLowerCase();
+          if (offerId != null && offerId.contains('trial')) {
+            _trialOfferTokens[sku] = offer.offerToken;
+            _products.putIfAbsent(sku, () => product);
+          } else if (offer.offerId == null) {
+            _products[sku] = product;
+          }
+          return;
+        }
+      }
+    }
+    _products[product.id] = product;
+  }
+
+  /// Play's offer class is not exported, so only the fields we use are returned.
+  ({String basePlanId, String? offerId, String offerToken})? _subscriptionOffer(
+    GooglePlayProductDetails product,
+  ) {
+    final index = product.subscriptionIndex;
+    final offers = product.productDetails.subscriptionOfferDetails;
+    if (index == null || offers == null || index >= offers.length) return null;
+    final offer = offers[index];
+    return (
+      basePlanId: offer.basePlanId,
+      offerId: offer.offerId,
+      offerToken: offer.offerIdToken,
+    );
   }
 
   ProductDetails? productDetails(String productId) => _products[productId];
@@ -236,9 +278,14 @@ class IapService {
 
   PurchaseParam _buildPurchaseParam(ProductDetails product) {
     if (product is GooglePlayProductDetails) {
+      final offer = _subscriptionOffer(product);
+      final sku = offer == null
+          ? null
+          : IapProductIds.idForPlayBasePlan(offer.basePlanId);
       return GooglePlayPurchaseParam(
         productDetails: product,
-        offerToken: product.offerToken,
+        offerToken: (sku == null ? null : _trialOfferTokens[sku]) ??
+            product.offerToken,
       );
     }
     return PurchaseParam(productDetails: product);

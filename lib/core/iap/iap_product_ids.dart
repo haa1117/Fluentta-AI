@@ -50,20 +50,14 @@ class IapProductIds {
       };
 
   /// Maps a Play Console base-plan ID onto our weekly/monthly/annual SKUs.
+  ///
+  /// Console IDs are `fluentapremiumweekly`, `fluentapremiummonthly`, and
+  /// `fluentapremiumannual` under product [playSubscriptionProduct].
   static String? idForPlayBasePlan(String basePlanId) {
-    final id = basePlanId.toLowerCase();
-    if (id == weekly || id == 'weekly' || id.endsWith('.weekly')) {
-      return weekly;
-    }
-    if (id == monthly || id == 'monthly' || id.endsWith('.monthly')) {
-      return monthly;
-    }
-    if (id == annual ||
-        id == 'annual' ||
-        id == 'yearly' ||
-        id.endsWith('.annual')) {
-      return annual;
-    }
+    final id = basePlanId.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '');
+    if (id.endsWith('weekly')) return weekly;
+    if (id.endsWith('monthly')) return monthly;
+    if (id.endsWith('annual') || id.endsWith('yearly')) return annual;
     return null;
   }
 

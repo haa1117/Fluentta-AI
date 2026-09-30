@@ -1583,6 +1583,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'El chat con IA necesita conexión a internet.';
 
   @override
+  String get chatTimedOut =>
+      'La IA tardó demasiado en responder. No se usó ningún corazón. Inténtalo de nuevo.';
+
+  @override
   String get chatReadRepliesAloud => 'Leer respuestas en voz alta';
 
   @override
@@ -2036,6 +2040,22 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get lessonCompleteTitle => '¡Lección completada!';
+
+  @override
+  String levelCompleteTitle(String level) {
+    return '¡$level completado!';
+  }
+
+  @override
+  String levelCompleteBody(String level) {
+    return 'Terminaste todas las lecciones de $level.';
+  }
+
+  @override
+  String get courseCompleteTitle => '¡Terminaste todas las lecciones!';
+
+  @override
+  String get courseCompleteBody => 'Completaste todos los niveles, de A1 a C2.';
 
   @override
   String youLearnedLesson(String title) {

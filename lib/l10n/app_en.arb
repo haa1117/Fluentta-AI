@@ -854,6 +854,7 @@
   "chatLock": "Lock",
   "chatSpeechUnavailable": "Microphone unavailable. Please check permissions.",
   "chatNeedsInternet": "AI chat needs an internet connection.",
+  "chatTimedOut": "The AI took too long to reply. No heart was used. Please try again.",
   "chatReadRepliesAloud": "Read replies aloud",
   "chatPlay": "Play",
   "chatPlaying": "Playing",
@@ -1103,6 +1104,24 @@
   "resumeLessonButton": "Resume",
   "whatYouHaveLearnedToday": "WHAT YOU HAVE LEARNED TODAY",
   "lessonCompleteTitle": "Lesson complete!",
+  "levelCompleteTitle": "{level} complete!",
+  "@levelCompleteTitle": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "levelCompleteBody": "You finished every {level} lesson.",
+  "@levelCompleteBody": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "courseCompleteTitle": "You finished every lesson!",
+  "courseCompleteBody": "Every level from A1 to C2 is complete.",
   "youLearnedLesson": "You learned {title}.",
   "@youLearnedLesson": {
     "placeholders": {

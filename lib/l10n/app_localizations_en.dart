@@ -1573,6 +1573,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chatNeedsInternet => 'AI chat needs an internet connection.';
 
   @override
+  String get chatTimedOut =>
+      'The AI took too long to reply. No heart was used. Please try again.';
+
+  @override
   String get chatReadRepliesAloud => 'Read replies aloud';
 
   @override
@@ -2015,6 +2019,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lessonCompleteTitle => 'Lesson complete!';
+
+  @override
+  String levelCompleteTitle(String level) {
+    return '$level complete!';
+  }
+
+  @override
+  String levelCompleteBody(String level) {
+    return 'You finished every $level lesson.';
+  }
+
+  @override
+  String get courseCompleteTitle => 'You finished every lesson!';
+
+  @override
+  String get courseCompleteBody => 'Every level from A1 to C2 is complete.';
 
   @override
   String youLearnedLesson(String title) {

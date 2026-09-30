@@ -590,6 +590,7 @@
   "openChatPracticeTitle": "Abrir Chat de Práctica",
   "chatAiDisclaimer": "Fluenta es IA y puede cometer errores.",
   "chatNeedsInternet": "El chat con IA necesita conexión a internet.",
+  "chatTimedOut": "La IA tardó demasiado en responder. No se usó ningún corazón. Inténtalo de nuevo.",
   "textMode": "Modo Texto",
   "chatGreeting": "¡Hola! ¿Qué te gustaría practicar hoy?",
   "chatGreetingNamed": "¡Hola, {name}! ¿Qué te gustaría practicar hoy?",
@@ -702,6 +703,10 @@
   "resumeLessonButton": "Reanudar",
   "whatYouHaveLearnedToday": "LO QUE HAS APRENDIDO HOY",
   "lessonCompleteTitle": "¡Lección completada!",
+  "levelCompleteTitle": "¡{level} completado!",
+  "levelCompleteBody": "Terminaste todas las lecciones de {level}.",
+  "courseCompleteTitle": "¡Terminaste todas las lecciones!",
+  "courseCompleteBody": "Completaste todos los niveles, de A1 a C2.",
   "youLearnedLesson": "Aprendiste {title}.",
   "@youLearnedLesson": {
     "placeholders": {

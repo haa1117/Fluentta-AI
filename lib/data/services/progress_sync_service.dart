@@ -45,6 +45,7 @@ class ProgressSyncService {
 
   final List<LessonProgressModel> _pendingWrites = [];
   int? _pendingLivesWrite;
+  Future<void>? _livesPushTail;
   bool _pendingStatsSync = false;
   bool _pendingDailyGoalSync = false;
   final List<VoidCallback> _mergeListeners = [];
@@ -82,9 +83,11 @@ class ProgressSyncService {
   void resetLocalCaches() {
     _pendingWrites.clear();
     _pendingLivesWrite = null;
+    _livesPushTail = null;
     _pendingStatsSync = false;
     _pendingDailyGoalSync = false;
     _lastPullUid = null;
+    clearCurriculumCelebration();
     _progressRepository.reset();
   }
 
@@ -104,6 +107,35 @@ class ProgressSyncService {
   String lastNextLessonState = 'module_completed';
   String? lastNextLessonId;
   int? lastNextLessonNumber;
+
+  /// Set when the lesson that just finished was the last core lesson of its
+  /// CEFR level (30 vocabulary, grammar, and reading lessons).
+  bool lastLevelJustCompleted = false;
+
+  /// Set together with [lastLevelJustCompleted] when A1 through C2 are all done.
+  bool lastCourseJustCompleted = false;
+  String? lastCompletedLevelCode;
+
+  void noteCurriculumCompletion({
+    required CefrLevel level,
+    required bool alreadyCompleted,
+  }) {
+    lastLevelJustCompleted = false;
+    lastCourseJustCompleted = false;
+    lastCompletedLevelCode = null;
+    if (alreadyCompleted) return;
+    if (!_progressRepository.isCoreCurriculumComplete(level)) return;
+    lastLevelJustCompleted = true;
+    lastCompletedLevelCode = level.code;
+    lastCourseJustCompleted = CefrLevel.values
+        .every(_progressRepository.isCoreCurriculumComplete);
+  }
+
+  void clearCurriculumCelebration() {
+    lastLevelJustCompleted = false;
+    lastCourseJustCompleted = false;
+    lastCompletedLevelCode = null;
+  }
 
   void rememberNextLesson({
     required String? nextLessonId,
@@ -161,7 +193,7 @@ class ProgressSyncService {
 
   Future<void> onLivesChanged(int lives) async {
     _pendingLivesWrite = lives;
-    await _pushLives(lives);
+    await _drainLivesPush();
   }
 
   Future<void> onProgressChanged(LessonProgressModel progress) async {
@@ -212,7 +244,7 @@ class ProgressSyncService {
     lastModuleCompletionBonusXp = LessonXpRewards.coreModuleComplete;
   }
 
-  /// PRD 4.2.3 — Premium learners get the +5 lesson boost automatically,
+  /// PRD 4.2.3 — Premium learners get the watch-ad XP boost automatically,
   /// without watching an ad. Shares the claimed-set with the rewarded boost
   /// so a free→Premium user can never collect it twice.
   Future<void> _maybeAutoGrantPremiumXpBoost(String lessonId) async {
@@ -432,11 +464,23 @@ class ProgressSyncService {
     }
   }
 
-  Future<void> _pushLives(int lives) async {
-    final uid = _uid;
-    if (uid == null) return;
-    if (!await _isOnline) return;
+  /// Writes hearts one at a time and always finishes on the latest balance.
+  /// Overlapping updates (spend, then refund) used to let the older write
+  /// land last and put the spent heart back.
+  Future<void> _drainLivesPush() {
+    final previous = _livesPushTail ?? Future<void>.value();
+    final next = previous
+        .catchError((Object _, StackTrace _) async {})
+        .then((_) => _pushLatestLives());
+    _livesPushTail = next.catchError((Object _, StackTrace _) async {});
+    return next;
+  }
 
+  Future<void> _pushLatestLives() async {
+    final lives = _pendingLivesWrite;
+    if (lives == null) return;
+    final uid = _uid;
+    if (uid == null || !await _isOnline) return;
     await _userRepository.updateLives(uid: uid, lives: lives);
     if (_pendingLivesWrite == lives) {
       _pendingLivesWrite = null;
@@ -444,14 +488,8 @@ class ProgressSyncService {
   }
 
   Future<void> _flushPendingLives(String uid) async {
-    final pending = _pendingLivesWrite;
-    if (pending == null) return;
-    if (!await _isOnline) return;
-
-    await _userRepository.updateLives(uid: uid, lives: pending);
-    if (_pendingLivesWrite == pending) {
-      _pendingLivesWrite = null;
-    }
+    if (_pendingLivesWrite == null || uid != _uid) return;
+    await _drainLivesPush();
   }
 
   Future<void> _pullLives(String uid) async {

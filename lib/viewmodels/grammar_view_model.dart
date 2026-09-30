@@ -238,6 +238,10 @@ class GrammarViewModel extends ChangeNotifier {
       nextWasLocked: nextLesson?.status == LearningLessonStatus.locked,
       alreadyCompleted: alreadyCompleted,
     );
+    _syncService.noteCurriculumCompletion(
+      level: _level,
+      alreadyCompleted: alreadyCompleted,
+    );
 
     unawaited(_loadLessons());
     return NewlyUnlockedContent.compute(

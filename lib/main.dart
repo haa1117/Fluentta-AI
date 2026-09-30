@@ -402,6 +402,7 @@ class FluentaApp extends StatelessWidget {
             context.read<LearningStatsService>(),
             context.read<ProgressSyncService>(),
             context.read<EntitlementsService>(),
+            context.read<ProgressRepository>(),
           ),
         ),
       ],

@@ -7,6 +7,22 @@ class PronunciationWordFeedback {
     this.weakCharIndices = const [],
   });
 
+  factory PronunciationWordFeedback.fromJson(Map<String, dynamic> json) {
+    final indices = json['weakCharIndices'];
+    final sounds = json['weakSounds'];
+    return PronunciationWordFeedback(
+      word: json['word'] as String? ?? '',
+      confidence: (json['confidence'] as num?)?.round().clamp(0, 100) ?? 0,
+      spokenWord: json['spokenWord'] as String?,
+      weakSounds: sounds is List
+          ? sounds.map((sound) => sound.toString()).toList()
+          : const [],
+      weakCharIndices: indices is List
+          ? indices.map((index) => (index as num).round()).toList()
+          : const [],
+    );
+  }
+
   final String word;
   final int confidence;
   final String? spokenWord;
@@ -29,6 +45,25 @@ class PronunciationAssessmentResult {
   final List<PronunciationWordFeedback> words;
   final String transcript;
   final bool heardAnything;
+
+  factory PronunciationAssessmentResult.fromJson(Map<String, dynamic> json) {
+    final rawWords = json['words'];
+    return PronunciationAssessmentResult(
+      overallScore: (json['overallScore'] as num?)?.round().clamp(0, 100) ?? 0,
+      words: rawWords is List
+          ? rawWords
+              .whereType<Map>()
+              .map(
+                (word) => PronunciationWordFeedback.fromJson(
+                  Map<String, dynamic>.from(word),
+                ),
+              )
+              .toList()
+          : const [],
+      transcript: json['transcript'] as String? ?? '',
+      heardAnything: json['heardAnything'] as bool? ?? true,
+    );
+  }
 
   /// Words flagged for practice, or one session when feedback shows room to improve.
   int get correctionCount {

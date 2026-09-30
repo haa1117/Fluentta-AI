@@ -232,6 +232,10 @@ class ReadingViewModel extends ChangeNotifier {
       skipXp: alreadyCompleted,
     );
 
+    _syncService.noteCurriculumCompletion(
+      level: _level,
+      alreadyCompleted: alreadyCompleted,
+    );
     _syncService.rememberNextLesson(
       nextLessonId: nextId,
       nextLessonNumber: nextLesson?.number,
