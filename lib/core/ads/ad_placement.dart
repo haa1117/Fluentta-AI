@@ -3,6 +3,7 @@ enum AdPlacement {
   onboardingNative('onboarding_native'),
   languageNative('language_native'),
   splashInterstitial('splash_interstitial'),
+  exitInterstitial('exit_interstitial'),
   homeBanner('home_banner'),
   learnBanner('learn_banner'),
   setupBanner('setup_banner'),
@@ -31,7 +32,8 @@ enum AdPlacement {
 
   bool get isInterstitial =>
       this == AdPlacement.splashInterstitial ||
-      this == AdPlacement.lessonInterstitial;
+      this == AdPlacement.lessonInterstitial ||
+      this == AdPlacement.exitInterstitial;
 
   bool get isRewarded =>
       this == AdPlacement.rewardedXpBoost ||
