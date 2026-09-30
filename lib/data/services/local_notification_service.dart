@@ -11,6 +11,8 @@ class LocalNotificationService {
   static const int _scheduledDaysAhead = 14;
   static const String _channelId = 'daily_practice_reminder';
   static const String _channelName = 'Daily practice reminders';
+  static const String pushChannelId = 'fluenta_push';
+  static const String _pushChannelName = 'Fluenta';
   static const String _androidIcon = '@drawable/ic_notification';
 
   final FlutterLocalNotificationsPlugin _plugin =
@@ -52,7 +54,54 @@ class LocalNotificationService {
           ),
         );
 
+    await _plugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(
+          const AndroidNotificationChannel(
+            pushChannelId,
+            _pushChannelName,
+            description: 'Practice reminders and announcements from Fluenta',
+            importance: Importance.high,
+            playSound: true,
+            enableVibration: true,
+          ),
+        );
+
     _initialized = true;
+  }
+
+  Future<void> showIncomingPush({
+    String? title,
+    String? body,
+  }) async {
+    await initialize();
+    final resolvedTitle = (title ?? '').trim();
+    final resolvedBody = (body ?? '').trim();
+    if (resolvedTitle.isEmpty && resolvedBody.isEmpty) return;
+
+    const androidDetails = AndroidNotificationDetails(
+      pushChannelId,
+      _pushChannelName,
+      channelDescription: 'Practice reminders and announcements from Fluenta',
+      importance: Importance.high,
+      priority: Priority.high,
+      icon: _androidIcon,
+      playSound: true,
+      enableVibration: true,
+    );
+    const iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    await _plugin.show(
+      DateTime.now().millisecondsSinceEpoch.remainder(100000),
+      resolvedTitle.isEmpty ? 'Fluenta' : resolvedTitle,
+      resolvedBody,
+      const NotificationDetails(android: androidDetails, iOS: iosDetails),
+    );
   }
 
   Future<void> _configureLocalTimeZone() async {
@@ -129,6 +178,7 @@ class LocalNotificationService {
     required LocalStorage storage,
     required AppLocalizations l10n,
   }) async {
+    if (!storage.hasShownNotificationPrompt) return;
     if (!storage.notificationsEnabled || !storage.dailyReminderEnabled) {
       await cancelDailyReminder();
       return;

@@ -72,6 +72,11 @@
 	<string>Fluenta AI needs microphone access to check your pronunciation.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Fluentta uses speech recognition to score your pronunciation practice.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+		<string>fetch</string>
+	</array>
 	<key>FlutterDeepLinkingEnabled</key>
 	<true/>
 	<key>CFBundleURLTypes</key>

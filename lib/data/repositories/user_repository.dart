@@ -144,6 +144,20 @@ class UserRepository {
     );
   }
 
+  Future<void> saveFcmToken({
+    required String uid,
+    required String token,
+  }) async {
+    await _userDoc(uid).set(
+      {
+        'fcmToken': token,
+        'fcmTokenUpdatedAt': FieldValue.serverTimestamp(),
+        'updatedAt': FieldValue.serverTimestamp(),
+      },
+      SetOptions(merge: true),
+    );
+  }
+
   Future<UserModel?> getUser(String uid) async {
     final snapshot = await _userDoc(uid).get();
     if (!snapshot.exists) return null;
