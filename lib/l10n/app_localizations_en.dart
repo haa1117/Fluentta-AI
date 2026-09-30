@@ -2096,4 +2096,180 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get featureNeedsInternet => 'This needs an internet connection.';
+
+  @override
+  String get loadingAd => 'LOADING AD';
+
+  @override
+  String get reportingApp => 'REPORTING APP';
+
+  @override
+  String get allowNotificationsTitle => 'Stay on track';
+
+  @override
+  String get allowNotificationsMessage =>
+      'Allow notifications so Fluenta can remind you to practice every day.';
+
+  @override
+  String get allowNotificationsAllow => 'Allow';
+
+  @override
+  String get allowNotificationsLater => 'Not now';
+
+  @override
+  String get updateAvailableTitle => 'Update available';
+
+  @override
+  String get updateAvailableMessage =>
+      'A newer version of Fluenta is ready. Update now for the latest lessons and fixes.';
+
+  @override
+  String get updateNow => 'Update';
+
+  @override
+  String get updateLater => 'Later';
+
+  @override
+  String get connectToWatchAdTitle => 'Connect to watch an ad';
+
+  @override
+  String get connectToWatchAdMessage =>
+      'Turn on internet, then we\'ll play the rewarded ad.';
+
+  @override
+  String get adLabel => 'Ad';
+
+  @override
+  String setupStepOf(int current, int total) {
+    return 'STEP $current OF $total';
+  }
+
+  @override
+  String get iapPurchaseFailed => 'Purchase failed. Please try again.';
+
+  @override
+  String get iapInvalidProduct => 'Invalid product selection.';
+
+  @override
+  String get iapBillingUnavailable =>
+      'Google Play Billing is not available on this device.';
+
+  @override
+  String iapProductNotFound(String productId) {
+    return 'Product not found in Play Store: $productId';
+  }
+
+  @override
+  String get iapPurchaseInProgress =>
+      'Another purchase is already in progress.';
+
+  @override
+  String get iapCouldNotStart => 'Could not start purchase.';
+
+  @override
+  String get iapPurchaseTimedOut => 'Purchase timed out.';
+
+  @override
+  String get iapPremiumRestored => 'Premium access restored.';
+
+  @override
+  String get iapNoSubscriptionToRestore =>
+      'No active subscription found to restore.';
+
+  @override
+  String get iapPurchaseCanceled => 'Purchase canceled.';
+
+  @override
+  String get iapPremiumUnlocked => 'Premium unlocked.';
+
+  @override
+  String get iapUnknownProduct => 'Unknown product purchased.';
+
+  @override
+  String get privacyOptions => 'Privacy Settings';
+
+  @override
+  String get privacyOptionsSub => 'Manage your ad and data choices';
+
+  @override
+  String get tutorialTitle => 'App Tutorial';
+
+  @override
+  String get tutorialSubtitle => 'See how to use the app';
+
+  @override
+  String get tutorialNext => 'Next';
+
+  @override
+  String get tutorialDone => 'Got it';
+
+  @override
+  String get tutorialClose => 'Close tutorial';
+
+  @override
+  String tutorialStepCount(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
+  String get tutorialLearnTitle => 'Lessons for every skill';
+
+  @override
+  String get tutorialPronunciationTitle => 'Check your pronunciation';
+
+  @override
+  String get tutorialHeartsTitle => 'What are hearts?';
+
+  @override
+  String get tutorialPracticeTitle => 'Practice English here';
+
+  @override
+  String get tutorialPracticeBody =>
+      'Open Today\'s Lesson to practice English every day. Finish it to earn XP and keep your streak going.';
+
+  @override
+  String get tutorialAiChatTitle => 'Chat with your AI Tutor';
+
+  @override
+  String get tutorialAiChatBody =>
+      'Tap Start AI Chat, then type or speak in English about any topic and get instant corrections. Each AI reply uses 1 heart.';
+
+  @override
+  String get tutorialLearnBody =>
+      'The Learn tab has Vocabulary, Grammar and Reading. Pick a lesson and finish it to earn XP.';
+
+  @override
+  String get tutorialLevelsTitle => 'How levels unlock';
+
+  @override
+  String get tutorialLevelsBody =>
+      'Levels go from A1 upward. Finish the core lessons of a level and earn enough XP to unlock the next one. Tap a locked level to see what you still need.';
+
+  @override
+  String get tutorialScenariosTitle => 'Where to find Role Play';
+
+  @override
+  String get tutorialScenariosBody =>
+      'Open the Role Play tab and swipe through the scenarios, like job interviews, ordering food or the airport. Tap one to practice a real conversation.';
+
+  @override
+  String get tutorialPronunciationBody =>
+      'Tap Start Practice, read the phrase out loud and get a score with feedback. Try again to improve. Each check uses 1 heart.';
+
+  @override
+  String get tutorialHeartsBody =>
+      'Hearts power the AI features: each AI reply and each pronunciation check uses 1. They refill every day. Out of hearts? Watch a short ad or go Pro for unlimited.';
+
+  @override
+  String get tutorialProfileTitle => 'Your profile and settings';
+
+  @override
+  String get tutorialProfileBody =>
+      'Track your progress, change language and reminders, and manage Pro here. You can replay this tutorial any time from Support & Legal.';
+
+  @override
+  String get moreApps => 'More Apps';
+
+  @override
+  String get moreAppsSub => 'Other apps by Futurewatch';
 }

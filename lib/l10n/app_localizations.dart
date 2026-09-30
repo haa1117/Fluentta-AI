@@ -3839,6 +3839,318 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This needs an internet connection.'**
   String get featureNeedsInternet;
+
+  /// No description provided for @loadingAd.
+  ///
+  /// In en, this message translates to:
+  /// **'LOADING AD'**
+  String get loadingAd;
+
+  /// No description provided for @reportingApp.
+  ///
+  /// In en, this message translates to:
+  /// **'REPORTING APP'**
+  String get reportingApp;
+
+  /// No description provided for @allowNotificationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay on track'**
+  String get allowNotificationsTitle;
+
+  /// No description provided for @allowNotificationsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow notifications so Fluenta can remind you to practice every day.'**
+  String get allowNotificationsMessage;
+
+  /// No description provided for @allowNotificationsAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get allowNotificationsAllow;
+
+  /// No description provided for @allowNotificationsLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get allowNotificationsLater;
+
+  /// No description provided for @updateAvailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update available'**
+  String get updateAvailableTitle;
+
+  /// No description provided for @updateAvailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'A newer version of Fluenta is ready. Update now for the latest lessons and fixes.'**
+  String get updateAvailableMessage;
+
+  /// No description provided for @updateNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get updateNow;
+
+  /// No description provided for @updateLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get updateLater;
+
+  /// No description provided for @connectToWatchAdTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect to watch an ad'**
+  String get connectToWatchAdTitle;
+
+  /// No description provided for @connectToWatchAdMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on internet, then we\'ll play the rewarded ad.'**
+  String get connectToWatchAdMessage;
+
+  /// No description provided for @adLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad'**
+  String get adLabel;
+
+  /// No description provided for @setupStepOf.
+  ///
+  /// In en, this message translates to:
+  /// **'STEP {current} OF {total}'**
+  String setupStepOf(int current, int total);
+
+  /// No description provided for @iapPurchaseFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase failed. Please try again.'**
+  String get iapPurchaseFailed;
+
+  /// No description provided for @iapInvalidProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid product selection.'**
+  String get iapInvalidProduct;
+
+  /// No description provided for @iapBillingUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play Billing is not available on this device.'**
+  String get iapBillingUnavailable;
+
+  /// No description provided for @iapProductNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Product not found in Play Store: {productId}'**
+  String iapProductNotFound(String productId);
+
+  /// No description provided for @iapPurchaseInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Another purchase is already in progress.'**
+  String get iapPurchaseInProgress;
+
+  /// No description provided for @iapCouldNotStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not start purchase.'**
+  String get iapCouldNotStart;
+
+  /// No description provided for @iapPurchaseTimedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase timed out.'**
+  String get iapPurchaseTimedOut;
+
+  /// No description provided for @iapPremiumRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium access restored.'**
+  String get iapPremiumRestored;
+
+  /// No description provided for @iapNoSubscriptionToRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'No active subscription found to restore.'**
+  String get iapNoSubscriptionToRestore;
+
+  /// No description provided for @iapPurchaseCanceled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase canceled.'**
+  String get iapPurchaseCanceled;
+
+  /// No description provided for @iapPremiumUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium unlocked.'**
+  String get iapPremiumUnlocked;
+
+  /// No description provided for @iapUnknownProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown product purchased.'**
+  String get iapUnknownProduct;
+
+  /// No description provided for @privacyOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Settings'**
+  String get privacyOptions;
+
+  /// No description provided for @privacyOptionsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your ad and data choices'**
+  String get privacyOptionsSub;
+
+  /// No description provided for @tutorialTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App Tutorial'**
+  String get tutorialTitle;
+
+  /// No description provided for @tutorialSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See how to use the app'**
+  String get tutorialSubtitle;
+
+  /// No description provided for @tutorialNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get tutorialNext;
+
+  /// No description provided for @tutorialDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get tutorialDone;
+
+  /// No description provided for @tutorialClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close tutorial'**
+  String get tutorialClose;
+
+  /// No description provided for @tutorialStepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {total}'**
+  String tutorialStepCount(int current, int total);
+
+  /// No description provided for @tutorialLearnTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons for every skill'**
+  String get tutorialLearnTitle;
+
+  /// No description provided for @tutorialPronunciationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your pronunciation'**
+  String get tutorialPronunciationTitle;
+
+  /// No description provided for @tutorialHeartsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What are hearts?'**
+  String get tutorialHeartsTitle;
+
+  /// No description provided for @tutorialPracticeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice English here'**
+  String get tutorialPracticeTitle;
+
+  /// No description provided for @tutorialPracticeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Today\'s Lesson to practice English every day. Finish it to earn XP and keep your streak going.'**
+  String get tutorialPracticeBody;
+
+  /// No description provided for @tutorialAiChatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat with your AI Tutor'**
+  String get tutorialAiChatTitle;
+
+  /// No description provided for @tutorialAiChatBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap Start AI Chat, then type or speak in English about any topic and get instant corrections. Each AI reply uses 1 heart.'**
+  String get tutorialAiChatBody;
+
+  /// No description provided for @tutorialLearnBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The Learn tab has Vocabulary, Grammar and Reading. Pick a lesson and finish it to earn XP.'**
+  String get tutorialLearnBody;
+
+  /// No description provided for @tutorialLevelsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How levels unlock'**
+  String get tutorialLevelsTitle;
+
+  /// No description provided for @tutorialLevelsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Levels go from A1 upward. Finish the core lessons of a level and earn enough XP to unlock the next one. Tap a locked level to see what you still need.'**
+  String get tutorialLevelsBody;
+
+  /// No description provided for @tutorialScenariosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where to find Role Play'**
+  String get tutorialScenariosTitle;
+
+  /// No description provided for @tutorialScenariosBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the Role Play tab and swipe through the scenarios, like job interviews, ordering food or the airport. Tap one to practice a real conversation.'**
+  String get tutorialScenariosBody;
+
+  /// No description provided for @tutorialPronunciationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap Start Practice, read the phrase out loud and get a score with feedback. Try again to improve. Each check uses 1 heart.'**
+  String get tutorialPronunciationBody;
+
+  /// No description provided for @tutorialHeartsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Hearts power the AI features: each AI reply and each pronunciation check uses 1. They refill every day. Out of hearts? Watch a short ad or go Pro for unlimited.'**
+  String get tutorialHeartsBody;
+
+  /// No description provided for @tutorialProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile and settings'**
+  String get tutorialProfileTitle;
+
+  /// No description provided for @tutorialProfileBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your progress, change language and reminders, and manage Pro here. You can replay this tutorial any time from Support & Legal.'**
+  String get tutorialProfileBody;
+
+  /// No description provided for @moreApps.
+  ///
+  /// In en, this message translates to:
+  /// **'More Apps'**
+  String get moreApps;
+
+  /// No description provided for @moreAppsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Other apps by Futurewatch'**
+  String get moreAppsSub;
 }
 
 class _AppLocalizationsDelegate

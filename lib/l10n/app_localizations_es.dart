@@ -554,7 +554,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navLearn => 'Aprender';
 
   @override
-  String get navSpeak => 'Role Play';
+  String get navSpeak => 'Juego de roles';
 
   @override
   String get navProfile => 'Perfil';
@@ -694,10 +694,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get beginnerLevel => 'Principiante';
 
   @override
-  String get speakTitle => 'Role Play';
+  String get speakTitle => 'Juego de roles';
 
   @override
-  String get rolePlayTitle => 'Role Play';
+  String get rolePlayTitle => 'Juego de roles';
 
   @override
   String get speakSubtitle => 'Practica hablar con tu tutor de IA';
@@ -1509,10 +1509,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get textMode => 'Modo Texto';
 
   @override
-  String get chatTextMode => 'Text Mode';
+  String get chatTextMode => 'Modo texto';
 
   @override
-  String get chatVoiceMode => 'Voice Mode';
+  String get chatVoiceMode => 'Modo voz';
 
   @override
   String get chatGreeting => '¡Hola! ¿Qué te gustaría practicar hoy?';
@@ -1523,72 +1523,73 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get chatQuickStarterLesson => 'Teach me step by step';
+  String get chatQuickStarterLesson => 'Enséñame paso a paso';
 
   @override
-  String get chatQuickStarterGrammar => 'Practice grammar';
+  String get chatQuickStarterGrammar => 'Practicar gramática';
 
   @override
-  String get chatQuickStarterDaily => 'Everyday conversation';
+  String get chatQuickStarterDaily => 'Conversación cotidiana';
 
   @override
-  String get chatQuickStarterWork => 'English for work';
+  String get chatQuickStarterWork => 'Inglés para el trabajo';
 
   @override
-  String get chatQuickStarterOpenTopic => 'Just chat';
+  String get chatQuickStarterOpenTopic => 'Solo charlar';
 
   @override
-  String get chatQuickStarterTravel => 'Travel';
+  String get chatQuickStarterTravel => 'Viajes';
 
   @override
-  String get chatCorrectionLabel => 'CORRECTION';
+  String get chatCorrectionLabel => 'CORRECCIÓN';
 
   @override
-  String get chatYourSentence => 'Your sentence:';
+  String get chatYourSentence => 'Tu frase:';
 
   @override
-  String get chatCorrectSentence => 'Correct sentence:';
+  String get chatCorrectSentence => 'Frase correcta:';
 
   @override
-  String get chatTipPrefix => 'Tip:';
+  String get chatTipPrefix => 'Consejo:';
 
   @override
-  String get chatTypeHint => 'Type your text here';
+  String get chatTypeHint => 'Escribe tu texto aquí';
 
   @override
-  String get chatHoldToSpeak => 'Hold to Speak';
+  String get chatHoldToSpeak => 'Mantén para hablar';
 
   @override
-  String get chatListening => 'Listening...';
+  String get chatListening => 'Escuchando...';
 
   @override
-  String get chatReleaseToSend => 'Speak freely, then release to send voice';
+  String get chatReleaseToSend =>
+      'Habla con libertad y suelta para enviar la voz';
 
   @override
-  String get chatTapToSend => 'Speak freely, then tap to send voice';
+  String get chatTapToSend => 'Habla con libertad y toca para enviar la voz';
 
   @override
-  String get chatCancel => 'Cancel';
+  String get chatCancel => 'Cancelar';
 
   @override
-  String get chatLock => 'Lock';
+  String get chatLock => 'Bloquear';
 
   @override
   String get chatSpeechUnavailable =>
-      'Microphone unavailable. Please check permissions.';
+      'Micrófono no disponible. Revisa los permisos.';
 
   @override
   String get chatNeedsInternet =>
       'El chat con IA necesita conexión a internet.';
 
   @override
-  String get chatReadRepliesAloud => 'Read replies aloud';
+  String get chatReadRepliesAloud => 'Leer respuestas en voz alta';
 
   @override
-  String get chatPlay => 'Play';
+  String get chatPlay => 'Reproducir';
 
   @override
-  String get chatPlaying => 'Playing';
+  String get chatPlaying => 'Reproduciendo';
 
   @override
   String get chatAiDisclaimer => 'Fluenta es IA y puede cometer errores.';
@@ -1618,16 +1619,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String heartsRefilledMessage(int count) {
-    return '+$count Hearts added. Keep practicing!';
+    return '+$count corazones añadidos. ¡Sigue practicando!';
   }
 
   @override
   String get heartRefillCapReached =>
-      'You\'ve used all your ad refills today. Come back tomorrow or go unlimited.';
+      'Has usado todas tus recargas con anuncios de hoy. Vuelve mañana o pasa a ilimitado.';
 
   @override
   String get adNotAvailable =>
-      'No ad available right now. Please try again shortly.';
+      'No hay anuncios disponibles ahora. Inténtalo de nuevo en un momento.';
 
   @override
   String get playingPhrase => 'Reproduciendo frase...';
@@ -1713,54 +1714,58 @@ class AppLocalizationsEs extends AppLocalizations {
       'Aprende palabras clave de reuniones';
 
   @override
-  String get scenarioJobInterviewQuickSub => 'Answer job interview questions';
+  String get scenarioJobInterviewQuickSub =>
+      'Responde preguntas de entrevistas de trabajo';
 
   @override
-  String get scenarioOrderFoodQuickSub => 'Answer restaurant questions';
+  String get scenarioOrderFoodQuickSub => 'Responde preguntas de restaurante';
 
   @override
-  String get scenarioAtAirportQuickSub => 'Answer airport travel questions';
+  String get scenarioAtAirportQuickSub =>
+      'Responde preguntas de viaje en el aeropuerto';
 
   @override
-  String get scenarioDoctorVisitQuickSub => 'Answer doctor visit questions';
+  String get scenarioDoctorVisitQuickSub =>
+      'Responde preguntas de la visita al médico';
 
   @override
-  String get scenarioSmallTalkQuickSub => 'Answer small talk questions';
+  String get scenarioSmallTalkQuickSub =>
+      'Responde preguntas de conversación informal';
 
   @override
   String get scenarioBusinessMeetingQuickSub =>
-      'Answer business meeting questions';
+      'Responde preguntas de reuniones de negocios';
 
   @override
   String roleplayQuestionsLearned(int count) {
-    return '$count Questions Learned';
+    return '$count preguntas aprendidas';
   }
 
   @override
   String roleplayLessonCompleted(int lessonNumber) {
-    return 'You have completed Lesson $lessonNumber successfully';
+    return 'Has completado la lección $lessonNumber con éxito';
   }
 
   @override
-  String get dialogue => 'Dialogue';
+  String get dialogue => 'Diálogo';
 
   @override
-  String get comprehension => 'Comprehension';
+  String get comprehension => 'Comprensión';
 
   @override
-  String get roleplayDialogueSub => 'Practice the conversation';
+  String get roleplayDialogueSub => 'Practica la conversación';
 
   @override
-  String get roleplayComprehensionSub => 'Check your understanding';
+  String get roleplayComprehensionSub => 'Comprueba lo que has entendido';
 
   @override
   String roleplayXpPerLesson(int xp) {
-    return '+$xp XP/Lesson';
+    return '+$xp XP/lección';
   }
 
   @override
   String roleplayLevelLocked(int xp) {
-    return 'Reach $xp XP to unlock this level';
+    return 'Alcanza $xp XP para desbloquear este nivel';
   }
 
   @override
@@ -1777,28 +1782,28 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String cefrLevelLockedXp(int xp) {
-    return 'Reach $xp XP to unlock this level';
+    return 'Alcanza $xp XP para desbloquear este nivel';
   }
 
   @override
   String xpEarnedCelebration(int xp) {
-    return '+$xp XP Earned';
+    return '+$xp XP ganados';
   }
 
   @override
-  String get boostYourXp => 'Boost Your XP';
+  String get boostYourXp => 'Aumenta tu XP';
 
   @override
-  String get watchShortAd => 'Watch a short ad';
+  String get watchShortAd => 'Mira un anuncio corto';
 
   @override
   String boostXpButton(int xp) {
-    return 'Boost +$xp XP';
+    return 'Aumentar +$xp XP';
   }
 
   @override
   String xpBoostApplied(int xp) {
-    return '+$xp XP boost applied!';
+    return '¡Bonificación de +$xp XP aplicada!';
   }
 
   @override
@@ -1961,7 +1966,7 @@ class AppLocalizationsEs extends AppLocalizations {
       '50% de descuento el primer año: \$19.99 en lugar de \$39.99';
 
   @override
-  String get fiftyPercentOff => '50% OFF';
+  String get fiftyPercentOff => '50% DTO.';
 
   @override
   String get annualPro => 'Pro Anual';
@@ -2112,4 +2117,179 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get featureNeedsInternet => 'Esto necesita una conexión a internet.';
+
+  @override
+  String get loadingAd => 'CARGANDO ANUNCIO';
+
+  @override
+  String get reportingApp => 'INFORMANDO A LA APP';
+
+  @override
+  String get allowNotificationsTitle => 'Sigue tu racha';
+
+  @override
+  String get allowNotificationsMessage =>
+      'Activa las notificaciones para que Fluenta te recuerde practicar cada día.';
+
+  @override
+  String get allowNotificationsAllow => 'Permitir';
+
+  @override
+  String get allowNotificationsLater => 'Ahora no';
+
+  @override
+  String get updateAvailableTitle => 'Actualización disponible';
+
+  @override
+  String get updateAvailableMessage =>
+      'Hay una versión nueva de Fluenta. Actualiza para obtener las últimas lecciones y correcciones.';
+
+  @override
+  String get updateNow => 'Actualizar';
+
+  @override
+  String get updateLater => 'Más tarde';
+
+  @override
+  String get connectToWatchAdTitle => 'Conéctate para ver un anuncio';
+
+  @override
+  String get connectToWatchAdMessage =>
+      'Activa internet y luego reproduciremos el anuncio recompensado.';
+
+  @override
+  String get adLabel => 'Anuncio';
+
+  @override
+  String setupStepOf(int current, int total) {
+    return 'PASO $current DE $total';
+  }
+
+  @override
+  String get iapPurchaseFailed => 'La compra falló. Inténtalo de nuevo.';
+
+  @override
+  String get iapInvalidProduct => 'Selección de producto no válida.';
+
+  @override
+  String get iapBillingUnavailable =>
+      'Google Play Billing no está disponible en este dispositivo.';
+
+  @override
+  String iapProductNotFound(String productId) {
+    return 'Producto no encontrado en Play Store: $productId';
+  }
+
+  @override
+  String get iapPurchaseInProgress => 'Ya hay otra compra en curso.';
+
+  @override
+  String get iapCouldNotStart => 'No se pudo iniciar la compra.';
+
+  @override
+  String get iapPurchaseTimedOut => 'La compra agotó el tiempo de espera.';
+
+  @override
+  String get iapPremiumRestored => 'Acceso Premium restaurado.';
+
+  @override
+  String get iapNoSubscriptionToRestore =>
+      'No se encontró ninguna suscripción activa para restaurar.';
+
+  @override
+  String get iapPurchaseCanceled => 'Compra cancelada.';
+
+  @override
+  String get iapPremiumUnlocked => 'Premium desbloqueado.';
+
+  @override
+  String get iapUnknownProduct => 'Se compró un producto desconocido.';
+
+  @override
+  String get privacyOptions => 'Ajustes de privacidad';
+
+  @override
+  String get privacyOptionsSub => 'Gestiona tus opciones de anuncios y datos';
+
+  @override
+  String get tutorialTitle => 'Tutorial de la app';
+
+  @override
+  String get tutorialSubtitle => 'Descubre cómo usar la app';
+
+  @override
+  String get tutorialNext => 'Siguiente';
+
+  @override
+  String get tutorialDone => 'Entendido';
+
+  @override
+  String get tutorialClose => 'Cerrar tutorial';
+
+  @override
+  String tutorialStepCount(int current, int total) {
+    return '$current de $total';
+  }
+
+  @override
+  String get tutorialLearnTitle => 'Lecciones para cada habilidad';
+
+  @override
+  String get tutorialPronunciationTitle => 'Comprueba tu pronunciación';
+
+  @override
+  String get tutorialHeartsTitle => '¿Qué son los corazones?';
+
+  @override
+  String get tutorialPracticeTitle => 'Practica inglés aquí';
+
+  @override
+  String get tutorialPracticeBody =>
+      'Abre la lección de hoy para practicar inglés cada día. Termínala para ganar XP y mantener tu racha.';
+
+  @override
+  String get tutorialAiChatTitle => 'Charla con tu tutor de IA';
+
+  @override
+  String get tutorialAiChatBody =>
+      'Toca Iniciar chat IA y escribe o habla en inglés sobre cualquier tema para recibir correcciones al instante. Cada respuesta de la IA usa 1 corazón.';
+
+  @override
+  String get tutorialLearnBody =>
+      'La pestaña Aprender tiene Vocabulario, Gramática y Lectura. Elige una lección y termínala para ganar XP.';
+
+  @override
+  String get tutorialLevelsTitle => 'Cómo se desbloquean los niveles';
+
+  @override
+  String get tutorialLevelsBody =>
+      'Los niveles van de A1 hacia arriba. Termina las lecciones principales de un nivel y gana suficiente XP para desbloquear el siguiente. Toca un nivel bloqueado para ver qué te falta.';
+
+  @override
+  String get tutorialScenariosTitle => 'Dónde encontrar el juego de roles';
+
+  @override
+  String get tutorialScenariosBody =>
+      'Abre la pestaña Juego de roles y desliza por los escenarios, como entrevistas de trabajo, pedir comida o el aeropuerto. Toca uno para practicar una conversación real.';
+
+  @override
+  String get tutorialPronunciationBody =>
+      'Toca Comenzar práctica, lee la frase en voz alta y recibe una puntuación con comentarios. Inténtalo de nuevo para mejorar. Cada comprobación usa 1 corazón.';
+
+  @override
+  String get tutorialHeartsBody =>
+      'Los corazones dan energía a las funciones de IA: cada respuesta de la IA y cada comprobación de pronunciación usa 1. Se recargan cada día. ¿Sin corazones? Mira un anuncio corto o pasa a Pro para tenerlos ilimitados.';
+
+  @override
+  String get tutorialProfileTitle => 'Tu perfil y ajustes';
+
+  @override
+  String get tutorialProfileBody =>
+      'Sigue tu progreso, cambia el idioma y los recordatorios y gestiona Pro aquí. Puedes repetir este tutorial cuando quieras desde Soporte y legal.';
+
+  @override
+  String get moreApps => 'Más aplicaciones';
+
+  @override
+  String get moreAppsSub => 'Otras aplicaciones de Futurewatch';
 }

@@ -17,16 +17,26 @@
   "lessonNamedTitle": "سبق {number}: {title}",
   "@lessonNamedTitle": {
     "placeholders": {
-      "number": {"type": "int"},
-      "title": {"type": "String"}
+      "number": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
     }
   },
   "questionsProgress": "{done}/{total} سوالات • {status}",
   "@questionsProgress": {
     "placeholders": {
-      "done": {"type": "int"},
-      "total": {"type": "int"},
-      "status": {"type": "String"}
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "status": {
+        "type": "String"
+      }
     }
   },
   "learnUsefulPhrases": "AI اصلاح کے ساتھ مفید جملے سیکھیں",
@@ -42,19 +52,31 @@
   "roleplayTrackTitle": "{scenario} {track}",
   "@roleplayTrackTitle": {
     "placeholders": {
-      "scenario": {"type": "String"},
-      "track": {"type": "String"}
+      "scenario": {
+        "type": "String"
+      },
+      "track": {
+        "type": "String"
+      }
     }
   },
   "dayStreakLabel": "{days} دن کی سلسلہ وار مشق",
   "@dayStreakLabel": {
-    "placeholders": {"days": {"type": "int"}}
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   },
   "englishBasicsStep": "{index} / {label}",
   "@englishBasicsStep": {
     "placeholders": {
-      "index": {"type": "int"},
-      "label": {"type": "String"}
+      "index": {
+        "type": "int"
+      },
+      "label": {
+        "type": "String"
+      }
     }
   },
   "lessonPhase": "سبق کا مرحلہ",
@@ -204,27 +226,69 @@
   "savedWords": "محفوظ الفاظ",
   "savedWordsSub": "12 الفاظ دیکھنے ہیں",
   "savedWordsSubDynamic": "{count} محفوظ الفاظ",
-  "@savedWordsSubDynamic": {"placeholders": {"count": {"type": "int"}}},
+  "@savedWordsSubDynamic": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "vocabularySubDynamic": "{count} الفاظ دوبارہ دیکھنے ہیں",
-  "@vocabularySubDynamic": {"placeholders": {"count": {"type": "int"}}},
+  "@vocabularySubDynamic": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dailyVocabulary": "روزانہ الفاظ",
   "dailyVocabularySub": "5 نئے الفاظ • {count} دوبارہ دیکھنے",
-  "@dailyVocabularySub": {"placeholders": {"count": {"type": "int"}}},
+  "@dailyVocabularySub": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dailyVocabularyDoneSub": "آج مکمل • {count} دوبارہ دیکھنے",
-  "@dailyVocabularyDoneSub": {"placeholders": {"count": {"type": "int"}}},
+  "@dailyVocabularyDoneSub": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "freeAndUnlimited": "مفت اور لامحدود",
   "startDailyVocabulary": "روزانہ الفاظ شروع کریں",
   "todaysWords": "آج کے الفاظ",
   "todaysWordsDesc": "آج کے لیے {count} نئے الفاظ سیکھیں۔",
-  "@todaysWordsDesc": {"placeholders": {"count": {"type": "int"}}},
+  "@todaysWordsDesc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dailyVocabularyComplete": "روزانہ الفاظ مکمل!",
   "learnTodaysWords": "آج کے الفاظ سیکھیں",
   "reviewTodaysWordsAgain": "آج کے الفاظ دوبارہ مشق کریں",
   "spacedRepetitionReview": "وقفے وار دہرائی",
   "spacedRepetitionReviewDesc": "{count} الفاظ دوبارہ دیکھنے کے لیے تیار ہیں۔",
-  "@spacedRepetitionReviewDesc": {"placeholders": {"count": {"type": "int"}}},
+  "@spacedRepetitionReviewDesc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "reviewWords": "الفاظ دوبارہ ({count})",
-  "@reviewWords": {"placeholders": {"count": {"type": "int"}}},
+  "@reviewWords": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "reviewSession": "دہرائی سیشن",
   "revealMeaning": "معنی دکھائیں",
   "howWellDidYouKnow": "آپ کو یہ لفظ کتنا آتا تھا؟",
@@ -234,7 +298,16 @@
   "reviewSessionComplete": "دہرائی مکمل!",
   "noSavedWords": "ابھی کوئی لفظ محفوظ نہیں۔ سیکھتے وقت بک مارک دبائیں۔",
   "wordProgress": "لفظ {current} از {total}",
-  "@wordProgress": {"placeholders": {"current": {"type": "int"}, "total": {"type": "int"}}},
+  "@wordProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "meaningLabel": "معنی",
   "exampleLabel": "مثال",
   "yourLevel": "آپ کا لیول",
@@ -254,8 +327,12 @@
   "learnPathEarnXp": "{count} سبق سیکھیں اور +{xp} XP حاصل کریں",
   "@learnPathEarnXp": {
     "placeholders": {
-      "count": {"type": "int"},
-      "xp": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "xp": {
+        "type": "int"
+      }
     }
   },
   "grammarPathTitle": "{level} گرامر کا راستہ",
@@ -337,7 +414,6 @@
   "levelB2": "B2",
   "levelC1": "C1",
   "levelC2": "C2",
-
   "profileTitle": "پروفائل",
   "hi": "سلام،",
   "a1Beginner": "A1 ابتدائی",
@@ -447,10 +523,9 @@
   "openingSoon": "جلد آ رہا ہے",
   "upgradeComingSoon": "پریمیم اپ گریڈ جلد آ رہا ہے",
   "restoringPurchases": "خریداری بحال ki ja rahi hai...",
-
   "speakWithAiTutorTitle": "AI ٹیوٹر کے ساتھ بولیں",
-  "aiSpeakingTutor": "AI Speaking Tutor",
-  "aiPronunciationTutor": "AI Pronunciation Tutor",
+  "aiSpeakingTutor": "اے آئی اسپیکنگ ٹیوٹر",
+  "aiPronunciationTutor": "اے آئی پرونانسی ایشن ٹیوٹر",
   "aiSpeakingTutorDesc": "آواز یا ٹیکسٹ سے بات کریں اور فوری اصلاحات حاصل کریں",
   "startPractice": "مشق شروع کریں",
   "tagVoice": "آواز",
@@ -478,15 +553,27 @@
   "confidencePercent": "{percent}% اعتماد",
   "heardAs": "سuna: \"{word}\"",
   "@heardAs": {
-    "placeholders": {"word": {"type": "String"}}
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "focusOnSounds": "توجہ دیں: {sounds}",
   "@focusOnSounds": {
-    "placeholders": {"sounds": {"type": "String"}}
+    "placeholders": {
+      "sounds": {
+        "type": "String"
+      }
+    }
   },
   "youSaid": "آپ نے کہا: \"{transcript}\"",
   "@youSaid": {
-    "placeholders": {"transcript": {"type": "String"}}
+    "placeholders": {
+      "transcript": {
+        "type": "String"
+      }
+    }
   },
   "noSpeechDetected": "واضح آواز نہیں ملی۔ زور سے بولیں اور دوبارہ کوشش کریں۔",
   "tryAgain": "دوبارہ کوشش",
@@ -519,14 +606,18 @@
   "scenarioOrderFood": "کھانا آرڈر",
   "scenarioAtAirport": "ہوائی اڈے پر",
   "scenarioDoctorVisit": "ڈاکٹر کا دورہ",
-  "scenarioSmallTalk": "Small Talk",
-  "scenarioBusinessMeeting": "Business Meeting",
+  "scenarioSmallTalk": "عام گفتگو",
+  "scenarioBusinessMeeting": "بزنس میٹنگ",
   "learnAndPractice": "سیکھیں اور مشق کریں",
   "quickCheck": "فوری جانچ",
   "quickCheckSub": "سمجھ کے سوالات کے جواب دیں",
   "roleplayPracticeTitle": "{title} مشق",
   "@roleplayPracticeTitle": {
-    "placeholders": {"title": {"type": "String"}}
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
   },
   "scenarioJobInterviewDetail": "نوکری کا انٹرویو",
   "scenarioJobInterviewVocabSub": "انٹرویو کے اہم الفاظ سیکھیں",
@@ -536,11 +627,10 @@
   "scenarioAtAirportVocabSub": "سفر کے اہم الفاظ سیکھیں",
   "scenarioDoctorVisitDetail": "ڈاکٹر کا دورہ",
   "scenarioDoctorVisitVocabSub": "طبی اہم الفاظ سیکھیں",
-  "scenarioSmallTalkDetail": "Small Talk",
+  "scenarioSmallTalkDetail": "عام گفتگو",
   "scenarioSmallTalkVocabSub": "بات چیت کے اہم الفاظ سیکھیں",
-  "scenarioBusinessMeetingDetail": "Business Meeting",
+  "scenarioBusinessMeetingDetail": "بزنس میٹنگ",
   "scenarioBusinessMeetingVocabSub": "میeting کے اہم الفاظ سیکھیں",
-
   "customPlanReady": "آپ کا ذاتی پلان تیار ہے",
   "customPlanReadySub": "آپ کے ہدف، سطح اور روزانہ مشق کے وقت کی بنیاد پر۔",
   "planGoalLabel": "ہدف",
@@ -585,27 +675,26 @@
   "terms": "شرائط",
   "privacy": "پرائیویسی",
   "restore": "بحال کریں",
-  "buyHeartsCount": "Buy {count} Hearts",
-  "heartsOneTimePurchase": "One-time purchase. Hearts are added instantly.",
-  "tryProForLess": "Try Pro for less",
-  "fiftyOffFirstYear": "50% off your first year- $19.99 instead of $39.99",
-  "fiftyPercentOff": "50% OFF",
-  "annualPro": "Annual Pro",
-  "annualProPrice": "$19.99/year",
-  "annualProPriceStrikethrough": "$39.99/year",
-  "firstYearOnly": "First year only",
-  "sevenDayFreeTrialIncluded": "7-day free trial included",
-  "specialOffer": "SPECIAL OFFER",
-  "startSevenDayFreeTrial": "Start 7-Days Free Trial",
-  "heartsAddedTitle": "{count} Hearts Added",
-  "heartsAddedMessage": "Your hearts have been added. You are ready for more AI chat, corrections, and practice.",
-  "currentBalance": "Current Balance",
-  "currentHeartsBalance": "{count} Hearts",
-  "startPracticing": "Start Practicing",
-  "oneHeartPerAiResponse": "1 heart per AI response",
+  "buyHeartsCount": "{count} ہارٹس خریدیں",
+  "heartsOneTimePurchase": "ایک بار کی خریداری۔ ہارٹس فوراً شامل ہو جاتے ہیں۔",
+  "tryProForLess": "کم قیمت میں پرو آزمائیں",
+  "fiftyOffFirstYear": "پہلے سال 50% رعایت - $39.99 کے بجائے $19.99",
+  "fiftyPercentOff": "50% رعایت",
+  "annualPro": "سالانہ پرو",
+  "annualProPrice": "$19.99/سال",
+  "annualProPriceStrikethrough": "$39.99/سال",
+  "firstYearOnly": "صرف پہلا سال",
+  "sevenDayFreeTrialIncluded": "7 دن کی مفت آزمائش شامل ہے",
+  "specialOffer": "خصوصی پیشکش",
+  "startSevenDayFreeTrial": "7 دن کی مفت آزمائش شروع کریں",
+  "heartsAddedTitle": "{count} ہارٹس شامل ہو گئے",
+  "heartsAddedMessage": "آپ کے ہارٹس شامل کر دیے گئے ہیں۔ اب آپ مزید اے آئی چیٹ، اصلاح اور مشق کے لیے تیار ہیں۔",
+  "currentBalance": "موجودہ بیلنس",
+  "currentHeartsBalance": "{count} ہارٹس",
+  "startPracticing": "مشق شروع کریں",
+  "oneHeartPerAiResponse": "ہر اے آئی جواب پر 1 ہارٹ",
   "premiumUnlockedTitle": "پریمیم اَن لاک ہو گیا",
   "premiumUnlockedMessage": "اب آپ کو لامحدود AI پریکٹس، تلفظ چیک، تصحیحات، رول پلے اور اشتہارات سے آزادی مل گئی ہے۔",
-
   "todaysLessonTitle": "آج کا سبق",
   "whatYouWillLearnToday": "آج آپ کیا سیکھیں گے",
   "startLessonButton": "سبق شروع کریں",
@@ -614,20 +703,36 @@
   "lessonCompleteTitle": "سبق مکمل ہوا!",
   "youLearnedLesson": "آپ نے {title} سیکھا۔",
   "@youLearnedLesson": {
-    "placeholders": {"title": {"type": "String"}}
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
   },
   "sentenceQuestionNumber": "سوال {number}",
   "@sentenceQuestionNumber": {
-    "placeholders": {"number": {"type": "int"}}
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
   },
   "newlyUnlockedHeading": "آپ نے ابھی کھولا ہے",
   "xpToGoBadge": "{xp} XP باقی",
   "@xpToGoBadge": {
-    "placeholders": {"xp": {"type": "int"}}
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
   },
   "notQuiteCorrectAnswer": "بالکل نہیں۔ درست جواب یہ ہے: {answer}",
   "@notQuiteCorrectAnswer": {
-    "placeholders": {"answer": {"type": "String"}}
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
   },
   "practiceLabel": "مشق",
   "yourAnswerHint": "آپ کا جواب",
@@ -637,25 +742,143 @@
   "whatsUnlockedTitle": "آپ نے کیا کھولا ہے",
   "xpTotalLabel": "کل {xp} XP",
   "@xpTotalLabel": {
-    "placeholders": {"xp": {"type": "int"}}
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
   },
   "nothingUnlockedYet": "لیول اور رول پلے منظرنامے کھولنے کے لیے سیکھتے رہیں!",
   "nextUnlockLabel": "اگلا: {label} — {xp} XP باقی",
   "@nextUnlockLabel": {
-    "placeholders": {"label": {"type": "String"}, "xp": {"type": "int"}}
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "int"
+      }
+    }
   },
   "watchAdForXpSub": "فوری طور پر +{xp} XP حاصل کریں",
   "@watchAdForXpSub": {
-    "placeholders": {"xp": {"type": "int"}}
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
   },
   "xpBoostCapReached": "آپ نے آج کے تمام XP بوسٹ استعمال کر لیے ہیں۔ کل واپس آئیں۔",
   "cefrLevelLockedLessons": "{count, plural, =1{اس لیول کو کھولنے کے لیے پچھلے لیول کا 1 مزید سبق مکمل کریں۔} other{اس لیول کو کھولنے کے لیے پچھلے لیول کی {count} مزید اسباق مکمل کریں۔}}",
   "@cefrLevelLockedLessons": {
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "youreOffline": "آپ آف لائن ہیں",
   "youreOfflineBody": "آپ محفوظ اسباق آف لائن جاری رکھ سکتے ہیں۔ AI چیٹ، تلفظ کی جانچ، سنک اور خریداری کے لیے انٹرنیٹ درکار ہے",
   "retryConnection": "کنکشن دوبارہ کوشش کریں",
   "continueOffline": "آف لائن جاری رکھیں",
-  "featureNeedsInternet": "اس کے لیے انٹرنیٹ کنکشن درکار ہے۔"
+  "featureNeedsInternet": "اس کے لیے انٹرنیٹ کنکشن درکار ہے۔",
+  "loadingAd": "اشتہار لوڈ ہو رہا ہے",
+  "reportingApp": "ایپ کو رپورٹ کیا جا رہا ہے",
+  "allowNotificationsTitle": "روزانہ یاد دہانی",
+  "allowNotificationsMessage": "نوٹیفکیشنز کی اجازت دیں تاکہ Fluenta آپ کو ہر روز مشق کی یاد دلائے۔",
+  "allowNotificationsAllow": "اجازت دیں",
+  "allowNotificationsLater": "ابھی نہیں",
+  "updateAvailableTitle": "اپ ڈیٹ دستیاب ہے",
+  "updateAvailableMessage": "Fluenta کا نیا ورژن تیار ہے۔ تازہ اسباق اور اصلاحات کے لیے اپ ڈیٹ کریں۔",
+  "updateNow": "اپ ڈیٹ",
+  "updateLater": "بعد میں",
+  "connectToWatchAdTitle": "اشتہار دیکھنے کے لیے انٹرنیٹ آن کریں",
+  "connectToWatchAdMessage": "انٹرنیٹ جوڑیں، پھر ہم ریوارڈڈ اشتہار چلائیں گے۔",
+  "checkResetEmailInstructions": "اپنا ای میل کھولیں اور ری سیٹ لنک پر ٹیپ کریں۔ ایپ کھل جائے گی تاکہ آپ نیا پاس ورڈ سیٹ کر سکیں۔",
+  "chatTextMode": "ٹیکسٹ موڈ",
+  "chatVoiceMode": "وائس موڈ",
+  "chatQuickStarterLesson": "مجھے قدم بہ قدم سکھائیں",
+  "chatQuickStarterGrammar": "گرامر کی مشق",
+  "chatQuickStarterDaily": "روزمرہ گفتگو",
+  "chatQuickStarterWork": "کام کے لیے انگریزی",
+  "chatQuickStarterOpenTopic": "بس گپ شپ",
+  "chatQuickStarterTravel": "سفر",
+  "chatCorrectionLabel": "اصلاح",
+  "chatYourSentence": "آپ کا جملہ:",
+  "chatCorrectSentence": "درست جملہ:",
+  "chatTipPrefix": "مشورہ:",
+  "chatTypeHint": "اپنا متن یہاں لکھیں",
+  "chatHoldToSpeak": "بولنے کے لیے دبائے رکھیں",
+  "chatListening": "سن رہا ہے...",
+  "chatReleaseToSend": "آزادی سے بولیں، پھر آواز بھیجنے کے لیے چھوڑ دیں",
+  "chatTapToSend": "آزادی سے بولیں، پھر آواز بھیجنے کے لیے ٹیپ کریں",
+  "chatCancel": "منسوخ",
+  "chatLock": "لاک",
+  "chatSpeechUnavailable": "مائیکروفون دستیاب نہیں۔ براہ کرم اجازتیں چیک کریں۔",
+  "chatReadRepliesAloud": "جوابات بلند آواز میں پڑھیں",
+  "chatPlay": "چلائیں",
+  "chatPlaying": "چل رہا ہے",
+  "heartsRefilledMessage": "+{count} ہارٹس شامل ہو گئے۔ مشق جاری رکھیں!",
+  "heartRefillCapReached": "آج کے تمام اشتہاری ری فل استعمال ہو چکے ہیں۔ کل دوبارہ آئیں یا لامحدود اپ گریڈ کریں۔",
+  "adNotAvailable": "اس وقت کوئی اشتہار دستیاب نہیں۔ کچھ دیر بعد دوبارہ کوشش کریں۔",
+  "scenarioJobInterviewQuickSub": "ملازمت کے انٹرویو کے سوالات کے جواب دیں",
+  "scenarioOrderFoodQuickSub": "ریستوران کے سوالات کے جواب دیں",
+  "scenarioAtAirportQuickSub": "ایئرپورٹ سفر کے سوالات کے جواب دیں",
+  "scenarioDoctorVisitQuickSub": "ڈاکٹر کے دورے کے سوالات کے جواب دیں",
+  "scenarioSmallTalkQuickSub": "عام گفتگو کے سوالات کے جواب دیں",
+  "scenarioBusinessMeetingQuickSub": "بزنس میٹنگ کے سوالات کے جواب دیں",
+  "roleplayQuestionsLearned": "{count} سوالات سیکھے",
+  "roleplayLessonCompleted": "آپ نے سبق {lessonNumber} کامیابی سے مکمل کر لیا",
+  "dialogue": "مکالمہ",
+  "comprehension": "فہم",
+  "roleplayDialogueSub": "گفتگو کی مشق کریں",
+  "roleplayComprehensionSub": "اپنی سمجھ کی جانچ کریں",
+  "roleplayXpPerLesson": "+{xp} XP/سبق",
+  "roleplayLevelLocked": "یہ لیول کھولنے کے لیے {xp} XP حاصل کریں",
+  "cefrLevelLockedXp": "یہ لیول کھولنے کے لیے {xp} XP حاصل کریں",
+  "xpEarnedCelebration": "+{xp} XP حاصل",
+  "boostYourXp": "اپنا XP بڑھائیں",
+  "watchShortAd": "ایک مختصر اشتہار دیکھیں",
+  "boostXpButton": "+{xp} XP بڑھائیں",
+  "xpBoostApplied": "+{xp} XP بوسٹ لگ گیا!",
+  "adLabel": "اشتہار",
+  "setupStepOf": "مرحلہ {current} از {total}",
+  "iapPurchaseFailed": "خریداری ناکام رہی۔ براہ کرم دوبارہ کوشش کریں۔",
+  "iapInvalidProduct": "غلط پروڈکٹ کا انتخاب۔",
+  "iapBillingUnavailable": "اس ڈیوائس پر گوگل پلے بلنگ دستیاب نہیں۔",
+  "iapProductNotFound": "پلے اسٹور میں پروڈکٹ نہیں ملی: {productId}",
+  "iapPurchaseInProgress": "ایک اور خریداری پہلے سے جاری ہے۔",
+  "iapCouldNotStart": "خریداری شروع نہیں ہو سکی۔",
+  "iapPurchaseTimedOut": "خریداری کا وقت ختم ہو گیا۔",
+  "iapPremiumRestored": "پریمیم رسائی بحال ہو گئی۔",
+  "iapNoSubscriptionToRestore": "بحال کرنے کے لیے کوئی فعال سبسکرپشن نہیں ملی۔",
+  "iapPurchaseCanceled": "خریداری منسوخ کر دی گئی۔",
+  "iapPremiumUnlocked": "پریمیم کھل گیا۔",
+  "iapUnknownProduct": "نامعلوم پروڈکٹ خریدی گئی۔",
+  "privacyOptions": "پرائیویسی سیٹنگز",
+  "privacyOptionsSub": "اشتہارات اور ڈیٹا کے اختیارات منظم کریں",
+  "tutorialTitle": "ایپ ٹیوٹوریل",
+  "tutorialSubtitle": "ایپ استعمال کرنا سیکھیں",
+  "tutorialNext": "اگلا",
+  "tutorialDone": "سمجھ گیا",
+  "tutorialClose": "ٹیوٹوریل بند کریں",
+  "tutorialStepCount": "{current} از {total}",
+  "tutorialLearnTitle": "ہر مہارت کے لیے اسباق",
+  "tutorialPronunciationTitle": "اپنا تلفظ جانچیں",
+  "tutorialHeartsTitle": "ہارٹس کیا ہیں؟",
+  "tutorialPracticeTitle": "انگریزی کی مشق یہاں کریں",
+  "tutorialPracticeBody": "روزانہ انگریزی کی مشق کے لیے آج کا سبق کھولیں۔ اسے مکمل کریں تاکہ XP ملے اور آپ کی اسٹریک برقرار رہے۔",
+  "tutorialAiChatTitle": "اپنے اے آئی ٹیوٹر سے بات کریں",
+  "tutorialAiChatBody": "AI چیٹ شروع کریں پر ٹیپ کریں، پھر کسی بھی موضوع پر انگریزی میں لکھیں یا بولیں اور فوری اصلاح پائیں۔ ہر اے آئی جواب میں 1 ہارٹ لگتا ہے۔",
+  "tutorialLearnBody": "سیکھیں ٹیب میں ذخیرہ الفاظ، گرامر اور ریڈنگ موجود ہیں۔ کوئی سبق چنیں اور اسے مکمل کر کے XP کمائیں۔",
+  "tutorialLevelsTitle": "لیولز کیسے کھلتے ہیں",
+  "tutorialLevelsBody": "لیولز A1 سے شروع ہوتے ہیں۔ کسی لیول کے بنیادی اسباق مکمل کریں اور اگلا لیول کھولنے کے لیے کافی XP کمائیں۔ بند لیول پر ٹیپ کر کے دیکھیں کہ آپ کو مزید کیا چاہیے۔",
+  "tutorialScenariosTitle": "رول پلے کہاں ہے",
+  "tutorialScenariosBody": "رول پلے ٹیب کھولیں اور منظرناموں میں سوائپ کریں، جیسے ملازمت کا انٹرویو، کھانا آرڈر کرنا یا ایئرپورٹ۔ حقیقی گفتگو کی مشق کے لیے کسی پر ٹیپ کریں۔",
+  "tutorialPronunciationBody": "مشق شروع کریں پر ٹیپ کریں، جملہ بلند آواز میں پڑھیں اور فیڈبیک کے ساتھ اسکور پائیں۔ بہتر بنانے کے لیے دوبارہ کوشش کریں۔ ہر جانچ میں 1 ہارٹ لگتا ہے۔",
+  "tutorialHeartsBody": "ہارٹس اے آئی فیچرز کو چلاتے ہیں: ہر اے آئی جواب اور ہر تلفظ کی جانچ میں 1 لگتا ہے۔ یہ ہر روز دوبارہ بھر جاتے ہیں۔ ختم ہو گئے؟ مختصر اشتہار دیکھیں یا لامحدود کے لیے پرو لیں۔",
+  "tutorialProfileTitle": "آپ کی پروفائل اور سیٹنگز",
+  "tutorialProfileBody": "یہاں اپنی پیش رفت دیکھیں، زبان اور یاد دہانیاں بدلیں اور پرو منظم کریں۔ آپ یہ ٹیوٹوریل کسی بھی وقت مدد اور قانونی سے دوبارہ دیکھ سکتے ہیں۔",
+  "moreApps": "مزید ایپس",
+  "moreAppsSub": "Futurewatch کی دیگر ایپس"
 }

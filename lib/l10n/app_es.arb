@@ -17,16 +17,26 @@
   "lessonNamedTitle": "Lección {number}: {title}",
   "@lessonNamedTitle": {
     "placeholders": {
-      "number": {"type": "int"},
-      "title": {"type": "String"}
+      "number": {
+        "type": "int"
+      },
+      "title": {
+        "type": "String"
+      }
     }
   },
   "questionsProgress": "{done}/{total} preguntas • {status}",
   "@questionsProgress": {
     "placeholders": {
-      "done": {"type": "int"},
-      "total": {"type": "int"},
-      "status": {"type": "String"}
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "status": {
+        "type": "String"
+      }
     }
   },
   "learnUsefulPhrases": "Aprende frases útiles con corrección de IA",
@@ -42,19 +52,31 @@
   "roleplayTrackTitle": "{scenario} {track}",
   "@roleplayTrackTitle": {
     "placeholders": {
-      "scenario": {"type": "String"},
-      "track": {"type": "String"}
+      "scenario": {
+        "type": "String"
+      },
+      "track": {
+        "type": "String"
+      }
     }
   },
   "dayStreakLabel": "Racha de {days} días",
   "@dayStreakLabel": {
-    "placeholders": {"days": {"type": "int"}}
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   },
   "englishBasicsStep": "{index} / {label}",
   "@englishBasicsStep": {
     "placeholders": {
-      "index": {"type": "int"},
-      "label": {"type": "String"}
+      "index": {
+        "type": "int"
+      },
+      "label": {
+        "type": "String"
+      }
     }
   },
   "lessonPhase": "FASE DE LA LECCIÓN",
@@ -191,7 +213,7 @@
   "daily20Sub": "Para mejorar más rápido",
   "navHome": "Inicio",
   "navLearn": "Aprender",
-  "navSpeak": "Role Play",
+  "navSpeak": "Juego de roles",
   "navProfile": "Perfil",
   "readyToPractice": "¿Listo para practicar?",
   "journeyContinues": "Tu viaje de inglés continúa aquí.",
@@ -205,27 +227,69 @@
   "savedWords": "Palabras guardadas",
   "savedWordsSub": "12 palabras para repasar",
   "savedWordsSubDynamic": "{count} palabras guardadas",
-  "@savedWordsSubDynamic": {"placeholders": {"count": {"type": "int"}}},
+  "@savedWordsSubDynamic": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "vocabularySubDynamic": "{count} palabras para repasar",
-  "@vocabularySubDynamic": {"placeholders": {"count": {"type": "int"}}},
+  "@vocabularySubDynamic": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dailyVocabulary": "Vocabulario Diario",
   "dailyVocabularySub": "5 palabras nuevas • {count} para repasar",
-  "@dailyVocabularySub": {"placeholders": {"count": {"type": "int"}}},
+  "@dailyVocabularySub": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dailyVocabularyDoneSub": "Listo por hoy • {count} para repasar",
-  "@dailyVocabularyDoneSub": {"placeholders": {"count": {"type": "int"}}},
+  "@dailyVocabularyDoneSub": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "freeAndUnlimited": "Gratis e ilimitado",
   "startDailyVocabulary": "Empezar vocabulario diario",
   "todaysWords": "Palabras de hoy",
   "todaysWordsDesc": "Aprende {count} palabras nuevas elegidas para ti hoy.",
-  "@todaysWordsDesc": {"placeholders": {"count": {"type": "int"}}},
+  "@todaysWordsDesc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dailyVocabularyComplete": "¡Vocabulario diario completado!",
   "learnTodaysWords": "Aprender palabras de hoy",
   "reviewTodaysWordsAgain": "Practicar palabras de hoy otra vez",
   "spacedRepetitionReview": "Repaso de repetición espaciada",
   "spacedRepetitionReviewDesc": "Tienes {count} palabras listas para repasar.",
-  "@spacedRepetitionReviewDesc": {"placeholders": {"count": {"type": "int"}}},
+  "@spacedRepetitionReviewDesc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "reviewWords": "Repasar palabras ({count})",
-  "@reviewWords": {"placeholders": {"count": {"type": "int"}}},
+  "@reviewWords": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "reviewSession": "Sesión de repaso",
   "revealMeaning": "Mostrar significado",
   "howWellDidYouKnow": "¿Qué tan bien conocías esta palabra?",
@@ -235,13 +299,22 @@
   "reviewSessionComplete": "¡Sesión de repaso completada!",
   "noSavedWords": "Aún no hay palabras guardadas. Toca el marcador mientras aprendes.",
   "wordProgress": "Palabra {current} de {total}",
-  "@wordProgress": {"placeholders": {"current": {"type": "int"}, "total": {"type": "int"}}},
+  "@wordProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "meaningLabel": "SIGNIFICADO",
   "exampleLabel": "EJEMPLO",
   "yourLevel": "Tu nivel",
   "beginnerLevel": "Principiante",
-  "speakTitle": "Role Play",
-  "rolePlayTitle": "Role Play",
+  "speakTitle": "Juego de roles",
+  "rolePlayTitle": "Juego de roles",
   "speakSubtitle": "Practica hablar con tu tutor de IA",
   "speakComingSoon": "Práctica oral próximamente",
   "profileLanguage": "Idioma",
@@ -255,8 +328,12 @@
   "learnPathEarnXp": "Aprende {count} lecciones y gana +{xp} XP",
   "@learnPathEarnXp": {
     "placeholders": {
-      "count": {"type": "int"},
-      "xp": {"type": "int"}
+      "count": {
+        "type": "int"
+      },
+      "xp": {
+        "type": "int"
+      }
     }
   },
   "grammarPathTitle": "Ruta de gramática {level}",
@@ -338,7 +415,6 @@
   "levelB2": "B2",
   "levelC1": "C1",
   "levelC2": "C2",
-
   "profileTitle": "Perfil",
   "hi": "Hola,",
   "a1Beginner": "A1 Principiante",
@@ -448,7 +524,6 @@
   "openingSoon": "Próximamente",
   "upgradeComingSoon": "Actualización premium próximamente",
   "restoringPurchases": "Restaurando compras...",
-
   "speakWithAiTutorTitle": "Habla con el Tutor IA",
   "aiSpeakingTutor": "Tutor de Conversación IA",
   "aiPronunciationTutor": "Tutor de Pronunciación IA",
@@ -479,15 +554,27 @@
   "confidencePercent": "{percent}% Confianza",
   "heardAs": "Escuchado: \"{word}\"",
   "@heardAs": {
-    "placeholders": {"word": {"type": "String"}}
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
   },
   "focusOnSounds": "Enfócate en: {sounds}",
   "@focusOnSounds": {
-    "placeholders": {"sounds": {"type": "String"}}
+    "placeholders": {
+      "sounds": {
+        "type": "String"
+      }
+    }
   },
   "youSaid": "Dijiste: \"{transcript}\"",
   "@youSaid": {
-    "placeholders": {"transcript": {"type": "String"}}
+    "placeholders": {
+      "transcript": {
+        "type": "String"
+      }
+    }
   },
   "noSpeechDetected": "No detectamos voz clara. Habla más fuerte e inténtalo de nuevo.",
   "tryAgain": "Intentar de nuevo",
@@ -527,7 +614,11 @@
   "quickCheckSub": "Responde preguntas de comprensión",
   "roleplayPracticeTitle": "Práctica de {title}",
   "@roleplayPracticeTitle": {
-    "placeholders": {"title": {"type": "String"}}
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
   },
   "scenarioJobInterviewDetail": "Entrevista de Trabajo",
   "scenarioJobInterviewVocabSub": "Aprende palabras clave de entrevistas",
@@ -541,7 +632,6 @@
   "scenarioSmallTalkVocabSub": "Aprende palabras clave de conversación",
   "scenarioBusinessMeetingDetail": "Reunión de Negocios",
   "scenarioBusinessMeetingVocabSub": "Aprende palabras clave de reuniones",
-
   "customPlanReady": "Tu plan personalizado está listo",
   "customPlanReadySub": "Basado en tu objetivo, nivel y tiempo diario de práctica.",
   "planGoalLabel": "OBJETIVO",
@@ -590,7 +680,7 @@
   "heartsOneTimePurchase": "Compra única. Los corazones se añaden al instante.",
   "tryProForLess": "Prueba Pro por menos",
   "fiftyOffFirstYear": "50% de descuento el primer año: $19.99 en lugar de $39.99",
-  "fiftyPercentOff": "50% OFF",
+  "fiftyPercentOff": "50% DTO.",
   "annualPro": "Pro Anual",
   "annualProPrice": "$19.99/año",
   "annualProPriceStrikethrough": "$39.99/año",
@@ -606,7 +696,6 @@
   "oneHeartPerAiResponse": "1 corazón por respuesta AI",
   "premiumUnlockedTitle": "Premium desbloqueado",
   "premiumUnlockedMessage": "Ahora tienes práctica de IA ilimitada, revisiones de pronunciación, correcciones, juegos de rol y sin anuncios.",
-
   "todaysLessonTitle": "Lección de hoy",
   "whatYouWillLearnToday": "LO QUE APRENDERÁS HOY",
   "startLessonButton": "Iniciar lección",
@@ -615,20 +704,36 @@
   "lessonCompleteTitle": "¡Lección completada!",
   "youLearnedLesson": "Aprendiste {title}.",
   "@youLearnedLesson": {
-    "placeholders": {"title": {"type": "String"}}
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
   },
   "sentenceQuestionNumber": "Pregunta {number}",
   "@sentenceQuestionNumber": {
-    "placeholders": {"number": {"type": "int"}}
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
   },
   "newlyUnlockedHeading": "Acabas de desbloquear",
   "xpToGoBadge": "{xp} XP restantes",
   "@xpToGoBadge": {
-    "placeholders": {"xp": {"type": "int"}}
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
   },
   "notQuiteCorrectAnswer": "No es correcto. La respuesta correcta es: {answer}",
   "@notQuiteCorrectAnswer": {
-    "placeholders": {"answer": {"type": "String"}}
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
   },
   "practiceLabel": "Práctica",
   "yourAnswerHint": "Tu respuesta",
@@ -638,25 +743,142 @@
   "whatsUnlockedTitle": "Lo que has desbloqueado",
   "xpTotalLabel": "{xp} XP en total",
   "@xpTotalLabel": {
-    "placeholders": {"xp": {"type": "int"}}
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
   },
   "nothingUnlockedYet": "¡Sigue aprendiendo para desbloquear niveles y escenarios de rol!",
   "nextUnlockLabel": "Siguiente: {label} — {xp} XP restantes",
   "@nextUnlockLabel": {
-    "placeholders": {"label": {"type": "String"}, "xp": {"type": "int"}}
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "int"
+      }
+    }
   },
   "watchAdForXpSub": "Obtén +{xp} XP al instante",
   "@watchAdForXpSub": {
-    "placeholders": {"xp": {"type": "int"}}
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
   },
   "xpBoostCapReached": "Has usado todos tus impulsos de XP de hoy. Vuelve mañana.",
   "cefrLevelLockedLessons": "{count, plural, =1{Completa 1 lección más del nivel anterior para desbloquear este.} other{Completa {count} lecciones más del nivel anterior para desbloquear este.}}",
   "@cefrLevelLockedLessons": {
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "youreOffline": "Estás sin conexión",
   "youreOfflineBody": "Aún puedes continuar las lecciones guardadas sin conexión. El chat con IA, las comprobaciones de pronunciación, la sincronización y las compras necesitan internet",
   "retryConnection": "Reintentar conexión",
   "continueOffline": "Continuar sin conexión",
-  "featureNeedsInternet": "Esto necesita una conexión a internet."
+  "featureNeedsInternet": "Esto necesita una conexión a internet.",
+  "loadingAd": "CARGANDO ANUNCIO",
+  "reportingApp": "INFORMANDO A LA APP",
+  "allowNotificationsTitle": "Sigue tu racha",
+  "allowNotificationsMessage": "Activa las notificaciones para que Fluenta te recuerde practicar cada día.",
+  "allowNotificationsAllow": "Permitir",
+  "allowNotificationsLater": "Ahora no",
+  "updateAvailableTitle": "Actualización disponible",
+  "updateAvailableMessage": "Hay una versión nueva de Fluenta. Actualiza para obtener las últimas lecciones y correcciones.",
+  "updateNow": "Actualizar",
+  "updateLater": "Más tarde",
+  "connectToWatchAdTitle": "Conéctate para ver un anuncio",
+  "connectToWatchAdMessage": "Activa internet y luego reproduciremos el anuncio recompensado.",
+  "chatTextMode": "Modo texto",
+  "chatVoiceMode": "Modo voz",
+  "chatQuickStarterLesson": "Enséñame paso a paso",
+  "chatQuickStarterGrammar": "Practicar gramática",
+  "chatQuickStarterDaily": "Conversación cotidiana",
+  "chatQuickStarterWork": "Inglés para el trabajo",
+  "chatQuickStarterOpenTopic": "Solo charlar",
+  "chatQuickStarterTravel": "Viajes",
+  "chatCorrectionLabel": "CORRECCIÓN",
+  "chatYourSentence": "Tu frase:",
+  "chatCorrectSentence": "Frase correcta:",
+  "chatTipPrefix": "Consejo:",
+  "chatTypeHint": "Escribe tu texto aquí",
+  "chatHoldToSpeak": "Mantén para hablar",
+  "chatListening": "Escuchando...",
+  "chatReleaseToSend": "Habla con libertad y suelta para enviar la voz",
+  "chatTapToSend": "Habla con libertad y toca para enviar la voz",
+  "chatCancel": "Cancelar",
+  "chatLock": "Bloquear",
+  "chatSpeechUnavailable": "Micrófono no disponible. Revisa los permisos.",
+  "chatReadRepliesAloud": "Leer respuestas en voz alta",
+  "chatPlay": "Reproducir",
+  "chatPlaying": "Reproduciendo",
+  "heartsRefilledMessage": "+{count} corazones añadidos. ¡Sigue practicando!",
+  "heartRefillCapReached": "Has usado todas tus recargas con anuncios de hoy. Vuelve mañana o pasa a ilimitado.",
+  "adNotAvailable": "No hay anuncios disponibles ahora. Inténtalo de nuevo en un momento.",
+  "scenarioJobInterviewQuickSub": "Responde preguntas de entrevistas de trabajo",
+  "scenarioOrderFoodQuickSub": "Responde preguntas de restaurante",
+  "scenarioAtAirportQuickSub": "Responde preguntas de viaje en el aeropuerto",
+  "scenarioDoctorVisitQuickSub": "Responde preguntas de la visita al médico",
+  "scenarioSmallTalkQuickSub": "Responde preguntas de conversación informal",
+  "scenarioBusinessMeetingQuickSub": "Responde preguntas de reuniones de negocios",
+  "roleplayQuestionsLearned": "{count} preguntas aprendidas",
+  "roleplayLessonCompleted": "Has completado la lección {lessonNumber} con éxito",
+  "dialogue": "Diálogo",
+  "comprehension": "Comprensión",
+  "roleplayDialogueSub": "Practica la conversación",
+  "roleplayComprehensionSub": "Comprueba lo que has entendido",
+  "roleplayXpPerLesson": "+{xp} XP/lección",
+  "roleplayLevelLocked": "Alcanza {xp} XP para desbloquear este nivel",
+  "cefrLevelLockedXp": "Alcanza {xp} XP para desbloquear este nivel",
+  "xpEarnedCelebration": "+{xp} XP ganados",
+  "boostYourXp": "Aumenta tu XP",
+  "watchShortAd": "Mira un anuncio corto",
+  "boostXpButton": "Aumentar +{xp} XP",
+  "xpBoostApplied": "¡Bonificación de +{xp} XP aplicada!",
+  "adLabel": "Anuncio",
+  "setupStepOf": "PASO {current} DE {total}",
+  "iapPurchaseFailed": "La compra falló. Inténtalo de nuevo.",
+  "iapInvalidProduct": "Selección de producto no válida.",
+  "iapBillingUnavailable": "Google Play Billing no está disponible en este dispositivo.",
+  "iapProductNotFound": "Producto no encontrado en Play Store: {productId}",
+  "iapPurchaseInProgress": "Ya hay otra compra en curso.",
+  "iapCouldNotStart": "No se pudo iniciar la compra.",
+  "iapPurchaseTimedOut": "La compra agotó el tiempo de espera.",
+  "iapPremiumRestored": "Acceso Premium restaurado.",
+  "iapNoSubscriptionToRestore": "No se encontró ninguna suscripción activa para restaurar.",
+  "iapPurchaseCanceled": "Compra cancelada.",
+  "iapPremiumUnlocked": "Premium desbloqueado.",
+  "iapUnknownProduct": "Se compró un producto desconocido.",
+  "privacyOptions": "Ajustes de privacidad",
+  "privacyOptionsSub": "Gestiona tus opciones de anuncios y datos",
+  "tutorialTitle": "Tutorial de la app",
+  "tutorialSubtitle": "Descubre cómo usar la app",
+  "tutorialNext": "Siguiente",
+  "tutorialDone": "Entendido",
+  "tutorialClose": "Cerrar tutorial",
+  "tutorialStepCount": "{current} de {total}",
+  "tutorialLearnTitle": "Lecciones para cada habilidad",
+  "tutorialPronunciationTitle": "Comprueba tu pronunciación",
+  "tutorialHeartsTitle": "¿Qué son los corazones?",
+  "tutorialPracticeTitle": "Practica inglés aquí",
+  "tutorialPracticeBody": "Abre la lección de hoy para practicar inglés cada día. Termínala para ganar XP y mantener tu racha.",
+  "tutorialAiChatTitle": "Charla con tu tutor de IA",
+  "tutorialAiChatBody": "Toca Iniciar chat IA y escribe o habla en inglés sobre cualquier tema para recibir correcciones al instante. Cada respuesta de la IA usa 1 corazón.",
+  "tutorialLearnBody": "La pestaña Aprender tiene Vocabulario, Gramática y Lectura. Elige una lección y termínala para ganar XP.",
+  "tutorialLevelsTitle": "Cómo se desbloquean los niveles",
+  "tutorialLevelsBody": "Los niveles van de A1 hacia arriba. Termina las lecciones principales de un nivel y gana suficiente XP para desbloquear el siguiente. Toca un nivel bloqueado para ver qué te falta.",
+  "tutorialScenariosTitle": "Dónde encontrar el juego de roles",
+  "tutorialScenariosBody": "Abre la pestaña Juego de roles y desliza por los escenarios, como entrevistas de trabajo, pedir comida o el aeropuerto. Toca uno para practicar una conversación real.",
+  "tutorialPronunciationBody": "Toca Comenzar práctica, lee la frase en voz alta y recibe una puntuación con comentarios. Inténtalo de nuevo para mejorar. Cada comprobación usa 1 corazón.",
+  "tutorialHeartsBody": "Los corazones dan energía a las funciones de IA: cada respuesta de la IA y cada comprobación de pronunciación usa 1. Se recargan cada día. ¿Sin corazones? Mira un anuncio corto o pasa a Pro para tenerlos ilimitados.",
+  "tutorialProfileTitle": "Tu perfil y ajustes",
+  "tutorialProfileBody": "Sigue tu progreso, cambia el idioma y los recordatorios y gestiona Pro aquí. Puedes repetir este tutorial cuando quieras desde Soporte y legal.",
+  "moreApps": "Más aplicaciones",
+  "moreAppsSub": "Otras aplicaciones de Futurewatch"
 }

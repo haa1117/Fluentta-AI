@@ -261,7 +261,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get checkResetEmailInstructions =>
-      'Open your email and tap the reset link. The app will open so you can set a new password.';
+      'اپنا ای میل کھولیں اور ری سیٹ لنک پر ٹیپ کریں۔ ایپ کھل جائے گی تاکہ آپ نیا پاس ورڈ سیٹ کر سکیں۔';
 
   @override
   String get verifyCode => 'کوڈ کی تصدیق';
@@ -1349,10 +1349,10 @@ class AppLocalizationsUr extends AppLocalizations {
   String get speakWithAiTutorTitle => 'AI ٹیوٹر کے ساتھ بولیں';
 
   @override
-  String get aiSpeakingTutor => 'AI Speaking Tutor';
+  String get aiSpeakingTutor => 'اے آئی اسپیکنگ ٹیوٹر';
 
   @override
-  String get aiPronunciationTutor => 'AI Pronunciation Tutor';
+  String get aiPronunciationTutor => 'اے آئی پرونانسی ایشن ٹیوٹر';
 
   @override
   String get aiSpeakingTutorDesc =>
@@ -1497,10 +1497,10 @@ class AppLocalizationsUr extends AppLocalizations {
   String get textMode => 'ٹیکسٹ موڈ';
 
   @override
-  String get chatTextMode => 'Text Mode';
+  String get chatTextMode => 'ٹیکسٹ موڈ';
 
   @override
-  String get chatVoiceMode => 'Voice Mode';
+  String get chatVoiceMode => 'وائس موڈ';
 
   @override
   String get chatGreeting => 'سلام! آج آپ کیا مشق کرنا چاہتے ہیں؟';
@@ -1511,71 +1511,72 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get chatQuickStarterLesson => 'Teach me step by step';
+  String get chatQuickStarterLesson => 'مجھے قدم بہ قدم سکھائیں';
 
   @override
-  String get chatQuickStarterGrammar => 'Practice grammar';
+  String get chatQuickStarterGrammar => 'گرامر کی مشق';
 
   @override
-  String get chatQuickStarterDaily => 'Everyday conversation';
+  String get chatQuickStarterDaily => 'روزمرہ گفتگو';
 
   @override
-  String get chatQuickStarterWork => 'English for work';
+  String get chatQuickStarterWork => 'کام کے لیے انگریزی';
 
   @override
-  String get chatQuickStarterOpenTopic => 'Just chat';
+  String get chatQuickStarterOpenTopic => 'بس گپ شپ';
 
   @override
-  String get chatQuickStarterTravel => 'Travel';
+  String get chatQuickStarterTravel => 'سفر';
 
   @override
-  String get chatCorrectionLabel => 'CORRECTION';
+  String get chatCorrectionLabel => 'اصلاح';
 
   @override
-  String get chatYourSentence => 'Your sentence:';
+  String get chatYourSentence => 'آپ کا جملہ:';
 
   @override
-  String get chatCorrectSentence => 'Correct sentence:';
+  String get chatCorrectSentence => 'درست جملہ:';
 
   @override
-  String get chatTipPrefix => 'Tip:';
+  String get chatTipPrefix => 'مشورہ:';
 
   @override
-  String get chatTypeHint => 'Type your text here';
+  String get chatTypeHint => 'اپنا متن یہاں لکھیں';
 
   @override
-  String get chatHoldToSpeak => 'Hold to Speak';
+  String get chatHoldToSpeak => 'بولنے کے لیے دبائے رکھیں';
 
   @override
-  String get chatListening => 'Listening...';
+  String get chatListening => 'سن رہا ہے...';
 
   @override
-  String get chatReleaseToSend => 'Speak freely, then release to send voice';
+  String get chatReleaseToSend =>
+      'آزادی سے بولیں، پھر آواز بھیجنے کے لیے چھوڑ دیں';
 
   @override
-  String get chatTapToSend => 'Speak freely, then tap to send voice';
+  String get chatTapToSend => 'آزادی سے بولیں، پھر آواز بھیجنے کے لیے ٹیپ کریں';
 
   @override
-  String get chatCancel => 'Cancel';
+  String get chatCancel => 'منسوخ';
 
   @override
-  String get chatLock => 'Lock';
+  String get chatLock => 'لاک';
 
   @override
   String get chatSpeechUnavailable =>
-      'Microphone unavailable. Please check permissions.';
+      'مائیکروفون دستیاب نہیں۔ براہ کرم اجازتیں چیک کریں۔';
 
   @override
   String get chatNeedsInternet => 'AI چیٹ کے لیے انٹرنیٹ کنکشن درکار ہے۔';
 
   @override
-  String get chatReadRepliesAloud => 'Read replies aloud';
+  String get chatReadRepliesAloud => 'جوابات بلند آواز میں پڑھیں';
 
   @override
-  String get chatPlay => 'Play';
+  String get chatPlay => 'چلائیں';
 
   @override
-  String get chatPlaying => 'Playing';
+  String get chatPlaying => 'چل رہا ہے';
 
   @override
   String get chatAiDisclaimer => 'Fluenta AI ہے اور غلطیاں کر سکتی ہے۔';
@@ -1603,16 +1604,16 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String heartsRefilledMessage(int count) {
-    return '+$count Hearts added. Keep practicing!';
+    return '+$count ہارٹس شامل ہو گئے۔ مشق جاری رکھیں!';
   }
 
   @override
   String get heartRefillCapReached =>
-      'You\'ve used all your ad refills today. Come back tomorrow or go unlimited.';
+      'آج کے تمام اشتہاری ری فل استعمال ہو چکے ہیں۔ کل دوبارہ آئیں یا لامحدود اپ گریڈ کریں۔';
 
   @override
   String get adNotAvailable =>
-      'No ad available right now. Please try again shortly.';
+      'اس وقت کوئی اشتہار دستیاب نہیں۔ کچھ دیر بعد دوبارہ کوشش کریں۔';
 
   @override
   String get playingPhrase => 'جملہ چلایا جا رہا ہے...';
@@ -1638,10 +1639,10 @@ class AppLocalizationsUr extends AppLocalizations {
   String get scenarioDoctorVisit => 'ڈاکٹر کا دورہ';
 
   @override
-  String get scenarioSmallTalk => 'Small Talk';
+  String get scenarioSmallTalk => 'عام گفتگو';
 
   @override
-  String get scenarioBusinessMeeting => 'Business Meeting';
+  String get scenarioBusinessMeeting => 'بزنس میٹنگ';
 
   @override
   String get learnAndPractice => 'سیکھیں اور مشق کریں';
@@ -1682,66 +1683,68 @@ class AppLocalizationsUr extends AppLocalizations {
   String get scenarioDoctorVisitVocabSub => 'طبی اہم الفاظ سیکھیں';
 
   @override
-  String get scenarioSmallTalkDetail => 'Small Talk';
+  String get scenarioSmallTalkDetail => 'عام گفتگو';
 
   @override
   String get scenarioSmallTalkVocabSub => 'بات چیت کے اہم الفاظ سیکھیں';
 
   @override
-  String get scenarioBusinessMeetingDetail => 'Business Meeting';
+  String get scenarioBusinessMeetingDetail => 'بزنس میٹنگ';
 
   @override
   String get scenarioBusinessMeetingVocabSub => 'میeting کے اہم الفاظ سیکھیں';
 
   @override
-  String get scenarioJobInterviewQuickSub => 'Answer job interview questions';
+  String get scenarioJobInterviewQuickSub =>
+      'ملازمت کے انٹرویو کے سوالات کے جواب دیں';
 
   @override
-  String get scenarioOrderFoodQuickSub => 'Answer restaurant questions';
+  String get scenarioOrderFoodQuickSub => 'ریستوران کے سوالات کے جواب دیں';
 
   @override
-  String get scenarioAtAirportQuickSub => 'Answer airport travel questions';
+  String get scenarioAtAirportQuickSub => 'ایئرپورٹ سفر کے سوالات کے جواب دیں';
 
   @override
-  String get scenarioDoctorVisitQuickSub => 'Answer doctor visit questions';
+  String get scenarioDoctorVisitQuickSub =>
+      'ڈاکٹر کے دورے کے سوالات کے جواب دیں';
 
   @override
-  String get scenarioSmallTalkQuickSub => 'Answer small talk questions';
+  String get scenarioSmallTalkQuickSub => 'عام گفتگو کے سوالات کے جواب دیں';
 
   @override
   String get scenarioBusinessMeetingQuickSub =>
-      'Answer business meeting questions';
+      'بزنس میٹنگ کے سوالات کے جواب دیں';
 
   @override
   String roleplayQuestionsLearned(int count) {
-    return '$count Questions Learned';
+    return '$count سوالات سیکھے';
   }
 
   @override
   String roleplayLessonCompleted(int lessonNumber) {
-    return 'You have completed Lesson $lessonNumber successfully';
+    return 'آپ نے سبق $lessonNumber کامیابی سے مکمل کر لیا';
   }
 
   @override
-  String get dialogue => 'Dialogue';
+  String get dialogue => 'مکالمہ';
 
   @override
-  String get comprehension => 'Comprehension';
+  String get comprehension => 'فہم';
 
   @override
-  String get roleplayDialogueSub => 'Practice the conversation';
+  String get roleplayDialogueSub => 'گفتگو کی مشق کریں';
 
   @override
-  String get roleplayComprehensionSub => 'Check your understanding';
+  String get roleplayComprehensionSub => 'اپنی سمجھ کی جانچ کریں';
 
   @override
   String roleplayXpPerLesson(int xp) {
-    return '+$xp XP/Lesson';
+    return '+$xp XP/سبق';
   }
 
   @override
   String roleplayLevelLocked(int xp) {
-    return 'Reach $xp XP to unlock this level';
+    return 'یہ لیول کھولنے کے لیے $xp XP حاصل کریں';
   }
 
   @override
@@ -1758,28 +1761,28 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String cefrLevelLockedXp(int xp) {
-    return 'Reach $xp XP to unlock this level';
+    return 'یہ لیول کھولنے کے لیے $xp XP حاصل کریں';
   }
 
   @override
   String xpEarnedCelebration(int xp) {
-    return '+$xp XP Earned';
+    return '+$xp XP حاصل';
   }
 
   @override
-  String get boostYourXp => 'Boost Your XP';
+  String get boostYourXp => 'اپنا XP بڑھائیں';
 
   @override
-  String get watchShortAd => 'Watch a short ad';
+  String get watchShortAd => 'ایک مختصر اشتہار دیکھیں';
 
   @override
   String boostXpButton(int xp) {
-    return 'Boost +$xp XP';
+    return '+$xp XP بڑھائیں';
   }
 
   @override
   String xpBoostApplied(int xp) {
-    return '+$xp XP boost applied!';
+    return '+$xp XP بوسٹ لگ گیا!';
   }
 
   @override
@@ -1924,66 +1927,66 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String buyHeartsCount(int count) {
-    return 'Buy $count Hearts';
+    return '$count ہارٹس خریدیں';
   }
 
   @override
   String get heartsOneTimePurchase =>
-      'One-time purchase. Hearts are added instantly.';
+      'ایک بار کی خریداری۔ ہارٹس فوراً شامل ہو جاتے ہیں۔';
 
   @override
-  String get tryProForLess => 'Try Pro for less';
+  String get tryProForLess => 'کم قیمت میں پرو آزمائیں';
 
   @override
   String get fiftyOffFirstYear =>
-      '50% off your first year- \$19.99 instead of \$39.99';
+      'پہلے سال 50% رعایت - \$39.99 کے بجائے \$19.99';
 
   @override
-  String get fiftyPercentOff => '50% OFF';
+  String get fiftyPercentOff => '50% رعایت';
 
   @override
-  String get annualPro => 'Annual Pro';
+  String get annualPro => 'سالانہ پرو';
 
   @override
-  String get annualProPrice => '\$19.99/year';
+  String get annualProPrice => '\$19.99/سال';
 
   @override
-  String get annualProPriceStrikethrough => '\$39.99/year';
+  String get annualProPriceStrikethrough => '\$39.99/سال';
 
   @override
-  String get firstYearOnly => 'First year only';
+  String get firstYearOnly => 'صرف پہلا سال';
 
   @override
-  String get sevenDayFreeTrialIncluded => '7-day free trial included';
+  String get sevenDayFreeTrialIncluded => '7 دن کی مفت آزمائش شامل ہے';
 
   @override
-  String get specialOffer => 'SPECIAL OFFER';
+  String get specialOffer => 'خصوصی پیشکش';
 
   @override
-  String get startSevenDayFreeTrial => 'Start 7-Days Free Trial';
+  String get startSevenDayFreeTrial => '7 دن کی مفت آزمائش شروع کریں';
 
   @override
   String heartsAddedTitle(int count) {
-    return '$count Hearts Added';
+    return '$count ہارٹس شامل ہو گئے';
   }
 
   @override
   String get heartsAddedMessage =>
-      'Your hearts have been added. You are ready for more AI chat, corrections, and practice.';
+      'آپ کے ہارٹس شامل کر دیے گئے ہیں۔ اب آپ مزید اے آئی چیٹ، اصلاح اور مشق کے لیے تیار ہیں۔';
 
   @override
-  String get currentBalance => 'Current Balance';
+  String get currentBalance => 'موجودہ بیلنس';
 
   @override
   String currentHeartsBalance(int count) {
-    return '$count Hearts';
+    return '$count ہارٹس';
   }
 
   @override
-  String get startPracticing => 'Start Practicing';
+  String get startPracticing => 'مشق شروع کریں';
 
   @override
-  String get oneHeartPerAiResponse => '1 heart per AI response';
+  String get oneHeartPerAiResponse => 'ہر اے آئی جواب پر 1 ہارٹ';
 
   @override
   String get premiumUnlockedTitle => 'پریمیم اَن لاک ہو گیا';
@@ -2090,4 +2093,179 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get featureNeedsInternet => 'اس کے لیے انٹرنیٹ کنکشن درکار ہے۔';
+
+  @override
+  String get loadingAd => 'اشتہار لوڈ ہو رہا ہے';
+
+  @override
+  String get reportingApp => 'ایپ کو رپورٹ کیا جا رہا ہے';
+
+  @override
+  String get allowNotificationsTitle => 'روزانہ یاد دہانی';
+
+  @override
+  String get allowNotificationsMessage =>
+      'نوٹیفکیشنز کی اجازت دیں تاکہ Fluenta آپ کو ہر روز مشق کی یاد دلائے۔';
+
+  @override
+  String get allowNotificationsAllow => 'اجازت دیں';
+
+  @override
+  String get allowNotificationsLater => 'ابھی نہیں';
+
+  @override
+  String get updateAvailableTitle => 'اپ ڈیٹ دستیاب ہے';
+
+  @override
+  String get updateAvailableMessage =>
+      'Fluenta کا نیا ورژن تیار ہے۔ تازہ اسباق اور اصلاحات کے لیے اپ ڈیٹ کریں۔';
+
+  @override
+  String get updateNow => 'اپ ڈیٹ';
+
+  @override
+  String get updateLater => 'بعد میں';
+
+  @override
+  String get connectToWatchAdTitle => 'اشتہار دیکھنے کے لیے انٹرنیٹ آن کریں';
+
+  @override
+  String get connectToWatchAdMessage =>
+      'انٹرنیٹ جوڑیں، پھر ہم ریوارڈڈ اشتہار چلائیں گے۔';
+
+  @override
+  String get adLabel => 'اشتہار';
+
+  @override
+  String setupStepOf(int current, int total) {
+    return 'مرحلہ $current از $total';
+  }
+
+  @override
+  String get iapPurchaseFailed =>
+      'خریداری ناکام رہی۔ براہ کرم دوبارہ کوشش کریں۔';
+
+  @override
+  String get iapInvalidProduct => 'غلط پروڈکٹ کا انتخاب۔';
+
+  @override
+  String get iapBillingUnavailable => 'اس ڈیوائس پر گوگل پلے بلنگ دستیاب نہیں۔';
+
+  @override
+  String iapProductNotFound(String productId) {
+    return 'پلے اسٹور میں پروڈکٹ نہیں ملی: $productId';
+  }
+
+  @override
+  String get iapPurchaseInProgress => 'ایک اور خریداری پہلے سے جاری ہے۔';
+
+  @override
+  String get iapCouldNotStart => 'خریداری شروع نہیں ہو سکی۔';
+
+  @override
+  String get iapPurchaseTimedOut => 'خریداری کا وقت ختم ہو گیا۔';
+
+  @override
+  String get iapPremiumRestored => 'پریمیم رسائی بحال ہو گئی۔';
+
+  @override
+  String get iapNoSubscriptionToRestore =>
+      'بحال کرنے کے لیے کوئی فعال سبسکرپشن نہیں ملی۔';
+
+  @override
+  String get iapPurchaseCanceled => 'خریداری منسوخ کر دی گئی۔';
+
+  @override
+  String get iapPremiumUnlocked => 'پریمیم کھل گیا۔';
+
+  @override
+  String get iapUnknownProduct => 'نامعلوم پروڈکٹ خریدی گئی۔';
+
+  @override
+  String get privacyOptions => 'پرائیویسی سیٹنگز';
+
+  @override
+  String get privacyOptionsSub => 'اشتہارات اور ڈیٹا کے اختیارات منظم کریں';
+
+  @override
+  String get tutorialTitle => 'ایپ ٹیوٹوریل';
+
+  @override
+  String get tutorialSubtitle => 'ایپ استعمال کرنا سیکھیں';
+
+  @override
+  String get tutorialNext => 'اگلا';
+
+  @override
+  String get tutorialDone => 'سمجھ گیا';
+
+  @override
+  String get tutorialClose => 'ٹیوٹوریل بند کریں';
+
+  @override
+  String tutorialStepCount(int current, int total) {
+    return '$current از $total';
+  }
+
+  @override
+  String get tutorialLearnTitle => 'ہر مہارت کے لیے اسباق';
+
+  @override
+  String get tutorialPronunciationTitle => 'اپنا تلفظ جانچیں';
+
+  @override
+  String get tutorialHeartsTitle => 'ہارٹس کیا ہیں؟';
+
+  @override
+  String get tutorialPracticeTitle => 'انگریزی کی مشق یہاں کریں';
+
+  @override
+  String get tutorialPracticeBody =>
+      'روزانہ انگریزی کی مشق کے لیے آج کا سبق کھولیں۔ اسے مکمل کریں تاکہ XP ملے اور آپ کی اسٹریک برقرار رہے۔';
+
+  @override
+  String get tutorialAiChatTitle => 'اپنے اے آئی ٹیوٹر سے بات کریں';
+
+  @override
+  String get tutorialAiChatBody =>
+      'AI چیٹ شروع کریں پر ٹیپ کریں، پھر کسی بھی موضوع پر انگریزی میں لکھیں یا بولیں اور فوری اصلاح پائیں۔ ہر اے آئی جواب میں 1 ہارٹ لگتا ہے۔';
+
+  @override
+  String get tutorialLearnBody =>
+      'سیکھیں ٹیب میں ذخیرہ الفاظ، گرامر اور ریڈنگ موجود ہیں۔ کوئی سبق چنیں اور اسے مکمل کر کے XP کمائیں۔';
+
+  @override
+  String get tutorialLevelsTitle => 'لیولز کیسے کھلتے ہیں';
+
+  @override
+  String get tutorialLevelsBody =>
+      'لیولز A1 سے شروع ہوتے ہیں۔ کسی لیول کے بنیادی اسباق مکمل کریں اور اگلا لیول کھولنے کے لیے کافی XP کمائیں۔ بند لیول پر ٹیپ کر کے دیکھیں کہ آپ کو مزید کیا چاہیے۔';
+
+  @override
+  String get tutorialScenariosTitle => 'رول پلے کہاں ہے';
+
+  @override
+  String get tutorialScenariosBody =>
+      'رول پلے ٹیب کھولیں اور منظرناموں میں سوائپ کریں، جیسے ملازمت کا انٹرویو، کھانا آرڈر کرنا یا ایئرپورٹ۔ حقیقی گفتگو کی مشق کے لیے کسی پر ٹیپ کریں۔';
+
+  @override
+  String get tutorialPronunciationBody =>
+      'مشق شروع کریں پر ٹیپ کریں، جملہ بلند آواز میں پڑھیں اور فیڈبیک کے ساتھ اسکور پائیں۔ بہتر بنانے کے لیے دوبارہ کوشش کریں۔ ہر جانچ میں 1 ہارٹ لگتا ہے۔';
+
+  @override
+  String get tutorialHeartsBody =>
+      'ہارٹس اے آئی فیچرز کو چلاتے ہیں: ہر اے آئی جواب اور ہر تلفظ کی جانچ میں 1 لگتا ہے۔ یہ ہر روز دوبارہ بھر جاتے ہیں۔ ختم ہو گئے؟ مختصر اشتہار دیکھیں یا لامحدود کے لیے پرو لیں۔';
+
+  @override
+  String get tutorialProfileTitle => 'آپ کی پروفائل اور سیٹنگز';
+
+  @override
+  String get tutorialProfileBody =>
+      'یہاں اپنی پیش رفت دیکھیں، زبان اور یاد دہانیاں بدلیں اور پرو منظم کریں۔ آپ یہ ٹیوٹوریل کسی بھی وقت مدد اور قانونی سے دوبارہ دیکھ سکتے ہیں۔';
+
+  @override
+  String get moreApps => 'مزید ایپس';
+
+  @override
+  String get moreAppsSub => 'Futurewatch کی دیگر ایپس';
 }
