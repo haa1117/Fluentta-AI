@@ -3,10 +3,7 @@ import 'package:fluentta_ai/core/analytics/analytics_params.dart';
 import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/legal_urls.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluentta_ai/core/ads/admob_service.dart';
-import 'package:fluentta_ai/core/iap/iap_product_ids.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
@@ -15,6 +12,7 @@ import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/repositories/auth_repository.dart';
 import 'package:fluentta_ai/data/repositories/user_repository.dart';
+import 'package:fluentta_ai/data/services/rate_app_service.dart';
 import 'package:fluentta_ai/viewmodels/setup_view_model.dart';
 import 'package:fluentta_ai/views/setup/setup_flow_screen.dart';
 import 'package:fluentta_ai/viewmodels/auth_view_model.dart';
@@ -22,7 +20,6 @@ import 'package:fluentta_ai/viewmodels/grammar_view_model.dart';
 import 'package:fluentta_ai/viewmodels/learn_view_model.dart';
 import 'package:fluentta_ai/viewmodels/reading_view_model.dart';
 import 'package:fluentta_ai/viewmodels/vocabulary_view_model.dart';
-import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/viewmodels/profile_view_model.dart';
 import 'package:fluentta_ai/viewmodels/subscription_view_model.dart';
 import 'package:fluentta_ai/views/language/language_selection_screen.dart';
@@ -38,7 +35,9 @@ import 'package:fluentta_ai/widgets/profile/profile_section_header.dart';
 import 'package:fluentta_ai/widgets/profile/profile_settings_tile.dart';
 import 'package:fluentta_ai/widgets/profile/profile_stats_grid.dart';
 import 'package:fluentta_ai/widgets/profile/profile_user_card.dart';
-import 'package:fluentta_ai/widgets/subscription/premium_unlocked_dialog.dart';
+import 'package:fluentta_ai/core/consent/consent_service.dart';
+import 'package:fluentta_ai/views/tutorial/tutorial_screen.dart';
+import 'package:fluentta_ai/views/profile/more_apps_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTabScreen extends StatefulWidget {
@@ -300,28 +299,6 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                         ),
                       ],
                     ),
-                    if (kDebugMode) ...[
-                      SizedBox(height: AppSizes.h(20)),
-                      ProfileSectionHeader(title: 'Debug', isDark: isDark),
-                      ProfileSettingsGroup(
-                        children: [
-                          ProfileSettingsTile(
-                            title: 'Enable Pro (debug)',
-                            subtitle: 'Grant Pro subscription on this device',
-                            svgIcon: null,
-                            onTap: () => _debugEnablePro(context),
-                            isDark: isDark,
-                          ),
-                          ProfileSettingsTile(
-                            isDark: isDark,
-                            title: 'Add hearts (debug)',
-                            subtitle: 'Add 5 hearts instantly',
-                            svgIcon: null,
-                            onTap: () => _debugAddHearts(context),
-                          ),
-                        ],
-                      ),
-                    ],
                     // SizedBox(height: AppSizes.h(20)),
                     // ProfileSectionHeader(title: 'PRO FEATURES'),
                     // ProfileSettingsGroup(
@@ -432,12 +409,40 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                         ),
                         ProfileSettingsTile(
                           isDark: isDark,
+                          title: l10n.tutorialTitle,
+                          subtitle: l10n.tutorialSubtitle,
+                          svgIcon: null,
+                          onTap: () =>
+                              showAppTutorial(context, source: 'profile'),
+                        ),
+                        if (ConsentService.instance.privacyOptionsRequired)
+                          ProfileSettingsTile(
+                            isDark: isDark,
+                            title: l10n.privacyOptions,
+                            subtitle: l10n.privacyOptionsSub,
+                            svgIcon: null,
+                            onTap: () async {
+                              await ConsentService.instance
+                                  .showPrivacyOptions();
+                              if (mounted) setState(() {});
+                            },
+                          ),
+                        ProfileSettingsTile(
+                          isDark: isDark,
+                          title: l10n.moreApps,
+                          subtitle: l10n.moreAppsSub,
+                          svgIcon: null,
+                          onTap: () => Navigator.of(context).push<void>(
+                            MaterialPageRoute<void>(
+                              builder: (_) => const MoreAppsScreen(),
+                            ),
+                          ),
+                        ),
+                        ProfileSettingsTile(
+                          isDark: isDark,
                           title: l10n.rateApp,
                           svgIcon: null,
-                          onTap: () => SnackbarHelper.showSuccess(
-                            context,
-                            l10n.openingSoon,
-                          ),
+                          onTap: () => RateAppService.instance.requestReview(),
                         ),
                       ],
                     ),
@@ -483,31 +488,6 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> _debugEnablePro(BuildContext context) async {
-    await LocalStorage.instance.setPremiumActive(
-      active: true,
-      productId: IapProductIds.lifetime,
-    );
-    AdMobService.instance.refreshAfterEntitlementsChange();
-    if (!context.mounted) return;
-    context.read<ProfileViewModel>().refresh();
-    context.read<HomeViewModel>().refresh();
-    await showPremiumUnlockedDialog(context);
-  }
-
-  Future<void> _debugAddHearts(BuildContext context) async {
-    final home = context.read<HomeViewModel>();
-    if (home.hasUnlimitedHearts) {
-      SnackbarHelper.showSuccess(context, 'Pro already has unlimited hearts.');
-      return;
-    }
-
-    await home.addHearts(5);
-    if (!context.mounted) return;
-    context.read<ProfileViewModel>().refresh();
-    SnackbarHelper.showSuccess(context, 'Added 5 hearts (debug only).');
   }
 
   Future<void> _openLearningPreferences(BuildContext context) async {
