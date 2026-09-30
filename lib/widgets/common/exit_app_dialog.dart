@@ -1,5 +1,8 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluentta_ai/core/ads/ad_placement.dart';
+import 'package:fluentta_ai/core/ads/admob_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -77,10 +80,13 @@ Future<void> showExitAppDialog(BuildContext context,bool isDark) {
                 SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                    onPressed: () {
+                    onPressed: HapticService.wrap(() async {
                       Navigator.of(dialogContext).pop();
+                      await AdMobService.instance.showInterstitial(
+                        AdPlacement.exitInterstitial,
+                      );
                       SystemNavigator.pop();
-                    },
+                    }),
                     child: Text(
                       l10n.exitApp,
                       style: TextStyle(
