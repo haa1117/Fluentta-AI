@@ -1,3 +1,5 @@
+import 'package:fluentta_ai/core/tutorial/tutorial_targets.dart';
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -53,7 +55,10 @@ class SpeakAiTutorCard extends StatelessWidget {
                   ),
                 ),
               ),
-              _HeartsBadge(label: livesLabel,isDark: isDark),
+              KeyedSubtree(
+                key: TutorialTargets.heartsBadge,
+                child: _HeartsBadge(label: livesLabel, isDark: isDark),
+              ),
             ],
           ),
           SizedBox(height: AppSizes.h(12)),
@@ -155,7 +160,7 @@ class _StartPracticeButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onTap,
+          onTap: HapticService.wrap(onTap),
           borderRadius: BorderRadius.circular(AppSizes.buttonRadius),
           child: Ink(
             decoration: BoxDecoration(

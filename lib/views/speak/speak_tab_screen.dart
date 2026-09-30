@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/tutorial/tutorial_targets.dart';
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -120,6 +121,7 @@ class _RolePlayTabBodyState extends State<_RolePlayTabBody> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SpeakAiTutorCard(
+                key: TutorialTargets.pronunciationCard,
                 livesLabel: livesLabel,
                 onStartPractice: () {
                   AnalyticsService.instance.log(
@@ -150,8 +152,10 @@ class _RolePlayTabBodyState extends State<_RolePlayTabBody> {
               ),
               SizedBox(height: AppSizes.spaceMd),
               SizedBox(
+                key: TutorialTargets.scenarios,
                 height: RoleplayScenarioCard.listExtent(context),
                 child: ListView.separated(
+                  controller: TutorialTargets.scenarioScroll,
                   scrollDirection: Axis.horizontal,
                   itemCount: scenarios.length,
                   separatorBuilder: (_, index) =>

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/tutorial/tutorial_targets.dart';
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -100,6 +101,7 @@ class _LearnTabScreenState extends State<LearnTabScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CefrLevelBar(
+              key: TutorialTargets.levelBar,
               totalXp: learnViewModel.totalXp,
               selectedLevel: learnViewModel.selectedLevel,
               onLevelSelected: (level) {
@@ -138,6 +140,7 @@ class _LearnTabScreenState extends State<LearnTabScreen> {
             LearnLevelCard(isDark: isDark),
             SizedBox(height: AppSizes.spaceMd),
             GridView.builder(
+              key: TutorialTargets.learnModules,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

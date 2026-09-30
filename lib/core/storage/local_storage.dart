@@ -55,6 +55,8 @@ class LocalStorage {
   static const String _xpBoostAdCountKey = 'xp_boost_ad_count';
   static const String _lessonsSinceInterstitialKey = 'lessons_since_interstitial';
   static const String _hasVisitedHomeKey = 'has_visited_home';
+  static const String _tutorialSeenKey = 'app_tutorial_seen';
+  static const String _notificationPromptShownKey = 'notification_prompt_shown';
 
   static Future<LocalStorage> getInstance() async {
     _instance ??= LocalStorage._();
@@ -350,6 +352,7 @@ class LocalStorage {
     await _prefs!.remove(_xpBoostAdCountKey);
     await _prefs!.remove(_lessonsSinceInterstitialKey);
     await _prefs!.remove(_learnBrowseCefrLevelKey);
+    await _prefs!.remove(_tutorialSeenKey);
 
     const repositoryKeys = [
       'lesson_progress_v1',
@@ -602,6 +605,19 @@ class LocalStorage {
 
   Future<void> setHasVisitedHome() async {
     await _prefs!.setBool(_hasVisitedHomeKey, true);
+  }
+
+  bool get hasSeenTutorial => _prefs!.getBool(_tutorialSeenKey) ?? false;
+
+  Future<void> setTutorialSeen() async {
+    await _prefs!.setBool(_tutorialSeenKey, true);
+  }
+
+  bool get hasShownNotificationPrompt =>
+      _prefs!.getBool(_notificationPromptShownKey) ?? false;
+
+  Future<void> setNotificationPromptShown() async {
+    await _prefs!.setBool(_notificationPromptShownKey, true);
   }
 
   bool get shouldShowOnboarding => !isOnboardingComplete;
