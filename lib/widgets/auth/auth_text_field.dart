@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -96,7 +97,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
                       color:widget.isDark ? AppColors.iconColorDark: AppColors.borderLight,
                       size: AppSizes.iconSmall,
                     ),
-                    onPressed: () => setState(() => _obscure = !_obscure),
+                    onPressed: HapticService.wrap(() => setState(() => _obscure = !_obscure)),
                   )
                 : null,
             filled: true,

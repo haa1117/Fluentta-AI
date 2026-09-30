@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -87,7 +88,7 @@ class VerifyOtpScreen extends StatelessWidget {
               ),
               SizedBox(height: AppSizes.spaceLg),
               GestureDetector(
-                onTap: viewModel.canResend
+                onTap: HapticService.wrap(viewModel.canResend
                     ? () async {
                         try {
                           await viewModel.resendCode();
@@ -106,7 +107,7 @@ class VerifyOtpScreen extends StatelessWidget {
                           }
                         }
                       }
-                    : null,
+                    : null),
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(

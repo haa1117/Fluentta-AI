@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -111,7 +112,7 @@ class AuthFooterLink extends StatelessWidget {
         ? AppColors.textSecondaryDark
         : AppColors.textSecondary;
     return GestureDetector(
-      onTap: onTap,
+      onTap: HapticService.wrap(onTap),
       child: Column(
         children: [
           if (showTopDivider) ...[
@@ -225,7 +226,7 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 if (showBack)
                   GestureDetector(
-                    onTap: onBack ?? () => Navigator.of(context).pop(),
+                    onTap: HapticService.wrap(onBack ?? () => Navigator.of(context).pop()),
                     child: Container(
                       width: AppSizes.w(41),
                       height: AppSizes.h(38),

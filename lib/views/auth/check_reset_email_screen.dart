@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -169,7 +170,7 @@ class _CheckResetEmailScreenState extends State<CheckResetEmailScreen>
               ),
               SizedBox(height: AppSizes.spaceLg * 2),
               GestureDetector(
-                onTap: _canResend ? _resendLink : null,
+                onTap: HapticService.wrap(_canResend ? _resendLink : null),
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(

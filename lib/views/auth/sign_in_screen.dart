@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
 import 'package:fluentta_ai/core/analytics/analytics_service.dart';
@@ -111,7 +112,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
-                        onTap: () {
+                        onTap: HapticService.wrap(() {
                           AnalyticsService.instance.log(
                             AnalyticsEvents.forgotPasswordClicked,
                             {
@@ -130,7 +131,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                             ),
                           );
-                        },
+                        }),
                         child: Text(
                           l10n.forgotPassword,
                           style: TextStyle(

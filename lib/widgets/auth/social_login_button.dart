@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -29,7 +30,7 @@ class SocialLoginButton extends StatelessWidget {
       color:isDark ? Colors.transparent : AppColors.white,
       borderRadius: BorderRadius.circular(AppSizes.w(12)),
       child: InkWell(
-        onTap: onPressed,
+        onTap: HapticService.wrap(onPressed),
         borderRadius: BorderRadius.circular(AppSizes.w(12)),
         child: Container(
           width: double.infinity,
