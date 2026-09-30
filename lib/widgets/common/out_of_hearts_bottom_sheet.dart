@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -9,8 +10,8 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
-import 'package:fluentta_ai/core/network/network_status.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/widgets/ads/connect_to_watch_ad_dialog.dart';
 import 'package:fluentta_ai/data/services/entitlements_service.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 import 'package:fluentta_ai/views/subscription/subscription_screen.dart';
@@ -67,10 +68,8 @@ Future<void> showPremiumUpsellBottomSheet(
           },
           onWatchAd: () async {
             final l10n = sheetContext.l10n;
-            if (!NetworkStatus.lastKnownOnline) {
-              SnackbarHelper.showError(sheetContext, l10n.featureNeedsInternet);
-              return;
-            }
+            final ready = await ensureOnlineForRewardedAd(sheetContext);
+            if (!ready || !sheetContext.mounted) return;
             final home = sheetContext.read<HomeViewModel>();
             final result = await home.watchAdForHearts();
             if (!sheetContext.mounted) return;
@@ -373,7 +372,7 @@ class _CloseButton extends StatelessWidget {
       color: isDark ? AppColors.brandDarkSoftColor : AppColors.homeCardLavender,
       shape: const CircleBorder(),
       child: InkWell(
-        onTap: onTap,
+        onTap: HapticService.wrap(onTap),
         customBorder: const CircleBorder(),
         child: SizedBox(
           width: AppSizes.w(36),

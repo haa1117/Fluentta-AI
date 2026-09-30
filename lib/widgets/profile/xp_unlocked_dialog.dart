@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -7,8 +8,8 @@ import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
-import 'package:fluentta_ai/core/network/network_status.dart';
 import 'package:fluentta_ai/core/network/connectivity_view_model.dart';
+import 'package:fluentta_ai/widgets/ads/connect_to_watch_ad_dialog.dart';
 import 'package:fluentta_ai/core/roleplay/roleplay_xp_milestones.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
@@ -88,10 +89,8 @@ class _XpUnlockedDialogState extends State<_XpUnlockedDialog> {
 
   Future<void> _watchAd() async {
     final l10n = context.l10n;
-    if (!NetworkStatus.lastKnownOnline) {
-      SnackbarHelper.showError(context, l10n.featureNeedsInternet);
-      return;
-    }
+    final ready = await ensureOnlineForRewardedAd(context);
+    if (!ready || !mounted) return;
     final home = context.read<HomeViewModel>();
     if (!home.canWatchXpBoostAd) {
       await _showCapReachedDialog();
@@ -152,7 +151,7 @@ class _XpUnlockedDialogState extends State<_XpUnlockedDialog> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(),
+              onPressed: HapticService.wrap(() => Navigator.of(dialogContext).pop()),
               child: Text(
                 l10n.done,
                 style: TextStyle(
@@ -217,7 +216,7 @@ class _XpUnlockedDialogState extends State<_XpUnlockedDialog> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
+                  onTap: HapticService.wrap(() => Navigator.of(context).pop()),
                   child: Icon(
                     Icons.close_rounded,
                     size: AppSizes.sp(20),
@@ -323,24 +322,10 @@ class _XpUnlockedDialogState extends State<_XpUnlockedDialog> {
               ),
             ],
             SizedBox(height: AppSizes.spaceLg),
-            if (!NetworkStatus.lastKnownOnline)
-              Text(
-                l10n.featureNeedsInternet,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: AppFonts.plusJakartaSans,
-                  fontSize: AppSizes.sp(13),
-                  fontWeight: FontWeight.w500,
-                  color: isDark
-                      ? AppColors.textSecondaryDark
-                      : AppColors.textSecondary,
-                ),
-              )
-            else
-              SizedBox(
+            SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _isWatchingAd ? null : _watchAd,
+                  onPressed: HapticService.wrap(_isWatchingAd ? null : _watchAd),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,
                     foregroundColor: AppColors.white,
