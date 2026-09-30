@@ -14,7 +14,7 @@ class SplashViewModel extends ChangeNotifier {
   static const _minSplash = Duration(milliseconds: 800);
   // Don't let a slow network hold the app hostage — proceed with local state.
   static const _syncTimeout = Duration(milliseconds: 2500);
-  static const _interstitialPreloadTimeout = Duration(milliseconds: 1200);
+  static const _interstitialPreloadTimeout = AdMobService.adLoadTimeout;
   static const _interstitialShowTimeout = Duration(seconds: 4);
 
   bool _isNavigating = false;

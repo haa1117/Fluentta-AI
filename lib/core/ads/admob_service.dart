@@ -6,10 +6,13 @@ import 'package:flutter/material.dart' show Color;
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
 import 'package:fluentta_ai/core/ads/ad_unit_ids.dart';
+import 'package:fluentta_ai/core/consent/consent_service.dart';
 import 'package:fluentta_ai/core/network/network_status.dart';
+import 'package:fluentta_ai/core/remote_config/app_remote_config.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/ads_remote_config.dart';
 import 'package:fluentta_ai/data/repositories/ads_config_repository.dart';
+import 'package:fluentta_ai/widgets/ads/ad_loading_overlay.dart';
 
 /// Central AdMob manager: singleton init, Firestore toggles, preload pools,
 /// show-rate / min-interval gating, and rewarded display.
@@ -38,6 +41,14 @@ class AdMobService extends ChangeNotifier {
   final Map<AdPlacement, bool> _loadingRewarded = {};
   final Map<AdPlacement, bool> _loadingInterstitial = {};
   final Map<AdPlacement, Future<void>> _interstitialLoadTasks = {};
+  DateTime? _lastFullscreenShownAt;
+
+  /// Maximum time any ad request (banner, native, interstitial, rewarded)
+  /// may take before we give up and continue without it.
+  static const adLoadTimeout = Duration(seconds: 10);
+
+  static const _rewardedCooldown = Duration(seconds: 30);
+  static const _interstitialCooldown = Duration(seconds: 40);
 
   AdsRemoteConfig get config => _config;
   bool get isInitialized => _initialized;
@@ -48,6 +59,14 @@ class AdMobService extends ChangeNotifier {
     if (kIsWeb || _initialized) return;
 
     _localStorage = localStorage;
+
+    // UMP consent + iOS ATT must finish before the first ad request.
+    final canRequestAds = await ConsentService.instance.gatherConsent();
+    if (!canRequestAds) {
+      // Retry if the user later changes their choice in Privacy Settings.
+      ConsentService.instance.addListener(_retryAfterConsentChange);
+      return;
+    }
 
     try {
       // Apply in debug and release. Test devices still request ads, but AdMob
@@ -99,6 +118,14 @@ class AdMobService extends ChangeNotifier {
     }
   }
 
+  void _retryAfterConsentChange() {
+    final storage = _localStorage;
+    if (_initialized || storage == null) return;
+    if (!ConsentService.instance.canRequestAds) return;
+    ConsentService.instance.removeListener(_retryAfterConsentChange);
+    unawaited(initialize(localStorage: storage));
+  }
+
   /// Call when Pro status changes (purchase, restore, debug toggle, logout).
   void refreshAfterEntitlementsChange() {
     if (!_initialized) return;
@@ -121,9 +148,13 @@ class AdMobService extends ChangeNotifier {
   }
 
   /// Whether this placement should render an ad slot (Firestore + premium + rate).
-  bool shouldDisplay(AdPlacement placement) {
+  ///
+  /// [requireOnline] is false for rewarded CTAs that should stay visible offline
+  /// so we can prompt the learner to connect, then play the ad.
+  bool shouldDisplay(AdPlacement placement, {bool requireOnline = true}) {
     if (kIsWeb || !_initialized) return false;
-    if (!NetworkStatus.lastKnownOnline) return false;
+    if (requireOnline && !NetworkStatus.lastKnownOnline) return false;
+    if (!AppRemoteConfig.instance.adsMasterEnabled) return false;
     if (!_config.masterEnabled) return false;
     if (_isPremiumUser) return false;
 
@@ -136,6 +167,10 @@ class AdMobService extends ChangeNotifier {
         () => _passesShowRate(settings.showRate),
       );
       if (!showAllowed) return false;
+    }
+
+    if (placement.isInterstitial || placement.isRewarded) {
+      if (!_passesFullscreenCooldown(placement)) return false;
       if (!_passesMinInterval(placement, settings.minIntervalSeconds)) {
         return false;
       }
@@ -149,6 +184,9 @@ class AdMobService extends ChangeNotifier {
     if (kIsWeb) return 'web platform';
     if (!_initialized) return 'not initialized';
     if (!NetworkStatus.lastKnownOnline) return 'offline';
+    if (!AppRemoteConfig.instance.adsMasterEnabled) {
+      return 'remote_config ads_master_enabled=false';
+    }
     if (!_config.masterEnabled) return 'masterEnabled=false';
     if (_isPremiumUser) return 'premium user';
 
@@ -158,8 +196,15 @@ class AdMobService extends ChangeNotifier {
     final showAllowed = _showRateDecisions[placement];
     if (showAllowed == false) return 'showRate blocked';
 
-    if (!_passesMinInterval(placement, settings.minIntervalSeconds)) {
-      return 'minInterval active';
+    if (placement.isInterstitial || placement.isRewarded) {
+      if (!_passesFullscreenCooldown(placement)) {
+        return placement.isRewarded
+            ? '30s rewarded cooldown'
+            : '40s interstitial cooldown';
+      }
+      if (!_passesMinInterval(placement, settings.minIntervalSeconds)) {
+        return 'minInterval active';
+      }
     }
 
     return 'allowed';
@@ -167,6 +212,9 @@ class AdMobService extends ChangeNotifier {
 
   void recordImpression(AdPlacement placement) {
     _lastShownAt[placement] = DateTime.now();
+    if (placement.isInterstitial || placement.isRewarded) {
+      _lastFullscreenShownAt = DateTime.now();
+    }
   }
 
   String unitIdFor(AdPlacement placement) => AdUnitIds.unitId(placement);
@@ -209,10 +257,15 @@ class AdMobService extends ChangeNotifier {
   }) async {
     if (!shouldDisplay(placement)) return false;
 
+    AdLoadingOverlay.show();
     var rewarded = _rewardedCache[placement];
-    if (rewarded == null) {
-      rewarded = await _loadRewarded(placement);
-      if (rewarded == null) return false;
+    try {
+      if (rewarded == null) {
+        rewarded = await _loadRewarded(placement);
+        if (rewarded == null) return false;
+      }
+    } finally {
+      AdLoadingOverlay.hide();
     }
 
     final completer = Completer<bool>();
@@ -258,7 +311,7 @@ class AdMobService extends ChangeNotifier {
   /// Waits until interstitial is cached or [timeout] elapses.
   Future<bool> waitForInterstitial(
     AdPlacement placement, {
-    required Duration timeout,
+    Duration timeout = adLoadTimeout,
   }) async {
     if (!shouldDisplay(placement)) return false;
     if (_interstitialCache[placement] != null) return true;
@@ -287,11 +340,9 @@ class AdMobService extends ChangeNotifier {
       return;
     }
 
-    final ready = await waitForInterstitial(
-      AdPlacement.lessonInterstitial,
-      timeout: const Duration(seconds: 2),
-    );
-    if (ready && await showInterstitial(AdPlacement.lessonInterstitial)) {
+    // showInterstitial shows the blocking loading overlay and waits up to
+    // [adLoadTimeout] if the ad isn't cached yet.
+    if (await showInterstitial(AdPlacement.lessonInterstitial)) {
       await storage.setLessonsSinceInterstitial(0);
     } else {
       // Keep the tally so we retry after the next lesson.
@@ -303,7 +354,18 @@ class AdMobService extends ChangeNotifier {
   Future<bool> showInterstitial(AdPlacement placement) async {
     if (!shouldDisplay(placement)) return false;
 
-    final ad = _interstitialCache.remove(placement);
+    AdLoadingOverlay.show();
+    InterstitialAd? ad;
+    try {
+      ad = _interstitialCache.remove(placement);
+      if (ad == null) {
+        await waitForInterstitial(placement);
+        ad = _interstitialCache.remove(placement);
+      }
+    } finally {
+      AdLoadingOverlay.hide();
+    }
+
     if (ad == null) return false;
 
     final completer = Completer<bool>();
@@ -473,7 +535,7 @@ class AdMobService extends ChangeNotifier {
 
     bannerAd.load();
     return completer.future.timeout(
-      const Duration(seconds: 15),
+      adLoadTimeout,
       onTimeout: () {
         if (kDebugMode) {
           debugPrint('Banner load timeout [$placement]');
@@ -509,7 +571,7 @@ class AdMobService extends ChangeNotifier {
 
     await nativeAd.load();
     return completer.future.timeout(
-      const Duration(seconds: 12),
+      adLoadTimeout,
       onTimeout: () {
         nativeAd.dispose();
         return null;
@@ -534,7 +596,7 @@ class AdMobService extends ChangeNotifier {
     );
 
     return completer.future.timeout(
-      const Duration(seconds: 15),
+      adLoadTimeout,
       onTimeout: () => null,
     );
   }
@@ -566,7 +628,7 @@ class AdMobService extends ChangeNotifier {
     );
 
     return completer.future.timeout(
-      const Duration(seconds: 12),
+      adLoadTimeout,
       onTimeout: () => null,
     );
   }
@@ -575,6 +637,17 @@ class AdMobService extends ChangeNotifier {
     if (rate >= 1) return true;
     if (rate <= 0) return false;
     return _random.nextDouble() <= rate;
+  }
+
+  Duration _cooldownFor(AdPlacement placement) {
+    if (placement.isRewarded) return _rewardedCooldown;
+    return _interstitialCooldown;
+  }
+
+  bool _passesFullscreenCooldown(AdPlacement placement) {
+    final last = _lastFullscreenShownAt;
+    if (last == null) return true;
+    return DateTime.now().difference(last) >= _cooldownFor(placement);
   }
 
   bool _passesMinInterval(AdPlacement placement, int minSeconds) {
