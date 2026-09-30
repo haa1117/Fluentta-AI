@@ -48,12 +48,6 @@ class AppTheme {
           color: AppColors.textSecondary,
         ),
       ),
-      snackBarTheme: SnackBarThemeData(
-        contentTextStyle: TextStyle(
-          fontFamily: fontFamily,
-          color: AppColors.white,
-        ),
-      ),
     );
   }
 
