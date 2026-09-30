@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/daily_goal/daily_goal_rewards.dart';
 import 'package:fluentta_ai/data/models/learning_lesson_model.dart';
 import 'package:fluentta_ai/data/models/english_basics_lesson_model.dart';
@@ -135,7 +135,7 @@ class EnglishBasicsFlowViewModel extends ChangeNotifier {
     _sentenceSelections[questionIndex] = optionIndex;
     _sentenceAnswered[questionIndex] = true;
     if (!isSelectionCorrect(questionIndex, optionIndex)) {
-      HapticFeedback.heavyImpact();
+      HapticService.heavy();
       // Count the mistake once per question, not once per retry.
       if (_sentenceMistakeRecorded.add(questionIndex)) {
         unawaited(progressSyncService.recordCorrections(1));

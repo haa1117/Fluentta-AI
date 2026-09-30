@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:confetti/confetti.dart';
 import 'package:fluentta_ai/core/analytics/lesson_completion_analytics.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,8 @@ import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
-import 'package:fluentta_ai/core/network/network_status.dart';
 import 'package:fluentta_ai/core/network/connectivity_view_model.dart';
+import 'package:fluentta_ai/widgets/ads/connect_to_watch_ad_dialog.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
 import 'package:fluentta_ai/core/xp/lesson_xp_rewards.dart';
@@ -132,10 +133,8 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
     final lessonKey = widget.boostLessonKey;
     if (lessonKey == null || _boostClaimed || _boostLoading) return;
 
-    if (!NetworkStatus.lastKnownOnline) {
-      SnackbarHelper.showError(context, context.l10n.featureNeedsInternet);
-      return;
-    }
+    final ready = await ensureOnlineForRewardedAd(context);
+    if (!ready || !mounted) return;
 
     setState(() => _boostLoading = true);
 
@@ -190,7 +189,10 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
   bool get _showBoostCard {
     if (!_grantsBoost || !_boostChecked) return false;
     if (_isPremium) return false; // auto-applied, no ad
-    if (!AdMobService.instance.shouldDisplay(AdPlacement.rewardedXpBoost)) {
+    if (!AdMobService.instance.shouldDisplay(
+      AdPlacement.rewardedXpBoost,
+      requireOnline: false,
+    )) {
       return false;
     }
     return !_boostClaimed;
@@ -326,7 +328,7 @@ class _LessonCompleteLayoutState extends State<LessonCompleteLayout> {
               top: AppSizes.spaceSm,
               right: AppSizes.horizontalPadding,
               child: GestureDetector(
-                onTap: () => _exitWith(widget.onClose, startNext: false),
+                onTap: HapticService.wrap(() => _exitWith(widget.onClose, startNext: false)),
                 child: Container(
                   width: AppSizes.w(36),
                   height: AppSizes.w(36),
@@ -426,7 +428,7 @@ class _XpBoostCard extends StatelessWidget {
             color:isDark ? AppColors.surfaceBgDarkColor: AppColors.white,
             borderRadius: BorderRadius.circular(AppSizes.w(10)),
             child: InkWell(
-              onTap: isLoading ? null : onBoost,
+              onTap: HapticService.wrap(isLoading ? null : onBoost),
               borderRadius: BorderRadius.circular(AppSizes.w(28)),
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSizes.h(14)),

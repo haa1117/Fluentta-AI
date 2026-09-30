@@ -1,9 +1,11 @@
+import 'package:fluentta_ai/core/tutorial/tutorial_targets.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
 import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
@@ -67,6 +69,7 @@ class AppBottomNavBar extends StatelessWidget {
                 label: l10n.navHome,
                 isSelected: viewModel.currentTab == MainTab.home,
                 onTap: () {
+                  HapticService.selection();
                   logNavTap(MainTab.home);
                   viewModel.selectTab(MainTab.home);
                 },
@@ -78,6 +81,7 @@ class AppBottomNavBar extends StatelessWidget {
                 label: l10n.navLearn,
                 isSelected: viewModel.currentTab == MainTab.learn,
                 onTap: () {
+                  HapticService.selection();
                   logNavTap(MainTab.learn);
                   viewModel.selectTab(MainTab.learn);
                 },
@@ -89,17 +93,20 @@ class AppBottomNavBar extends StatelessWidget {
                 label: l10n.navSpeak,
                 isSelected: viewModel.currentTab == MainTab.speak,
                 onTap: () {
+                  HapticService.selection();
                   logNavTap(MainTab.speak);
                   viewModel.selectTab(MainTab.speak);
                 },
               ),
               _NavItem(
+                key: TutorialTargets.navProfile,
                 isDark: isDark,
 
                 svgIcon: AppAssets.profileIcon,
                 label: l10n.navProfile,
                 isSelected: viewModel.currentTab == MainTab.profile,
                 onTap: () {
+                  HapticService.selection();
                   logNavTap(MainTab.profile);
                   viewModel.selectTab(MainTab.profile);
                   context.read<ProfileViewModel>().refreshStats();
@@ -116,6 +123,7 @@ class AppBottomNavBar extends StatelessWidget {
 class _NavItem extends StatelessWidget {
   final bool isDark;
   const _NavItem({
+    super.key,
     required this.svgIcon,
     required this.label,
     required this.isSelected,

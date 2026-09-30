@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:provider/provider.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -134,7 +134,7 @@ class GrammarLessonViewModel extends ChangeNotifier {
       _practiceWrongAnswers.remove(_currentStepIndex);
     } else if (_practiceWrongAnswers[_currentStepIndex] != value) {
       _practiceWrongAnswers[_currentStepIndex] = value;
-      HapticFeedback.heavyImpact();
+      HapticService.heavy();
       unawaited(progressSyncService.recordCorrections(1));
       // Shared daily hearts: instant grammar correction (same pool as chat).
       if (!homeViewModel.hasUnlimitedHearts && homeViewModel.lives > 0) {

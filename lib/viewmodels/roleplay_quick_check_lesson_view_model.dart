@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:provider/provider.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -133,7 +133,7 @@ class RoleplayQuickCheckLessonViewModel extends ChangeNotifier {
   Future<void> _recordWrongAnswer(int optionIndex) async {
     if (_lastWrongIndex == optionIndex) return;
     _lastWrongIndex = optionIndex;
-    HapticFeedback.heavyImpact();
+    HapticService.heavy();
     await progressSyncService.recordCorrections(1);
   }
 

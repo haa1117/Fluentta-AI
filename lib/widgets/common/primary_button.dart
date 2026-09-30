@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -41,7 +42,12 @@ class PrimaryButton extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             borderRadius: radius,
-            onTap: isActive ? onPressed : null,
+            onTap: isActive
+                ? () {
+                    HapticService.light();
+                    onPressed?.call();
+                  }
+                : null,
             child: Center(
               child: isLoading
                   ? Row(
