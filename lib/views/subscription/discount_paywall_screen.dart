@@ -261,8 +261,8 @@ class DiscountPaywallScreen extends StatelessWidget {
                               return;
                             }
                             if (result.message != null &&
-                                result.message != 'Purchase canceled.') {
-                              SnackbarHelper.showSuccess(
+                                !result.isCanceled) {
+                              SnackbarHelper.showError(
                                 context,
                                 result.message!,
                               );

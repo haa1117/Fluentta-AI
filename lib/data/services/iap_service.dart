@@ -5,6 +5,9 @@ import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
 import 'package:fluentta_ai/core/analytics/analytics_service.dart';
 import 'package:fluentta_ai/core/iap/iap_product_ids.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
+import 'package:fluentta_ai/l10n/app_localizations.dart';
+import 'package:fluentta_ai/core/network/network_status.dart';
 import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/data/models/subscription_models.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
@@ -20,6 +23,9 @@ class IapService {
 
   StreamSubscription<List<PurchaseDetails>>? _purchaseSubscription;
   final Map<String, ProductDetails> _products = {};
+
+  AppLocalizations get _l10n =>
+      l10nFor(_localStorage.selectedLanguage ?? 'en');
 
   bool _isAvailable = false;
   bool _isLoadingProducts = false;
@@ -69,9 +75,9 @@ class IapService {
       _handlePurchaseUpdates,
       onError: (_) {
         _completeActivePurchase(
-          const PurchaseFlowResult(
+          PurchaseFlowResult(
             success: false,
-            message: 'Purchase failed. Please try again.',
+            message: _l10n.iapPurchaseFailed,
           ),
         );
       },
@@ -116,9 +122,9 @@ class IapService {
   }) async {
     final productId = IapProductIds.idForSelection(selection);
     if (productId == null) {
-      return const PurchaseFlowResult(
+      return PurchaseFlowResult(
         success: false,
-        message: 'Invalid product selection.',
+        message: _l10n.iapInvalidProduct,
       );
     }
     return purchaseProduct(productId, conversionJourneyId: conversionJourneyId);
@@ -134,10 +140,17 @@ class IapService {
     String productId, {
     String? conversionJourneyId,
   }) async {
-    if (!_isAvailable) {
-      return const PurchaseFlowResult(
+    if (!NetworkStatus.lastKnownOnline) {
+      return PurchaseFlowResult(
         success: false,
-        message: 'Google Play Billing is not available on this device.',
+        message: _l10n.featureNeedsInternet,
+      );
+    }
+
+    if (!_isAvailable) {
+      return PurchaseFlowResult(
+        success: false,
+        message: _l10n.iapBillingUnavailable,
       );
     }
 
@@ -149,14 +162,14 @@ class IapService {
     if (product == null) {
       return PurchaseFlowResult(
         success: false,
-        message: 'Product not found in Play Store: $productId',
+        message: _l10n.iapProductNotFound(productId),
       );
     }
 
     if (_activePurchaseCompleter != null) {
-      return const PurchaseFlowResult(
+      return PurchaseFlowResult(
         success: false,
-        message: 'Another purchase is already in progress.',
+        message: _l10n.iapPurchaseInProgress,
       );
     }
 
@@ -186,9 +199,9 @@ class IapService {
         },
       );
       _clearActivePurchase();
-      return const PurchaseFlowResult(
+      return PurchaseFlowResult(
         success: false,
-        message: 'Could not start purchase.',
+        message: _l10n.iapCouldNotStart,
       );
     }
 
@@ -205,9 +218,9 @@ class IapService {
           },
         );
         _clearActivePurchase();
-        return const PurchaseFlowResult(
+        return PurchaseFlowResult(
           success: false,
-          message: 'Purchase timed out.',
+          message: _l10n.iapPurchaseTimedOut,
         );
       },
     );
@@ -234,10 +247,17 @@ class IapService {
   Future<PurchaseFlowResult> restorePurchases({
     String? conversionJourneyId,
   }) async {
-    if (!_isAvailable) {
-      return const PurchaseFlowResult(
+    if (!NetworkStatus.lastKnownOnline) {
+      return PurchaseFlowResult(
         success: false,
-        message: 'Google Play Billing is not available on this device.',
+        message: _l10n.featureNeedsInternet,
+      );
+    }
+
+    if (!_isAvailable) {
+      return PurchaseFlowResult(
+        success: false,
+        message: _l10n.iapBillingUnavailable,
       );
     }
 
@@ -248,10 +268,10 @@ class IapService {
       AnalyticsService.instance.log(AnalyticsEvents.restorePurchaseSucceeded, {
         AnalyticsParams.conversionJourneyId: conversionJourneyId,
       });
-      return const PurchaseFlowResult(
+      return PurchaseFlowResult(
         success: true,
         isPremium: true,
-        message: 'Premium access restored.',
+        message: _l10n.iapPremiumRestored,
       );
     }
 
@@ -260,9 +280,9 @@ class IapService {
       AnalyticsParams.errorType: 'restore',
       AnalyticsParams.errorCode: 'no-active-subscription',
     });
-    return const PurchaseFlowResult(
+    return PurchaseFlowResult(
       success: false,
-      message: 'No active subscription found to restore.',
+      message: _l10n.iapNoSubscriptionToRestore,
     );
   }
 
@@ -283,7 +303,7 @@ class IapService {
         _completeActivePurchase(
           PurchaseFlowResult(
             success: false,
-            message: purchase.error?.message ?? 'Purchase failed.',
+            message: _l10n.iapPurchaseFailed,
           ),
         );
         continue;
@@ -296,9 +316,10 @@ class IapService {
           subscriptionEvent: AnalyticsEvents.purchaseCancelled,
         );
         _completeActivePurchase(
-          const PurchaseFlowResult(
+          PurchaseFlowResult(
             success: false,
-            message: 'Purchase canceled.',
+            message: _l10n.iapPurchaseCanceled,
+            isCanceled: true,
           ),
         );
         continue;
@@ -336,7 +357,7 @@ class IapService {
       return PurchaseFlowResult(
         success: true,
         heartsAdded: hearts,
-        message: '$hearts hearts added.',
+        message: _l10n.heartsAddedTitle(hearts),
       );
     }
 
@@ -351,16 +372,16 @@ class IapService {
         heartsEvent: AnalyticsEvents.heartPurchaseSuccess,
         subscriptionEvent: AnalyticsEvents.purchaseSuccess,
       );
-      return const PurchaseFlowResult(
+      return PurchaseFlowResult(
         success: true,
         isPremium: true,
-        message: 'Premium unlocked.',
+        message: _l10n.iapPremiumUnlocked,
       );
     }
 
-    return const PurchaseFlowResult(
+    return PurchaseFlowResult(
       success: false,
-      message: 'Unknown product purchased.',
+      message: _l10n.iapUnknownProduct,
     );
   }
 

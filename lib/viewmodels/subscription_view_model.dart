@@ -4,6 +4,7 @@ import 'package:fluentta_ai/core/storage/local_storage.dart';
 import 'package:fluentta_ai/core/utils/simple_uuid.dart';
 import 'package:fluentta_ai/data/models/subscription_models.dart';
 import 'package:fluentta_ai/data/services/iap_service.dart';
+import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/l10n/app_localizations.dart';
 import 'package:fluentta_ai/viewmodels/home_view_model.dart';
 
@@ -181,9 +182,10 @@ class SubscriptionViewModel extends ChangeNotifier {
 
   Future<PurchaseFlowResult> purchaseSelected() async {
     if (_isPurchasing) {
-      return const PurchaseFlowResult(
+      return PurchaseFlowResult(
         success: false,
-        message: 'Purchase already in progress.',
+        message: l10nFor(_localStorage.selectedLanguage ?? 'en')
+            .iapPurchaseInProgress,
       );
     }
 
@@ -202,9 +204,10 @@ class SubscriptionViewModel extends ChangeNotifier {
 
   Future<PurchaseFlowResult> purchaseDiscountAnnual() async {
     if (_isPurchasing) {
-      return const PurchaseFlowResult(
+      return PurchaseFlowResult(
         success: false,
-        message: 'Purchase already in progress.',
+        message: l10nFor(_localStorage.selectedLanguage ?? 'en')
+            .iapPurchaseInProgress,
       );
     }
 

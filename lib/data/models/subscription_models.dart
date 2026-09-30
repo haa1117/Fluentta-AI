@@ -16,12 +16,16 @@ class PurchaseFlowResult {
     this.message,
     this.heartsAdded,
     this.isPremium = false,
+    this.isCanceled = false,
   });
 
   final bool success;
   final String? message;
   final int? heartsAdded;
   final bool isPremium;
+
+  /// True when the user dismissed the store sheet (no message should be shown).
+  final bool isCanceled;
 }
 
 class HeartPackOption {

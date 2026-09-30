@@ -98,8 +98,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
     if (!context.mounted) return;
 
     if (!result.success) {
-      if (result.message != null && result.message != 'Purchase canceled.') {
-        SnackbarHelper.showSuccess(context, result.message!);
+      if (result.message != null && !result.isCanceled) {
+        SnackbarHelper.showError(context, result.message!);
       }
       return;
     }
