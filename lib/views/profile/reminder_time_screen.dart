@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -237,10 +238,10 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
             SizedBox(
               width: double.infinity,
               child: TextButton(
-                onPressed: () {
+                onPressed: HapticService.wrap(() {
                   _logCancelledIfUnresolved();
                   Navigator.of(context).pop();
-                },
+                }),
                 child: Text(
                   l10n.cancelBtn,
                   style: TextStyle(

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -25,7 +26,7 @@ class LanguageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: HapticService.wrap(onTap),
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: AppSizes.w(16),

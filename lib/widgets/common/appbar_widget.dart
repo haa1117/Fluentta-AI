@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
 import 'package:fluentta_ai/core/analytics/analytics_service.dart';
@@ -69,7 +70,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       actions: showActionButton
           ? [
               GestureDetector(
-                onTap: showHearts
+                onTap: HapticService.wrap(showHearts
                     ? null
                     : () {
                         final sourceScreen = xpIconSourceScreen;
@@ -86,7 +87,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                           context,
                           sourceScreen: sourceScreen ?? 'unknown',
                         );
-                      },
+                      }),
                 child: Container(
                   margin: EdgeInsets.only(right: AppSizes.w(16)),
                   padding: EdgeInsets.symmetric(
@@ -145,7 +146,7 @@ class _BackButton extends StatelessWidget {
       padding: EdgeInsets.only(left: AppSizes.w(8)),
       child: Center(
         child: GestureDetector(
-          onTap: onBack ?? () => Navigator.of(context).pop(),
+          onTap: HapticService.wrap(onBack ?? () => Navigator.of(context).pop()),
           child: Container(
             width: AppSizes.w(40),
             height: AppSizes.w(40),

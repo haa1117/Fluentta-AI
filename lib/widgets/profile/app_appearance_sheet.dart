@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -121,7 +122,7 @@ class _AppearanceOptionTile extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: onTap,
+        onTap: HapticService.wrap(onTap),
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         child: Padding(
           padding: EdgeInsets.symmetric(

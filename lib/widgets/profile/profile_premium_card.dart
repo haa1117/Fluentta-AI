@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -138,7 +139,7 @@ class _FreePlanCard extends StatelessWidget {
                     child: InkWell(
                       borderRadius:
                           BorderRadius.circular(AppSizes.buttonRadius),
-                      onTap: () {
+                      onTap: HapticService.wrap(() {
                         AnalyticsService.instance.log(
                           AnalyticsEvents.upgradeToPremiumClicked,
                           {
@@ -151,7 +152,7 @@ class _FreePlanCard extends StatelessWidget {
                           context,
                           featureTrigger: 'profile_upsell',
                         );
-                      },
+                      }),
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: AppSizes.w(24),

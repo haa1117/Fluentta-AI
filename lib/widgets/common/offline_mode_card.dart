@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -149,7 +150,7 @@ class _OfflineModeCardState extends State<OfflineModeCard> {
               height: AppSizes.h(52),
               width: double.infinity,
               child: TextButton(
-                onPressed: net.continueOffline,
+                onPressed: HapticService.wrap(net.continueOffline),
                 child: Text(
                   l10n.continueOffline,
                   style: TextStyle(

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:fluentta_ai/widgets/common/icon_background_container.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class SubscriptionCloseButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onPressed,
+          onTap: HapticService.wrap(onPressed),
           borderRadius: BorderRadius.circular(AppSizes.w(20)),
           child: Container(
             width: AppSizes.w(36),
@@ -157,7 +158,7 @@ class _Link extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: HapticService.wrap(onTap),
       child: Text(
         text,
         style: TextStyle(

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
@@ -16,7 +17,7 @@ class PrimaryButtonWithIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: HapticService.wrap(onTap),
       child: Container(
         width: AppSizes.screenWidth * .5,
         decoration: BoxDecoration(

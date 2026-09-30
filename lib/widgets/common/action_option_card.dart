@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -43,7 +44,7 @@ class ActionOptionCard extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: onTap,
+        onTap: HapticService.wrap(onTap),
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         child: Ink(
           decoration: BoxDecoration(

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
@@ -18,7 +19,7 @@ class TextButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return TextButton(
-      onPressed: onTap,
+      onPressed: HapticService.wrap(onTap),
       child: Text(
         btnText,
         style: TextStyle(

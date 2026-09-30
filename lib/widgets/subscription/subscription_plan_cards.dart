@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -34,7 +35,7 @@ class SubscriptionAnnualPlanCard extends StatelessWidget {
         Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: onTap,
+            onTap: HapticService.wrap(onTap),
             borderRadius: BorderRadius.circular(AppSizes.cardRadius),
             child: Ink(
               width: double.infinity,
@@ -181,7 +182,7 @@ class SubscriptionCompactPlanCard extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: onTap,
+        onTap: HapticService.wrap(onTap),
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         child: Ink(
           width: double.infinity,
@@ -273,7 +274,7 @@ class SubscriptionHeartPackCard extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: onTap,
+        onTap: HapticService.wrap(onTap),
         borderRadius: BorderRadius.circular(AppSizes.cardRadius),
         child: Ink(
           height: AppSizes.h(132),
