@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -82,7 +83,7 @@ class RoleplayQuizCard extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.only(bottom: AppSizes.spaceSm),
                 child: InkWell(
-                  onTap: answered ? null : () => onSelect(index),
+                  onTap: HapticService.wrap(answered ? null : () => onSelect(index)),
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
                     width: double.infinity,

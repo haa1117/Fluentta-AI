@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/ads/ad_placement.dart';
@@ -185,7 +186,7 @@ class TodaysLessonCard extends StatelessWidget {
               ),
               SizedBox(width: AppSizes.w(12)),
               GestureDetector(
-                onTap: basicsViewModel.canStartOrResume ? onStartLesson : null,
+                onTap: HapticService.wrap(basicsViewModel.canStartOrResume ? onStartLesson : null),
                 child: Container(
                   width: AppSizes.w(122),
                   height: AppSizes.h(36),

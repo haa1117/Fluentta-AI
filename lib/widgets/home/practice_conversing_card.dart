@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -106,7 +107,7 @@ class PracticeConversingCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: onStartChat,
+                  onTap: HapticService.wrap(onStartChat),
                   child: Container(
                     width: AppSizes.w(176),
                     height: AppSizes.h(38),

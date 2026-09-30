@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -126,7 +127,7 @@ class ChatTextInputBar extends StatelessWidget {
             ),
             SizedBox(width: AppSizes.w(12)),
             GestureDetector(
-              onTap: enabled ? onSend : null,
+              onTap: HapticService.wrap(enabled ? onSend : null),
               child: Container(
                 width: AppSizes.w(48),
                 height: AppSizes.w(48),
@@ -429,7 +430,7 @@ class _ChatVoiceInputPanelState extends State<ChatVoiceInputPanel> {
               // — that gesture is gone once hands-free. Give an explicit way
               // to bail out instead of forcing the learner to send it.
               GestureDetector(
-                onTap: widget.onCancel,
+                onTap: HapticService.wrap(widget.onCancel),
                 child: Container(
                   width: AppSizes.w(44),
                   height: AppSizes.w(44),

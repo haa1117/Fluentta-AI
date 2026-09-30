@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
@@ -26,7 +27,7 @@ class ChatQuickStarters extends StatelessWidget {
         children: [
           for (final label in labels)
             GestureDetector(
-              onTap: () => onSelected(label),
+              onTap: HapticService.wrap(() => onSelected(label)),
               child: Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: AppSizes.w(16),

@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -165,7 +166,7 @@ class ChatMessageBubble extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: AppSizes.w(52)),
       child: GestureDetector(
-        onTap: onSpeak,
+        onTap: HapticService.wrap(onSpeak),
         behavior: HitTestBehavior.opaque,
         child: Row(
           mainAxisSize: MainAxisSize.min,

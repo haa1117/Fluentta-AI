@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/constants/app_assets.dart';
 import 'package:fluentta_ai/core/constants/app_fonts.dart';
@@ -196,7 +197,7 @@ class _OpenAiChatCard extends StatelessWidget {
     final l10n = context.l10n;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: HapticService.wrap(onTap),
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.all(AppSizes.w(16)),

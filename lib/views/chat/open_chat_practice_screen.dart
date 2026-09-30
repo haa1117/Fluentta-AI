@@ -1,3 +1,4 @@
+import 'package:fluentta_ai/core/haptics/haptic_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/analytics/analytics_events.dart';
 import 'package:fluentta_ai/core/analytics/analytics_params.dart';
@@ -459,7 +460,7 @@ class _SpeakToggleButton extends StatelessWidget {
     return Tooltip(
       message: tooltip,
       child: GestureDetector(
-        onTap: onTap,
+        onTap: HapticService.wrap(onTap),
         child: Container(
           width: AppSizes.h(50),
           height: AppSizes.h(50),
