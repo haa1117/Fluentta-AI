@@ -885,5 +885,6 @@
   "tutorialProfileTitle": "Tu perfil y ajustes",
   "tutorialProfileBody": "Sigue tu progreso, cambia el idioma y los recordatorios y gestiona Pro aquí. Puedes repetir este tutorial cuando quieras desde Soporte y legal.",
   "moreApps": "Más aplicaciones",
-  "moreAppsSub": "Otras aplicaciones de Futurewatch"
+  "moreAppsSub": "Otras aplicaciones de Futurewatch",
+  "pronunciationCheckFailed": "No pudimos comprobar tu pronunciación. Te devolvimos tu corazón. Inténtalo de nuevo."
 }

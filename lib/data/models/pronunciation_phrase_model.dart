@@ -39,12 +39,16 @@ class PronunciationAssessmentResult {
     required this.words,
     required this.transcript,
     this.heardAnything = true,
+    this.tip = '',
   });
 
   final int overallScore;
   final List<PronunciationWordFeedback> words;
   final String transcript;
   final bool heardAnything;
+
+  /// Short coaching sentence from the server (empty when unavailable).
+  final String tip;
 
   factory PronunciationAssessmentResult.fromJson(Map<String, dynamic> json) {
     final rawWords = json['words'];
@@ -62,6 +66,7 @@ class PronunciationAssessmentResult {
           : const [],
       transcript: json['transcript'] as String? ?? '',
       heardAnything: json['heardAnything'] as bool? ?? true,
+      tip: (json['tip'] as String? ?? '').trim(),
     );
   }
 

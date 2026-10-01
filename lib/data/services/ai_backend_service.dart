@@ -111,12 +111,15 @@ class AiBackendService {
     );
   }
 
-  /// Sends the recording to the pronunciation model and returns per-word scores.
+  /// Uploads the recording; the server transcribes it without seeing the target
+  /// phrase, scores it against the phrase in code, and returns per-word scores
+  /// plus a short coaching tip written in [feedbackLanguage].
   Future<PronunciationAssessmentResult> assessPronunciation({
     required Uint8List audioBytes,
     required String mimeType,
     required String filename,
     required String expectedPhrase,
+    String? feedbackLanguage,
   }) async {
     final json = await _postJson(
       url: AiBackendConfig.assessPronunciationUrl,
@@ -125,9 +128,13 @@ class AiBackendService {
         'mimeType': mimeType,
         'filename': filename,
         'expectedPhrase': expectedPhrase,
+        if (feedbackLanguage != null && feedbackLanguage.isNotEmpty)
+          'feedbackLanguage': feedbackLanguage,
       },
     );
-    if (json['scoredBy'] != 'ai') {
+    // 'asr' = blind transcript scored by code; 'ai' = older function versions.
+    final scoredBy = json['scoredBy'];
+    if (scoredBy != 'asr' && scoredBy != 'ai') {
       throw AiBackendException('Pronunciation score missing');
     }
     return PronunciationAssessmentResult.fromJson(json);

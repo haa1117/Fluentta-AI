@@ -119,6 +119,46 @@ class _PronunciationResultScreenState extends State<PronunciationResultScreen> {
                             height: 1.45,
                           ),
                         ),
+                        if (result.tip.isNotEmpty) ...[
+                          SizedBox(height: AppSizes.h(14)),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(AppSizes.w(12)),
+                            decoration: BoxDecoration(
+                              color: isDark
+                                  ? AppColors.brandDarkSoftColor
+                                  : AppColors.homeCardLavender,
+                              borderRadius:
+                                  BorderRadius.circular(AppSizes.w(12)),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.lightbulb_outline_rounded,
+                                  size: AppSizes.sp(18),
+                                  color: isDark
+                                      ? AppColors.brandDeepDarkColor
+                                      : AppColors.primaryColor,
+                                ),
+                                SizedBox(width: AppSizes.w(8)),
+                                Expanded(
+                                  child: Text(
+                                    result.tip,
+                                    style: TextStyle(
+                                      fontFamily: AppFonts.plusJakartaSans,
+                                      fontSize: AppSizes.sp(14),
+                                      height: 1.45,
+                                      color: isDark
+                                          ? AppColors.textPrimaryDark
+                                          : AppColors.textPrimary,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),

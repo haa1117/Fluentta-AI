@@ -31,10 +31,15 @@ class PronunciationViewModel extends ChangeNotifier {
   final AiBackendService _aiBackendService;
   final AudioRecorder _recorder = AudioRecorder();
   StreamSubscription<Amplitude>? _amplitudeSub;
+  Timer? _recordingLimitTimer;
   PronunciationStartFailure _startFailure = PronunciationStartFailure.none;
   final String practiceSessionId;
   DateTime? _recordingStartedAt;
   final Map<int, int> _attemptsByPhrase = {};
+
+  /// Short office phrases do not need a long take. Caps STT cost and
+  /// keeps the practice beat tight.
+  static const Duration maxRecordingDuration = Duration(seconds: 10);
 
   int _currentPhraseIndex = 0;
   final List<int> _completedScores = [];
@@ -43,11 +48,18 @@ class PronunciationViewModel extends ChangeNotifier {
   bool _isRecording = false;
   bool _isListeningPhrase = false;
   bool _isAssessing = false;
+  bool _lastCheckFailed = false;
+  bool _heartRefunded = false;
   double _soundLevel = 0;
   String _deviceTranscript = '';
   Uint8List? _pendingAudio;
   String _pendingMimeType = 'audio/mp4';
   String _pendingFilename = 'speech.m4a';
+  int _recordingElapsedMs = 0;
+  bool _autoStoppingRecording = false;
+
+  /// Set by the recording screen so a max-duration stop can navigate onward.
+  VoidCallback? onRecordingAutoStopped;
 
   int get lives => _homeViewModel.lives;
   int get currentPhraseIndex => _currentPhraseIndex;
@@ -56,6 +68,15 @@ class PronunciationViewModel extends ChangeNotifier {
   bool get isRecording => _isRecording;
   bool get isListeningPhrase => _isListeningPhrase;
   bool get isAssessing => _isAssessing;
+
+  /// Whole seconds left before the take is auto-submitted.
+  int get recordingRemainingSeconds {
+    final left = maxRecordingDuration.inMilliseconds - _recordingElapsedMs;
+    return (left / 1000).ceil().clamp(0, maxRecordingDuration.inSeconds);
+  }
+
+  /// True when the last check could not be scored (no fake score is shown).
+  bool get lastCheckFailed => _lastCheckFailed;
   double get soundLevel => _soundLevel;
   bool get canAffordCheck =>
       _homeViewModel.hasUnlimitedHearts || lives > 0;
@@ -111,6 +132,7 @@ class PronunciationViewModel extends ChangeNotifier {
   }
 
   Future<bool> deductHeartForCheck() async {
+    _heartRefunded = false;
     // Pro (unlimited hearts) is the only bypass. Debug builds spend real
     // hearts too — use the Profile screen's debug "Add hearts"/"Enable
     // Pro" tools to test without running out.
@@ -151,9 +173,13 @@ class PronunciationViewModel extends ChangeNotifier {
   Future<bool> startRecording() async {
     _startFailure = PronunciationStartFailure.none;
     _currentResult = null;
+    _lastCheckFailed = false;
     _soundLevel = 0;
     _deviceTranscript = '';
     _pendingAudio = null;
+    _recordingElapsedMs = 0;
+    _autoStoppingRecording = false;
+    _cancelRecordingLimit();
     _isRecording = true;
     notifyListeners();
 
@@ -161,6 +187,7 @@ class PronunciationViewModel extends ChangeNotifier {
     if (!hasPermission) {
       _startFailure = PronunciationStartFailure.permissionDenied;
       _isRecording = false;
+      _cancelRecordingLimit();
       notifyListeners();
       AnalyticsService.instance.log(
         AnalyticsEvents.pronunciationRecordingFailed,
@@ -196,7 +223,7 @@ class PronunciationViewModel extends ChangeNotifier {
       });
       _attemptsByPhrase[_currentPhraseIndex] =
           (_attemptsByPhrase[_currentPhraseIndex] ?? 0) + 1;
-      _recordingStartedAt = DateTime.now();
+      _armRecordingLimit();
       AnalyticsService.instance.log(
         AnalyticsEvents.pronunciationRecordingStarted,
         {
@@ -214,9 +241,11 @@ class PronunciationViewModel extends ChangeNotifier {
           _soundLevel = level;
           notifyListeners();
         },
+        maxListenFor: maxRecordingDuration,
       );
       if (!started) {
         _isRecording = false;
+        _cancelRecordingLimit();
         notifyListeners();
         AnalyticsService.instance.log(
           AnalyticsEvents.pronunciationRecordingFailed,
@@ -231,7 +260,7 @@ class PronunciationViewModel extends ChangeNotifier {
       } else {
         _attemptsByPhrase[_currentPhraseIndex] =
             (_attemptsByPhrase[_currentPhraseIndex] ?? 0) + 1;
-        _recordingStartedAt = DateTime.now();
+        _armRecordingLimit();
         AnalyticsService.instance.log(
           AnalyticsEvents.pronunciationRecordingStarted,
           {
@@ -244,7 +273,45 @@ class PronunciationViewModel extends ChangeNotifier {
     }
   }
 
+  void _armRecordingLimit() {
+    _cancelRecordingLimit();
+    _recordingStartedAt = DateTime.now();
+    _recordingElapsedMs = 0;
+    _recordingLimitTimer = Timer.periodic(const Duration(milliseconds: 200), (_) {
+      if (_recordingStartedAt == null || !_isRecording) {
+        _cancelRecordingLimit();
+        return;
+      }
+      _recordingElapsedMs =
+          DateTime.now().difference(_recordingStartedAt!).inMilliseconds;
+      notifyListeners();
+      if (_recordingElapsedMs >= maxRecordingDuration.inMilliseconds) {
+        unawaited(_autoStopAtMaxDuration());
+      }
+    });
+  }
+
+  void _cancelRecordingLimit() {
+    _recordingLimitTimer?.cancel();
+    _recordingLimitTimer = null;
+  }
+
+  Future<void> _autoStopAtMaxDuration() async {
+    if (!_isRecording || _autoStoppingRecording) return;
+    _autoStoppingRecording = true;
+    _cancelRecordingLimit();
+    notifyListeners();
+    final callback = onRecordingAutoStopped;
+    if (callback != null) {
+      callback();
+    } else {
+      await finishRecording();
+    }
+  }
+
   Future<void> finishRecording() async {
+    _cancelRecordingLimit();
+    _autoStoppingRecording = true;
     final durationMs = _recordingStartedAt == null
         ? 0
         : DateTime.now().difference(_recordingStartedAt!).inMilliseconds;
@@ -283,12 +350,16 @@ class PronunciationViewModel extends ChangeNotifier {
     );
   }
 
-  Future<PronunciationAssessmentResult?> assessPendingTake() async {
+  Future<PronunciationAssessmentResult?> assessPendingTake({
+    String? feedbackLanguage,
+  }) async {
     if (_currentResult != null || _isAssessing) return _currentResult;
     _isAssessing = true;
+    _lastCheckFailed = false;
     notifyListeners();
     final checkStartedAt = DateTime.now();
 
+    Object? backendError;
     final audio = _pendingAudio;
     if (audio != null && audio.isNotEmpty) {
       try {
@@ -297,67 +368,82 @@ class PronunciationViewModel extends ChangeNotifier {
           mimeType: _pendingMimeType,
           filename: _pendingFilename,
           expectedPhrase: currentPhraseText,
+          feedbackLanguage: feedbackLanguage,
         );
-        _currentResult = result;
-        _pendingAudio = null;
-        _isAssessing = false;
-        await _progressSyncService.recordCorrections(result.correctionCount);
-        notifyListeners();
-        AnalyticsService.instance.log(AnalyticsEvents.pronunciationCheckSucceeded, {
-          ...phraseAnalyticsParams(),
-          AnalyticsParams.overallScore: result.overallScore,
-          AnalyticsParams.speechDetected: result.heardAnything,
-          AnalyticsParams.wordFeedbackCount: result.words.length,
-          AnalyticsParams.latencyMs:
-              DateTime.now().difference(checkStartedAt).inMilliseconds,
-        });
-        return result;
+        return await _finishAssessment(result, checkStartedAt);
       } catch (e) {
+        backendError = e;
         if (kDebugMode) {
-          debugPrint('AI pronunciation failed, using on-device match: $e');
+          debugPrint('Pronunciation backend failed: $e');
         }
       }
     }
 
-    try {
+    // Only fall back to the on-device text match when speech-to-text actually
+    // produced a transcript. Scoring an empty transcript would report
+    // "nothing heard" for a learner who spoke perfectly.
+    final deviceText = _deviceTranscript.trim();
+    if (deviceText.isNotEmpty) {
       final result = _assessmentService.assess(
         expectedPhrase: currentPhraseText,
-        spokenText: _deviceTranscript.trim(),
+        spokenText: deviceText,
       );
-      _currentResult = result;
-      _pendingAudio = null;
-      _isAssessing = false;
-
-      await _progressSyncService.recordCorrections(result.correctionCount);
-      notifyListeners();
-      AnalyticsService.instance.log(AnalyticsEvents.pronunciationCheckSucceeded, {
-        ...phraseAnalyticsParams(),
-        AnalyticsParams.overallScore: result.overallScore,
-        AnalyticsParams.speechDetected: result.heardAnything,
-        AnalyticsParams.wordFeedbackCount: result.words.length,
-        AnalyticsParams.latencyMs:
-            DateTime.now().difference(checkStartedAt).inMilliseconds,
-      });
-      return result;
-    } catch (e) {
-      _isAssessing = false;
-      notifyListeners();
-      AnalyticsService.instance.log(AnalyticsEvents.pronunciationCheckFailed, {
-        ...phraseAnalyticsParams(),
-        AnalyticsParams.errorType: 'unknown',
-        AnalyticsParams.errorCode: 'assessment_failed',
-        AnalyticsParams.failureStage: 'model_response',
-      });
-      rethrow;
+      return _finishAssessment(result, checkStartedAt);
     }
+
+    await _failCheck(backendError);
+    return null;
   }
 
-  Future<PronunciationAssessmentResult?> stopRecordingAndAssess() async {
+  Future<PronunciationAssessmentResult> _finishAssessment(
+    PronunciationAssessmentResult result,
+    DateTime checkStartedAt,
+  ) async {
+    _currentResult = result;
+    _pendingAudio = null;
+    _isAssessing = false;
+    await _progressSyncService.recordCorrections(result.correctionCount);
+    notifyListeners();
+    AnalyticsService.instance.log(AnalyticsEvents.pronunciationCheckSucceeded, {
+      ...phraseAnalyticsParams(),
+      AnalyticsParams.overallScore: result.overallScore,
+      AnalyticsParams.speechDetected: result.heardAnything,
+      AnalyticsParams.wordFeedbackCount: result.words.length,
+      AnalyticsParams.latencyMs:
+          DateTime.now().difference(checkStartedAt).inMilliseconds,
+    });
+    return result;
+  }
+
+  /// The check could not be scored: return the heart and let the screen ask
+  /// the learner to try again instead of showing a made-up score.
+  Future<void> _failCheck(Object? error) async {
+    _isAssessing = false;
+    _lastCheckFailed = true;
+    _pendingAudio = null;
+    if (!_heartRefunded && !_homeViewModel.hasUnlimitedHearts) {
+      _heartRefunded = true;
+      await _homeViewModel.addHearts(1);
+    }
+    notifyListeners();
+    AnalyticsService.instance.log(AnalyticsEvents.pronunciationCheckFailed, {
+      ...phraseAnalyticsParams(),
+      AnalyticsParams.errorType: 'backend',
+      AnalyticsParams.errorCode: error == null ? 'no_audio' : 'backend_error',
+      AnalyticsParams.failureStage: 'model_response',
+    });
+  }
+
+  Future<PronunciationAssessmentResult?> stopRecordingAndAssess({
+    String? feedbackLanguage,
+  }) async {
     await finishRecording();
-    return assessPendingTake();
+    return assessPendingTake(feedbackLanguage: feedbackLanguage);
   }
 
   void cancelRecording() {
+    _cancelRecordingLimit();
+    _autoStoppingRecording = true;
     final durationMs = _recordingStartedAt == null
         ? 0
         : DateTime.now().difference(_recordingStartedAt!).inMilliseconds;
@@ -418,6 +504,7 @@ class PronunciationViewModel extends ChangeNotifier {
     _isRecording = false;
     _soundLevel = 0;
     _pendingAudio = null;
+    _cancelRecordingLimit();
     _assessmentService.cancelListening();
     _recorder.stop();
     _attemptsByPhrase.clear();
@@ -426,6 +513,8 @@ class PronunciationViewModel extends ChangeNotifier {
 
   @override
   void dispose() {
+    onRecordingAutoStopped = null;
+    _cancelRecordingLimit();
     _assessmentService.cancelListening();
     _amplitudeSub?.cancel();
     _recorder.dispose();

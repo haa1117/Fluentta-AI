@@ -2288,4 +2288,8 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get moreAppsSub => 'Futurewatch کی دیگر ایپس';
+
+  @override
+  String get pronunciationCheckFailed =>
+      'ہم آپ کے تلفظ کی جانچ نہیں کر سکے۔ آپ کا ہارٹ واپس کر دیا گیا ہے۔ براہ کرم دوبارہ کوشش کریں۔';
 }

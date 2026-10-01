@@ -2312,4 +2312,8 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get moreAppsSub => 'Otras aplicaciones de Futurewatch';
+
+  @override
+  String get pronunciationCheckFailed =>
+      'No pudimos comprobar tu pronunciación. Te devolvimos tu corazón. Inténtalo de nuevo.';
 }

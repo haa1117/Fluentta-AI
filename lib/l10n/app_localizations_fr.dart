@@ -2330,4 +2330,8 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get moreAppsSub => 'Autres applications de Futurewatch';
+
+  @override
+  String get pronunciationCheckFailed =>
+      'Nous n\'avons pas pu vérifier ta prononciation. Ton cœur t\'a été rendu. Réessaie.';
 }

@@ -29,11 +29,26 @@ class _PronunciationRecordingScreenState
     extends State<PronunciationRecordingScreen> {
   bool _isStarting = true;
   bool _hasRequestedStart = false;
+  bool _isStopping = false;
+  PronunciationViewModel? _vm;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _beginRecording());
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _vm ??= context.read<PronunciationViewModel>();
+    _vm!.onRecordingAutoStopped = _stopRecording;
+  }
+
+  @override
+  void dispose() {
+    _vm?.onRecordingAutoStopped = null;
+    super.dispose();
   }
 
   Future<void> _beginRecording() async {
@@ -59,7 +74,10 @@ class _PronunciationRecordingScreenState
   }
 
   Future<void> _stopRecording() async {
-    final vm = context.read<PronunciationViewModel>();
+    if (_isStopping) return;
+    _isStopping = true;
+    final vm = _vm;
+    if (vm == null) return;
     await vm.finishRecording();
     if (!mounted) return;
 
@@ -85,10 +103,12 @@ class _PronunciationRecordingScreenState
         title: l10n.pronunciation,
         showBackButton: true,
         centerTitle: true,
-        onBack: () {
-          vm.cancelRecording();
-          PronunciationFlow.popOrExitFlow(context);
-        },
+        onBack: _isStopping
+            ? () {}
+            : () {
+                vm.cancelRecording();
+                PronunciationFlow.popOrExitFlow(context);
+              },
       ),
       // Render the real layout immediately instead of a blank spinner while
       // startRecording() is still resolving (permission check + recorder
@@ -182,7 +202,7 @@ class _PronunciationRecordingScreenState
                             ),
                             SizedBox(width: AppSizes.w(8)),
                             Text(
-                              l10n.recording,
+                              '${l10n.recording}  ${vm.recordingRemainingSeconds}s',
                               style: TextStyle(
                                 fontFamily: AppFonts.plusJakartaSans,
                                 fontSize: AppSizes.sp(14),
@@ -200,15 +220,20 @@ class _PronunciationRecordingScreenState
             ),
             PrimaryButton(
               text: l10n.stopRecording,
-              onPressed: _isStarting || !vm.isRecording ? null : _stopRecording,
+              onPressed:
+                  _isStarting || _isStopping || !vm.isRecording
+                      ? null
+                      : _stopRecording,
             ),
             SizedBox(height: AppSizes.h(12)),
             TextButtonWidget(
               btnText: l10n.cancelBtn,
-              onTap: () {
-                vm.cancelRecording();
-                Navigator.of(context).pop();
-              },
+              onTap: _isStopping
+                  ? () {}
+                  : () {
+                      vm.cancelRecording();
+                      Navigator.of(context).pop();
+                    },
             ),
             SizedBox(height: AppSizes.h(20)),
           ],

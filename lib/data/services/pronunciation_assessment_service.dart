@@ -34,6 +34,8 @@ class PronunciationAssessmentService {
   String _transcript = '';
   void Function(double level)? _onSoundLevel;
   PronunciationStartFailure _lastStartFailure = PronunciationStartFailure.none;
+  Duration? _maxListenFor;
+  DateTime? _listenStartedAt;
 
   bool get isListening => _isListening;
   String get transcript => _transcript;
@@ -132,10 +134,13 @@ class PronunciationAssessmentService {
 
   Future<bool> startListening({
     void Function(double level)? onSoundLevel,
+    Duration? maxListenFor,
   }) async {
     _lastStartFailure = PronunciationStartFailure.none;
     _sessionActive = true;
     _onSoundLevel = onSoundLevel;
+    _maxListenFor = maxListenFor;
+    _listenStartedAt = DateTime.now();
     _transcript = '';
 
     if (!await _ensureMicrophonePermission()) {
@@ -164,8 +169,24 @@ class PronunciationAssessmentService {
     return started || _sessionActive;
   }
 
+  Duration _remainingListenFor() {
+    if (_maxListenFor == null || _listenStartedAt == null) {
+      return const Duration(minutes: 1);
+    }
+    final elapsed = DateTime.now().difference(_listenStartedAt!);
+    final left = _maxListenFor! - elapsed;
+    if (left.isNegative) return Duration.zero;
+    return left;
+  }
+
   Future<bool> _beginListenAttempt() async {
     if (!_sessionActive) return false;
+    final remaining = _remainingListenFor();
+    if (remaining < const Duration(milliseconds: 400)) {
+      _sessionActive = false;
+      _isListening = false;
+      return false;
+    }
 
     try {
       await _speech.listen(
@@ -176,12 +197,17 @@ class PronunciationAssessmentService {
           _transcript = words;
 
           if (_speech.isListening) {
-            _speech.changePauseFor(const Duration(seconds: 12));
+            final pause = remaining < const Duration(seconds: 12)
+                ? remaining
+                : const Duration(seconds: 12);
+            _speech.changePauseFor(pause);
           }
         },
         listenOptions: SpeechListenOptions(
-          listenFor: const Duration(minutes: 1),
-          pauseFor: const Duration(seconds: 30),
+          listenFor: remaining,
+          pauseFor: remaining < const Duration(seconds: 30)
+              ? remaining
+              : const Duration(seconds: 30),
           localeId: await _preferredLocaleId(),
           partialResults: true,
           cancelOnError: false,

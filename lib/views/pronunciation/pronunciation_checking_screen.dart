@@ -5,6 +5,8 @@ import 'package:fluentta_ai/core/constants/app_fonts.dart';
 import 'package:fluentta_ai/core/constants/app_sizes.dart';
 import 'package:fluentta_ai/core/l10n/locale_view_model.dart';
 import 'package:fluentta_ai/core/theme/app_colors.dart';
+import 'package:fluentta_ai/core/utils/snackbar_helper.dart';
+import 'package:fluentta_ai/data/models/pronunciation_phrase_model.dart';
 import 'package:fluentta_ai/viewmodels/pronunciation_view_model.dart';
 import 'package:fluentta_ai/views/pronunciation/pronunciation_flow.dart';
 import 'package:fluentta_ai/widgets/common/appbar_widget.dart';
@@ -45,11 +47,22 @@ class _PronunciationCheckingScreenState
 
   Future<void> _runCheck() async {
     final vm = context.read<PronunciationViewModel>();
-    await Future.wait<void>([
-      _progressController.forward(),
-      vm.assessPendingTake().then((_) {}),
-    ]);
+    final language = context.read<LocaleViewModel>().languageCode;
+    final assessment = vm
+        .assessPendingTake(feedbackLanguage: language)
+        .then<PronunciationAssessmentResult?>((result) => result)
+        .catchError((_) => null);
+    await _progressController.forward();
+    final result = await assessment;
     if (!mounted) return;
+
+    if (result == null || vm.lastCheckFailed) {
+      // No made-up score: the heart is returned and the learner retries.
+      SnackbarHelper.showError(context, context.l10n.pronunciationCheckFailed);
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      return;
+    }
+
     Navigator.of(context).pushReplacementNamed(
       PronunciationFlow.routeResult,
     );

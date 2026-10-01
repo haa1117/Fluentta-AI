@@ -4181,6 +4181,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other apps by Futurewatch'**
   String get moreAppsSub;
+
+  /// No description provided for @pronunciationCheckFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t check your pronunciation. Your heart was returned. Please try again.'**
+  String get pronunciationCheckFailed;
 }
 
 class _AppLocalizationsDelegate
