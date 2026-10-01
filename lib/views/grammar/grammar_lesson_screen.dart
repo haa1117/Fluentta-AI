@@ -137,9 +137,9 @@ class _GrammarLessonBody extends StatelessWidget {
                     onTap: viewModel.previousStep,
                   ),
                 ),
+                SizedBox(width: AppSizes.w(12)),
                 if (viewModel.currentStep.isPracticeStep &&
-                    !viewModel.practiceAnswered) ...[
-                  SizedBox(width: AppSizes.w(12)),
+                    !viewModel.practiceAnswered)
                   Expanded(
                     child: LessonNavButton(
                       label: l10n.checkAnswerButton,
@@ -152,19 +152,18 @@ class _GrammarLessonBody extends StatelessWidget {
                         viewModel.checkCurrentPractice();
                       },
                     ),
+                  )
+                else
+                  Expanded(
+                    child: LessonNavButton(
+                      label: viewModel.isLastStep ? l10n.finishLesson : l10n.next,
+                      icon: Icons.arrow_forward_rounded,
+                      isPrimary: true,
+                      enabled: viewModel.canProceed && !viewModel.isCompleting,
+                      iconOnRight: true,
+                      onTap: () => viewModel.nextStep(context),
+                    ),
                   ),
-                ],
-                SizedBox(width: AppSizes.w(12)),
-                Expanded(
-                  child: LessonNavButton(
-                    label: viewModel.isLastStep ? l10n.finishLesson : l10n.next,
-                    icon: Icons.arrow_forward_rounded,
-                    isPrimary: true,
-                    enabled: viewModel.canProceed && !viewModel.isCompleting,
-                    iconOnRight: true,
-                    onTap: () => viewModel.nextStep(context),
-                  ),
-                ),
               ],
             ),
           ),
