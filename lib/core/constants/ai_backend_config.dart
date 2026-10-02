@@ -2,7 +2,7 @@ class AiBackendConfig {
   AiBackendConfig._();
 
   static const String region = 'us-central1';
-  static const String projectId = 'fluenttaai';
+  static const String projectId = 'fluentta-ai';
 
   static const String tutorChatUrl =
       'https://$region-$projectId.cloudfunctions.net/tutorChat';

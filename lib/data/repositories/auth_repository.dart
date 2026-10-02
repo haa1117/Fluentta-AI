@@ -24,7 +24,7 @@ class AuthRepository {
   final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
 
   static const String _webClientId =
-      '254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com';
+      '249360035076-jqjnq2qacenodhsid9jnc99lhqeos0ia.apps.googleusercontent.com';
 
   String? _resetEmail;
   String? _resetOobCode;

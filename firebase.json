@@ -15,7 +15,7 @@
     }
   ],
   "hosting": {
-    "site": "fluenttaai",
+    "site": "fluentta-ai",
     "public": "public",
     "ignore": [
       "firebase.json",
@@ -48,17 +48,17 @@
     "platforms": {
       "android": {
         "default": {
-          "projectId": "fluenttaai",
-          "appId": "1:254450330965:android:4d47e1ce246ce35263d3dc",
+          "projectId": "fluentta-ai",
+          "appId": "1:249360035076:android:859a288b0797e85be1b451",
           "fileOutput": "android/app/google-services.json"
         }
       },
       "dart": {
         "lib/firebase_options.dart": {
-          "projectId": "fluenttaai",
+          "projectId": "fluentta-ai",
           "configurations": {
-            "android": "1:254450330965:android:4d47e1ce246ce35263d3dc",
-            "ios": "1:254450330965:ios:4cf6bb8eecf4b51663d3dc"
+            "android": "1:249360035076:android:859a288b0797e85be1b451",
+            "ios": "1:249360035076:ios:4d320d6b741411eee1b451"
           }
         }
       }

@@ -1,145 +1,53 @@
 {
   "project_info": {
-    "project_number": "254450330965",
-    "project_id": "fluenttaai",
-    "storage_bucket": "fluenttaai.firebasestorage.app"
+    "project_number": "249360035076",
+    "project_id": "fluentta-ai",
+    "storage_bucket": "fluentta-ai.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:254450330965:android:6cfcfa2b0bc9d14b63d3dc",
+        "mobilesdk_app_id": "1:249360035076:android:859a288b0797e85be1b451",
         "android_client_info": {
-          "package_name": "co.fwglobal.fluenta"
+          "package_name": "com.fwglobal.fluenta"
         }
       },
       "oauth_client": [
         {
-          "client_id": "254450330965-2dba63rke0ulmtbjilrkl07s761r4l2a.apps.googleusercontent.com",
+          "client_id": "249360035076-5s88rvk45vft620hq56pleqlhg46fsd8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "co.fwglobal.fluenta",
-            "certificate_hash": "bbad69015dfeb2ddbb56c4e9f8946ec71dcf238b"
-          }
-        },
-        {
-          "client_id": "254450330965-3deb67b1vn5oos3plqsbkh61nn5kelus.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "co.fwglobal.fluenta",
-            "certificate_hash": "9ba3a84418e0ac6d09547386430d80a87a26e734"
-          }
-        },
-        {
-          "client_id": "254450330965-44o6rl5ssu7hn6bk06pgsru3su78rlgg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "co.fwglobal.fluenta",
-            "certificate_hash": "ad119bcc00cd1fd5652d7ef94f6368ec6034c3a2"
-          }
-        },
-        {
-          "client_id": "254450330965-g3urj78gtn9g7vam0r1t4rnshipih9r7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "co.fwglobal.fluenta",
-            "certificate_hash": "8fa4d41eeea0ddf87d4cca34a6c66688eac23bc6"
-          }
-        },
-        {
-          "client_id": "254450330965-jm7rmpmqjii17g042m53n5kenbaou10d.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "co.fwglobal.fluenta",
+            "package_name": "com.fwglobal.fluenta",
             "certificate_hash": "5ecafe39e1e205799801e4dbc010112b85df3960"
           }
         },
         {
-          "client_id": "254450330965-mnhh3bk7nv48k6sn2iq5f9135879belb.apps.googleusercontent.com",
+          "client_id": "249360035076-ll5i7sola7e7f2m885v7m0l4c8o2klma.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "co.fwglobal.fluenta",
-            "certificate_hash": "6ce8a5e4ef592924d2b98760b3c493f56483a0b9"
+            "package_name": "com.fwglobal.fluenta",
+            "certificate_hash": "8fa4d41eeea0ddf87d4cca34a6c66688eac23bc6"
           }
         },
         {
-          "client_id": "254450330965-te1rp69c2f0g9dct334pctfgjbbddf1p.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "co.fwglobal.fluenta",
-            "certificate_hash": "9ec3fb9260ea5c59f8bd18a5b6a0d3bc531be9ae"
-          }
-        },
-        {
-          "client_id": "254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com",
+          "client_id": "249360035076-jqjnq2qacenodhsid9jnc99lhqeos0ia.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyANruyv6Xf7rmIq-rTLRFRNY15uFE-1KhE"
+          "current_key": "AIzaSyDakPcdOshyKaSti8rHe278I7dhkQ1JYoM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com",
+              "client_id": "249360035076-jqjnq2qacenodhsid9jnc99lhqeos0ia.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "254450330965-emimqum372kb4eqokahmgsnsvh673g90.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "co.futurewatch.fluenta"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:254450330965:android:4d47e1ce246ce35263d3dc",
-        "android_client_info": {
-          "package_name": "com.futurewatch.fluenta"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "254450330965-1iel3o1h04uasg04mjmads03umknaa9n.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.futurewatch.fluenta",
-            "certificate_hash": "8fa4d41eeea0ddf87d4cca34a6c66688eac23bc6"
-          }
-        },
-        {
-          "client_id": "254450330965-m3o0a4lg30d3ftihs05jkj844qg2j79a.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.futurewatch.fluenta",
-            "certificate_hash": "5ecafe39e1e205799801e4dbc010112b85df3960"
-          }
-        },
-        {
-          "client_id": "254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyANruyv6Xf7rmIq-rTLRFRNY15uFE-1KhE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "254450330965-bje37p5lscjfkfvobfivf22klqsnhmmg.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "254450330965-emimqum372kb4eqokahmgsnsvh673g90.apps.googleusercontent.com",
+              "client_id": "249360035076-rhabafbjatuf6186kd5fpobahsrs5e3o.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "co.futurewatch.fluenta"

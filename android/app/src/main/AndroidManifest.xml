@@ -36,7 +36,7 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
                     android:scheme="https"
-                    android:host="fluenttaai.firebaseapp.com"/>
+                    android:host="fluentta-ai.firebaseapp.com"/>
             </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW"/>
@@ -44,21 +44,21 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
                     android:scheme="https"
-                    android:host="fluenttaai.web.app"/>
+                    android:host="fluentta-ai.web.app"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
-                    android:scheme="co.fwglobal.fluenta"
+                    android:scheme="com.fwglobal.fluenta"
                     android:host="reset"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="co.fwglobal.fluenta"/>
+                <data android:scheme="com.fwglobal.fluenta"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

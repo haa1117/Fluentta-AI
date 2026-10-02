@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyANruyv6Xf7rmIq-rTLRFRNY15uFE-1KhE',
-    appId: '1:254450330965:android:6cfcfa2b0bc9d14b63d3dc',
-    messagingSenderId: '254450330965',
-    projectId: 'fluenttaai',
-    storageBucket: 'fluenttaai.firebasestorage.app',
+    apiKey: 'AIzaSyDakPcdOshyKaSti8rHe278I7dhkQ1JYoM',
+    appId: '1:249360035076:android:859a288b0797e85be1b451',
+    messagingSenderId: '249360035076',
+    projectId: 'fluentta-ai',
+    storageBucket: 'fluentta-ai.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCnCLF7Z77DG0W9nBm8WKDTjf-M1PwUewM',
-    appId: '1:254450330965:ios:4cf6bb8eecf4b51663d3dc',
-    messagingSenderId: '254450330965',
-    projectId: 'fluenttaai',
-    storageBucket: 'fluenttaai.firebasestorage.app',
-    iosClientId: '254450330965-igvsgejp20998j43ff1t8rcvdnc123po.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAnXN8PZaCPcvgyeSTJ3i9lyyM0GdfTbZw',
+    appId: '1:249360035076:ios:4d320d6b741411eee1b451',
+    messagingSenderId: '249360035076',
+    projectId: 'fluentta-ai',
+    storageBucket: 'fluentta-ai.firebasestorage.app',
+    iosClientId: '249360035076-rhabafbjatuf6186kd5fpobahsrs5e3o.apps.googleusercontent.com',
     iosBundleId: 'co.futurewatch.fluenta',
   );
 }

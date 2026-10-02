@@ -1,4 +1,4 @@
-package co.fwglobal.fluenta
+package com.fwglobal.fluenta
 
 import android.content.Intent
 import io.flutter.embedding.android.FlutterActivity

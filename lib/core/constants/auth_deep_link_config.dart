@@ -1,8 +1,8 @@
 class AuthDeepLinkConfig {
   AuthDeepLinkConfig._();
 
-  static const String projectId = 'fluenttaai';
-  static const String androidPackageName = 'co.fwglobal.fluenta';
+  static const String projectId = 'fluentta-ai';
+  static const String androidPackageName = 'com.fwglobal.fluenta';
   static const String iOSBundleId = 'co.futurewatch.fluenta';
   static const String authHost = '$projectId.firebaseapp.com';
   static const String webAppHost = '$projectId.web.app';

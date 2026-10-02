@@ -91,6 +91,14 @@
 				<string>co.futurewatch.fluenta</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.249360035076-rhabafbjatuf6186kd5fpobahsrs5e3o</string>
+			</array>
+		</dict>
 	</array>
 </dict>
 </plist>
