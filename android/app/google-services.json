@@ -7,26 +7,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:249360035076:android:859a288b0797e85be1b451",
+        "mobilesdk_app_id": "1:249360035076:android:1f9656745815fe82e1b451",
         "android_client_info": {
-          "package_name": "com.fwglobal.fluenta"
+          "package_name": "co.fwglobal.fluenta"
         }
       },
       "oauth_client": [
         {
-          "client_id": "249360035076-5s88rvk45vft620hq56pleqlhg46fsd8.apps.googleusercontent.com",
+          "client_id": "249360035076-8415bjn4c4sihci4cmi35d8er3ehq8un.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.fwglobal.fluenta",
-            "certificate_hash": "5ecafe39e1e205799801e4dbc010112b85df3960"
+            "package_name": "co.fwglobal.fluenta",
+            "certificate_hash": "8fa4d41eeea0ddf87d4cca34a6c66688eac23bc6"
           }
         },
         {
-          "client_id": "249360035076-ll5i7sola7e7f2m885v7m0l4c8o2klma.apps.googleusercontent.com",
+          "client_id": "249360035076-i34je09fm6ovv52954u0hqtjrdqthqbt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.fwglobal.fluenta",
-            "certificate_hash": "8fa4d41eeea0ddf87d4cca34a6c66688eac23bc6"
+            "package_name": "co.fwglobal.fluenta",
+            "certificate_hash": "5ecafe39e1e205799801e4dbc010112b85df3960"
           }
         },
         {

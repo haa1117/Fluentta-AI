@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDakPcdOshyKaSti8rHe278I7dhkQ1JYoM',
-    appId: '1:249360035076:android:859a288b0797e85be1b451',
+    appId: '1:249360035076:android:1f9656745815fe82e1b451',
     messagingSenderId: '249360035076',
     projectId: 'fluentta-ai',
     storageBucket: 'fluentta-ai.firebasestorage.app',

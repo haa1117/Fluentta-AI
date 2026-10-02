@@ -49,7 +49,7 @@
       "android": {
         "default": {
           "projectId": "fluentta-ai",
-          "appId": "1:249360035076:android:859a288b0797e85be1b451",
+          "appId": "1:249360035076:android:1f9656745815fe82e1b451",
           "fileOutput": "android/app/google-services.json"
         }
       },
@@ -57,7 +57,7 @@
         "lib/firebase_options.dart": {
           "projectId": "fluentta-ai",
           "configurations": {
-            "android": "1:249360035076:android:859a288b0797e85be1b451",
+            "android": "1:249360035076:android:1f9656745815fe82e1b451",
             "ios": "1:249360035076:ios:4d320d6b741411eee1b451"
           }
         }
