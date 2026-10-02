@@ -7,8 +7,9 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class LocalNotificationService {
-  static const int _dailyReminderBaseId = 1001;
-  static const int _scheduledDaysAhead = 14;
+  static const int _dailyReminderId = 1001;
+  /// Older builds queued one alarm per day. Cancel that range on reschedule.
+  static const int _legacyScheduledDays = 14;
   static const String _channelId = 'daily_practice_reminder';
   static const String _channelName = 'Daily practice reminders';
   static const String pushChannelId = 'fluenta_push';
@@ -105,14 +106,31 @@ class LocalNotificationService {
   }
 
   Future<void> _configureLocalTimeZone() async {
+    tz.initializeTimeZones();
     try {
-      final timeZoneName = await FlutterTimezone.getLocalTimezone();
+      final timeZoneName = (await FlutterTimezone.getLocalTimezone()).trim();
       tz.setLocalLocation(tz.getLocation(timeZoneName));
+      return;
     } catch (e) {
-      if (kDebugMode) {
-        debugPrint('LocalNotificationService timezone fallback: $e');
+      debugPrint('LocalNotificationService timezone lookup failed: $e');
+    }
+
+    // Zone id from the OS can be missing from the bundled database. A fixed
+    // Etc/GMT zone still keeps the reminder on the device's wall clock.
+    // Etc/GMT signs are inverted: UTC+5 is Etc/GMT-5.
+    final offset = DateTime.now().timeZoneOffset;
+    final hours = offset.inHours;
+    final remainderMinutes = offset.inMinutes - (hours * 60);
+    if (remainderMinutes == 0 && hours.abs() <= 14) {
+      final etcName = hours == 0
+          ? 'Etc/UTC'
+          : 'Etc/GMT${hours > 0 ? '-' : '+'}${hours.abs()}';
+      try {
+        tz.setLocalLocation(tz.getLocation(etcName));
+        return;
+      } catch (e) {
+        debugPrint('LocalNotificationService offset timezone failed: $e');
       }
-      tz.setLocalLocation(tz.local);
     }
   }
 
@@ -145,17 +163,7 @@ class LocalNotificationService {
 
       final notificationsGranted =
           await android.requestNotificationsPermission();
-      if (notificationsGranted != true) {
-        return false;
-      }
-
-      final canScheduleExact =
-          await android.canScheduleExactNotifications() ?? false;
-      if (!canScheduleExact) {
-        await android.requestExactAlarmsPermission();
-      }
-
-      return await android.areNotificationsEnabled() ?? false;
+      return notificationsGranted ?? false;
     }
 
     if (defaultTargetPlatform == TargetPlatform.iOS) {
@@ -223,7 +231,15 @@ class LocalNotificationService {
     );
 
     if (!scheduled.isAfter(now)) {
-      scheduled = scheduled.add(const Duration(days: 1));
+      final tomorrow = DateTime(now.year, now.month, now.day + 1);
+      scheduled = tz.TZDateTime(
+        tz.local,
+        tomorrow.year,
+        tomorrow.month,
+        tomorrow.day,
+        hour,
+        minute,
+      );
     }
 
     return scheduled;
@@ -261,63 +277,45 @@ class LocalNotificationService {
       icon: _androidIcon,
       playSound: true,
       enableVibration: true,
+      category: AndroidNotificationCategory.reminder,
     );
-    const iosDetails = DarwinNotificationDetails();
+    const iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
     const details = NotificationDetails(
       android: androidDetails,
       iOS: iosDetails,
     );
 
-    var scheduledCount = 0;
-    for (var dayOffset = 0; dayOffset < _scheduledDaysAhead; dayOffset++) {
-      final scheduled = firstFire.add(Duration(days: dayOffset));
+    Future<void> schedule(AndroidScheduleMode mode) {
+      return _plugin.zonedSchedule(
+        _dailyReminderId,
+        title,
+        body,
+        firstFire,
+        details,
+        androidScheduleMode: mode,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+    }
 
-      try {
-        await _plugin.zonedSchedule(
-          _dailyReminderBaseId + dayOffset,
-          title,
-          body,
-          scheduled,
-          details,
-          androidScheduleMode: scheduleMode,
-        );
-        scheduledCount++;
-      } catch (e) {
-        if (scheduleMode == AndroidScheduleMode.exactAllowWhileIdle) {
-          try {
-            await _plugin.zonedSchedule(
-              _dailyReminderBaseId + dayOffset,
-              title,
-              body,
-              scheduled,
-              details,
-              androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-            );
-            scheduledCount++;
-            continue;
-          } catch (retryError) {
-            if (kDebugMode) {
-              debugPrint(
-                'LocalNotificationService schedule retry failed for '
-                'day $dayOffset: $retryError',
-              );
-            }
-          }
-        }
-
-        if (kDebugMode) {
-          debugPrint(
-            'LocalNotificationService schedule failed for day $dayOffset: $e',
-          );
-        }
+    try {
+      await schedule(scheduleMode);
+    } catch (e) {
+      debugPrint('LocalNotificationService schedule failed ($scheduleMode): $e');
+      if (scheduleMode == AndroidScheduleMode.exactAllowWhileIdle) {
+        await schedule(AndroidScheduleMode.inexactAllowWhileIdle);
+      } else {
+        rethrow;
       }
     }
 
     if (kDebugMode) {
       final pending = await _plugin.pendingNotificationRequests();
       debugPrint(
-        'LocalNotificationService: scheduled $scheduledCount reminders. '
-        'First at ${firstFire.toLocal()} '
+        'LocalNotificationService: daily reminder at ${firstFire.toLocal()} '
         '(${tz.local.name}, mode: $scheduleMode, pending: ${pending.length})',
       );
     }
@@ -325,8 +323,9 @@ class LocalNotificationService {
 
   Future<void> cancelDailyReminder() async {
     await initialize();
-    for (var i = 0; i < _scheduledDaysAhead; i++) {
-      await _plugin.cancel(_dailyReminderBaseId + i);
+    await _plugin.cancel(_dailyReminderId);
+    for (var i = 1; i < _legacyScheduledDays; i++) {
+      await _plugin.cancel(_dailyReminderId + i);
     }
   }
 

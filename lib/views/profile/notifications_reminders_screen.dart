@@ -92,7 +92,6 @@ class _NotificationsRemindersScreenState
                     icon: Icons.event_repeat_rounded,
                     title: l10n.dailyReminder,
                     value: profile.dailyReminderEnabled,
-                    enabled: profile.notificationsEnabled,
                     onChanged: (value) {
                       AnalyticsService.instance.log(
                         AnalyticsEvents.dailyReminderToggled,
@@ -115,8 +114,7 @@ class _NotificationsRemindersScreenState
                     isDark: isDark,
                     title: l10n.reminderTime,
                     timeLabel: profile.formattedReminderTime(context),
-                    enabled: profile.notificationsEnabled &&
-                        profile.dailyReminderEnabled,
+                    enabled: true,
                     onTap: () {
                       AnalyticsService.instance.log(
                         AnalyticsEvents.reminderTimeClicked,
@@ -219,7 +217,6 @@ class _ReminderToggleRow extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.value,
-    required this.enabled,
     required this.onChanged,
     required this.isDark
   });
@@ -227,7 +224,6 @@ class _ReminderToggleRow extends StatelessWidget {
   final IconData icon;
   final String title;
   final bool value;
-  final bool enabled;
   final ValueChanged<bool> onChanged;
 
   @override
@@ -256,21 +252,19 @@ class _ReminderToggleRow extends StatelessWidget {
                 fontFamily: AppFonts.plusJakartaSans,
                 fontSize: AppSizes.sp(15),
                 fontWeight: FontWeight.w400,
-                color: enabled
-                    ? isDark ? AppColors.textPrimaryDark: AppColors.textPrimary
-                    : isDark ? AppColors.textSecondaryDark : AppColors.textTertiary,
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
               ),
             ),
           ),
           Switch.adaptive(
-            value: value && enabled,
+            value: value,
             activeTrackColor:isDark ? AppColors.primaryDarkColor : AppColors.primaryColor.withValues(alpha: 0.35),
             thumbColor: WidgetStateProperty.resolveWith(
               (states) => states.contains(WidgetState.selected)
                   ?isDark ? AppColors.white: AppColors.primaryColor
                   : null,
             ),
-            onChanged: HapticService.wrapValue(enabled ? onChanged : null),
+            onChanged: HapticService.wrapValue(onChanged),
           ),
         ],
       ),

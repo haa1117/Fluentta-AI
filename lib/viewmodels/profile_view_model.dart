@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level.dart';
 import 'package:fluentta_ai/core/cefr/cefr_level_progress.dart';
@@ -49,6 +52,7 @@ class ProfileViewModel extends ChangeNotifier {
   bool _dailyReminderEnabled = true;
   int _reminderHour = 20;
   int _reminderMinute = 0;
+  Future<void> _scheduleTail = Future<void>.value();
 
   bool get notificationsEnabled => _notificationsEnabled;
   bool get dailyReminderEnabled => _dailyReminderEnabled;
@@ -133,43 +137,50 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   Future<void> setNotificationsEnabled(bool value) async {
+    final previousDaily = _dailyReminderEnabled;
+    _notificationsEnabled = value;
+    if (!value) _dailyReminderEnabled = false;
+    notifyListeners();
+
     if (value) {
       final granted = await _notificationService.requestPermissions();
       if (!granted) {
         _notificationsEnabled = false;
+        _dailyReminderEnabled = previousDaily;
         await _localStorage.setNotificationsEnabled(false);
         notifyListeners();
         return;
       }
     }
 
-    _notificationsEnabled = value;
     await _localStorage.setNotificationsEnabled(value);
     if (!value) {
-      _dailyReminderEnabled = false;
       await _localStorage.setDailyReminderEnabled(false);
     }
     await _applyReminderSchedule();
-    notifyListeners();
   }
 
   Future<void> setDailyReminderEnabled(bool value) async {
+    final previousNotifications = _notificationsEnabled;
+    _dailyReminderEnabled = value;
+    if (value) _notificationsEnabled = true;
+    notifyListeners();
+
     if (value) {
       final granted = await _notificationService.requestPermissions();
       if (!granted) {
+        _dailyReminderEnabled = false;
+        _notificationsEnabled = previousNotifications;
         notifyListeners();
         return;
       }
     }
 
-    _dailyReminderEnabled = value;
     await _localStorage.setDailyReminderEnabled(value);
     if (value) {
-      _notificationsEnabled = true;
       await _localStorage.setNotificationsEnabled(true);
     }
     await _applyReminderSchedule();
-    notifyListeners();
   }
 
   Future<void> setReminderTime(TimeOfDay time) async {
@@ -179,28 +190,38 @@ class ProfileViewModel extends ChangeNotifier {
       hour: time.hour,
       minute: time.minute,
     );
-    await _applyReminderSchedule();
     notifyListeners();
+    unawaited(_applyReminderSchedule());
   }
 
-  Future<void> _applyReminderSchedule() async {
-    if (_notificationsEnabled && _dailyReminderEnabled) {
-      if (!await _notificationService.hasNotificationPermission()) {
-        final granted = await _notificationService.requestPermissions();
-        if (!granted) return;
+  Future<void> _applyReminderSchedule() {
+    final run = _scheduleTail.then((_) => _applyReminderScheduleNow());
+    _scheduleTail = run;
+    return run;
+  }
+
+  Future<void> _applyReminderScheduleNow() async {
+    try {
+      if (_notificationsEnabled && _dailyReminderEnabled) {
+        if (!await _notificationService.hasNotificationPermission()) {
+          final granted = await _notificationService.requestPermissions();
+          if (!granted) return;
+        }
+
+        final l10n = _localeViewModel.strings;
+        await _notificationService.scheduleDailyReminder(
+          hour: _reminderHour,
+          minute: _reminderMinute,
+          title: l10n.dailyReminder,
+          body: l10n.readyToPractice,
+        );
+        return;
       }
 
-      final l10n = _localeViewModel.strings;
-      await _notificationService.scheduleDailyReminder(
-        hour: _reminderHour,
-        minute: _reminderMinute,
-        title: l10n.dailyReminder,
-        body: l10n.readyToPractice,
-      );
-      return;
+      await _notificationService.cancelDailyReminder();
+    } catch (e) {
+      debugPrint('ProfileViewModel reminder schedule failed: $e');
     }
-
-    await _notificationService.cancelDailyReminder();
   }
 
   Future<void> bootstrapNotificationsOnAppOpen() async {

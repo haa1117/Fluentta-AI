@@ -30,6 +30,7 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
   bool _initialized = false;
   bool _loggedViewed = false;
   bool _resolved = false;
+  bool _saving = false;
 
   void _logCancelledIfUnresolved() {
     if (_resolved) return;
@@ -66,12 +67,44 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
     super.dispose();
   }
 
+  int _wheelIndex(FixedExtentScrollController? controller, int fallback) {
+    if (controller != null && controller.hasClients) {
+      return controller.selectedItem;
+    }
+    return fallback;
+  }
+
   TimeOfDay _buildTime() {
-    var hour = _selectedHour % 12;
-    if (_isPm) hour += 12;
-    if (!_isPm && _selectedHour == 12) hour = 0;
-    if (_isPm && _selectedHour == 12) hour = 12;
-    return TimeOfDay(hour: hour, minute: _selectedMinute);
+    final hour12 = _wheelIndex(_hourController, _selectedHour - 1) + 1;
+    final minute = _wheelIndex(_minuteController, _selectedMinute ~/ 5) * 5;
+    final isPm = _wheelIndex(_periodController, _isPm ? 1 : 0) == 1;
+    var hour = hour12 % 12;
+    if (isPm) hour += 12;
+    if (!isPm && hour12 == 12) hour = 0;
+    if (isPm && hour12 == 12) hour = 12;
+    return TimeOfDay(hour: hour, minute: minute);
+  }
+
+  Future<void> _save() async {
+    if (_saving) return;
+    setState(() => _saving = true);
+    final time = _buildTime();
+    _resolved = true;
+    AnalyticsService.instance.log(
+      AnalyticsEvents.reminderTimeSaved,
+      {
+        AnalyticsParams.reminderHour: time.hour,
+        AnalyticsParams.reminderMinute: time.minute,
+      },
+    );
+    try {
+      await context.read<ProfileViewModel>().setReminderTime(time);
+    } catch (_) {
+      if (mounted) setState(() => _saving = false);
+      return;
+    }
+    if (!mounted) return;
+    Navigator.of(context).pop();
   }
 
   @override
@@ -108,6 +141,10 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
         padding: EdgeInsets.symmetric(horizontal: AppSizes.horizontalPadding),
         child: Column(
           children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
             SizedBox(height: AppSizes.h(16)),
             Image.asset(
               AppAssets.reminderTimeBird,
@@ -215,24 +252,14 @@ class _ReminderTimeScreenState extends State<ReminderTimeScreen> {
                 ],
               ),
             ),
-            const Spacer(),
+                  ],
+                ),
+              ),
+            ),
             PrimaryButton(
               text: l10n.saveReminder,
-              onPressed: () async {
-                final time = _buildTime();
-                _resolved = true;
-                AnalyticsService.instance.log(
-                  AnalyticsEvents.reminderTimeSaved,
-                  {
-                    AnalyticsParams.reminderHour: time.hour,
-                    AnalyticsParams.reminderMinute: time.minute,
-                  },
-                );
-                await context
-                    .read<ProfileViewModel>()
-                    .setReminderTime(time);
-                if (context.mounted) Navigator.of(context).pop();
-              },
+              isLoading: _saving,
+              onPressed: _saving ? null : _save,
             ),
             SizedBox(height: AppSizes.h(12)),
             SizedBox(
@@ -291,23 +318,13 @@ class _WheelPickerState extends State<_WheelPicker> {
   void initState() {
     super.initState();
     _centerIndex = widget.controller.initialItem;
-    widget.controller.addListener(_onScroll);
-  }
-
-  @override
-  void dispose() {
-    widget.controller.removeListener(_onScroll);
-    super.dispose();
-  }
-
-  void _onScroll() {
-    if (!widget.controller.hasClients) return;
-    final index = (widget.controller.offset / _itemExtent)
-        .round()
-        .clamp(0, widget.itemCount - 1);
-    if (index != _centerIndex) {
-      setState(() => _centerIndex = index);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !widget.controller.hasClients) return;
+      widget.controller.jumpToItem(widget.controller.initialItem);
+      if (_centerIndex != widget.controller.initialItem) {
+        setState(() => _centerIndex = widget.controller.initialItem);
+      }
+    });
   }
 
   TextStyle _textStyleFor(int index) {
