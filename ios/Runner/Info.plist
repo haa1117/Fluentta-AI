@@ -81,6 +81,10 @@
 	</array>
 	<key>FlutterDeepLinkingEnabled</key>
 	<true/>
+	<key>GIDClientID</key>
+	<string>249360035076-rhabafbjatuf6186kd5fpobahsrs5e3o.apps.googleusercontent.com</string>
+	<key>GIDServerClientID</key>
+	<string>249360035076-jqjnq2qacenodhsid9jnc99lhqeos0ia.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

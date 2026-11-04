@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "249360035076-3cntn3q9b8ltubvgi4n38401tehegd53.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.fwglobal.fluenta",
+            "certificate_hash": "1a828b17d07c15ebf8097afee5f381f7452bb108"
+          }
+        },
+        {
           "client_id": "249360035076-4r8a6lssc0jf9jgca2eochcc8qok3eih.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
