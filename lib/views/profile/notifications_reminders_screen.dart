@@ -25,6 +25,15 @@ class _NotificationsRemindersScreenState
   bool _loggedViewed = false;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<ProfileViewModel>().ensureRemindersMatchSettings();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     AppSizes.init(context);
     final l10n = context.l10n;
