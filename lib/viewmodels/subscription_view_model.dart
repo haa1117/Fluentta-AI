@@ -56,9 +56,9 @@ class SubscriptionViewModel extends ChangeNotifier {
   List<HeartPackOption> get heartPacks {
     final livePrices = <String, String>{};
     for (final id in [
-      IapProductIds.hearts20,
-      IapProductIds.hearts60,
-      IapProductIds.hearts150,
+      IapProductIds.storeHearts20,
+      IapProductIds.storeHearts60,
+      IapProductIds.storeHearts150,
     ]) {
       final price = _iapService.formattedPrice(id);
       if (price != null) {
