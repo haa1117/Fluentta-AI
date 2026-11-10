@@ -139,11 +139,13 @@ class ProfileViewModel extends ChangeNotifier {
   Future<void> setNotificationsEnabled(bool value) async {
     final previousDaily = _dailyReminderEnabled;
     _notificationsEnabled = value;
-    if (!value) _dailyReminderEnabled = false;
+    // The master switch is what turns the daily reminder off. Turning it
+    // back on has to restore that reminder, otherwise nothing is scheduled.
+    _dailyReminderEnabled = value;
     notifyListeners();
 
     if (value) {
-      final granted = await _notificationService.requestPermissions();
+      final granted = await _requestReminderPermissions();
       if (!granted) {
         _notificationsEnabled = false;
         _dailyReminderEnabled = previousDaily;
@@ -154,9 +156,7 @@ class ProfileViewModel extends ChangeNotifier {
     }
 
     await _localStorage.setNotificationsEnabled(value);
-    if (!value) {
-      await _localStorage.setDailyReminderEnabled(false);
-    }
+    await _localStorage.setDailyReminderEnabled(_dailyReminderEnabled);
     await _applyReminderSchedule();
   }
 
@@ -167,7 +167,7 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
 
     if (value) {
-      final granted = await _notificationService.requestPermissions();
+      final granted = await _requestReminderPermissions();
       if (!granted) {
         _dailyReminderEnabled = false;
         _notificationsEnabled = previousNotifications;
@@ -200,12 +200,37 @@ class ProfileViewModel extends ChangeNotifier {
     return run;
   }
 
+  /// Makes a saved "on" state actually schedule the OS reminder. Called when
+  /// the settings screen opens, because the toggles default to on before any
+  /// permission has been granted or any alarm has been queued.
+  Future<void> ensureRemindersMatchSettings() => _applyReminderSchedule();
+
+  Future<bool> _requestReminderPermissions() async {
+    final askExactAlarm = !_localStorage.hasPromptedExactAlarm;
+    final granted = await _notificationService.requestPermissions(
+      requestExactAlarm: askExactAlarm,
+    );
+    if (granted && askExactAlarm) {
+      await _localStorage.setExactAlarmPrompted();
+    }
+    return granted;
+  }
+
   Future<void> _applyReminderScheduleNow() async {
     try {
       if (_notificationsEnabled && _dailyReminderEnabled) {
         if (!await _notificationService.hasNotificationPermission()) {
-          final granted = await _notificationService.requestPermissions();
-          if (!granted) return;
+          final granted = await _requestReminderPermissions();
+          if (!granted) {
+            _notificationsEnabled = false;
+            _dailyReminderEnabled = false;
+            await _localStorage.setNotificationsEnabled(false);
+            await _localStorage.setDailyReminderEnabled(false);
+            notifyListeners();
+            return;
+          }
+        } else if (!_localStorage.hasPromptedExactAlarm) {
+          await _requestReminderPermissions();
         }
 
         final l10n = _localeViewModel.strings;
@@ -215,6 +240,8 @@ class ProfileViewModel extends ChangeNotifier {
           title: l10n.dailyReminder,
           body: l10n.readyToPractice,
         );
+        await _localStorage.setNotificationsEnabled(true);
+        await _localStorage.setDailyReminderEnabled(true);
         return;
       }
 

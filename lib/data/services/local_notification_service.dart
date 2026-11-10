@@ -93,6 +93,8 @@ class LocalNotificationService {
     );
     const iosDetails = DarwinNotificationDetails(
       presentAlert: true,
+      presentBanner: true,
+      presentList: true,
       presentBadge: true,
       presentSound: true,
     );
@@ -153,7 +155,7 @@ class LocalNotificationService {
     return true;
   }
 
-  Future<bool> requestPermissions() async {
+  Future<bool> requestPermissions({bool requestExactAlarm = false}) async {
     await initialize();
 
     if (defaultTargetPlatform == TargetPlatform.android) {
@@ -161,9 +163,30 @@ class LocalNotificationService {
           AndroidFlutterLocalNotificationsPlugin>();
       if (android == null) return false;
 
-      final notificationsGranted =
-          await android.requestNotificationsPermission();
-      return notificationsGranted ?? false;
+      final bool notificationsGranted;
+      try {
+        notificationsGranted =
+            await android.requestNotificationsPermission() ?? false;
+      } catch (e) {
+        debugPrint('LocalNotificationService permission request failed: $e');
+        return await hasNotificationPermission();
+      }
+      if (!notificationsGranted) return false;
+
+      if (requestExactAlarm) {
+        final canScheduleExact =
+            await android.canScheduleExactNotifications() ?? false;
+        if (!canScheduleExact) {
+          try {
+            await android.requestExactAlarmsPermission();
+          } catch (e) {
+            debugPrint(
+              'LocalNotificationService exact-alarm request failed: $e',
+            );
+          }
+        }
+      }
+      return true;
     }
 
     if (defaultTargetPlatform == TargetPlatform.iOS) {
@@ -171,12 +194,17 @@ class LocalNotificationService {
           IOSFlutterLocalNotificationsPlugin>();
       if (ios == null) return false;
 
-      final granted = await ios.requestPermissions(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
-      return granted ?? false;
+      try {
+        final granted = await ios.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+        return granted ?? false;
+      } catch (e) {
+        debugPrint('LocalNotificationService permission request failed: $e');
+        return await hasNotificationPermission();
+      }
     }
 
     return true;
@@ -186,13 +214,23 @@ class LocalNotificationService {
     required LocalStorage storage,
     required AppLocalizations l10n,
   }) async {
-    if (!storage.hasShownNotificationPrompt) return;
+    // Defaults read as "on" before the learner has chosen anything. Don't
+    // raise the system prompt until the home dialog or the settings screen
+    // has recorded a choice.
+    if (!storage.hasShownNotificationPrompt &&
+        !storage.hasNotificationsPreference) {
+      return;
+    }
     if (!storage.notificationsEnabled || !storage.dailyReminderEnabled) {
       await cancelDailyReminder();
       return;
     }
 
-    final granted = await requestPermissions();
+    final askExactAlarm = !storage.hasPromptedExactAlarm;
+    final granted = await requestPermissions(requestExactAlarm: askExactAlarm);
+    if (granted && askExactAlarm) {
+      await storage.setExactAlarmPrompted();
+    }
     if (!granted) {
       if (kDebugMode) {
         debugPrint('LocalNotificationService: notification permission denied');
@@ -281,6 +319,8 @@ class LocalNotificationService {
     );
     const iosDetails = DarwinNotificationDetails(
       presentAlert: true,
+      presentBanner: true,
+      presentList: true,
       presentBadge: true,
       presentSound: true,
     );

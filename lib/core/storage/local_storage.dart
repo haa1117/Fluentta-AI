@@ -25,6 +25,7 @@ class LocalStorage {
   static const String _lessonProgressKey = 'lesson_progress';
   static const String _notificationsEnabledKey = 'notifications_enabled';
   static const String _dailyReminderEnabledKey = 'daily_reminder_enabled';
+  static const String _exactAlarmPromptedKey = 'exact_alarm_prompted';
   static const String _reminderHourKey = 'reminder_hour';
   static const String _reminderMinuteKey = 'reminder_minute';
   static const String _xpEarnedKey = 'xp_earned';
@@ -127,6 +128,11 @@ class LocalStorage {
   double get lessonProgress => _prefs!.getDouble(_lessonProgressKey) ?? 0;
   bool get notificationsEnabled =>
       _prefs!.getBool(_notificationsEnabledKey) ?? true;
+
+  /// False until the learner has saved a choice. The getter above defaults to
+  /// on, so a missing key must not be treated as an explicit opt-in.
+  bool get hasNotificationsPreference =>
+      _prefs!.containsKey(_notificationsEnabledKey);
 
   /// Whether the AI tutor's replies are read aloud in Open Chat Practice.
   bool get chatSpeakRepliesEnabled =>
@@ -501,6 +507,13 @@ class LocalStorage {
   Future<void> clearPremiumStatus() async {
     await _prefs!.remove(_isPremiumKey);
     await _prefs!.remove(_premiumProductIdKey);
+  }
+
+  bool get hasPromptedExactAlarm =>
+      _prefs!.getBool(_exactAlarmPromptedKey) ?? false;
+
+  Future<void> setExactAlarmPrompted() async {
+    await _prefs!.setBool(_exactAlarmPromptedKey, true);
   }
 
   Future<void> setNotificationsEnabled(bool value) async {

@@ -92,7 +92,8 @@ class IapService {
     if (!_isAvailable) return;
 
     _isLoadingProducts = true;
-    final response = await _iap.queryProductDetails(IapProductIds.allProductIds);
+    final response =
+        await _iap.queryProductDetails(IapProductIds.idsForCurrentStore);
     _products.clear();
     _trialOfferTokens.clear();
     for (final product in response.productDetails) {

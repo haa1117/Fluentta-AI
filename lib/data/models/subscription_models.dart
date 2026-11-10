@@ -73,19 +73,19 @@ class SubscriptionContent {
       HeartPackOption(
         selection: SubscriptionSelection.heartsSmall,
         hearts: 20,
-        price: livePrices?[IapProductIds.hearts20] ?? r'$0.99',
+        price: livePrices?[IapProductIds.storeHearts20] ?? r'$0.99',
         labelKey: 'small',
       ),
       HeartPackOption(
         selection: SubscriptionSelection.heartsMedium,
         hearts: 60,
-        price: livePrices?[IapProductIds.hearts60] ?? r'$2.99',
+        price: livePrices?[IapProductIds.storeHearts60] ?? r'$2.99',
         labelKey: 'medium',
       ),
       HeartPackOption(
         selection: SubscriptionSelection.heartsLarge,
         hearts: 150,
-        price: livePrices?[IapProductIds.hearts150] ?? r'$6.99',
+        price: livePrices?[IapProductIds.storeHearts150] ?? r'$6.99',
         labelKey: 'large',
       ),
     ];
